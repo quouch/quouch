@@ -1,35 +1,35 @@
 // Color variables
 
 // Brand Identity
-$primary: #FB5705;
-$primary-dark: #BF4305;
-$primary-light: #FC8950;
+$primary: hsl(20, 97%, 50%);
+$primary-dark: hsl(20, 95%, 38%);
+$primary-light: hsl(20, 97%, 65%);
 
-$secondary: #8728A1;
-$secondary-dark: #631D76;
-$secondary-light: #AB69BE;
+$secondary: hsl(287, 60%, 39%);
+$secondary-dark: hsl(287, 61%, 29%);
+$secondary-light: hsl(287, 40%, 58%);
 
-$tertiary: #FBD109;
-$tertiary-dark: #D2B20A;
-$tertiary-light: #FADF53;
+$tertiary: hsl(50, 97%, 51%);
+$tertiary-dark: hsl(50, 91%, 43%);
+$tertiary-light: hsl(50, 94%, 65%);
 
 // Informational
-$error: #E41717;
-$warning: #ECFF0D;
+$error: hsl(0, 82%, 49%);
+$warning: hsl(65, 100%, 53%);
 
 // Basic
-$black: #000;
-$white: #FFF;
+$black: hsl(0, 0%, 0%);
+$white: hsl(0, 0%, 100%);
 
 // Gray scale
-$gray-01: #EFEFEF;
-$gray-02: #DFDFDF;
-$gray-03: #C1C1C1;
-$gray-04: #A5A5A5;
-$gray-05: #6F6F6F;
-$gray-06: #333;
+$gray-01: hsl(0, 0%, 94%);
+$gray-02: hsl(0, 0%, 87%);
+$gray-03: hsl(0, 0%, 76%);
+$gray-04: hsl(0, 0%, 65%);
+$gray-05: hsl(0, 0%, 44%);
+$gray-06: hsl(0, 0%, 20%);
 
 // Neutral scale
-$neutral-01: #FFFEFD;
-$neutral-02: #FEFBFA;
-$neutral-03: #FFF7F0;
+$neutral-01: hsl(30, 100%, 100%);
+$neutral-02: hsl(15, 67%, 99%);
+$neutral-03: hsl(28, 100%, 97%);
