@@ -9,6 +9,6 @@ class AddColumnsToUser < ActiveRecord::Migration[7.0]
     add_column :users, :question_one, :text
     add_column :users, :question_two, :text
     add_column :users, :question_three, :text
-    add_column :users, :question_4, :text
+    add_column :users, :question_four, :text
   end
 end
