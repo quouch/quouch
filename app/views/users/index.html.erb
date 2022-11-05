@@ -1,0 +1,15 @@
+<h1>Our Hosts</h1>
+
+<ul>
+<% @users.each do |user| %>
+    <li>
+        <h2><%= user.first_name %></h2>
+        <p><%= user.calculated_age %>, <%= user.pronouns %></p>
+        <ul>
+            <% user.couch.facilities.each do |facility| %>
+                <li><%= facility.name %></li>
+            <% end %>
+        </ul>
+    </li>
+<% end %>
+</ul>
