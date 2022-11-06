@@ -3,7 +3,7 @@
 <ul>
 <% @users.each do |user| %>
     <li>
-        <h2><%= user.first_name %></h2>
+        <h2><%= link_to "#{user.first_name}", couch_path(user.couch.id) %></h2>
         <p><%= user.calculated_age %>, <%= user.pronouns %></p>
         <ul>
             <% user.couch.facilities.each do |facility| %>

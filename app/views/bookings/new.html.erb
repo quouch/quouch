@@ -1,0 +1,8 @@
+<h1>New Request</h1>
+
+<%= simple_form_for [@couch, @booking] do |f| %>
+	<%= f.input :start_date, label: 'When would you like to arrive?' %>
+	<%= f.input :end_date, label: 'When will you leave?' %>
+	<%= f.input :number_travellers, label: false, placeholder: 'For how many people?'%>
+	<%= f.submit "Send Request", class: "" %>
+<% end %>
