@@ -1,0 +1,48 @@
+<h1><%= @user.first_name %></h1>
+
+<p><%= @user.pronouns %></p>
+<p><%= @user.calculated_age %></p>
+<p><%= @user.summary %></p>
+<p><%= @user.question_one %></p>
+<p><%= @user.question_two %></p>
+<p><%= @user.question_three %></p>
+<p><%= @user.question_four %></p>
+
+<p>My couch has space for <%= pluralize @user.couch.capacity, "guest" %><p>
+
+<h2>offers</h2>
+<ul>
+	<% if @user.offers_couch %>
+		<li>
+			<%= image_tag('icons/sleep.svg') %>
+			<p>couch</p>
+		</li>
+	<% end %>
+	<% if @user.offers_hang_out %>
+		<li>
+			<%= image_tag('icons/hangout.svg') %>
+			<p>hangout</p>
+		</li>
+	<% end %>
+	<% if @user.offers_co_work %>
+		<li>
+			<%= image_tag('icons/work.svg') %>
+			<p>co-work</p>
+		</li>
+	<% end %>
+</ul>
+
+<% @user.couch.facilities.each do |facility| %>
+	<% if facility.image.attached? %>
+		<div>
+			<%# <%= image_tag ('images/icons/armchair.svg') %>
+			<%= facility.name %>
+		</div>
+	<% else %>
+		<div>
+			<%= facility.name %>
+		</div>
+	<% end %>
+<% end %>
+
+<%= link_to "Send #{@user.first_name} a request", new_couch_booking_path(@couch.id) %>
