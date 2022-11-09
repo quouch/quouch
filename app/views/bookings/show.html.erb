@@ -1,0 +1,39 @@
+<h1>Booking Overview</h1>
+
+<h2>Your Host</h2>
+<h3><%= @booking.couch.user.first_name %>, <%= @booking.couch.user.calculated_age %></h3>
+<p><%= @booking.couch.user.pronouns %></p>
+<p><%= @booking.couch.user.city.name %></p>
+
+<h3>Travel Details</h3>
+<ul>
+	<li>
+		Booking Status: <%= @booking.status %>
+	</li>
+	<li>
+		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
+	</li>
+	<li>
+		Booking Date: <%= @booking.booking_date %>
+	</li>
+	<li>
+		Travellers: <%= @booking.number_travellers %>
+	</li>
+</ul>
+
+
+<h3>Accomodation</h3>
+<ul>
+	<% @booking.couch.facilities.each do |facility| %>
+		<% if facility.image.attached? %>
+			<li>
+				<%# <%= image_tag ('images/icons/armchair.svg') %>
+				<%= facility.name %>
+			</li>
+		<% else %>
+			<li>
+				<%= facility.name %>
+			</li>
+		<% end %>
+	<% end %>
+</ul>
