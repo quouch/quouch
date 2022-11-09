@@ -32,17 +32,19 @@
 	<% end %>
 </ul>
 
-<% @user.couch.facilities.each do |facility| %>
-	<% if facility.image.attached? %>
-		<div>
-			<%# <%= image_tag ('images/icons/armchair.svg') %>
-			<%= facility.name %>
-		</div>
-	<% else %>
-		<div>
-			<%= facility.name %>
-		</div>
+<ul>
+	<% @user.couch.facilities.each do |facility| %>
+		<% if facility.image.attached? %>
+			<li>
+				<%# <%= image_tag ('images/icons/armchair.svg') %>
+				<%= facility.name %>
+			</li>
+		<% else %>
+			<li>
+				<%= facility.name %>
+			</li>
+		<% end %>
 	<% end %>
-<% end %>
+</ul>
 
 <%= link_to "Send #{@user.first_name} a request", new_couch_booking_path(@couch.id) %>
