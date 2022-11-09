@@ -8,10 +8,4 @@ class CitiesController < ApplicationController
 		@city_id = params[:id]
 		@hosts = User.all.where(city_id: @city_id)
 	end
-
-	private
-
-	def city_params
-		params.require(:city).permit(:id, :name)
-	end
 end
