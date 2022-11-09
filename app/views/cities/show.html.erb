@@ -2,7 +2,7 @@
 
 <ul>
 <% @hosts.each do |host| %>
-	<li><%= link_to "#{host.first_name}", user_path(host.id) %></li>
+	<li><%= link_to "#{host.first_name}", couch_path(host.couch.id) %></li>
 	<li><%= host.pronouns %></li>
 	<li><%= host.calculated_age %></li>
 	<% if host.offers_couch %>
