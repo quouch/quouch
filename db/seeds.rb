@@ -613,6 +613,7 @@ facilities = [couch, bed, shared_bathroom, private_bathroom, wifi, pets_allowed,
 # Couch_Facilities (random amount)
 
 puts "Assigning a random amount of facilities to couch..."
+CouchFacility.destroy_all
 
 Couch.all.each do |sofa|
   facilities_array = []
