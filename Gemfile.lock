@@ -301,6 +301,7 @@ DEPENDENCIES
   sprockets-rails
   tzinfo-data
   vite_rails
+  vite_ruby
   web-console
   webdrivers
 
