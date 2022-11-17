@@ -22,9 +22,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     super
-    @couch = Couch.new(couches_params)
-    @couch.user = @user
-    @couch.save
+    @couch = @user.couch
+    if @couch.nil?
+      @couch = Couch.new(couches_params)
+      @couch.user = @user
+      @couch.save
+    else
+      @couch.update(couches_params)
+    end
   end
 
   # DELETE /resource
