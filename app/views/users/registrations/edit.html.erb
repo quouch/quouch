@@ -1,4 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2>Edit <%= current_user.first_name %></h2>
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
@@ -13,6 +13,10 @@
                 autofocus: true,
                 input_html: { autocomplete: "last_name" }%>
     <%= f.input :email, required: true, autofocus: true %>
+
+    <%= simple_fields_for :couch do |cf| %>
+      <%= cf.input :capacity, label: 'Capacity' %>
+    <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

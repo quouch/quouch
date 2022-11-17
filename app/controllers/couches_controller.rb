@@ -9,10 +9,4 @@ class CouchesController < ApplicationController
 		@user = User.find(@couch.user.id)
 		@couch.user = @user
   end
-
-	private
-	
-	def couches_params
-		params.require(:couch).permit(:capacity)
-	end
 end
