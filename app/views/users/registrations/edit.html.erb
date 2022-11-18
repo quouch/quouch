@@ -2,8 +2,10 @@
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
+  <%= devise_error_messages! %>
 
   <div class="form-inputs">
+    <%= f.input :photo, as: :file %>
     <%= f.input :first_name,
                 required: true,
                 autofocus: true,
@@ -12,10 +14,54 @@
                 required: true,
                 autofocus: true,
                 input_html: { autocomplete: "last_name" }%>
-    <%= f.input :email, required: true, autofocus: true %>
+    <%= f.input :email,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "email" }%>
+    <%= f.input :date_of_birth,
+                start_year: Date.today.year - 100,
+                end_year: Date.today.year,
+                required: true,
+                autofocus: true %>
+    <%# <%= f.input :pronouns,
+                collection: [['he/him'], ['she/her'], ['they/them'], ['other']],
+                as: :radio_buttons,
+                required: true,
+                autofocus: true %>
+    <%= f.association :city,
+                      as: :radio_buttons,
+                      required: true,
+                      autofocus: true %>
+    <%= f.input :summary,
+                required: true,
+                autofocus: true %>
+    <%= f.input :offers_couch,
+                autofocus: true %>
+    <%= f.input :offers_co_work,
+                autofocus: true %>
+    <%= f.input :offers_hang_out,
+                autofocus: true %>
+    <%= f.input :question_one,
+                label: 'This makes me really happy',
+                required: true,
+                autofocus: true %>
+    <%= f.input :question_two,
+                label: "What I can't stand",
+                required: true,
+                autofocus: true %>
+    <%= f.input :question_three,
+                label: 'Tell us what you need and like',
+                required: true,
+                autofocus: true %>
+    <%= f.input :question_four,
+                label: 'When you live at my place, I appreciate..',
+                required: true,
+                autofocus: true %>
 
     <%= simple_fields_for :couch do |cf| %>
-      <%= cf.input :capacity, label: 'Capacity' %>
+      <%= cf.input :capacity,
+                   collection: [1, 2, 3, 4, 5, 6],
+                   label: 'I can host:' %>
     <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
