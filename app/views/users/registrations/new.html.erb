@@ -3,6 +3,7 @@
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
 
   <div class="form-inputs">
+    <%= devise_error_messages! %>
     <%= f.input :first_name,
                 required: true,
                 autofocus: true,
@@ -16,7 +17,7 @@
                 autofocus: true,
                 input_html: { autocomplete: "email" }%>
     <%= f.input :date_of_birth,
-                start_year: Date.today.year - 110,
+                start_year: Date.today.year - 100,
                 end_year: Date.today.year,
                 required: true,
                 autofocus: true %>
@@ -27,7 +28,6 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
-    <%= devise_error_messages! %>
   </div>
 
   <div class="form-actions">
