@@ -23,12 +23,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     super
     @couch = @user.couch
-    if @couch.nil?
-      @couch = Couch.new(couches_params)
+    @couchfacilities = @couch.couch_facilities
+    if @couch.nil? && @couchfacilities.nil?
+      @couch = Couch.new(couch_params)
       @couch.user = @user
       @couch.save
+      create_couch_facilities
+    elsif @couch.present? && @couchfacilities.blank?
+      update_couch
+      create_couch_facilities
+      raise
     else
-      @couch.update(couches_params)
+      update_couch
+      @couchfacilities.update(couch_id: @couch, facility_id: couch_facility_params[:id])
     end
   end
 
@@ -48,8 +55,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def couches_params
+  def couch_params
     params.require(:couch).permit(:capacity)
+  end
+
+  def couch_facility_params
+    params.require(:couch_facility).permit(:facility)
+  end
+
+  def create_couch_facilities
+    @couchfacilities = CouchFacility.new(couch_id: @couch.id, facility_id: couch_facility_params[:id])
+    @couchfacilities.save!
+  end
+
+  def update_couch
+    @couch.update(couch_params)
   end
 
 

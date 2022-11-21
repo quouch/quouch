@@ -23,11 +23,10 @@
                 end_year: Date.today.year,
                 required: true,
                 autofocus: true %>
-    <%# <%= f.input :pronouns,
-                collection: [['he/him'], ['she/her'], ['they/them'], ['other']],
-                as: :radio_buttons,
-                required: true,
-                autofocus: true %>
+    <%= f.select :pronouns,
+                 ['he/him', 'she/her', 'they/them', 'other'],
+                 required: true,
+                 autofocus: true %>
     <%= f.association :city,
                       as: :radio_buttons,
                       required: true,
@@ -60,9 +59,22 @@
 
     <%= simple_fields_for :couch do |cf| %>
       <%= cf.input :capacity,
-                   collection: [1, 2, 3, 4, 5, 6],
+                   collection: 1..6,
                    label: 'I can host:' %>
+      <%= simple_fields_for :couch_facility do |cff| %>
+        <%= cff.input :facility,
+                       collection: Facility.all,
+                       label: 'My Couch comes with:' %>
+      <% end %>
     <% end %>
+
+
+    <%# <%= simple_fields_for :couch_facility do |cff| %>
+      <%# <%= cff.association :facility,
+                          as: :radio_buttons,
+                          label: 'My Couch comes with:' %>
+    <%# <% end %>
+
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
