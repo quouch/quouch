@@ -62,7 +62,7 @@
                    collection: 1..6,
                    label: 'I can host:' %>
       <%= simple_fields_for :couch_facility do |cff| %>
-        <%= cff.input :facility,
+        <%= cff.input :facility_id,
                        collection: Facility.all,
                        label: 'My Couch comes with:' %>
       <% end %>
