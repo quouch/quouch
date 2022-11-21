@@ -32,10 +32,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     elsif @couch.present? && @couchfacilities.blank?
       update_couch
       create_couch_facilities
-      raise
     else
       update_couch
-      @couchfacilities.update(couch_id: @couch, facility_id: couch_facility_params[:id])
+      @couchfacilities.update(couch_id: @couch, facility_id: couch_facility_params[:facility_id])
     end
   end
 
@@ -60,11 +59,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def couch_facility_params
-    params.require(:couch_facility).permit(:facility)
+    params.require(:couch_facility).permit(:facility_id)
   end
 
   def create_couch_facilities
-    @couchfacilities = CouchFacility.new(couch_id: @couch.id, facility_id: couch_facility_params[:id])
+    @couchfacilities = CouchFacility.new(couch_id: @couch.id, facility_id: couch_facility_params[:facility_id])
     @couchfacilities.save!
   end
 
