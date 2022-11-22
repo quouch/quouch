@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_one_attached :photo
   has_one :couch, dependent: :destroy, autosave: true
   accepts_nested_attributes_for :couch
-  has_many :bookings
-  has_many :reviews
+  has_many :bookings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :messages
   has_many :chat_users
   has_many :chats, through: :chat_users
