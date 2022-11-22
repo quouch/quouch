@@ -2,7 +2,7 @@
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= f.error_notification %>
-  <%= devise_error_messages! %>
+  <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="form-inputs">
     <%= f.input :photo, as: :file %>
@@ -25,8 +25,10 @@
                 autofocus: true %>
     <%= f.select :pronouns,
                  ['he/him', 'she/her', 'they/them', 'other'],
+                 as: :check_boxes,
                  required: true,
-                 autofocus: true %>
+                 autofocus: true,
+                 input_html: {:multiple => true} %>
     <%= f.association :city,
                       as: :radio_buttons,
                       required: true,
@@ -60,11 +62,13 @@
     <%= simple_fields_for :couch do |cf| %>
       <%= cf.input :capacity,
                    collection: 1..6,
-                   label: 'I can host:' %>
+                   label: 'I can host:',
+                   autofocus: true %>
       <%= simple_fields_for :couch_facility do |cff| %>
-        <%= cff.input :facility_id,
-                       collection: Facility.all,
-                       label: 'My Couch comes with:' %>
+        <%= cff.collection_check_boxes :facility_ids,
+                                      Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
+                                      input_html: { multiple: true },
+                                      autofocus: true %>
       <% end %>
     <% end %>
 

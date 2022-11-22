@@ -1,56 +1,21 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
-
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
-
-  # POST /resource
-  # def create
-  #   super
-  # end
-
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
-
-  # PUT /resource
   def update
     super
     @couch = @user.couch
-    @couchfacilities = @couch.couch_facilities
+    @couchfacilities = @couch.couch_facilities if @couch
     if @couch.nil? && @couchfacilities.nil?
-      @couch = Couch.new(couch_params)
-      @couch.user = @user
-      @couch.save
+      create_couch
       create_couch_facilities
-    elsif @couch.present? && @couchfacilities.blank?
+    elsif @couch.present? && @couchfacilities.nil?
       update_couch
       create_couch_facilities
     else
       update_couch
-      @couchfacilities.update(couch_id: @couch, facility_id: couch_facility_params[:facility_id])
+      update_couch_facilities
     end
   end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
 
   protected
 
@@ -59,34 +24,49 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def couch_facility_params
-    params.require(:couch_facility).permit(:facility_id)
+    params.require(:couch_facility).permit(facility_ids: [])
   end
 
-  def create_couch_facilities
-    @couchfacilities = CouchFacility.new(couch_id: @couch.id, facility_id: couch_facility_params[:facility_id])
-    @couchfacilities.save!
+  def create_couch
+    @couch = Couch.new(couch_params)
+    @couch.user = @user
+    @couch.save
   end
 
   def update_couch
     @couch.update(couch_params)
   end
 
+  def create_couch_facilities
+    @couchfacilities = []
+    delete_empty_facility(couch_facility_params[:facility_ids])
+    couch_facility_params[:facility_ids].each do |id|
+      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
+      @couchfacilities << couchfacility
+    end
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def update_couch_facilities
+    create_new_facilities
+    delete_old_facilities
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
+  def create_new_facilities
+    new_facilities = couch_facility_params[:facility_ids].reject { |facility| @couchfacilities.include?("#{facility}") }
+    delete_empty_facility(new_facilities)
+    new_facilities.each do |id|
+      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
+      @couchfacilities << couchfacility
+    end
+  end
 
+  def delete_old_facilities
+    old_facilities = @couchfacilities.reject { |facility| couch_facility_params[:facility_ids].include?("#{facility[:facility_id]}") }
+    delete_empty_facility(old_facilities)
+    old_facilities.each { |facility| @couchfacilities.destroy(facility.id) }
+  end
 
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def delete_empty_facility(array)
+    array.delete("")
+  end
 end
