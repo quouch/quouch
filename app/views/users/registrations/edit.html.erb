@@ -64,6 +64,7 @@
                    collection: 1..6,
                    label: 'I can host:',
                    autofocus: true %>
+      <p>My Couch comes with:</p>
       <%= simple_fields_for :couch_facility do |cff| %>
         <%= cff.collection_check_boxes :facility_ids,
                                       Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
