@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: %i[index show destroy]
-  get 'couch/:couch_id/bookings/:id/sent', to: 'bookings#sent', as: 'sent'
+  resources :bookings, only: %i[index show destroy] do
+    member do
+      get :sent
+      patch :accept
+      patch :decline
+    end
+  end
 
   resources :cities, only: %i[index show]
 
