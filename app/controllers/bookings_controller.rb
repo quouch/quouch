@@ -1,9 +1,10 @@
 class BookingsController < ApplicationController
 	before_action :set_booking, only: %i[show sent edit update destroy]
-	before_action :set_couch, only: %i[new sent create]
+	before_action :set_couch, only: %i[new create]
 
 	def index
 		@bookings = Booking.all.where(user: current_user)
+		@requests = Booking.all.select { |booking| booking.couch.user == current_user }
 	end
 
 	def show
@@ -21,7 +22,7 @@ class BookingsController < ApplicationController
 		@booking.booking_date = DateTime.now
 		@booking.minimum_amount = @booking.end_date - @booking.start_date
     if @booking.save
-      redirect_to sent_path(@couch, @booking), notice: "Your request has been sent."
+      redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
     else
       render 'bookings/new'
     end
@@ -39,7 +40,27 @@ class BookingsController < ApplicationController
 	end
 
 	def sent
-		@host = @couch.user
+		@host = @booking.couch.user
+	end
+
+	def accept
+    @booking.update(status: 1)
+    redirect_to bookings_path
+  end
+
+  def decline
+    @booking.update(status: 2)
+    redirect_to bookings_path
+  end
+
+	def completed
+		@booking.update(status: 3)
+		redirect_to bookings_path
+	end
+
+	def cancel
+		@booking.update(status: -1)
+		redirect_to bookings_path
 	end
 
 	private
