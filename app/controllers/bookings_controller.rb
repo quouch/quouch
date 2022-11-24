@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-	before_action :set_booking, only: %i[show sent edit update destroy show_request]
+	before_action :set_booking, except: %i[index requests new create]
 	before_action :set_couch, only: %i[new create]
 
 	def index
@@ -59,7 +59,7 @@ class BookingsController < ApplicationController
     redirect_to bookings_path
   end
 
-	def completed
+	def complete
 		@booking.update(status: 3)
 		redirect_to bookings_path
 	end
