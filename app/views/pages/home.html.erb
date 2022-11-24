@@ -1,4 +1,15 @@
 <h1>Quouch</h1>
-<%= link_to 'Browse all cities', cities_path %>
-<div id="root">
-</div>
+<% if current_user %>
+	<%# <%= link_to 'My profile', current_user.couch.id %>
+	<%= link_to 'Update profile', edit_user_registration_path(current_user) %>
+	<%= link_to 'Browse all cities', cities_path %>
+	<%= link_to 'My Bookings', bookings_path %>
+	<%= link_to 'My Requests', requests_couch_bookings_path(current_user.couch) %>
+<% end %>
+
+<br><br>
+<%= button_to "Logout", destroy_user_session_path, method: :delete  %>
+<%= button_to "Login", new_user_session_path  %>
+<br><br>
+
+<div id="root"></div>
