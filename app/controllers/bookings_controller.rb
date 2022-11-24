@@ -1,9 +1,12 @@
 class BookingsController < ApplicationController
-	before_action :set_booking, only: %i[show sent edit update destroy]
+	before_action :set_booking, only: %i[show sent edit update destroy show_request]
 	before_action :set_couch, only: %i[new create]
 
 	def index
 		@bookings = Booking.all.where(user: current_user)
+	end
+
+	def requests
 		@requests = Booking.all.select { |booking| booking.couch.user == current_user }
 	end
 
@@ -37,6 +40,9 @@ class BookingsController < ApplicationController
 	def destroy
 		@booking.destroy
 		redirect_to bookings_path
+	end
+
+	def show_request
 	end
 
 	def sent

@@ -1,0 +1,29 @@
+<h1>Request Overview</h1>
+
+<h2>Your Guest</h2>
+<h3><%= @booking.user.first_name %>, <%= @booking.user.calculated_age %></h3>
+<p><%= @booking.user.pronouns %></p>
+
+<%= link_to "Check out #{@booking.user.first_name}'s profile" %>
+
+
+<h3>Travel Details</h3>
+<ul>
+	<li>
+		Booking Status: <%= @booking.status %>
+	</li>
+	<li>
+		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
+	</li>
+	<li>
+		Booking Date: <%= @booking.booking_date %>
+	</li>
+	<li>
+		Travellers: <%= @booking.number_travellers %>
+	</li>
+</ul>
+
+<% if @booking.status == 'pending' %>
+	<%= link_to "Accept", accept_booking_path(@booking), method: :patch %>
+	<%= link_to "Decline", decline_booking_path(@booking), method: :patch %>
+<% end %>
