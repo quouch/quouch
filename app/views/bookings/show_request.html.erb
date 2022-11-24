@@ -4,7 +4,7 @@
 <h3><%= @booking.user.first_name %>, <%= @booking.user.calculated_age %></h3>
 <p><%= @booking.user.pronouns %></p>
 
-<%= link_to "Check out #{@booking.user.first_name}'s profile" %>
+<%= link_to "Check out #{@booking.user.first_name}'s profile", couch_path(@booking.user.couch) %>
 
 
 <h3>Travel Details</h3>
@@ -23,7 +23,6 @@
 	</li>
 </ul>
 
-<% if @booking.status == 'pending' %>
-	<%= link_to "Accept", accept_booking_path(@booking), method: :patch %>
-	<%= link_to "Decline", decline_booking_path(@booking), method: :patch %>
+<% if @booking.status ==  'confirmed'   %>
+	<%= button_to 'Cancel Booking', booking_path(@booking), method: :delete %>
 <% end %>

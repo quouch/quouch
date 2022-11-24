@@ -7,6 +7,6 @@
 		<li><%= booking.status %></li>
 		<li><%= booking.start_date %> - <%= booking.end_date %></li>
 		<li><%= booking.number_travellers %></li>
-		<li><%= link_to 'See Details', request_couch_booking_path(booking) %></li>
+		<li><%= link_to 'See Details', booking_path(booking) %></li>
 	</ul>
 <% end %>
