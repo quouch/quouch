@@ -3,12 +3,17 @@ Rails.application.routes.draw do
 
   resources :couches do
     resources :bookings, only: %i[new create] do
+      collection do
+        get :requests
+      end
+
       resources :reviews, only: %i[new create]
     end
   end
 
   resources :bookings, only: %i[index show destroy] do
     member do
+      get :show_request, as: 'request'
       get :sent
       patch :accept
       patch :decline
