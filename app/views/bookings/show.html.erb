@@ -5,11 +5,6 @@
 <p><%= @booking.couch.user.pronouns %></p>
 <p><%= @booking.couch.user.city.name %></p>
 
- <% if @booking.status == 'pending' %>
-	<%= link_to "Accept", accept_booking_path(@booking), method: :patch %>
-	<%= link_to "Decline", decline_booking_path(@booking), method: :patch %>
-<% end %>
-
 <h3>Travel Details</h3>
 <ul>
 	<li>
@@ -26,7 +21,6 @@
 	</li>
 </ul>
 
-
 <h3>Accomodation</h3>
 <ul>
 	<% @booking.couch.facilities.each do |facility| %>
@@ -42,3 +36,9 @@
 		<% end %>
 	<% end %>
 </ul>
+
+<% if @booking.status == 'pending'%>
+	<%= button_to 'Cancel Request', booking_path(@booking), method: :delete %>
+<% elsif @booking.status ==  'confirmed'   %>
+	<%= button_to 'Cancel Booking', booking_path(@booking), method: :delete %>
+<% end %>
