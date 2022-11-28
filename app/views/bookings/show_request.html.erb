@@ -21,8 +21,14 @@
 	<li>
 		Travellers: <%= @booking.number_travellers %>
 	</li>
+	<li>
+		Message: <%= @booking.message %>
+	</li>
 </ul>
 
-<% if @booking.status ==  'confirmed' || 'pending' %>
-	<%= button_to 'Cancel Booking', booking_path(@booking), method: :delete %>
+<% if @booking.status == 'confirmed' %>
+	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
+<% elsif @booking.status == 'pending' %>
+	<%= button_to 'Accept Booking', accept_booking_path(@booking), method: :patch %>
+	<%= button_to 'Decline Booking', decline_booking_path(@booking), method: :patch %>
 <% end %>

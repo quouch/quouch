@@ -2,14 +2,43 @@
 
 <% if @bookings.any? %>
 	<% @bookings.each do |booking| %>
-		<ul>
-			<li><%= booking.couch.user.first_name %></li>
-			<li><%= booking.couch.user.city.name %></li>
-			<li><%= booking.status %></li>
-			<li><%= booking.start_date %> - <%= booking.end_date %></li>
-			<li><%= booking.number_travellers %></li>
-			<li><%= link_to 'See Details', booking_path(booking) %></li>
-		</ul>
+		<% if booking.status == "pending" || "confirmed" %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.couch.user.city.name %></li>
+				<li><%= booking.status %></li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'See Details', booking_path(booking) %></li>
+			</ul>
+		<% elsif booking.status == "declined" %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.status %></li>
+				<li>Booking has been declined - sorry!</li>
+				<li><%= request.start_date %> - <%= request.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'Browse other couches' %>
+			</ul>
+		<% elsif booking.status == "cancelled" %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.status %></li>
+				<li>This booking has been cancelled on <% booking.cancellation_date %>.</li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'Browse other couches' %>
+			</ul>
+		<% else %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.status %></li>
+				<li>You were hosted by <% booking.couch.user %>.</li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to "Leave #{booking.couch.user.first_name} a review." %>
+			</ul>
+		<% end %>
 	<% end %>
 <% else %>
 	<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
