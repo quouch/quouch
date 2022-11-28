@@ -23,6 +23,6 @@
 	</li>
 </ul>
 
-<% if @booking.status ==  'confirmed'   %>
+<% if @booking.status ==  'confirmed' || 'pending' %>
 	<%= button_to 'Cancel Booking', booking_path(@booking), method: :delete %>
 <% end %>
