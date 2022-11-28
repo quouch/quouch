@@ -1,7 +1,7 @@
 <h1>Hosts in <%= @city.name %></h1>
 
 <ul>
-<% @hosts.each do |host| %>
+<% @hosts.where.not(id: current_user).each do |host| %>
 	<li><%= link_to "#{host.first_name}", couch_path(host.couch.id) %></li>
 	<li><%= host.pronouns %></li>
 	<li><%= host.calculated_age %></li>

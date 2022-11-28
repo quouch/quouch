@@ -1,7 +1,6 @@
 class CouchesController < ApplicationController
 	def index
 		@couches = Couch.all
-		@users = User.all
 	end
 
 	def show

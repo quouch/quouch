@@ -1,12 +1,16 @@
 <h1> My Bookings </h1>
 
-<% @bookings.each do |booking| %>
-	<ul>
-		<li><%= booking.couch.user.first_name %></li>
-		<li><%= booking.couch.user.city.name %></li>
-		<li><%= booking.status %></li>
-		<li><%= booking.start_date %> - <%= booking.end_date %></li>
-		<li><%= booking.number_travellers %></li>
-		<li><%= link_to 'See Details', booking_path(booking) %></li>
-	</ul>
+<% if @bookings.any? %>
+	<% @bookings.each do |booking| %>
+		<ul>
+			<li><%= booking.couch.user.first_name %></li>
+			<li><%= booking.couch.user.city.name %></li>
+			<li><%= booking.status %></li>
+			<li><%= booking.start_date %> - <%= booking.end_date %></li>
+			<li><%= booking.number_travellers %></li>
+			<li><%= link_to 'See Details', booking_path(booking) %></li>
+		</ul>
+	<% end %>
+<% else %>
+	<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
 <% end %>
