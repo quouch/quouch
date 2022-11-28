@@ -2,7 +2,6 @@
 
 <% if @requests.any? %>
 	<% @requests.each do |request| %>
-		<% if request.status == 'pending' || 'confirmed' %>
 		<ul>
 			<li><%= request.user.first_name %></li>
 			<li><%= request.status %></li>
@@ -10,16 +9,7 @@
 			<li><%= request.number_travellers %></li>
 			<li><%= link_to 'See Details', request_booking_path(request) %>
 		</ul>
-		<% elsif @request.status == 'rejected'  %>
-		<ul>
-			<li><%= request.user.first_name %></li>
-			<li>Booking has been declined - sorry!</li>
-			<li><%= request.start_date %> - <%= request.end_date %></li>
-			<li><%= request.number_travellers %></li>
-			<li><%= link_to 'Browse other couches' %>
-		</ul>
-		<% end %>
 	<% end %>
-	<% else %>
+<% else %>
 	<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
 <% end %>

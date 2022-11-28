@@ -37,9 +37,16 @@ class BookingsController < ApplicationController
 	def update
 	end
 
-	def destroy
-		@booking.destroy
-		redirect_to bookings_path
+	def cancel
+		@booking.status = -1
+		@booking.cancellation_date = DateTime.now
+		@canceller = current_user
+		@booking.save
+		if @canceller == @booking.user
+			redirect_to bookings_path
+		elsif @booking.update
+			redirect_to requests_couch_bookings_path(@booking.couch)
+		end
 	end
 
 	def show_request
@@ -64,15 +71,10 @@ class BookingsController < ApplicationController
 		redirect_to bookings_path
 	end
 
-	def cancel
-		@booking.update(status: -1)
-		redirect_to bookings_path
-	end
-
 	private
 
 	def booking_params
-		params.require(:booking).permit(:start_date, :end_date, :number_travellers)
+		params.require(:booking).permit(:start_date, :end_date, :number_travellers, :message)
 	end
 
 	def set_booking

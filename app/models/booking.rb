@@ -10,7 +10,7 @@ class Booking < ApplicationRecord
   validate :valid_dates?
 
 
-  enum status: { pending: 0, confirmed: 1, rejected: 2, completed: 3, cancelled: -1 }
+  enum status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
 
   def date_in_future?
     if Date.yesterday > start_date
