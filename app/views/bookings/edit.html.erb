@@ -1,0 +1,17 @@
+<h1>Edit Request</h1>
+
+<%= simple_form_for [@couch, @booking] do |f| %>
+	<% if @booking.errors.any? %>
+		<h2>Error:</h2>
+			<ul>
+				<% @booking.errors.full_messages.each do |error| %>
+					<li><%= error %></li>
+				<% end %>
+			</ul>
+	<% end %>
+	<%= f.input :start_date, label: 'When would you like to arrive?' %>
+	<%= f.input :end_date, label: 'When will you leave?' %>
+	<%= f.input :number_travellers, label: false, placeholder: 'For how many people?'%>
+	<%= f.input :message, label: 'Leave your possible future host a kind message' %>
+	<%= f.submit "Update Request", class: "" %>
+<% end %>

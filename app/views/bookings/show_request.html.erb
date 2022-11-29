@@ -29,6 +29,6 @@
 <% if @booking.status == 'confirmed' %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% elsif @booking.status == 'pending' %>
-	<%= button_to 'Accept Booking', accept_booking_path(@booking), method: :patch %>
-	<%= button_to 'Decline Booking', decline_booking_path(@booking), method: :patch %>
+	<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch %>
+	<%= button_to 'Decline Request', decline_booking_path(@booking), method: :patch %>
 <% end %>
