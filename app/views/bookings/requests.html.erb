@@ -2,13 +2,34 @@
 
 <% if @requests.any? %>
 	<% @requests.each do |request| %>
-		<ul>
-			<li><%= request.user.first_name %></li>
-			<li><%= request.status %></li>
-			<li><%= request.start_date %> - <%= request.end_date %></li>
-			<li><%= request.number_travellers %></li>
-			<li><%= link_to 'See Details', request_booking_path(request) %>
-		</ul>
+		<% case request.status %>
+		<% when 'pending' || 'confirmed' %>
+			<ul>
+				<li><%= request.user.first_name %></li>
+				<li><%= request.status %></li>
+				<li><%= request.start_date %> - <%= request.end_date %></li>
+				<li><%= request.number_travellers %></li>
+				<li><%= link_to 'See Details', request_booking_path(request) %></li>
+			</ul>
+		<% when 'cancelled' %>
+			<ul>
+				<li><%= request.user.first_name %></li>
+				<li><%= request.status %></li>
+				<li>This request has been cancelled on <%= request.cancellation_date %>.</li>
+				<li><%= request.start_date %> - <%= request.end_date %></li>
+				<li><%= request.number_travellers %></li>
+				<li><%= link_to 'Browse other couches' %>
+			</ul>
+		<% when 'completed' %>
+			<ul>
+				<li><%= request.user.first_name %></li>
+				<li><%= request.status %></li>
+				<li>You hosted <%= request.couch.user %>.</li>
+				<li><%= request.start_date %> - <%= request.end_date %></li>
+				<li><%= request.number_travellers %></li>
+				<li><%= link_to "Leave #{request.user.first_name} a review" %>
+			</ul>
+		<% end %>
 	<% end %>
 <% else %>
 	<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
