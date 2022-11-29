@@ -19,7 +19,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :date_of_birth, presence: true
   validate :validate_age
-  
+
   def calculated_age
     today = Date.today
     if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
@@ -27,11 +27,11 @@ class User < ApplicationRecord
     else
       calculation = 1
     end
-    today.year - date_of_birth.year - calculation
+    return today.year - date_of_birth.year - calculation
   end
-  
+
   def validate_age
-    if calculated_age.present? && calculated_age > 18.years.ago.to_i
+    if calculated_age.present? && calculated_age < 18
       errors.add(:date_of_birth, 'Sorry, come back when you are 18!')
     end
   end
