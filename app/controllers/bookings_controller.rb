@@ -35,6 +35,9 @@ class BookingsController < ApplicationController
 	end
 
 	def update
+		@booking.minimum_amount = @booking.end_date - @booking.start_date
+		@booking.update(booking_params)
+		redirect_to booking_path(@booking)
 	end
 
 	def cancel
@@ -58,18 +61,11 @@ class BookingsController < ApplicationController
 
 	def accept
     @booking.update(status: 1)
-    redirect_to bookings_path
   end
 
   def decline
     @booking.update(status: 2)
-    redirect_to bookings_path
   end
-
-	def complete
-		@booking.update(status: 3)
-		redirect_to bookings_path
-	end
 
 	private
 

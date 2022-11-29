@@ -40,8 +40,10 @@
 	<% end %>
 </ul>
 
-<% if @booking.status == 'pending'%>
+<% if @booking.status == 'pending' %>
+	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status ==  'confirmed'   %>
+<% elsif @booking.status ==  'confirmed' %>
+		<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% end %>

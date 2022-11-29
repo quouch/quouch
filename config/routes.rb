@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, only: %i[index show destroy] do
+  resources :bookings, only: %i[index show destroy edit update] do
     member do
       get :show_request, as: 'request'
       get :sent
