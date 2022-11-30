@@ -3,7 +3,7 @@
 <% if @bookings.any? %>
 	<% @bookings.each do |booking| %>
 		<% case booking.status %>
-		<% when 'pending' || 'confirmed' %>
+		<% when 'pending', 'confirmed' %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
@@ -32,15 +32,17 @@
 				<li><%= booking.number_travellers %></li>
 				<li><%= link_to 'Browse other couches' %>
 			</ul>
-		<% else %>
+		<% when 'completed' %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
 				<li><%= booking.status %></li>
-				<li>You were hosted by <%= booking.couch.user %>.</li>
+				<li>You were hosted by <%= booking.couch.user.first_name %>.</li>
 				<li><%= booking.start_date %> - <%= booking.end_date %></li>
 				<li><%= booking.number_travellers %></li>
-				<li><%= link_to "Leave #{booking.couch.user.first_name} a review" %>
+				<% if booking.review.nil? %>
+					<li><%= link_to "Leave #{booking.couch.user.first_name} a review", new_couch_booking_review_path(booking.couch, booking) %>
+				<% end %>
 			</ul>
 		<% end %>
 	<% end %>
