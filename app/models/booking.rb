@@ -5,11 +5,10 @@ class Booking < ApplicationRecord
 
   validates :start_date, presence: true
   validates :end_date, presence: true
-  validates :donation_amount, numericality: true, allow_nil: true
-  validate :date_in_future?
-  validate :valid_dates?
+  validate :date_in_future?, on: :create
+  validate :valid_dates?, on: :create
   validate :matches_capacity?
-  validate :duplicate_booking?
+  validate :duplicate_booking?, on: :create
 
   enum status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
 
@@ -41,4 +40,12 @@ class Booking < ApplicationRecord
 		completed_bookings = Booking.where(end_date: ...Date.today, status: 1)
 		completed_bookings.update(status: 3)
 	end
+
+  def month
+    start_date.strftime("%B")
+  end
+
+  def year
+    start_date.year
+  end
 end
