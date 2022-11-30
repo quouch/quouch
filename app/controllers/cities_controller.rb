@@ -6,6 +6,6 @@ class CitiesController < ApplicationController
 	def show
 		@city = City.find(params[:id])
 		@city_id = params[:id]
-		@hosts = User.all.where(city_id: @city_id)
+		@hosts = User.where(city_id: @city_id)
 	end
 end
