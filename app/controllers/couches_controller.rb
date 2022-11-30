@@ -7,6 +7,6 @@ class CouchesController < ApplicationController
     @couch = Couch.find(params[:id])
 		@user = User.find(@couch.user.id)
 		@couch.user = @user
-		@reviews = Review.where(params[:couch_id])
+		@reviews = Review.where(id: params[:id])
   end
 end
