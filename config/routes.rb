@@ -23,5 +23,7 @@ Rails.application.routes.draw do
 
   resources :cities, only: %i[index show]
 
+  resources :chats
+
   devise_for :users, controllers: { registrations: 'users/registrations' }
 end
