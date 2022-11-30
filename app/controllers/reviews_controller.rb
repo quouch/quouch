@@ -1,9 +1,6 @@
 class ReviewsController < ApplicationController
-	before_action :set_booking, only: %i[new create]
+	before_action :set_booking
 	before_action :set_couch
-
-	def index
-	end
 
 	def new
 		@host = @couch.user
@@ -37,5 +34,4 @@ class ReviewsController < ApplicationController
 	def set_couch
 		@couch = Couch.find(params[:couch_id])
 	end
-
 end
