@@ -23,6 +23,7 @@
                 end_year: Date.today.year,
                 required: true,
                 autofocus: true %>
+    <%= f.label :pronouns %>
     <%= f.select :pronouns,
                  ['she/her', 'she/they', 'he/him', 'he/they', 'they/them', 'custom'],
                  as: :check_boxes,
