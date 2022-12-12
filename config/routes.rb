@@ -22,8 +22,11 @@ Rails.application.routes.draw do
   end
 
   resources :cities, only: %i[index show]
+  
+  # resources :chat, only: :show
+  # resources :messages, only: %i[index show create]
 
-  resources :chats
+  mount ActionCable.server => '/cable'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
 end
