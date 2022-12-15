@@ -1,6 +1,6 @@
 <div data-controller="chat-subscription"
      data-chat-subscription-chat-id-value="<%= @chat.id %>">
-  <h1>#<%= @chat.name %></h1>
+  <h1>#<%= @name %></h1>
 
   <div class="messages" data-chat-subscription-target="messages">
     <% @chat.messages.each do |message| %>
@@ -18,7 +18,7 @@
 %>
   <%= f.input :content,
     label: false,
-    placeholder: "Message ##{@chat.name}",
+    placeholder: "Message ##{@name}",
     wrapper_html: {class: "flex-grow-1"}
   %>
   <%= f.submit "Send", class: "btn btn-primary mb-3" %>

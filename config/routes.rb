@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :cities, only: %i[index show]
 
-  resources :chats, only: %i[index show new create] do
+  resources :chats, only: %i[index show create] do
     resources :messages, only: %i[create]
   end
 
