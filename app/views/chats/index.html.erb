@@ -1,0 +1,13 @@
+<h1>Your Conversations</h1>
+<ul>
+		<% @receivers = [] %>
+		<% @chats.each do |chat| %>
+			<% @receivers << User.find_by(id: chat.user_receiver_id) %>
+			<% @receivers.each do |receiver| %>
+				<li>
+					<%= link_to "#{receiver.first_name}", chat_path(chat) %>
+				</li>
+			<% end %>
+		<% end %>
+
+</ul>
