@@ -1,10 +1,6 @@
 class ChatsController < ApplicationController
 	def index
-		@chats = Chat.all.where(user_sender_id: current_user.id)
-		@receivers = []
-		@chats.each do |chat|
-			@receivers << User.find_by(id: chat.user_receiver_id)
-		end
+		@chats = Chat.all.where(user_sender_id: current_user.id) + Chat.all.where(user_receiver_id: current_user.id)
 	end
 
 	def show
@@ -15,7 +11,8 @@ class ChatsController < ApplicationController
 
 	def create
 		@chat = Chat.new(user_sender_id: params[:user_sender_id], user_receiver_id: params[:user_receiver_id])
-		@chat.save
-		redirect_to chat_path(@chat)
+		if @chat.save
+			redirect_to chat_path(@chat)
+		end
 	end
 end

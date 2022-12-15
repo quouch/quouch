@@ -72,5 +72,9 @@
 	<ul>
 <% end %>
 
-<%= button_to "Send #{@user.first_name} a message", chats_path(user_sender_id: current_user.id, user_receiver_id: @user.id), method: :post %>
+<% if @chat.nil? %>
+	<%= button_to "Chat with #{@user.first_name}", chats_path(user_sender_id: current_user.id, user_receiver_id: @user.id), method: :post %>
+<% else %>
+	<%= link_to "Chat with #{@user.first_name}", chat_path(@chat) %>
+<% end %>
 <%= link_to "Send #{@user.first_name} a concrete request", new_couch_booking_path(@couch.id) %>
