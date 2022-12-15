@@ -23,8 +23,8 @@ Rails.application.routes.draw do
 
   resources :cities, only: %i[index show]
 
-  resources :chats, only: :show do
-    resources :messages, only: %i[index show create]
+  resources :chats, only: %i[index show new create] do
+    resources :messages, only: %i[create]
   end
 
   mount ActionCable.server => '/cable'
