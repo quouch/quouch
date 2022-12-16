@@ -7,6 +7,5 @@ export default defineConfig({
   plugins: [
     RubyPlugin(),
     FullReload(['config/routes.rb', 'app/views/**/*', 'app/assets/stylesheets/**/*']),
-    // react()
   ],
 })
