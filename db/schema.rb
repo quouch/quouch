@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_110553) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_16_113315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,15 +48,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_110553) do
     t.integer "status"
     t.date "booking_date"
     t.date "cancellation_date"
-    t.float "minimum_amount"
-    t.float "total_amount"
     t.bigint "couch_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "donation_amount"
     t.integer "number_travellers"
     t.text "message"
+    t.integer "price_cents", default: 0, null: false
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
