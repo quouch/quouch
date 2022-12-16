@@ -12,6 +12,9 @@ class Booking < ApplicationRecord
 
   enum status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
 
+  monetize :price_cents
+  monetize :amount_cents
+
   def date_in_future?
     if Date.yesterday > start_date
       errors.add(:start_date, "Booking can't be in the past")
