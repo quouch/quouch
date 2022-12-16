@@ -44,6 +44,7 @@
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
 <% elsif @booking.status ==  'confirmed' %>
-		<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %>
+	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% end %>

@@ -23,13 +23,13 @@ class BookingsController < ApplicationController
     @booking.user = current_user
 		@booking.status = 0
 		@booking.booking_date = DateTime.now
-		# @booking.price_cents = 
+		@booking.price_cents = @booking.end_date - @booking.start_date
 
 		session = Stripe::Checkout::Session.create(
 			payment_method_types: ['card'],
 			line_items: [{
 				name: teddy.sku,
-				amount: booking.price_cents,
+				amount: booking.amount_cents,
 				currency: 'eur',
 				quantity: @booking.end_date - @booking.start_date
 			}],
@@ -51,7 +51,7 @@ class BookingsController < ApplicationController
 	end
 
 	def update
-		@booking.minimum_amount = @booking.end_date - @booking.start_date
+		@booking.price_cents = @booking.end_date - @booking.start_date
 		@booking.update(booking_params)
 		redirect_to booking_path(@booking)
 	end
