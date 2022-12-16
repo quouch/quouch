@@ -19,7 +19,10 @@ Rails.application.routes.draw do
       patch :decline
       patch :cancel
     end
+    resources :payments, only: %i[new]
   end
+
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   resources :cities, only: %i[index show]
 
@@ -28,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   mount ActionCable.server => '/cable'
+
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
 end

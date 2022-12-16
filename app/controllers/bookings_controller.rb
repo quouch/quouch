@@ -23,7 +23,23 @@ class BookingsController < ApplicationController
     @booking.user = current_user
 		@booking.status = 0
 		@booking.booking_date = DateTime.now
-		@booking.minimum_amount = @booking.end_date - @booking.start_date
+		# @booking.price_cents = 
+
+		session = Stripe::Checkout::Session.create(
+			payment_method_types: ['card'],
+			line_items: [{
+				name: teddy.sku,
+				amount: booking.price_cents,
+				currency: 'eur',
+				quantity: @booking.end_date - @booking.start_date
+			}],
+			success_url: booking_url(@booking),
+			cancel_url: booking_url(@booking)
+		)
+	
+		booking.update(checkout_session_id: session.id)
+		redirect_to new_booking_payment_path(@booking)
+
     if @booking.save
       redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
     else
