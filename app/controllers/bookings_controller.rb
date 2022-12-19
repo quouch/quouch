@@ -23,28 +23,35 @@ class BookingsController < ApplicationController
     @booking.user = current_user
 		@booking.status = 0
 		@booking.booking_date = DateTime.now
-		@booking.price_cents = @booking.end_date - @booking.start_date
+		@booking.price_cents = (@booking.end_date - @booking.start_date).to_i
+		price = 100
+		nights = (@booking.end_date - @booking.start_date).to_i
+		@booking.save!
+		# @booking.amount_cents = price
 
 		session = Stripe::Checkout::Session.create(
 			payment_method_types: ['card'],
-			line_items: [{
-				name: teddy.sku,
-				amount: booking.amount_cents,
-				currency: 'eur',
-				quantity: @booking.end_date - @booking.start_date
-			}],
-			success_url: booking_url(@booking),
-			cancel_url: booking_url(@booking)
-		)
-	
-		booking.update(checkout_session_id: session.id)
-		redirect_to new_booking_payment_path(@booking)
 
-    if @booking.save
-      redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
-    else
-      render 'bookings/new'
-    end
+			# line_items: [{
+			# 	price_data: {
+			# 		currency: 'eur',
+			# 		product_data: {
+			# 			name: "Stay with #{@booking.couch.user.first_name}",
+			# 		},
+			# 		unit_amount: price,
+			# 	},
+			# 	quantity: nights,
+			# }],
+			mode: 'setup',
+			success_url: sent_booking_url(@booking),
+			cancel_url: bookings_url
+		)
+
+		@booking.update(checkout_session_id: session.id, amount_cents: price)
+		redirect_to new_booking_payment_path(@booking)
+	end
+
+	def pay
 	end
 
 	def edit
