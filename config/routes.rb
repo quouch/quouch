@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get :sent
       get :confirmed
       get :pay
+      get :paid
       patch :accept
       patch :decline
       patch :cancel
