@@ -625,24 +625,6 @@ end
 
 puts "#{CouchFacility.count} couch_facilities created!"
 
-# Bookings
 
-# puts 'destroying & seeding bookings...'
-# Booking.destroy_all
-
-# 50.times.do
-#   Booking.create!(
-#     start_date: Faker::Date.forward(days: 365),
-#     end_date: Faker::Date.between(from: start_date, to: 2.years.from_now),
-#     booking_date: start_date - Faker::Date.backward(days: 20),
-#     status: (if end_date < Date.today ? status = rand(2..3) : status = rand(0..1)),
-#     minimum_amount: 1 * start_date - end_date,
-#     donation_amount: rand(1..20),
-#     total_amount: minimum_amount + donation_amount,
-#     couch: Couch.all.sample,
-#     user: User.all.sample
-# )
-
-# puts "#{Booking.count} bookings created!"
 
 puts "done with seeding, love - you are doing an amazing job!"
