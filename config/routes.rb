@@ -17,7 +17,6 @@ Rails.application.routes.draw do
       get :sent
       get :confirmed
       get :pay
-      get :paid
       patch :accept
       patch :decline
       patch :cancel
@@ -25,7 +24,7 @@ Rails.application.routes.draw do
     resources :payments, only: %i[new]
   end
 
-  mount StripeEvent::Engine, at: '/stripe-webhooks'
+  mount StripeEvent::Engine, at: '/update-payment'
 
   resources :cities, only: %i[index show]
 
