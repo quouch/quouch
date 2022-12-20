@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     member do
       get :show_request, as: 'request'
       get :sent
+      get :confirmed
+      get :pay
       patch :accept
       patch :decline
       patch :cancel
