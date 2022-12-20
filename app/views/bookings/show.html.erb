@@ -8,7 +8,7 @@
 <h3>Travel Details</h3>
 <ul>
 	<li>
-		Booking Status: <%= @booking.status %>
+		Booking Status: <%= @booking.booking_status %>
 	</li>
 	<li>
 		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
@@ -40,11 +40,11 @@
 	<% end %>
 </ul>
 
-<% if @booking.status == 'pending' %>
+<% if @booking.booking_status == 'pending' %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status ==  'confirmed' %>
-	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %>
+<% elsif @booking.booking_status ==  'confirmed' %>
+	<%# <%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %> %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% end %>
