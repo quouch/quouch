@@ -22,19 +22,9 @@ class BookingsController < ApplicationController
     @booking.couch = @couch
     @booking.user = current_user
 		@booking.booking_status = 0
+		@booking.payment_status = 0
 		@booking.booking_date = DateTime.now
 		redirect_to sent_booking_url(@booking) if @booking.save!
-
-		# customer = Stripe::Customer.create
-		# session = Stripe::Checkout::Session.create(
-		# 	payment_method_types: ['card'],
-		# 	mode: 'setup',
-		# 	success_url: sent_booking_url(@booking),
-		# 	cancel_url: bookings_url,
-		# 	customer: customer.id
-		# )
-
-		# @booking.update(checkout_session_id: session.id)
 	end
 
 	def pay
@@ -56,13 +46,17 @@ class BookingsController < ApplicationController
 				quantity: nights,
 			}],
 			mode: 'payment',
-			success_url: sent_booking_url(@booking),
+			success_url: paid_booking_url(@booking),
 			cancel_url: bookings_url
 		)
 
 		@booking.update(checkout_session_id: session.id, amount_cents: price)
 		redirect_to new_booking_payment_path(@booking)
+	end
 
+	def paid
+		@booking.update(payment_status: 1)
+		redirect_to booking_path(@booking)
 	end
 
 	def edit

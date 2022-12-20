@@ -11,6 +11,7 @@ class Booking < ApplicationRecord
   validate :duplicate_booking?, on: :create
 
   enum booking_status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
+  enum payment_status: { awaiting: 0, paid: 1, pending_refund: 2, refunded: -1 }
 
   monetize :price_cents
   monetize :amount_cents
