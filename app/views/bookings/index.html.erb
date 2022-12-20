@@ -2,21 +2,31 @@
 
 <% if @bookings.any? %>
 	<% @bookings.each do |booking| %>
-		<% case booking.status %>
-		<% when 'pending', 'confirmed' %>
+		<% case booking.booking_status %>
+		<% when 'pending' %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
-				<li><%= booking.status %></li>
+				<li><%= booking.booking_status %></li>
 				<li><%= booking.start_date %> - <%= booking.end_date %></li>
 				<li><%= booking.number_travellers %></li>
 				<li><%= link_to 'See Details', booking_path(booking) %></li>
+			</ul>
+		<% when 'confirmed' %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.couch.user.city.name %></li>
+				<li><%= booking.booking_status %></li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'See Details', booking_path(booking) %></li>
+				<li><%= link_to 'Pay now & get access to address', pay_booking_path(booking) %></li>
 			</ul>
 		<% when 'declined' %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
-				<li><%= booking.status %></li>
+				<li><%= booking.booking_status %></li>
 				<li>Booking has been declined - sorry!</li>
 				<li><%= request.start_date %> - <%= request.end_date %></li>
 				<li><%= booking.number_travellers %></li>
@@ -26,7 +36,7 @@
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
-				<li><%= booking.status %></li>
+				<li><%= booking.booking_status %></li>
 				<li>This booking has been cancelled on <%= booking.cancellation_date %>.</li>
 				<li><%= booking.start_date %> - <%= booking.end_date %></li>
 				<li><%= booking.number_travellers %></li>
@@ -36,7 +46,7 @@
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
-				<li><%= booking.status %></li>
+				<li><%= booking.booking_status %></li>
 				<li>You were hosted by <%= booking.couch.user.first_name %>.</li>
 				<li><%= booking.start_date %> - <%= booking.end_date %></li>
 				<li><%= booking.number_travellers %></li>
