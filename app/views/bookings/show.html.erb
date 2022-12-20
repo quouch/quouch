@@ -11,6 +11,9 @@
 		Booking Status: <%= @booking.booking_status %>
 	</li>
 	<li>
+		Payment Status: <%= @booking.payment_status %>
+	</li>
+	<li>
 		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
 	</li>
 	<li>
@@ -25,6 +28,9 @@
 </ul>
 
 <h3>Accomodation</h3>
+<% if @booking.payment_status == 'paid' %>
+<p> You can find your host at Luisenstr. 17, 10117 Berlin </p>
+<% end %>
 <ul>
 	<% @booking.couch.facilities.each do |facility| %>
 		<% if facility.image.attached? %>
@@ -43,8 +49,9 @@
 <% if @booking.booking_status == 'pending' %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.booking_status ==  'confirmed' %>
-	<%# <%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %> %>
+<% elsif @booking.booking_status == 'confirmed' && @booking.payment_status == 'awaiting' %>
+	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %>
+<% elsif @booking.booking_status == 'confirmed' %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% end %>
