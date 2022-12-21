@@ -9,6 +9,7 @@ class Booking < ApplicationRecord
   validate :valid_dates?, on: :create
   validate :matches_capacity?
   validate :duplicate_booking?, on: :create
+  validate :duplicate_request?, on: :create
 
   enum booking_status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
   enum payment_status: { awaiting: 0, paid: 1, pending_refund: 2, refunded: -1 }
@@ -37,6 +38,12 @@ class Booking < ApplicationRecord
   def duplicate_booking?
     if Booking.where(couch: self.couch, start_date: self.start_date, end_date: self.end_date, booking_status: 1).exists?
       errors.add(:start_date, "Sorry, the couch is already booked for the dates you requested")
+    end
+  end
+
+  def duplicate_request?
+    if Booking.where(user: self.user, couch: self.couch, start_date: self.start_date, end_date: self.end_date, booking_status: 0 || 2).exists?
+      errors.add(:start_date, "Sorry, you already sent a request to this host for the same dates")
     end
   end
 
