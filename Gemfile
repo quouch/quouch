@@ -34,6 +34,9 @@ gem 'jbuilder'
 # Let's you write Ruby Cron Tasks in ruby code
 gem 'whenever', require: false
 
+# Search
+gem 'pg_search'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 

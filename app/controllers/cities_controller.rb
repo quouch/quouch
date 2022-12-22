@@ -1,6 +1,10 @@
 class CitiesController < ApplicationController
   def index
-    @cities = City.all
+    if params[:query].present?
+			@cities = City.where("name ILIKE ?", "%#{params[:query]}%")
+		else
+			@cities = City.all
+		end
   end
 
 	def show
