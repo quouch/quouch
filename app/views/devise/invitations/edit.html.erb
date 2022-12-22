@@ -1,0 +1,38 @@
+<h2><%= t "devise.invitations.edit.header" %></h2>
+
+<%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.hidden_field :invitation_token %>
+
+<div class="form-inputs">
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.input :first_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "first_name" }%>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "last_name" }%>
+    <%= f.input :email,
+                required: true,
+                autofocus: true,
+                input_html: { autocomplete: "email" }%>
+    <%= f.input :date_of_birth,
+                start_year: Date.today.year - 100,
+                end_year: Date.today.year,
+                required: true,
+                autofocus: true %>
+    <%= f.input :password,
+                required: true,
+                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                input_html: { autocomplete: "new-password" } %>
+    <%= f.input :password_confirmation,
+                required: true,
+                input_html: { autocomplete: "new-password" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Create profile' %>
+  </div>
+<% end %>
