@@ -7,7 +7,7 @@ class CouchesController < ApplicationController
     @couch = Couch.find(params[:id])
 		@user = User.find(@couch.user.id)
 		@couch.user = @user
-		@reviews = Review.where(id: params[:id])
+		@reviews = Review.where(couch_id: params[:id])
 		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @user.id)
   end
 end
