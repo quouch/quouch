@@ -9,7 +9,10 @@
 				<% end %>
 			</ul>
 	<% end %>
-	<%= f.input :description, label: "Write about your experience with #{@host.first_name}" %>
-	<%= f.input :rating, label: "Rate your experience with #{@host.first_name}" %>
+	<%= f.input :description, 
+							label: "Write about your experience with #{@host.first_name}" %>
+	<%= f.input :rating,
+							collection: 1..5,
+							label: "Rate your experience with #{@host.first_name}" %>
 	<%= f.submit "Submit Review", class: "" %>
 <% end %>
