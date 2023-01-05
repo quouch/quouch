@@ -9,7 +9,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :couch
   has_many :bookings, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
   has_many :messages
+  has_many :notifications, dependent: :destroy, as: :recipient
   has_many :chat_users
   has_many :chats, through: :chat_users
 
