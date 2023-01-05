@@ -24,7 +24,7 @@ class Booking < ApplicationRecord
   end
 
   def valid_dates?
-    if start_date > end_date
+    if start_date.after? end_date
       errors.add(:start_date, "Dates not valid")
     end
   end
@@ -48,11 +48,11 @@ class Booking < ApplicationRecord
   end
 
   def self.complete
-		completed_bookings = Booking.where(end_date: Date.today, booking_status: 1)
-		completed_bookings.update(booking_status: 3)
+		completed_bookings = Booking.where(end_date: ...Date.today, booking_status: 1)
+    completed_bookings.update(booking_status: 3)
     completed_bookings.each do |booking|
-      BookingMailer.with(booking: booking).booking_completed_host_email.deliver_now
       BookingMailer.with(booking: booking).booking_completed_guest_email.deliver_later
+      BookingMailer.with(booking: booking).booking_completed_host_email.deliver_later
     end
 	end
 

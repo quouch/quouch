@@ -1,6 +1,6 @@
 class BookingMailer < ApplicationMailer
 	before_action :set_booking_details
-	before_action :set_couch, only: %i[booking_completed_host_email, booking_completed_guest_email]
+	before_action :set_couch, only: %i[booking_completed_host_email booking_completed_guest_email]
 
 	default from: 'dev.quouch@gmail.com'
 
@@ -36,12 +36,13 @@ class BookingMailer < ApplicationMailer
 		mail(to: @host.email, subject: "Your guest #{@user.first_name.capitalize} updated the booking")
 	end
 
-	def booking_completed_host_email
-		mail(to: @host.email, subject: "#{@user.first_name.capitalize} stayed at your place - review now")
-	end
-	
 	def booking_completed_guest_email
 		mail(to: @user.email, subject: "You stayed at #{@host.first_name.capitalize}'s place - review now")
+	end
+
+	def booking_completed_host_email
+		p @host
+		mail(to: @host.email, subject: "#{@user.first_name.capitalize} stayed at your place - review now")
 	end
 
 	private
