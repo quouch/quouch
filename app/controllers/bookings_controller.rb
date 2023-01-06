@@ -63,16 +63,20 @@ class BookingsController < ApplicationController
 	end
 
 	def update
-		@booking.price_cents = @booking.end_date - @booking.start_date
-		if @booking.update(booking_params)
-			redirect_to booking_path(@booking)
-			case @booking.booking_status
-				when 'pending'
-					BookingMailer.with(booking: @booking).request_updated_email.deliver_later
-				when'confirmed'
-					BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
-			end
+		case @booking.booking_status
+			when 'pending'
+				@booking.update(booking_params)
+				BookingMailer.with(booking: @booking).request_updated_email.deliver_later
+			when'confirmed'
+				old_amount_nights = @booking.price_cents
+				@booking.update(booking_params)
+				new_amount_nights = (@booking.end_date - @booking.start_date).to_i
+				difference_nights = old_amount_nights - new_amount_nights
+				payment_or_refund?(difference_nights) if amount_nights_changed?(difference_nights, new_amount_nights, @booking)
+				raise
+				BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
 		end
+		redirect_to booking_path(@booking)
 	end
 
 	def cancel
@@ -132,5 +136,26 @@ class BookingsController < ApplicationController
 
 	def set_couch
 		@couch = Couch.find(params[:couch_id])
+	end
+
+	def amount_nights_changed?(difference_nights, new_amount_nights, booking)
+		if difference_nights != 0
+			booking.price_cents = new_amount_nights
+			booking.update(amount_cents: new_amount_nights * 100)
+		end
+	end
+
+	def payment_or_refund?(difference_nights)
+		if difference_nights.negative?
+			@booking.payment_status = 2
+			Stripe::Refund.create({
+				amount: difference_nights * 100,
+				# payment_intent: 
+			})
+		else
+			@booking.payment_status = 3
+			@booking.booking_status = 3
+			# new payment auftrag
+		end
 	end
 end
