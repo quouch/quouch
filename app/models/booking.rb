@@ -11,8 +11,8 @@ class Booking < ApplicationRecord
   validate :duplicate_booking?, on: :create
   validate :duplicate_request?, on: :create
 
-  enum booking_status: { pending: 0, confirmed: 1, declined: 2, completed: 3, cancelled: -1 }
-  enum payment_status: { awaiting: 0, paid: 1, pending_refund: 2, refunded: -1 }
+  enum booking_status: { pending: 0, confirmed: 1, declined: 2, pending_reconfirmation: 3, completed: 4, cancelled: -1 }
+  enum payment_status: { awaiting: 0, paid: 1, pending_refund: 2, awaiting_difference: 3, refunded: -1 }
 
   monetize :price_cents
   monetize :amount_cents
@@ -49,7 +49,7 @@ class Booking < ApplicationRecord
 
   def self.complete
 		completed_bookings = Booking.where(end_date: ...Date.today, booking_status: 1)
-    completed_bookings.update(booking_status: 3)
+    completed_bookings.update(booking_status: 4)
     completed_bookings.each do |booking|
       BookingMailer.with(booking: booking).booking_completed_guest_email.deliver_later
       BookingMailer.with(booking: booking).booking_completed_host_email.deliver_later

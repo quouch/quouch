@@ -46,11 +46,15 @@
 	<% end %>
 </ul>
 
-<% if @booking.booking_status == 'pending' %>
+<% if @booking.booking_status == 'pending' || 'pending_reconfirmation' %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
 <% elsif @booking.booking_status == 'confirmed' && @booking.payment_status == 'awaiting' %>
-	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment(@booking) %>
+	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment_url(@booking) %>
+<% elsif @booking.booking_status == 'confirmed' && @booking.payment_status == 'awaiting_difference' %>
+	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+	<%= link_to 'Pay difference now', new_booking_payment_url(@booking) %>
 <% elsif @booking.booking_status == 'confirmed' %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
