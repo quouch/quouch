@@ -2,11 +2,11 @@
 
 <% if @requests.any? %>
 	<% @requests.each do |request| %>
-		<% case request.booking_status %>
+		<% case request.status %>
 		<% when 'pending', 'confirmed' %>
 			<ul>
 				<li><%= request.user.first_name %></li>
-				<li><%= request.booking_status %></li>
+				<li><%= request.status %></li>
 				<li><%= request.start_date %> - <%= request.end_date %></li>
 				<li><%= request.number_travellers %></li>
 				<li><%= link_to 'See Details', request_booking_path(request) %></li>
@@ -14,7 +14,7 @@
 		<% when 'cancelled' %>
 			<ul>
 				<li><%= request.user.first_name %></li>
-				<li><%= request.booking_status %></li>
+				<li><%= request.status %></li>
 				<li>This request has been cancelled on <%= request.cancellation_date %>.</li>
 				<li><%= request.start_date %> - <%= request.end_date %></li>
 				<li><%= request.number_travellers %></li>
@@ -23,7 +23,7 @@
 		<% when 'completed' %>
 			<ul>
 				<li><%= request.user.first_name %></li>
-				<li><%= request.booking_status %></li>
+				<li><%= request.status %></li>
 				<li>You hosted <%= request.user.first_name %>.</li>
 				<li><%= request.start_date %> - <%= request.end_date %></li>
 				<li><%= request.number_travellers %></li>

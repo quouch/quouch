@@ -8,10 +8,7 @@
 <h3>Travel Details</h3>
 <ul>
 	<li>
-		Booking Status: <%= @booking.booking_status %>
-	</li>
-	<li>
-		Payment Status: <%= @booking.payment_status %>
+		Booking Status: <%= @booking.status %>
 	</li>
 	<li>
 		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
@@ -28,7 +25,7 @@
 </ul>
 
 <h3>Accomodation</h3>
-<% if @booking.payment_status == 'paid' %>
+<% if @payment %>
 <p> You can find your host at Luisenstr. 17, 10117 Berlin </p>
 <% end %>
 <ul>
@@ -46,16 +43,16 @@
 	<% end %>
 </ul>
 
-<% if @booking.booking_status == 'pending' || 'pending_reconfirmation' %>
+<% if @booking.status == 'pending' || 'pending_reconfirmation' %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.booking_status == 'confirmed' && @booking.payment_status == 'awaiting' %>
+<% elsif @booking.status == 'confirmed' && @booking.payment_status == 'awaiting' %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment_url(@booking) %>
-<% elsif @booking.booking_status == 'confirmed' && @booking.payment_status == 'awaiting_difference' %>
+<% elsif @booking.status == 'confirmed' && @booking.payment_status == 'awaiting_difference' %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= link_to 'Pay difference now', new_booking_payment_url(@booking) %>
-<% elsif @booking.booking_status == 'confirmed' %>
+<% elsif @booking.status == 'confirmed' %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
 <% end %>
