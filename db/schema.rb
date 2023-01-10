@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_123748) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_10_164649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,10 +42,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_123748) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "booking_payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "booking_id"
+    t.bigint "payment_id"
+    t.index ["booking_id"], name: "index_booking_payments_on_booking_id"
+    t.index ["payment_id"], name: "index_booking_payments_on_payment_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
-    t.integer "booking_status"
+    t.integer "status"
     t.date "booking_date"
     t.date "cancellation_date"
     t.bigint "couch_id", null: false
@@ -54,10 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_123748) do
     t.datetime "updated_at", null: false
     t.integer "number_travellers"
     t.text "message"
-    t.integer "price_cents", default: 0, null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.string "checkout_session_id"
-    t.integer "payment_status"
+    t.integer "nights", default: 0, null: false
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -128,6 +134,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_123748) do
     t.datetime "updated_at", null: false
     t.index ["read_at"], name: "index_notifications_on_read_at"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "checkout_session_id"
+    t.string "payment_intent"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.integer "operation"
   end
 
   create_table "reviews", force: :cascade do |t|

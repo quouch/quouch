@@ -2,7 +2,7 @@
   <div>
     <div>
       <h1>Checkout summary</h1>
-      <p>Booking of <strong><%= @nights %> nights at <%= @booking.couch.user.first_name %>'s place</strong> for <strong><%= humanized_money_with_symbol @booking.amount %></strong></p>
+      <p>Booking of <strong><%= @nights %> nights at <%= @booking.couch.user.first_name %>'s place</strong> for <strong><%= humanized_money_with_symbol @nights %></strong></p>
       <button id="pay">Pay</button>
       <script src="https://js.stripe.com/v3/"></script>
       <script>
@@ -10,7 +10,7 @@
         paymentButton.addEventListener('click', () => {
           const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
           stripe.redirectToCheckout({
-            sessionId: '<%= @booking.checkout_session_id %>'
+            sessionId: '<%= @payment.checkout_session_id %>'
           });
         });
       </script>
