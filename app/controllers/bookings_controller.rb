@@ -12,6 +12,7 @@ class BookingsController < ApplicationController
 
 	def show
 		@payment = @booking.payments.where(operation: 1)
+		@couch = @booking.couch
 	end
 
 	def new
@@ -22,7 +23,7 @@ class BookingsController < ApplicationController
 		@booking = Booking.new(booking_params)
     @booking.couch = @couch
     @booking.user = current_user
-		@booking.status = 0
+		@booking.pending!
 		@booking.booking_date = DateTime.now
 		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		if @booking.save
@@ -39,11 +40,10 @@ class BookingsController < ApplicationController
 	def update
 		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		@booking.update(booking_params)
-		case @booking.status
-		when 'pending'
+		if @booking.pending?
 			BookingMailer.with(booking: @booking).request_updated_email.deliver_later
-		when 'confirmed'
-			@booking.update(status: 0)
+		elsif @booking.confirmed?
+			@booking.pending!
 			BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
 		end
 		redirect_to booking_path(@booking)
@@ -51,7 +51,7 @@ class BookingsController < ApplicationController
 
 	def cancel
 		status_before_cancellation = @booking.status
-		@booking.status = -1
+		@booking.cancelled!
 		@booking.cancellation_date = DateTime.now
 		@canceller = current_user
 		if @booking.save
@@ -83,14 +83,14 @@ class BookingsController < ApplicationController
 	end
 
 	def accept
-    if @booking.update(status: 1)
+    if @booking.confirmed!
 			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 			redirect_to confirmed_booking_path(@booking)
 		end
   end
 
   def decline
-    if @booking.update(status: 2)
+    if @booking.declined!
 			BookingMailer.with(booking: @booking).booking_declined_email.deliver_later
 		end
   end
