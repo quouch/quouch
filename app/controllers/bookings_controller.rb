@@ -11,6 +11,7 @@ class BookingsController < ApplicationController
 	end
 
 	def show
+		@payment = @booking.payments.where(operation: 1)
 	end
 
 	def new
@@ -21,9 +22,9 @@ class BookingsController < ApplicationController
 		@booking = Booking.new(booking_params)
     @booking.couch = @couch
     @booking.user = current_user
-		@booking.booking_status = 0
-		@booking.payment_status = 0
+		@booking.status = 0
 		@booking.booking_date = DateTime.now
+		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		if @booking.save
       redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
@@ -32,66 +33,36 @@ class BookingsController < ApplicationController
     end
 	end
 
-	def pay
-		nights = (@booking.end_date - @booking.start_date).to_i
-		@booking.price_cents = nights
-		price = 100
-
-		session = Stripe::Checkout::Session.create(
-			payment_method_types: ['card'],
-
-			line_items: [{
-				price_data: {
-					currency: 'eur',
-					product_data: {
-						name: "Stay with #{@booking.couch.user.first_name}",
-					},
-					unit_amount: price,
-				},
-				quantity: nights,
-			}],
-			mode: 'payment',
-			success_url: booking_url(@booking),
-			cancel_url: bookings_url
-		)
-
-		@booking.update(checkout_session_id: session.id, amount_cents: price * nights)
-		redirect_to new_booking_payment_path(@booking)
-	end
-
 	def edit
 	end
 
 	def update
-		case @booking.booking_status
-			when 'pending'
-				@booking.update(booking_params)
-				BookingMailer.with(booking: @booking).request_updated_email.deliver_later
-			when'confirmed'
-				old_amount_nights = @booking.price_cents
-				@booking.update(booking_params)
-				new_amount_nights = (@booking.end_date - @booking.start_date).to_i
-				difference_nights = old_amount_nights - new_amount_nights
-				payment_or_refund?(difference_nights) if amount_nights_changed?(difference_nights, new_amount_nights, @booking)
-				raise
-				BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
+		@booking.nights = (@booking.end_date - @booking.start_date).to_i
+		@booking.update(booking_params)
+		case @booking.status
+		when 'pending'
+			BookingMailer.with(booking: @booking).request_updated_email.deliver_later
+		when 'confirmed'
+			@booking.update(status: 0)
+			BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
 		end
 		redirect_to booking_path(@booking)
 	end
 
 	def cancel
-		status_before_cancellation = @booking.booking_status
-		@booking.booking_status = -1
+		status_before_cancellation = @booking.status
+		@booking.status = -1
 		@booking.cancellation_date = DateTime.now
 		@canceller = current_user
-		if @booking.update
+		if @booking.save
 			if @canceller == @booking.user
 				redirect_to bookings_path
 				case status_before_cancellation
-					when 'pending'
-						BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-					when'confirmed'
-						BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
+				when 'pending'
+					BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
+				when'confirmed'
+					refund(@booking)
+					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
 				end
 			else
 				redirect_to requests_couch_bookings_path(@booking.couch)
@@ -112,17 +83,56 @@ class BookingsController < ApplicationController
 	end
 
 	def accept
-    if @booking.update(booking_status: 1)
+    if @booking.update(status: 1)
 			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 			redirect_to confirmed_booking_path(@booking)
 		end
   end
 
   def decline
-    if @booking.update(booking_status: 2)
+    if @booking.update(status: 2)
 			BookingMailer.with(booking: @booking).booking_declined_email.deliver_later
 		end
   end
+
+	def pay
+		customer = Stripe::Customer.create(
+			address: @booking.user.address,
+			email: @booking.user.email,
+			name: "#{@booking.user.first_name} #{@booking.user.last_name}"
+		)
+
+		setup = Stripe::SetupIntent.create({
+			payment_method_types: ['card'],
+			customer: customer.id,
+			metadata: {
+				booking: @booking.id,
+			},
+		})
+
+		session = Stripe::Checkout::Session.create(
+			payment_method_types: ['card'],
+			# line_items: [{
+			# 	price_data: {
+			# 		currency: 'eur',
+			# 		product_data: {
+			# 			name: "Stay with #{@booking.couch.user.first_name}",
+			# 		},
+			# 		unit_amount: 100,
+			# 	},
+			# 	quantity: @booking.nights,
+			# }],
+			customer: customer.id,
+			mode: 'setup',
+			setup_intent: setup,
+			success_url: booking_url(@booking),
+			cancel_url: bookings_url
+		)
+
+		@payment = Payment.create(checkout_session_id: session.id, amount_cents: @booking.nights * 100, operation: 1, status: 0)
+		BookingPayment.create(booking: @booking, payment: @payment)
+		redirect_to new_booking_payment_path(@booking)
+	end
 
 	private
 
@@ -136,26 +146,5 @@ class BookingsController < ApplicationController
 
 	def set_couch
 		@couch = Couch.find(params[:couch_id])
-	end
-
-	def amount_nights_changed?(difference_nights, new_amount_nights, booking)
-		if difference_nights != 0
-			booking.price_cents = new_amount_nights
-			booking.update(amount_cents: new_amount_nights * 100)
-		end
-	end
-
-	def payment_or_refund?(difference_nights)
-		if difference_nights.negative?
-			@booking.payment_status = 2
-			Stripe::Refund.create({
-				amount: difference_nights * 100,
-				# payment_intent: 
-			})
-		else
-			@booking.payment_status = 3
-			@booking.booking_status = 3
-			# new payment auftrag
-		end
 	end
 end
