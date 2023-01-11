@@ -25,7 +25,7 @@
 </ul>
 
 <h3>Accomodation</h3>
-<% if @payment %>
+<% if @payment.any? %>
 <p> You can find your host at Luisenstr. 17, 10117 Berlin </p>
 <% end %>
 <ul>
@@ -43,16 +43,15 @@
 	<% end %>
 </ul>
 
-<% if @booking.status == 'pending' || 'pending_reconfirmation' %>
+<% if @booking.pending? || @booking.pending_reconfirmation? %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status == 'confirmed' && @booking.payment_status == 'awaiting' %>
+<% elsif @booking.confirmed? && @booking.payments.empty? %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= link_to 'Pay now & Get access to your hosts address', new_booking_payment_url(@booking) %>
-<% elsif @booking.status == 'confirmed' && @booking.payment_status == 'awaiting_difference' %>
-	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
-	<%= link_to 'Pay difference now', new_booking_payment_url(@booking) %>
-<% elsif @booking.status == 'confirmed' %>
+<% elsif @booking.confirmed? %>
 	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
+<% elsif @booking.completed? %>
+	<%= link_to "Leave #{@couch.user.first_name} Review", new_couch_booking_review_path(@booking, @couch) %>
 <% end %>
