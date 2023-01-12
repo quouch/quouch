@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_10_164649) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_10_164649) do
     t.integer "number_travellers"
     t.text "message"
     t.integer "nights", default: 0, null: false
+    t.integer "request"
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

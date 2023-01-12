@@ -11,7 +11,8 @@
 	<% end %>
 	<%= f.input :start_date, label: 'When would you like to arrive?' %>
 	<%= f.input :end_date, label: 'When will you leave?' %>
-	<%= f.input :number_travellers, label: false, placeholder: 'For how many people?'%>
+	<%= f.input :number_travellers, label: false, placeholder: 'For how many people?' %>
+	<%= f.input :request, collection: Booking.requests %>
 	<%= f.input :message, label: 'Leave your possible future host a kind message' %>
 	<%= f.submit "Send Request", class: "" %>
 <% end %>
