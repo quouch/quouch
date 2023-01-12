@@ -2,8 +2,7 @@
 
 <% if @bookings.any? %>
 	<% @bookings.each do |booking| %>
-		<% case booking.status %>
-		<% when 'pending', 'confirmed' %>
+		<% if booking.pending? %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
@@ -12,17 +11,36 @@
 				<li><%= booking.number_travellers %></li>
 				<li><%= link_to 'See Details', booking_path(booking) %></li>
 			</ul>
-		<% when 'declined' %>
+		<% elsif booking.confirmed? %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.couch.user.city.name %></li>
+				<li><%= booking.status %></li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'See Details', booking_path(booking) %></li>
+				<li><%= link_to 'Pay now & get access to address', pay_booking_path(booking) %></li>
+			</ul>
+		<% elsif booking.pending_reconfirmation? %>
+			<ul>
+				<li><%= booking.couch.user.first_name %></li>
+				<li><%= booking.couch.user.city.name %></li>
+				<li><%= booking.status %></li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
+				<li><%= booking.number_travellers %></li>
+				<li><%= link_to 'See Details', booking_path(booking) %></li>
+			</ul>
+		<% elsif booking.declined? %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
 				<li><%= booking.status %></li>
 				<li>Booking has been declined - sorry!</li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
+				<li><%= booking.start_date %> - <%= booking.end_date %></li>
 				<li><%= booking.number_travellers %></li>
 				<li><%= link_to 'Browse other couches' %>
 			</ul>
-		<% when 'cancelled' %>
+		<% elsif booking.cancelled? %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>
@@ -32,7 +50,7 @@
 				<li><%= booking.number_travellers %></li>
 				<li><%= link_to 'Browse other couches' %>
 			</ul>
-		<% when 'completed' %>
+		<% elsif booking.completed? %>
 			<ul>
 				<li><%= booking.couch.user.first_name %></li>
 				<li><%= booking.couch.user.city.name %></li>

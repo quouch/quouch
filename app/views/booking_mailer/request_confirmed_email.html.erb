@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Your request at <%= @host.first_name.capitalize %>'s place has been confirmed!</h1>
+    <p><%= link_to 'Pay now', new_booking_payment_path(@booking) %> to finalize the booking and to get access to your hosts' address.</p>
+  </body>
+</html>

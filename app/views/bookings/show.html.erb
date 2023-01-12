@@ -25,6 +25,9 @@
 </ul>
 
 <h3>Accomodation</h3>
+<% if @payment.any? %>
+<p> You can find your host at Luisenstr. 17, 10117 Berlin </p>
+<% end %>
 <ul>
 	<% @booking.couch.facilities.each do |facility| %>
 		<% if facility.image.attached? %>
@@ -40,10 +43,15 @@
 	<% end %>
 </ul>
 
-<% if @booking.status == 'pending' %>
+<% if @booking.pending? || @booking.pending_reconfirmation? %>
 	<%= link_to 'Update Request', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status ==  'confirmed' %>
-		<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+<% elsif @booking.confirmed? && @booking.payments.empty? %>
+	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+	<%= link_to 'Pay now & Get access to your hosts address', pay_booking_path(@booking) %>
+<% elsif @booking.confirmed? %>
+	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
+<% elsif @booking.completed? %>
+	<%= link_to "Leave #{@couch.user.first_name} Review", new_couch_booking_review_path(@booking, @couch) %>
 <% end %>

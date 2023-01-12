@@ -4,9 +4,10 @@
 	<%= link_to 'Update profile', edit_user_registration_path(current_user) %>
 	<%= link_to 'Browse all cities', cities_path %>
 	<% if current_user.couch %>
-	<%= link_to 'My Bookings', bookings_path %>
+		<%= link_to 'My Bookings', bookings_path %>
 		<%= link_to 'My Requests', requests_couch_bookings_path(current_user.couch) %>
 	<% end %>
+	<%= link_to 'Invite a friend', new_user_invitation_path %>
 <% end %>
 
 <%= form_with url: cities_path, method: :get do %>
