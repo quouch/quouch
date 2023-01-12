@@ -102,29 +102,10 @@ class BookingsController < ApplicationController
 			name: "#{@booking.user.first_name} #{@booking.user.last_name}"
 		)
 
-		setup = Stripe::SetupIntent.create({
-			payment_method_types: ['card'],
-			customer: customer.id,
-			metadata: {
-				booking: @booking.id,
-			},
-		})
-
 		session = Stripe::Checkout::Session.create(
 			payment_method_types: ['card'],
-			# line_items: [{
-			# 	price_data: {
-			# 		currency: 'eur',
-			# 		product_data: {
-			# 			name: "Stay with #{@booking.couch.user.first_name}",
-			# 		},
-			# 		unit_amount: 100,
-			# 	},
-			# 	quantity: @booking.nights,
-			# }],
 			customer: customer.id,
 			mode: 'setup',
-			setup_intent: setup,
 			success_url: booking_url(@booking),
 			cancel_url: bookings_url
 		)
