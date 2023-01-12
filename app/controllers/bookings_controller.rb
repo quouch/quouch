@@ -11,6 +11,8 @@ class BookingsController < ApplicationController
 	end
 
 	def show
+		@payment = @booking.payments.where(operation: 1)
+		@couch = @booking.couch
 	end
 
 	def new
@@ -21,11 +23,12 @@ class BookingsController < ApplicationController
 		@booking = Booking.new(booking_params)
     @booking.couch = @couch
     @booking.user = current_user
-		@booking.status = 0
+		@booking.pending!
 		@booking.booking_date = DateTime.now
-		@booking.minimum_amount = @booking.end_date - @booking.start_date
-    if @booking.save
+		@booking.nights = (@booking.end_date - @booking.start_date).to_i
+		if @booking.save
       redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
+			BookingMailer.with(booking: @booking).new_request_email.deliver_later
     else
       render 'bookings/new'
     end
@@ -35,20 +38,36 @@ class BookingsController < ApplicationController
 	end
 
 	def update
-		@booking.minimum_amount = @booking.end_date - @booking.start_date
+		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		@booking.update(booking_params)
+		if @booking.pending?
+			BookingMailer.with(booking: @booking).request_updated_email.deliver_later
+		elsif @booking.confirmed?
+			@booking.pending!
+			BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
+		end
 		redirect_to booking_path(@booking)
 	end
 
 	def cancel
-		@booking.status = -1
+		status_before_cancellation = @booking.status
+		@booking.cancelled!
 		@booking.cancellation_date = DateTime.now
 		@canceller = current_user
-		@booking.save
-		if @canceller == @booking.user
-			redirect_to bookings_path
-		elsif @booking.update
-			redirect_to requests_couch_bookings_path(@booking.couch)
+		if @booking.save
+			if @canceller == @booking.user
+				redirect_to bookings_path
+				case status_before_cancellation
+				when 'pending'
+					BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
+				when'confirmed'
+					refund(@booking)
+					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
+				end
+			else
+				redirect_to requests_couch_bookings_path(@booking.couch)
+				BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
+			end
 		end
 	end
 
@@ -59,13 +78,42 @@ class BookingsController < ApplicationController
 		@host = @booking.couch.user
 	end
 
+	def confirmed
+		@guest = @booking.user
+	end
+
 	def accept
-    @booking.update(status: 1)
+    if @booking.confirmed!
+			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
+			redirect_to confirmed_booking_path(@booking)
+		end
   end
 
   def decline
-    @booking.update(status: 2)
+    if @booking.declined!
+			BookingMailer.with(booking: @booking).booking_declined_email.deliver_later
+		end
   end
+
+	def pay
+		customer = Stripe::Customer.create(
+			address: @booking.user.address,
+			email: @booking.user.email,
+			name: "#{@booking.user.first_name} #{@booking.user.last_name}"
+		)
+
+		session = Stripe::Checkout::Session.create(
+			payment_method_types: ['card'],
+			customer: customer.id,
+			mode: 'setup',
+			success_url: booking_url(@booking),
+			cancel_url: bookings_url
+		)
+
+		@payment = Payment.create(checkout_session_id: session.id, amount_cents: @booking.nights * 100, operation: 1, status: 0)
+		BookingPayment.create(booking: @booking, payment: @payment)
+		redirect_to new_booking_payment_path(@booking)
+	end
 
 	private
 

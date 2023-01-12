@@ -5,6 +5,7 @@ ruby '3.1.2'
 
 # Authentication
 gem 'devise'
+gem 'devise_invitable', '~> 2.0.0'
 
 # JS bundling
 gem 'vite_rails'
@@ -45,6 +46,13 @@ gem 'pg_search'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem 'bcrypt', '~> 3.1.7'
+
+# Integration of money gem - used for handling prices in DB
+gem 'money-rails', '~>1.12'
+
+# Payments
+gem 'stripe'
+gem 'stripe_event'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[ mingw mswin x64_mingw jruby ]
@@ -89,3 +97,5 @@ group :test do
   gem 'webdrivers'
 end
 
+
+gem "noticed", "~> 1.6"

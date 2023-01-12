@@ -15,11 +15,16 @@ Rails.application.routes.draw do
     member do
       get :show_request, as: 'request'
       get :sent
+      get :confirmed
+      get :pay
       patch :accept
       patch :decline
       patch :cancel
     end
+    resources :payments, only: %i[new]
   end
+
+  mount StripeEvent::Engine, at: '/update-payment'
 
   resources :cities, only: %i[index show]
 
@@ -28,6 +33,7 @@ Rails.application.routes.draw do
   end
 
   mount ActionCable.server => '/cable'
+
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
 end
