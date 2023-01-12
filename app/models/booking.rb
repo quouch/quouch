@@ -14,6 +14,7 @@ class Booking < ApplicationRecord
   validate :duplicate_request?, on: :create
 
   enum status: { pending: 0, confirmed: 1, declined: 2, pending_reconfirmation: 3, completed: 4, cancelled: -1 }
+  enum request: { host: 0, hangout: 1, cowork: 2 }
 
   def date_in_future?
     if Date.yesterday > start_date

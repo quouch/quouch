@@ -39,6 +39,21 @@
                 autofocus: true %>
     <%= f.input :offers_couch,
                 autofocus: true %>
+
+    <%= simple_fields_for :couch do |cf| %>
+      <%= cf.input :capacity,
+                   collection: 1..6,
+                   label: 'I can host:',
+                   autofocus: true %>
+      <p>My Couch comes with:</p>
+      <%= simple_fields_for :couch_facility do |cff| %>
+        <%= cff.collection_check_boxes :facility_ids,
+                                      Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
+                                      input_html: { multiple: true },
+                                      autofocus: true %>
+      <% end %>
+    <% end %>
+
     <%= f.input :offers_co_work,
                 autofocus: true %>
     <%= f.input :offers_hang_out,
@@ -59,20 +74,6 @@
                 label: 'When you live at my place, I appreciate..',
                 required: true,
                 autofocus: true %>
-
-    <%= simple_fields_for :couch do |cf| %>
-      <%= cf.input :capacity,
-                   collection: 1..6,
-                   label: 'I can host:',
-                   autofocus: true %>
-      <p>My Couch comes with:</p>
-      <%= simple_fields_for :couch_facility do |cff| %>
-        <%= cff.collection_check_boxes :facility_ids,
-                                      Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
-                                      input_html: { multiple: true },
-                                      autofocus: true %>
-      <% end %>
-    <% end %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
