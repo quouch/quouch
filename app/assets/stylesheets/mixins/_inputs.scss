@@ -1,0 +1,41 @@
+@mixin primary-button {
+	background-color: $primary;
+	color: white;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+@mixin secondary-button {}
+
+@mixin input-field {
+	@include input-text;
+
+	border: 0;
+	border-radius: $border-radius-small;
+	width: 300px;
+	padding: .7rem;
+	margin: .5rem 0;
+}
+
+@mixin date-input {
+	@include input-text;
+
+	border: 0;
+	border-radius: $border-radius-small;
+	background-color: $white;
+	padding: .7rem;
+	margin: .5rem 0;
+	width: calc(98% / 3);
+}
+
+.password {
+	display: flex;
+	flex-direction: column;
+	
+	span { @include caption; }
+}
+
+.user_date_of_birth {
+	display: flex;
+	justify-content: space-between;
+}

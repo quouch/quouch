@@ -3,7 +3,11 @@ h1 { @include header-1; }
 h2 { @include header-2; }
 h3 { @include header-3; }
 h4 { @include header-4; }
-h5 { @include header-5 };
+h5 { @include header-5; }
 
 // Body
 p { @include body-1; }
+
+a {
+	color: $secondary;
+}

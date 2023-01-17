@@ -1,6 +1,40 @@
 .signup {
+	&__header {
+		margin: 1rem auto;
+		text-align: center;
+	}
+
 	&__form {
-		width: 800px;
+		width: fit-content;
 		margin: 0 auto;
+
+		input { @include input-field; }
+	}
+	
+	&__input {
+		&-date {
+			@include date-input;
+		}
+	}
+
+	&__button {
+		input { @include primary-button; }
+
+		margin-top: 1rem auto;
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+	}
+	
+	&__terms {
+		@include caption;
+		
+		position: fixed;
+		bottom: 0;
+		width: 200px;
+		text-align: center;
+		margin: 2rem auto;
 	}
 }
