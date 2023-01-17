@@ -1,8 +1,12 @@
 // Graphical variables
-@import 'config/fonts';
 @import 'config/colors';
+@import 'config/base';
+@import 'config/fonts';
 @import 'config/typography';
 @import 'config/variables';
+
+// Mixins
+@import 'mixins/inputs';
 
 // External libraries
 // @import 'bootstrap/scss/bootstrap';

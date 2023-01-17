@@ -8,77 +8,85 @@ $headers-font: 'Outfit', 'sans-serif';
 // General
 
 body {
-    font-family: $body-font;
-    color: #000;
+	font-family: $body-font;
+	color: #000;
 }
 
 // Header mixins
 
 @mixin header-1 {
-    font-family: $headers-font;
-    font-size: 69px;
-    font-weight: 900;
-    line-height: 1.2;
-    text-transform: uppercase;
+	font-family: $headers-font;
+	font-size: 69px;
+	font-weight: 900;
+	line-height: 1.2;
+	text-transform: uppercase;
 }
 
 @mixin header-2 {
-    font-family: $headers-font;
-    font-size: 48px;
-    font-weight: 700;
-    line-height: 1.2;
-    text-transform: uppercase;
+	font-family: $headers-font;
+	color: $primary;
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 1.2;
+	text-transform: uppercase;
 }
 
 @mixin header-3 {
-    font-family: $headers-font;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.01;
+	font-family: $headers-font;
+	color: $primary;
+	font-size: 40px;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: 0.01;
 }
 
 @mixin header-4 {
-    font-family: $headers-font;
-    font-size: 23px;
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: 0.03;
+	font-family: $headers-font;
+	font-size: 23px;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: 0.03;
 }
 
 @mixin header-5 {
-    font-family: $headers-font;
-    font-size: 19px;
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+	font-family: $headers-font;
+	font-size: 19px;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
 }
 
 // Body mixins
 
 @mixin body-1 {
-    font-family: $body-font;
-    font-size: 16px;
-    letter-spacing: 0.03em;
+	font-family: $body-font;
+	font-size: 16px;
+	letter-spacing: 0.03em;
 }
 
 @mixin body-2 {
-    font-family: $body-font;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.03em;
+	font-family: $body-font;
+	font-size: 14px;
+	font-weight: 800;
+	letter-spacing: 0.03em;
 }
 
 @mixin body-3 {
-    font-family: $body-font;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+	font-family: $body-font;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.05em;
 }
 
 @mixin caption {
-    font-family: $body-font;
-    font-size: 12px;
-    letter-spacing: 0.06em;
+	font-family: $body-font;
+	font-size: 12px;
+	letter-spacing: 0.06em;
+}
+
+@mixin input-text {
+	font-family: $body-font;
+	font-size: 12px;
+	color: $gray-05;
 }
