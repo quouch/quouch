@@ -20,15 +20,16 @@ body {
 	font-weight: 900;
 	line-height: 1.2;
 	text-transform: uppercase;
+	color: $primary;
 }
 
 @mixin header-2 {
 	font-family: $headers-font;
-	color: $primary;
 	font-size: 48px;
 	font-weight: 700;
 	line-height: 1.2;
 	text-transform: uppercase;
+	color: $primary;
 }
 
 @mixin header-3 {
@@ -38,6 +39,7 @@ body {
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: 0.01;
+	color: $primary;
 }
 
 @mixin header-4 {
