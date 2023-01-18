@@ -1,0 +1,8 @@
+@mixin logo {
+	font-family: $headers-font;
+	font-size: 28px;
+	font-weight: 900;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: $primary;
+}
