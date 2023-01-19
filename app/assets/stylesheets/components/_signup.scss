@@ -14,6 +14,14 @@
 		color: $gray-05;
 	}
 
+	&__wrap {
+		display: flex;
+		width: 400px;
+		justify-content: center;
+		flex-direction: column;
+		margin: 0 auto;
+	}
+
 	&__title {
 		margin: 1rem auto;
 		text-align: center;
@@ -46,8 +54,8 @@
 	&__terms {
 		@include caption;
 		
-		position: fixed;
-		bottom: 0;
+		// position: fixed;
+		// bottom: 0;
 		width: 200px;
 		text-align: center;
 		margin: 2rem auto;
