@@ -1,5 +1,5 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&family=Outfit:wght@600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&family=Outfit:wght@300;600;700;900&display=swap');
 
 // Define fonts for body and headers
 $body-font: 'Mulish', 'sans-serif';
@@ -14,16 +14,17 @@ body {
 
 // Header mixins
 
-@mixin header-1 {
+@mixin title-1 {
 	font-family: $headers-font;
 	font-size: 69px;
 	font-weight: 900;
 	line-height: 1.2;
 	text-transform: uppercase;
 	color: $primary;
+	text-align: center;
 }
 
-@mixin header-2 {
+@mixin title-2 {
 	font-family: $headers-font;
 	font-size: 48px;
 	font-weight: 700;
@@ -32,7 +33,7 @@ body {
 	color: $primary;
 }
 
-@mixin header-3 {
+@mixin title-3 {
 	font-family: $headers-font;
 	color: $primary;
 	font-size: 40px;
@@ -42,7 +43,7 @@ body {
 	color: $primary;
 }
 
-@mixin header-4 {
+@mixin title-4 {
 	font-family: $headers-font;
 	font-size: 23px;
 	font-weight: 600;
@@ -50,7 +51,7 @@ body {
 	letter-spacing: 0.03;
 }
 
-@mixin header-5 {
+@mixin title-5 {
 	font-family: $headers-font;
 	font-size: 19px;
 	font-weight: 600;
@@ -91,4 +92,18 @@ body {
 	font-family: $body-font;
 	font-size: 12px;
 	color: $gray-05;
+}
+
+@mixin profile-title {
+	color: $gray-03;
+	font-size: 20;
+	font-weight: 700;
+}
+
+@mixin nav-title {
+	font-family: $headers-font;
+	font-weight: 300;
+	text-transform: uppercase;
+
+	a { color: $primary; }
 }
