@@ -1,27 +1,56 @@
-<h1>Hosts in <%= @city.name %></h1>
+<%= render "shared/header" %>
 
-<ul>
-<% @hosts.where.not(id: current_user).each do |host| %>
-	<li><%= link_to "#{host.first_name}", couch_path(host.couch.id) %></li>
-	<li><%= host.pronouns %></li>
-	<li><%= host.calculated_age %></li>
-	<% if host.offers_couch %>
-		<li>
-			<%= image_tag('icons/sleep.svg') %>
-			<p>couch</p>
+<h1 class="city__title">Hosts in <%= @city.name %></h1>
+
+<ul class="city__list">
+	<% @hosts.where.not(id: current_user).each do |host| %>
+		<li class="city__host">
+			<div class="host">
+				<%= image_tag('profile.jpg', class: 'host__gallery') %>
+				<div class="host__wrap">
+					<ul class="host__info">
+						<li class="host__name"><%= link_to "#{host.first_name}", couch_path(host.couch.id) %></li>
+						<div class="host__characteristics">
+							<li><%= host.pronouns %></li>
+							<li><%= host.calculated_age %></li>
+						</div>
+					</ul>
+					<ul class="host__offers">
+						<% if host.offers_couch %>
+							<li class="host__offers-item">
+								<%= image_tag('icons/sleep.svg') %>
+								<p>couch</p>
+							</li>
+						<% end %>
+						<% if host.offers_hang_out %>
+							<li class="host__offers-item">
+								<%= image_tag('icons/hangout.svg') %>
+								<p>hangout</p>
+							</li>
+						<% end %>
+						<% if host.offers_co_work %>
+							<li class="host__offers-item">
+								<%= image_tag('icons/work.svg') %>
+								<p>co-work</p>
+							</li>
+						<% end %>
+					</ul>
+					
+					<div class="host__intro">
+						<h2 class="host__intro-title">Introduction</h2>
+						<p><%= host.summary %></p>
+					</div>
+
+					<div class="host__acoomodation">
+						<h2 class="host__accomodation-title">Accomodation</h2>
+						<ul class="host__accomodation-list">
+							<% host.couch.facilities.each do |facility| %>
+								<li><%= facility.name %></li>
+							<% end %>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</li>
 	<% end %>
-	<% if host.offers_hang_out %>
-		<li>
-			<%= image_tag('icons/hangout.svg') %>
-			<p>hangout</p>
-		</li>
-	<% end %>
-	<% if host.offers_co_work %>
-		<li>
-			<%= image_tag('icons/work.svg') %>
-			<p>co-work</p>
-		</li>
-	<% end %>
-<% end %>
 </ul>

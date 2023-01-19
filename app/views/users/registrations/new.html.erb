@@ -4,55 +4,59 @@
     <aside class="signup__note">Already have an account? <a href="/users/sign_in">Sign in</a></aside>
   </header>
 
-  <section class="signup__form">
+  <div class="signup__wrap">
     <h2 class="signup__title">Sign up</h2>
+    <section class="signup__form">
 
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>
 
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <%= f.input :first_name,
-                  label: false,
-                  required: true,
-                  autofocus: true,
-                  placeholder: 'First Name',
-                  input_html: { autocomplete: "first_name" } %>
-      <%= f.input :last_name,
-                  label: false,
-                  required: true,
-                  autofocus: true,
-                  placeholder: 'Last Name',
-                  input_html: { autocomplete: "last_name" } %>
-      <%= f.input :email,
-                  label: false,
-                  required: true,
-                  autofocus: true,
-                  placeholder: 'Email Address',
-                  input_html: { autocomplete: "email" } %>
-      <%= f.input :date_of_birth,
-                  label: false,
-                  # hint: 'Date of Birth',
-                  start_year: Date.today.year - 100,
-                  end_year: Date.today.year,
-                  required: true,
-                  autofocus: true,
-                  input_html: { class: "signup__input-date" }%>
-      <%= f.input :password,
-                  label: false,
-                  required: true,
-                  placeholder: 'Password',
-                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  label: false,
-                  required: true,
-                  placeholder: 'Confirm Password',
-                  input_html: { autocomplete: "new-password" } %>
-    <div class="signup__button">
-      <%= f.button :submit, "Sign up" %>
-    </div>
-  <% end %>
-  </section>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <%= f.input :first_name,
+                    label: false,
+                    required: true,
+                    autofocus: true,
+                    placeholder: 'First Name',
+                    input_html: { autocomplete: "first_name" } %>
+        <%= f.input :last_name,
+                    label: false,
+                    required: true,
+                    autofocus: true,
+                    placeholder: 'Last Name',
+                    input_html: { autocomplete: "last_name" } %>
+        <%= f.input :email,
+                    label: false,
+                    required: true,
+                    autofocus: true,
+                    placeholder: 'Email Address',
+                    input_html: { autocomplete: "email" } %>
+        <%= f.input :date_of_birth,
+                    label: false,
+                    # hint: 'Date of Birth',
+                    start_year: Date.today.year - 100,
+                    end_year: Date.today.year,
+                    required: true,
+                    autofocus: true,
+                    input_html: { class: "signup__input-date" }%>
+        <%= f.input :password,
+                    label: false,
+                    required: true,
+                    placeholder: 'Password',
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    label: false,
+                    required: true,
+                    placeholder: 'Confirm Password',
+                    input_html: { autocomplete: "new-password" } %>
+      <div class="signup__button">
+        <%= f.button :submit, "Sign up" %>
+      </div>
+    <% end %>
+    </section>
+  </div>
   <footer class="signup__footer">
-    <aside class="signup__terms">By creating your account, you agree to our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a></aside>
+    <aside class="signup__terms">
+      By creating your account, you agree to our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>
+    </aside>
   </footer>
 </div>
