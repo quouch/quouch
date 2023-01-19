@@ -14,5 +14,12 @@
 @import 'font-awesome';
 
 // Your CSS partials
+@import 'components/city';
 @import 'components/header';
+@import 'components/home';
+@import 'components/host';
+@import 'components/signin';
 @import 'components/signup';
+
+@import 'partials/search';
+@import 'partials/navigation';

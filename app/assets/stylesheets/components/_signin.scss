@@ -1,0 +1,46 @@
+.signin {
+
+	&__title {
+		margin: 2rem auto;
+		text-align: center;
+	}
+
+	&__subtitle {
+		@include title-4;
+
+		text-align: center;
+		margin-bottom: 7rem;
+	}
+
+	&__wrap {
+		display: flex;
+		width: 400px;
+		justify-content: center;
+		flex-direction: column;
+		margin: 0 auto;
+	}
+
+	&__form {
+		margin: 0 auto;
+
+		input { @include input-field; }
+	}
+
+	&__button {
+		input { @include primary-button; }
+
+		margin-top: 1rem auto;
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+	}
+	
+	&__links {
+		@include caption;
+		
+		text-align: center;
+		margin: 2rem auto;
+	}
+}
