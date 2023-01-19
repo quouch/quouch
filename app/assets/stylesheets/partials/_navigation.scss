@@ -1,0 +1,10 @@
+.navigation {
+	flex-grow: 2;
+	
+	&__list {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	&__link { @include nav-title; }
+}

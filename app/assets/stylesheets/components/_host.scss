@@ -1,0 +1,68 @@
+.host {
+	display: grid;
+	grid-template-columns: 50% 50%;
+
+	&__wrap {
+		grid-column: 2;
+
+		display: grid;
+		grid-template-rows: min-content;
+		padding: 2rem;
+	}
+
+	&__info {
+		grid-row: 1;
+	}
+
+	&__gallery {
+		grid-column: 1;
+		width: 100%;
+	}
+
+	&__name {
+		@include title-3;
+
+		text-align: center;
+		color: $black;
+	}
+
+	&__characteristics {
+		@include body-2;
+		
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		color: $gray-05;
+	}
+
+	&__offers {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		grid-row: 2;
+
+		&-item {
+			display: flex;
+			gap: .2rem;
+			color: $primary;
+
+			img { color: $primary; }
+		}
+	}
+
+	&__intro {
+		grid-row: 3;
+
+		&-title { @include profile-title; }
+	}
+
+	&__accomodation {
+		grid-row: 4;
+
+		&-title {
+			@include profile-title;
+		}
+
+		&-list {}
+	}
+}
