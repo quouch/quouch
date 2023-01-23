@@ -4,13 +4,18 @@
 	border: .2px solid $primary;
 	border-radius: $border-radius-medium;
 	margin: 2rem;
+	height: 500px;
 
 	&__wrap {
 		grid-column: 2;
 
 		display: grid;
 		grid-template-rows: min-content;
+		row-gap: 1rem;
 		padding: 2rem;
+		overflow-y: scroll;
+		scrollbar-color: $primary-transparent $primary-transparent;
+		scrollbar-width: thin;
 	}
 	
 	&__info {
@@ -74,6 +79,26 @@
 			@include profile-title;
 		}
 
-		&-list {}
+		&-list {
+			@include facility-name;
+
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			row-gap: .5rem;
+
+			li {
+				display: flex;
+				align-items: center;
+				
+				img { margin-right: .5rem; }
+			}
+
+		}
+	}
+
+	&__location {
+		grid-row: 5;
+
+		&-title { @include profile-title; }
 	}
 }
