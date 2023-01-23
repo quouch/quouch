@@ -1,6 +1,9 @@
 .host {
 	display: grid;
 	grid-template-columns: 50% 50%;
+	border: .2px solid $primary;
+	border-radius: $border-radius-medium;
+	margin: 2rem;
 
 	&__wrap {
 		grid-column: 2;
@@ -9,14 +12,21 @@
 		grid-template-rows: min-content;
 		padding: 2rem;
 	}
-
+	
 	&__info {
 		grid-row: 1;
+		margin-bottom: 2rem;
 	}
 
 	&__gallery {
 		grid-column: 1;
 		width: 100%;
+		border-top-left-radius: $border-radius-medium;
+		border-bottom-left-radius: $border-radius-medium;
+		background-size: cover;
+		background-position: center;
+		object-fit: cover;
+		height: 100%;
 	}
 
 	&__name {
@@ -40,6 +50,7 @@
 		align-items: center;
 		gap: 1rem;
 		grid-row: 2;
+		margin-bottom: 2rem;
 
 		&-item {
 			display: flex;

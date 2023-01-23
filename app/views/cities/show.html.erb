@@ -9,7 +9,7 @@
 				<%= image_tag('profile.jpg', class: 'host__gallery') %>
 				<div class="host__wrap">
 					<ul class="host__info">
-						<li class="host__name"><%= link_to "#{host.first_name}", couch_path(host.couch.id) %></li>
+						<li class="host__name"><%= host.first_name %></li>
 						<div class="host__characteristics">
 							<li><%= host.pronouns %></li>
 							<li><%= host.calculated_age %></li>
