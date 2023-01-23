@@ -5,6 +5,7 @@
 <ul class="city__list">
 	<% @hosts.where.not(id: current_user).each do |host| %>
 		<li class="city__host">
+		
 			<div class="host">
 				<%= image_tag('profile.jpg', class: 'host__gallery') %>
 				<div class="host__wrap">
@@ -45,9 +46,16 @@
 						<h2 class="host__accomodation-title">Accomodation</h2>
 						<ul class="host__accomodation-list">
 							<% host.couch.facilities.each do |facility| %>
-								<li><%= facility.name %></li>
+								<li>
+									<%= image_tag(facility.image) %>
+									<%= facility.name %>
+								</li>
 							<% end %>
 						</ul>
+					</div>
+
+					<div class="host__location">
+						<h2 class="host__location-title">Location</h2>
 					</div>
 				</div>
 			</div>
