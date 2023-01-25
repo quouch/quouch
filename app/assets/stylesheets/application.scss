@@ -11,6 +11,8 @@
 // External libraries
 // @import 'bootstrap/scss/bootstrap';
 @import 'font-awesome';
+@import "flatpickr/dist/flatpickr.css";
+@import "flatpickr/dist/themes/material_orange";
 
 // Your CSS partials
 @import 'components/city';
