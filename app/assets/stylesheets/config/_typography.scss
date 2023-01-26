@@ -9,7 +9,7 @@ $headers-font: 'Outfit', 'sans-serif';
 
 @mixin title-1 {
 	font-family: $headers-font;
-	font-size: 69px;
+	font-size: 2.8rem;
 	font-weight: 900;
 	line-height: 1.2;
 	text-transform: uppercase;
@@ -20,7 +20,7 @@ $headers-font: 'Outfit', 'sans-serif';
 
 @mixin title-2 {
 	font-family: $headers-font;
-	font-size: 48px;
+	font-size: 40px;
 	font-weight: 700;
 	line-height: 1.2;
 	text-transform: uppercase;
@@ -30,7 +30,7 @@ $headers-font: 'Outfit', 'sans-serif';
 @mixin title-3 {
 	font-family: $headers-font;
 	color: $primary;
-	font-size: 40px;
+	font-size: 36px;
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: 0.01;
