@@ -1,5 +1,3 @@
-<%= render "shared/header" %>
-
 <h1 class="city__title">Hosts in <%= @city.name %></h1>
 
 <ul class="city__list">
@@ -60,5 +58,6 @@
 				</div>
 			</div>
 		</li>
+		<%= link_to 'Send Request', new_couch_booking_path(host.couch) %>
 	<% end %>
 </ul>
