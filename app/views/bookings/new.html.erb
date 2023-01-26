@@ -1,5 +1,5 @@
 <div class="booking-form__wrap">
-	<section class="city__host">
+	<section>
 		<div class="host">
 			<%= image_tag('profile.jpg', class: 'host__gallery') %>
 			<div class="host__wrap">
@@ -36,7 +36,7 @@
 					<p><%= @host.summary %></p>
 				</div>
 
-				<div class="host__acoomodation">
+				<div class="host__accomodation">
 					<h2 class="host__accomodation-title">Accomodation</h2>
 					<ul class="host__accomodation-list">
 						<% @host.couch.facilities.each do |facility| %>
