@@ -4,6 +4,10 @@
 	&__list {
 		display: flex;
 		justify-content: space-around;
+
+		@media (max-width: $break-medium) {
+			display: none;
+		}
 	}
 
 	&__link { @include nav-title; }
