@@ -7,10 +7,10 @@ export default class extends Controller {
 
   connect() {
     flatpickr(this.startTimeTarget, {
-      altInput: true
+      dateFormat: "d.m.y"
     })
     flatpickr(this.endTimeTarget, {
-      altInput: true
+      dateFormat: "d.m.y"
     })
   }
 }
