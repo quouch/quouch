@@ -5,7 +5,14 @@
 		<li class="city__host">
 		
 			<div class="host">
-				<%= image_tag('profile.jpg', class: 'host__gallery') %>
+				<div>
+					<%= image_tag('profile.jpg', class: 'host__gallery') %>
+					<div class="chat-icon__wrap">
+						<%= link_to new_couch_booking_path(host.couch) do %>
+							<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+						<% end %>
+					</div>
+				</div>
 				<div class="host__wrap">
 					<ul class="host__info">
 						<li class="host__name"><%= host.first_name %></li>
@@ -40,7 +47,7 @@
 						<p><%= host.summary %></p>
 					</div>
 
-					<div class="host__acoomodation">
+					<div class="host__accomodation">
 						<h2 class="host__accomodation-title">Accomodation</h2>
 						<ul class="host__accomodation-list">
 							<% host.couch.facilities.each do |facility| %>
@@ -58,6 +65,6 @@
 				</div>
 			</div>
 		</li>
-		<%= link_to 'Send Request', new_couch_booking_path(host.couch) %>
+
 	<% end %>
 </ul>
