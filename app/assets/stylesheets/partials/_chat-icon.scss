@@ -1,0 +1,19 @@
+.chat-icon {
+	&__wrap {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 5rem;
+		width: 5rem;
+		border-radius: 100%;
+		background-color: $white;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		position: relative;
+		top: -100px;
+		left: calc(100% - 60%);
+	}
+
+	height: 3rem;
+	width: 3rem;
+	padding: 1rem;
+}
