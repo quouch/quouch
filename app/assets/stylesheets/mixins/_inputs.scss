@@ -1,18 +1,27 @@
 @mixin primary-button {
+	@include body-3;
+
 	background-color: $primary;
 	color: white;
 	text-transform: uppercase;
 	width: 100%;
+	font-size: 16px;
 }
 
 @mixin secondary-button {}
+
+@mixin tertiarty-button {
+	@include body-3;
+	color: $primary;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
 
 @mixin input-field {
 	@include input-text;
 
 	border: 0;
 	border-radius: $border-radius-small;
-	width: 300px;
 	padding: .7rem;
 	margin: .5rem 0;
 }

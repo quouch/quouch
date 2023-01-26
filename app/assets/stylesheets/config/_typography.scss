@@ -15,6 +15,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	text-transform: uppercase;
 	color: $primary;
 	text-align: center;
+	margin: 2rem 0;
 }
 
 @mixin title-2 {
@@ -42,6 +43,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	font-weight: 600;
 	line-height: 1.3;
 	letter-spacing: 0.03;
+	margin: 1rem auto;
 }
 
 @mixin title-5 {
@@ -51,6 +53,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	line-height: 1.4;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
+	margin: 1rem auto;
 }
 
 // Body mixins
