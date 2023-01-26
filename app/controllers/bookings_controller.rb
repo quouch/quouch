@@ -17,6 +17,7 @@ class BookingsController < ApplicationController
 
 	def new
 		@booking = Booking.new
+		@host = @couch.user
 	end
 
 	def create
