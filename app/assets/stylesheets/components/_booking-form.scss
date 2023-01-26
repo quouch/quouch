@@ -1,0 +1,133 @@
+.booking-form {
+	margin: 0 auto;
+	padding: 3rem;
+	background-color: $white;
+	border-radius: $border-radius-large;
+	text-align: center;
+	max-width: 300px;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	
+	&__wrap {
+		width: 80%;
+		margin: 2rem auto;
+		
+		@media (min-width: $break-medium) {
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			align-items: center;
+		}
+	}
+
+	&__type {
+		> label { @include title-5; }
+
+		margin-bottom: 2rem;
+
+		.booking_request {
+			display: flex;
+			flex-direction: column;
+			color: $gray-05;
+			align-items: flex-start;
+			margin: 1rem auto;
+			width: fit-content;
+
+			input {
+				margin-right: 1rem;
+				color: $primary;
+			}
+		}
+	}
+
+	&__details {
+		margin: 2rem auto;
+
+		&__header {
+			@include title-5;
+			display: block;
+		}
+
+		&__wrap {
+			margin: 0 auto;
+			width: fit-content;
+		}
+	}
+
+	&__dates {
+		display: flex;
+		gap: .5rem;
+	}
+
+	&__travellers {
+		display: flex;
+		align-items: center;
+
+		input { 
+			@include input-field;
+
+			border: 1px solid $gray-02;
+			width: 6em;
+		}
+
+		img {
+			width: 24px;
+			height: 24px;
+			margin-right: 1rem;
+		}
+	}
+
+	.booking_number_travellers {
+		> input {
+			margin-top: auto;
+
+			width: 3rem;
+		}
+	}
+
+	.booking_message {
+		> label { @include title-5; }
+
+		display: flex;
+		flex-direction: column;
+		margin: 1rem auto;
+		
+		textarea {
+			border-radius: $border-radius-small;
+			border: 1px solid $gray-02;
+			padding: .5rem;
+		}
+	}
+	
+	&__action {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+
+		a { @include tertiarty-button; }
+	}
+
+	&__button {
+		@include input-field;
+		@include primary-button;
+	}
+
+}
+
+.date {
+	&-input {
+		display: flex;
+		align-items: center;
+		
+		input {
+			@include input-field;
+
+			border: 1px solid $gray-02;
+			width: 6em;
+		}
+		
+		img {
+			width: 24px;
+			height: 24px;
+			margin-right: 1rem;
+		}
+	}
+}

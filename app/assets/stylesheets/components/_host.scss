@@ -1,10 +1,10 @@
 .host {
 	display: grid;
 	grid-template-columns: 50% 50%;
-	border: .2px solid $primary;
 	border-radius: $border-radius-medium;
 	margin: 2rem;
-	height: 500px;
+	height: 30em;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
 	&__wrap {
 		grid-column: 2;
@@ -12,10 +12,12 @@
 		display: grid;
 		grid-template-rows: min-content;
 		row-gap: 1rem;
+		border-radius: $border-radius-medium;
 		padding: 2rem;
 		overflow-y: scroll;
 		scrollbar-color: $primary-transparent $primary-transparent;
 		scrollbar-width: thin;
+		background-color: $white;
 	}
 	
 	&__info {
@@ -53,6 +55,7 @@
 	&__offers {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		gap: 1rem;
 		grid-row: 2;
 		margin-bottom: 2rem;
