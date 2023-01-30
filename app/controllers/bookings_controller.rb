@@ -3,11 +3,14 @@ class BookingsController < ApplicationController
 	before_action :set_couch, only: %i[new create]
 
 	def index
-		@bookings = Booking.all.where(user: current_user)
+		@bookings = Booking.where(user: current_user)
+		@upcoming = Booking.where(user: current_user, status: 1 || 0 || 3).order(:start_date)
+		@cancelled = Booking.where(user: current_user, status: -1 || 2)
+		@completed = Booking.where(user: current_user, status: 4)
 	end
 
 	def requests
-		@requests = Booking.all.select { |booking| booking.couch.user == current_user }
+		@requests = Booking.select { |booking| booking.couch.user == current_user }
 	end
 
 	def show
