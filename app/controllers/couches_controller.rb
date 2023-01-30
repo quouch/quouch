@@ -1,6 +1,17 @@
 class CouchesController < ApplicationController
 	def index
-		@couches = Couch.all
+		if params[:query].present?
+			@city = City.find_by("name ILIKE ?", "%#{params[:query]}%")
+			@users = User.where(city: @city)
+			@couches = []
+
+			@users.each do |user| 
+				@couch = user.couch
+				@couches << @couch
+			end
+		else
+			@couches = Couch.all
+		end
 	end
 
 	def show

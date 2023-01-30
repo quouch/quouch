@@ -1,9 +1,9 @@
 <div class="home__wrap">
 	<section>
-		<%= form_with url: cities_path, class: 'search', method: :get do %>
+		<%= form_with url: couches_path, class: 'search', method: :get do %>
 			<%= text_field_tag :query,
 				params[:query],
-				placeholder: "Find a city"
+				placeholder: "Find hosts in city"
 			%>
 			<%= submit_tag "Search", class: 'search__button' %>
 		<% end %>
