@@ -2,6 +2,7 @@
 	display: flex;
 	justify-content: center;
 	gap: .5rem;
+	margin: 2rem auto;
 
 	input:first-child { @include input-field; }
 
