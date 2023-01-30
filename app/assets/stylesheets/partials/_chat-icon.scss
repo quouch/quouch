@@ -7,7 +7,7 @@
 		width: 5rem;
 		border-radius: 100%;
 		background-color: $white;
-		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+		box-shadow: $box-shadow;
 		position: relative;
 		top: -100px;
 		left: calc(100% - 60%);
