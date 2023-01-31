@@ -15,16 +15,20 @@
 @import "flatpickr/dist/themes/material_orange";
 
 // Your CSS partials
+@import 'components/booking';
 @import 'components/bookings';
 @import 'components/city';
-@import 'components/header';
+@import 'components/couches';
 @import 'components/home';
 @import 'components/host';
 @import 'components/signin';
 @import 'components/signup';
 @import 'components/booking-form';
 
+@import 'partials/chat-icon';
+@import 'partials/header';
+@import 'partials/footer';
 @import 'partials/search';
 @import 'partials/navigation';
-@import 'partials/footer';
-@import 'partials/chat-icon';
+
+@import 'pages/impressum';
