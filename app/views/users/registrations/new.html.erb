@@ -1,11 +1,7 @@
 <div class="signup">
-  <header class="signup__header">
-    <aside class="signup__logo">Q</aside>
-    <aside class="signup__note">Already have an account? <a href="/users/sign_in">Sign in</a></aside>
-  </header>
-
   <div class="signup__wrap">
-    <h2 class="signup__title">Sign up</h2>
+    <h1 class="signup__title">Quouch</h1>
+    <p class="signup__subtitle">Become a Quouchee now!</p>
     <section class="signup__form">
 
       <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), data: {turbo: false}) do |f| %>

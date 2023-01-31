@@ -1,26 +1,20 @@
 .signup {
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 1rem;
+
+	&__wrap {
+		width: 320px;
+		margin: 0 auto;
 	}
 
-	&__logo { @include logo; }
+	&__subtitle {
+		@include title-4;
 
-	&__note {
-		@include caption;
-
-		color: $gray-05;
-	}
-
-	&__title {
-		margin: 1rem auto;
+		margin: 0 auto 2rem;
 		text-align: center;
+		color: $primary;
 	}
 
 	&__form {
-		width: fit-content;
+		width: 100%;
 		margin: 0 auto;
 
 		input { @include input-field; }
@@ -45,12 +39,15 @@
 	
 	&__terms {
 		@include caption;
-		
-		// position: fixed;
-		// bottom: 0;
+
 		width: 200px;
 		text-align: center;
 		margin: 2rem auto;
 		color: $gray-05;
+	}
+
+	.user_first_name, .user_last_name, .user_email {
+		display: flex;
+		flex-direction: column;
 	}
 }
