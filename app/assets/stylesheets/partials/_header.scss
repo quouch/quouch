@@ -12,4 +12,10 @@
         width: 40px;
         height: 40px;
     }
+
+    &__note {
+		@include caption;
+
+		color: $gray-05;
+	}
 }
