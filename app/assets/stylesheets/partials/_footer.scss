@@ -1,1 +1,53 @@
-.footer {}
+.footer {
+	background-color: $primary-transparent;
+	padding: 4rem 0;
+	margin-top: 4rem;
+	
+	&__wrap {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 70vw;
+		margin: 0 auto;
+
+		@media (min-width: $break-large) {
+			flex-direction: row;
+		}
+	}
+	
+	&__logo {
+		text-align: center;
+		
+		img {
+			height: 100px;
+			margin: 0 auto;
+			width: 100px;
+			margin: 2rem auto;
+
+			@media (min-width: $break-large) {
+				margin: 0 auto 2rem;
+			}
+		}
+
+		span { @include caption; }
+	}
+
+	&__links {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin: 1rem auto;
+		text-align: center;
+
+		@media (min-width: $break-large) {
+			text-align: start;
+			margin: 0;
+		}
+
+		a {
+			@include body-3;
+
+			color: $gray-05;
+		}
+	}
+}

@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root to: "pages#home"
+  root to: 'pages#home'
+  get '/impressum', to: 'pages#impressum'
+  get '/about', to: 'pages#about'
+  get '/contact', to: 'pages#contact'
 
   resources :couches do
     resources :bookings, only: %i[new create] do

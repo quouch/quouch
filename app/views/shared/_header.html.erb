@@ -2,6 +2,8 @@
 	<aside class="header__logo">Q</aside>
 	<% if user_signed_in? %>
 		<%= render "shared/navbar" %>
+		<%= image_tag('profile.jpg', class: 'header__avatar') %>
+	<% else %>
+	<aside class="header__note">Already have an account? <a href="/users/sign_in">Sign in</a></aside>
 	<% end %>
-	<%= image_tag('profile.jpg', class: 'header__avatar') %>
 </header>
