@@ -1,7 +1,9 @@
-<h1>All the cities in which Quouch provides safe travelling</h1>
+<h1>Quouchable cities</h1>
 
 <ul>
 <% @cities.each do |city| %>
-	<li><%= link_to "#{city.name}", city_path(city.id) %></li>
+	<li>
+	<%= link_to "#{city.name}", city_path(city.id) %>
+	</li>
 <% end %>
 <ul>
