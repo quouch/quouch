@@ -88,6 +88,8 @@ $headers-font: 'Outfit', 'sans-serif';
 	font-family: $body-font;
 	font-size: 12px;
 	color: $gray-05;
+
+	@media (min-width: $break-large) { font-size: 14px; }
 }
 
 @mixin profile-title {

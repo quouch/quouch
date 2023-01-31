@@ -58,13 +58,11 @@
 									<%= image_tag('icons/calendar.svg') %>
 									<%= booking.start_date.strftime("%B, %Y") %>
 								</li>
-								<li class="past-booking__link">
-									<%= link_to 'See Details', booking_path(booking) %>
-								</li>
 								<% if booking.review.nil? %>
 								<li class="past-booking__link">
-									<%= link_to "Leave #{booking.couch.user.first_name} review", new_couch_booking_review_path(booking.couch, booking) %>
+									<%= link_to "See Details & Leave Review", new_couch_booking_review_path(booking.couch, booking) %>
 									<% end %>
+								</li>
 							</div>
 						</ul>
 					</li>
