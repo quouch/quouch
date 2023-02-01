@@ -5,7 +5,9 @@
     padding: 1rem;
     background-color: $primary-transparent;
 
-    &__logo { @include logo; }
+    &__logo {
+        a { @include logo; }
+    }
 
     &__avatar {
         border-radius: 50%;
