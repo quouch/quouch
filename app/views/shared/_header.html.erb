@@ -1,5 +1,7 @@
 <header class="header">
-	<aside class="header__logo">Q</aside>
+	<aside class="header__logo">
+		<%= link_to 'Q', root_path %> 
+	</aside>
 	<% if user_signed_in? %>
 		<%= render "shared/navbar" %>
 		<%= image_tag('profile.jpg', class: 'header__avatar') %>
