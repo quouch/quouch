@@ -1,0 +1,20 @@
+<section class="review-form">
+	<h2>Let <%= @host.first_name %> & us know about your experience!</h2>
+
+	<%= simple_form_for [@couch, @booking, @review] do |f| %>
+		<% if @booking.errors.any? %>
+			<h2>Error:</h2>
+				<ul>
+					<% @booking.errors.full_messages.each do |error| %>
+						<li><%= error %></li>
+					<% end %>
+				</ul>
+		<% end %>
+		<%= f.input :description, 
+								label: "Write about your experience with #{@host.first_name}" %>
+		<%= f.input :rating,
+								collection: 1..5,
+								label: "Rate your experience with #{@host.first_name}" %>
+		<%= f.submit "Submit Review", class: "" %>
+	<% end %>
+</section>

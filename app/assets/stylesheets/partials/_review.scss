@@ -1,0 +1,20 @@
+.review {
+	margin-bottom: 1rem;
+
+	&__content {
+		p { @include facility-name; }
+
+		p:before {
+			content: "\201C";
+		}
+
+		p:after {
+			content: "\201D";
+		}
+	}
+
+	&__stars {
+		display: flex;
+		margin-bottom: .5rem;
+	}
+}

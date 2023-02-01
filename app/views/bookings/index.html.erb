@@ -2,55 +2,84 @@
 
 <div class="bookings">
 	<section>
-		<% if @bookings.any? %>
+	<% if @bookings.any? %>
 		<h2 class="bookings__title">Upcoming Trips</h2>
-			<ul class="upcoming-bookings">
-				<% @upcoming.each do |booking| %>
-					<%= link_to booking_path(booking) do %>
-						<li>
-							<ul class="upcoming-booking">
-								<%= image_tag('profile.jpg', class: 'upcoming-booking__profile') %>
-								<div class="upcoming-booking__wrap">
-									<div class="upcoming-booking__info">
-										<li class="upcoming-booking__host"><%= booking.couch.user.first_name %></li>
-										<li class="upcoming-booking__city"><%= booking.couch.user.city.name %></li>
-									</div>
-									<div class="upcoming-booking__details">
-										<li class="upcoming-booking__detail">
-											<%= image_tag('icons/calendar.svg') %>
-											<%= booking.start_date.strftime("%B %d") %> - <%= booking.end_date.strftime("%B %d, %Y") %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('icons/home.svg') %>
-											<%= booking.status %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('icons/money.svg') %>
-											<% if booking.payments.where(status: 1) %>
-												<%= 'paid' %>
-											<% else %>
-												<%= 'awaiting payment' %>
-											<% end %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('icons/people.svg') %>
-											<%= booking.number_travellers %>
-										</li>
-									</div>
+		<ul class="upcoming-bookings">
+			<% @upcoming.each do |booking| %>
+				<%= link_to booking_path(booking) do %>
+					<li>
+						<ul class="upcoming-booking">
+							<%= image_tag('profile.jpg', class: 'upcoming-booking__profile') %>
+							<div class="upcoming-booking__wrap">
+								<div class="upcoming-booking__info">
+									<li class="upcoming-booking__host"><%= booking.couch.user.first_name %></li>
+									<li class="upcoming-booking__city"><%= booking.couch.user.city.name %></li>
 								</div>
-							</ul>
-						</li>
-					<% end %>
+								<div class="upcoming-booking__details">
+									<li class="upcoming-booking__detail">
+										<%= image_tag('icons/calendar.svg') %>
+										<%= booking.start_date.strftime("%B %d") %> - <%= booking.end_date.strftime("%B %d, %Y") %>
+									</li>
+									<li class="upcoming-booking__detail">
+										<%= image_tag('icons/home.svg') %>
+										<%= booking.status %>
+									</li>
+									<li class="upcoming-booking__detail">
+										<%= image_tag('icons/money.svg') %>
+										<% if booking.payments.where(status: 1) %>
+											<%= 'paid' %>
+										<% else %>
+											<%= 'awaiting payment' %>
+										<% end %>
+									</li>
+									<li class="upcoming-booking__detail">
+										<%= image_tag('icons/people.svg') %>
+										<%= booking.number_travellers %>
+									</li>
+								</div>
+							</div>
+						</ul>
+					</li>
 				<% end %>
-			</ul>
-		</section>
+			<% end %>
+		</ul>
 
 		<h2 class="bookings__title">Past Trips</h2>
-			<ul class="past-bookings">
-				<% @completed.each do |booking| %>
+		<ul class="past-bookings">
+			<% @completed.each do |booking| %>
+				<li>
+					<ul class="past-booking">
+						<li class="past-booking__profile"><%= image_tag('profile.jpg') %></li>
+						<div class="past-booking__wrap">
+							<li class="past-booking__host"><%= booking.couch.user.first_name %></li>
+							<li class="past-booking__city"><%= booking.couch.user.city.name %></li>
+							<li class="past-booking__detail">
+								<%= image_tag('icons/calendar.svg') %>
+								<%= booking.start_date.strftime("%B, %Y") %>
+							</li>
+							<% if booking.review.nil? %>
+							<li class="past-booking__link">
+								<%= link_to "See Details & Leave Review", booking_path(booking) %>
+							</li>
+							<% elsif booking.completed? && !booking.review.nil? %>
+							<li class="past-booking__link">
+								<%= link_to "See Details", booking_path(booking) %>
+							</li>
+
+								<% end %>
+						</div>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+
+		<h2 class="bookings__title">Declined Trips</h2>
+		<ul class="past-bookings">
+			<% @cancelled.each do |booking| %>
+				<%= link_to booking_path(booking) do %>
 					<li>
 						<ul class="past-booking">
-							<li class="past-booking__profile"><%= image_tag('profile.jpg') %></li>
+						<li class="past-booking__profile"><%= image_tag('profile.jpg') %></li>
 							<div class="past-booking__wrap">
 								<li class="past-booking__host"><%= booking.couch.user.first_name %></li>
 								<li class="past-booking__city"><%= booking.couch.user.city.name %></li>
@@ -58,40 +87,15 @@
 									<%= image_tag('icons/calendar.svg') %>
 									<%= booking.start_date.strftime("%B, %Y") %>
 								</li>
-								<% if booking.review.nil? %>
-								<li class="past-booking__link">
-									<%= link_to "See Details & Leave Review", new_couch_booking_review_path(booking.couch, booking) %>
-									<% end %>
-								</li>
+								<li class="past-booking__note">Request has been declined.</li>
 							</div>
 						</ul>
 					</li>
 				<% end %>
-			</ul>
-
-		<h2 class="bookings__title">Declined Trips</h2>
-			<ul class="past-bookings">
-				<% @completed.each do |booking| %>
-					<%= link_to booking_path(booking) do %>
-						<li>
-							<ul class="past-booking">
-							<li class="past-booking__profile"><%= image_tag('profile.jpg') %></li>
-								<div class="past-booking__wrap">
-									<li class="past-booking__host"><%= booking.couch.user.first_name %></li>
-									<li class="past-booking__city"><%= booking.couch.user.city.name %></li>
-									<li class="past-booking__detail">
-										<%= image_tag('icons/calendar.svg') %>
-										<%= booking.start_date.strftime("%B, %Y") %>
-									</li>
-									<li class="past-booking__note">Request has been declined.</li>
-								</div>
-							</ul>
-						</li>
-					<% end %>
-				<% end %>
-			</ul>
-		<% else %>
-			<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
-		<% end %>
+			<% end %>
+		</ul>
+	<% else %>
+		<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
+	<% end %>
 	</section>
 </div>

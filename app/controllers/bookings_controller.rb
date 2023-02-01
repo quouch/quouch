@@ -19,6 +19,8 @@ class BookingsController < ApplicationController
 	def show
 		@payment = @booking.payments.where(operation: 1)
 		@couch = @booking.couch
+		@host = @couch.user
+		@review = Review.new
 	end
 
 	def new
@@ -79,6 +81,9 @@ class BookingsController < ApplicationController
 	end
 
 	def show_request
+		@review = Review.new
+		@couch = @booking.couch
+		@host = @couch.user
 	end
 
 	def sent
