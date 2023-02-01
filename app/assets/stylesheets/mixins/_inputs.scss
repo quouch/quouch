@@ -7,10 +7,19 @@
 	width: 100%;
 }
 
-@mixin secondary-button {}
-
-@mixin tertiarty-button {
+@mixin secondary-button {
 	@include body-3;
+
+	color: $primary;
+	border: 1px solid $primary;
+	text-transform: uppercase;
+	width: fit-content;
+	padding: .3rem 2rem;
+}
+
+@mixin tertiary-button {
+	@include body-3;
+
 	color: $primary;
 	text-decoration: underline;
 	text-transform: uppercase;
