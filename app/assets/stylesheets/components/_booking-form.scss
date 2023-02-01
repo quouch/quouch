@@ -106,7 +106,7 @@
 		align-items: center;
 		gap: 1rem;
 
-		a { @include tertiarty-button; }
+		a { @include tertiary-button; }
 
 		@media (min-width: $break-medium) {
 			gap: 2rem;

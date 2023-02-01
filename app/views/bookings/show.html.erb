@@ -1,60 +1,95 @@
 <h1>Booking Overview</h1>
 
-<h2>Your Host</h2>
-<h3><%= @booking.couch.user.first_name %>, <%= @booking.couch.user.calculated_age %></h3>
-<p><%= @booking.couch.user.pronouns %></p>
-<p><%= @booking.couch.user.city.name %></p>
+<section class="booking">
+	<article class="booking__host">
+		<h2>Your Host</h2>
+		<%= image_tag('profile.jpg', class: 'booking__host-image') %>
+		<div>
+			<h3 class="booking__host-name">
+				<%= @couch.user.first_name %>, <%= @couch.user.calculated_age %>
+				<span><%= @couch.user.pronouns %></span>
+			</h3>
+			<% if @booking.pending? || @booking.pending_reconfirmation? %>
+				<%= link_to 'Update Request', edit_booking_path(@booking) %>
+				<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
+			<% elsif @booking.confirmed? && @booking.payments.empty? %>
+				<%= link_to 'Change Booking', edit_booking_path(@booking) %>
+				<%= link_to 'Pay now & Get access to your hosts address', pay_booking_path(@booking) %>
+			<% elsif @booking.confirmed? %>
+				<%= link_to 'Update Booking', edit_booking_path(@booking) %>
+				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
+			<% elsif @booking.completed? %>
+				<%= link_to "Leave #{@couch.user.first_name} Review", new_couch_booking_review_path(@booking, @couch) %>
+			<% end %>
+		</div>
+	</article>
 
-<h3>Travel Details</h3>
-<ul>
-	<li>
-		Service Requested: <%= @booking.request %>
-	</li>
-	<li>
-		Booking Status: <%= @booking.status %>
-	</li>
-	<li>
-		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
-	</li>
-	<li>
-		Booking Date: <%= @booking.booking_date %>
-	</li>
-	<li>
-		Travellers: <%= @booking.number_travellers %>
-	</li>
-	<li>
-		Message: <%= @booking.message %>
-	</li>
-</ul>
+	<div class="booking__wrap">
+		<article class="booking__info">
+			<div class="booking__details">
+				<h2>Travel Details</h2>
+				<ul class="booking__details-list">
+					<li>
+						<%= image_tag('icons/calendar.svg') %>
+						<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
+					</li>
+					<li>
+						<%= image_tag('icons/home.svg') %>
+						<%= @booking.status %>
+					</li>
+					<li>
+						<%= image_tag('icons/money.svg') %>
+						<% if @booking.payments.where(status: 1) %>
+							<%= 'paid' %>
+						<% else %>
+							<%= 'awaiting payment' %>
+						<% end %>
+					</li>
+					<li>
+						<%= image_tag('icons/people.svg') %>
+						<%= @booking.number_travellers %>
+					</li>
+				</ul>
+			</div>
 
-<h3>Accomodation</h3>
-<% if @payment.any? %>
-<p> You can find your host at Luisenstr. 17, 10117 Berlin </p>
-<% end %>
-<ul>
-	<% @booking.couch.facilities.each do |facility| %>
-		<% if facility.image.attached? %>
-			<li>
-				<%# <%= image_tag ('images/icons/armchair.svg') %>
-				<%= facility.name %>
-			</li>
-		<% else %>
-			<li>
-				<%= facility.name %>
-			</li>
-		<% end %>
-	<% end %>
-</ul>
+			<div class="booking__accomodation">
+				<h2>Accomodation</h2>
+				<ul class="booking__accomodation-list">
+					<% @couch.facilities.each do |facility| %>
+						<% if facility.image.attached? %>
+							<li>
+								<%= image_tag ('icons/armchair.svg') %>
+								<%= facility.name %>
+							</li>
+						<% else %>
+							<li>
+								<%= facility.name %>
+							</li>
+						<% end %>
+					<% end %>
+				</ul>
+			</div>
+		</article>
 
-<% if @booking.pending? || @booking.pending_reconfirmation? %>
-	<%= link_to 'Update Request', edit_booking_path(@booking) %>
-	<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.confirmed? && @booking.payments.empty? %>
-	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
-	<%= link_to 'Pay now & Get access to your hosts address', pay_booking_path(@booking) %>
-<% elsif @booking.confirmed? %>
-	<%= link_to 'Update Booking', edit_booking_path(@booking) %>
-	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.completed? %>
-	<%= link_to "Leave #{@couch.user.first_name} Review", new_couch_booking_review_path(@booking, @couch) %>
-<% end %>
+		<article class="booking__location">
+			<div>
+				<h2>Location</h2>
+				<ul class="booking__address">
+					<li class="booking__pin">
+						<%= image_tag ('icons/city.svg') %>
+						<p><%= @couch.user.city.name %></p>
+					</li>
+					<li class="booking__pin">
+						<%= image_tag ('icons/pin.svg') %>
+						<% if @payment.any? %>
+							<%= @couch.user.address %></p>
+						<% else %>
+							<p>Pay now to get access to your hosts address!</p>
+						<% end %>
+					</li>
+				</ul>
+			</div>
+			<div class="booking__map"></div>
+		</article>
+	</div>
+</section>
