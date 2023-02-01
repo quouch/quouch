@@ -1,0 +1,31 @@
+<section class="review">
+	<h2>Your experience with <%= @host.first_name %></h2>
+
+	<div class="review__content">
+		<span class="review__stars">
+			<% if @booking.review.rating == 1 %>
+				<%= image_tag('icons/star.svg') %>
+			<% elsif @booking.review.rating == 2 %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+			<% elsif @booking.review.rating == 3 %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+			<% elsif @booking.review.rating == 4 %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+			<% elsif @booking.review.rating == 5 %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star.svg') %>
+			<% end %>
+			</span>
+		<p><%= @booking.review.description %></p>
+	</div>
+<section>
+

@@ -1,34 +1,73 @@
 <h1>Request Overview</h1>
 
-<h2>Your Guest</h2>
-<h3><%= @booking.user.first_name %>, <%= @booking.user.calculated_age %></h3>
-<p><%= @booking.user.pronouns %></p>
+<section class="request">
+	<article class="request__host">
+		<h2>Your Guest</h2>
+		<%= link_to couch_path(@booking.user.couch) do %>
+			<%= image_tag('profile.jpg', class: 'request__host-image') %>
+		<% end %>
+		<div>
+			<h3 class="request__host-name">
+				<%= @booking.user.first_name %>, <%= @booking.user.calculated_age %>
+				<span><%= @booking.user.pronouns %></span>
+			</h3>
+			<div class="request__chat chat-icon__wrap">
+				<%= link_to new_couch_booking_path(@booking.user) do %>
+					<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+				<% end %>
+			</div>
+		</div>
+	</article>
 
-<%= link_to "Check out #{@booking.user.first_name}'s profile", couch_path(@booking.user.couch) %>
+	<div class="request__wrap">
+		<article class="request__info">
+			<div class="request__details">
+				<h2>Travel Details</h2>
+				<ul class="request__details-list">
+					<li>
+						<%= image_tag('icons/calendar.svg') %>
+						<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
+					</li>
+					<li>
+						<%= image_tag('icons/home.svg') %>
+						<%= @booking.status %>
+					</li>
+					<li>
+						<%= image_tag('icons/money.svg') %>
+						<% if @booking.payments.where(status: 1) %>
+							<%= 'paid' %>
+						<% else %>
+							<%= 'awaiting payment' %>
+						<% end %>
+					</li>
+					<li>
+						<%= image_tag('icons/people.svg') %>
+						<%= @booking.number_travellers %>
+					</li>
+				</ul>
+			</div>
 
+			<div class="request__message">
+				<h2>Message</h2>
+				<p><%= @booking.message %></p>
+			</div>
+		</article>
 
-<h3>Travel Details</h3>
-<ul>
-	<li>
-		Booking Status: <%= @booking.status %>
-	</li>
-	<li>
-		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
-	</li>
-	<li>
-		Booking Date: <%= @booking.booking_date %>
-	</li>
-	<li>
-		Travellers: <%= @booking.number_travellers %>
-	</li>
-	<li>
-		Message: <%= @booking.message %>
-	</li>
-</ul>
+		<div class="request__links">
+			<% if @booking.confirmed? %>
+				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'request__decline' %>
 
-<% if @booking.status == 'confirmed' %>
-	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status == 'pending' %>
-	<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch %>
-	<%= button_to 'Decline Request', decline_booking_path(@booking), method: :patch %>
-<% end %>
+			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'request__accept' %>
+				<%= button_to 'Politely Decline', decline_booking_path(@booking), method: :patch, class: 'request__decline' %>
+			<% end %>
+		</div>
+
+		<% if @booking.completed? && @booking.review.nil? %>
+			<%= render 'partials/new-review' %>
+		<% elsif @booking.completed? && !@booking.review.nil? %>
+			<%= render 'partials/review' %>
+		<% end %>
+
+	</div>
+</section>
