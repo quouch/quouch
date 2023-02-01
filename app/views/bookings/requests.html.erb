@@ -1,45 +1,83 @@
-<h1> My Requests </h1>
+<h1>Guests</h1>
 
-<% if @requests.any? %>
-	<% @requests.each do |request| %>
-		<% if request.pending? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'See details and reply', request_booking_path(request) %></li>
-			</ul>
-		<% elsif request.confirmed? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'See Details', request_booking_path(request) %></li>
-			</ul>
-		<% elsif request.cancelled? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li>This request has been cancelled on <%= request.cancellation_date %>.</li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'Browse other couches' %>
-			</ul>
-		<% elsif request.completed? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li>You hosted <%= request.user.first_name %>.</li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<% if request.review.nil? %>
-					<li><%= link_to "Leave #{request.user.first_name} a review", new_couch_booking_review_path(request.user.couch, request) %>
+<div class="requests">
+	<section>
+	<% if @requests.any? %>
+		<h2 class="requests__title">Upcoming Guests</h2>
+		<ul class="upcoming-requests">
+			<% @upcoming.each do |request| %>
+				<%= link_to booking_path(request) do %>
+					<li>
+						<ul class="upcoming-request">
+							<%= image_tag('profile.jpg', class: 'upcoming-booking__profile') %>
+							<div class="upcoming-request__wrap">
+								<div class="upcoming-request__info">
+									<li class="upcoming-request__host"><%= request.user.first_name %></li>
+									<li class="upcoming-request__pronouns"><%= request.user.pronouns %></li>
+								</div>
+								<li class="upcoming-request__detail">
+									<%= image_tag('icons/calendar.svg') %>
+									<%= request.start_date.strftime("%B %d") %> - <%= request.end_date.strftime("%B %d, %Y") %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('icons/home.svg') %>
+									<%= request.status %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('icons/people.svg') %>
+									<%= request.number_travellers %>
+								</li>
+							</div>
+						</ul>
+					</li>
 				<% end %>
-			</ul>
+			<% end %>
+		</ul>
+
+		<h2 class="requests__title">Past Guests</h2>
+		<ul class="past-requests">
+			<% @completed.each do |request| %>
+				<li>
+					<ul class="past-request">
+						<li class="past-request__profile"><%= image_tag('profile.jpg') %></li>
+						<div class="past-request__wrap">
+							<li class="past-request__host"><%= request.couch.user.first_name %></li>
+							<li class="past-request__pronouns"><%= request.couch.user.pronouns %></li>
+							<li class="past-request__detail">
+								<%= image_tag('icons/calendar.svg') %>
+								<%= request.start_date.strftime("%B, %Y") %>
+							</li>
+							<% if request.review.nil? %>
+							<li class="past-request__link">
+								<%= link_to "See Details & Leave Review", new_couch_booking_review_path(request.user.couch, request) %>
+							</li>
+							<% end %>
+						</div>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+
+		<h2 class="requests__title">Cancelled Requests</h2>
+		<ul class="past-requests">
+			<% @cancelled.each do |request| %>
+				<li>
+					<ul class="past-request">
+						<li class="past-request__profile"><%= image_tag('profile.jpg') %></li>
+						<div class="past-request__wrap">
+							<li class="past-request__host"><%= request.couch.user.first_name %></li>
+							<li class="past-request__pronouns"><%= request.couch.user.pronouns %></li>
+							<li class="past-request__detail">
+								<%= image_tag('icons/calendar.svg') %>
+								<%= request.start_date.strftime("%B, %Y") %>
+							</li>
+						</div>
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+		<% else %>
+			<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
 		<% end %>
-	<% end %>
-<% else %>
-	<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
-<% end %>
+	</section>
+</div>

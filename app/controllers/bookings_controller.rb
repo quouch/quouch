@@ -11,6 +11,9 @@ class BookingsController < ApplicationController
 
 	def requests
 		@requests = Booking.select { |booking| booking.couch.user == current_user }
+		@upcoming = @requests.select { |request| request.status == 'confirmed' || request.status == 'pending' || request.status == 'pending_reconfirmation' }.sort_by { |request| request.start_date }
+		@cancelled = @requests.select { |request| request.status == 'cancelled' || request.status == 'declined' }.sort_by { |request| request.start_date }
+		@completed = @requests.select { |request| request.status == 'completed' }
 	end
 
 	def show
