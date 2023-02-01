@@ -8,7 +8,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		width: 70vw;
-		margin: 0 auto;
+		margin: 0 auto 2rem;
 
 		@media (min-width: $break-large) {
 			flex-direction: row;
