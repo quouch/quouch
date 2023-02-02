@@ -10,11 +10,13 @@
 					<% end %>
 				</ul>
 		<% end %>
-		<%= f.input :description, 
-								label: "Write about your experience with #{@host.first_name}" %>
-		<%= f.input :rating,
+		<div class="review-form__action">
+			<%= f.input :content, 
+								label: false %>
+			<%= f.input :rating,
 								collection: 1..5,
-								label: "Rate your experience with #{@host.first_name}" %>
-		<%= f.submit "Submit Review", class: "" %>
+								label: false %>
+			<%= f.submit "Submit Review", class: "review-form__button" %>
+		</div>
 	<% end %>
 </section>
