@@ -14,16 +14,15 @@ class ReviewsController < ApplicationController
 		@review.user = current_user
 		if @review.save
 			case @review.user
-				when @booking.user
-					redirect_to bookings_path
-					ReviewMailer.with(booking: @booking).new_review_host_email.deliver_later
-				when @booking.couch.user
-					redirect_to requests_couch_bookings_path
-					ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
-				end
+			when @booking.user
+				ReviewMailer.with(booking: @booking).new_review_host_email.deliver_later
+			when @booking.couch.user
+				ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
+			end
 		else
 			flash[:alert] = "Something went wrong. Try again or contact the Quouch support."
 		end
+		redirect_to booking_path(@booking)
 	end
 
 	private

@@ -9,3 +9,6 @@ application.register("chat-subscription", ChatSubscriptionController)
 
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
+
+import StarRatingController from "./star_rating_controller"
+application.register("star-rating", StarRatingController)

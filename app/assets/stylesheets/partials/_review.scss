@@ -3,6 +3,7 @@
 
 	&__content {
 		p { @include facility-name; }
+		line-height: 1.5rem;
 
 		p:before {
 			content: "\201C";
@@ -15,6 +16,11 @@
 
 	&__stars {
 		display: flex;
-		margin-bottom: .5rem;
+		margin-bottom: 1rem;
+
+		img {
+			width: 24px;
+			height: 24px;
+		}
 	}
 }

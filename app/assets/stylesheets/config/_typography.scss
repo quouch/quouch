@@ -89,11 +89,11 @@ $headers-font: 'Outfit', 'sans-serif';
 	font-size: 12px;
 	color: $gray-05;
 
-	@media (min-width: $break-large) { font-size: 14px; }
+	@media (min-width: $break-large) { font-size: 16px; }
 }
 
 @mixin profile-title {
-	color: $gray-03;
+	color: $gray-04;
 	font-size: 16px;
 	font-weight: 700;
 	margin: 1rem 0;
@@ -103,7 +103,11 @@ $headers-font: 'Outfit', 'sans-serif';
 	font-family: $body-font;
 	font-weight: 500;
 	font-size: 14px;
-	color: $gray-05
+	color: $gray-05;
+
+	@media (min-width: $break-large) {
+		font-size: 16px;
+	}
 }
 
 @mixin nav-title {
