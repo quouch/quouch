@@ -10,6 +10,7 @@
     "@hotwired/stimulus": "^3.2.1",
     "@rails/actioncable": "^7.0.4",
     "actioncable": "^5.2.8-1",
-    "flatpickr": "^4.6.13"
+    "flatpickr": "^4.6.13",
+    "star-rating.js": "^4.3.0"
   }
 }

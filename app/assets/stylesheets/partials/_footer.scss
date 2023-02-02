@@ -47,7 +47,8 @@
 		a {
 			@include body-3;
 
-			color: $gray-05;
+			
+			@media (min-width: $break-large) { font-size: 16px; }
 		}
 	}
 }

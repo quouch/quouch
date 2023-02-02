@@ -4,25 +4,25 @@
 	<div class="review__content">
 		<span class="review__stars">
 			<% if @booking.review.rating == 1 %>
-				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
 			<% elsif @booking.review.rating == 2 %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
 			<% elsif @booking.review.rating == 3 %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
 			<% elsif @booking.review.rating == 4 %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
 			<% elsif @booking.review.rating == 5 %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
-				<%= image_tag('icons/star.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
+				<%= image_tag('icons/star-full.svg') %>
 			<% end %>
 			</span>
 		<p><%= @booking.review.content %></p>

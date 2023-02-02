@@ -48,6 +48,7 @@
 	&__host {
 		@include title-5;
 		margin: 0;
+		color: $black;
 	}
 
 	&__city {
@@ -56,22 +57,21 @@
 	}
 
 	&__details { 
-		
 		@media (min-width: $break-medium) {
 			margin: 2rem 0; 
 		}
 	}
 
 	&__detail {
-		@include input-text;
-
+		color: $black;
+		
 		img {
 			height: 16px;
 			width: 16px;
 		}
 
 		display: flex;
-		gap: .3rem;
+		gap: .5rem;
 		align-items: center;
 		margin: .4rem 0;
 	}
@@ -130,28 +130,29 @@
 		margin: 0;
 	}
 
-	&__pronouns {
+	&__city {
 		@include profile-title;
 		margin: .1rem 0;
 	}
 
 	&__detail {
-		@include input-text;
-
 		img {
 			height: 16px;
 			width: 16px;
 		}
 
 		display: flex;
-		gap: .3rem;
+		gap: .5rem;
 		align-items: center;
 		margin: .7rem 0;
+		color: $black;
 	}
 
 	&__link {
-		font-size: 12px;
+		font-size: 14px;
+
+		@media (min-width: $break-large) { font-size: 16px; }
 	}
 
-	&__note { @include input-text; }
+	&__note { color: $black; }
 }

@@ -21,11 +21,11 @@
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/home.svg') %>
-									<%= request.status %>
+									<%= request.status.capitalize %>
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/people.svg') %>
-									<%= request.number_travellers %>
+									<%= request.number_travellers %> Travellers
 								</li>
 							</div>
 						</ul>

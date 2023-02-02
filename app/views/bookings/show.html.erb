@@ -2,9 +2,13 @@
 
 <section class="booking">
 	<article class="booking__host">
-		<h2>Your Host</h2>
-		<%= image_tag('profile.jpg', class: 'booking__host-image') %>
-		<div>
+		<div class="booking__host-left">
+			<h2>Your Guest</h2>
+			<%= link_to couch_path(@couch) do %>
+				<%= image_tag('profile.jpg', class: 'booking__host-image') %>
+			<% end %>
+		</div>
+		<div class="booking__host-right">
 			<h3 class="booking__host-name">
 				<%= @couch.user.first_name %>, <%= @couch.user.calculated_age %>
 				<span><%= @couch.user.pronouns %></span>
@@ -33,19 +37,19 @@
 					</li>
 					<li>
 						<%= image_tag('icons/home.svg') %>
-						<%= @booking.status %>
+						<%= @booking.status.capitalize %>
 					</li>
 					<li>
 						<%= image_tag('icons/money.svg') %>
 						<% if @booking.payments.where(status: 1) %>
-							<%= 'paid' %>
-						<% else %>
-							<%= 'awaiting payment' %>
+							<%= 'Booking has been paid.' %>
+								<% else %>
+							<%= 'Awaiting payment to give access to address.' %>
 						<% end %>
 					</li>
 					<li>
 						<%= image_tag('icons/people.svg') %>
-						<%= @booking.number_travellers %>
+						<%= @booking.number_travellers %> Travellers
 					</li>
 				</ul>
 			</div>
