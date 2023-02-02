@@ -22,14 +22,14 @@ class ReviewsController < ApplicationController
 					ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
 				end
 		else
-			render new_couch_booking_review_path(@couch, @booking), notice: "Your review did not save, please try again or contact the Quouch support team"
+			flash[:alert] = "Something went wrong. Try again or contact the Quouch support."
 		end
 	end
 
 	private
 
 	def review_params
-		params.require(:review).permit(:description, :rating)
+		params.require(:review).permit(:content, :rating)
 	end
 
 	def set_booking
