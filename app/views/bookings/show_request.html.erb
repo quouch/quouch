@@ -68,7 +68,7 @@
 		<% if @booking.completed? && @booking.review.nil? %>
 			<%= render 'partials/new-review' %>
 		<% elsif @booking.completed? && !@booking.review.nil? %>
-			<%= render 'partials/review' %>
+			<%= render 'partials/review-preview' %>
 		<% end %>
 
 	</div>

@@ -42,9 +42,9 @@
 					<li>
 						<%= image_tag('icons/money.svg') %>
 						<% if @booking.payments.where(status: 1) %>
-							<%= 'Booking has been paid.' %>
+							<%= 'Booking has been paid' %>
 								<% else %>
-							<%= 'Awaiting payment to give access to address.' %>
+							<%= 'Awaiting payment to give access to address' %>
 						<% end %>
 					</li>
 					<li>
@@ -97,7 +97,7 @@
 		<% if @booking.completed? && @booking.review.nil? %>
 			<%= render 'partials/new-review' %>
 		<% elsif @booking.completed? && !@booking.review.nil? %>
-			<%= render 'partials/review' %>
+			<%= render 'partials/review-preview' %>
 		<% end %>
 	</div>
 </section>
