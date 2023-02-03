@@ -44,6 +44,7 @@ class BookingsController < ApplicationController
 	end
 
 	def edit
+		@host = @booking.couch.user
 	end
 
 	def update

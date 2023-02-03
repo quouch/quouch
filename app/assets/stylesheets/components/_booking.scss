@@ -89,7 +89,6 @@
 	&__info {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
 		
 		@media (min-width: $break-large) {
 			display: grid;

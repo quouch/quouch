@@ -82,21 +82,22 @@
 						<%= f.input :start_date,
 												as: :string,
 												placeholder: 'from',
-												input_html: { data: { flatpickr_target: "startTime" } },
+												input_html: { data: { flatpickr_target: 'startTime' } },
 												label: false %>
 					</div>
 					<div class="date-input">
 						<%= f.input :end_date,
 												as: :string,
 												placeholder: 'to',
-												input_html: { data: { flatpickr_target: "endTime" } },
+												input_html: { data: { flatpickr_target: 'endTime' } },
 												label: false %>
 					</div>
 				</div>
 				<div class="booking-form__travellers">
 					<%= image_tag('icons/people.svg') %>
 					<%= f.input :number_travellers, 
-											label: false %>
+											label: false,
+											input_html: { value: 1 } %>
 				</div>
 			</div>
 			<%= f.input :message, 
@@ -104,7 +105,7 @@
 									input_html: { rows: 8 } %>
 			<div class="booking-form__action">
 				<%= link_to 'Cancel', city_path(@couch.user.city) %>
-				<%= f.submit "Send Request", class: "booking-form__button" %>
+				<%= f.submit 'Send Request', class: 'booking-form__button' %>
 			</div>
 		<% end %>
 	</section>

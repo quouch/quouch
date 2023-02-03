@@ -1,17 +1,111 @@
-<h1>Edit Request</h1>
+<div class="booking-form__wrap">
+	<section>
+		<div class="host">
+			<%= image_tag('profile.jpg', class: 'host__gallery') %>
+			<div class="host__wrap">
+				<ul class="host__info">
+					<li class="host__name"><%= @host.first_name %></li>
+					<div class="host__characteristics">
+						<li><%= @host.pronouns %></li>
+						<li><%= @host.calculated_age %></li>
+					</div>
+				</ul>
+				<ul class="host__offers">
+					<% if @host.offers_couch %>
+						<li class="host__offers-item">
+							<%= image_tag('icons/sleep.svg') %>
+							<p>couch</p>
+						</li>
+					<% end %>
+					<% if @host.offers_hang_out %>
+						<li class="host__offers-item">
+							<%= image_tag('icons/hangout.svg') %>
+							<p>hangout</p>
+						</li>
+					<% end %>
+					<% if @host.offers_co_work %>
+						<li class="host__offers-item">
+							<%= image_tag('icons/work.svg') %>
+							<p>co-work</p>
+						</li>
+					<% end %>
+				</ul>
+				
+				<div class="host__intro">
+					<h2 class="host__intro-title">Introduction</h2>
+					<p><%= @host.summary %></p>
+				</div>
 
-<%= simple_form_for [@couch, @booking] do |f| %>
-	<% if @booking.errors.any? %>
-		<h2>Error:</h2>
-			<ul>
-				<% @booking.errors.full_messages.each do |error| %>
-					<li><%= error %></li>
-				<% end %>
-			</ul>
-	<% end %>
-	<%= f.input :start_date, label: 'When would you like to arrive?' %>
-	<%= f.input :end_date, label: 'When will you leave?' %>
-	<%= f.input :number_travellers, label: false, placeholder: 'For how many people?'%>
-	<%= f.input :message, label: 'Leave your possible future host a kind message' %>
-	<%= f.submit "Update Request", class: "" %>
-<% end %>
+				<div class="host__accomodation">
+					<h2 class="host__accomodation-title">Accomodation</h2>
+					<ul class="host__accomodation-list">
+						<% @host.couch.facilities.each do |facility| %>
+							<li>
+								<%= image_tag(facility.image) %>
+								<%= facility.name %>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+
+				<div class="host__location">
+					<h2 class="host__location-title">Location</h2>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="booking-form">
+		<%= simple_form_for [@couch, @booking],
+				data: { controller: 'flatpickr' }, 
+				defaults: { required: false } do |f| %>
+			<% if @booking.errors.any? %>
+				<h2>Error:</h2>
+					<ul>
+						<% @booking.errors.full_messages.each do |error| %>
+							<li><%= error %></li>
+						<% end %>
+					</ul>
+			<% end %>
+			<div class="booking-form__type">
+				<label>Pick one or more</label>
+				<%= f.input :request,
+										collection: Booking.requests,
+										as: :radio_buttons,
+										label: false %>
+			</div>
+			<span class="booking-form__details__header">Dates & Travellers </span>
+			<div class="booking-form__details__wrap">
+				<div class="booking-form__dates date">
+					<div class="date-input">
+						<%= image_tag('icons/calendar.svg') %>
+						<%= f.input :start_date,
+												as: :string,
+												placeholder: 'from',
+												input_html: { data: { flatpickr_target: 'startTime' } },
+												label: false %>
+					</div>
+					<div class="date-input">
+						<%= f.input :end_date,
+												as: :string,
+												placeholder: 'to',
+												input_html: { data: { flatpickr_target: 'endTime' } },
+												label: false %>
+					</div>
+				</div>
+				<div class="booking-form__travellers">
+					<%= image_tag('icons/people.svg') %>
+					<%= f.input :number_travellers, 
+											label: false %>
+				</div>
+			</div>
+			<%= f.input :message, 
+									label: :Message,
+									input_html: { rows: 8 } %>
+			<div class="booking-form__action">
+				<%= link_to 'Cancel', city_path(@booking.couch.user.city) %>
+				<%= f.submit 'Update Request', class: 'booking-form__button' %>
+			</div>
+		<% end %>
+	</section>
+</div>
