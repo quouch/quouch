@@ -16,9 +16,9 @@ class CouchesController < ApplicationController
 
 	def show
     @couch = Couch.find(params[:id])
-		@user = User.find(@couch.user.id)
-		@couch.user = @user
+		@host = User.find(@couch.user.id)
+		@couch.user = @host
 		@reviews = Review.where(couch_id: params[:id])
-		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @user.id)
+		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
   end
 end

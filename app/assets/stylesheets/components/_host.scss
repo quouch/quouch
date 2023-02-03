@@ -1,5 +1,4 @@
 .host {
-	height: 27em;
 	margin-bottom: 1rem;
 	margin-top: -5rem;
 	border-radius: $border-radius-medium;
@@ -12,6 +11,8 @@
 		margin: 2rem;
 		box-shadow: $box-shadow;
 	}
+
+	h2 { @include profile-title; }
 
 	&__wrap {
 		grid-column: 2;
@@ -103,8 +104,6 @@
 	&__intro {
 		grid-row: 3;
 
-		&-title { @include profile-title; }
-
 		@media (max-width: $break-large) {
 			display: none;
 		}
@@ -112,10 +111,6 @@
 
 	&__accomodation {
 		grid-row: 4;
-
-		&-title {
-			@include profile-title;
-		}
 
 		&-list {
 			@include facility-name;
@@ -133,18 +128,12 @@
 
 		}
 
-		@media (max-width: $break-large) {
-			display: none;
-		}
+		@media (max-width: $break-large) { display: none; }
 	}
 
 	&__location {
 		grid-row: 5;
 
-		&-title { @include profile-title; }
-
-		@media (max-width: $break-large) {
-			display: none;
-		}
+		@media (max-width: $break-large) { display: none; }
 	}
 }
