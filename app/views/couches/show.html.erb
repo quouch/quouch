@@ -1,49 +1,55 @@
-<article class="host">
-	<div>
-		<%= image_tag('profile.jpg', class: 'host__gallery') %>
-		<div class="chat-icon__wrap">
-			<%= link_to new_couch_booking_path(@host.couch) do %>
-				<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+<article class="couch">
+	<div class="couch__gallery">
+		<%= image_tag('profile.jpg', class: 'couch__image') %>
+		<div class="couch__chat chat-icon__wrap">
+			<% if @chat.nil? %>
+				<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+					<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+				<% end %>
+			<% else %>
+				<%= link_to chat_path(@chat) do %>
+					<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+				<% end %>
 			<% end %>
 		</div>
 	</div>
-	<div class="host__wrap">
-		<ul class="host__info">
-			<li class="host__name"><%= @host.first_name %></li>
-			<div class="host__characteristics">
+	<div class="couch__content">
+		<ul class="couch__info">
+			<li class="couch__name"><%= @host.first_name %></li>
+			<div class="couch__characteristics">
 				<li><%= @host.pronouns %></li>
 				<li><%= @host.calculated_age %></li>
 			</div>
 		</ul>
-		<ul class="host__offers">
+		<ul class="couch__offers">
 			<% if @host.offers_couch %>
-				<li class="host__offers-item">
+				<li class="couch__offers-item">
 					<%= image_tag('icons/sleep.svg') %>
 					<p>couch</p>
 				</li>
 			<% end %>
 			<% if @host.offers_hang_out %>
-				<li class="host__offers-item">
+				<li class="couch__offers-item">
 					<%= image_tag('icons/hangout.svg') %>
 					<p>hangout</p>
 				</li>
 			<% end %>
 			<% if @host.offers_co_work %>
-				<li class="host__offers-item">
+				<li class="couch__offers-item">
 					<%= image_tag('icons/work.svg') %>
 					<p>co-work</p>
 				</li>
 			<% end %>
 		</ul>
 		
-		<div class="host__intro">
-			<h2 class="host__intro-title">Introduction</h2>
+		<div class="couch__intro">
+			<h2>Introduction</h2>
 			<p><%= @host.summary %></p>
 		</div>
 
-		<div class="host__accomodation">
-			<h2 class="host__accomodation-title">Accomodation</h2>
-			<ul class="host__accomodation-list">
+		<div class="couch__accomodation">
+			<h2>Accomodation</h2>
+			<ul class="couch__accomodation-list">
 				<% @couch.facilities.each do |facility| %>
 					<li>
 						<%= image_tag(facility.image) %>
@@ -53,51 +59,40 @@
 			</ul>
 		</div>
 
-		<div class="host__location">
-			<h2 class="host__location-title">Location</h2>
+		<div class="couch__location">
+			<h2>Location</h2>
 		</div>
-		<div class="host__reviews">
+		<div class="couch__reviews">
 			<% if @reviews.any? %>
 			<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
+			<div class="review__rating">
+				<div class="review__stars">
+					<% @review_average.round.times do %>
+						<%= image_tag('icons/star-full.svg') %>
+					<% end %>
+					<% (5 - @review_average).round.times do %>
+						<%= image_tag('icons/star-empty.svg') %>
+					<% end %>
+				</div>
+				<p><%= @review_average %> out of <%= pluralize @reviews.size, "Review" %></p>
+			</div>
 			<ul>
 				<% @reviews.each do |review| %>
-				<li class="review__content">
-					<span class="review__stars">
-						<% case review.rating %>
-						<% when 1 %>
-							<%= image_tag('icons/star-full.svg') %>
-						<% when 2 %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-						<% when 3 %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-						<% when 4 %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-						<% when 5 %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-							<%= image_tag('icons/star-full.svg') %>
-						<% end %>
-						</span>
-					<p><%= review.content %></p>
+				<li class="review">
+					<div class="review__details">
+						<%= image_tag('profile.jpg', class: 'review__image') %>
+						<div>
+							<p class="review__name"><%= review.user.first_name.capitalize %></p>
+							<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
+						</div>
+					</div>
+					<p class="review__content"><%= review.content %></p>
 				</li>
 					<% end %>
 			</ul>
 			<% end %>
 		</div>
+		<%= link_to "Send request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
 	</div>
 </article>
 
-<% if @chat.nil? %>
-	<%= button_to "Chat with #{@host.first_name}", chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post %>
-<% else %>
-	<%= link_to "Chat with #{@host.first_name}", chat_path(@chat) %>
-<% end %>
-<%= link_to "Send #{@host.first_name} a concrete request", new_couch_booking_path(@couch.id) %>
