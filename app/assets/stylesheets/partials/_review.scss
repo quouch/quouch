@@ -1,26 +1,49 @@
 .review {
 	margin-bottom: 1rem;
 
-	&__content {
-		p { @include facility-name; }
-		line-height: 1.5rem;
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 
-		p:before {
-			content: "\201C";
-		}
-
-		p:after {
-			content: "\201D";
+		p {
+			@include facility-name;
+			line-height: 1rem;
 		}
 	}
 
 	&__stars {
 		display: flex;
-		margin-bottom: 1rem;
 
 		img {
-			width: 24px;
-			height: 24px;
+			width: 16px;
+			height: 16px;
 		}
 	}
+
+	&__details {
+		p { @include facility-name; }
+
+		display: flex;
+		align-items: center;
+		gap: .5rem;
+		margin: 1rem 0;
+	}
+
+	&__image {
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+	}
+
+	&__content {
+		@include facility-name;
+		
+		line-height: 1.5rem;
+	}
+}
+
+.review__content:before, .review__content:after {
+	content: "\201C";
+	content: "\201D";
 }
