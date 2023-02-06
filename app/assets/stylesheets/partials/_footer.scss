@@ -1,6 +1,6 @@
 .footer {
 	background-color: $primary-transparent;
-	padding: 4rem 0;
+	padding: 2rem 0;
 	margin-top: 4rem;
 	
 	&__wrap {
@@ -8,8 +8,8 @@
 		flex-direction: column;
 		justify-content: space-between;
 		width: 70vw;
-		margin: 0 auto 2rem;
-
+		margin: 0 auto;
+		
 		@media (min-width: $break-large) {
 			flex-direction: row;
 		}

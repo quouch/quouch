@@ -20,7 +20,7 @@ $headers-font: 'Outfit', 'sans-serif';
 
 @mixin title-2 {
 	font-family: $headers-font;
-	font-size: 40px;
+	font-size: 2.5rem;
 	font-weight: 700;
 	line-height: 1.2;
 	text-transform: uppercase;
@@ -30,7 +30,7 @@ $headers-font: 'Outfit', 'sans-serif';
 @mixin title-3 {
 	font-family: $headers-font;
 	color: $primary;
-	font-size: 36px;
+	font-size: 2.25rem;
 	font-weight: 600;
 	line-height: 1.2;
 	letter-spacing: 0.01;
@@ -48,7 +48,7 @@ $headers-font: 'Outfit', 'sans-serif';
 
 @mixin title-5 {
 	font-family: $headers-font;
-	font-size: 19px;
+	font-size: 1.44rem;
 	font-weight: 600;
 	line-height: 1.4;
 	letter-spacing: 0.05em;
@@ -60,41 +60,41 @@ $headers-font: 'Outfit', 'sans-serif';
 
 @mixin body-1 {
 	font-family: $body-font;
-	font-size: 16px;
+	font-size: 1rem;
 	letter-spacing: 0.03em;
 }
 
 @mixin body-2 {
 	font-family: $body-font;
-	font-size: 14px;
+	font-size: 0.875rem;
 	font-weight: 800;
 	letter-spacing: 0.03em;
 }
 
 @mixin body-3 {
 	font-family: $body-font;
-	font-size: 14px;
+	font-size: 0.875rem;
 	font-weight: 500;
 	letter-spacing: 0.05em;
 }
 
 @mixin caption {
 	font-family: $body-font;
-	font-size: 12px;
+	font-size: 0.75rem;
 	letter-spacing: 0.06em;
 }
 
 @mixin input-text {
 	font-family: $body-font;
-	font-size: 12px;
+	font-size: 0.75rem;
 	color: $gray-05;
 
-	@media (min-width: $break-large) { font-size: 16px; }
+	@media (min-width: $break-large) { font-size: 1rem; }
 }
 
 @mixin profile-title {
 	color: $gray-04;
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: 700;
 	margin: 1rem 0;
 }
@@ -102,11 +102,11 @@ $headers-font: 'Outfit', 'sans-serif';
 @mixin facility-name {
 	font-family: $body-font;
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 0.875rem;
 	color: $gray-05;
 
 	@media (min-width: $break-large) {
-		font-size: 16px;
+		font-size: 1rem;
 	}
 }
 
