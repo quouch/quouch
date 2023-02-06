@@ -5,6 +5,10 @@
 	color: white;
 	text-transform: uppercase;
 	width: 100%;
+	display: block;
+	text-align: center;
+	margin: auto;
+	padding: 1rem 2rem;
 }
 
 @mixin secondary-button {
@@ -62,6 +66,6 @@
 	margin-left: 0.5rem;
 }
 
-button:hover {
+button {
 	cursor: pointer;
 }
