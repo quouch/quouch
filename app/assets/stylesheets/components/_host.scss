@@ -14,7 +14,7 @@
 
 	h2 { @include profile-title; }
 
-	&__wrap {
+	&__content {
 		grid-column: 2;
 
 		display: grid;

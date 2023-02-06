@@ -3,7 +3,6 @@
 <ul class="city__list">
 	<% @hosts.where.not(id: current_user).each do |host| %>
 		<li class="city__host">
-		
 			<div class="host">
 				<div>
 					<%= image_tag('profile.jpg', class: 'host__gallery') %>
@@ -13,7 +12,7 @@
 						<% end %>
 					</div>
 				</div>
-				<div class="host__wrap">
+				<div class="host__content">
 					<ul class="host__info">
 						<li class="host__name"><%= host.first_name %></li>
 						<div class="host__characteristics">
