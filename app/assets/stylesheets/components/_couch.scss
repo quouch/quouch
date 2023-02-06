@@ -1,0 +1,113 @@
+.couch {
+	h2 { @include profile-title; }
+
+	@media (min-width: $break-large) {
+		width: 80%;
+		margin: 2rem auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		border-radius: $border-radius-large;
+	}
+
+	&__gallery {
+		position: relative;
+		height: 50vh;
+
+		@media (min-width: $break-large) {
+			height: 80vh;
+			position: sticky;
+			top: 2rem;
+		}
+	}
+	
+	&__chat {
+		position: absolute;
+		bottom: -20px;
+		left: 20px;
+
+		@media (min-width: $break-large) {
+			bottom: 2rem;
+			left: 16rem;
+		}
+	}
+	
+	&__image {
+		object-fit: cover;
+		object-position: center;
+		height: 100%;
+		width: 100%;
+		
+		@media (min-width: $break-large) { border-radius: $border-radius-large; }
+	}
+
+	&__content {
+		padding: 1rem;
+
+		@media (min-width: $break-large) { padding: 2rem 2rem 0; }
+	}
+
+	&__info {}
+
+	&__name {
+		@include title-3;
+
+		text-align: center;
+		color: $black;
+	}
+
+	&__characteristics {
+		@include body-2;
+		
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		color: $gray-05;
+	}
+
+	&__offers {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		grid-row: 2;
+		margin: 1rem;
+		
+		&-item {
+			display: flex;
+			gap: .2rem;
+			color: $primary;
+			flex-shrink: 0;
+			
+			img { color: $primary; }
+		}
+	}
+
+	&__intro {}
+
+	&__accomodation {
+		&-list {
+			@include facility-name;
+
+			li {
+				display: flex;
+				align-items: center;
+				
+				img { margin-right: .5rem; }
+			}
+		}
+	}
+
+	&__location {}
+
+	&__reviews {}
+
+	&__button {
+		@include input-field;
+		@include primary-button;
+
+		max-width: fit-content;
+		display: flex;
+		flex-direction: column;
+		margin-top: auto;
+	}
+}

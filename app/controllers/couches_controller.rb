@@ -19,6 +19,7 @@ class CouchesController < ApplicationController
 		@host = User.find(@couch.user.id)
 		@couch.user = @host
 		@reviews = Review.where(couch_id: params[:id])
+		@review_average = @reviews.average(:rating).to_f
 		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
   end
 end
