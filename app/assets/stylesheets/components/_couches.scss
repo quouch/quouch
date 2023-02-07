@@ -1,23 +1,28 @@
 .couches {
 	&__wrap {
-		width: 80%;
 		margin: 0 auto;
+
+		@media (min-width: $break-x-large) {
+			width: 80%;
+		}
 	}
 
 	&__title {}
 
 	&__list {
 		display: flex;
-		overflow-x: scroll;
 		gap: 1.5rem;
 		padding: 1rem;
+		overflow-x: scroll;
+		scroll-snap-type: x mandatory;
+		scroll-padding: 0 1rem;
+		scrollbar-color: $primary-transparent $primary-transparent;
+		scrollbar-width: thin;
 
-		@media (min-width: $break-large) {
+		@media (min-width: $break-x-large) {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
 			justify-content: center;
-			padding: 0;
-			overflow-x: visible;
 		}
 		
 		&-item {
@@ -25,6 +30,8 @@
 			background-color: $white;
 			box-shadow: $box-shadow;
 			min-width: fit-content;
+			width: 300px;
+			height: 100%;
 		}
 	}
 	
