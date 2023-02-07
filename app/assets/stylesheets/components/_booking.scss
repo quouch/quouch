@@ -48,15 +48,6 @@
 				margin-top: 2rem;
 				grid-column: 2;
 			}
-	
-			a, button {
-				@include input-field;
-				@include secondary-button;
-
-				display: inline-block;
-				background-color: transparent;
-				margin: .2rem 0;
-			}
 		}
 
 		&-image {
@@ -75,9 +66,19 @@
 				margin: .5rem 0 1rem;
 			}
 		}
-
 	}
 
+	&__links {
+		a, button {
+			@include input-field;
+			@include secondary-button;
+
+			display: inline-block;
+			margin: .2rem 0;
+		}
+	}
+
+	
 	&__wrap {
 		background-color: $white;
 		border-bottom-left-radius: $border-radius-large;
@@ -99,14 +100,14 @@
 
 	&__details {
 		flex-shrink: 0;
-
+		
 		&-list {
 			li {
 				img {
 					height: 16px;
 					width: 16px;
 				}
-
+				
 				display: flex;
 				align-items: center;
 				gap: .3rem;
@@ -114,37 +115,37 @@
 			}
 		}
 	}
-
+	
 	&__accomodation {
 		@include facility-name;
-
+		
 		&-list {
 			display: flex;
 			flex-wrap: wrap;
 			gap: 1rem 2rem;
 		}
-
+		
 		li {
 			display: flex;
 			align-items: center;
 			gap: .5rem;
-
+			
 			img {
 				height: 16px;
 				width: 16px;
 			}
 		}
 	}
-
+	
 	&__location {
 		display: flex;
 		margin: 1rem auto;
 	}
-
+	
 	&__address {
 		li { margin-bottom: .5rem; }
 	}
-
+	
 	&__pin {
 		display: flex;
 		align-items: center;
@@ -155,5 +156,12 @@
 			width: 16px;
 		}
 	}
+	
+}
+	
+#booking__pay {
+	@include primary-button;
 
+	padding: .3rem 2rem;
+	margin: .2rem 0;
 }
