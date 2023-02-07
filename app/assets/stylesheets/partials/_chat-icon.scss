@@ -8,6 +8,11 @@
 		border-radius: 100%;
 		background-color: $white;
 		box-shadow: $box-shadow;
+
+		button {
+			background-color: transparent;
+			border: 0 transparent;
+		}
 	}
 
 	height: 6rem;
