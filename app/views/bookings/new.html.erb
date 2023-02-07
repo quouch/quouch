@@ -102,9 +102,8 @@
 			</div>
 			<%= f.input :message, 
 									label: :Message,
-									input_html: { rows: 8 } %>
+									input_html: { rows: 6 } %>
 			<div class="booking-form__action">
-				<%= link_to 'Cancel', city_path(@couch.user.city) %>
 				<%= f.submit 'Send Request', class: 'booking-form__button' %>
 			</div>
 		<% end %>
