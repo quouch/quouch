@@ -7,12 +7,13 @@
 	input:first-child {
 		@include input-field;
 		margin: 0;
+		box-shadow: $box-shadow;
 	}
 
 	&__button {
 		@include input-field;
 		@include primary-button;
-		
-		width: 15em;
+
+		box-shadow: $box-shadow;
 	}
 }
