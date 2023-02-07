@@ -12,6 +12,8 @@
 	&__gallery {
 		position: relative;
 		height: 50vh;
+		border-radius: $border-radius-large;
+		box-shadow: $box-shadow;
 
 		@media (min-width: $break-large) {
 			height: 80vh;
@@ -26,8 +28,7 @@
 		left: 20px;
 
 		@media (min-width: $break-large) {
-			bottom: 2rem;
-			left: 16rem;
+			bottom: 1rem;
 		}
 	}
 	
@@ -79,29 +80,6 @@
 			img { color: $primary; }
 		}
 	}
-
-	&__features {
-		@include feature-tag;
-
-		display: flex;
-		gap: .5rem;
-		flex-wrap: wrap;
-		margin-bottom: 1rem;
-
-		li {
-			color: $primary-light;
-			background-color: $primary-transparent;
-			padding: .1rem .8rem;
-			border-radius: $border-radius-xlarge;
-		}
-
-		li:last-child {
-			color: $secondary-light;
-			background-color: $secondary-transparent;
-		}
-	}
-
-	&__intro {}
 
 	&__accomodation {
 		&-list {

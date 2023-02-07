@@ -7,8 +7,6 @@
 		}
 	}
 
-	&__title {}
-
 	&__list {
 		display: flex;
 		gap: 1.5rem;
@@ -45,27 +43,6 @@
 	
 	&__content {
 		padding: 1rem;
-	}
-
-	&__features {
-		@include feature-tag;
-
-		display: flex;
-		gap: .5rem;
-		flex-wrap: wrap;
-		margin-bottom: 1rem;
-
-		li {
-			color: $primary-light;
-			background-color: $primary-super-transparent;
-			padding: .1rem .8rem;
-			border-radius: $border-radius-xlarge;
-		}
-
-		li:last-child {
-			color: $secondary-light;
-			background-color: $secondary-super-transparent;
-		}
 	}
 
 	&__offers {
