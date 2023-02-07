@@ -21,25 +21,32 @@
 				<li><%= @host.calculated_age %></li>
 			</div>
 		</ul>
-		<ul class="couch__offers">
+		<ul class="couch__offers offers">
 			<% if @host.offers_couch %>
-				<li class="couch__offers-item">
+				<li class="offers-item">
 					<%= image_tag('icons/sleep.svg') %>
 					<p>couch</p>
 				</li>
 			<% end %>
 			<% if @host.offers_hang_out %>
-				<li class="couch__offers-item">
+				<li class="offers-item">
 					<%= image_tag('icons/hangout.svg') %>
 					<p>hangout</p>
 				</li>
 			<% end %>
 			<% if @host.offers_co_work %>
-				<li class="couch__offers-item">
+				<li class="offers-item">
 					<%= image_tag('icons/work.svg') %>
 					<p>co-work</p>
 				</li>
 			<% end %>
+		</ul>
+		<ul class="couch__features">
+			<li>vegan</li>
+			<li>sunset lover</li>
+			<li>political activism</li>
+			<li>party lion</li>
+			<li>dark humor</li>
 		</ul>
 		
 		<div class="couch__intro">
