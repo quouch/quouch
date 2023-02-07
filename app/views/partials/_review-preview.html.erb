@@ -1,7 +1,7 @@
 <section class="review">
 	<h2>Your experience with <%= @host.first_name %></h2>
 
-	<div class="review__content">
+	<div>
 		<span class="review__stars">
 			<% case @booking.review.rating %>
 			<% when 1 %>
@@ -26,7 +26,7 @@
 				<%= image_tag('icons/star-full.svg') %>
 			<% end %>
 			</span>
-		<p><%= @booking.review.content %></p>
+		<p class="review__content"><%= @booking.review.content %></p>
 	</div>
 <section>
 

@@ -29,8 +29,11 @@
 	&__button {
 		@include input-field;
 		@include primary-button;
+
 		display: flex;
 		flex-direction: column;
-		justify-content: center;	
+		justify-content: center;
+		margin-top: 1rem;
+		width: fit-content;
 	}
 }
