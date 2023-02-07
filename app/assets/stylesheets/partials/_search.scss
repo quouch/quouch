@@ -4,7 +4,10 @@
 	gap: .5rem;
 	margin: 2rem auto;
 
-	input:first-child { @include input-field; }
+	input:first-child {
+		@include input-field;
+		margin: 0;
+	}
 
 	&__button {
 		@include input-field;
