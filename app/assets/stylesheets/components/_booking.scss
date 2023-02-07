@@ -16,7 +16,7 @@
 		justify-content: center;
 		align-items: center;
 		padding: 1rem;
-		background-color: $primary-transparent;
+		background-color: $primary-super-transparent;
 		border-top-left-radius: $border-radius-large;
 		border-top-right-radius: $border-radius-large;
 		text-align: center;
@@ -63,6 +63,7 @@
 			height: 200px;
 			width: 200px;
 			border-radius: 50%;
+			max-width: revert;
 		}
 
 		&-name {

@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: $primary-transparent;
+    background-color: $primary-super-transparent;
 
     &__logo {
         a { @include logo; }
