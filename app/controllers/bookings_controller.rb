@@ -4,9 +4,9 @@ class BookingsController < ApplicationController
 
 	def index
 		@bookings = Booking.where(user: current_user)
-		@upcoming = Booking.where(user: current_user, status: 1 || 0 || 3).order(:start_date)
-		@cancelled = Booking.where(user: current_user, status: -1 || 2)
-		@completed = Booking.where(user: current_user, status: 4)
+		@upcoming = @bookings.select { |booking| booking.status == 1 || booking.status == 0 || booking.status || 3}.sort_by { |booking| booking.start_date }
+		@cancelled = @bookings.select { |booking| booking.status == -1 || booking.status == 2 }.sort_by { |booking| booking.start_date }
+		@completed = @bookings.select { |booking| booking.status == 4 }.sort_by { |booking| booking.start_date }
 	end
 
 	def requests
