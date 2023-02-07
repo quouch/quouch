@@ -46,8 +46,6 @@
 		@media (min-width: $break-large) { padding: 2rem 2rem 0; }
 	}
 
-	&__info {}
-
 	&__name {
 		@include title-3;
 
@@ -79,6 +77,27 @@
 			flex-shrink: 0;
 			
 			img { color: $primary; }
+		}
+	}
+
+	&__features {
+		@include feature-tag;
+
+		display: flex;
+		gap: .5rem;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+
+		li {
+			color: $primary-light;
+			background-color: $primary-transparent;
+			padding: .1rem .8rem;
+			border-radius: $border-radius-xlarge;
+		}
+
+		li:last-child {
+			color: $secondary-light;
+			background-color: $secondary-transparent;
 		}
 	}
 
