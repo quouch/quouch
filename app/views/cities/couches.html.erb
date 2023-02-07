@@ -5,9 +5,11 @@
 	<% @couches.each do |couch| %>
 			<li>
 				<article class="couches__list-item">
-					<%= image_tag('profile.jpg', class: 'couches__image') %>
+					<%= link_to couch_path(couch) do %>
+						<%= image_tag('profile.jpg', class: 'couches__image') %>
+					<% end %>
 					<div class="couches__content">
-						<ul class="couches__features">
+						<ul class="couches__features features">
 							<li>vegan</li>
 							<li>sunset lover</li>
 							<li>political activism</li>

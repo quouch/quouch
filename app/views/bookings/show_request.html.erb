@@ -14,8 +14,14 @@
 				<span><%= @booking.user.pronouns %></span>
 			</h3>
 			<div class="request__chat chat-icon__wrap">
-				<%= link_to new_couch_booking_path(@booking.user) do %>
-					<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+				<% if @chat.nil? %>
+					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+					<% end %>
+				<% else %>
+					<%= link_to chat_path(@chat) do %>
+						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
