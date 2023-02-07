@@ -48,6 +48,7 @@
 			<% end %>
 		</ul>
 
+		<% if @completed.any? %>
 		<h2 class="bookings__title">Past Trips</h2>
 		<ul class="past-bookings">
 			<% @completed.each do |booking| %>
@@ -81,7 +82,9 @@
 				</li>
 			<% end %>
 		</ul>
+		<% end %>
 
+		<% if @cancelled.any? %>
 		<h2 class="bookings__title">Declined Trips</h2>
 		<ul class="past-bookings">
 			<% @cancelled.each do |booking| %>
@@ -109,6 +112,7 @@
 				<% end %>
 			<% end %>
 		</ul>
+		<% end %>
 	<% else %>
 		<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
 	<% end %>
