@@ -1,0 +1,98 @@
+.couches {
+	&__wrap {
+		width: 80%;
+		margin: 0 auto;
+	}
+
+	&__title {}
+
+	&__list {
+		display: flex;
+		overflow-x: scroll;
+		gap: 1.5rem;
+		padding: 1rem;
+
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			justify-content: center;
+			padding: 0;
+			overflow-x: visible;
+		}
+		
+		&-item {
+			border-radius: $border-radius-medium;
+			background-color: $white;
+			box-shadow: $box-shadow;
+			min-width: fit-content;
+		}
+	}
+	
+	&__image {
+		width: 100%;
+		background-position: center;
+		background-size: cover;
+		border-top-left-radius: $border-radius-medium;
+		border-top-right-radius: $border-radius-medium;
+	}
+	
+	&__content {
+		padding: 1rem;
+	}
+
+	&__features {
+		@include feature-tag;
+
+		display: flex;
+		gap: .5rem;
+		flex-wrap: wrap;
+		margin-bottom: 1rem;
+
+		li {
+			color: $primary-light;
+			background-color: $primary-super-transparent;
+			padding: .1rem .8rem;
+			border-radius: $border-radius-xlarge;
+		}
+
+		li:last-child {
+			color: $secondary-light;
+			background-color: $secondary-super-transparent;
+		}
+	}
+
+	&__offers {
+		p { font-size: .75rem; }
+		
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	&__details {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+	}
+	
+	&__name {
+		@include title-5;
+
+		margin: 0;
+		a { color: $black; }
+	}
+	
+	&__characteristics {
+		@include body-2;
+
+		color: $gray-05;
+	}
+
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: .1rem;
+		color: $gray-05;
+	}
+}
