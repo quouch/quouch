@@ -18,7 +18,7 @@
 				<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
 			<% elsif @booking.confirmed? && @booking.payments.empty? %>
 				<%= link_to 'Change Booking', edit_booking_path(@booking) %>
-				<%= link_to 'Pay now & Get access to your hosts address', pay_booking_path(@booking) %>
+				<%= link_to 'Pay now', pay_booking_path(@booking) %>
 			<% elsif @booking.confirmed? %>
 				<%= link_to 'Update Booking', edit_booking_path(@booking) %>
 				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
