@@ -1,12 +1,23 @@
-<h1>Your Conversations</h1>
-<ul>
-		<% @conversations = [] %>
-		<% @chats.each do |chat| %>
-			<% @conversations << User.where(id: chat.user_receiver_id) || User.where(id: chat.user_sender_id) %>
-			<% @conversations.flatten.each do |conversation| %>
-				<li>
-					<%= link_to "#{conversation.first_name}", chat_path(chat) %>
-				</li>
+<section class="chats">
+	<h1 class="chats__title">Your Conversations</h1>
+	<ul class="chats__list">
+			<% @conversations = [] %>
+			<% @chats.each do |chat| %>
+				<% if chat.messages.any? %>
+					<% @conversations << User.where(id: chat.user_receiver_id) || User.where(id: chat.user_sender_id) %>
+					<% @conversations.flatten.each do |conversation| %>
+						<%= link_to chat_path(chat) do %>
+							<li class="chats__list-item">
+								<%= image_tag('profile.jpg') %>
+								<div class="chats__details">
+									<p class="chats__details-name"><%= conversation.first_name %></p>
+									<p class="chats__details-content"><%= chat.messages.last.content %></p>
+									<p class="chats__details-time"><%= chat.messages.last.created_at.strftime("%^b.%d %I:%M %p") %></p>
+								</div>
+							</li>
+						<% end %>
+					<% end %>
+				<% end %>
 			<% end %>
-		<% end %>
-</ul>
+	</ul>
+</section>

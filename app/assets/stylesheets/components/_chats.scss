@@ -1,0 +1,39 @@
+.chats {
+	height: 100%;
+	overflow-y: scroll;
+
+	
+	&__list {
+		&-item {
+			display: flex;
+			gap: 2rem;
+			align-items: center;
+			border-top: solid .7px $gray-02;
+			border-bottom: solid .7px $gray-02;
+			padding: 1rem;
+
+			img {
+				height: 100px;
+				width: 100px;
+				border-radius: 100%;
+			}
+		}
+	}
+
+	&__details {
+		&-name {
+			@include title-4;
+			color: $gray-06;
+			margin: 0;
+		}
+
+		&-content { color: $gray-06; }
+
+		&-time {
+			@include body-3;
+
+			margin-top: 1rem;
+			color: $gray-04;
+		}
+	}
+}
