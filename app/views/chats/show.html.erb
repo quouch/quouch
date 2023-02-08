@@ -1,26 +1,33 @@
-<div data-controller="chat-subscription"
+<div class="chat"
+     data-controller="chat-subscription"
      data-chat-subscription-chat-id-value="<%= @chat.id %>">
-  <h1>#<%= @name %></h1>
+  <h1 class="chat__title">Your conversation with <%= @name %></h1>
 
-  <div class="messages" data-chat-subscription-target="messages">
+  <div class="chat__messages"
+       data-chat-subscription-target="messages">
     <% @chat.messages.each do |message| %>
+      <div class="chat__message chat__message<%= message.sender?(current_user) ? '--left' : '--right' %>">
+        <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
           <%= render "messages/message", message: message %>
+        </div>
+      </div>
     <% end %>
   </div>
 
-	<%= simple_form_for [@chat, @message], remote: true,
-  html: { 
-    data: { 
-      controller: 'chat-subscription',
-      action: "turbo:submit-end->chat-subscription#resetForm"
-    }
-  } do |f|
-%>
-  <%= f.input :content,
-    label: false,
-    placeholder: "Message ##{@name}",
-    wrapper_html: {class: "flex-grow-1"}
-  %>
-  <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-<% end %>
+  <%= simple_form_for [@chat, @message], remote: true, 
+    html: {
+      class: 'chat__form',
+      data: { 
+        controller: 'chat-subscription',
+        action: "turbo:submit-end->chat-subscription#resetForm"
+      }
+    } do |f| %>
+      <%= f.input :content,
+        label: false,
+        placeholder: "Message ##{@name}",
+        input_html: { class: 'chat__form-input' } %>
+      <%= button_tag(class: 'chat__form-button') do %>
+        <%= image_tag('icons/send.svg') %>
+      <% end %>
+  <% end %>
 </div>

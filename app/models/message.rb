@@ -6,6 +6,10 @@ class Message < ApplicationRecord
     notify_recipient
   end
 
+  def sender?(a_user)
+    user.id == a_user.id
+  end
+
   private
 
   def notify_recipient
