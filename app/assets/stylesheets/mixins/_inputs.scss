@@ -68,6 +68,11 @@
 	margin-left: 0.5rem;
 }
 
-button {
-	cursor: pointer;
+button, a { cursor: pointer; }
+
+
+textarea {
+	border-radius: $border-radius-small;
+	border: 1px solid $gray-02;
+	padding: .5rem;
 }
