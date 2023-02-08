@@ -130,7 +130,7 @@ h1 { @include title-1; }
 // Body
 body {
 	font-family: $body-font;
-	color: #000;
+	color: $gray-06;
 }
 
 p { @include body-1; }
