@@ -3,6 +3,7 @@
 <div class="requests">
 	<section>
 	<% if @requests.any? %>
+		<% if @upcoming.any? %>
 		<h2 class="requests__title">Upcoming Guests</h2>
 		<ul class="upcoming-requests">
 			<% @upcoming.each do |request| %>
@@ -25,7 +26,7 @@
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/people.svg') %>
-									<%= request.number_travellers %> Travellers
+									<%= pluralize request.number_travellers, "Traveller" %>
 								</li>
 							</div>
 						</ul>
@@ -33,53 +34,70 @@
 				<% end %>
 			<% end %>
 		</ul>
+		<% end %>
 
-		<h2 class="requests__title">Past Guests</h2>
-		<ul class="past-requests">
-			<% @completed.each do |request| %>
-				<li>
-					<ul class="past-request">
-						<li class="past-request__profile"><%= image_tag('profile.jpg') %></li>
-						<div class="past-request__wrap">
-							<li class="past-request__host"><%= request.couch.user.first_name %></li>
-							<li class="past-request__pronouns"><%= request.couch.user.pronouns %></li>
-							<li class="past-request__detail">
-								<%= image_tag('icons/calendar.svg') %>
-								<%= request.start_date.strftime("%B, %Y") %>
+		<% if @completed.any? %>
+			<h2 class="requests__title">Past Guests</h2>
+			<ul class="past-requests">
+				<% @completed.each do |request| %>
+					<li>
+						<ul class="past-request">
+							<li class="past-request__profile">
+								<%= image_tag('profile.jpg') %>
 							</li>
-							<% if request.review.nil? %>
-							<li class="past-request__link">
-								<%= link_to "See Details & Leave Review", request_booking_path(request) %>
-							</li>
-							<% else %>
-							<li class="past-request__link">
-								<%= link_to "See Details", request_booking_path(request) %>
-							</li>
-							<% end %>
-						</div>
-					</ul>
-				</li>
-			<% end %>
-		</ul>
+							<div class="past-request__wrap">
+								<li class="past-request__host">
+									<%= request.couch.user.first_name %>
+								</li>
+								<li class="past-request__pronouns">
+									<%= request.couch.user.pronouns %>
+								</li>
+								<li class="past-request__detail">
+									<%= image_tag('icons/calendar.svg') %>
+									<%= request.start_date.strftime("%B, %Y") %>
+								</li>
+								<% if request.review.nil? %>
+								<li class="past-request__link">
+									<%= link_to "See Details & Leave Review", request_booking_path(request) %>
+								</li>
+								<% else %>
+								<li class="past-request__link">
+									<%= link_to "See Details", request_booking_path(request) %>
+								</li>
+								<% end %>
+							</div>
+						</ul>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
 
-		<h2 class="requests__title">Cancelled Requests</h2>
-		<ul class="past-requests">
-			<% @cancelled.each do |request| %>
-				<li>
-					<ul class="past-request">
-						<li class="past-request__profile"><%= image_tag('profile.jpg') %></li>
-						<div class="past-request__wrap">
-							<li class="past-request__host"><%= request.couch.user.first_name %></li>
-							<li class="past-request__pronouns"><%= request.couch.user.pronouns %></li>
-							<li class="past-request__detail">
-								<%= image_tag('icons/calendar.svg') %>
-								<%= request.start_date.strftime("%B, %Y") %>
+		<% if @cancelled.any? %>
+			<h2 class="requests__title">Cancelled Requests</h2>
+			<ul class="past-requests">
+				<% @cancelled.each do |request| %>
+					<li>
+						<ul class="past-request">
+							<li class="past-request__profile">
+								<%= image_tag('profile.jpg') %>
 							</li>
-						</div>
-					</ul>
-				</li>
-			<% end %>
-		</ul>
+							<div class="past-request__wrap">
+								<li class="past-request__host">
+									<%= request.couch.user.first_name %>
+								</li>
+								<li class="past-request__pronouns">
+									<%= request.couch.user.pronouns %>
+								</li>
+								<li class="past-request__detail">
+									<%= image_tag('icons/calendar.svg') %>
+									<%= request.start_date.strftime("%B, %Y") %>
+								</li>
+							</div>
+						</ul>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
 		<% else %>
 			<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
 		<% end %>

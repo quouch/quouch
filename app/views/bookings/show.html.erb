@@ -85,10 +85,12 @@
 					</li>
 					<li class="booking__pin">
 						<%= image_tag ('icons/pin.svg') %>
-						<% if @payment.any? %>
+						<% if @booking.confirmed? && @payment.any? %>
 							<%= @couch.user.address %></p>
-						<% else %>
+						<% elsif @booking.confirmed? && @booking.payments.empty? %>
 							<p>Pay now to get access to your hosts address!</p>
+						<% else %>
+							<p>You will see your hosts address once the booking is confirmed and paid for.</p>
 						<% end %>
 					</li>
 				</ul>

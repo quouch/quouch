@@ -3,50 +3,52 @@
 <div class="bookings">
 	<section>
 	<% if @bookings.any? %>
-		<h2 class="bookings__title">Upcoming Trips</h2>
-		<ul class="upcoming-bookings">
-			<% @upcoming.each do |booking| %>
-				<%= link_to booking_path(booking) do %>
-					<li>
-						<ul class="upcoming-booking">
-							<%= image_tag('profile.jpg', class: 'upcoming-booking__profile') %>
-							<div class="upcoming-booking__wrap">
-								<div class="upcoming-booking__info">
-									<li class="upcoming-booking__host">
-										<%= booking.couch.user.first_name %>
-									</li>
-									<li class="upcoming-booking__city">
-										<%= booking.couch.user.city.name %>
-									</li>
+		<% if @upcoming.any? %>
+			<h2 class="bookings__title">Upcoming Trips</h2>
+			<ul class="upcoming-bookings">
+				<% @upcoming.each do |booking| %>
+					<%= link_to booking_path(booking) do %>
+						<li>
+							<ul class="upcoming-booking">
+								<%= image_tag('profile.jpg', class: 'upcoming-booking__profile') %>
+								<div class="upcoming-booking__wrap">
+									<div class="upcoming-booking__info">
+										<li class="upcoming-booking__host">
+											<%= booking.couch.user.first_name %>
+										</li>
+										<li class="upcoming-booking__city">
+											<%= booking.couch.user.city.name %>
+										</li>
+									</div>
+									<div class="upcoming-booking__details">
+										<li class="upcoming-booking__detail">
+											<%= image_tag('icons/calendar.svg') %>
+											<%= booking.start_date.strftime("%B %d") %> - <%= booking.end_date.strftime("%B %d, %Y") %>
+										</li>
+										<li class="upcoming-booking__detail">
+											<%= image_tag('icons/home.svg') %>
+											<%= booking.status.capitalize %>
+										</li>
+										<li class="upcoming-booking__detail">
+											<%= image_tag('icons/money.svg') %>
+											<% if booking.payments.where(status: 1) %>
+												<%= 'Booking has been paid.' %>
+											<% else %>
+												<%= 'Awaiting payment to give access to address.' %>
+											<% end %>
+										</li>
+										<li class="upcoming-booking__detail">
+											<%= image_tag('icons/people.svg') %>
+											<%= pluralize booking.number_travellers, "Traveller" %>
+										</li>
+									</div>
 								</div>
-								<div class="upcoming-booking__details">
-									<li class="upcoming-booking__detail">
-										<%= image_tag('icons/calendar.svg') %>
-										<%= booking.start_date.strftime("%B %d") %> - <%= booking.end_date.strftime("%B %d, %Y") %>
-									</li>
-									<li class="upcoming-booking__detail">
-										<%= image_tag('icons/home.svg') %>
-										<%= booking.status.capitalize %>
-									</li>
-									<li class="upcoming-booking__detail">
-										<%= image_tag('icons/money.svg') %>
-										<% if booking.payments.where(status: 1) %>
-											<%= 'Booking has been paid.' %>
-										<% else %>
-											<%= 'Awaiting payment to give access to address.' %>
-										<% end %>
-									</li>
-									<li class="upcoming-booking__detail">
-										<%= image_tag('icons/people.svg') %>
-										<%= booking.number_travellers %> Travellers
-									</li>
-								</div>
-							</div>
-						</ul>
-					</li>
+							</ul>
+						</li>
+					<% end %>
 				<% end %>
-			<% end %>
-		</ul>
+			</ul>
+		<% end %>
 
 		<% if @completed.any? %>
 		<h2 class="bookings__title">Past Trips</h2>
