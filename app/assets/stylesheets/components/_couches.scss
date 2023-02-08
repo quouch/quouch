@@ -21,6 +21,7 @@
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
 			justify-content: center;
+			overflow-x: visible;
 		}
 		
 		&-item {
