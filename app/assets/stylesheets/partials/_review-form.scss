@@ -4,12 +4,6 @@
 	form {
 		display: flex;
 		flex-direction: column;
-
-		textarea {
-			border-radius: $border-radius-small;
-			border: 1px solid $gray-02;
-			padding: .5rem;
-		}
 	} 
 	
 	&__action {
