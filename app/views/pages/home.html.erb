@@ -1,5 +1,5 @@
 <div class="home__wrap">
-	<section>
+	<section class="search__wrap">
 		<%= form_with url: couches_path, class: 'search', method: :get do %>
 			<%= text_field_tag :query,
 				params[:query],
@@ -7,6 +7,65 @@
 			%>
 			<%= submit_tag "Search", class: 'search__button' %>
 		<% end %>
+	</section>
+
+	<section>
+		<ul class="couches__list">
+		<% @couches.each do |couch| %>
+			<li>
+				<article class="couches__list-item">
+					<%= link_to couch_path(couch) do %>
+						<%= image_tag('profile.jpg', class: 'couches__image') %>
+					<% end %>
+					<div class="couches__content">
+						<ul class="couches__features features">
+							<li>vegan</li>
+							<li>sunset lover</li>
+							<li>political activism</li>
+							<li>party lion</li>
+							<li>dark humor</li>
+						</ul>
+						<ul class="couches__offers offers">
+						<% if couch.user.offers_couch %>
+							<li class="offers-item">
+								<%= image_tag('icons/sleep.svg') %>
+								<p>couch</p>
+							</li>
+						<% end %>
+						<% if couch.user.offers_hang_out %>
+							<li class="offers-item">
+								<%= image_tag('icons/hangout.svg') %>
+								<p>hangout</p>
+							</li>
+						<% end %>
+						<% if couch.user.offers_co_work %>
+							<li class="offers-item">
+								<%= image_tag('icons/work.svg') %>
+								<p>co-work</p>
+							</li>
+						<% end %>
+						</ul>
+						<div class="couches__details">
+							<div>
+								<h2 class="couches__name">
+									<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
+								</h2>
+								<p class="couches__characteristics">
+									<%= couch.user.calculated_age %>, <%= couch.user.pronouns %>
+								</p>
+							</div>
+							<% if couch.reviews.any? %>
+								<p class="couches__rating">
+									<%= image_tag('icons/star.svg') %>
+									<%= couch.reviews.average(:rating).to_f %>
+								</p>
+							<% end %>
+						</div>
+					</div>
+				</article>
+			</li>
+		<% end %>
+		</ul>
 	</section>
 </div>
 

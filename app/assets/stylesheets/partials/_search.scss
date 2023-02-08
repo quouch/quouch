@@ -10,6 +10,11 @@
 		box-shadow: $box-shadow;
 	}
 
+	&__wrap {
+		display: flex;
+		justify-content: center;
+	}
+
 	&__button {
 		@include input-field;
 		@include primary-button;
