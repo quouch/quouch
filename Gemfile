@@ -6,6 +6,7 @@ ruby '3.1.2'
 # Authentication
 gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'
+gem 'simple_token_authentication', '~> 1.0'
 
 # JS bundling
 gem 'vite_rails'
