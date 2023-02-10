@@ -4,14 +4,16 @@ class Api::V1::ChatsController < Api::V1::BaseController
 
   def index
     @chats = Chat.all
+		render json: @chats
   end
 
 	def show
 	end
 
 	def create
-		@chat = Chat.new(user_sender_id: params[:user_sender_id], user_receiver_id: params[:user_receiver_id])
+		@chat = Chat.new(chat_params)
 		if @chat.save
+			render json: @chat
       render :show, status: :created
     else
       render_error
@@ -29,7 +31,7 @@ class Api::V1::ChatsController < Api::V1::BaseController
   end
 
 	def render_error
-    render json: { errors: @chats.errors.full_messages },
+    render json: { errors: @chat.errors.full_messages },
       status: :unprocessable_entity
   end
 end
