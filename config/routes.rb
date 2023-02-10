@@ -43,7 +43,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :chats, only: [ :index, :show, :create ]
+      resources :chats, only: %i[index show create] do
+        resources :messages, only: %i[create]
+      end
     end
   end
 
