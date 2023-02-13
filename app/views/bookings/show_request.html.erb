@@ -50,7 +50,7 @@
 					</li>
 					<li>
 						<%= image_tag('icons/people.svg') %>
-						<%= @booking.number_travellers %> Travellers
+						<%= pluralize @booking.number_travellers, "Traveller" %>
 					</li>
 				</ul>
 			</div>
