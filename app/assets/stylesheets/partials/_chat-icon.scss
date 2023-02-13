@@ -8,10 +8,13 @@
 		border-radius: 100%;
 		background-color: $white;
 		box-shadow: $box-shadow;
+		transition: all 160ms ease-in-out;
 
 		button {
 			background-color: transparent;
 			border: 0 transparent;
+
+			&:hover { transform: scale(1.04); }
 		}
 	}
 
