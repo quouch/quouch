@@ -36,7 +36,7 @@ class BookingsController < ApplicationController
 		@booking.booking_date = DateTime.now
 		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		if @booking.save
-      redirect_to sent_booking_path(@booking), notice: "Your request has been sent."
+      redirect_to sent_booking_path(@booking)
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
     else
       render 'bookings/new'
@@ -89,6 +89,8 @@ class BookingsController < ApplicationController
 
 	def sent
 		@host = @booking.couch.user
+		@couch = @booking.couch
+		@booking = Booking.find(params[:id])
 	end
 
 	def confirmed

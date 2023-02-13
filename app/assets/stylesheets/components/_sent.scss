@@ -1,0 +1,85 @@
+.sent {
+	width: 80%;
+	margin: 0 auto;
+	
+	@media (min-width: $break-medium) { display: flex; }
+
+	h2 { @include profile-title; }
+	h2:first-child { margin-top: 0; }
+
+	&__title { @include title-2; }
+
+	&__booking {
+		width: 100%;
+		min-width: fit-content;
+		
+		@media (min-width: $break-medium) {
+			padding: 2rem;
+			border-right: solid 1px $gray-02;
+		}
+	}
+	
+	&__details {
+		&-list {
+			li {
+				img {
+					height: 16px;
+					width: 16px;
+				}
+				
+				display: flex;
+				align-items: center;
+				gap: .3rem;
+				margin-bottom: .5rem;
+			}
+		}
+	}
+	
+	&__host {
+		span {
+			@include body-3;
+			
+			display: block;
+			margin: .5rem 0 1rem;
+		}
+	}
+
+	&__accomodation {
+		@include facility-name;
+		margin: 1rem 0;
+		
+		&-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
+		}
+		
+		li {
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+			
+			img {
+				height: 16px;
+				width: 16px;
+			}
+		}
+	}
+	
+	&__link {
+		@include primary-button;
+		@include input-field;
+	
+		color: $white;
+		margin: 2rem 0;
+	}
+	
+	&__message {
+		flex-grow: 1;
+		
+		@media (min-width: $break-medium) {
+			padding: 2rem;
+			width: 100%;
+		}
+	}
+}
