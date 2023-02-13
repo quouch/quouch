@@ -7,12 +7,11 @@
   &__messages {
     display: flex;
     flex-direction: column;
-  } 
+  }
 
   &__message {
+    display: flex;
     margin-bottom: 1rem;
-    width: 70%;
-    max-width: 400px;
 
     &--left { justify-content: start; }
     &--right { justify-content: end; }

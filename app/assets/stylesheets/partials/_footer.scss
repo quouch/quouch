@@ -2,12 +2,13 @@
 	background-color: $primary-super-transparent;
 	padding: 2rem 0;
 	margin-top: 4rem;
+	flex-grow: 1;
 	
 	&__wrap {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		width: 70vw;
+		width: 80%;
 		margin: 0 auto;
 		
 		@media (min-width: $break-large) {
