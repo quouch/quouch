@@ -39,6 +39,9 @@ gem 'whenever', require: false
 # Search
 gem 'pg_search'
 
+# Geocoder for address search when sign up
+gem 'geocoder'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 
