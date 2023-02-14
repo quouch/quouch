@@ -68,16 +68,6 @@
 		}
 	}
 
-	&__links {
-		a, button {
-			@include input-field;
-			@include secondary-button;
-
-			display: inline-block;
-			margin: .2rem 0;
-		}
-	}
-
 	
 	&__wrap {
 		background-color: $white;
@@ -114,6 +104,15 @@
 				margin-bottom: .5rem;
 			}
 		}
+	}
+
+	&__message {
+		margin-bottom: 1rem;
+
+		@media (min-width: $break-large) { grid-column: 2; }
+
+		p:before { content: "\201C"; }
+		p:after { content: "\201D"; }
 	}
 	
 	&__accomodation {
@@ -156,7 +155,46 @@
 			width: 16px;
 		}
 	}
+
+	&__links {
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			justify-content: center;
+			gap: 3rem;
+			margin-top: 1rem;
+			
+			form {
+				width: 100%;
+			}
+		}
+	}
+
+	&__accept {
+		@include input-field;
+		@include primary-button;
 	
+		display: inline-block;
+		padding: .3rem 2rem;
+	}
+
+	&__update {
+		@include input-field;
+		@include secondary-button;
+	
+		display: inline-block;
+		padding: .3rem 2rem;
+	}
+
+	&__decline {
+		@include input-field;
+		@include tertiary-button;
+
+		display: inline-block;
+		background-color: transparent;
+		padding: .3rem 2rem;
+		width: 100%;
+	}
 }
 	
 #booking__pay {
