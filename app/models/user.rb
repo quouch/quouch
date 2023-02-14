@@ -24,6 +24,9 @@ class User < ApplicationRecord
   validates :date_of_birth, presence: true
   validate :validate_age
 
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+
   def calculated_age
     today = Date.today
     if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
