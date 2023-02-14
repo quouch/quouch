@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_09_160207) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -186,7 +186,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_160207) do
     t.text "question_four"
     t.bigint "city_id"
     t.text "characteristics", array: true
-    t.string "address"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -196,6 +195,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_09_160207) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["email"], name: "index_users_on_email", unique: true
