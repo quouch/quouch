@@ -13,16 +13,15 @@
 				<%= @couch.user.first_name %>, <%= @couch.user.calculated_age %>
 				<span><%= @couch.user.pronouns %></span>
 			</h3>
-			<div class="booking__links">
-				<% if @booking.pending? || @booking.pending_reconfirmation? %>
-				<%= link_to 'Update Request', edit_booking_path(@booking) %>
-				<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch %>
-				<% elsif @booking.confirmed? && @booking.payments.empty? %>
-					<%= link_to 'Change Booking', edit_booking_path(@booking) %>
-					<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
-				<% elsif @booking.confirmed? %>
-					<%= link_to 'Update Booking', edit_booking_path(@booking) %>
-					<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
+			<div class="request__chat chat-icon__wrap">
+				<% if @chat.nil? %>
+					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+					<% end %>
+				<% else %>
+					<%= link_to chat_path(@chat) do %>
+						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
+					<% end %>
 				<% end %>
 			</div>
 		</div>
@@ -98,10 +97,24 @@
 			<div class="booking__map"></div>
 		</article>
 
+		<div class="booking__links">
+			<% if @booking.pending? || @booking.pending_reconfirmation? %>
+			<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
+			<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+			<% elsif @booking.confirmed? && @booking.payments.empty? %>
+				<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
+				<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
+			<% elsif @booking.confirmed? %>
+				<%= link_to 'Update Booking', edit_booking_path(@booking), class: 'booking__update' %>
+				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+			<% end %>
+		</div>
+
 		<% if @booking.completed? && @booking.review.nil? %>
 			<%= render 'partials/new-review' %>
 		<% elsif @booking.completed? && !@booking.review.nil? %>
 			<%= render 'partials/review-preview' %>
 		<% end %>
+
 	</div>
 </section>

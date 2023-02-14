@@ -1,19 +1,19 @@
 <h1>Your Guest</h1>
 
-<section class="request">
-	<article class="request__host">
-		<div class="request__host-left">
+<section class="booking">
+	<article class="booking__host">
+		<div class="booking__host-left">
 			<h2>Your Guest</h2>
 			<%= link_to couch_path(@couch) do %>
-				<%= image_tag('profile.jpg', class: 'request__host-image') %>
+				<%= image_tag('profile.jpg', class: 'booking__host-image') %>
 			<% end %>
 		</div>
-		<div class="request__host-right">
-			<h3 class="request__host-name">
+		<div class="booking__host-right">
+			<h3 class="booking__host-name">
 				<%= @booking.user.first_name %>, <%= @booking.user.calculated_age %>
 				<span><%= @booking.user.pronouns %></span>
 			</h3>
-			<div class="request__chat chat-icon__wrap">
+			<div class="booking__chat chat-icon__wrap">
 				<% if @chat.nil? %>
 					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
 						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
@@ -27,11 +27,11 @@
 		</div>
 	</article>
 
-	<div class="request__wrap">
-		<article class="request__info">
-			<div class="request__details">
+	<div class="booking__wrap">
+		<article class="booking__info">
+			<div class="booking__details">
 				<h2>Travel Details</h2>
-				<ul class="request__details-list">
+				<ul class="booking__details-list">
 					<li>
 						<%= image_tag('icons/calendar.svg') %>
 						<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
@@ -55,19 +55,18 @@
 				</ul>
 			</div>
 
-			<div class="request__message">
+			<div class="booking__message">
 				<h2>Message</h2>
 				<p><%= @booking.message %></p>
 			</div>
 		</article>
 
-		<div class="request__links">
+		<div class="booking__links">
 			<% if @booking.confirmed? %>
-				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'request__decline' %>
-
+				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
 			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
-				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'request__accept' %>
-				<%= button_to 'Politely Decline', decline_booking_path(@booking), method: :patch, class: 'request__decline' %>
+				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
+				<%= button_to 'Politely Decline', decline_booking_path(@booking), method: :patch, class: 'booking__decline' %>
 			<% end %>
 		</div>
 
