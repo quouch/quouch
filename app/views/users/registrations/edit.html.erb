@@ -29,18 +29,22 @@
                  as: :check_boxes,
                  required: true,
                  autofocus: true,
-                 input_html: {:multiple => true} %>
+                 input_html: { multiple: true } %>
     <%= f.association :city,
                       as: :radio_buttons,
                       required: true,
                       autofocus: true %>
+    <%= f.input :address,
+                input_html: { data: { address_autocomplete_target: "address"} , class: 'display-none' },
+                wrapper_html: { data: { controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
     <%= f.input :summary,
                 required: true,
                 autofocus: true %>
-    <%= f.input :characteristics,
-                collection: ['Vegan', 'Sunset Drinks', 'Clean Freak', 'No Drinks for Me', 'Party Lover', 'Non-Smoker', 'No Pets', 'Alone Time', 'Sports', 'Exhibitions', 'Political Activism'],
-                as: :check_boxes,
-                input_html: {:multiple => true} %>
+    <%= simple_fields_for :user_characteristic do |ucf| %>
+      <%= ucf.collection_check_boxes :characteristic_ids,
+                Characteristic.all.map { |characteristic| [characteristic.id, characteristic.name] }, :first, :last,
+                input_html: { multiple: true} %>
+    <% end %>
     <%= f.input :offers_couch,
                 autofocus: true %>
 
