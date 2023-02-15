@@ -34,7 +34,7 @@
 				<ul class="booking__details-list">
 					<li>
 						<%= image_tag('icons/calendar.svg') %>
-						<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
+						<%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
 					</li>
 					<li>
 						<%= image_tag('icons/home.svg') %>
@@ -92,12 +92,12 @@
 					<% end %>
 				</li>
 			</ul>
-			<%# <% if @booking.confirmed? && @payment.any? %>
-				<div class="booking__map"
-						 data-controller="map"
-						 data-map-marker-value="<%= @marker.to_json %>"
-						 data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-			<%# <% end %>
+			<% if @booking.confirmed? && @payment.any? %>
+			<div class="booking__map"
+						data-controller="map"
+						data-map-marker-value="<%= @marker.to_json %>"
+						data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+			<% end %>
 		</article>
 
 		<div class="booking__links">
