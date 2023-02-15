@@ -105,9 +105,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	font-size: 0.875rem;
 	color: $gray-05;
 
-	@media (min-width: $break-large) {
-		font-size: 1rem;
-	}
+	@media (min-width: $break-large) { font-size: 1rem; }
 }
 
 @mixin nav-title {

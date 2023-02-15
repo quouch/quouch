@@ -1,14 +1,15 @@
 .booking {
-	width: 80vw;
-	margin: 0 auto;
-	border-radius: $border-radius-large;
-	box-shadow: $box-shadow;
 	
 	h2 { @include profile-title; }
-
-	@media (min-width: $break-large) {
-		width: 60vw;
+	
+	@media (min-width: $break-small) {
+		margin: 0 auto;
+		width: 80%;
+		border-radius: $border-radius-large;
+		box-shadow: $box-shadow;
 	}
+
+	@media (min-width: $break-medium) { width: 60%; }
 
 	&__host {
 		display: flex;
@@ -17,14 +18,17 @@
 		align-items: center;
 		padding: 1rem;
 		background-color: $primary-super-transparent;
-		border-top-left-radius: $border-radius-large;
-		border-top-right-radius: $border-radius-large;
 		text-align: center;
+
+		@media (min-width: $break-small) {
+			border-top-left-radius: $border-radius-large;
+			border-top-right-radius: $border-radius-large;
+		}
 
 		@media (min-width: $break-large) {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			padding: 1rem 6rem;
+			padding: 2rem 6rem;
 			text-align: start;
 		}
 
@@ -67,7 +71,6 @@
 			}
 		}
 	}
-
 	
 	&__wrap {
 		background-color: $white;
@@ -119,8 +122,8 @@
 		@include facility-name;
 		
 		&-list {
-			display: flex;
-			flex-wrap: wrap;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 			gap: 1rem 2rem;
 		}
 		
@@ -136,9 +139,7 @@
 		}
 	}
 	
-	&__location {
-		margin-top: 1.5rem;
-	}
+	&__location { margin-top: 1.5rem; }
 	
 	&__address {
 		li { margin-bottom: .5rem; }
