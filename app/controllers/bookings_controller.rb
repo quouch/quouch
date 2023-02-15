@@ -20,7 +20,15 @@ class BookingsController < ApplicationController
 		@payment = @booking.payments.where(operation: 1)
 		@couch = @booking.couch
 		@host = @couch.user
+		@hosts_array = User.where(id: @host.id)
 		@review = Review.new
+		@marker = @hosts_array.geocoded.map do |host|
+			{
+				lat: host.latitude,
+				lng: host.longitude,
+				marker_html: render_to_string(partial: "marker")
+			}
+		end
 	end
 
 	def new
