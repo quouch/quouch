@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_15_165818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
     t.integer "request"
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "characteristics", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chats", force: :cascade do |t|
@@ -160,6 +166,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "user_characteristics", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "characteristic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["characteristic_id"], name: "index_user_characteristics_on_characteristic_id"
+    t.index ["user_id"], name: "index_user_characteristics_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -185,7 +200,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
     t.text "question_three"
     t.text "question_four"
     t.bigint "city_id"
-    t.text "characteristics", array: true
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -222,4 +236,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_14_121403) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "reviews", "couches"
   add_foreign_key "reviews", "users"
+  add_foreign_key "user_characteristics", "characteristics"
+  add_foreign_key "user_characteristics", "users"
 end

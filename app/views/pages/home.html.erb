@@ -18,12 +18,11 @@
 						<%= image_tag('profile.jpg', class: 'couches__image') %>
 					<% end %>
 					<div class="couches__content">
-						<ul class="couches__features features">
-							<li>vegan</li>
-							<li>sunset lover</li>
-							<li>political activism</li>
-							<li>party lion</li>
-							<li>dark humor</li>
+						<ul class="couch__features features">
+						<% couch.user.characteristics.each  do |characteristic| %>
+							<li><%= characteristic.name %></li>
+						<% end %>
+							<li>Dark Humor</li>
 						</ul>
 						<ul class="couches__offers offers">
 						<% if couch.user.offers_couch %>

@@ -54,3 +54,8 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 9. Remove default list styles
 */
 ul { list-style: none; }
+
+/*
+10. Display none utility class
+*/
+.display-none { display: none; }

@@ -42,11 +42,9 @@
 			<% end %>
 		</ul>
 		<ul class="couch__features features">
-			<li>vegan</li>
-			<li>sunset lover</li>
-			<li>political activism</li>
-			<li>party lion</li>
-			<li>dark humor</li>
+			<% @host.characteristics.each  do |characteristic| %>
+				<li><%= characteristic.name %></li>
+			<% end %>
 		</ul>
 		
 		<div class="couch__intro">

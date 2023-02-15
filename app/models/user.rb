@@ -16,6 +16,8 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy, as: :recipient
   has_many :chat_users
   has_many :chats, through: :chat_users
+  has_many :user_characteristics
+  has_many :characteristics, through: :user_characteristics
 
   belongs_to :city, optional: true
 
