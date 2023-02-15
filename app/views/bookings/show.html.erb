@@ -3,7 +3,7 @@
 <section class="booking">
 	<article class="booking__host">
 		<div class="booking__host-left">
-			<h2>Your Guest</h2>
+			<h2>Your Host</h2>
 			<%= link_to couch_path(@couch) do %>
 				<%= image_tag('profile.jpg', class: 'booking__host-image') %>
 			<% end %>
@@ -75,26 +75,29 @@
 		</article>
 
 		<article class="booking__location">
-			<div>
-				<h2>Location</h2>
-				<ul class="booking__address">
-					<li class="booking__pin">
-						<%= image_tag ('icons/city.svg') %>
-						<p><%= @couch.user.city.name %></p>
-					</li>
-					<li class="booking__pin">
-						<%= image_tag ('icons/pin.svg') %>
-						<% if @booking.confirmed? && @payment.any? %>
-							<%= @couch.user.address %></p>
-						<% elsif @booking.confirmed? && @booking.payments.empty? %>
-							<p>Pay now to get access to your hosts address!</p>
-						<% else %>
-							<p>You will see your hosts address once the booking is confirmed and paid for.</p>
-						<% end %>
-					</li>
-				</ul>
-			</div>
-			<div class="booking__map"></div>
+			<h2>Location</h2>
+			<ul class="booking__address">
+				<li class="booking__pin">
+					<%= image_tag ('icons/city.svg') %>
+					<p><%= @couch.user.city.name %></p>
+				</li>
+				<li class="booking__pin">
+					<%= image_tag ('icons/pin.svg') %>
+					<% if @booking.confirmed? && @payment.any? %>
+						<%= @couch.user.address %></p>
+					<% elsif @booking.confirmed? && @booking.payments.empty? %>
+						<p>Pay now to get access to your hosts address!</p>
+					<% else %>
+						<p>You will see your hosts address once the booking is confirmed and paid for.</p>
+					<% end %>
+				</li>
+			</ul>
+			<%# <% if @booking.confirmed? && @payment.any? %>
+				<div class="booking__map"
+						 data-controller="map"
+						 data-map-marker-value="<%= @marker.to_json %>"
+						 data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
+			<%# <% end %>
 		</article>
 
 		<div class="booking__links">

@@ -137,8 +137,7 @@
 	}
 	
 	&__location {
-		display: flex;
-		margin: 1rem auto;
+		margin-top: 1.5rem;
 	}
 	
 	&__address {
@@ -154,6 +153,12 @@
 			height: 16px;
 			width: 16px;
 		}
+	}
+
+	&__map {
+		margin: 2rem 0;
+		height: 300px;
+		border-radius: $border-radius-small;
 	}
 
 	&__links {
@@ -199,7 +204,8 @@
 	
 #booking__pay {
 	@include primary-button;
-
+	@include input-field;
+	
+	color: $white;
 	padding: .3rem 2rem;
-	margin: .2rem 0;
 }
