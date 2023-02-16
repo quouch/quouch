@@ -14,6 +14,7 @@
 @import "flatpickr/dist/flatpickr.css";
 @import "flatpickr/dist/themes/material_orange";
 @import "star-rating.js/dist/star-rating.css";
+@import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder";
 
 // Your CSS partials
 @import 'components/booking';
@@ -30,6 +31,7 @@
 @import 'components/sent';
 @import 'components/signin';
 @import 'components/signup';
+@import 'components/user-form';
 
 @import 'partials/chat-icon';
 @import 'partials/features';

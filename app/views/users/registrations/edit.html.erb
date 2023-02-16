@@ -1,112 +1,169 @@
-<h2>Edit <%= current_user.first_name %></h2>
+<section class="user">
+  <h1>Edit your profile <%= current_user.first_name %></h1>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
+    <%= f.error_notification %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="form-inputs">
-    <%= f.input :photo, as: :file %>
-    <%= f.input :first_name,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "first_name" }%>
-    <%= f.input :last_name,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "last_name" }%>
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :date_of_birth,
-                start_year: Date.today.year - 100,
-                end_year: Date.today.year,
-                required: true,
-                autofocus: true %>
-    <%= f.label :pronouns %>
-    <%= f.select :pronouns,
-                 ['she/her', 'she/they', 'he/him', 'he/they', 'they/them', 'custom'],
-                 as: :check_boxes,
-                 required: true,
-                 autofocus: true,
-                 input_html: { multiple: true } %>
-    <%= f.association :city,
-                      as: :radio_buttons,
-                      required: true,
-                      autofocus: true %>
-    <%= f.input :address,
-                input_html: { data: { address_autocomplete_target: "address"} , class: 'display-none' },
-                wrapper_html: { data: { controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
-    <%= f.input :summary,
-                required: true,
-                autofocus: true %>
-    <%= simple_fields_for :user_characteristic do |ucf| %>
-      <%= ucf.collection_check_boxes :characteristic_ids,
-                Characteristic.all.map { |characteristic| [characteristic.id, characteristic.name] }, :first, :last,
-                input_html: { multiple: true} %>
-    <% end %>
-    <%= f.input :offers_couch,
-                autofocus: true %>
+    <div>
+      <div class="user__wrap">
+        
+        <div class="user__image">
+          <%= f.label :profile_picture %>
+          <% if @user.photo.any? %>
+            <%= image_tag('profile', class: 'user__image-preview') %>
+          <% else %>
+            <%= image_tag('icons/profile', class: 'user__image-icon') %>
+          <% end %>
+          <%= f.input_field :photo, as: :file, class: 'user__image-upload' %>
+        </div>
 
-    <%= simple_fields_for :couch do |cf| %>
-      <%= cf.input :capacity,
-                   collection: 1..6,
-                   label: 'I can host:',
-                   autofocus: true %>
-      <p>My Couch comes with:</p>
-      <%= simple_fields_for :couch_facility do |cff| %>
-        <%= cff.collection_check_boxes :facility_ids,
-                                      Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
-                                      input_html: { multiple: true },
-                                      autofocus: true %>
+        <div class="user__info">
+          <%= f.label       :personal_details %>
+          <%= f.input_field :first_name,
+                            required: true,
+                            autofocus: true,
+                            label: false,
+                            placeholder: 'First Name',
+                            error: 'First Name is mandatory, please specify one',
+                            input_html: { autocomplete: 'first_name' } %>
+          <%= f.input_field :last_name,
+                            required: true,
+                            autofocus: true,
+                            input_html: { autocomplete: 'last_name' } %>
+          <%= f.input_field :email,
+                            required: true,
+                            autofocus: true,
+                            input_html: { autocomplete: 'email' } %>
+          <div class="user__birthdate">
+            <%= f.input_field :date_of_birth,
+                                start_year: Date.today.year - 100,
+                                end_year: Date.today.year,
+                                required: true,
+                                autofocus: true %>
+          </div>
+          <%= f.input      :pronouns,
+                            autofocus: true,
+                            input_html: { autocomplete: 'pronouns' } %>
+          <%# <%= f.association :city,
+                            as: :radio_buttons,
+                            required: true,
+                            boolean_style: :inline,
+                            autofocus: true %>
+          
+          <%= f.label       :address, class: 'user__address-label' %>
+          <div class="user__address">
+            <%= f.input       :address,
+                              label: false,
+                              input_html: { data: { address_autocomplete_target: "address"}, class: 'display-none' },
+                              wrapper_html: { data: { controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+          </div>
+          
+          <%= f.label       :about_me %>
+          <%= f.input_field :summary,
+                            required: true,
+                            autofocus: true %>
+
+          <%= f.label :characteristics %>
+          <div class="user__characteristics">
+            <%= simple_fields_for :user_characteristic do |ucf| %>
+              <%= ucf.collection_check_boxes :characteristic_ids,
+                                            Characteristic.all.map { |characteristic| [characteristic.id, characteristic.name] }, :first, :last,
+                                            boolean_style: :inline,
+                                            input_html: { multiple: true} %>
+            <% end %>
+          </div>
+
+          <%= f.label :i_offer %>
+          <div class="user__offers">
+            <div class="user__offer">
+              <%= f.input_field     :offers_couch,
+                                    autofocus: true %>
+              <%= image_tag('icons/sleep') %>
+              <%= f.label           :couch %>
+            </div>
+            <div class="user__offer">
+              <%= f.input_field :offers_co_work,
+                                autofocus: true %>
+              <%= image_tag('icons/work') %>
+              <%= f.label       :co_working %>
+            </div>
+            <div class="user__offer">
+              <%= f.input_field :offers_hang_out,
+                                autofocus: true %>
+              <%= image_tag('icons/hangout') %>
+              <%= f.label       :hangout %>
+            </div>
+          </div>
+
+          <div class="user__couch">
+            <%= simple_fields_for :couch do |cf| %>
+              <%= cf.label        :i_can_host %>
+              <%= cf.input_field  :capacity,
+                                  collection: 1..6,
+                                  autofocus: true,
+                                  input_html: { autocomplete: 'capacity' } %>
+            <div class="user__couch-facilities">
+              <%= cf.label                     :my_couch_comes_with %>
+              <%= simple_fields_for            :couch_facility do |cff| %>
+                <%= cff.collection_check_boxes :facility_ids,
+                                              Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
+                                              input_html: { multiple: true },
+                                              boolean_style: :inline,
+                                              autofocus: true %>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+
+            <%= f.label       :this_makes_me_really_happy %>
+            <%= f.input_field :question_one,
+                              required: true,
+                              autofocus: true %>
+            <%= f.label       :what_i_cant_stand %>
+            <%= f.input_field :question_two,
+                              required: true,
+                              autofocus: true %>
+            <%= f.label       :tell_us_what_you_need_and_like %>
+            <%= f.input_field :question_three,
+                              required: true,
+                              autofocus: true %>
+            <%= f.label       :when_you_live_at_my_place_i_appreciate %>
+            <%= f.input_field :question_four,
+                              required: true,
+                              autofocus: true %>
+        </div>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
-    <% end %>
 
-    <%= f.input :offers_co_work,
-                autofocus: true %>
-    <%= f.input :offers_hang_out,
-                autofocus: true %>
-    <%= f.input :question_one,
-                label: 'This makes me really happy',
-                required: true,
-                autofocus: true %>
-    <%= f.input :question_two,
-                label: "What I can't stand",
-                required: true,
-                autofocus: true %>
-    <%= f.input :question_three,
-                label: 'Tell us what you need and like',
-                required: true,
-                autofocus: true %>
-    <%= f.input :question_four,
-                label: 'When you live at my place, I appreciate..',
-                required: true,
-                autofocus: true %>
+      <%= f.label       :change_password %>
+      <%= f.input       :password,
+                        hint: "leave it blank if you don't want to change it",
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+      <%= f.input       :password_confirmation,
+                        required: false,
+                        input_html: { autocomplete: "new-password" } %>
+      <%= f.input       :current_password,
+                        hint: "we need your current password to make changes",
+                        required: true,
+                        input_html: { autocomplete: "current-password" } %>
+      
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
+    </div>
 
-    <%= f.input :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: "we need your current password to confirm your changes",
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+    <div class="form-actions">
+      <%= f.button :submit, "Update" %>
+    </div>
+  <% end %>
+
+  <div class="user__cancel">
+    <p>Unhappy?</p>
+    <%= link_to 'Delete aaccount', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete, class: 'user__cancel-link' %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <%= link_to 'Back', :back %>
+</section>
