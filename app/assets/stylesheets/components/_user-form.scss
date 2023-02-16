@@ -1,0 +1,172 @@
+.user {
+	background-color: $neutral-03;
+
+	input, select { @include input-field; }
+	textarea { @include input-field; }
+
+	label {
+		@include body-2;
+
+		margin: 1rem 0;
+		text-transform: uppercase;
+	}
+	
+	&__form {
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	&__wrap {
+		@media (min-width: $break-medium) {
+			display: flex;
+			gap: 4rem;
+		}
+	}
+
+	&__info { width: 100%; }
+
+	&__image {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		@media (min-width: $break-medium) { align-items: flex-start; }
+
+		&-upload {}
+
+		&-preview {
+			display: inline-block;
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+		}
+
+		&-icon {
+			display: inline-block;
+			padding-top: 1rem;
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			background-color: $secondary-transparent;
+		}
+	}
+	
+	&__info {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__birthdate {
+		display: flex;
+		gap: 1rem;
+		
+		select { background-color: $white; }
+	}
+
+	&__address {
+		padding-bottom: 2rem;
+		border-bottom: 1px solid $gray-03;
+		
+		&-label { padding-top: 2rem; }
+	}
+
+	&__characteristics {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		border-bottom: 1px solid $gray-03;
+		padding-bottom: 2rem;
+
+		span {
+			display: flex;
+			align-items: center;
+			gap: .3rem;
+
+			label {
+				@include body-3;
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	&__offers {
+		@media (min-width: $break-medium) {
+			display: flex;
+			flex-wrap: wrap;
+			column-gap: 2rem;
+		}
+	}
+
+	&__offer {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		flex-shrink: 0;
+
+		label {
+			@include body-3;
+
+			margin: .5rem 0;
+		}
+	}
+
+	&__couch {
+		display: flex;
+		flex-direction: column;
+
+		&-facilities {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+			border-bottom: 1px solid $gray-03;
+			padding-bottom: 2rem;
+
+			span {
+				display: flex;
+				align-items: center;
+				gap: .3rem;
+	
+				label {
+					@include body-3;
+					flex-shrink: 0;
+				}
+			}
+		}
+	}
+
+	&__cancel {
+		width: 80%;
+		margin: 1rem auto;
+		display: flex;
+		align-items: center;
+
+		&-link {
+			@include input-field;
+			@include tertiary-button;
+		}
+	}
+}
+
+.user_pronouns {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid $gray-03;
+}
+
+.mapboxgl-ctrl-geocoder {
+	@include input-field;
+
+	box-shadow: 0 0 0 0;
+	display: flex;
+	align-items: center;
+	padding: 0;
+
+	&--icon {
+		display: block;
+		margin-left: 1rem;
+		position: inherit;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}

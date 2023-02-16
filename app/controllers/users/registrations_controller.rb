@@ -3,7 +3,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   def update
     super
-
     @couch = @user.couch
     @couchfacilities = @couch.couch_facilities if @couch
     if @couch.nil? && @couchfacilities.nil?
