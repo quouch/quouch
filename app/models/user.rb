@@ -2,7 +2,7 @@ class User < ApplicationRecord
   acts_as_token_authenticatable
 
   # Include default devise modules. Others available are:
-  # , :lockable, :timeoutable, :trackable and :omniauthable, :confirmable  
+  # :lockable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :characteristics, through: :user_characteristics
 
   belongs_to :city, optional: true
+  belongs_to :country, optional: true
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -43,9 +44,5 @@ class User < ApplicationRecord
     if calculated_age.present? && calculated_age < 18
       errors.add(:date_of_birth, 'Sorry, come back when you are 18!')
     end
-  end
-
-  def full_name
-    return first_name + last_name
   end
 end

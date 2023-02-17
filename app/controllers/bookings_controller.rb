@@ -29,6 +29,7 @@ class BookingsController < ApplicationController
 				marker_html: render_to_string(partial: "marker")
 			}
 		end
+		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
 	end
 
 	def new

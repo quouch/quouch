@@ -1,5 +1,5 @@
 <section class="user">
-  <h1>Edit your profile <%= current_user.first_name %></h1>
+  <h1>Edit Profile</h1>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
     <%= f.error_notification %>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="user__info">
-          <%= f.label       :personal_details %>
+          <%= f.label       :personal_info %>
           <%= f.input_field :first_name,
                             required: true,
                             autofocus: true,
@@ -45,11 +45,6 @@
           <%= f.input      :pronouns,
                             autofocus: true,
                             input_html: { autocomplete: 'pronouns' } %>
-          <%# <%= f.association :city,
-                            as: :radio_buttons,
-                            required: true,
-                            boolean_style: :inline,
-                            autofocus: true %>
           
           <%= f.label       :address, class: 'user__address-label' %>
           <div class="user__address">
@@ -57,6 +52,36 @@
                               label: false,
                               input_html: { data: { address_autocomplete_target: "address"}, class: 'display-none' },
                               wrapper_html: { data: { controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <div class="user__address-street">
+              <%= f.label       :street %>
+              <%= f.text_field  :street,
+                                required: true,
+                                value: @user.street,
+                                autofocus: true %>
+            </div>
+            <div class="user__address-city">
+              <%= f.label       :zipcode %>
+              <%= f.text_field  :zipcode,
+                                required: true,
+                                value: @user.zipcode,
+                                autofocus: true %>
+              <%= f.label       :city %>
+              <%= f.text_field  :city_id,
+                                as: :string,
+                                value: @user.city.try(:name),
+                                label: 'City',
+                                required: true,
+                                autofocus: true %>
+            </div>
+            <div class="user__address-country">
+              <%= f.label       :country %>
+              <%= f.text_field  :country_id,
+                                as: :string,
+                                value: @user.country.try(:name),
+                                required: true,
+                                boolean_style: :inline,
+                                autofocus: true %>
+            </div>
           </div>
           
           <%= f.label       :about_me %>
@@ -68,9 +93,10 @@
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
-                                            Characteristic.all.map { |characteristic| [characteristic.id, characteristic.name] }, :first, :last,
-                                            boolean_style: :inline,
-                                            input_html: { multiple: true} %>
+                                            Characteristic.all,
+                                            :id, :name,
+                                            checked: @user.characteristic_ids,
+                                            input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
 
@@ -83,34 +109,38 @@
               <%= f.label           :couch %>
             </div>
             <div class="user__offer">
-              <%= f.input_field :offers_co_work,
-                                autofocus: true %>
+              <%= f.input_field     :offers_co_work,
+                                    autofocus: true %>
               <%= image_tag('icons/work') %>
-              <%= f.label       :co_working %>
+              <%= f.label           :co_working %>
             </div>
             <div class="user__offer">
-              <%= f.input_field :offers_hang_out,
-                                autofocus: true %>
+              <%= f.input_field     :offers_hang_out,
+                                    autofocus: true %>
               <%= image_tag('icons/hangout') %>
-              <%= f.label       :hangout %>
+              <%= f.label           :hangout %>
             </div>
           </div>
 
           <div class="user__couch">
-            <%= simple_fields_for :couch do |cf| %>
-              <%= cf.label        :i_can_host %>
-              <%= cf.input_field  :capacity,
-                                  collection: 1..6,
-                                  autofocus: true,
-                                  input_html: { autocomplete: 'capacity' } %>
+            <%= simple_fields_for   :couch do |cf| %>
+              <div class="user__couch-capacity">
+                <%= cf.label          :i_can_host %>
+                <%= cf.input_field    :capacity,
+                                      collection: 1..4,
+                                      autofocus: true,
+                                      selected: @user.couch.capacity,
+                                      input_html: { autocomplete: 'capacity' } %>
+                <%= cf.label          :guests %>
+              </div>
+            <%= cf.label                       :my_couch_comes_with %>
             <div class="user__couch-facilities">
-              <%= cf.label                     :my_couch_comes_with %>
               <%= simple_fields_for            :couch_facility do |cff| %>
                 <%= cff.collection_check_boxes :facility_ids,
-                                              Facility.all.map { |facility| [facility.id, facility.name] }, :first, :last,
-                                              input_html: { multiple: true },
-                                              boolean_style: :inline,
-                                              autofocus: true %>
+                                               Facility.all, :id, :name,
+                                               checked: @user.couch.facility_ids,
+                                               input_html: { multiple: true },
+                                               autofocus: true %>
               <% end %>
             </div>
             <% end %>
@@ -139,7 +169,8 @@
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
 
-      <%= f.label       :change_password %>
+      <%= f.label       :change_password,
+                        class: 'user__password-change' %>
       <%= f.input       :password,
                         hint: "leave it blank if you don't want to change it",
                         required: false,
@@ -149,21 +180,16 @@
                         input_html: { autocomplete: "new-password" } %>
       <%= f.input       :current_password,
                         hint: "we need your current password to make changes",
-                        required: true,
                         input_html: { autocomplete: "current-password" } %>
-      
-
     </div>
 
-    <div class="form-actions">
+    <div class="user__submit">
       <%= f.button :submit, "Update" %>
     </div>
   <% end %>
 
   <div class="user__cancel">
     <p>Unhappy?</p>
-    <%= link_to 'Delete aaccount', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete, class: 'user__cancel-link' %>
+    <%= link_to 'Delete account', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete, class: 'user__cancel-link' %>
   </div>
-
-  <%= link_to 'Back', :back %>
 </section>

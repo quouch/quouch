@@ -3,9 +3,11 @@ class Couch < ApplicationRecord
 
   belongs_to :user
   has_one :city, through: :user
+  has_one :country, through: :user
 
-  pg_search_scope :search_by_city, associated_against: {
-    city: :name
+  pg_search_scope :search_by_city_or_country, associated_against: {
+    city: :name,
+    country: :name
   }
 
   has_many :bookings, dependent: :destroy
@@ -13,6 +15,4 @@ class Couch < ApplicationRecord
   has_many :couch_facilities, dependent: :destroy, autosave: true
   accepts_nested_attributes_for :couch_facilities
   has_many :facilities, through: :couch_facilities
-
-  validates :capacity, inclusion: { in: [1, 2, 3, 4, 5, 6] }
 end
