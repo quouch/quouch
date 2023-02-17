@@ -11,7 +11,7 @@
 
 	<section>
 		<ul class="couches__list">
-		<% @couches.each do |couch| %>
+		<% @active_couches.each do |couch| %>
 			<li>
 				<article class="couches__list-item">
 					<%= link_to couch_path(couch) do %>
