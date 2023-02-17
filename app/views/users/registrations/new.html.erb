@@ -12,18 +12,21 @@
                     required: true,
                     autofocus: true,
                     placeholder: 'First Name',
+                    error: 'First Name is mandatory, please specify one',
                     input_html: { autocomplete: "first_name" } %>
         <%= f.input :last_name,
                     label: false,
                     required: true,
                     autofocus: true,
                     placeholder: 'Last Name',
+                    error: 'Last Name is mandatory, please specify one',
                     input_html: { autocomplete: "last_name" } %>
         <%= f.input :email,
                     label: false,
                     required: true,
                     autofocus: true,
                     placeholder: 'Email Address',
+                    error: 'Email Address is mandatory, please specify one',
                     input_html: { autocomplete: "email" } %>
         <%= f.input :date_of_birth,
                     label: false,
@@ -32,17 +35,20 @@
                     end_year: Date.today.year,
                     required: true,
                     autofocus: true,
+                    error: 'Date of Birth is mandatory, please specify one',
                     input_html: { class: "signup__input-date" }%>
         <%= f.input :password,
                     label: false,
                     required: true,
                     placeholder: 'Password',
+                    error: 'Password is mandatory, please specify one',
                     hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                     input_html: { autocomplete: "new-password" } %>
         <%= f.input :password_confirmation,
                     label: false,
                     required: true,
                     placeholder: 'Confirm Password',
+                    error: 'Please confirm your password',
                     input_html: { autocomplete: "new-password" } %>
       <div class="signup__button">
         <%= f.button :submit, "Sign up" %>

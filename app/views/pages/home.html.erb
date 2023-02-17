@@ -18,7 +18,7 @@
 						<%= image_tag('profile.jpg', class: 'couches__image') %>
 					<% end %>
 					<div class="couches__content">
-						<ul class="couch__features features">
+						<ul class="couches__features features">
 						<% couch.user.characteristics.each  do |characteristic| %>
 							<li><%= characteristic.name %></li>
 						<% end %>
