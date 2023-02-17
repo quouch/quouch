@@ -47,6 +47,8 @@
 		@media (min-width: $break-large) { padding: 2rem 2rem 0; }
 	}
 
+	&__features { justify-content: center; }
+
 	&__name {
 		@include title-3;
 
@@ -93,10 +95,6 @@
 			}
 		}
 	}
-
-	&__location {}
-
-	&__reviews {}
 
 	&__button {
 		@include input-field;

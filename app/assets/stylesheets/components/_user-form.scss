@@ -63,18 +63,11 @@
 		select { background-color: $white; }
 	}
 
-	&__address {
-		padding-bottom: 2rem;
-		border-bottom: 1px solid $gray-03;
-		
-		&-label { padding-top: 2rem; }
-	}
+	&__address {}
 
 	&__characteristics {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		border-bottom: 1px solid $gray-03;
-		padding-bottom: 2rem;
 
 		span {
 			display: flex;
@@ -113,11 +106,13 @@
 		display: flex;
 		flex-direction: column;
 
+		&-capacity {
+			select { background-color: $white; }
+		}
+
 		&-facilities {
 			display: grid;
 			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-			border-bottom: 1px solid $gray-03;
-			padding-bottom: 2rem;
 
 			span {
 				display: flex;
@@ -132,12 +127,28 @@
 		}
 	}
 
+	
+	&__password {
+		&-change { color: $primary; }
+	}
+	
+	&__submit {
+		input {
+			@include primary-button;
+			margin: 1rem 0;
+			
+			@media (min-width: $break-large) {
+				width: fit-content;
+			}
+		}
+	}
+
 	&__cancel {
 		width: 80%;
 		margin: 1rem auto;
 		display: flex;
 		align-items: center;
-
+	
 		&-link {
 			@include input-field;
 			@include tertiary-button;
@@ -148,8 +159,6 @@
 .user_pronouns {
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 2rem;
-	border-bottom: 1px solid $gray-03;
 }
 
 .mapboxgl-ctrl-geocoder {
