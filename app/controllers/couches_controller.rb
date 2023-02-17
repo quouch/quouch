@@ -12,6 +12,8 @@ class CouchesController < ApplicationController
 				@couch = user.couch
 				@couches << @couch
 			end
+
+			@active_couches = @couches.uniq.select { |couch| couch.active == true && couch.user != current_user }
 		else
 			@couches = Couch.all
 		end

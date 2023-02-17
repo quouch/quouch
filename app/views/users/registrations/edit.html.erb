@@ -37,21 +37,21 @@
                             input_html: { autocomplete: 'email' } %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
-                                start_year: Date.today.year - 100,
-                                end_year: Date.today.year,
-                                required: true,
-                                autofocus: true %>
+                              start_year: Date.today.year - 100,
+                              end_year: Date.today.year,
+                              required: true,
+                              autofocus: true %>
           </div>
           <%= f.input      :pronouns,
-                            autofocus: true,
-                            input_html: { autocomplete: 'pronouns' } %>
+                           autofocus: true,
+                           input_html: { autocomplete: 'pronouns' } %>
           
-          <%= f.label       :address, class: 'user__address-label' %>
+          <%= f.label      :address, class: 'user__address-label' %>
           <div class="user__address">
-            <%= f.input       :address,
-                              label: false,
-                              input_html: { data: { address_autocomplete_target: "address"}, class: 'display-none' },
-                              wrapper_html: { data: { controller: "address-autocomplete", address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <%= f.input    :address,
+                            label: false,
+                            input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                            wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
             <div class="user__address-street">
               <%= f.label       :street %>
               <%= f.text_field  :street,
@@ -100,50 +100,53 @@
             <% end %>
           </div>
 
-          <%= f.label :i_offer %>
-          <div class="user__offers">
-            <div class="user__offer">
-              <%= f.input_field     :offers_couch,
-                                    autofocus: true %>
-              <%= image_tag('icons/sleep') %>
-              <%= f.label           :couch %>
-            </div>
-            <div class="user__offer">
-              <%= f.input_field     :offers_co_work,
-                                    autofocus: true %>
-              <%= image_tag('icons/work') %>
-              <%= f.label           :co_working %>
-            </div>
-            <div class="user__offer">
-              <%= f.input_field     :offers_hang_out,
-                                    autofocus: true %>
-              <%= image_tag('icons/hangout') %>
-              <%= f.label           :hangout %>
-            </div>
-          </div>
-
-          <div class="user__couch">
-            <%= simple_fields_for   :couch do |cf| %>
-              <div class="user__couch-capacity">
-                <%= cf.label          :i_can_host %>
-                <%= cf.input_field    :capacity,
-                                      collection: 1..4,
+          <div data-controller="conditional-user-fields">
+            <%= f.label :i_offer %>
+            <div class="user__offers">
+              <div class="user__offer">
+                <%= f.input           :offers_couch,
+                                      label: false,
                                       autofocus: true,
-                                      selected: @user.couch.capacity,
-                                      input_html: { autocomplete: 'capacity' } %>
-                <%= cf.label          :guests %>
+                                      input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
+                <%= image_tag('icons/sleep') %>
+                <%= f.label           :couch %>
               </div>
-            <%= cf.label                       :my_couch_comes_with %>
-            <div class="user__couch-facilities">
-              <%= simple_fields_for            :couch_facility do |cff| %>
-                <%= cff.collection_check_boxes :facility_ids,
-                                               Facility.all, :id, :name,
-                                               checked: @user.couch.facility_ids,
-                                               input_html: { multiple: true },
-                                               autofocus: true %>
+              <div class="user__offer">
+                <%= f.input_field     :offers_co_work,
+                                      autofocus: true %>
+                <%= image_tag('icons/work') %>
+                <%= f.label           :co_working %>
+              </div>
+              <div class="user__offer">
+                <%= f.input_field     :offers_hang_out,
+                                      autofocus: true %>
+                <%= image_tag('icons/hangout') %>
+                <%= f.label           :hangout %>
+              </div>
+            </div>
+
+            <div class="user__couch" data-conditional-user-fields-target="field">
+              <%= simple_fields_for     :couch do |cf| %>
+                <div class="user__couch-capacity">
+                  <%= cf.label          :i_can_host %>
+                  <%= cf.input_field    :capacity,
+                                        collection: 1..4,
+                                        autofocus: true,
+                                        selected: @user.couch.capacity %>
+                  <%= cf.label          :guests %>
+                </div>
+              <%= cf.label                       :my_couch_comes_with %>
+              <div class="user__couch-facilities">
+                <%= simple_fields_for            :couch_facility do |cff| %>
+                  <%= cff.collection_check_boxes :facility_ids,
+                                                  Facility.all, :id, :name,
+                                                  checked: @user.couch.facility_ids,
+                                                  input_html: { multiple: true },
+                                                  autofocus: true %>
+                <% end %>
+              </div>
               <% end %>
             </div>
-            <% end %>
           </div>
 
             <%= f.label       :this_makes_me_really_happy %>

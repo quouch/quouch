@@ -2,10 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   def update
-    @country = params[:user][:country_id]
-    @city = params[:user][:city_id]
-    @user.update(city: set_city(@country, @city), country: set_country(@country))
     super
+    @user.update(city: set_city, country: set_country)
+
     @couch = @user.couch
     @couchfacilities = @couch.couch_facilities if @couch
     if @couch.nil? && @couchfacilities.nil?
@@ -14,6 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     elsif @couch.present? && @couchfacilities.nil?
       update_couch
       create_couch_facilities
+    elsif offers_couch == "0" && @couch.present?
+      set_couch_inactive
+    elsif offers_couch == "1" && @couch.present?
+      set_couch_active
     else
       update_couch
       update_couch_facilities
@@ -49,6 +52,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_couch
     @couch.update(couch_params)
+  end
+
+  def offers_couch
+    params[:user][:offers_couch]
+  end
+
+  def set_couch_inactive
+    @couch.update(active: false)
+  end
+
+  def set_couch_active
+    @couch.update(active: true)
   end
 
   def create_couch_facilities
@@ -122,20 +137,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def set_city(country, city)
-    existing_country = Country.find_by(name: country.capitalize)
+  def set_city
+    @city = params[:user][:city_id]
+    @country = params[:user][:country_id]
+    existing_country = Country.find_by(name: @country.capitalize)
     if existing_country.nil?
-      new_country = Country.create(name: country)
-      create_city(city, new_country)
+      new_country = Country.create(name: @country)
+      create_city(@city, new_country)
     else
-      create_city(city, existing_country)
+      create_city(@city, existing_country)
     end
   end
 
-  def set_country(country)
-    existing_country = Country.find_by(name: country.capitalize)
+  def set_country
+    @country = params[:user][:country_id]
+    existing_country = Country.find_by(name: @country.capitalize)
     if existing_country.nil?
-      new_country = Country.create(name: country)
+      new_country = Country.create(name: @country)
     else
       existing_country
     end

@@ -1,5 +1,5 @@
 <h1 class="couches__title">
-    <%= pluralize @couches.count, "Host" %> in 
+    <%= pluralize @active_couches.count, "Host" %> in 
     <% if @city %>
         <%= @city.name %>
 	<% elsif @country %>
@@ -9,7 +9,7 @@
 
 <div class="couches__wrap">
     <ul class="couches__list">
-	<% @couches.each do |couch| %>
+	<% @active_couches.each do |couch| %>
         <li>
             <article class="couches__list-item">
                 <%= link_to couch_path(couch) do %>
