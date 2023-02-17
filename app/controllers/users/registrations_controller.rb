@@ -2,6 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   def update
+    @country = params[:user][:country_id]
+    @city = params[:user][:city_id]
+    @user.update(city: set_city(@country, @city), country: set_country(@country))
     super
     @couch = @user.couch
     @couchfacilities = @couch.couch_facilities if @couch
@@ -108,5 +111,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def delete_empty_string(array)
     array.delete("")
+  end
+
+  def create_city(city, country)
+    existing_city = City.find_by(name: city.capitalize)
+    if existing_city.nil?
+      City.create(name: city, country: country)
+    else
+      existing_city
+    end
+  end
+
+  def set_city(country, city)
+    existing_country = Country.find_by(name: country.capitalize)
+    if existing_country.nil?
+      new_country = Country.create(name: country)
+      create_city(city, new_country)
+    else
+      create_city(city, existing_country)
+    end
+  end
+
+  def set_country(country)
+    existing_country = Country.find_by(name: country.capitalize)
+    if existing_country.nil?
+      new_country = Country.create(name: country)
+    else
+      existing_country
+    end
   end
 end

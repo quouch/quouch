@@ -1,4 +1,10 @@
-<h1 class="couches__title">Hosts in <%= @city.name %></h1>
+<h1 class="couches__title"><%= pluralize @couches.count, "Host" %> in 
+  <% if @city %>
+    <%= @city.name %>
+	<% elsif @country %>
+		<%= @country.name %>
+	<% end %>
+</h1>
 
 <div class="couches__wrap">
 	<ul class="couches__list">

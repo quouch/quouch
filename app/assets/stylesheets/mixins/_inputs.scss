@@ -76,9 +76,12 @@
 }
 
 button, a { cursor: pointer; }
+input, select { @include input-field; }
 
 
 textarea {
+	@include input-field;
+
 	border-radius: $border-radius-small;
 	border: 1px solid $gray-02;
 	padding: .5rem;

@@ -1,8 +1,11 @@
 class CouchesController < ApplicationController
 	def index
 		if params[:query].present?
-			@city = City.find_by("name ILIKE ?", "%#{params[:query]}%")
-			@users = User.where(city: @city)
+			if @city = City.find_by("name ILIKE ?", "%#{params[:query]}%")
+				@users = User.where(city: @city)
+			elsif @country = Country.find_by("name ILIKE ?", "%#{params[:query]}%")
+				@users = User.where(country: @country)
+			end
 			@couches = []
 
 			@users.each do |user| 

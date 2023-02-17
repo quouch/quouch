@@ -1,9 +1,6 @@
 .user {
 	background-color: $neutral-03;
 
-	input, select { @include input-field; }
-	textarea { @include input-field; }
-
 	label {
 		@include body-2;
 
@@ -31,8 +28,6 @@
 		align-items: center;
 
 		@media (min-width: $break-medium) { align-items: flex-start; }
-
-		&-upload {}
 
 		&-preview {
 			display: inline-block;
@@ -63,20 +58,49 @@
 		select { background-color: $white; }
 	}
 
-	&__address {}
+	&__address {
+		&-street {
+			display: flex;
+			column-gap: 2rem;
+			align-items: center;
+			
+			input { width: 100%; }
+		}
+
+		&-city {
+			display: flex;
+			column-gap: 1.5rem;
+			align-items: center;
+			
+			input { width: 100%; }
+		}
+
+		&-country {
+			display: flex;
+			column-gap: 1rem;
+			align-items: center;
+			
+			input { width: 100%; }
+		}
+	}
 
 	&__characteristics {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 		span {
-			display: flex;
-			align-items: center;
-			gap: .3rem;
-
 			label {
 				@include body-3;
-				flex-shrink: 0;
+
+				display: flex;
+				align-items: center;
+				gap: .3rem;
+				margin: .5rem 0;
+
+				label {
+					flex-shrink: 0;
+					margin: 0;
+				}
 			}
 		}
 	}
@@ -107,7 +131,10 @@
 		flex-direction: column;
 
 		&-capacity {
-			select { background-color: $white; }
+			select {
+				background-color: $white;
+				margin: 1rem .3rem;
+			}
 		}
 
 		&-facilities {
@@ -115,13 +142,18 @@
 			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 			span {
-				display: flex;
-				align-items: center;
-				gap: .3rem;
-	
 				label {
 					@include body-3;
-					flex-shrink: 0;
+					
+					display: flex;
+					align-items: center;
+					gap: .3rem;
+					margin: .5rem 0;
+
+					label {
+						flex-shrink: 0;
+						margin: 0;
+					}
 				}
 			}
 		}

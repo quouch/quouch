@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_15_165818) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_17_111429) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -212,8 +212,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_15_165818) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.string "zipcode"
+    t.string "street"
+    t.bigint "country_id"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["city_id"], name: "index_users_on_city_id"
+    t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -238,4 +242,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_15_165818) do
   add_foreign_key "reviews", "users"
   add_foreign_key "user_characteristics", "characteristics"
   add_foreign_key "user_characteristics", "users"
+  add_foreign_key "users", "countries"
 end
