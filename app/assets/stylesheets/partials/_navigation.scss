@@ -7,6 +7,8 @@
 		gap: 10rem;
 
 		@media (max-width: $break-medium) { display: none; }
+
+		a:hover { color: $primary-light; }
 	}
 
 	&__link { @include nav-title; }

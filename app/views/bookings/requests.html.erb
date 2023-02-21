@@ -25,7 +25,7 @@
 									<%= request.status.capitalize %>
 								</li>
 								<li class="upcoming-request__detail">
-									<%= image_tag('icons/money.svg') %>
+									<%= image_tag('icons/euro.svg') %>
 									<% if request.payments.where(status: 1).any? %>
 										<%= 'Booking has been paid.' %>
 									<% else %>

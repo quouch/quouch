@@ -41,7 +41,7 @@
 						<%= @booking.status.capitalize %>
 					</li>
 					<li>
-						<%= image_tag('icons/money.svg') %>
+						<%= image_tag('icons/euro.svg') %>
 						<% if @booking.payments.where(status: 1) %>
 							<%= 'Booking has been paid.' %>
 						<% else %>

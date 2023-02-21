@@ -28,11 +28,7 @@
         padding: 1rem 0 4rem 2rem;
         z-index: 2;
 
-        a { color: $gray-05; }
-        
-        @media (min-width: $break-medium) {
-            width: $break-x-small;
-        }
+        @media (min-width: $break-medium) { width: $break-x-small; }
     }
 
     &__note {
