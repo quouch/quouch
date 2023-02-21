@@ -12,66 +12,82 @@
 				<ul>
 					<p class="dropdown__subtitle">Personal</p>
 					<li>
+						<%= image_tag('icons/profile') %>
 						<%= link_to 'Profile', edit_user_registration_path %>
 					</li>
 					<li>
+						<%= image_tag('icons/trip') %>
 						<%= link_to 'Trips', bookings_path %>
 					</li>
 					<li>
+						<%= image_tag('icons/home') %>
 						<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
 					</li>
 					<li>
+						<%= image_tag('icons/chat') %>
 						<%= link_to 'Chat', chats_path %>
 					</li>
 					<li>
+						<%= image_tag('icons/humor') %>
 						<%= link_to 'Humour Test' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="dropdown__subtitle">Community</p>
 					<li>
+						<%= image_tag('icons/mission') %>
 						<%= link_to 'Our Mission' %>
 					</li>
 					<li>
+						<%= image_tag('icons/follow') %>
 						<%= link_to 'Follow Us' %>
 					</li>
 					<li>
+						<%= image_tag('icons/invite') %>
 						<%= link_to 'Invite a Friend', new_user_invitation_path %>
 					</li>
 				</ul>
 				<ul>
 					<p class="dropdown__subtitle">Support</p>
 					<li>
-						<%= link_to 'F&Q' %>
+						<%= image_tag('icons/faq') %>
+						<%= link_to 'FAQ' %>
 					</li>
 					<li>
+						<%= image_tag('icons/contact') %>
 						<%= link_to 'Contact Us' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="dropdown__subtitle">Settings</p>
 					<li>
+						<%= image_tag('icons/notification') %>
 						<%= link_to 'Notifications' %>
 					</li>
 					<li>
+						<%= image_tag('icons/account') %>
 						<%= link_to 'Account Info' %>
 					</li>
 					<li>
+						<%= image_tag('icons/money') %>
 						<%= link_to 'Payment Info' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="dropdown__subtitle">General</p>
 					<li>
+						<%= image_tag('icons/privacy') %>
 						<%= link_to 'Privacy Center' %>
 					</li>
 					<li>
+						<%= image_tag('icons/conditions') %>
 						<%= link_to 'Terms & Conditions' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="dropdown__subtitle">Session</p>
 						<li>
+						<%= image_tag('icons/logout') %>
 						<%= link_to 'Logout', destroy_user_session_path %>
 					</li>
 				</ul>
