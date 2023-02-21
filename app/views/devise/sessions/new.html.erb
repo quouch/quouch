@@ -3,8 +3,7 @@
     <h2 class="signin__title">Quouch</h2>
     <h3 class="signin__subtitle">Welcome back!</h3>
     <section class="signin__form">
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),
-      data: {turbo: false}) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.input :email,
                       required: false,
                       label: false,

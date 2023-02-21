@@ -103,13 +103,13 @@
 			<div class="booking__links">
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
-				<%= button_to 'Cancel Request', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+				<%= button_to 'Cancel Request', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
 				<% elsif @booking.confirmed? && @booking.payments.empty? %>
 					<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
 					<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
 				<% elsif @booking.confirmed? %>
 					<%= link_to 'Update Booking', edit_booking_path(@booking), class: 'booking__update' %>
-					<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+					<%= button_to 'Cancel Booking', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
 				<% end %>
 			</div>
 
