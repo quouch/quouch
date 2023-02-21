@@ -66,7 +66,23 @@
 
 		<div class="couch__location">
 			<h2>Location</h2>
+			<div class="couch__pin">
+				<%= image_tag ('icons/city.svg') %>
+				<p><%= @couch.user.city.name %>, <%= @couch.user.city.country.name %></p>
+			</div>
 		</div>
+
+			<div class="couch__questions">
+				<h2>This makes me really happy</h2>
+				<p><%= @host.question_one %></p>
+				<h2>What I can't stand</h2>
+				<p><%= @host.question_two %></p>
+				<h2>What I need from the people around me</h2>
+				<p><%= @host.question_three %></p>
+				<h2>What I otherwise need and like</h2>
+				<p><%= @host.question_four %></p>
+			</div>
+
 		<div class="couch__reviews">
 			<% if @reviews.any? %>
 			<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
