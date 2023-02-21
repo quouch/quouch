@@ -1,0 +1,18 @@
+.dropdown {
+	background-color: $secondary-super-transparent;
+	padding: 1rem 0 1rem 2rem;
+	overflow-y: scroll;
+
+	a { color: $gray-05; }
+	a:hover { color: $gray-04; }
+
+	&__title {
+		@include title-4;
+		color: $primary;
+	}
+
+	&__subtitle {
+		@include title-5;
+		color: $gray-05;
+	}
+}

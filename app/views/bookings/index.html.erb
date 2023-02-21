@@ -1,7 +1,7 @@
-<h1>Trips</h1>
 
-<div class="bookings">
-	<section>
+<section class="bookings">
+	<h1>Trips</h1>
+	<div class="bookings__wrap">
 	<% if @bookings.any? %>
 		<% if @upcoming.any? %>
 			<h2 class="bookings__title">Upcoming Trips</h2>
@@ -118,5 +118,5 @@
 	<% else %>
 		<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
 	<% end %>
-	</section>
-</div>
+	</div>
+</section>

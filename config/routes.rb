@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/about', to: 'pages#about'
   get '/contact', to: 'pages#contact'
 
-  resources :couches do
+  resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do
       collection do
         get :requests
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: '/update-payment'
 
-  resources :cities, only: %i[index show] do
+  resources :cities, only: %i[show] do
     member do
       get :couches
     end
@@ -41,13 +41,13 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  namespace :api, defaults: { format: :json } do
-    namespace :v1 do
-      resources :chats, only: %i[index show create] do
-        resources :messages, only: %i[create]
-      end
-    end
-  end
+  # namespace :api, defaults: { format: :json } do
+  #   namespace :v1 do
+  #     resources :chats, only: %i[index show create] do
+  #       resources :messages, only: %i[create]
+  #     end
+  #   end
+  # end
 
 
   devise_for :users, controllers: { registrations: 'users/registrations' }

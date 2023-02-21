@@ -1,7 +1,7 @@
-<h1>Guests</h1>
 
-<div class="requests">
-	<section>
+<section class="requests">
+	<h1>Guests</h1>
+	<div class="requests__wrap">
 	<% if @requests.any? %>
 		<% if @upcoming.any? %>
 		<h2 class="requests__title">Upcoming Guests</h2>
@@ -23,6 +23,14 @@
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/home.svg') %>
 									<%= request.status.capitalize %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('icons/money.svg') %>
+									<% if request.payments.where(status: 1).any? %>
+										<%= 'Booking has been paid.' %>
+									<% else %>
+										<%= 'Waiting for payment.' %>
+									<% end %>
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/people.svg') %>
@@ -101,5 +109,5 @@
 		<% else %>
 			<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
 		<% end %>
-	</section>
-</div>
+	</div>
+</section>

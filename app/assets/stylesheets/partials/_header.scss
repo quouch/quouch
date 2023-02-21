@@ -1,4 +1,7 @@
 .header {
+    position: fixed;
+    width: 100vw;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,6 +16,23 @@
         border-radius: 50%;
         width: 40px;
         height: 40px;
+        cursor: pointer;
+    }
+
+    &__dropdown {
+        position: absolute;
+        height: 95vh;
+        width: 100%;
+        right: 0;
+        top: 72px;
+        padding: 1rem 0 4rem 2rem;
+        z-index: 2;
+
+        a { color: $gray-05; }
+        
+        @media (min-width: $break-medium) {
+            width: $break-x-small;
+        }
     }
 
     &__note {

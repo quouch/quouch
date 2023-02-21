@@ -1,5 +1,5 @@
 <section class="booking-section">
-<h1>Your Guest</h1>
+<h1>Guest Overview</h1>
 	<div class="booking">
 		<article class="booking__host">
 		<div class="booking__host-left">
@@ -57,7 +57,11 @@
 
 			<div class="booking__message">
 				<h2>Message</h2>
-				<p><%= @booking.message %></p>
+				<% if @booking.message.empty? %>
+					<p><%= @booking.user.first_name %> didn't find the words.</p>
+				<% else %>
+					<p><%= @booking.message %></p>
+				<% end %>
 			</div>
 		</article>
 
