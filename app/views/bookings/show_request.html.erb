@@ -63,10 +63,10 @@
 
 		<div class="booking__links">
 			<% if @booking.confirmed? %>
-				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
 			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
-				<%= button_to 'Politely Decline', decline_booking_path(@booking), method: :patch, class: 'booking__decline' %>
+				<%= button_to 'Politely Decline', decline_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
 			<% end %>
 		</div>
 

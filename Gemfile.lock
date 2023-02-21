@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/faker-ruby/faker.git
-  revision: 85ae39a4de52ec8c4a64e7c47908aaff81f53568
+  revision: 541ac1cf0830702e66b75e638da1ca234670b1bd
   branch: main
   specs:
     faker (3.1.1)
@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/heartcombo/simple_form.git
-  revision: 159b70aea62443aeb0e32382de3095bcb571ee0e
+  revision: 921ce9c3fc100e1737125ba1b5a2037c03f2de1b
   specs:
     simple_form (5.2.0)
       actionpack (>= 5.2)
@@ -107,7 +107,7 @@ GEM
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
-    devise (4.8.1)
+    devise (4.9.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
@@ -192,9 +192,9 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.8)
-    nokogiri (1.14.1-arm64-darwin)
+    nokogiri (1.14.2-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.1-x86_64-linux)
+    nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
     noticed (1.6.0)
       http (>= 4.0.0)
@@ -273,7 +273,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.8.0)
+    selenium-webdriver (4.8.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -290,13 +290,13 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
-    stripe (8.2.0)
+    stripe (8.3.0)
     stripe_event (2.7.0)
       activesupport (>= 3.1)
       stripe (>= 2.8, < 9)
     thor (1.2.1)
-    tilt (2.0.11)
-    timeout (0.3.1)
+    tilt (2.1.0)
+    timeout (0.3.2)
     turbo-rails (1.3.3)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
@@ -332,7 +332,7 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   arm64-darwin-21
