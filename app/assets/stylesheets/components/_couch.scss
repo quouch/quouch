@@ -96,6 +96,17 @@
 		}
 	}
 
+	&__pin {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
 	&__button {
 		@include input-field;
 		@include primary-button;
@@ -103,6 +114,6 @@
 		max-width: fit-content;
 		display: flex;
 		flex-direction: column;
-		margin-top: auto;
+		margin-top: 1rem;
 	}
 }
