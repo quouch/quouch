@@ -1,6 +1,8 @@
 .home {
 	&__wrap {
-		margin: 0 auto;
-		width: 80%;
+		margin: 4rem auto;
+		width: 90%;
+
+		@media (min-width: $break-large) { width: 80%; }
 	}
 }

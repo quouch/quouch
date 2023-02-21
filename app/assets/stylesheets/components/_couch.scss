@@ -3,7 +3,7 @@
 
 	@media (min-width: $break-large) {
 		width: 80%;
-		margin: 2rem auto;
+		margin: 4rem auto;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		border-radius: $border-radius-large;
@@ -16,9 +16,10 @@
 		box-shadow: $box-shadow;
 
 		@media (min-width: $break-large) {
-			height: 80vh;
-			position: sticky;
-			top: 2rem;
+			height: 90%;
+			margin-top: 4rem;
+			display: block;
+			z-index: -1;
 		}
 	}
 	
@@ -27,9 +28,7 @@
 		bottom: -20px;
 		left: 20px;
 
-		@media (min-width: $break-large) {
-			bottom: 1rem;
-		}
+		@media (min-width: $break-large) { bottom: 1rem; }
 	}
 	
 	&__image {
@@ -44,7 +43,10 @@
 	&__content {
 		padding: 1rem;
 
-		@media (min-width: $break-large) { padding: 2rem 2rem 0; }
+		@media (min-width: $break-large) {
+			margin-top: 4rem;
+			margin-left: 2rem;
+		}
 	}
 
 	&__features { justify-content: center; }

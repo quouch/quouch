@@ -13,6 +13,9 @@ application.register("chat-subscription", ChatSubscriptionController)
 import ConditionalUserFieldsController from "./conditional_user_fields_controller"
 application.register("conditional-user-fields", ConditionalUserFieldsController)
 
+import DropdownMenuController from "./dropdown_menu_controller"
+application.register("dropdown-menu", DropdownMenuController)
+
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 

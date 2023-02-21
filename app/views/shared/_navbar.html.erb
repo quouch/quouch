@@ -1,11 +1,7 @@
 <nav class="navigation">
 	<ul class="navigation__list">
-		<li class="navigation__link"><%= link_to 'Update profile', edit_user_registration_path(current_user) %></li>
 		<li class="navigation__link"><%= link_to 'Browse', root_path %></li>
-			<% if current_user.couch %>
-		<li class="navigation__link"><%= link_to 'Bookings', bookings_path %></li>
-		<li class="navigation__link"><%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %></li>
-			<% end %>
-		<li class="navigation__link"><%= link_to 'Invite a friend', new_user_invitation_path %></li>
+		<li class="navigation__link"><%= link_to 'Matches', root_path %></li>
+		<li class="navigation__link"><%= link_to 'Profile', edit_user_registration_path(current_user) %></li>
 	</ul>	
 </nav>
