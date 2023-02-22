@@ -1,5 +1,6 @@
 .sent {
 	width: 80%;
+	max-width: $container;
 	margin: 0 auto;
 	
 	@media (min-width: $break-medium) { display: flex; }

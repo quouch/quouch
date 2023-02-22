@@ -6,6 +6,7 @@
 	@media (min-width: $break-small) {
 		margin: 0 auto;
 		width: 80%;
+		max-width: $container;
 		border-radius: $border-radius-large;
 		box-shadow: $box-shadow;
 	}

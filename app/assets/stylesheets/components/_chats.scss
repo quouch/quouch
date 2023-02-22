@@ -1,6 +1,7 @@
 .chats {
 	height: 100%;
 	width: 80%;
+	max-width: $container;
 	margin: 0 auto;
 
 	&__list {

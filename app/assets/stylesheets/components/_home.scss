@@ -2,6 +2,7 @@
 	&__wrap {
 		margin: 4rem auto;
 		width: 90%;
+		max-width: $container;
 
 		@media (min-width: $break-large) { width: 80%; }
 	}

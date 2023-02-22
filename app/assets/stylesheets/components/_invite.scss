@@ -7,6 +7,7 @@
 	
 	&__wrap {
 		width: 80%;
+		max-width: $container;
 		margin: 0 auto 4rem;
 		display: flex;
 		flex-direction: column;
