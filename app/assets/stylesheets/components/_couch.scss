@@ -3,6 +3,7 @@
 
 	@media (min-width: $break-large) {
 		width: 80%;
+		max-width: $container;
 		margin: 4rem auto;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -42,6 +43,7 @@
 
 	&__content {
 		padding: 1rem;
+		margin-bottom: 4rem;
 
 		@media (min-width: $break-large) {
 			margin-top: 4rem;
@@ -116,6 +118,6 @@
 		max-width: fit-content;
 		display: flex;
 		flex-direction: column;
-		margin-top: 1rem;
+		margin-top: 2rem;
 	}
 }

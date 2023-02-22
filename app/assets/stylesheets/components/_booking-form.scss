@@ -10,6 +10,7 @@
 	
 	&__wrap {
 		width: 80%;
+		max-width: $container;
 		margin: 2rem auto;
 		
 		@media (min-width: $break-medium) {
