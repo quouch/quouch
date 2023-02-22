@@ -6,11 +6,11 @@
 		<%= render "shared/navbar" %>
 		<div data-controller="dropdown-menu">
 			<%= image_tag('profile.jpg', class: 'header__avatar', data: { dropdown_menu_target: 'toggle', action: 'click->dropdown-menu#displayAndHideMenu' }) %>
-			<div class="header__dropdown dropdown display-none"
+			<div class="header__collapsible collapsible display-none"
 					data-dropdown-menu-target="menu">
-				<p class="dropdown__title">Hello <%= current_user.first_name %>!</p>
+				<p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
 				<ul>
-					<p class="dropdown__subtitle">Personal</p>
+					<p class="collapsible__subtitle">Personal</p>
 					<li>
 						<%= image_tag('icons/profile') %>
 						<%= link_to 'Profile', couch_path(current_user.couch) %>
@@ -33,7 +33,7 @@
 					</li>
 				</ul>
 				<ul>
-					<p class="dropdown__subtitle">Community</p>
+					<p class="collapsible__subtitle">Community</p>
 					<li>
 						<%= image_tag('icons/mission') %>
 						<%= link_to 'Our Mission' %>
@@ -48,7 +48,7 @@
 					</li>
 				</ul>
 				<ul>
-					<p class="dropdown__subtitle">Support</p>
+					<p class="collapsible__subtitle">Support</p>
 					<li>
 						<%= image_tag('icons/faq') %>
 						<%= link_to 'FAQ' %>
@@ -59,7 +59,7 @@
 					</li>
 				</ul>
 				<ul>
-					<p class="dropdown__subtitle">Settings</p>
+					<p class="collapsible__subtitle">Settings</p>
 					<li>
 						<%= image_tag('icons/notification') %>
 						<%= link_to 'Notifications' %>
@@ -74,7 +74,7 @@
 					</li>
 				</ul>
 				<ul>
-					<p class="dropdown__subtitle">General</p>
+					<p class="collapsible__subtitle">General</p>
 					<li>
 						<%= image_tag('icons/privacy') %>
 						<%= link_to 'Privacy Center', impressum_path %>
@@ -85,7 +85,7 @@
 					</li>
 				</ul>
 				<ul>
-					<p class="dropdown__subtitle">Session</p>
+					<p class="collapsible__subtitle">Session</p>
 						<li>
 						<%= image_tag('icons/logout') %>
 						<%= link_to 'Logout', destroy_user_session_path %>
