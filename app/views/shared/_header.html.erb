@@ -13,7 +13,7 @@
 					<p class="dropdown__subtitle">Personal</p>
 					<li>
 						<%= image_tag('icons/profile') %>
-						<%= link_to 'Profile', edit_user_registration_path %>
+						<%= link_to 'Profile', couch_path(current_user.couch) %>
 					</li>
 					<li>
 						<%= image_tag('icons/trip') %>
@@ -66,7 +66,7 @@
 					</li>
 					<li>
 						<%= image_tag('icons/account') %>
-						<%= link_to 'Account Info' %>
+						<%= link_to 'Account Info', edit_user_registration_path %>
 					</li>
 					<li>
 						<%= image_tag('icons/money') %>
@@ -77,7 +77,7 @@
 					<p class="dropdown__subtitle">General</p>
 					<li>
 						<%= image_tag('icons/privacy') %>
-						<%= link_to 'Privacy Center' %>
+						<%= link_to 'Privacy Center', impressum_path %>
 					</li>
 					<li>
 						<%= image_tag('icons/conditions') %>

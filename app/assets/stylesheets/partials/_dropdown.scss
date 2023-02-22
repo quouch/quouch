@@ -16,10 +16,7 @@
 	}
 
 	a { color: $gray-05; }
-	a:hover {
-		color: $gray-05;
-		opacity: 0.8;
-	}
+	a:hover { opacity: .8; }
 
 	&__title {
 		@include title-4;
