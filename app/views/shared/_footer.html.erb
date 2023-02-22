@@ -1,24 +1,55 @@
 <footer class="footer">
 	<div class="footer__wrap">
-		<ul class="footer__links">
-			<li>
-				<%= link_to 'Datenschutz & Impressum', impressum_path %>
-			</li>
-			<li>
-				<%= link_to 'About', about_path %>
-			</li>
-			<li>
-				<%= link_to 'Contact', contact_path %>
-			</li>
-			<li>
-				<%= link_to 'Instagram' %>
-			</li>
-		</ul>
-
+		<div class="footer__top">
+			<div class="footer__about">
+			<h3>About us</h3>
+			<ul class="footer__links">
+				<li>
+					<%= link_to 'About Quouch', about_path %>
+				</li>
+				<li>
+					<%= link_to 'FAQ', about_path %>
+				</li>
+				<li>
+					<%= link_to 'Contact us', contact_path %>
+				</li>
+			</ul>
+			</div>
+			<div class="footer__legal">
+				<h3>Legal</h3>
+				<ul class="footer__links">
+					<li>
+						<%= link_to 'Privacy Policy', impressum_path %>
+					</li>
+					<li>
+						<%= link_to 'Impressum', impressum_path %>
+					</li>
+				</ul>
+			</div>
+			<div class="footer__social">
+				<h3>Social</h3>
+				<ul class="footer__links-social">
+					<li>
+						<%= link_to 'https://www.instagram.com/quouch_app/' do %>
+							<i class="fab fa-instagram"></i>
+						<% end %>
+					</li>
+					<li>
+						<%= link_to 'https://www.linkedin.com/company/quouch/' do %>
+							<i class="fab fa-linkedin-in"></i>
+						<% end %>
+					</li>
+				</ul>
+			</div>
+			<div class="footer__newsletter">
+				<h3>Newsletter</h3>
+				<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
+				<%= link_to 'Subscribe' %>
+			</div>
+		</div>
 		<div class="footer__logo">
 			<%= image_tag('logo.png') %>
 			<span>© 2022 Quouch. All rights reserved.</span>
 		</div>
-
 	</div>
 </footer>
