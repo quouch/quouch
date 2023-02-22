@@ -25,7 +25,6 @@
 @import 'components/city';
 @import 'components/couch';
 @import 'components/couches';
-@import 'components/home';
 @import 'components/host';
 @import 'components/invite';
 @import 'components/requests';
@@ -35,7 +34,7 @@
 @import 'components/user-form';
 
 @import 'partials/chat-icon';
-@import 'partials/dropdown';
+@import 'partials/collapsible';
 @import 'partials/features';
 @import 'partials/footer';
 @import 'partials/header';
@@ -45,4 +44,6 @@
 @import 'partials/review-form';
 @import 'partials/search';
 
-@import 'pages/impressum';
+@import 'pages/about';
+@import 'pages/home';
+@import 'pages/legal';

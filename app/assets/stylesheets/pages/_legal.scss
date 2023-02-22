@@ -1,0 +1,19 @@
+.legal {
+	margin: 4rem 0;
+
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
+
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
+	}
+
+	p { margin: 1rem auto; }
+	ol { list-style: none; }
+}
