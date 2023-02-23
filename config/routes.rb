@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
-  get '/impressum', to: 'pages#impressum'
-  get '/privacy', to: 'pages#privacy'
+
   get '/about', to: 'pages#about'
   get '/contact', to: 'pages#contact'
+  get '/faq', to: 'pages#faq'
+  get '/guidelines', to: 'pages#guidelines'
+  get '/impressum', to: 'pages#impressum'
+  get '/privacy', to: 'pages#privacy'
 
   resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do

@@ -1,4 +1,4 @@
-.legal {
+.general {
 	margin: 4rem 0;
 
 	&__header {
@@ -13,6 +13,8 @@
 		max-width: $container;
 		margin: 2rem auto;
 	}
+
+	&__subtitle { @include title-2; }
 
 	p { margin: 1rem auto; }
 	ol { list-style: none; }
