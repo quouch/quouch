@@ -1,6 +1,7 @@
 .couches {
 	&__wrap {
 		margin: 4rem auto;
+		width: 90%;
 
 		@media (min-width: $break-x-large) {
 			width: 80%;
@@ -9,21 +10,16 @@
 	}
 
 	&__list {
-		display: flex;
-		gap: 2rem;
-		padding: 1rem;
-		overflow-x: scroll;
-		scroll-snap-type: x mandatory;
-		scroll-padding: 0 1rem;
-		scrollbar-color: $primary-transparent $primary-transparent;
-		scrollbar-width: thin;
-
-		@media (min-width: $break-x-large) {
+		@media (min-width: $break-medium) {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(2, 1fr);
+			gap: 2rem;
 			justify-content: center;
-			overflow-x: visible;
 		}
+
+		@media (min-width: $break-large) { grid-template-columns: repeat(3, 1fr); }
+	
+		@media (min-width: $break-x-large) { grid-template-columns: repeat(4, 1fr); }
 		
 		&-item {
 			border-radius: $border-radius-medium;
@@ -32,6 +28,7 @@
 			min-width: fit-content;
 			width: 300px;
 			height: 100%;
+			margin-bottom: 2rem;
 			transition: all 160ms ease-in-out;
 
 			&:hover {
