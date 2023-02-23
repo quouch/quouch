@@ -30,6 +30,11 @@
 						</li>
 					<% end %>
 				</ul>
+				<ul class="host__features features">
+					<% @host.characteristics.each  do |characteristic| %>
+						<li><%= characteristic.name %></li>
+					<% end %>
+				</ul>
 				
 				<div class="host__intro">
 					<h2 class="host__intro-title">Introduction</h2>
@@ -46,10 +51,6 @@
 							</li>
 						<% end %>
 					</ul>
-				</div>
-
-				<div class="host__location">
-					<h2 class="host__location-title">Location</h2>
 				</div>
 			</div>
 		</div>

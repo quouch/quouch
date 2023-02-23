@@ -91,14 +91,19 @@
 		}
 	}
 
-	&__intro {
+	&__features {
 		grid-row: 3;
+		justify-content: center;
+	}
+
+	&__intro {
+		grid-row: 4;
 
 		@media (max-width: $break-large) { display: none; }
 	}
 
 	&__accomodation {
-		grid-row: 4;
+		grid-row: 5;
 
 		&-list {
 			@include facility-name;
@@ -120,7 +125,7 @@
 	}
 
 	&__location {
-		grid-row: 5;
+		grid-row: 6;
 
 		@media (max-width: $break-large) { display: none; }
 	}
