@@ -1,7 +1,7 @@
-<h1 class="sent__title">Your request has been sent!</h1>
-
 <section class="sent">
-	<article class="sent__booking">
+	<h1 class="sent__title">Your request has been sent!</h1>
+	<div class="sent__wrap">
+		<article class="sent__booking">
 		<div class="sent__details">
 			<h2>Host</h2>
 			<h3 class="sent__host">
@@ -37,9 +37,10 @@
 				<% end %>
 			</ul>
 		</div>
-	</article>
-	<div class="sent__message">
-		<p >Now it is up to <%= @host.first_name %> to check the dates and your message. Once <%= @host.pronouns.split("/").first %> accepted your request, you are able to chat with <%= @host.pronouns.split("/").second %> and get in touch about open questions and things and bananas.<p>
-		<%= link_to "Keep Browsing", cities_path, class: 'sent__link' %>
+		</article>
+		<div class="sent__message">
+			<p >Now it is up to <%= @host.first_name %> to check the dates and your message. Once <%= @host.pronouns.split("/").first %> accepted your request, you are able to chat with <%= @host.pronouns.split("/").second %> and get in touch about open questions and things and bananas.<p>
+			<%= link_to "Keep Browsing", root_path, class: 'sent__link' %>
+		</div>
 	</div>
 </section>

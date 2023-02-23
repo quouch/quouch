@@ -36,7 +36,7 @@
 					<p class="collapsible__subtitle">Community</p>
 					<li>
 						<%= image_tag('icons/mission') %>
-						<%= link_to 'Our Mission' %>
+						<%= link_to 'Our Mission', about_path %>
 					</li>
 					<li>
 						<%= image_tag('icons/follow') %>
@@ -76,8 +76,12 @@
 				<ul>
 					<p class="collapsible__subtitle">General</p>
 					<li>
+						<%= image_tag('icons/impressum') %>
+						<%= link_to 'Impressum', impressum_path %>
+					</li>
+					<li>
 						<%= image_tag('icons/privacy') %>
-						<%= link_to 'Privacy Center', impressum_path %>
+						<%= link_to 'Privacy Center', privacy_path %>
 					</li>
 					<li>
 						<%= image_tag('icons/conditions') %>

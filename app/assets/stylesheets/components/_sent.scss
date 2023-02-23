@@ -1,14 +1,16 @@
 .sent {
 	width: 80%;
 	max-width: $container;
-	margin: 0 auto;
-	
-	@media (min-width: $break-medium) { display: flex; }
+	margin: 4rem auto;
 
 	h2 { @include profile-title; }
 	h2:first-child { margin-top: 0; }
 
 	&__title { @include title-2; }
+
+	&__wrap {
+		@media (min-width: $break-medium) { display: flex; }
+	}
 
 	&__booking {
 		width: 100%;

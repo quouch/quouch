@@ -88,10 +88,10 @@
 			<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
 			<div class="review__rating">
 				<div class="review__stars">
-					<% @review_average.round.times do %>
+					<% @review_average.floor.times do %>
 						<%= image_tag('icons/star-full.svg') %>
 					<% end %>
-					<% (5 - @review_average).round.times do %>
+					<% (5 - @review_average).ceil(0).times do %>
 						<%= image_tag('icons/star-empty.svg') %>
 					<% end %>
 				</div>
@@ -107,13 +107,23 @@
 							<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
 						</div>
 					</div>
+					<div class="review__rating">
+						<div class="review__stars">
+							<% review.rating.round.times do %>
+								<%= image_tag('icons/star-full.svg') %>
+							<% end %>
+							<% (5 - review.rating).round.times do %>
+								<%= image_tag('icons/star-empty.svg') %>
+							<% end %>
+						</div>
+					</div>
 					<p class="review__content"><%= review.content %></p>
 				</li>
 					<% end %>
 			</ul>
 			<% end %>
 		</div>
-		<%= link_to "Send request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
+		<%= link_to "Send quouch request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
 	</div>
 </article>
 

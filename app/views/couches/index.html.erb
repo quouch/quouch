@@ -1,3 +1,4 @@
+<div class="couches__wrap">
 <h1 class="couches__title">
     <%= pluralize @active_couches.count, "Host" %> in 
     <% if @city %>
@@ -7,7 +8,6 @@
 	<% end %>
 </h1>
 
-<div class="couches__wrap">
     <ul class="couches__list">
 	<% @active_couches.each do |couch| %>
         <li>
