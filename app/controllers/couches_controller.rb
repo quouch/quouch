@@ -6,13 +6,13 @@ class CouchesController < ApplicationController
 			elsif @country = Country.find_by("name ILIKE ?", "%#{params[:query]}%")
 				@users = User.where(country: @country)
 			end
-			@couches = []
 
+			@couches = []
 			@users.each do |user| 
 				@couch = user.couch
 				@couches << @couch
 			end
-
+			
 			@active_couches = @couches.uniq.select { |couch| couch.active == true && couch.user != current_user }
 		else
 			@couches = Couch.all
