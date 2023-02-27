@@ -1,8 +1,7 @@
 .chats {
+	@include container;
+	
 	height: 100%;
-	width: 80%;
-	max-width: $container;
-	margin: 4rem auto;
 
 	&__list {
 		&-item {

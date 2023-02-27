@@ -5,13 +5,4 @@ class PagesController < ApplicationController
     @couches = Couch.where.not(user: current_user)
     @active_couches = @couches.uniq.select { |couch| couch.active == true }
   end
-
-  def impressum
-  end
-
-  def about
-  end
-
-  def contact
-  end
 end

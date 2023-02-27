@@ -3,10 +3,7 @@
 		margin: 4rem auto;
 		width: 90%;
 
-		@media (min-width: $break-x-large) {
-			width: 80%;
-			max-width: $container;
-		}
+		@media (min-width: $break-x-large) { @include container-width; }
 	}
 
 	&__list {

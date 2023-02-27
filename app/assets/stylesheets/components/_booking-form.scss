@@ -9,8 +9,8 @@
 	@media (min-width: $break-large) { min-width: 90%; }
 	
 	&__wrap {
-		width: 80%;
-		max-width: $container;
+		@include container-width;
+		
 		margin: 8rem auto 4rem;
 		
 		@media (min-width: $break-medium) {

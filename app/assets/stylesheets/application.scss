@@ -5,6 +5,7 @@
 @import 'config/typography';
 
 // Mixins
+@import 'mixins/container';
 @import 'mixins/inputs';
 @import 'mixins/logo';
 
@@ -45,5 +46,6 @@
 @import 'partials/search';
 
 @import 'pages/about';
+@import 'pages/contact';
 @import 'pages/home';
 @import 'pages/general';
