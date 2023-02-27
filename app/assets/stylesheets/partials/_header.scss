@@ -1,37 +1,37 @@
 .header {
-    position: fixed;
-    width: 100vw;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: $primary-super-transparent;
+	position: fixed;
+	width: 100vw;
+	top: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	background-color: $primary-super-transparent;
 
-    &__logo {
-        a { @include logo; }
-    }
+	&__logo {
+		a { @include logo; }
+	}
 
-    &__avatar {
-        border-radius: $border-radius-round;
-        width: 40px;
-        height: 40px;
-        cursor: pointer;
-    }
+	&__avatar {
+		border-radius: $border-radius-round;
+		width: 40px;
+		height: 40px;
+		cursor: pointer;
+	}
 
-    &__collapsible {
-        position: absolute;
-        height: 95vh;
-        width: 100%;
-        right: 0;
-        top: 72px;
-        padding: 1rem 0 4rem 2rem;
-        z-index: 2;
+	&__collapsible {
+		position: absolute;
+		height: 95vh;
+		width: 100%;
+		right: 0;
+		top: 72px;
+		padding: 1rem 0 4rem 2rem;
+		z-index: 2;
 
-        @media (min-width: $break-medium) { width: $break-x-small; }
-    }
+		@media (min-width: $break-medium) { width: $break-x-small; }
+	}
 
-    &__note {
+	&__note {
 		@include caption;
 
 		color: $gray-05;

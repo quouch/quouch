@@ -6,7 +6,6 @@
 
 		margin: 2rem auto;
 		text-align: center;
-
 	}
 
 	&__subtitle {
@@ -23,7 +22,7 @@
 		width: 320px;
 		justify-content: center;
 		flex-direction: column;
-		margin: 0 auto;
+		margin: 4rem auto;
 	}
 
 	&__form {
@@ -41,7 +40,7 @@
 	&__button {
 		input { @include primary-button; }
 
-		margin-top: 1rem auto;
+		margin: 1rem auto;
 		width: 100%;
 	}
 
