@@ -167,6 +167,9 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mail_form (1.10.0)
+      actionmailer (>= 5.2)
+      activemodel (>= 5.2)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -351,6 +354,7 @@ DEPENDENCIES
   font-awesome-sass (~> 6.1)
   geocoder
   jbuilder
+  mail_form
   money-rails (~> 1.12)
   noticed (~> 1.6)
   pg (~> 1.1)

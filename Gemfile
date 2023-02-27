@@ -33,6 +33,9 @@ gem 'stimulus-rails'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem 'jbuilder'
 
+# Gem to send emails straight from contact form
+gem 'mail_form'
+
 # Let's you write Ruby Cron Tasks in ruby code
 gem 'whenever', require: false
 

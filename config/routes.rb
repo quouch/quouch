@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   get '/about', to: 'pages#about'
-  get '/contact', to: 'pages#contact'
   get '/faq', to: 'pages#faq'
   get '/guidelines', to: 'pages#guidelines'
   get '/impressum', to: 'pages#impressum'
@@ -42,6 +41,8 @@ Rails.application.routes.draw do
   resources :chats, only: %i[index show create] do
     resources :messages, only: %i[create]
   end
+
+  resources :contacts, only: %i[new create]
 
   mount ActionCable.server => '/cable'
 
