@@ -42,10 +42,10 @@
 						</li>
 						<li>
 							<%= image_tag('icons/euro.svg') %>
-							<% if @booking.payments.where(status: 1) %>
-								<%= 'Booking has been paid' %>
-									<% else %>
-								<%= 'Awaiting payment to give access to address' %>
+							<% if @booking.payments.where(status: 1).any? %>
+								<%= 'Booking has been paid.' %>
+							<% else %>
+								<%= 'Waiting for payment.' %>
 							<% end %>
 						</li>
 						<li>
@@ -84,9 +84,9 @@
 					<li class="booking__pin">
 						<% if !@booking.cancelled? %>
 							<%= image_tag ('icons/pin.svg') %>
-							<% if @booking.confirmed? && @payment.any? %>
+							<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
 								<%= @couch.user.address %></p>
-							<% elsif @booking.confirmed? && @booking.payments.empty? %>
+							<% elsif @booking.confirmed? %>
 								<p>Pay now to get access to your hosts address!</p>
 							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 								<p>You will see your hosts address once the booking is confirmed and paid.</p>
@@ -94,7 +94,7 @@
 						<% end %>
 					</li>
 				</ul>
-				<% if @booking.confirmed? && @payment.any? %>
+				<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
 				<div class="booking__map"
 							data-controller="map"
 							data-map-marker-value="<%= @marker.to_json %>"

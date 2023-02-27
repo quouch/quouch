@@ -87,15 +87,7 @@
 			<% if @reviews.any? %>
 			<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
 			<div class="review__rating">
-				<div class="review__stars">
-					<% @review_average.floor.times do %>
-						<%= image_tag('icons/star-full.svg') %>
-					<% end %>
-					<% (5 - @review_average).ceil(0).times do %>
-						<%= image_tag('icons/star-empty.svg') %>
-					<% end %>
-				</div>
-				<p><%= @review_average %> out of <%= pluralize @reviews.size, "Review" %></p>
+				<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
 			</div>
 			<ul>
 				<% @reviews.each do |review| %>

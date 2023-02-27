@@ -72,10 +72,6 @@
 						<%= image_tag('icons/account') %>
 						<%= link_to 'Account Info', edit_user_registration_path %>
 					</li>
-					<li>
-						<%= image_tag('icons/money') %>
-						<%= link_to 'Payment Info' %>
-					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">General</p>
@@ -96,7 +92,7 @@
 					<p class="collapsible__subtitle">Session</p>
 						<li>
 						<%= image_tag('icons/logout') %>
-						<%= link_to 'Logout', destroy_user_session_path %>
+						<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
 					</li>
 				</ul>
 			</div>
