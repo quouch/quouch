@@ -10,24 +10,29 @@
 						<li><%= @host.calculated_age %></li>
 					</div>
 				</ul>
-				<ul class="host__offers">
+				<ul class="host__offers offers">
 					<% if @host.offers_couch %>
-						<li class="host__offers-item">
+						<li class="offers-item">
 							<%= image_tag('icons/sleep.svg') %>
 							<p>couch</p>
 						</li>
 					<% end %>
 					<% if @host.offers_hang_out %>
-						<li class="host__offers-item">
+						<li class="offers-item">
 							<%= image_tag('icons/hangout.svg') %>
 							<p>hangout</p>
 						</li>
 					<% end %>
 					<% if @host.offers_co_work %>
-						<li class="host__offers-item">
+						<li class="offers-item">
 							<%= image_tag('icons/work.svg') %>
 							<p>co-work</p>
 						</li>
+					<% end %>
+				</ul>
+				<ul class="host__features features">
+					<% @host.characteristics.each  do |characteristic| %>
+						<li><%= characteristic.name %></li>
 					<% end %>
 				</ul>
 				
@@ -46,10 +51,6 @@
 							</li>
 						<% end %>
 					</ul>
-				</div>
-
-				<div class="host__location">
-					<h2 class="host__location-title">Location</h2>
 				</div>
 			</div>
 		</div>
@@ -96,15 +97,16 @@
 				<div class="booking-form__travellers">
 					<%= image_tag('icons/people.svg') %>
 					<%= f.input :number_travellers, 
-											label: false %>
+											label: false,
+											input_html: { value: 1 } %>
 				</div>
 			</div>
 			<%= f.input :message, 
 									label: :Message,
-									input_html: { rows: 8 } %>
-			<div class="booking-form__action">
-				<%= link_to 'Cancel', city_path(@booking.couch.user.city) %>
-				<%= f.submit 'Update Request', class: 'booking-form__button' %>
+									input_html: { rows: 6 } %>
+			<div class="booking-form__action booking-form__action--edit">
+				<%= f.submit 'Send Request', class: 'booking-form__button' %>
+				<%= link_to 'Cancel Booking' %>
 			</div>
 		<% end %>
 	</section>

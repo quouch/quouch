@@ -35,6 +35,8 @@
 	color: $primary;
 	text-decoration: underline;
 	text-transform: uppercase;
+
+	&:hover { color: $primary-light; }
 }
 
 @mixin input-field {
