@@ -12,13 +12,13 @@
 		<% end %>
 		<div class="review-form__action">
 			<%= f.input :rating,
-								collection: (1..5).to_a,
-								label: false,
-								input_html: {data: {controller: "star-rating"}} %>
+								  collection: (1..5).to_a,
+								  label: false,
+								  input_html: {data: {controller: "star-rating"}} %>
 			<%= f.label 'Leave some words' %>
 			<%= f.input :content, 
-								label: false,
-								input_html: { rows: 6 } %>
+								  label: false,
+								  input_html: { rows: 6 } %>
 			<%= f.submit "Submit Review", class: "review-form__button" %>
 		</div>
 	<% end %>
