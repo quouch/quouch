@@ -41,7 +41,6 @@ class BookingMailer < ApplicationMailer
 	end
 
 	def booking_completed_host_email
-		p @host
 		mail(to: @host.email, subject: "#{@user.first_name.capitalize} stayed at your place - review now")
 	end
 
