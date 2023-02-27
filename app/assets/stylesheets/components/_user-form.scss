@@ -9,7 +9,10 @@
 		text-transform: uppercase;
 	}
 	
-	&__form { @include container-width; }
+	&__form {
+		@include container-width;
+		margin: 0 auto;
+	}
 	
 	&__wrap {
 		@media (min-width: $break-medium) {
@@ -174,6 +177,7 @@
 	}
 
 	&__cancel {
+		@include container-width;
 		width: 80%;
 		margin: 1rem auto;
 		display: flex;
