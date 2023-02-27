@@ -2,8 +2,8 @@
 	margin: 4rem auto;
 	
 	&__wrap {
-		width: 80%;
-		max-width: $container;
+		@include container-width;
+
 		margin: 0 auto;
 	}
 

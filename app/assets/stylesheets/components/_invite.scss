@@ -6,8 +6,8 @@
 	justify-content: center;
 	
 	&__wrap {
-		width: 80%;
-		max-width: $container;
+		@include container-width;
+
 		margin: 0 auto 4rem;
 		display: flex;
 		flex-direction: column;

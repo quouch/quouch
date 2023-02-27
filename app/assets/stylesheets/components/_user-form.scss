@@ -9,10 +9,7 @@
 		text-transform: uppercase;
 	}
 	
-	&__form {
-		width: 80%;
-		margin: 0 auto;
-	}
+	&__form { @include container-width; }
 	
 	&__wrap {
 		@media (min-width: $break-medium) {

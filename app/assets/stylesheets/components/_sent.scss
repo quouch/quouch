@@ -1,7 +1,5 @@
 .sent {
-	width: 80%;
-	max-width: $container;
-	margin: 4rem auto;
+	@include container;
 
 	h2 { @include profile-title; }
 	h2:first-child { margin-top: 0; }

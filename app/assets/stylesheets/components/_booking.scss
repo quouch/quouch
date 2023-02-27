@@ -4,9 +4,9 @@
 	h2 { @include profile-title; }
 	
 	@media (min-width: $break-small) {
+		@include container-width;
+		
 		margin: 0 auto;
-		width: 80%;
-		max-width: $container;
 		border-radius: $border-radius-large;
 		box-shadow: $box-shadow;
 	}

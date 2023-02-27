@@ -2,9 +2,8 @@
 	h2 { @include profile-title; }
 
 	@media (min-width: $break-large) {
-		width: 80%;
-		max-width: $container;
-		margin: 4rem auto;
+		@include container;
+		
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		border-radius: $border-radius-large;
