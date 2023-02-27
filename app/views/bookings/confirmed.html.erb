@@ -1,5 +1,9 @@
-<h1>Request accepted!</h1>
+<section class="confirmed">
+	<h1 class="confirmed__title">Request accepted!</h1>
+	<p>Nice, you confirmed the booking of <%= @guest.first_name %> who will now receive a notification with a payment request. Once paid, we will grant access to your address. You are contributing to a safer space for our travellers!<p>
 
-<p>Nice, you confirmed the booking of <%= @guest.first_name %> who will now receive a notification with a payment request. Once paid, we will grant access to your address. You are contributing to a safer space for our most vulnerable travellers!<p>
-
-<%= link_to "Keep Browsing", cities_path %>
+	<div class="confirmed__buttons">
+		<%= link_to 'Back to guest overview', :back, class: 'confirmed__back' %>
+		<%= link_to "Browse couches", couches_path, class: 'confirmed__link' %>
+	</div>
+</section>
