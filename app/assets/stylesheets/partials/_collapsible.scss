@@ -15,8 +15,8 @@
 			}
 	}
 
-	a { color: $gray-05; }
-	a:hover { opacity: .8; }
+	a, button { color: $gray-05; }
+	a:hover, button:hover { opacity: .8; }
 
 	&__title {
 		@include title-4;

@@ -1,5 +1,6 @@
 .bookings {
 	margin: 4rem auto;
+	width: 100%;
 	
 	&__wrap {
 		@include container-width;
@@ -17,6 +18,7 @@
 	background-color: $white;
 	box-shadow: $box-shadow;
 	border-radius: $border-radius-medium;
+	width: 100%;
 
 	@media (min-width: $break-small) {
 		display: flex;

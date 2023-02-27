@@ -3,7 +3,7 @@
 
 	&__wrap {
 		width: 320px;
-		margin: 0 auto;
+		margin: 6rem auto;
 	}
 
 	&__subtitle {
@@ -22,6 +22,8 @@
 	}
 	
 	&__input {
+		margin-bottom: 1rem;
+		
 		&-date {
 			@include date-input;
 		}
@@ -30,7 +32,7 @@
 	&__button {
 		input { @include primary-button; }
 
-		margin-top: 1rem auto;
+		margin: 1rem auto;
 	}
 
 	&__footer {

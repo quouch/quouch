@@ -9,7 +9,6 @@
 	text-align: center;
 	text-transform: uppercase;
 	width: 100%;
-	cursor: pointer;
 
 	&:hover { opacity: 0.9; }
 }
@@ -22,11 +21,12 @@
 	color: $primary;
 	text-align: center;
 	text-transform: uppercase;
-	padding: .3rem 2rem;
 	width: 100%;
-	cursor: pointer;
 
-	&:hover { color: $primary-light; }
+	&:hover {
+		color: $primary-light;
+		border: 1px solid $primary-light;
+	}
 }
 
 @mixin tertiary-button {
@@ -35,7 +35,6 @@
 	color: $primary;
 	text-decoration: underline;
 	text-transform: uppercase;
-	cursor: pointer;
 }
 
 @mixin input-field {
@@ -75,7 +74,6 @@
 	margin-left: 0.5rem;
 }
 
-button, a { cursor: pointer; }
 input, select { @include input-field; }
 
 
