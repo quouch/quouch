@@ -92,7 +92,7 @@
 					<p class="collapsible__subtitle">Session</p>
 						<li>
 						<%= image_tag('icons/logout') %>
-						<%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
+						<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
 					</li>
 				</ul>
 			</div>
