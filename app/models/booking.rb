@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :user
   has_many :booking_payments
   has_many :payments, through: :booking_payments
-  has_one :review
+  has_many :reviews
 
   validates :start_date, presence: true
   validates :end_date, presence: true

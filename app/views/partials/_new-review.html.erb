@@ -1,5 +1,9 @@
 <section class="review-form">
-	<h2>Let <%= @host.first_name %> & us know about your experience!</h2>
+	<% if @host == current_user %>
+		<h2>Let <%= @booking.user.first_name %> & us know about your experience!</h2>
+	<% else %>
+		<h2>Let <%= @host.first_name %> & us know about your experience!</h2>
+	<% end %>
 
 	<%= simple_form_for [@couch, @booking, @review] do |f| %>
 		<% if @booking.errors.any? %>
