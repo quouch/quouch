@@ -73,7 +73,8 @@
 				<%= f.input :request,
 										collection: Booking.requests,
 										as: :radio_buttons,
-										label: false %>
+										label: false,
+										input_html: { value: @booking.request } %>
 			</div>
 			<span class="booking-form__details__header">Dates & Travellers </span>
 			<div class="booking-form__details__wrap">
@@ -98,7 +99,7 @@
 					<%= image_tag('icons/people.svg') %>
 					<%= f.input :number_travellers, 
 											label: false,
-											input_html: { value: 1 } %>
+											input_html: { value: @booking.number_travellers } %>
 				</div>
 			</div>
 			<%= f.input :message, 
