@@ -29,4 +29,9 @@
 		@include title-5;
 		color: $gray-05;
 	}
+	
+	&__logout {
+		background-color: transparent;
+		border: 0;
+	}
 }
