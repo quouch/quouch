@@ -44,8 +44,12 @@
 							<%= image_tag('icons/euro.svg') %>
 							<% if @booking.payments.where(status: 1).any? %>
 								<%= 'Booking has been paid.' %>
-							<% else %>
-								<%= 'Waiting for payment.' %>
+							<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
+								<%= 'Awaiting payment to give access to address.' %>
+							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+								<%= 'Waiting for the host to confirm.' %>
+							<% elsif @booking.completed? %>
+								<%= 'Booking has been paid.' %>
 							<% end %>
 						</li>
 						<li>
@@ -85,11 +89,13 @@
 						<% if !@booking.cancelled? %>
 							<%= image_tag ('icons/pin.svg') %>
 							<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
-								<%= @couch.user.address %></p>
+								<p><%= @couch.user.address %></p>
 							<% elsif @booking.confirmed? %>
 								<p>Pay now to get access to your hosts address!</p>
 							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 								<p>You will see your hosts address once the booking is confirmed and paid.</p>
+							<% elsif @booking.completed? %>
+								<p><%= @couch.user.address %></p>
 							<% end %>
 						<% end %>
 					</li>
@@ -106,7 +112,7 @@
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
 				<%= button_to 'Cancel Request', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
-				<% elsif @booking.confirmed? && @booking.payments.empty? %>
+				<% elsif @booking.confirmed? && @booking.payments.where(status: 1).empty? %>
 					<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
 					<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
 				<% elsif @booking.confirmed? %>

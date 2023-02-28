@@ -28,8 +28,10 @@
 									<%= image_tag('icons/euro.svg') %>
 									<% if request.payments.where(status: 1).any? %>
 										<%= 'Booking has been paid.' %>
-									<% else %>
+									<% elsif request.payments.where(status: 1).empty? && request.confirmed? %>
 										<%= 'Waiting for payment.' %>
+									<% elsif request.pending? || request.pending_reconfirmation? %>
+										<%= 'Waiting for the host to confirm.' %>
 									<% end %>
 								</li>
 								<li class="upcoming-request__detail">

@@ -33,8 +33,10 @@
 											<%= image_tag('icons/euro.svg') %>
 											<% if booking.payments.where(status: 1).any? %>
 												<%= 'Booking has been paid.' %>
-											<% else %>
+											<% elsif booking.payments.where(status: 1).empty? && booking.confirmed? %>
 												<%= 'Waiting for payment.' %>
+											<% elsif booking.pending? || booking.pending_reconfirmation? %>
+												<%= 'Waiting for the host to confirm.' %>
 											<% end %>
 										</li>
 										<li class="upcoming-booking__detail">

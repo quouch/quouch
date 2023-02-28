@@ -42,10 +42,14 @@
 					</li>
 					<li>
 						<%= image_tag('icons/euro.svg') %>
-						<% if @booking.payments.where(status: 1) %>
+						<% if @booking.payments.where(status: 1).any? %>
 							<%= 'Booking has been paid.' %>
-						<% else %>
+						<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
 							<%= 'Awaiting payment to give access to address.' %>
+						<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+							<%= 'Waiting for the host to confirm.' %>
+						<% elsif @booking.completed? %>
+							<%= 'Booking has been paid.' %>
 						<% end %>
 					</li>
 					<li>
