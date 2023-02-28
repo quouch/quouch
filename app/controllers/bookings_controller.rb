@@ -30,6 +30,8 @@ class BookingsController < ApplicationController
 			}
 		end
 		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
+		@host_review = @booking.reviews.find_by(user: @host)
+		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
 
 	def new
@@ -94,6 +96,8 @@ class BookingsController < ApplicationController
 		@review = Review.new
 		@couch = @booking.couch
 		@host = @couch.user
+		@host_review = @booking.reviews.find_by(user: @host)
+		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
 
 	def sent

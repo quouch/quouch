@@ -66,7 +66,7 @@
 									<%= image_tag('icons/calendar.svg') %>
 									<%= request.start_date.strftime("%B, %Y") %>
 								</li>
-								<% if request.review.nil? %>
+								<% if request.reviews.find_by(user: request.couch.user).nil? %>
 								<li class="past-request__link">
 									<%= link_to "See Details & Leave Review", request_booking_path(request) %>
 								</li>
