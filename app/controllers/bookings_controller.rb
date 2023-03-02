@@ -13,7 +13,7 @@ class BookingsController < ApplicationController
 		@requests = Booking.select { |booking| booking.couch.user == current_user }
 		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }.sort_by { |request| request.start_date }
 		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by { |request| request.start_date }
-		@completed = @requests.select { |request| request.completed? }
+		@completed = @requests.select { |request| request.completed? }.sort_by { |request| request.start_date }
 	end
 
 	def show
@@ -37,6 +37,7 @@ class BookingsController < ApplicationController
 	def new
 		@booking = Booking.new
 		@host = @couch.user
+		offers(@host)
 	end
 
 	def create
@@ -146,7 +147,7 @@ class BookingsController < ApplicationController
 	private
 
 	def booking_params
-		params.require(:booking).permit(:start_date, :end_date, :number_travellers, :message)
+		params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message)
 	end
 
 	def set_booking
@@ -155,5 +156,23 @@ class BookingsController < ApplicationController
 
 	def set_couch
 		@couch = Couch.find(params[:couch_id])
+	end
+
+	def offers(host)
+		if host.offers_couch && host.offers_hang_out && host.offers_co_work
+			@offers = { host: 0, hangout: 1, cowork: 2 }
+		elsif host.offers_couch && host.offers_hang_out
+			@offers = { host: 0, hangout: 1 }
+		elsif host.offers_couch && host.offers_co_work
+			@offers = { host: 0, cowork: 2 }
+		elsif host.offers_hang_out && host.offers_co_work
+			@offers = { hangout: 1, cowork: 2 }
+		elsif host.offers_couch
+			@offers = { host: 0 }
+		elsif host.offers_hang_out
+			@offers = { hangout: 1 }
+		elsif host.offers_co_work
+			@offers = { cowork: 2 }
+		end
 	end
 end

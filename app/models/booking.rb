@@ -1,17 +1,17 @@
 class Booking < ApplicationRecord
   belongs_to :couch
   belongs_to :user
-  has_many :booking_payments
-  has_many :payments, through: :booking_payments
-  has_many :reviews
+  has_many   :booking_payments
+  has_many   :payments, through: :booking_payments
+  has_many   :reviews
 
-  validates :start_date, presence: true
-  validates :end_date, presence: true
-  validate :date_in_future?, on: :create
-  validate :valid_dates?, on: :create
-  validate :matches_capacity?
-  validate :duplicate_booking?, on: :create
-  validate :duplicate_request?, on: :create
+  validates  :start_date, presence: true
+  validates  :end_date, presence: true
+  validate   :date_in_future?, on: :create
+  validate   :valid_dates?, on: :create
+  validate   :matches_capacity?
+  validate   :duplicate_booking?, on: :create
+  validate   :duplicate_request?, on: :create
 
   enum status: { pending: 0, confirmed: 1, declined: 2, pending_reconfirmation: 3, completed: 4, cancelled: -1 }
   enum request: { host: 0, hangout: 1, cowork: 2 }
@@ -77,13 +77,5 @@ class Booking < ApplicationRecord
 
       payment.update(payment_intent: intent.id, status: 2)
     end
-  end
-
-  def month
-    start_date.strftime("%B")
-  end
-
-  def year
-    start_date.year
   end
 end

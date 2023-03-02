@@ -33,6 +33,18 @@
 				<h2>Travel Details</h2>
 				<ul class="booking__details-list">
 					<li>
+					<% if @booking.host? %>
+						<%= image_tag('icons/sleep-secondary.svg') %>
+						<p>couch</p>
+					<% elsif @booking.hangout? %>
+						<%= image_tag('icons/hangout-secondary.svg') %>
+						<p>hangout</p>
+					<% elsif @booking.cowork? %>
+						<%= image_tag('icons/work-secondary.svg') %>
+						<p>co-work</p>
+					<% end %>
+					</li>
+					<li>
 						<%= image_tag('icons/calendar.svg') %>
 						<%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
 					</li>
@@ -40,18 +52,20 @@
 						<%= image_tag('icons/home.svg') %>
 						<%= @booking.status.capitalize %>
 					</li>
-					<li>
-						<%= image_tag('icons/euro.svg') %>
-						<% if @booking.payments.where(status: 1).any? %>
-							<%= 'Booking has been paid.' %>
-						<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
-							<%= 'Awaiting payment to give access to address.' %>
-						<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
-							<%= 'Waiting for the host to confirm.' %>
-						<% elsif @booking.completed? %>
-							<%= 'Booking has been paid.' %>
-						<% end %>
-					</li>
+					<% if @booking.host? %>
+						<li>
+							<%= image_tag('icons/euro.svg') %>
+							<% if @booking.payments.where(status: 1).any? %>
+								<%= 'Booking has been paid.' %>
+							<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
+								<%= 'Awaiting payment to give access to address.' %>
+							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+								<%= 'Waiting for the host to confirm.' %>
+							<% elsif @booking.completed? %>
+								<%= 'Booking has been paid.' %>
+							<% end %>
+						</li>
+					<% end %>
 					<li>
 						<%= image_tag('icons/people.svg') %>
 						<%= pluralize @booking.number_travellers, "Traveller" %>

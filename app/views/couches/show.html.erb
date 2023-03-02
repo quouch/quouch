@@ -52,9 +52,9 @@
 			<p><%= @host.summary %></p>
 		</div>
 
-		<div class="couch__accomodation">
+		<div class="couch__accommodation">
 			<h2>Accomodation</h2>
-			<ul class="couch__accomodation-list">
+			<ul class="couch__accommodation-list">
 				<% @couch.facilities.each do |facility| %>
 					<li>
 						<%= image_tag(facility.image) %>
@@ -72,50 +72,62 @@
 			</div>
 		</div>
 
-			<div class="couch__questions">
-				<h2>This makes me really happy</h2>
-				<p><%= @host.question_one %></p>
-				<h2>What I can't stand</h2>
-				<p><%= @host.question_two %></p>
-				<h2>What I need from the people around me</h2>
-				<p><%= @host.question_three %></p>
-				<h2>What I otherwise need and like</h2>
-				<p><%= @host.question_four %></p>
-			</div>
-
-		<div class="couch__reviews">
-			<% if @reviews.any? %>
-			<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
-			<div class="review__rating">
-				<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
-			</div>
-			<ul>
-				<% @reviews.each do |review| %>
-				<li class="review">
-					<div class="review__details">
-						<%= image_tag('profile.jpg', class: 'review__image') %>
-						<div>
-							<p class="review__name"><%= review.user.first_name.capitalize %></p>
-							<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
-						</div>
-					</div>
-					<div class="review__rating">
-						<div class="review__stars">
-							<% review.rating.round.times do %>
-								<%= image_tag('icons/star-full.svg') %>
-							<% end %>
-							<% (5 - review.rating).round.times do %>
-								<%= image_tag('icons/star-empty.svg') %>
-							<% end %>
-						</div>
-					</div>
-					<p class="review__content"><%= review.content %></p>
-				</li>
-					<% end %>
-			</ul>
-			<% end %>
-		</div>
+	</div>
+	<div class="couch__questions">
+		<h2>This makes me really happy</h2>
+		<p><%= @host.question_one %></p>
+		<h2>What I can't stand</h2>
+		<p><%= @host.question_two %></p>
+		<h2>What I need from the people around me</h2>
+		<p><%= @host.question_three %></p>
+		<h2>What I otherwise need and like</h2>
+		<p><%= @host.question_four %></p>
 		<%= link_to "Send quouch request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
+	</div>
+	<div class="couch__reviews">
+		<% if @reviews.any? %>
+		<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
+		<div class="review__rating">
+			<%= image_tag('icons/star.svg') %>
+			<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
+		</div>
+		<ul class="reviews">
+			<% @reviews.each do |review| %>
+			<li class="review">
+				<div class="review__details">
+					<%= image_tag('profile.jpg', class: 'review__image') %>
+					<div>
+						<p class="review__name"><%= review.user.first_name.capitalize %></p>
+						<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
+					</div>
+				</div>
+				<div class="review__type">
+					<% if review.booking.host? %>
+						<%= image_tag('icons/sleep.svg') %>
+						<p>couch</p>
+					<% elsif review.booking.hangout? %>
+						<%= image_tag('icons/hangout.svg') %>
+						<p>hangout</p>
+					<% elsif review.booking.cowork? %>
+						<%= image_tag('icons/work.svg') %>
+						<p>co-work</p>
+					<% end %>
+				</div>
+				<div class="review__rating">
+					<div class="review__stars">
+						<% review.rating.round.times do %>
+							<%= image_tag('icons/star-full.svg') %>
+						<% end %>
+						<% (5 - review.rating).round.times do %>
+							<%= image_tag('icons/star-empty.svg') %>
+						<% end %>
+					</div>
+				</div>
+				<p class="review__content"><%= review.content %></p>
+			</li>
+				<% end %>
+		</ul>
+		<% end %>
 	</div>
 </article>
 

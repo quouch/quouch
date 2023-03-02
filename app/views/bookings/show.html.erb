@@ -33,6 +33,18 @@
 					<h2>Travel Details</h2>
 					<ul class="booking__details-list">
 						<li>
+						<% if @booking.host? %>
+							<%= image_tag('icons/sleep-secondary.svg') %>
+							<p>couch</p>
+						<% elsif @booking.hangout? %>
+							<%= image_tag('icons/hangout-secondary.svg') %>
+							<p>hangout</p>
+						<% elsif @booking.cowork? %>
+							<%= image_tag('icons/work-secondary.svg') %>
+							<p>co-work</p>
+						<% end %>
+						</li>
+						<li>
 							<%= image_tag('icons/calendar.svg') %>
 							<%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
 						</li>
@@ -40,44 +52,49 @@
 							<%= image_tag('icons/home.svg') %>
 							<%= @booking.status.capitalize %>
 						</li>
-						<li>
-							<%= image_tag('icons/euro.svg') %>
-							<% if @booking.payments.where(status: 1).any? %>
-								<%= 'Booking has been paid.' %>
-							<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
-								<%= 'Awaiting payment to give access to address.' %>
-							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
-								<%= 'Waiting for the host to confirm.' %>
-							<% elsif @booking.completed? %>
-								<%= 'Booking has been paid.' %>
-							<% end %>
-						</li>
+						<% if @booking.host? %>
+							<li>
+								<%= image_tag('icons/euro.svg') %>
+								<% if @booking.payments.where(status: 1).any? %>
+									<%= 'Booking has been paid.' %>
+								<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
+									<%= 'Awaiting payment to give access to address.' %>
+								<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+									<%= 'Waiting for the host to confirm.' %>
+								<% elsif @booking.completed? %>
+									<%= 'Booking has been paid.' %>
+								<% end %>
+							</li>
+						<% end %>
 						<li>
 							<%= image_tag('icons/people.svg') %>
 							<%= pluralize @booking.number_travellers, "Traveller" %>
 						</li>
 					</ul>
 				</div>
-
-				<div class="booking__accomodation">
-					<h2>Accomodation</h2>
-					<ul class="booking__accomodation-list">
-						<% @couch.facilities.each do |facility| %>
-							<% if facility.image.attached? %>
-								<li>
-									<%= image_tag ('icons/armchair.svg') %>
-									<%= facility.name %>
-								</li>
-							<% else %>
-								<li>
-									<%= facility.name %>
-								</li>
+				
+				<% if @booking.host? %>
+					<div class="booking__accomodation">
+						<h2>Accomodation</h2>
+						<ul class="booking__accomodation-list">
+							<% @couch.facilities.each do |facility| %>
+								<% if facility.image.attached? %>
+									<li>
+										<%= image_tag ('icons/armchair.svg') %>
+										<%= facility.name %>
+									</li>
+								<% else %>
+									<li>
+										<%= facility.name %>
+									</li>
+								<% end %>
 							<% end %>
-						<% end %>
-					</ul>
-				</div>
+						</ul>
+					</div>
+				<% end %>
 			</article>
 
+			<% if @booking.host? %>
 			<article class="booking__location">
 				<h2>Location</h2>
 				<ul class="booking__address">
@@ -107,12 +124,13 @@
 							data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 				<% end %>
 			</article>
+			<% end %>
 
 			<div class="booking__links">
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
 				<%= button_to 'Cancel Request', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
-				<% elsif @booking.confirmed? && @booking.payments.where(status: 1).empty? %>
+				<% elsif @booking.host? && @booking.confirmed? && @booking.payments.where(status: 1).empty? %>
 					<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
 					<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
 				<% elsif @booking.confirmed? %>

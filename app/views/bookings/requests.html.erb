@@ -17,6 +17,18 @@
 									<li class="upcoming-request__pronouns"><%= request.user.pronouns %></li>
 								</div>
 								<li class="upcoming-request__detail">
+								<% if request.host? %>
+									<%= image_tag('icons/sleep-secondary.svg') %>
+									<p>host</p>
+								<% elsif request.hangout? %>
+									<%= image_tag('icons/hangout-secondary.svg') %>
+									<p>hangout</p>
+								<% elsif request.cowork? %>
+									<%= image_tag('icons/work-secondary.svg') %>
+									<p>co-work</p>
+								<% end %>
+								</li>
+								<li class="upcoming-request__detail">
 									<%= image_tag('icons/calendar.svg') %>
 									<%= request.start_date.strftime("%B %d") %> - <%= request.end_date.strftime("%B %d, %Y") %>
 								</li>
@@ -24,16 +36,18 @@
 									<%= image_tag('icons/home.svg') %>
 									<%= request.status.capitalize %>
 								</li>
-								<li class="upcoming-request__detail">
-									<%= image_tag('icons/euro.svg') %>
-									<% if request.payments.where(status: 1).any? %>
-										<%= 'Booking has been paid.' %>
-									<% elsif request.payments.where(status: 1).empty? && request.confirmed? %>
-										<%= 'Waiting for payment.' %>
-									<% elsif request.pending? || request.pending_reconfirmation? %>
-										<%= 'Waiting for the host to confirm.' %>
-									<% end %>
-								</li>
+								<% if request.host? %>
+									<li class="upcoming-request__detail">
+										<%= image_tag('icons/euro.svg') %>
+										<% if request.payments.where(status: 1).any? %>
+											<%= 'Booking has been paid.' %>
+										<% elsif request.payments.where(status: 1).empty? && request.confirmed? %>
+											<%= 'Waiting for payment.' %>
+										<% elsif request.pending? || request.pending_reconfirmation? %>
+											<%= 'Waiting for the host to confirm.' %>
+										<% end %>
+									</li>
+								<% end %>
 								<li class="upcoming-request__detail">
 									<%= image_tag('icons/people.svg') %>
 									<%= pluralize request.number_travellers, "Traveller" %>
