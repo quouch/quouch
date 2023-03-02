@@ -71,7 +71,7 @@
 			<div class="booking-form__type">
 				<label>Pick one or more</label>
 				<%= f.input :request,
-										collection: Booking.requests,
+										collection: @offers.keys,
 										as: :radio_buttons,
 										label: false %>
 			</div>

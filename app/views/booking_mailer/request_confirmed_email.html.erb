@@ -5,6 +5,8 @@
   </head>
   <body>
     <h1>Your request at <%= @host.first_name.capitalize %>'s place has been confirmed!</h1>
-    <p><%= link_to 'Pay now', pay_booking_url(@booking) %> to finalize the booking and to get access to your hosts' address.</p>
+    <% if @booking.host? %>
+      <p><%= link_to 'Pay now', pay_booking_url(@booking) %> to finalize the booking and to get access to your hosts' address.</p>
+    <% end %>
   </body>
 </html>

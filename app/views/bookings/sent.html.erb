@@ -11,6 +11,18 @@
 			<h2>Travel Details</h2>
 			<ul class="sent__details-list">
 				<li>
+					<% if @booking.host? %>
+						<%= image_tag('icons/sleep-secondary.svg') %>
+						<p>couch</p>
+					<% elsif @booking.hangout? %>
+						<%= image_tag('icons/hangout-secondary.svg') %>
+						<p>hangout</p>
+					<% elsif @booking.cowork? %>
+						<%= image_tag('icons/work-secondary.svg') %>
+						<p>co-work</p>
+					<% end %>
+				</li>
+				<li>
 					<%= image_tag('icons/calendar.svg') %>
 					<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
 				</li>
@@ -20,23 +32,25 @@
 				</li>
 			</ul>
 		</div>
-		<div class="sent__accomodation">
-			<h2>Accomodation</h2>
-			<ul class="sent__accomodation-list">
-				<% @couch.facilities.each do |facility| %>
-					<% if facility.image.attached? %>
-						<li>
-							<%= image_tag ('icons/armchair.svg') %>
-							<%= facility.name %>
-						</li>
-					<% else %>
-						<li>
-							<%= facility.name %>
-						</li>
+		<% if @booking.host? %>
+			<div class="sent__accomodation">
+				<h2>Accomodation</h2>
+				<ul class="sent__accomodation-list">
+					<% @couch.facilities.each do |facility| %>
+						<% if facility.image.attached? %>
+							<li>
+								<%= image_tag ('icons/armchair.svg') %>
+								<%= facility.name %>
+							</li>
+						<% else %>
+							<li>
+								<%= facility.name %>
+							</li>
+						<% end %>
 					<% end %>
-				<% end %>
-			</ul>
-		</div>
+				</ul>
+			</div>
+		<% end %>
 		</article>
 		<div class="sent__message">
 			<p >Now it is up to <%= @host.first_name %> to check the dates and your message. Once <%= @host.pronouns.split("/").first %> accepted your request, you are able to chat with <%= @host.pronouns.split("/").second %> and get in touch about open questions and things and bananas.<p>

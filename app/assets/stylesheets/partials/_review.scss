@@ -1,10 +1,16 @@
 .review {
 	margin: 1rem 0;
+	min-width: 300px;
+	width: 50%;
+	padding: 1rem;
+	background-color: $secondary-super-transparent;
+	border-radius: $border-radius-medium;
 
 	&__rating {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
+		margin-bottom: 1rem;
 
 		p {
 			@include facility-name;
@@ -30,6 +36,20 @@
 		margin: 1rem 0;
 	}
 
+	&__type {
+		p { @include caption; }
+
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		margin: .5rem 0;
+		
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
 	&__image {
 		width: 50px;
 		height: 50px;
@@ -44,7 +64,16 @@
 	}
 }
 
-.review__content:before, .review__content:after {
-	content: "\201C";
-	content: "\201D";
+.reviews {
+	grid-row: 1;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	overflow-x: scroll;
+	padding: 0 .5rem;
+	scroll-snap-type: proximity;
+	scrollbar-color: $primary-transparent $primary-transparent;
+	scrollbar-width: thin;
+
+	@media (min-width: $break-large) { width: 600px; } 
 }
