@@ -1,0 +1,31 @@
+.swal-modal {
+	background-color: $secondary-super-transparent;
+}
+.swal-footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.swal-button--cancel {
+	@include input-field;
+	@include primary-button;
+	width: 200px;
+}
+
+.swal-button--confirm {
+	@include input-field;
+	@include secondary-button;
+	
+	width: 200px;
+}
+
+.swal-button--confirm:not([disabled]):hover {
+  opacity: .9 !important;
+	background-color: transparent;
+}
+
+.swal-button--cancel:not([disabled]):hover {
+  opacity: .9 !important;
+	background-color: $primary;
+}

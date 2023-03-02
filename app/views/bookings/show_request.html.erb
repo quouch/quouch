@@ -83,12 +83,14 @@
 			</div>
 		</article>
 
-		<div class="booking__links">
+		<div class="booking__links" data-controller="confirm-alert">
 			<% if @booking.confirmed? %>
-				<%= button_to 'Cancel Booking', cancel_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
+				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Cancel Booking</button>
+				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
 			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
-				<%= button_to 'Politely Decline', decline_booking_path(@booking), data: { turbo_confirm: 'Are you sure?' }, method: :patch, class: 'booking__decline' %>
+				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Decline Request</button>
+				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
 			<% end %>
 		</div>
 

@@ -1,5 +1,8 @@
 .booking {
-	&-section { margin: 4rem 0; }
+	&-section {
+		margin: 4rem 0 0;
+		@media (min-width: $break-large) { margin: 4rem 0 4rem}
+	}
 	
 	h2 { @include profile-title; }
 	
@@ -94,7 +97,10 @@
 	}
 
 	&__details {
+		margin-bottom: 1rem;
 		flex-shrink: 0;
+
+		@media (min-width: $break-large) { margin-bottom: 0; }
 		
 		&-list {
 			li {
@@ -169,12 +175,11 @@
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
 			justify-content: center;
+			align-items: center;
 			gap: 3rem;
 			margin-top: 1rem;
 			
-			form {
-				width: 100%;
-			}
+			form { width: 100%; }
 		}
 	}
 

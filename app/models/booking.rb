@@ -78,4 +78,9 @@ class Booking < ApplicationRecord
       payment.update(payment_intent: intent.id, status: 2)
     end
   end
+
+  def self.delete
+    pending_bookings = Booking.where(start_date: ...Date.today, status: 0)
+    pending_bookings.destroy_all
+  end
 end
