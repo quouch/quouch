@@ -82,8 +82,7 @@ class BookingsController < ApplicationController
 				case status_before_cancellation
 				when 'pending'
 					BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-				when'confirmed'
-					refund(@booking)
+				when 'confirmed'
 					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
 				end
 			else

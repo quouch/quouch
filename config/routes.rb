@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get :pay
       patch :accept
       patch :decline
-      patch :cancel
+      delete :cancel
     end
     resources :payments, only: %i[new]
   end
