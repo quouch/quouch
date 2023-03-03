@@ -13,16 +13,22 @@
 					<p class="collapsible__subtitle">Personal</p>
 					<li>
 						<%= image_tag('icons/profile') %>
-						<%= link_to 'Profile', couch_path(current_user.couch) %>
+						<% if current_user.couch %>
+							<%= link_to 'Profile', couch_path(current_user.couch) %>
+						<% else %>
+							<%= link_to 'Polish up Profile', edit_user_registration_path %>
+						<% end %>
 					</li>
 					<li>
 						<%= image_tag('icons/trip') %>
 						<%= link_to 'Trips', bookings_path %>
 					</li>
-					<li>
-						<%= image_tag('icons/home') %>
-						<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
-					</li>
+					<% if current_user.couch %>
+						<li>
+							<%= image_tag('icons/home') %>
+							<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
+						</li>
+					<% end %>
 					<li>
 						<%= image_tag('icons/chat') %>
 						<%= link_to 'Chat', chats_path %>

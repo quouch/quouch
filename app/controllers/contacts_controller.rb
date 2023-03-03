@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
 		if @contact.deliver
 			flash[:notice] = 'Message successfully sent!'
 		else
-			flash[:error] = 'Could not send message'
+			flash[:warning] = 'Could not send message, please try again'
 			render :new, status: :unprocessable_entity
 		end
 	end
