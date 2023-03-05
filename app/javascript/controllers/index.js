@@ -10,6 +10,9 @@ application.register("address-autocomplete", AddressAutocompleteController)
 import ChatSubscriptionController from "./chat_subscription_controller"
 application.register("chat-subscription", ChatSubscriptionController)
 
+import CloseModalController from "./close_modal_controller"
+application.register("close-modal", CloseModalController)
+
 import ConditionalUserFieldsController from "./conditional_user_fields_controller"
 application.register("conditional-user-fields", ConditionalUserFieldsController)
 
