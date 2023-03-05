@@ -1,18 +1,21 @@
 .flash {
 	position: sticky;
 	z-index: 10;
-	top: 20px;
+	top: 10px;
 	left: 10px;
-	padding: 1rem;
+	padding: .7rem 1rem;
 	background-color: $secondary-super-transparent;
-	color: $gray-01;
 	border-radius: 16px;
 	width: fit-content;
-	box-shadow: $box-shadow;
+	box-shadow: $box-shadow-alert;
 
 
 	&__button {
 		width: 16px;
 		height: 16px;
+
+		background-color: transparent;
+		border: 0;
+		margin-left: .2rem;
 	}
 }
