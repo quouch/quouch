@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <div class="home__wrap">
 	<section class="search__wrap">
 		<%= form_with url: couches_path, class: 'search', method: :get do %>
@@ -67,3 +68,12 @@
 		</ul>
 	</section>
 </div>
+	<% else %>
+<div class="home__banner">
+	<div class="home__banner-wrap">
+		<h1>Like Couchsurfing, but very different.</h1>
+		<p>Homestay from a female & queer perspective</p>
+		<%= link_to 'Request invite code', new_contact_path, class: 'home__banner-button' %>
+	</div>
+</div>
+	<% end %>
