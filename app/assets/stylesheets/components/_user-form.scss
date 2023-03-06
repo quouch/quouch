@@ -54,9 +54,13 @@
 
 	&__birthdate {
 		display: flex;
-		gap: 1rem;
-		
-		select { background-color: $white; }
+		gap: .5rem;
+		align-items: center;
+
+		select {
+			background-color: $white;
+			flex-grow: 1;
+		}
 	}
 
 	&__address {
