@@ -1,0 +1,62 @@
+.invite-confirm {
+	margin-top: 4rem;
+	background-color: $primary-transparent;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+	&__wrap {
+		width: 320px;
+		margin: 0 auto 4rem;
+
+		@media (min-width: $break-large) { width: 400px; }
+		
+		input { @include input-field; }
+		label { @include title-4; }
+	}
+	
+	&__title {
+		@include title-1;
+		color: $warning;
+	}
+
+	&__instruction {
+		@include title-5;
+		
+		text-align: center;
+		margin-bottom: 4rem;
+		margin-top: 0;
+	}
+
+	&__input {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__name {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__birthdate {
+		display: flex;
+		gap: .5rem;
+		
+		select {
+			background-color: $white;
+			flex-grow: 1;
+		}
+	}
+
+	&__actions {
+		input {
+			@include input-field;
+			@include primary-button;
+			
+			padding: .7rem;
+		}
+
+		margin-top: 1rem;
+	}
+}

@@ -1,0 +1,53 @@
+<section class="invite-confirm">
+	<div class="invite-confirm__wrap">
+		<h1 class="invite-confirm__title">Set Account Details</h2>
+
+		<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), method: :put) do |f| %>
+			<%= devise_error_messages! %>
+
+			<div class="invite-confirm__name">
+				<%= f.text_field  :first_name,
+													required: true,
+													autofocus: true,
+													label: false,
+													placeholder: 'First Name',
+													error: 'First Name is mandatory, please specify one' %>
+        <%= f.text_field  :last_name,
+													required: true,
+													autofocus: true,
+													placeholder: 'Last Name' %>
+			</div>
+
+			<div class="invite-confirm__birthdate">
+				<%= f.date_select :date_of_birth,
+													label: 'Date of Birth',
+													start_year: Date.today.year - 100,
+													end_year: Date.today.year,
+													required: true,
+													autofocus: true,
+													error: 'Date of Birth is mandatory, please specify one' %>
+			</div>
+
+			<div class="invite-confirm__input">
+				<%= f.password_field :password,
+														 placeholder: 'Password' %>
+			</div>
+
+			<div class="invite-confirm__input">
+				<%= f.password_field :password_confirmation,
+														 placeholder: 'Password confirmation' %>
+			</div>
+
+			<%= f.hidden_field :invitation_token %>
+
+			<div class="invite-confirm__actions">
+				<%= f.submit "Set Password & Create Account" %>
+			</div>
+		<% end %>
+	</div>
+	<footer class="signup__footer">
+    <aside class="signup__terms">
+      By creating your account, you agree to our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>
+    </aside>
+  </footer>
+</section>
