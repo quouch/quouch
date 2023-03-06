@@ -8,8 +8,9 @@ class ContactsController < ApplicationController
 		@contact.request = request
 		if @contact.deliver
 			flash[:notice] = 'Message successfully sent!'
+			redirect_to root_path
 		else
-			flash[:warning] = 'Could not send message, please try again'
+			flash[:alert] = 'Could not send message, please try again'
 			render :new, status: :unprocessable_entity
 		end
 	end
