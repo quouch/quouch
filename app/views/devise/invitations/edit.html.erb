@@ -30,6 +30,7 @@
 
 			<div class="invite-confirm__input">
 				<%= f.password_field :password,
+														 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
 														 placeholder: 'Password' %>
 			</div>
 

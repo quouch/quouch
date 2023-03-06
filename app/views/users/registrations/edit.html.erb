@@ -10,12 +10,15 @@
         
         <div class="user__image">
           <%= f.label :profile_picture %>
-          <% if @user.photo.any? %>
-            <%= image_tag('profile', class: 'user__image-preview') %>
-          <% else %>
-            <%= image_tag('icons/profile', class: 'user__image-icon') %>
-          <% end %>
-          <%= f.input_field :photo, as: :file, class: 'user__image-upload' %>
+          <%# if @user.photo.any? %>
+            <%#= image_tag('profile', class: 'user__image-preview') %>
+          <%# else %>
+            <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
+          <%# end %>
+          <div class="user__image-upload">
+            <%= image_tag('icons/profile-upload') %>
+            <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
+          </div>
         </div>
 
         <div class="user__info">
@@ -35,6 +38,7 @@
                             required: true,
                             autofocus: true,
                             input_html: { autocomplete: 'email' } %>
+          <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
@@ -48,10 +52,10 @@
           
           <%= f.label      :address, class: 'user__address-label' %>
           <div class="user__address">
-            <%= f.input    :address,
-                            label: false,
-                            input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
-                            wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <%= f.input      :address,
+                             label: false,
+                             input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                             wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
             <div class="user__address-street">
               <%= f.label       :street %>
               <%= f.text_field  :street,
@@ -165,6 +169,12 @@
             <%= f.input_field :question_four,
                               required: true,
                               autofocus: true %>
+            <%= f.input       :current_password,
+                              hint: "we need your current password to make changes",
+                              input_html: { autocomplete: "current-password" } %>
+          <div class="user__submit">
+            <%= f.button :submit, "Update" %>
+          </div>
         </div>
       </div>
 
@@ -181,9 +191,6 @@
       <%= f.input       :password_confirmation,
                         required: false,
                         input_html: { autocomplete: "new-password" } %>
-      <%= f.input       :current_password,
-                        hint: "we need your current password to make changes",
-                        input_html: { autocomplete: "current-password" } %>
     </div>
 
     <div class="user__submit">

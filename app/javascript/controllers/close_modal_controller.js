@@ -4,7 +4,17 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["modal"]
   
+  connect() {
+    setTimeout(() => {
+      this.modalTarget.style.opacity = '0'
+    }, 3000)
+  }
+
   closeModal() {
     this.modalTarget.style.display = "none"
+  }
+
+  afterLeave() {
+    this.modalTarget.remove();
   }
 }

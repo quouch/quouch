@@ -8,6 +8,7 @@
 	border-radius: 16px;
 	width: fit-content;
 	box-shadow: $box-shadow-alert;
+	transition: opacity 1s ease-in-out;
 
 
 	&__button {
