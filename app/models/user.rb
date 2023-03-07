@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :photo
   has_one :couch, dependent: :destroy, autosave: true
@@ -19,13 +19,17 @@ class User < ApplicationRecord
   has_many :user_characteristics
   has_many :characteristics, through: :user_characteristics
 
-  belongs_to :city, optional: true
-  belongs_to :country, optional: true
+  belongs_to :city
+  belongs_to :country
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :date_of_birth, presence: true
-  validate :validate_age
+  validates :city, presence: true
+  validates :country, presence: true
+  validates :summary, presence: true
+  validates :characteristics, presence: true
+  validate  :validate_age
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
