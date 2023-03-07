@@ -46,14 +46,5 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  # namespace :api, defaults: { format: :json } do
-  #   namespace :v1 do
-  #     resources :chats, only: %i[index show create] do
-  #       resources :messages, only: %i[create]
-  #     end
-  #   end
-  # end
-
-
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
 end

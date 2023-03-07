@@ -1,54 +1,181 @@
-<section class="invite-confirm">
-	<div class="invite-confirm__wrap">
-		<h1 class="invite-confirm__title">Set Account Details</h2>
+<section class="user">
+  <h1>Set Account Details</h1>
 
-		<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), method: :put) do |f| %>
-			<%= devise_error_messages! %>
+  <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
+    <%= f.error_notification %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-			<div class="invite-confirm__name">
-				<%= f.text_field  :first_name,
-													required: true,
-													autofocus: true,
-													label: false,
-													placeholder: 'First Name',
-													error: 'First Name is mandatory, please specify one' %>
-        <%= f.text_field  :last_name,
-													required: true,
-													autofocus: true,
-													placeholder: 'Last Name' %>
+      <div class="user__wrap">
+        
+        <div class="user__image">
+          <%= f.label :profile_picture %>
+            <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
+          <div class="user__image-upload">
+            <%= image_tag('icons/profile-upload') %>
+            <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
+          </div>
+        </div>
+
+        <div class="user__info">
+          <%= f.label       :personal_info %>
+          <%= f.input_field :first_name,
+                            autofocus: true,
+                            label: false,
+                            placeholder: 'First Name',
+                            error: 'First Name is mandatory, please specify one',
+                            input_html: { autocomplete: 'first_name' } %>
+          <%= f.input_field :last_name,
+                            autofocus: true,
+														placeholder: 'Last Name',
+                            error: 'Last Name is mandatory, please specify one',
+                            input_html: { autocomplete: 'last_name' } %>
+          <%= f.input_field :email,
+                            autofocus: true,
+                            input_html: { autocomplete: 'email' } %>
+          <%= f.label       :date_of_birth %>
+          <div class="user__birthdate">
+            <%= f.input_field :date_of_birth,
+                              start_year: Date.today.year - 100,
+                              end_year: Date.today.year,
+                              autofocus: true %>
+          </div>
+          <%= f.input      :pronouns,
+                           autofocus: true,
+                           input_html: { autocomplete: 'pronouns' } %>
+          
+          <%= f.label      :address, class: 'user__address-label' %>
+          <div class="user__address">
+            <%= f.input      :address,
+                             label: false,
+                             input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                             wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <div class="user__address-street">
+              <%= f.label       :street %>
+              <%= f.text_field  :street,
+                                value: @user.street,
+                                autofocus: true %>
+            </div>
+            <div class="user__address-city">
+              <%= f.label       :zipcode %>
+              <%= f.text_field  :zipcode,
+                                value: @user.zipcode,
+                                autofocus: true %>
+              <%= f.label       :city %>
+              <%= f.text_field  :city_id,
+                                as: :string,
+                                value: @user.city.try(:name),
+                                label: 'City',
+                                autofocus: true %>
+            </div>
+            <div class="user__address-country">
+              <%= f.label       :country %>
+              <%= f.text_field  :country_id,
+                                as: :string,
+                                value: @user.country.try(:name),
+                                boolean_style: :inline,
+                                autofocus: true %>
+            </div>
+          </div>
+          
+          <%= f.label       :about_me %>
+          <%= f.input_field :summary,
+                            autofocus: true %>
+
+          <%= f.label :characteristics %>
+          <div class="user__characteristics">
+            <%= simple_fields_for :user_characteristic do |ucf| %>
+              <%= ucf.collection_check_boxes :characteristic_ids,
+                                            Characteristic.all,
+                                            :id, :name,
+                                            checked: @user.characteristic_ids,
+                                            input_html: { multiple: true, autocomplete: 'characteristics' } %>
+            <% end %>
+          </div>
+
+          <div data-controller="conditional-user-fields">
+            <%= f.label :i_offer %>
+            <div class="user__offers">
+              <div class="user__offer">
+                <%= f.input           :offers_couch,
+                                      label: false,
+                                      autofocus: true,
+                                      input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
+                <%= image_tag('icons/sleep') %>
+                <%= f.label           :couch %>
+              </div>
+              <div class="user__offer">
+                <%= f.input_field     :offers_co_work,
+                                      autofocus: true %>
+                <%= image_tag('icons/work') %>
+                <%= f.label           :co_working %>
+              </div>
+              <div class="user__offer">
+                <%= f.input_field     :offers_hang_out,
+                                      autofocus: true %>
+                <%= image_tag('icons/hangout') %>
+                <%= f.label           :hangout %>
+              </div>
+            </div>
+
+            <div class="user__couch" data-conditional-user-fields-target="field">
+              <%= simple_fields_for     :couch do |cf| %>
+                <div class="user__couch-capacity">
+                  <%= cf.label          :i_can_host %>
+                  <%= cf.input_field    :capacity,
+                                        collection: 1..4,
+                                        autofocus: true %>
+                  <%= cf.label          :guests %>
+                </div>
+              <%= cf.label                       :my_couch_comes_with %>
+              <div class="user__couch-facilities">
+                <%= simple_fields_for            :couch_facility do |cff| %>
+                  <%= cff.collection_check_boxes :facility_ids,
+                                                  Facility.all, :id, :name,
+                                                  input_html: { multiple: true },
+                                                  autofocus: true %>
+                <% end %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+
+            <%= f.label       :this_makes_me_really_happy %>
+            <%= f.input_field :question_one,
+                              autofocus: true %>
+            <%= f.label       :what_i_cant_stand %>
+            <%= f.input_field :question_two,
+                              autofocus: true %>
+            <%= f.label       :tell_us_what_you_need_and_like %>
+            <%= f.input_field :question_three,
+                              autofocus: true %>
+            <%= f.label       :when_you_live_at_my_place_i_appreciate %>
+            <%= f.input_field :question_four,
+                              autofocus: true %>
+
+					<%= f.label :set_password %>
+					<div class="user__password">
+						<%= f.password_field :password,
+																	hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+																	placeholder: 'Password' %>
+					</div>
+
+					<div class="user__password">
+						<%= f.password_field :password_confirmation,
+																	placeholder: 'Password confirmation' %>
+					</div>
+
+					<%= f.hidden_field :invitation_token %>
+
+					<div class="user__submit">
+						<%= f.submit "Create Account" %>
+					</div>
+				</div>
 			</div>
-
-			<div class="invite-confirm__birthdate">
-				<%= f.date_select :date_of_birth,
-													label: 'Date of Birth',
-													start_year: Date.today.year - 100,
-													end_year: Date.today.year,
-													required: true,
-													autofocus: true,
-													error: 'Date of Birth is mandatory, please specify one' %>
-			</div>
-
-			<div class="invite-confirm__input">
-				<%= f.password_field :password,
-														 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-														 placeholder: 'Password' %>
-			</div>
-
-			<div class="invite-confirm__input">
-				<%= f.password_field :password_confirmation,
-														 placeholder: 'Password confirmation' %>
-			</div>
-
-			<%= f.hidden_field :invitation_token %>
-
-			<div class="invite-confirm__actions">
-				<%= f.submit "Set Password & Create Account" %>
-			</div>
-		<% end %>
-	</div>
-	<footer class="signup__footer">
+	<% end %>
+	<aside class="user__footer">
     <aside class="signup__terms">
       By creating your account, you agree to our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>
     </aside>
-  </footer>
+  </aside>
+
 </section>

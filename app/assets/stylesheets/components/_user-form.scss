@@ -203,6 +203,16 @@
 			@include tertiary-button;
 		}
 	}
+
+	&__password {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+	}
 }
 
 .user_pronouns {

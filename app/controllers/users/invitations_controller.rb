@@ -1,28 +1,20 @@
-class Users::RegistrationsController < Devise::RegistrationsController
-  def new
-    redirect_to root_path
-  end
+class Users::InvitationsController < Devise::InvitationsController
+	def update
+		super
+    create_couch
+    @user.city = set_city
+    @user.country = set_country
 
-  def update
-    super
-    @user.update(city: set_city, country: set_country)
+		if offers_couch == "0"
+			set_couch_inactive
+		elsif offers_couch == "1"
+			set_couch_active
+		end
 
-    @couch = @user.couch
-    @couchfacilities = @couch.couch_facilities
-    update_couch
-    update_couch_facilities
+		@usercharacteristics = @user.user_characteristics
+	end
 
-    if offers_couch == "0"
-      set_couch_inactive
-    elsif offers_couch == "1"
-      set_couch_active
-    end
-
-    @usercharacteristics = @user.user_characteristics
-    update_user_characteristics
-  end
-
-  protected
+	protected
 
   def couch_params
     params.require(:couch).permit(:capacity)
