@@ -1,19 +1,19 @@
 class Users::InvitationsController < Devise::InvitationsController
 	def update
     @minimum_password_length = User.password_length.min
-    
+
 		super
-    create_couch
-    @user.city = set_city
-    @user.country = set_country
+    @user.update(country: set_country, city: set_city)
+    if @user.couch.nil?
+      create_couch
+    end
 
-		if offers_couch == "0"
-			set_couch_inactive
-		elsif offers_couch == "1"
-			set_couch_active
-		end
-
-		@usercharacteristics = @user.user_characteristics
+    @usercharacteristics = @user.user_characteristics
+    if @usercharacteristics.empty?
+      create_user_characteristics
+    else
+      update_user_characteristics
+    end
 	end
 
 	protected
@@ -26,14 +26,15 @@ class Users::InvitationsController < Devise::InvitationsController
     params.require(:couch_facility).permit(facility_ids: [])
   end
 
-  def user_characteristic_params
-    params.require(:couch_facility).permit(characteristic_ids: [])
-  end
-
   def create_couch
     @couch = Couch.new(couch_params)
     @couch.user = @user
     @couch.save
+    if offers_couch == "0"
+			set_couch_inactive
+		elsif offers_couch == "1"
+			set_couch_active
+		end
   end
 
   def update_couch
@@ -52,40 +53,11 @@ class Users::InvitationsController < Devise::InvitationsController
     @couch.update(active: true)
   end
 
-  def create_couch_facilities
-    @couchfacilities = []
-    delete_empty_string(couch_facility_params[:facility_ids])
-    couch_facility_params[:facility_ids].each do |id|
-      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
-      @couchfacilities << couchfacility
-    end
-  end
-
-  def update_couch_facilities
-    create_new_facilities
-    delete_old_facilities
-  end
-
-  def create_new_facilities
-    new_facilities = couch_facility_params[:facility_ids].reject { |facility| @couchfacilities.include?("#{facility}") }
-    delete_empty_string(new_facilities)
-    new_facilities.each do |id|
-      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
-      @couchfacilities << couchfacility
-    end
-  end
-
-  def delete_old_facilities
-    old_facilities = @couchfacilities.reject { |facility| couch_facility_params[:facility_ids].include?("#{facility[:facility_id]}") }
-    delete_empty_string(old_facilities)
-    old_facilities.each { |facility| @couchfacilities.destroy(facility.id) }
-  end
-
   def create_user_characteristics
     @usercharacteristics = []
     delete_empty_string(params[:user_characteristic][:characteristic_ids])
     params[:user_characteristic][:characteristic_ids].each do |id|
-      usercharacteristic = UserCharacteristics.create(user_id: @user, characteristic_id: id)
+      usercharacteristic = UserCharacteristic.create(user_id: @user.id, characteristic_id: id)
       @usercharacteristics << usercharacteristic
     end
   end
@@ -123,18 +95,6 @@ class Users::InvitationsController < Devise::InvitationsController
     end
   end
 
-  def set_city
-    @city = params[:user][:city_id]
-    @country = params[:user][:country_id]
-    existing_country = Country.find_by(name: @country.capitalize)
-    if existing_country.nil?
-      new_country = Country.create(name: @country)
-      create_city(@city, new_country)
-    else
-      create_city(@city, existing_country)
-    end
-  end
-
   def set_country
     @country = params[:user][:country_id]
     existing_country = Country.find_by(name: @country.capitalize)
@@ -143,5 +103,11 @@ class Users::InvitationsController < Devise::InvitationsController
     else
       existing_country
     end
+  end
+
+  def set_city
+    @city = params[:user][:city_id]
+    @country = set_country
+    create_city(@city, @country)
   end
 end

@@ -179,6 +179,8 @@
 	&__password {
 		&-change { color: $primary; }
 	}
+
+	&__hint { font-size: .75rem; }
 	
 	&__submit {
 		input {

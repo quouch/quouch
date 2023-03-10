@@ -5,7 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update
     super
-    @user.update(city: set_city, country: set_country)
+    @user.update(country: set_country, city: set_city)
 
     @couch = @user.couch
     @couchfacilities = @couch.couch_facilities
@@ -33,7 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def user_characteristic_params
-    params.require(:couch_facility).permit(characteristic_ids: [])
+    params.require(:user_characteristic).permit(characteristic_ids: [])
   end
 
   def create_couch
@@ -129,18 +129,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def set_city
-    @city = params[:user][:city_id]
-    @country = params[:user][:country_id]
-    existing_country = Country.find_by(name: @country.capitalize)
-    if existing_country.nil?
-      new_country = Country.create(name: @country)
-      create_city(@city, new_country)
-    else
-      create_city(@city, existing_country)
-    end
-  end
-
   def set_country
     @country = params[:user][:country_id]
     existing_country = Country.find_by(name: @country.capitalize)
@@ -149,5 +137,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       existing_country
     end
+  end
+
+  def set_city
+    @city = params[:user][:city_id]
+    @country = set_country
+    create_city(@city, @country)
   end
 end
