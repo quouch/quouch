@@ -9,10 +9,15 @@
 
 	&__banner {
 		margin: 4rem 0;
+		background-image: url('/assets/banner.jpg');
+		background-size: cover;
+		background-position: center;
 	
 		&-wrap {
 			padding: 1rem;
 			text-align: center;
+			
+			p { color: $white; }
 
 			@media (min-width: $break-medium) {
 				width: 800px;
@@ -20,20 +25,38 @@
 				text-align: start;
 	
 				h1 { text-align: start; }
-				p { @include title-4; }
+				p {
+					@include title-4;
+					// color: $white;
+				}
 			}
 		}
 
 		&-button {
+			display: flex;
+			gap: 1rem;
+			width: 100%;
+		}
+
+		&-primary {
 			@include input-field;
 			@include primary-button;
 
 			margin: 2rem auto;
 			width: fit-content;
 		
-			@media (min-width: $break-medium) {
-				margin: 2rem 0;
-			}
+			@media (min-width: $break-medium) { margin: 2rem 0; }
+		}
+
+		&-secondary {
+			@include input-field;
+			@include secondary-button;
+
+			margin: 2rem auto;
+			width: fit-content;
+			flex-grow: 2;
+		
+			@media (min-width: $break-medium) { margin: 2rem 0; }
 		}
 	}
 }

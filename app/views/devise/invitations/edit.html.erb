@@ -2,18 +2,22 @@
   <h1>Set Account Details</h1>
 
   <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
-    <%= f.error_notification %>
-    <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="user__wrap">
         
         <div class="user__image">
           <%= f.label :profile_picture %>
-            <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
-          <div class="user__image-upload">
+          <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
+          <%# <div class="user__image-upload">
             <%= image_tag('icons/profile-upload') %>
-            <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
-          </div>
+            <%#= f.input :photo,
+                        as: :file,
+                        input_html: { class: 'display-none' },
+                        label_html: { class: 'user__image-label'},
+                        label: 'Upload a photo',
+                        error: false %>
+          <%# </div> %>
+            <%#= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
         <div class="user__info">
@@ -22,23 +26,30 @@
                             autofocus: true,
                             label: false,
                             placeholder: 'First Name',
-                            error: 'First Name is mandatory, please specify one',
+                            error: false,
                             input_html: { autocomplete: 'first_name' } %>
+          <%= f.error       :first_name, class: 'form-error' %>
           <%= f.input_field :last_name,
                             autofocus: true,
 														placeholder: 'Last Name',
-                            error: 'Last Name is mandatory, please specify one',
+                            error: false,
                             input_html: { autocomplete: 'last_name' } %>
+          <%= f.error       :last_name, class: 'form-error' %>
           <%= f.input_field :email,
                             autofocus: true,
+                            placeholder: 'Email',
+                            error: false,
                             input_html: { autocomplete: 'email' } %>
           <%= f.label       :date_of_birth %>
+          
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
                               end_year: Date.today.year,
-                              autofocus: true %>
+                              autofocus: true,
+                              error: false %>
           </div>
+          <%= f.error      :date_of_birth, class: 'form-error' %>
           <%= f.input      :pronouns,
                            autofocus: true,
                            input_html: { autocomplete: 'pronouns' } %>
@@ -65,29 +76,37 @@
                                 as: :string,
                                 value: @user.city.try(:name),
                                 label: 'City',
+                                error: false,
                                 autofocus: true %>
             </div>
+            <%= f.error       :city, class: 'form-error' %>
             <div class="user__address-country">
               <%= f.label       :country %>
               <%= f.text_field  :country_id,
                                 as: :string,
                                 value: @user.country.try(:name),
                                 boolean_style: :inline,
+                                error: false,
                                 autofocus: true %>
             </div>
+            <%= f.error       :country, class: 'form-error' %>
           </div>
           
           <%= f.label       :about_me %>
           <%= f.input_field :summary,
-                            autofocus: true %>
+                            autofocus: true,
+                            error: false %>
+          <%= f.error       :country_id, class: 'form-error' %>
 
           <%= f.label :characteristics %>
+          <%= f.error       :characteristics, class: 'form-error form-error-characteristics' %>
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                             Characteristic.all,
                                             :id, :name,
                                             checked: @user.characteristic_ids,
+                                            error: false,
                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
@@ -155,13 +174,17 @@
 					<%= f.label :set_password %>
 					<div class="user__password">
 						<%= f.password_field :password,
-																	hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-																	placeholder: 'Password' %>
+																 hint: "#{@minimum_password_length} characters minimum",
+																 placeholder: 'Password' %>
 					</div>
+          <%= f.hint             "#{@minimum_password_length} characters minimum",
+                                 class: 'user__hint' %>
+          <%= f.error            :password, class: 'form-error' %>
 
 					<div class="user__password">
 						<%= f.password_field :password_confirmation,
 																	placeholder: 'Password confirmation' %>
+            <%= f.error          :password_confirmation, class: 'form-error' %>
 					</div>
 
 					<%= f.hidden_field :invitation_token %>

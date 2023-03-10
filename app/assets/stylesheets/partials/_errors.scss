@@ -1,0 +1,15 @@
+.form-error {
+	color: $error;
+	display: flex;
+	align-items: start;
+	gap: .2rem;
+	font-size: .75rem;
+	margin-left: .5rem;
+
+	&-photo { margin: .2rem auto 0; }
+	&-characteristics { margin-top: -.5rem; }
+}
+
+.form-error::before {
+  content: url('../images/icons/error.svg');
+}
