@@ -1,5 +1,7 @@
 class Users::InvitationsController < Devise::InvitationsController
 	def update
+    @minimum_password_length = User.password_length.min
+    
 		super
     create_couch
     @user.city = set_city
