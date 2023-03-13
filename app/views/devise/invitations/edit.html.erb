@@ -40,8 +40,8 @@
                             placeholder: 'Email',
                             error: false,
                             input_html: { autocomplete: 'email' } %>
-          <%= f.label       :date_of_birth %>
           
+          <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
@@ -49,17 +49,17 @@
                               autofocus: true,
                               error: false %>
           </div>
-          <%= f.error      :date_of_birth, class: 'form-error' %>
-          <%= f.input      :pronouns,
-                           autofocus: true,
-                           input_html: { autocomplete: 'pronouns' } %>
+          <%= f.error         :date_of_birth, class: 'form-error' %>
+          <%= f.input         :pronouns,
+                              autofocus: true,
+                              input_html: { autocomplete: 'pronouns' } %>
           
-          <%= f.label      :address, class: 'user__address-label' %>
+          <%= f.label         :address, class: 'user__address-label' %>
           <div class="user__address">
-            <%= f.input      :address,
-                             label: false,
-                             input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
-                             wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <%= f.input       :address,
+                              label: false,
+                              input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                              wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
             <div class="user__address-street">
               <%= f.label       :street %>
               <%= f.text_field  :street,
@@ -71,35 +71,40 @@
               <%= f.text_field  :zipcode,
                                 value: @user.zipcode,
                                 autofocus: true %>
-              <%= f.label       :city %>
-              <%= f.text_field  :city_id,
-                                as: :string,
-                                value: @user.city.try(:name),
-                                label: 'City',
-                                error: false,
-                                autofocus: true %>
+
+            <%= simple_fields_for :city do |ci| %>
+              <%= ci.label        :city %>
+              <%= ci.text_field   :name,
+                                  value: @user.city.try(:name),
+                                  label: 'City',
+                                  error: false,
+                                  autofocus: true %>
             </div>
-            <%= f.error       :city, class: 'form-error' %>
+              <%= ci.error       :city, class: 'form-error' %>
+            <% end %>
+
             <div class="user__address-country">
-              <%= f.label       :country %>
-              <%= f.text_field  :country_id,
-                                as: :string,
-                                value: @user.country.try(:name),
-                                boolean_style: :inline,
-                                error: false,
-                                autofocus: true %>
+
+            <%= simple_fields_for :country do |cy| %>
+              <%= cy.label        :country %>
+              <%= cy.text_field   :name,
+                                  value: @user.country.try(:name),
+                                  boolean_style: :inline,
+                                  error: false,
+                                  autofocus: true %>
             </div>
-            <%= f.error       :country, class: 'form-error' %>
+              <%= cy.error         :country, class: 'form-error' %>
+            <% end %>
           </div>
           
           <%= f.label       :about_me %>
           <%= f.input_field :summary,
                             autofocus: true,
                             error: false %>
-          <%= f.error       :country_id, class: 'form-error' %>
+          <%= f.error       :about_me, class: 'form-error' %>
 
           <%= f.label :characteristics %>
-          <%= f.error       :characteristics, class: 'form-error form-error-characteristics' %>
+          <%= f.error :characteristics, class: 'form-error form-error-characteristics' %>
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
