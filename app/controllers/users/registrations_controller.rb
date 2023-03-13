@@ -4,22 +4,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update
-    super
     @user.update(country: set_country, city: set_city)
-
+    
     @couch = @user.couch
-    @couchfacilities = @couch.couch_facilities
-    update_couch
-    update_couch_facilities
+    create_couch_facilities
 
     if offers_couch == "0"
       set_couch_inactive
     elsif offers_couch == "1"
       set_couch_active
     end
-
-    @usercharacteristics = @user.user_characteristics
-    update_user_characteristics
+    
+    create_user_characteristics
+    super
   end
 
   protected
@@ -59,7 +56,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_couch_facilities
-    @couchfacilities = []
+    @couchfacilities = @couch.couch_facilities
+    @couchfacilities.destroy_all
     delete_empty_string(couch_facility_params[:facility_ids])
     couch_facility_params[:facility_ids].each do |id|
       couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
@@ -67,53 +65,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def update_couch_facilities
-    create_new_facilities
-    delete_old_facilities
-  end
-
-  def create_new_facilities
-    new_facilities = couch_facility_params[:facility_ids].reject { |facility| @couchfacilities.include?("#{facility}") }
-    delete_empty_string(new_facilities)
-    new_facilities.each do |id|
-      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
-      @couchfacilities << couchfacility
-    end
-  end
-
-  def delete_old_facilities
-    old_facilities = @couchfacilities.reject { |facility| couch_facility_params[:facility_ids].include?("#{facility[:facility_id]}") }
-    delete_empty_string(old_facilities)
-    old_facilities.each { |facility| @couchfacilities.destroy(facility.id) }
-  end
-
   def create_user_characteristics
-    @usercharacteristics = []
+    @usercharacteristics = @user.user_characteristics
+    @usercharacteristics.destroy_all
     delete_empty_string(params[:user_characteristic][:characteristic_ids])
     params[:user_characteristic][:characteristic_ids].each do |id|
-      usercharacteristic = UserCharacteristics.create(user_id: @user, characteristic_id: id)
+      usercharacteristic = UserCharacteristic.create(user_id: @user.id, characteristic_id: id)
       @usercharacteristics << usercharacteristic
     end
-  end
-
-  def update_user_characteristics
-    create_new_characteristics
-    delete_old_characteristics
-  end
-
-  def create_new_characteristics
-    new_characteristics = params[:user_characteristic][:characteristic_ids].reject { |characteristic| @usercharacteristics.include?("#{characteristic}") }
-    delete_empty_string(new_characteristics)
-    new_characteristics.each do |id|
-      usercharacteristic = UserCharacteristic.create(user_id: @user, characteristic_id: id)
-      @usercharacteristics << usercharacteristic
-    end
-  end
-
-  def delete_old_characteristics
-    old_characteristics = @usercharacteristics.reject { |characteristic| params[:user_characteristic][:characteristic_ids].include?("#{characteristic[:characteristic_id]}") }
-    delete_empty_string(old_characteristics)
-    old_characteristics.each { |characteristic| @usercharacteristics.destroy(characteristic.id) }
   end
 
   def delete_empty_string(array)
@@ -130,7 +89,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def set_country
-    @country = params[:user][:country_id]
+    @country = params[:country][:name]
     existing_country = Country.find_by(name: @country.capitalize)
     if existing_country.nil?
       new_country = Country.create(name: @country)
@@ -140,7 +99,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def set_city
-    @city = params[:user][:city_id]
+    @city = params[:city][:name]
     @country = set_country
     create_city(@city, @country)
   end

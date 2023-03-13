@@ -2,8 +2,6 @@
   <h1>Edit Profile</h1>
 
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
-    <%= f.error_notification %>
-    <%= render "devise/shared/error_messages", resource: resource %>
 
     <div>
       <div class="user__wrap">
@@ -19,6 +17,7 @@
             <%= image_tag('icons/profile-upload') %>
             <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
           </div>
+          <%#= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
         <div class="user__info">
@@ -30,6 +29,7 @@
                             placeholder: 'First Name',
                             error: 'First Name is mandatory, please specify one',
                             input_html: { autocomplete: 'first_name' } %>
+          <%= f.error       :first_name, class: 'form-error' %>
           <%= f.input_field :last_name,
                             required: true,
                             autofocus: true,
@@ -38,6 +38,7 @@
                             required: true,
                             autofocus: true,
                             input_html: { autocomplete: 'email' } %>
+          <%= f.error       :last_name, class: 'form-error' %>
           <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
@@ -46,16 +47,17 @@
                               required: true,
                               autofocus: true %>
           </div>
-          <%= f.input      :pronouns,
-                           autofocus: true,
-                           input_html: { autocomplete: 'pronouns' } %>
+          <%= f.error         :date_of_birth, class: 'form-error' %>
+          <%= f.input         :pronouns,
+                              autofocus: true,
+                              input_html: { autocomplete: 'pronouns' } %>
           
-          <%= f.label      :address, class: 'user__address-label' %>
+          <%= f.label         :address, class: 'user__address-label' %>
           <div class="user__address">
-            <%= f.input      :address,
-                             label: false,
-                             input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
-                             wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+            <%= f.input       :address,
+                              label: false,
+                              input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                              wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
             <div class="user__address-street">
               <%= f.label       :street %>
               <%= f.text_field  :street,
@@ -69,31 +71,41 @@
                                 required: true,
                                 value: @user.zipcode,
                                 autofocus: true %>
-              <%= f.label       :city %>
-              <%= f.text_field  :city_id,
-                                as: :string,
-                                value: @user.city.try(:name),
-                                label: 'City',
-                                required: true,
-                                autofocus: true %>
+
+             <%= simple_fields_for :city do |ci| %>
+              <%= ci.label         :city %>
+              <%= ci.text_field    :name,
+                                   value: @user.city.try(:name),
+                                   label: 'City',
+                                   error: false,
+                                   autofocus: true %>
             </div>
+              <%= ci.error         :city, class: 'form-error' %>
+            <% end %>
+
             <div class="user__address-country">
-              <%= f.label       :country %>
-              <%= f.text_field  :country_id,
-                                as: :string,
-                                value: @user.country.try(:name),
-                                required: true,
-                                boolean_style: :inline,
-                                autofocus: true %>
+
+            <%= simple_fields_for :country do |cy| %>
+              <%= cy.label        :country %>
+              <%= cy.text_field   :name,
+                                  value: @user.country.try(:name),
+                                  boolean_style: :inline,
+                                  error: false,
+                                  autofocus: true %>
             </div>
+              <%= cy.error        :country, class: 'form-error' %>
+            <% end %>
           </div>
           
           <%= f.label       :about_me %>
           <%= f.input_field :summary,
                             required: true,
                             autofocus: true %>
+          <%= f.error       :about_me, class: 'form-error' %>
+
 
           <%= f.label :characteristics %>
+          <%= f.error :characteristics, class: 'form-error form-error-characteristics' %>
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
@@ -171,7 +183,9 @@
                               autofocus: true %>
             <%= f.input       :current_password,
                               hint: "we need your current password to make changes",
-                              input_html: { autocomplete: "current-password" } %>
+                              input_html: { autocomplete: "current-password" },
+                              error: false %>
+            <%= f.error       :current_password, class: 'form-error' %>
           <div class="user__submit">
             <%= f.button :submit, "Update" %>
           </div>
@@ -187,10 +201,12 @@
       <%= f.input       :password,
                         hint: "leave it blank if you don't want to change it",
                         required: false,
-                        input_html: { autocomplete: "new-password" } %>
+                        error: false %>
+      <%= f.error       :password, class: 'form-error' %>
       <%= f.input       :password_confirmation,
                         required: false,
-                        input_html: { autocomplete: "new-password" } %>
+                        error: false %>
+      <%= f.error       :password_confirmation, class: 'form-error' %>
     </div>
 
     <div class="user__submit">

@@ -19,15 +19,17 @@ class User < ApplicationRecord
   has_many :user_characteristics
   has_many :characteristics, through: :user_characteristics
 
-  belongs_to :city, optional: true
-  belongs_to :country, optional: true
-
+  belongs_to :city
+  accepts_nested_attributes_for :city
+  belongs_to :country
+  accepts_nested_attributes_for :country
+  
   # validates :photo, presence: { message: 'Please upload a picture' }
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
-  # validates :city, presence: { message: 'City required' }
-  # validates :country, presence: { message: 'Country required' }
+  validates :city, presence: { message: 'City required'}
+  validates :country, presence: { message: 'Country required'}
   validates :summary, presence: { message: 'Tell the community about you' },
             length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates :characteristics, presence: { message: 'Let others know what is important to you' }
