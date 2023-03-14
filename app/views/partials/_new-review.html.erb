@@ -18,11 +18,15 @@
 			<%= f.input :rating,
 								  collection: (1..5).to_a,
 								  label: false,
+									error: false,
 								  input_html: {data: {controller: "star-rating"}} %>
+			<%= f.error :rating, class: 'form-error form-error-rating' %>
 			<%= f.label 'Leave some words' %>
 			<%= f.input :content, 
 								  label: false,
+									error: false,
 								  input_html: { rows: 6 } %>
+			<%= f.error :content, class: 'form-error' %>
 			<%= f.submit "Submit Review", class: "review-form__button" %>
 		</div>
 	<% end %>
