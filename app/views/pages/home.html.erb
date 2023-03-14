@@ -1,18 +1,30 @@
 <% if user_signed_in? %>
 <div class="home__wrap">
-	<section class="search__wrap">
-		<%= form_with url: couches_path, class: 'search', method: :get do %>
-			<%= text_field_tag :query,
-				params[:query],
-				placeholder: "Find hosts in city"
-			%>
+	<section class="search__section" data-controller="characteristics-filter">
+		<div class="search__wrap">
+			<%= form_with url: root_path, class: 'search', data: { characteristics_filter_target: 'form' }, method: :get do %>
+				<%= text_field_tag :query,
+					params[:query],
+					placeholder: "Find hosts in city"
+				%>
 			<%= submit_tag "Search", class: 'search__button' %>
-		<% end %>
+		</div>
+		<div class="search__characteristics">
+				<% Characteristic.all.each do |characteristic| %>
+					<%= check_box_tag 'characteristics[]',
+							characteristic.id,
+							params[:characteristics]&.include?(characteristic.id),
+							id: "characteristic_#{characteristic.id}", class: 'search__checkbox',
+							data: { action: 'click->characteristics-filter#submitForm' } %>
+					<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+				<% end %>
+			<% end %>
+		</div>
 	</section>
 
 	<section>
 		<ul class="couches__list">
-		<% @active_couches.each do |couch| %>
+		<% @couches.each do |couch| %>
 			<li>
 				<article class="couches__list-item">
 					<%= link_to couch_path(couch) do %>
@@ -23,7 +35,6 @@
 						<% couch.user.characteristics.each  do |characteristic| %>
 							<li><%= characteristic.name %></li>
 						<% end %>
-							<li>Dark Humor</li>
 						</ul>
 						<ul class="couches__offers offers">
 						<% if couch.user.offers_couch %>
