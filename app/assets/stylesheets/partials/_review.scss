@@ -6,6 +6,11 @@
 	background-color: $secondary-super-transparent;
 	border-radius: $border-radius-medium;
 
+	&--preview {
+		width: 100%;
+		background-color: $white;
+	}
+
 	&__rating {
 		display: flex;
 		align-items: center;

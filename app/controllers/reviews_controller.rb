@@ -10,6 +10,7 @@ class ReviewsController < ApplicationController
 	def create
 		@review = Review.new(review_params)
 		@review.couch = @couch
+		@host = @couch.user
 		@review.booking = @booking
 		@review.user = current_user
 		if @review.save
@@ -19,10 +20,10 @@ class ReviewsController < ApplicationController
 			when @booking.couch.user
 				ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
 			end
+			redirect_to booking_path(@booking)
 		else
-			flash[:alert] = "Something went wrong. Try again or contact the Quouch support."
+			render template: 'bookings/show', locals: { booking: @booking }
 		end
-		redirect_to booking_path(@booking)
 	end
 
 	private
