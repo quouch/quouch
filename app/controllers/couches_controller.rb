@@ -5,7 +5,7 @@ class CouchesController < ApplicationController
 		if params[:query].present? && params[:characteristics].present?
 			find_couches_by_characteristics
 			couches = @couches.flatten
-			find_couches
+			find_couches(couches)
 		elsif params[:characteristics].present? && params[:query].empty?
 			find_couches_by_characteristics
 		elsif params[:query].present?
@@ -13,6 +13,11 @@ class CouchesController < ApplicationController
 		else
 			@couches = Couch.all
 		end
+
+		respond_to do |format|
+      format.html { redirect_to couches_path(@couches) }
+      format.json
+    end
 	end
 
 	def show
@@ -26,7 +31,7 @@ class CouchesController < ApplicationController
 
 	private
 
-	def find_couches
+	def find_couches(couches)
 		if @city = City.find_by("name ILIKE ?", "%#{params[:query]}%")
 			@couches = couches.select { |couch| couch.city == @city }
 		elsif @country = Country.find_by("name ILIKE ?", "%#{params[:query]}%")
@@ -53,18 +58,17 @@ class CouchesController < ApplicationController
 	end
 
 	def find_couches_by_characteristics
-		couches = []
+		couches = nil
 		params[:characteristics].each do |characteristic|
 			user_characteristics = UserCharacteristic.where(characteristic_id: characteristic.strip)
-			
-			user_characteristics.each do |user_characteristic|
+			couches_for_characteristic = user_characteristics.map do |user_characteristic|
 				user = User.find(user_characteristic.user.id)
-				if !user.couch.nil?
-					couches << user.couch
-				end
-			end
+				user.couch if user.couch&.active? && user.couch.user != current_user
+			end.compact.to_set
+	
+			couches = couches.nil? ? couches_for_characteristic : couches & couches_for_characteristic
 		end
-		couches << couches.select { |couch| couch.active == true && couch.user != current_user }
-		@couches = couches.flatten.uniq
+	
+		@couches = couches.to_a
 	end
 end
