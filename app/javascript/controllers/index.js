@@ -7,6 +7,9 @@ import { application } from "../entrypoints/application"
 import AddressAutocompleteController from "./address_autocomplete_controller"
 application.register("address-autocomplete", AddressAutocompleteController)
 
+import CharacteristicsFilterController from "./characteristics_filter_controller"
+application.register("characteristics-filter", CharacteristicsFilterController)
+
 import ChatSubscriptionController from "./chat_subscription_controller"
 application.register("chat-subscription", ChatSubscriptionController)
 
