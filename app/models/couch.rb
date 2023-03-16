@@ -10,8 +10,18 @@ class Couch < ApplicationRecord
   has_many   :facilities, through: :couch_facilities
   accepts_nested_attributes_for :couch_facilities
 
-  pg_search_scope :search_by_city_or_country, associated_against: {
+  pg_search_scope :search, associated_against: {
     city: :name,
-    country: :name
+    country: :name,
+    using: {
+      tsearch: { prefix: true }
+    },
+    associated_against: {
+      user: {
+        user_characteristics: {
+          characteristic: :name
+        }
+      }
+    }
   }
 end

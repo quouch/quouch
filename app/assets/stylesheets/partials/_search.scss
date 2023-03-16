@@ -21,4 +21,39 @@
 
 		box-shadow: $box-shadow;
 	}
+
+	&__characteristics {
+		margin: 0 auto 2rem;
+		text-align: center;
+	
+		@media (min-width: $break-medium) {
+			width: 80%;
+		}
+		
+	}
+
+	&__checkbox {
+		position: absolute;
+		transform: scale(0);
+	}
+
+	&__checkbox + label {
+		@include caption;
+
+		cursor: pointer;
+
+		display: inline-block;
+		color: $secondary-light;
+		background-color: $secondary-super-transparent;
+		padding: .4rem .8rem;
+		margin: .2rem;
+		border-radius: $border-radius-xlarge;
+		border: 1px solid $secondary-light;
+	}
+
+	&__checkbox:checked + label {
+		color: white;
+		background-color: $secondary-light;
+		font-weight: 500;
+	}
 }

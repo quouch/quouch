@@ -1,27 +1,25 @@
 <div class="couches__wrap">
 <h1 class="couches__title">
-    <%= pluralize @active_couches.count, "Host" %> in 
+    <%= pluralize @couches.count, "Host" %>
     <% if @city %>
-        <%= @city.name %>
+         in <%= @city.name %>
 	<% elsif @country %>
-		<%= @country.name %>
+		 in <%= @country.name %>
 	<% end %>
 </h1>
 
     <ul class="couches__list">
-	<% @active_couches.each do |couch| %>
+	<% @couches.each do |couch| %>
         <li>
             <article class="couches__list-item">
                 <%= link_to couch_path(couch) do %>
                     <%= image_tag('profile.jpg', class: 'couches__image') %>
                 <% end %>
                 <div class="couches__content">
-                    <ul class="couches__features features">
-                        <li>vegan</li>
-                        <li>sunset lover</li>
-                        <li>political activism</li>
-                        <li>party lion</li>
-                        <li>dark humor</li>
+                    <ul class="couch__features features">
+                        <% couch.user.characteristics.each  do |characteristic| %>
+                            <li><%= characteristic.name %></li>
+                        <% end %>
                     </ul>
                     <ul class="couches__offers offers">
                     <% if couch.user.offers_couch %>
