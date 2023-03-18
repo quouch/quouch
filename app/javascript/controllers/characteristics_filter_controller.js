@@ -16,9 +16,8 @@ export default class extends Controller {
     })
       .then(response => response.json())
       .then((data) => {
-        console.log(searchParams)
         this.couchesTarget.remove()
-        this.listTarget.insertAdjacentHTML('beforeend', data.inserted_list)
+        this.listTarget.insertAdjacentHTML('afterbegin', data.inserted_list)
       })
   }
 }
