@@ -2,7 +2,11 @@
 <div class="home__wrap" data-controller="characteristics-filter">
 	<section class="search__section">
 		<div class="search__wrap">
-			<%= form_with url: couches_path, class: 'search', data: { characteristics_filter_target: 'form', action: 'submit->characteristics-filter#listCouches' }, method: :get do %>
+			<%= form_with url: couches_path,
+										class: 'search',
+										data: { characteristics_filter_target: 'form',
+														action: 'submit->characteristics-filter#listCouches' },
+										method: :get do %>
 				<%= text_field_tag :query,
 														params[:query],
 														placeholder: 'Find hosts in city' %>
@@ -13,7 +17,8 @@
 					<%= check_box_tag 'characteristics[]',
 							characteristic.id,
 							params[:characteristics]&.include?(characteristic.id),
-							id: "characteristic_#{characteristic.id}", class: 'search__checkbox',
+							id: "characteristic_#{characteristic.id}",
+							class: 'search__checkbox',
 							data: { action: 'change->characteristics-filter#listCouches' } %>
 					<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
 				<% end %>
