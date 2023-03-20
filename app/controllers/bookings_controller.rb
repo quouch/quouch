@@ -20,6 +20,7 @@ class BookingsController < ApplicationController
 		@payment = @booking.payments.where(operation: 1)
 		@couch = @booking.couch
 		@host = @couch.user
+		@guest = @booking.user
 		@hosts_array = User.where(id: @host.id)
 		@review = Review.new
 		@marker = @hosts_array.geocoded.map do |host|
@@ -29,7 +30,7 @@ class BookingsController < ApplicationController
 				marker_html: render_to_string(partial: "marker")
 			}
 		end
-		@chat = Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
+		@chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) || Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
 		@host_review = @booking.reviews.find_by(user: @host)
 		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
@@ -51,7 +52,7 @@ class BookingsController < ApplicationController
       redirect_to sent_booking_path(@booking)
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
     else
-      render 'bookings/new'
+      render :new
     end
 	end
 
@@ -96,6 +97,8 @@ class BookingsController < ApplicationController
 		@review = Review.new
 		@couch = @booking.couch
 		@host = @couch.user
+		@guest = @booking.user
+		@chat = Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id)
 		@host_review = @booking.reviews.find_by(user: @host)
 		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end

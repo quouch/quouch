@@ -116,9 +116,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	a { color: $primary; }
 }
 
-@mixin feature-tag {
-	font-size: 0.75rem;
-}
+@mixin feature-tag { font-size: 0.75rem; }
 
 // General
 

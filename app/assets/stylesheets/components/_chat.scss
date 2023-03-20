@@ -6,11 +6,36 @@
   &__messages {
     display: flex;
     flex-direction: column;
+
+    img {
+      height: 140px;
+      width: 140px;
+      margin-top: 4rem;
+    }
+
+    &--empty {
+      @include title-5;
+
+      color: $secondary-light;
+      margin: 4rem auto;
+      max-width: $break-small;
+      text-align: center;
+
+      img {
+        margin: 1rem auto;
+      }
+    }
   }
 
   &__message {
     display: flex;
     margin-bottom: 1rem;
+    
+    p {
+      font-size: 0.75rem;
+      
+      @media(min-width: $break-large) { font-size: 1rem; }
+    }
 
     &--left { justify-content: start; }
     &--right { justify-content: end; }

@@ -3,7 +3,7 @@
 		<%= image_tag('profile.jpg', class: 'couch__image') %>
 		<div class="couch__chat chat-icon__wrap">
 			<% if @chat.nil? %>
-				<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+				<%= button_to chats_path(user_sender_id: @host.id, user_receiver_id: @host.id), method: :post do %>
 					<%= image_tag('icons/message.svg', class: 'chat-icon') %>
 				<% end %>
 			<% else %>
@@ -54,14 +54,18 @@
 
 		<div class="couch__accommodation">
 			<h2>Accomodation</h2>
-			<ul class="couch__accommodation-list">
-				<% @couch.facilities.each do |facility| %>
-					<li>
-						<%= image_tag(facility.image) %>
-						<%= facility.name %>
-					</li>
-				<% end %>
-			</ul>
+			<% if @host.offers_couch %>
+				<ul class="couch__accommodation-list">
+					<% @couch.facilities.each do |facility| %>
+						<li>
+							<%= image_tag(facility.image) %>
+							<%= facility.name %>
+						</li>
+					<% end %>
+				</ul>
+			<% else %>
+				<p>This host doesn't offer their couch currently.</p>
+			<% end %>
 		</div>
 
 		<div class="couch__location">
