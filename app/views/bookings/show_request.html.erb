@@ -15,7 +15,7 @@
 			</h3>
 			<div class="booking__chat chat-icon__wrap">
 				<% if @chat.nil? %>
-					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @guest.id), method: :post do %>
 						<%= image_tag('icons/message.svg', class: 'chat-icon') %>
 					<% end %>
 				<% else %>
