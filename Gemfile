@@ -23,8 +23,7 @@ gem 'puma', '~> 5.0'
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem 'jsbundling-rails'
 
-
-# # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'turbo-rails'
 
 # # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -35,6 +34,9 @@ gem 'jbuilder'
 
 # Gem to send emails straight from contact form
 gem 'mail_form'
+
+# Gem for notifications
+gem 'noticed', '~> 1.6'
 
 # Let's you write Ruby Cron Tasks in ruby code
 gem 'whenever', require: false
@@ -105,7 +107,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-
-gem 'noticed', '~> 1.6'
-
