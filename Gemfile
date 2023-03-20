@@ -46,7 +46,9 @@ gem 'pg_search'
 gem 'geocoder'
 
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
+
+gem 'pry-byebug'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -105,4 +107,4 @@ group :test do
 end
 
 
-gem "noticed", "~> 1.6"
+gem 'noticed', '~> 1.6'
