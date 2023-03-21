@@ -1,33 +1,45 @@
 <div class="chat"
      data-controller="chat-subscription"
-     data-chat-subscription-chat-id-value="<%= @chat.id %>">
-  <h1 class="chat__title">Your conversation with <%= @name %></h1>
+     data-chat-subscription-chat-id-value="<%= @chat.id %>"
+     data-chat-subscription-current-user-id-value="<%= current_user.id %>">
+  <h1 class="chat__title">Chat with <%= @name %></h1>
 
-  <div class="chat__messages"
-       data-chat-subscription-target="messages">
-    <% @chat.messages.each do |message| %>
-      <div class="chat__message chat__message<%= message.sender?(current_user) ? '--left' : '--right' %>">
-        <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
-          <%= render "messages/message", message: message %>
+  <% if @chat.messages.any? %>
+    <div class="chat__messages"
+        data-chat-subscription-target="messages">
+      <% @chat.messages.each do |message| %>
+        <div class="chat__message chat__message<%= message.sender?(current_user) ? '--left' : '--right' %>">
+          <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
+            <%= render "messages/message", message: message %>
+          </div>
         </div>
+        <% end %>
+    </div>
+  <% else %>
+    <div class="chat__messages"
+         data-chat-subscription-target="messages">
+      <div class=" chat__messages--empty" data-chat-subscription-target="empty">
+        <%= image_tag('icons/chat') %>
+        <p class="chat__messages">Be the first to reach out and start a conversation!</p>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
-  <%= simple_form_for [@chat, @message], remote: true, 
+  <%= simple_form_for [@chat, @message], remote: true,
     html: {
       class: 'chat__form',
-      data: { 
-        controller: 'chat-subscription',
-        action: "turbo:submit-end->chat-subscription#resetForm"
+      data: {
+        action: 'turbo:submit-end->chat-subscription#resetForm',
+        chat_subscription_target: 'form'
       }
     } do |f| %>
       <%= f.input :content,
-        label: false,
-        placeholder: "Message ##{@name}",
-        input_html: { class: 'chat__form-input' } %>
+                  label: false,
+                  placeholder: "Message ##{@name}",
+                  input_html: { class: 'chat__form-input' } %>
       <%= button_tag(class: 'chat__form-button') do %>
         <%= image_tag('icons/send.svg') %>
       <% end %>
+      <%= f.error :content, class: 'form-error' %>
   <% end %>
 </div>
