@@ -1,8 +1,8 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 // Connects to data-controller="close-modal"
 export default class extends Controller {
-  static targets = ["modal"]
+  static targets = ['modal']
   
   connect() {
     setTimeout(() => {
@@ -11,10 +11,10 @@ export default class extends Controller {
   }
 
   closeModal() {
-    this.modalTarget.style.display = "none"
+    this.modalTarget.style.display = 'none'
   }
 
   afterLeave() {
-    this.modalTarget.remove();
+    this.modalTarget.remove()
   }
 }
