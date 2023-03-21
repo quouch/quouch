@@ -8,10 +8,6 @@ gem 'devise'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'simple_token_authentication', '~> 1.0'
 
-# JS bundling
-gem 'vite_rails'
-gem 'vite_ruby'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
 
@@ -24,7 +20,10 @@ gem 'pg', '~> 1.1'
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
 
-# # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem 'jsbundling-rails'
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'turbo-rails'
 
 # # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -35,6 +34,9 @@ gem 'jbuilder'
 
 # Gem to send emails straight from contact form
 gem 'mail_form'
+
+# Gem for notifications
+gem 'noticed', '~> 1.6'
 
 # Let's you write Ruby Cron Tasks in ruby code
 gem 'whenever', require: false
@@ -105,6 +107,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-
-gem 'noticed', '~> 1.6'
