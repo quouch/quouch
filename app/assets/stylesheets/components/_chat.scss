@@ -6,6 +6,7 @@
   &__messages {
     display: flex;
     flex-direction: column;
+    min-height: 10vh;
 
     img {
       height: 140px;
@@ -30,10 +31,10 @@
   &__message {
     display: flex;
     margin-bottom: 1rem;
-    
+
     p {
       font-size: 0.75rem;
-      
+
       @media(min-width: $break-large) { font-size: 1rem; }
     }
 
@@ -50,7 +51,7 @@
 
   &__form {
     display: flex;
-    
+  
     div:first-child { width: 100%; }
 
     &-input {

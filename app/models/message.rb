@@ -2,6 +2,8 @@ class Message < ApplicationRecord
   belongs_to :user
   belongs_to :chat
 
+  validates :content, presence: { message: "Message can't be empty" }
+
   after_create_commit do
     notify_recipient
   end

@@ -5,7 +5,8 @@ class ChatsController < ApplicationController
 
 	def show
 		@chat = Chat.find(params[:id])
-		@name = User.find_by(id: @chat.user_receiver_id).first_name
+		@receiver = User.find_by(id: @chat.user_receiver_id)
+		@receiver == current_user ? @name = User.find_by(id: @chat.user_sender_id).first_name : @name = @receiver.first_name
 		@message = Message.new
 	end
 
