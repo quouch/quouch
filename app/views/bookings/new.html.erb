@@ -73,13 +73,13 @@
 					</ul>
 			<% end %>
 			<div class="booking-form__type">
-				<label>Pick one or more</label>
+				<label>Pick one</label>
 				<%= f.input :request,
 										collection: @offers.keys,
 										as: :radio_buttons,
 										label: false %>
 			</div>
-			<span class="booking-form__details__header">Dates & Travellers </span>
+			<span class="booking-form__details__header">Dates & Travellers</span>
 			<div class="booking-form__details__wrap">
 				<div class="booking-form__dates date">
 					<div class="date-input">
@@ -107,7 +107,7 @@
 			</div>
 			<%= f.input :message, 
 									label: :Message,
-									input_html: { rows: 6 } %>
+									input_html: { rows: 4 } %>
 			<div class="booking-form__action">
 				<%= f.submit 'Send Request', class: 'booking-form__button' %>
 			</div>
