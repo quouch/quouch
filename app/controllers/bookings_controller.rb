@@ -44,6 +44,8 @@ class BookingsController < ApplicationController
 	def create
 		@booking = Booking.new(booking_params)
     @booking.couch = @couch
+		@guest = @booking.user
+		@host = @couch.user
     @booking.user = current_user
 		@booking.pending!
 		@booking.booking_date = DateTime.now
