@@ -60,6 +60,7 @@ class BookingsController < ApplicationController
 
 	def edit
 		@host = @booking.couch.user
+		offers(@host)
 	end
 
 	def update
