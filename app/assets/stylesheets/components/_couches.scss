@@ -7,30 +7,36 @@
 	}
 
 	&__list {
-		@media (min-width: $break-medium) {
+		@media (min-width: $break-small) {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 2rem;
+			gap: 1rem;
 			justify-content: center;
 		}
 
 		@media (min-width: $break-large) { grid-template-columns: repeat(3, 1fr); }
 		@media (min-width: $break-x-large) { grid-template-columns: repeat(4, 1fr); }
-		
+
+		li {
+			display: flex;
+			align-items: stretch;
+		}
+
 		&-item {
+			display: flex;
+			flex-direction: column;
 			border-radius: $border-radius-medium;
 			background-color: $white;
 			box-shadow: $box-shadow;
-			min-width: fit-content;
-			width: 300px;
-			height: 100%;
-			margin-bottom: 2rem;
 			transition: all 160ms ease-in-out;
+			margin-bottom: 1rem;
 
 			&:hover {
 				transform: scale(1.04);
 				box-shadow: $box-shadow-hover;
 			}
+
+			@media (min-width: $break-small) { margin-bottom: 0; }
 		}
 	}
 
@@ -44,11 +50,23 @@
 		border-top-right-radius: $border-radius-medium;
 	}
 	
-	&__content { padding: 1rem; }
+	&__content {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 1rem;
+
+		&-wrap {
+			margin-top: auto;
+			margin-bottom: 0;
+		}
+	}
 
 	&__offers {
+		margin-left: 0 !important; // box of shame
+
 		p { font-size: .75rem; }
-		
+
 		img {
 			height: 16px;
 			width: 16px;
