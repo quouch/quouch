@@ -32,12 +32,6 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: '/update-payment'
 
-  resources :cities, only: %i[show] do
-    member do
-      get :couches
-    end
-  end
-
   resources :chats, only: %i[index show create] do
     resources :messages, only: %i[create]
   end

@@ -82,6 +82,7 @@
 		border-bottom-left-radius: $border-radius-large;
 		border-bottom-right-radius: $border-radius-large;
 		padding: 1rem 2rem;
+		margin-bottom: 4rem;
 		
 		@media (min-width: $break-large) { padding: 1rem 4rem; }
 	}
@@ -176,8 +177,8 @@
 			grid-template-columns: repeat(2, 1fr);
 			justify-content: center;
 			align-items: center;
-			gap: 3rem;
 			margin-top: 1rem;
+			column-gap: 1rem;
 			
 			form { width: 100%; }
 		}
@@ -211,9 +212,10 @@
 }
 	
 #booking__pay {
-	@include primary-button;
 	@include input-field;
+	@include primary-button;
 	
 	color: $white;
 	padding: .3rem 2rem;
+	border: 1px solid;
 }

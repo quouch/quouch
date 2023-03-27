@@ -62,7 +62,7 @@
 								<% if @booking.payments.where(status: 1).any? %>
 									<p>Booking has been paid.</p>
 								<% elsif @booking.payments.where(status: 1).empty? && @booking.confirmed? %>
-									<p>Awaiting payment to give access to address.</p>
+									<p>Awaiting payment to publish address.</p>
 								<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 									<p>Waiting for the host to confirm.</p>
 								<% elsif @booking.completed? %>
@@ -112,9 +112,9 @@
 							<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
 								<p><%= @couch.user.address %></p>
 							<% elsif @booking.confirmed? %>
-								<p>Pay now to get access to your hosts address!</p>
+								<p>Visible after payment.</p>
 							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
-								<p>You will see your hosts address once the booking is confirmed and paid.</p>
+								<p>Visible after confirmation & payment.</p>
 							<% elsif @booking.completed? %>
 								<p><%= @couch.user.address %></p>
 							<% end %>

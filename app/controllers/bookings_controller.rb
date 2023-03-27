@@ -67,8 +67,10 @@ class BookingsController < ApplicationController
 		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		@booking.update(booking_params)
 		if @booking.pending?
+			flash[:notice] = 'Request successfully updated!'
 			BookingMailer.with(booking: @booking).request_updated_email.deliver_later
 		elsif @booking.confirmed?
+			flash[:notice] = 'Booking successfully updated!'
 			@booking.pending!
 			BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
 		end
@@ -125,7 +127,7 @@ class BookingsController < ApplicationController
 
   def decline
     if @booking.declined!
-			BookingMailer.with(booking: @booking).booking_declined_email.deliver_later
+			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 		end
   end
 
