@@ -6,19 +6,19 @@
       <h2>Stay at <%= @booking.couch.user.first_name %>'s for <%= @nights %> nights</h2>
       <ul class="checkout__details">
         <li>
-          <%= image_tag('icons/city.svg') %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/city.svg') %>
           <%= @booking.couch.city.name %>, <%= @booking.couch.country.name %>
         </li>
         <li>
-          <%= image_tag('icons/calendar.svg') %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
           <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
         </li>
         <li>
-          <%= image_tag('icons/home.svg') %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
           <%= @booking.status.capitalize %>
         </li>
         <li>
-          <%= image_tag('icons/people.svg') %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
           <%= pluralize @booking.number_travellers, "Traveller" %>
         </li>
       </ul>

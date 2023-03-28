@@ -12,22 +12,22 @@
 			<ul class="sent__details-list">
 				<li>
 					<% if @booking.host? %>
-						<%= image_tag('icons/sleep-secondary.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
 						<p>couch</p>
 					<% elsif @booking.hangout? %>
-						<%= image_tag('icons/hangout-secondary.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
 						<p>hangout</p>
 					<% elsif @booking.cowork? %>
-						<%= image_tag('icons/work-secondary.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
 						<p>co-work</p>
 					<% end %>
 				</li>
 				<li>
-					<%= image_tag('icons/calendar.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 					<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
 				</li>
 				<li>
-					<%= image_tag('icons/people.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
 					<%= pluralize @booking.number_travellers, "Traveller" %>
 				</li>
 			</ul>
@@ -39,7 +39,7 @@
 					<% @couch.facilities.each do |facility| %>
 						<% if facility.image.attached? %>
 							<li>
-								<%= image_tag ('icons/armchair.svg') %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/armchair.svg') %>
 								<%= facility.name %>
 							</li>
 						<% else %>
