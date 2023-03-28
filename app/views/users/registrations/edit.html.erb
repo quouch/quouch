@@ -11,10 +11,10 @@
           <% if @user.photo.attached? %>
             <%= cl_image_tag @user.photo.key, class: 'user__image-preview' %>
           <% else %>
-            <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
+            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon') %>
           <% end %>
           <div class="user__image-upload">
-            <%= image_tag('icons/profile-upload') %>
+            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/profile-upload.svg') %>
             <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
           </div>
           <%= f.error :photo, class: 'form-error form-error-photo' %>
@@ -124,19 +124,19 @@
                                       label: false,
                                       autofocus: true,
                                       input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
-                <%= image_tag('icons/sleep') %>
+                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
                 <%= f.label           :couch %>
               </div>
               <div class="user__offer">
                 <%= f.input_field     :offers_co_work,
                                       autofocus: true %>
-                <%= image_tag('icons/work') %>
+                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
                 <%= f.label           :co_working %>
               </div>
               <div class="user__offer">
                 <%= f.input_field     :offers_hang_out,
                                       autofocus: true %>
-                <%= image_tag('icons/hangout') %>
+                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
                 <%= f.label           :hangout %>
               </div>
             </div>

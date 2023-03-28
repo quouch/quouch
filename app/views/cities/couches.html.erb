@@ -56,7 +56,7 @@
 							</div>
 							<% if couch.reviews.any? %>
 								<p class="couches__rating">
-									<%= image_tag('icons/star.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
 									<%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
 								</p>
 							<% end %>

@@ -22,27 +22,27 @@
 								</div>
 								<li class="upcoming-request__detail">
 								<% if request.host? %>
-									<%= image_tag('icons/sleep-secondary.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
 									<p>host</p>
 								<% elsif request.hangout? %>
-									<%= image_tag('icons/hangout-secondary.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
 									<p>hangout</p>
 								<% elsif request.cowork? %>
-									<%= image_tag('icons/work-secondary.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
 									<p>co-work</p>
 								<% end %>
 								</li>
 								<li class="upcoming-request__detail">
-									<%= image_tag('icons/calendar.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 									<%= request.start_date.strftime("%B %d") %> - <%= request.end_date.strftime("%B %d, %Y") %>
 								</li>
 								<li class="upcoming-request__detail">
-									<%= image_tag('icons/home.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
 									<%= request.status.capitalize %>
 								</li>
 								<% if request.host? %>
 									<li class="upcoming-request__detail">
-										<%= image_tag('icons/euro.svg') %>
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/euro.svg') %>
 										<% if request.payments.where(status: 1).any? %>
 											<%= 'Booking has been paid.' %>
 										<% elsif request.payments.where(status: 1).empty? && request.confirmed? %>
@@ -53,7 +53,7 @@
 									</li>
 								<% end %>
 								<li class="upcoming-request__detail">
-									<%= image_tag('icons/people.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
 									<%= pluralize request.number_travellers, "Traveller" %>
 								</li>
 							</div>
@@ -85,7 +85,7 @@
 									<%= request.user.pronouns %>
 								</li>
 								<li class="past-request__detail">
-									<%= image_tag('icons/calendar.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 									<%= request.start_date.strftime("%B, %Y") %>
 								</li>
 								<% if request.reviews.find_by(user: request.couch.user).nil? %>
@@ -125,7 +125,7 @@
 									<%= request.user.pronouns %>
 								</li>
 								<li class="past-request__detail">
-									<%= image_tag('icons/calendar.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 									<%= request.start_date.strftime("%B, %Y") %>
 								</li>
 							</div>

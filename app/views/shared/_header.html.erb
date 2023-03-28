@@ -16,7 +16,7 @@
 				<ul>
 					<p class="collapsible__subtitle">Personal</p>
 					<li>
-						<%= image_tag('icons/profile') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680013949/profile.svg') %>
 						<% if current_user.couch %>
 							<%= link_to 'Profile', couch_path(current_user.couch) %>
 						<% else %>
@@ -24,84 +24,80 @@
 						<% end %>
 					</li>
 					<li>
-						<%= image_tag('icons/trip') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/trip.svg') %>
 						<%= link_to 'Trips', bookings_path %>
 					</li>
 					<% if current_user.couch %>
 						<li>
-							<%= image_tag('icons/home') %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
 							<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
 						</li>
 					<% end %>
 					<li>
-						<%= image_tag('icons/chat') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
 						<%= link_to 'Chat', chats_path %>
-					</li>
-					<li>
-						<%= image_tag('icons/humor') %>
-						<%= link_to 'Humour Test' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">Community</p>
 					<li>
-						<%= image_tag('icons/mission') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/mission.svg') %>
 						<%= link_to 'Our Mission', about_path %>
 					</li>
 					<li>
-						<%= image_tag('icons/guidelines') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/guidelines.svg') %>
 						<%= link_to 'Guidelines', guidelines_path %>
 					</li>
 					<li>
-						<%= image_tag('icons/follow') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/follow.svg') %>
 						<%= link_to 'Follow Us' %>
 					</li>
 					<li>
-						<%= image_tag('icons/invite') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/invite.svg') %>
 						<%= link_to 'Invite a Friend', new_user_invitation_path %>
 					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">Support</p>
 					<li>
-						<%= image_tag('icons/faq') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/faq.svg') %>
 						<%= link_to 'FAQ' %>
 					</li>
 					<li>
-						<%= image_tag('icons/contact') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/contact.svg') %>
 						<%= link_to 'Contact Us', new_contact_path %>
 					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">Settings</p>
 					<li>
-						<%= image_tag('icons/notification') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/notification.svg') %>
 						<%= link_to 'Notifications' %>
 					</li>
 					<li>
-						<%= image_tag('icons/account') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/account.svg') %>
 						<%= link_to 'Account Info', edit_user_registration_path %>
 					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">General</p>
 					<li>
-						<%= image_tag('icons/impressum') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/impressum.svg') %>
 						<%= link_to 'Impressum', impressum_path %>
 					</li>
 					<li>
-						<%= image_tag('icons/privacy') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/privacy.svg') %>
 						<%= link_to 'Privacy Center', privacy_path %>
 					</li>
 					<li>
-						<%= image_tag('icons/conditions') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/privacy.svg') %>
 						<%= link_to 'Terms & Conditions' %>
 					</li>
 				</ul>
 				<ul>
 					<p class="collapsible__subtitle">Session</p>
 						<li>
-						<%= image_tag('icons/logout') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/logout.svg') %>
 						<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
 					</li>
 				</ul>
