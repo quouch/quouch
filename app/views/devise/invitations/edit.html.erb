@@ -8,16 +8,16 @@
         <div class="user__image">
           <%= f.label :profile_picture %>
           <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
-          <%# <div class="user__image-upload">
+          <div class="user__image-upload">
             <%= image_tag('icons/profile-upload') %>
-            <%#= f.input :photo,
+            <%= f.input :photo,
                         as: :file,
                         input_html: { class: 'display-none' },
                         label_html: { class: 'user__image-label'},
                         label: 'Upload a photo',
                         error: false %>
-          <%# </div> %>
-            <%#= f.error :photo, class: 'form-error form-error-photo' %>
+          </div>
+            <%= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
         <div class="user__info">

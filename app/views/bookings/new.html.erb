@@ -1,7 +1,11 @@
 <div class="booking-form__wrap">
 	<section>
 		<div class="host">
-			<%= image_tag('profile.jpg', class: 'host__gallery') %>
+			<% if @host.photo.key %>
+				<%= cl_image_tag @host.photo.key, class: 'host__gallery' %>
+			<% else %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'host__gallery') %>
+			<% end %>
 			<div class="host__content">
 				<ul class="host__info">
 					<li class="host__name"><%= @host.first_name %></li>
@@ -13,19 +17,19 @@
 				<ul class="host__offers offers">
 					<% if @host.offers_couch %>
 						<li class="offers-item">
-							<%= image_tag('icons/sleep.svg') %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
 							<p>couch</p>
 						</li>
 					<% end %>
 					<% if @host.offers_hang_out %>
 						<li class="offers-item">
-							<%= image_tag('icons/hangout.svg') %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
 							<p>hangout</p>
 						</li>
 					<% end %>
 					<% if @host.offers_co_work %>
 						<li class="offers-item">
-							<%= image_tag('icons/work.svg') %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
 							<p>co-work</p>
 						</li>
 					<% end %>
