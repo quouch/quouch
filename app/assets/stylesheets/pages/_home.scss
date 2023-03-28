@@ -9,7 +9,7 @@
 
 	&__banner {
 		padding: 4rem 0;
-		background-image: url('/assets/banner.jpg');
+		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679922469/header.jpg');
 		background-size: cover;
 		background-position: center;
 	
@@ -32,29 +32,12 @@
 			}
 		}
 
-		&-button {
-			display: flex;
-			gap: 1rem;
-			width: 100%;
-		}
-
 		&-primary {
 			@include input-field;
 			@include primary-button;
 
 			margin: 2rem auto;
 			width: fit-content;
-		
-			@media (min-width: $break-medium) { margin: 2rem 0; }
-		}
-
-		&-secondary {
-			@include input-field;
-			@include secondary-button;
-
-			margin: 2rem auto;
-			width: fit-content;
-			flex-grow: 2;
 		
 			@media (min-width: $break-medium) { margin: 2rem 0; }
 		}
