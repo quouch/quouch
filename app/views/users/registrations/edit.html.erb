@@ -8,16 +8,16 @@
         
         <div class="user__image">
           <%= f.label :profile_picture %>
-          <%# if @user.photo.any? %>
-            <%#= image_tag('profile', class: 'user__image-preview') %>
-          <%# else %>
+          <% if @user.photo.attached? %>
+            <%= cl_image_tag @user.photo.key, class: 'user__image-preview', crop: 'fill' %>
+          <% else %>
             <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
-          <%# end %>
+          <% end %>
           <div class="user__image-upload">
             <%= image_tag('icons/profile-upload') %>
             <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
           </div>
-          <%#= f.error :photo, class: 'form-error form-error-photo' %>
+          <%= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
         <div class="user__info">
@@ -148,7 +148,7 @@
                   <%= cf.input_field    :capacity,
                                         collection: 1..4,
                                         autofocus: true,
-                                        selected: @user.couch.capacity %>
+                                        selected: @user.couch.capacity if @user.couch %>
                   <%= cf.label          :guests %>
                 </div>
               <%= cf.label                       :my_couch_comes_with %>
@@ -156,9 +156,9 @@
                 <%= simple_fields_for            :couch_facility do |cff| %>
                   <%= cff.collection_check_boxes :facility_ids,
                                                   Facility.all, :id, :name,
-                                                  checked: @user.couch.facility_ids,
                                                   input_html: { multiple: true },
-                                                  autofocus: true %>
+                                                  autofocus: true,
+                                                  checked: @user.couch.facility_ids if @user.couch %>
                 <% end %>
               </div>
               <% end %>

@@ -24,7 +24,7 @@ class User < ApplicationRecord
   belongs_to :country
   accepts_nested_attributes_for :country
   
-  # validates :photo, presence: { message: 'Please upload a picture' }
+  validates :photo, presence: { message: 'Please upload a picture' }
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
