@@ -9,7 +9,7 @@
         <div class="user__image">
           <%= f.label :profile_picture %>
           <% if @user.photo.attached? %>
-            <%= cl_image_tag @user.photo.key, class: 'user__image-preview', crop: 'fill' %>
+            <%= cl_image_tag @user.photo.key, class: 'user__image-preview' %>
           <% else %>
             <%= image_tag('icons/placeholder', class: 'user__image-icon') %>
           <% end %>

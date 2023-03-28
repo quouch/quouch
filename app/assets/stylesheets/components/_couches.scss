@@ -39,8 +39,7 @@
 		width: 100%;
 		height: 240px;
 		object-fit: cover;
-		background-position: center;
-		background-size: cover;
+		object-position: center;
 		border-top-left-radius: $border-radius-medium;
 		border-top-right-radius: $border-radius-medium;
 	}

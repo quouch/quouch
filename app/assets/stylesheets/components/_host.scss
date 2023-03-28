@@ -43,9 +43,8 @@
 	&__gallery {
 		grid-column: 1;
 		width: 10rem;
-		background-size: cover;
-		background-position: center;
 		object-fit: cover;
+		object-position: center;
 		height: 10rem;
 		border-radius: $border-radius-round;
 		margin: 0 auto;

@@ -13,7 +13,11 @@
         <li>
             <article class="couches__list-item">
                 <%= link_to couch_path(couch) do %>
-                    <%= image_tag('profile.jpg', class: 'couches__image') %>
+                    <% if couch.user.photo.key %>
+                        <%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>
+                    <% else %>
+                        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couches__image') %>
+                    <% end %>
                 <% end %>
                 <div class="couches__content">
                     <ul class="couch__features features">
@@ -24,19 +28,19 @@
                     <ul class="couches__offers offers">
                     <% if couch.user.offers_couch %>
                         <li class="offers-item">
-                            <%= image_tag('icons/sleep.svg') %>
+                            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
                             <p>couch</p>
                         </li>
                     <% end %>
                     <% if couch.user.offers_hang_out %>
                         <li class="offers-item">
-                            <%= image_tag('icons/hangout.svg') %>
+                            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
                             <p>hangout</p>
                         </li>
                     <% end %>
                     <% if couch.user.offers_co_work %>
                         <li class="offers-item">
-                            <%= image_tag('icons/work.svg') %>
+                            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
                             <p>co-work</p>
                         </li>
                     <% end %>

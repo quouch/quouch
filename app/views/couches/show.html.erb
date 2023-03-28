@@ -1,6 +1,10 @@
 <article class="couch">
 	<div class="couch__gallery">
-		<%= image_tag('profile.jpg', class: 'couch__image') %>
+		<% if @host.photo.key %>
+			<%= cl_image_tag @host.photo.key, class: 'couch__image' %>
+		<% else %>
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couch__image') %>
+		<% end %>
 		<div class="couch__chat chat-icon__wrap">
 			<% if @chat.nil? %>
 				<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
@@ -24,19 +28,19 @@
 		<ul class="couch__offers offers">
 			<% if @host.offers_couch %>
 				<li class="offers-item">
-					<%= image_tag('icons/sleep.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
 					<p>couch</p>
 				</li>
 			<% end %>
 			<% if @host.offers_hang_out %>
 				<li class="offers-item">
-					<%= image_tag('icons/hangout.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
 					<p>hangout</p>
 				</li>
 			<% end %>
 			<% if @host.offers_co_work %>
 				<li class="offers-item">
-					<%= image_tag('icons/work.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
 					<p>co-work</p>
 				</li>
 			<% end %>
@@ -99,7 +103,11 @@
 			<% @reviews.each do |review| %>
 			<li class="review">
 				<div class="review__details">
-					<%= image_tag('profile.jpg', class: 'review__image') %>
+				<% if review.user.photo.key %>
+					<%= cl_image_tag review.user.photo.key, class: 'review__image' %>
+				<% else %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'review__image') %>
+				<% end %>
 					<div>
 						<p class="review__name"><%= review.user.first_name.capitalize %></p>
 						<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
@@ -107,13 +115,13 @@
 				</div>
 				<div class="review__type">
 					<% if review.booking.host? %>
-						<%= image_tag('icons/sleep.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
 						<p>couch</p>
 					<% elsif review.booking.hangout? %>
-						<%= image_tag('icons/hangout.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
 						<p>hangout</p>
 					<% elsif review.booking.cowork? %>
-						<%= image_tag('icons/work.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
 						<p>co-work</p>
 					<% end %>
 				</div>
