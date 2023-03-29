@@ -14,7 +14,7 @@
 			justify-content: center;
 		}
 
-		@media (min-width: $break-large) { grid-template-columns: repeat(3, 1fr); }
+		@media (min-width: $break-medium) { grid-template-columns: repeat(3, 1fr); }
 		@media (min-width: $break-x-large) { grid-template-columns: repeat(4, 1fr); }
 
 		li {
@@ -25,6 +25,7 @@
 		&-item {
 			display: flex;
 			flex-direction: column;
+			width: 100%;
 			border-radius: $border-radius-medium;
 			background-color: $white;
 			box-shadow: $box-shadow;
