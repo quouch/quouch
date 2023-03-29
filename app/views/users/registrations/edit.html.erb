@@ -5,17 +5,24 @@
 
     <div>
       <div class="user__wrap">
-        
-        <div class="user__image">
+
+        <div class="user__image" data-controller="image-preview">
           <%= f.label :profile_picture %>
           <% if @user.photo.attached? %>
-            <%= cl_image_tag @user.photo.key, class: 'user__image-preview' %>
+            <%= cl_image_tag @user.photo.key, class: 'user__image-preview', data: { image_preview_target: 'preview' } %>
           <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon') %>
+            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', data: { image_preview_target: 'preview' }) %>
           <% end %>
           <div class="user__image-upload">
             <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/profile-upload.svg') %>
-            <%= f.input :photo, as: :file, input_html: { class: 'display-none' }, label_html: { class: 'user__image-label'}, label: 'Upload a photo' %>
+            <%= f.input :photo,
+                        as: :file,
+                        input_html: { class: 'display-none',
+                                      data: { image_preview_target: 'input',
+                                      action: 'change->image-preview#previewImage' } },
+                        label_html: { class: 'user__image-label'},
+                        label: 'Upload a photo',
+                        error: false %>
           </div>
           <%= f.error :photo, class: 'form-error form-error-photo' %>
         </div>

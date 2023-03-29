@@ -22,14 +22,17 @@ application.register("conditional-user-fields", ConditionalUserFieldsController)
 import ConfirmAlertController from "./confirm_alert_controller"
 application.register("confirm-alert", ConfirmAlertController)
 
-import CookiesController from "./cookies_controller"
-application.register("cookies", CookiesController)
+// import CookiesController from "./cookies_controller"
+// application.register("cookies", CookiesController)
 
 import DropdownMenuController from "./dropdown_menu_controller"
 application.register("dropdown-menu", DropdownMenuController)
 
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
+
+import ImagePreviewController from "./image_preview_controller"
+application.register("image-preview", ImagePreviewController)
 
 import MapController from "./map_controller"
 application.register("map", MapController)
