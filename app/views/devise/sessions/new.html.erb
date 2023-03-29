@@ -1,8 +1,8 @@
-<div class="signin">
+<section class="signin">
   <div class="signin__wrap">
     <h2 class="signin__title">Quouch</h2>
     <h3 class="signin__subtitle">Welcome back!</h3>
-    <section class="signin__form">
+    <div class="signin__form">
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <%= f.input :email,
                       required: false,
@@ -22,8 +22,7 @@
       <% end %>
       <div class="signin__links">
         <a class="" href="/users/password/new">Forgot your password?</a>
-        <%# <a class="" href="/users/signup">New here? Sign up to become a quoucher!</a> %>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
