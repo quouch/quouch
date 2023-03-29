@@ -1,30 +1,40 @@
 <section class="chats">
 	<h1 class="chats__title">Your Conversations</h1>
-	<ul class="chats__list">
-		<% @chats.each do |chat| %>
-			<% if chat.messages.any? %>
-				<%= link_to chat_path(chat) do %>
-					<li class="chats__list-item">
-					<% if chat.user_sender_id == current_user.id %>
-						<% @other_user = User.find(chat.user_receiver_id) %>
-					<% else %>
-						<% @other_user = User.find(chat.user_sender_id) %>
+	<% if @chats.any? %>
+		<ul class="chats__list">
+			<% @chats.each do |chat| %>
+				<% if chat.messages.any? %>
+					<%= link_to chat_path(chat) do %>
+						<li class="chats__list-item">
+						<% if chat.user_sender_id == current_user.id %>
+							<% @other_user = User.find(chat.user_receiver_id) %>
+						<% else %>
+							<% @other_user = User.find(chat.user_sender_id) %>
+						<% end %>
+						<% if @other_user.photo.key %>
+							<%= cl_image_tag @other_user.photo.key %>
+						<% else %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+						<% end %>
+							<div class="chats__details">
+								<p class="chats__details-name">
+									<%= @other_user.first_name %>
+								</p>
+								<p class="chats__details-content"><%= chat.messages.last.content %></p>
+								<p class="chats__details-time"><%= chat.messages.last.created_at.strftime("%^b.%d %I:%M %p") %></p>
+							</div>
+						</li>
 					<% end %>
-					<% if @other_user.photo.key %>
-						<%= cl_image_tag @other_user.photo.key %>
-					<% else %>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-					<% end %>
-						<div class="chats__details">
-							<p class="chats__details-name">
-								<%= @other_user.first_name %>
-							</p>
-							<p class="chats__details-content"><%= chat.messages.last.content %></p>
-							<p class="chats__details-time"><%= chat.messages.last.created_at.strftime("%^b.%d %I:%M %p") %></p>
-						</div>
-					</li>
 				<% end %>
 			<% end %>
-		<% end %>
-	</ul>
+		</ul>
+	<% else %>
+		<div class="chat__messages"
+         data-chat-subscription-target="messages">
+      <div class=" chat__messages--empty" data-chat-subscription-target="empty">
+        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
+        <p class="chat__messages">No conversations yet!</p>
+      </div>
+    </div>
+	<% end %>
 </section>
