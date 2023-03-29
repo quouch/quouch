@@ -16,12 +16,8 @@
 				<ul>
 					<p class="collapsible__subtitle">Personal</p>
 					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680013949/profile.svg') %>
-						<% if current_user.couch %>
-							<%= link_to 'Profile', couch_path(current_user.couch) %>
-						<% else %>
-							<%= link_to 'Profile', edit_user_registration_path %>
-						<% end %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680013949/edit-profile.svg') %>
+						<%= link_to 'Profile', edit_user_registration_path %>
 					</li>
 					<li>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/trip.svg') %>
@@ -60,7 +56,7 @@
 				<ul>
 					<p class="collapsible__subtitle">Support</p>
 					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/faq.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680087695/faq.svg') %>
 						<%= link_to 'FAQ' %>
 					</li>
 					<li>
