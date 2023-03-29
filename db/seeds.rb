@@ -8,6 +8,7 @@
 
 require 'faker'
 require 'factory_bot_rails'
+require 'open-uri'
 
 # Countries
 
@@ -41,19 +42,44 @@ amsterdam = City.create!(name: 'Amsterdam', country: netherlands)
 
 puts "#{City.count} cities created!"
 
+# Characteristics
+puts 'destroying & seeding characteristics...'
+Characteristic.destroy_all
+
+trans_only = Characteristic.create!(name: 'Trans Only')
+party_lover = Characteristic.create!(name: 'Party Lover')
+bipoc_only = Characteristic.create!(name: 'BIPOC Only')
+non_smoker = Characteristic.create!(name: 'Non-Smoker')
+sw_friendly = Characteristic.create!(name: 'SW Friendly')
+vegan = Characteristic.create!(name: 'Vegan')
+gnc = Characteristic.create!(name: 'GNC')
+clean_freak = Characteristic.create!(name: 'Clean Freak')
+abortion_friendly = Characteristic.create!(name: 'Abortion Friendly')
+drag_performer = Characteristic.create!(name: 'Drag Performer')
+sober = Characteristic.create!(name: 'Sober')
+queer = Characteristic.create!(name: 'Queer')
+wheelchair_accessibility = Characteristic.create!(name: 'Wheelchair Accessibility')
+sign_language = Characteristic.create!(name: 'Sign Language')
+neuro_diverse = Characteristic.create!(name: 'Neurodiverse')
+vaccinated = Characteristic.create!(name: 'Vaccinated')
+alone_time = Characteristic.create!(name: 'Alone Time')
+exhibitions = Characteristic.create!(name: 'Exhibitions')
+political_activism = Characteristic.create!(name: 'Political Activisim')
+
+puts "#{Characteristic.count} characteristics created!"
+
 # Users
 
 puts 'destroying & seeding users...'
 User.destroy_all
 
-user1 = User.create!(
+user1 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
-  date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
+  date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 50),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
   offers_couch: ['true', 'false'].sample,
   offers_co_work: ['true', 'false'].sample,
@@ -62,13 +88,23 @@ user1 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user2 = User.create!(
+user1.country = City.find(user1.city_id).country
+photo1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user1.photo.attach(io: photo1, filename: 'profile.jpg', content_type: 'image/jpg')
+user1.save!
+
+UserCharacteristic.create!(characteristic_id: 12, user_id: user1.id)
+UserCharacteristic.create!(characteristic_id: 7, user_id: user1.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user1.id)
+UserCharacteristic.create!(characteristic_id: 4, user_id: user1.id)
+
+user2 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -81,13 +117,22 @@ user2 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user3 = User.create!(
+user2.country = City.find(user2.city_id).country
+photo2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user2.photo.attach(io: photo2, filename: 'profile.jpg', content_type: 'image/jpg')
+user2.save!
+
+UserCharacteristic.create!(characteristic_id: 1, user_id: user2.id)
+UserCharacteristic.create!(characteristic_id: 2, user_id: user2.id)
+UserCharacteristic.create!(characteristic_id: 7, user_id: user2.id)
+
+user3 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -100,13 +145,24 @@ user3 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user4 = User.create!(
+user3.country = City.find(user3.city_id).country
+photo3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user3.photo.attach(io: photo3, filename: 'profile.jpg', content_type: 'image/jpg')
+user3.save!
+
+UserCharacteristic.create!(characteristic_id: 15, user_id: user3.id)
+UserCharacteristic.create!(characteristic_id: 19, user_id: user3.id)
+UserCharacteristic.create!(characteristic_id: 8, user_id: user3.id)
+UserCharacteristic.create!(characteristic_id: 1, user_id: user3.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user3.id)
+
+user4 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -119,13 +175,22 @@ user4 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user5 = User.create!(
+user4.country = City.find(user4.city_id).country
+photo4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user4.photo.attach(io: photo4, filename: 'profile.jpg', content_type: 'image/jpg')
+user4.save!
+
+UserCharacteristic.create!(characteristic_id: 4, user_id: user4.id)
+UserCharacteristic.create!(characteristic_id: 5, user_id: user4.id)
+UserCharacteristic.create!(characteristic_id: 6, user_id: user4.id)
+
+user5 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -138,13 +203,24 @@ user5 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user6 = User.create!(
+user5.country = City.find(user5.city_id).country
+photo5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user5.photo.attach(io: photo5, filename: 'profile.jpg', content_type: 'image/jpg')
+user5.save!
+
+UserCharacteristic.create!(characteristic_id: 8, user_id: user5.id)
+UserCharacteristic.create!(characteristic_id: 9, user_id: user5.id)
+UserCharacteristic.create!(characteristic_id: 11, user_id: user5.id)
+UserCharacteristic.create!(characteristic_id: 18, user_id: user5.id)
+UserCharacteristic.create!(characteristic_id: 17, user_id: user5.id)
+
+user6 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -157,13 +233,21 @@ user6 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user7 = User.create!(
+user6.country = City.find(user6.city_id).country
+photo6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user6.photo.attach(io: photo6, filename: 'profile.jpg', content_type: 'image/jpg')
+user6.save!
+
+UserCharacteristic.create!(characteristic_id: 6, user_id: user6.id)
+UserCharacteristic.create!(characteristic_id: 14, user_id: user6.id)
+
+user7 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -176,13 +260,23 @@ user7 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user8 = User.create!(
+user7.country = City.find(user7.city_id).country
+photo7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user7.photo.attach(io: photo7, filename: 'profile.jpg', content_type: 'image/jpg')
+user7.save!
+
+UserCharacteristic.create!(characteristic_id: 6, user_id: user7.id)
+UserCharacteristic.create!(characteristic_id: 4, user_id: user7.id)
+UserCharacteristic.create!(characteristic_id: 11, user_id: user7.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user7.id)
+
+user8 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -195,13 +289,24 @@ user8 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user9 = User.create!(
+user8.country = City.find(user8.city_id).country
+photo8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user8.photo.attach(io: photo8, filename: 'profile.jpg', content_type: 'image/jpg')
+user8.save!
+
+UserCharacteristic.create!(characteristic_id: 10, user_id: user8.id)
+UserCharacteristic.create!(characteristic_id: 11, user_id: user8.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user8.id)
+UserCharacteristic.create!(characteristic_id: 13, user_id: user8.id)
+UserCharacteristic.create!(characteristic_id: 14, user_id: user8.id)
+
+user9 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -214,13 +319,23 @@ user9 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user10 = User.create!(
+user9.country = City.find(user9.city_id).country
+photo9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user9.photo.attach(io: photo9, filename: 'profile.jpg', content_type: 'image/jpg')
+user9.save!
+
+UserCharacteristic.create!(characteristic_id: 4, user_id: user9.id)
+UserCharacteristic.create!(characteristic_id: 18, user_id: user9.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user9.id)
+UserCharacteristic.create!(characteristic_id: 8, user_id: user9.id)
+
+user10 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -233,13 +348,23 @@ user10 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user11 = User.create!(
+user10.country = City.find(user10.city_id).country
+photo10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user10.photo.attach(io: photo10, filename: 'profile.jpg', content_type: 'image/jpg')
+user10.save!
+
+UserCharacteristic.create!(characteristic_id: 2, user_id: user10.id)
+UserCharacteristic.create!(characteristic_id: 15, user_id: user10.id)
+UserCharacteristic.create!(characteristic_id: 7, user_id: user10.id)
+UserCharacteristic.create!(characteristic_id: 19, user_id: user10.id)
+
+user11 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -252,13 +377,24 @@ user11 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user12 = User.create!(
+user11.country = City.find(user11.city_id).country
+photo11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user11.photo.attach(io: photo11, filename: 'profile.jpg', content_type: 'image/jpg')
+user11.save!
+
+UserCharacteristic.create!(characteristic_id: 8, user_id: user11.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user11.id)
+UserCharacteristic.create!(characteristic_id: 17, user_id: user11.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user11.id)
+UserCharacteristic.create!(characteristic_id: 4, user_id: user11.id)
+
+user12 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -271,13 +407,22 @@ user12 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user13 = User.create!(
+user12.country = City.find(user12.city_id).country
+photo12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user12.photo.attach(io: photo12, filename: 'profile.jpg', content_type: 'image/jpg')
+user12.save!
+
+UserCharacteristic.create!(characteristic_id: 5, user_id: user12.id)
+UserCharacteristic.create!(characteristic_id: 6, user_id: user12.id)
+UserCharacteristic.create!(characteristic_id: 17, user_id: user12.id)
+
+user13 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -290,13 +435,23 @@ user13 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user14 = User.create!(
+user13.country = City.find(user13.city_id).country
+photo13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user13.photo.attach(io: photo13, filename: 'profile.jpg', content_type: 'image/jpg')
+user13.save!
+
+UserCharacteristic.create!(characteristic_id: 1, user_id: user13.id)
+UserCharacteristic.create!(characteristic_id: 2, user_id: user13.id)
+UserCharacteristic.create!(characteristic_id: 19, user_id: user13.id)
+UserCharacteristic.create!(characteristic_id: 11, user_id: user13.id)
+
+user14 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -309,13 +464,23 @@ user14 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user15 = User.create!(
+user14.country = City.find(user14.city_id).country
+photo14 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user14.photo.attach(io: photo14, filename: 'profile.jpg', content_type: 'image/jpg')
+user14.save!
+
+UserCharacteristic.create!(characteristic_id: 4, user_id: user14.id)
+UserCharacteristic.create!(characteristic_id: 8, user_id: user14.id)
+UserCharacteristic.create!(characteristic_id: 10, user_id: user14.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user14.id)
+
+user15 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -328,13 +493,22 @@ user15 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user16 = User.create!(
+user15.country = City.find(user15.city_id).country
+photo15 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user15.photo.attach(io: photo15, filename: 'profile.jpg', content_type: 'image/jpg')
+user15.save!
+
+UserCharacteristic.create!(characteristic_id: 18, user_id: user15.id)
+UserCharacteristic.create!(characteristic_id: 13, user_id: user15.id)
+UserCharacteristic.create!(characteristic_id: 14, user_id: user15.id)
+
+user16 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -347,13 +521,24 @@ user16 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user17 = User.create!(
+user16.country = City.find(user16.city_id).country
+photo16 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user16.photo.attach(io: photo16, filename: 'profile.jpg', content_type: 'image/jpg')
+user16.save!
+
+UserCharacteristic.create!(characteristic_id: 12, user_id: user16.id)
+UserCharacteristic.create!(characteristic_id: 1, user_id: user16.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user16.id)
+UserCharacteristic.create!(characteristic_id: 9, user_id: user16.id)
+UserCharacteristic.create!(characteristic_id: 10, user_id: user16.id)
+
+user17 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -366,13 +551,21 @@ user17 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user18 = User.create!(
+user17.country = City.find(user17.city_id).country
+photo17 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user17.photo.attach(io: photo17, filename: 'profile.jpg', content_type: 'image/jpg')
+user17.save!
+
+UserCharacteristic.create!(characteristic_id: 11, user_id: user17.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user17.id)
+
+user18 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -385,13 +578,22 @@ user18 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user19 = User.create!(
+user18.country = City.find(user18.city_id).country
+photo18 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user18.photo.attach(io: photo18, filename: 'profile.jpg', content_type: 'image/jpg')
+user18.save!
+
+UserCharacteristic.create!(characteristic_id: 4, user_id: user18.id)
+UserCharacteristic.create!(characteristic_id: 15, user_id: user18.id)
+UserCharacteristic.create!(characteristic_id: 13, user_id: user18.id)
+
+user19 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -404,13 +606,27 @@ user19 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
 
-user20 = User.create!(
+user19.country = City.find(user19.city_id).country
+photo19 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user19.photo.attach(io: photo19, filename: 'profile.jpg', content_type: 'image/jpg')
+user19.save!
+
+UserCharacteristic.create!(characteristic_id: 1, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 2, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 4, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 5, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 6, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 7, user_id: user19.id)
+UserCharacteristic.create!(characteristic_id: 8, user_id: user19.id)
+
+user20 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
@@ -423,8 +639,22 @@ user20 = User.create!(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
+  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
 )
+
+user20.country = City.find(user20.city_id).country
+photo20 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user20.photo.attach(io: photo20, filename: 'profile.jpg', content_type: 'image/jpg')
+user20.save!
+
+UserCharacteristic.create!(characteristic_id: 9, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 8, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 11, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 12, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 5, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 16, user_id: user20.id)
+UserCharacteristic.create!(characteristic_id: 3, user_id: user20.id)
 
 puts "#{User.count} users created!"
 
@@ -541,74 +771,73 @@ puts 'destroying & seeding facilities...'
 Facility.destroy_all
 
 couch = Facility.create(name: 'couch')
-file = File.open("app/assets/images/icons/couch.svg")
-couch.image.attach(io: file, filename: 'couch.svg', content_type: 'image/svg')
+file1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/couch.svg')
+couch.image.attach(io: file1, filename: 'couch.svg', content_type: 'image/svg')
 couch.save!
 
 bed = Facility.create(name: 'bed')
-file = File.open("app/assets/images/icons/bed.svg")
-bed.image.attach(io: file, filename: 'bed.svg', content_type: 'image/svg')
+file2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/bed.svg')
+bed.image.attach(io: file2, filename: 'bed.svg', content_type: 'image/svg')
 bed.save!
 
-shared_bathroom = Facility.create(name: 'shared bathroom')
-file = File.open("app/assets/images/icons/bathroom.svg")
-shared_bathroom.image.attach(io: file, filename: 'bathroom.svg', content_type: 'image/svg')
-shared_bathroom.save!
+extra_key = Facility.create(name: 'extra key')
+file3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088491/extra-key.svg')
+extra_key.image.attach(io: file3, filename: 'extra-key.svg', content_type: 'image/svg')
+extra_key.save!
 
-private_bathroom = Facility.create(name: 'private bathroom')
-file = File.open("app/assets/images/icons/bathroom.svg")
-private_bathroom.image.attach(io: file, filename: 'bathroom.svg', content_type: 'image/svg')
-private_bathroom.save!
+plant_lover = Facility.create(name: 'plant lover')
+file4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/plant-lover.svg')
+plant_lover.image.attach(io: file4, filename: 'plant-lover.svg', content_type: 'image/svg')
+plant_lover.save!
 
 wifi = Facility.create(name: 'wifi')
-file = File.open("app/assets/images/icons/wifi.svg")
-wifi.image.attach(io: file, filename: 'wifi.svg', content_type: 'image/svg')
+file5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088493/wifi.svg')
+wifi.image.attach(io: file5, filename: 'wifi.svg', content_type: 'image/svg')
 wifi.save!
 
 pets_allowed = Facility.create(name: 'pets allowed')
-file = File.open("app/assets/images/icons/pets.svg")
-pets_allowed.image.attach(io: file, filename: 'pets.svg', content_type: 'image/svg')
+file6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/pets-allowed.svg')
+pets_allowed.image.attach(io: file6, filename: 'pets-allowed.svg', content_type: 'image/svg')
 pets_allowed.save!
 
-shared_kitchen = Facility.create(name: 'shared kitchen')
-file = File.open("app/assets/images/icons/kitchen.svg")
-shared_kitchen.image.attach(io: file, filename: 'kitchen.svg', content_type: 'image/svg')
-shared_kitchen.save!
+shared_room = Facility.create(name: 'shared room')
+file7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680089510/shared-room.svg')
+shared_room.image.attach(io: file7, filename: 'shared-room.svg', content_type: 'image/svg')
+shared_room.save!
 
-tv = Facility.create(name: 'TV')
-file = File.open("app/assets/images/icons/tv.svg")
-tv.image.attach(io: file, filename: 'tv.svg', content_type: 'image/svg')
-tv.save!
+balcony = Facility.create(name: 'balcony')
+file8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/balcony.svg')
+balcony.image.attach(io: file8, filename: 'balcony.svg', content_type: 'image/svg')
+balcony.save!
 
-washing_machine = Facility.create(name: 'washing machine')
-file = File.open("app/assets/images/icons/laundry.svg")
-washing_machine.image.attach(io: file, filename: 'laundry.svg', content_type: 'image/svg')
-washing_machine.save!
+barrier_free = Facility.create(name: 'barrier free')
+file9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/barrier-free.svg')
+barrier_free.image.attach(io: file9, filename: 'barrier-free.svg', content_type: 'image/svg')
+barrier_free.save!
 
-public_transport = Facility.create(name: 'public transport')
-file = File.open("app/assets/images/icons/public.svg")
-public_transport.image.attach(io: file, filename: 'public.svg', content_type: 'image/svg')
-public_transport.save!
+elevator = Facility.create(name: 'elevator')
+file10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088491/elevator.svg')
+elevator.image.attach(io: file10, filename: 'elevator.svg', content_type: 'image/svg')
+elevator.save!
 
 private_room = Facility.create(name: 'private room')
-file = File.open("app/assets/images/icons/private.svg")
-private_room.image.attach(io: file, filename: 'private.svg', content_type: 'image/svg')
+file11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/private-room.svg')
+private_room.image.attach(io: file11, filename: 'private-room.svg', content_type: 'image/svg')
 private_room.save!
 
-supermarket = Facility.create(name: 'supermarket')
-file = File.open("app/assets/images/icons/supermarket.svg")
-supermarket.image.attach(io: file, filename: 'supermarket.svg', content_type: 'image/svg')
-supermarket.save!
+vegan = Facility.create(name: 'vegan')
+file12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/vegan.svg')
+vegan.image.attach(io: file12, filename: 'vegan.svg', content_type: 'image/svg')
+vegan.save!
 
 smoking_allowed = Facility.create(name: 'smoking allowed')
-file = File.open("app/assets/images/icons/smoking.svg")
-smoking_allowed.image.attach(io: file, filename: 'smoking.svg', content_type: 'image/svg')
+file13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088493/smoking-allowed.svg')
+smoking_allowed.image.attach(io: file13, filename: 'smoking-allowed.svg', content_type: 'image/svg')
 smoking_allowed.save!
 
 puts "#{Facility.count} facilities created!"
 
-facilities = [couch, bed, shared_bathroom, private_bathroom, wifi, pets_allowed, shared_kitchen, tv, washing_machine,
-              public_transport, private_room, supermarket, smoking_allowed]
+facilities = [couch, bed, shared_room, vegan, wifi, pets_allowed, elevator, balcony, barrier_free, plant_lover, private_room, smoking_allowed, extra_key]
 
 # Couch_Facilities (random amount)
 
