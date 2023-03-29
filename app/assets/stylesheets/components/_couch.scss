@@ -8,7 +8,7 @@
 		@include container;
 		
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: min-content 1fr;
 		border-radius: $border-radius-large;
 	}
@@ -93,11 +93,22 @@
 		&-list {
 			@include facility-name;
 
+			@media (min-width: $break-x-small) {
+				grid-template-columns: max-content auto;
+				display: grid;
+				gap: 1rem 2rem;
+			}
+
 			li {
 				display: flex;
 				align-items: center;
 				
-				img { margin-right: .5rem; }
+				img {
+					margin-right: .5rem;
+					height: 16px;
+					width: 16px;
+					color: black;
+				}
 			}
 		}
 	}
@@ -128,7 +139,6 @@
 		padding: 0 1rem;
 
 		@media(min-width: $break-large) {
-			margin-top: 1rem;
 			margin-left: 2rem;
 			grid-row: 2;
 			grid-column: 2;

@@ -62,7 +62,7 @@
 				<ul class="couch__accommodation-list">
 					<% @couch.facilities.each do |facility| %>
 						<li>
-							<%= image_tag(facility.image) %>
+							<%= cl_image_tag(facility.svg.key) %>
 							<%= facility.name %>
 						</li>
 					<% end %>
@@ -75,7 +75,7 @@
 		<div class="couch__location">
 			<h2>Location</h2>
 			<div class="couch__pin">
-				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/city.svg') %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
 				<p><%= @couch.user.city.name %>, <%= @couch.user.city.country.name %></p>
 			</div>
 		</div>

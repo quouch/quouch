@@ -771,68 +771,68 @@ puts 'destroying & seeding facilities...'
 Facility.destroy_all
 
 couch = Facility.create(name: 'couch')
-file1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/couch.svg')
-couch.image.attach(io: file1, filename: 'couch.svg', content_type: 'image/svg')
+file1 = File.open('app/assets/images/icons/couch.svg')
+couch.svg.attach(io: file1, filename: 'couch.svg', content_type: 'image/svg')
 couch.save!
 
 bed = Facility.create(name: 'bed')
-file2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/bed.svg')
-bed.image.attach(io: file2, filename: 'bed.svg', content_type: 'image/svg')
+file2 = File.open('app/assets/images/icons/bed.svg')
+bed.svg.attach(io: file2, filename: 'bed.svg', content_type: 'image/svg')
 bed.save!
 
 extra_key = Facility.create(name: 'extra key')
-file3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088491/extra-key.svg')
-extra_key.image.attach(io: file3, filename: 'extra-key.svg', content_type: 'image/svg')
+file3 = File.open('app/assets/images/icons/key.svg')
+extra_key.svg.attach(io: file3, filename: 'key.svg', content_type: 'image/svg')
 extra_key.save!
 
 plant_lover = Facility.create(name: 'plant lover')
-file4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/plant-lover.svg')
-plant_lover.image.attach(io: file4, filename: 'plant-lover.svg', content_type: 'image/svg')
+file4 = File.open('app/assets/images/icons/smoking.svg')
+plant_lover.svg.attach(io: file4, filename: 'plant.svg', content_type: 'image/svg')
 plant_lover.save!
 
 wifi = Facility.create(name: 'wifi')
-file5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088493/wifi.svg')
-wifi.image.attach(io: file5, filename: 'wifi.svg', content_type: 'image/svg')
+file5 = File.open('app/assets/images/icons/wifi.svg')
+wifi.svg.attach(io: file5, filename: 'wifi.svg', content_type: 'image/svg')
 wifi.save!
 
 pets_allowed = Facility.create(name: 'pets allowed')
-file6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/pets-allowed.svg')
-pets_allowed.image.attach(io: file6, filename: 'pets-allowed.svg', content_type: 'image/svg')
+file6 = File.open('app/assets/images/icons/pets.svg')
+pets_allowed.svg.attach(io: file6, filename: 'pets.svg', content_type: 'image/svg')
 pets_allowed.save!
 
 shared_room = Facility.create(name: 'shared room')
-file7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680089510/shared-room.svg')
-shared_room.image.attach(io: file7, filename: 'shared-room.svg', content_type: 'image/svg')
+file7 = File.open('app/assets/images/icons/shared.svg')
+shared_room.svg.attach(io: file7, filename: 'shared-room.svg', content_type: 'image/svg')
 shared_room.save!
 
 balcony = Facility.create(name: 'balcony')
-file8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/balcony.svg')
-balcony.image.attach(io: file8, filename: 'balcony.svg', content_type: 'image/svg')
+file8 = File.open('app/assets/images/icons/balcony.svg')
+balcony.svg.attach(io: file8, filename: 'balcony.svg', content_type: 'image/svg')
 balcony.save!
 
 barrier_free = Facility.create(name: 'barrier free')
-file9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088490/barrier-free.svg')
-barrier_free.image.attach(io: file9, filename: 'barrier-free.svg', content_type: 'image/svg')
+file9 = File.open('app/assets/images/icons/barrier-free.svg')
+barrier_free.svg.attach(io: file9, filename: 'barrier-free.svg', content_type: 'image/svg')
 barrier_free.save!
 
 elevator = Facility.create(name: 'elevator')
-file10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088491/elevator.svg')
-elevator.image.attach(io: file10, filename: 'elevator.svg', content_type: 'image/svg')
+file10 = File.open('app/assets/images/icons/elevator.svg')
+elevator.svg.attach(io: file10, filename: 'elevator.svg', content_type: 'image/svg')
 elevator.save!
 
 private_room = Facility.create(name: 'private room')
-file11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/private-room.svg')
-private_room.image.attach(io: file11, filename: 'private-room.svg', content_type: 'image/svg')
+file11 = File.open('app/assets/images/icons/lock.svg')
+private_room.svg.attach(io: file11, filename: 'lock.svg', content_type: 'image/svg')
 private_room.save!
 
 vegan = Facility.create(name: 'vegan')
-file12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088492/vegan.svg')
-vegan.image.attach(io: file12, filename: 'vegan.svg', content_type: 'image/svg')
+file12 = File.open('app/assets/images/icons/vegan.svg')
+vegan.svg.attach(io: file12, filename: 'vegan.svg', content_type: 'image/svg')
 vegan.save!
 
 smoking_allowed = Facility.create(name: 'smoking allowed')
-file13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088493/smoking-allowed.svg')
-smoking_allowed.image.attach(io: file13, filename: 'smoking-allowed.svg', content_type: 'image/svg')
+file13 = File.open('app/assets/images/icons/smoking.svg')
+smoking_allowed.svg.attach(io: file13, filename: 'smoking.svg', content_type: 'image/svg')
 smoking_allowed.save!
 
 puts "#{Facility.count} facilities created!"

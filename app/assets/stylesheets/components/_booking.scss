@@ -32,7 +32,7 @@
 
 		@media (min-width: $break-large) {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: repeat(2, 1fr);
 			padding: 2rem 6rem;
 			text-align: start;
 		}
@@ -92,7 +92,7 @@
 		
 		@media (min-width: $break-large) {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 
