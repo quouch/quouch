@@ -1,8 +1,6 @@
 .chat {
   @include container;
 
-  &__title {}
-
   &__messages {
     display: flex;
     flex-direction: column;
@@ -42,11 +40,19 @@
     &--right { justify-content: end; }
   }
 
-  &__sender { background-color: $primary-super-transparent; }
+  &__sender {
+    background-color: $primary-super-transparent;
+    border-top-left-radius: $border-radius-small;
+    border-top-right-radius: $border-radius-small;
+    border-bottom-right-radius: $border-radius-small;
+  }
   
   &__receiver {
     background-color: $primary-light;
     color: $white;
+    border-top-left-radius: $border-radius-small;
+    border-top-right-radius: $border-radius-small;
+    border-bottom-left-radius: $border-radius-small;
   }
 
   &__form {
@@ -54,9 +60,7 @@
   
     div:first-child { width: 100%; }
 
-    &-input {
-      width: 100%;
-    }
+    &-input { width: 100%; }
 
     &-button {
       background-color: transparent;
@@ -66,9 +70,4 @@
   }
 }
 
-.message {
-  padding: 1rem;
-  border-top-left-radius: $border-radius-small;
-  border-top-right-radius: $border-radius-small;
-  border-bottom-right-radius: $border-radius-small;
-}
+.message { padding: 1rem; }

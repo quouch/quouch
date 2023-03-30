@@ -1,0 +1,50 @@
+<% unread = chat.notifications_as_chat.where(type: MessageNotification.name, recipient: current_user).unread %>
+
+<% if chat.user_sender_id == current_user.id %>
+	<% @other_user = User.find(chat.user_receiver_id) %>
+<% else %>
+	<% @other_user = User.find(chat.user_sender_id) %>
+<% end %>
+
+<% if unread.count > 0 %>
+	<li class="chats__list-item">
+		<% if @other_user.photo.key %>
+			<%= cl_image_tag @other_user.photo.key %>
+		<% else %>
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+		<% end %>
+		<div class="chats__details">
+			<div class="chats__wrap chats__wrap--left">
+				<p class="chats__details-name chats__details-name--unread">
+					<%= @other_user.first_name %>
+				</p>
+				<p class="chats__details-content chats__details-content--unread"><%= chat.messages.last.content %></p>
+			</div>
+			<div class="chats__wrap chats__wrap--right">
+				<div class="chats__notifications">
+					<aside><%= "#{unread.count}" %></aside>
+				</div>
+				<p class="chats__details-time chats__details-time--unread"><%= chat.messages.last.created_at.strftime("%^b %d ⋅ %I:%M %p") %></p>
+			</div>
+		</div>
+	</li>
+<% else %>
+	<li class="chats__list-item">
+		<% if @other_user.photo.key %>
+			<%= cl_image_tag @other_user.photo.key %>
+		<% else %>
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+		<% end %>
+		<div class="chats__details">
+			<div class="chats__wrap chats__wrap--left">
+				<p class="chats__details-name">
+					<%= @other_user.first_name %>
+				</p>
+				<p class="chats__details-content"><%= chat.messages.last.content %></p>
+			</div>
+			<div class="chats__wrap chats__wrap--right">
+				<p class="chats__details-time"><%= chat.messages.last.created_at.strftime("%^b %d ⋅ %I:%M %p") %></p>
+			</div>
+		</div>
+	</li>
+<% end %>
