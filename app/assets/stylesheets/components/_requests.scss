@@ -19,7 +19,7 @@
 
 	@media (min-width: $break-small) {
 		display: flex;
-		max-height: 240px;
+		max-height: fit-content;
 		justify-content: start;
 	}
 

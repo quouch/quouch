@@ -73,11 +73,12 @@
 					</ul>
 			<% end %>
 			<div class="booking-form__type">
-				<label>Pick one or more</label>
+				<label>Pick one</label>
 				<%= f.input :request,
-										collection: Booking.requests,
+										collection: @offers.keys,
 										as: :radio_buttons,
 										label: false,
+										value: @booking.request,
 										input_html: { value: @booking.request } %>
 			</div>
 			<span class="booking-form__details__header">Dates & Travellers </span>
@@ -108,11 +109,14 @@
 			</div>
 			<%= f.input :message, 
 									label: :Message,
-									input_html: { rows: 6 } %>
+									input_html: { rows: 4 } %>
 			<div class="booking-form__action booking-form__action--edit">
-				<%= f.submit 'Send Request', class: 'booking-form__button' %>
-				<%= link_to 'Cancel Booking' %>
+				<%= f.submit 'Send updated request', class: 'booking-form__button' %>
 			</div>
 		<% end %>
+			<div data-controller="confirm-alert">
+				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert" type="button">Cancel Booking</button>
+				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action', action: 'click->confirm-alert#displayConfirmAlert' } %>
+			</div>
 	</section>
 </div>
