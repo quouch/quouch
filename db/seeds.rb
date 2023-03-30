@@ -786,7 +786,7 @@ extra_key.svg.attach(io: file3, filename: 'key.svg', content_type: 'image/svg')
 extra_key.save!
 
 plant_lover = Facility.create(name: 'plant lover')
-file4 = File.open('app/assets/images/icons/smoking.svg')
+file4 = File.open('app/assets/images/icons/plant.svg')
 plant_lover.svg.attach(io: file4, filename: 'plant.svg', content_type: 'image/svg')
 plant_lover.save!
 
