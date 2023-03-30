@@ -1,0 +1,26 @@
+.error {
+	margin: 4rem auto;
+	width: 90%;
+	max-width: $container;
+
+	&__image {
+		border-radius: 50%;
+		height: 300px;
+		width: 300px;
+		margin: 0 auto 2rem;
+		object-position: center;
+		object-fit: cover;
+		box-shadow: $box-shadow-quchi;
+	}
+
+	&__content {
+		@include title-3;
+
+		text-align: center;
+
+		a {
+			text-decoration: underline;
+			color: $primary;
+		}
+	}
+}

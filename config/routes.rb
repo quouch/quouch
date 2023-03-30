@@ -32,12 +32,6 @@ Rails.application.routes.draw do
 
   mount StripeEvent::Engine, at: '/update-payment'
 
-  resources :cities, only: %i[show] do
-    member do
-      get :couches
-    end
-  end
-
   resources :chats, only: %i[index show create] do
     resources :messages, only: %i[create]
   end
@@ -47,4 +41,8 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
+
+  match '/404', to: 'errors#not_found', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
+  match '/422', to: 'errors#unprocessable_content', via: :all
 end

@@ -9,7 +9,7 @@ class ReviewsController < ApplicationController
 
 	def create
 		@review = Review.new(review_params)
-		@review.couch = @couch
+		@review.couch = current_user.couch
 		@host = @couch.user
 		@review.booking = @booking
 		@review.user = current_user
@@ -17,10 +17,11 @@ class ReviewsController < ApplicationController
 			case @review.user
 			when @booking.user
 				ReviewMailer.with(booking: @booking).new_review_host_email.deliver_later
+				redirect_to booking_path(@booking)
 			when @booking.couch.user
 				ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
+				redirect_to request_booking_path(@booking)
 			end
-			redirect_to booking_path(@booking)
 		else
 			render template: 'bookings/show', locals: { booking: @booking }
 		end

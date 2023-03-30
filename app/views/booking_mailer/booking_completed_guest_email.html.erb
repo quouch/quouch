@@ -2,9 +2,16 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Booking Completed - Please Leave a Review</title>
   </head>
   <body>
-    <h1>You stayed with <%= @host.first_name.capitalize %>! Tell us how it was.</h1>
-    <%= link_to 'Leave review here', @url %>
+      <h1>Thank you for Staying at <%= booking.couch.user.first_name.capitalize %>'s Place</h1>
+      <p>Dear <%= booking.user.first_name.capitalize %>,</p>
+      <p>We would like to inform you that your booking with <%= booking.user.first_name.capitalize %> has been successfully completed. We hope you had a great experience staying at their place.</p>
+      <p>We encourage you to leave a review for <%= booking.user.first_name.capitalize %> on their profile to help other guests make informed decisions about staying with them in the future.</p>
+      <p>Leaving a review is quick and easy. Simply follow the link below and share your honest thoughts about your stay with <%= booking.user.first_name.capitalize %>.</p>
+      <p><%= link_to 'Leave a Review', new_guest_review_path(@booking.host, @booking) %></p>
+      <p>Thank you for choosing to stay with <%= booking.user.first_name.capitalize %>. We hope to welcome you back soon.</p>
+      <p>Best regards,<br>The <%= booking.user.first_name.capitalize %> Team</p>
   </body>
 </html>
