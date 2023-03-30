@@ -34,4 +34,8 @@
 		background-color: transparent;
 		border: 0;
 	}
+
+	&__chat .chats__notifications {
+		position: inherit !important; // box of shame
+	}
 }

@@ -1,0 +1,3 @@
+<div class="chats__notifications">
+	<aside><%= chat.notifications_as_chat.where(type: MessageNotification.name, recipient: current_user).unread.count %></aside>
+</div>
