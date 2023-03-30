@@ -9,13 +9,23 @@ class Message < ApplicationRecord
   end
 
   def sender?(a_user)
-    user.id == a_user.id
+    user.id.eql?(a_user.id)
   end
 
   private
 
+  def find_recipient(message)
+    @users = [User.find(message.chat.user_sender_id), User.find(message.chat.user_receiver_id)]
+    @users.each do |user|
+      next if user.eql?(message.user)
+
+      @user = user
+    end
+    @user
+  end
+
   def notify_recipient
-    recipient = self.chat.user_receiver_id
-    MessageNotification.with(message: self).deliver_later(recipient)
+    recipient = find_recipient(self)
+    MessageNotification.with(message: self, chat: self.chat).deliver_later(recipient)
   end
 end

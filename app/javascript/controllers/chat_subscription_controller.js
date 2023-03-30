@@ -3,7 +3,7 @@ import { createConsumer } from "@rails/actioncable"
 
 export default class extends Controller {
   static values = { chatId: Number, currentUserId: Number }
-  static targets = ['messages', 'form', 'empty']
+  static targets = ['messages', 'form']
 
   connect() {
     this.messagesTarget.scrollIntoView(true, {block: 'end'})
@@ -15,7 +15,8 @@ export default class extends Controller {
   }
 
   #insertMessageAndScrollDown(data) {
-    if (this.emptyTarget !== null) this.emptyTarget.style.display = 'none'
+    const empty = document.querySelector('.chat__messages--empty')
+    if (empty) empty.style.remove()
     const currentUserIsSender = this.currentUserIdValue === data.sender_id
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
     this.messagesTarget.insertAdjacentHTML('beforeend', messageElement)

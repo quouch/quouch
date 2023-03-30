@@ -4,7 +4,7 @@
 	max-width: $container;
 
 	&__image {
-		border-radius: 50%;
+		border-radius: $border-radius-round;
 		height: 300px;
 		width: 300px;
 		margin: 0 auto 2rem;

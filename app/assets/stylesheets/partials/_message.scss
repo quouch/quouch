@@ -1,0 +1,26 @@
+.message {
+	display: flex;
+	gap: .7rem;
+
+	img {
+		border-radius: $border-radius-round;
+		height: 40px;
+		width: 40px;
+		margin: 0;
+	}
+
+	&-details {
+		display: inline-block;
+		margin-bottom: .5rem;
+		
+		i {
+			display: block;
+			margin-top: .2rem;
+
+			@media (min-width: $break-small) { display: inline; }
+		}
+
+		a { color: inherit; }
+		a:hover { text-decoration: underline; }
+	}
+}

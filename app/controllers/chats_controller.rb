@@ -1,6 +1,7 @@
 class ChatsController < ApplicationController
 	def index
-		@chats = Chat.all.where(user_sender_id: current_user.id) + Chat.all.where(user_receiver_id: current_user.id)
+		@chats = Chat.includes(:messages).where(user_sender_id: current_user.id).or(Chat.includes(:messages).where(user_receiver_id: current_user.id))
+		.order('messages.created_at DESC')
 	end
 
 	def show
