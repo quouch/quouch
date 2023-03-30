@@ -57,13 +57,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_202603) do
     t.integer "status"
     t.date "booking_date"
     t.date "cancellation_date"
+    t.integer "nights"
     t.bigint "couch_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number_travellers"
     t.text "message"
-    t.integer "nights", default: 0, null: false
+    t.integer "price_cents", default: 0, null: false
     t.integer "request"
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
@@ -201,6 +202,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_202603) do
     t.text "question_three"
     t.text "question_four"
     t.bigint "city_id"
+    t.string "address"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -210,7 +212,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_17_202603) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.string "authentication_token", limit: 30
-    t.string "address"
     t.float "latitude"
     t.float "longitude"
     t.string "zipcode"

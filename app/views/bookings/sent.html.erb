@@ -37,9 +37,9 @@
 				<h2>Accomodation</h2>
 				<ul class="sent__accomodation-list">
 					<% @couch.facilities.each do |facility| %>
-						<% if facility.image.attached? %>
+						<% if facility.svg.attached? %>
 							<li>
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/armchair.svg') %>
+								<%= cl_image_tag(facility.svg.key) %>
 								<%= facility.name %>
 							</li>
 						<% else %>
