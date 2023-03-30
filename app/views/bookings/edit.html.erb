@@ -50,7 +50,7 @@
 					<ul class="host__accomodation-list">
 						<% @host.couch.facilities.each do |facility| %>
 							<li>
-								<%= image_tag(facility.image) %>
+								<%= cl_image_tag(facility.svg.key) %>
 								<%= facility.name %>
 							</li>
 						<% end %>
