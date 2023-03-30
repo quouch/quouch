@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Declined Booking Request</title>
+  </head>
+  <body>
+      <h1>We're sorry, <%= @guest.first_name.capitalize %></h1>
+      <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to accommodate your booking request at this time. We want to thank you anyways for your interest in using our platform to find a place to stay. We appreciate your consideration and your desire to be a part of our community.</p>
+      <p>We understand that this may be disappointing news, but we hope you can find another Couch to sleep on!</p>
+      <%= link_to 'Browse other couches', @url %>
+      <p>We encourage you to continue to browse our platform for other options that may also meet your needs.</p>
+      <p>Best regards,</p>
+      <p>Your Quouch Team</p>
+  </body>
+</html>
