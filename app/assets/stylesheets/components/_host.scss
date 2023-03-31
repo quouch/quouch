@@ -26,7 +26,7 @@
 	}
 	
 	&__info {
-		grid-row: 1;
+		grid-row: 2;
 		grid-column: 1 / span 2;
 		margin-top: 5rem;
 
@@ -61,6 +61,23 @@
 		color: $gray-05;
 	}
 
+	&__location {
+		@include caption;
+
+		grid-row: 1;
+		grid-column: 1 / span 2;
+		display: flex;
+		gap: .3rem;
+		margin-top: .5rem;
+		justify-self: center;
+		
+
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
 	&__offers {
 		flex-wrap: wrap;
 		justify-content: center;
@@ -73,21 +90,21 @@
 	}
 
 	&__features {
-		grid-row: 3;
+		grid-row: 4;
 		grid-column: 1 / span 2;
 		justify-content: center;
 	}
 
 	&__intro {
-		grid-row: 4;
+		grid-row: 5;
 
 		@media (max-width: $break-large) { display: none; }
 	}
 
 	&__accomodation {
-		grid-row: 5;
+		grid-row: 6;
 
-		@media (min-width: $break-x-large) { grid-row: 4; }
+		@media (min-width: $break-x-large) { grid-row: 5; }
 
 		&-list {
 			@include facility-name;
@@ -100,7 +117,11 @@
 				display: flex;
 				align-items: center;
 				
-				img { margin-right: .5rem; }
+				img {
+					height: 16px;
+					width: 16px;
+					margin-right: .5rem;
+				}
 			}
 
 		}
@@ -108,9 +129,14 @@
 		@media (max-width: $break-large) { display: none; }
 	}
 
-	&__location {
-		grid-row: 6;
+	&__travellers {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
 
-		@media (max-width: $break-large) { display: none; }
+		img {
+			height: 16px;
+			width: 16px;
+		}
 	}
 }

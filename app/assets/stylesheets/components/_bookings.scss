@@ -39,6 +39,10 @@
 			border-top-right-radius: 0;
 		}
 
+		@media (min-width: $break-medium) {
+			width: 260px;
+		}
+
 		@media (max-width: $break-small) { max-height: 200px; }
 	}
 
