@@ -66,9 +66,13 @@
 							<%= facility.name %>
 						</li>
 					<% end %>
+					<li class="couch__travellers">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+						<%= @host.couch.capacity %> guests
+					</li>
 				</ul>
 			<% else %>
-				<p>This host doesn't offer their couch currently.</p>
+				<p>This host doesn't currently offer their couch, but you can still request them to hangout or co-work.</p>
 			<% end %>
 		</div>
 

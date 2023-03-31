@@ -7,6 +7,10 @@
 				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'host__gallery') %>
 			<% end %>
 			<div class="host__content">
+				<p class="host__location">
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+					<%= @host.city.name %>, <%= @host.country.name %>
+				</p>
 				<ul class="host__info">
 					<li class="host__name"><%= @host.first_name %></li>
 					<div class="host__characteristics">
@@ -54,6 +58,10 @@
 								<%= facility.name %>
 							</li>
 						<% end %>
+						<li class="host__travellers">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+							<%= @host.couch.capacity %> guests
+						</li>
 					</ul>
 				</div>
 			</div>

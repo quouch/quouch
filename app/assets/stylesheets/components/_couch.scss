@@ -113,6 +113,17 @@
 		}
 	}
 
+	&__travellers {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
 	&__pin {
 		display: flex;
 		align-items: center;

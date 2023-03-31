@@ -73,6 +73,10 @@
 									<p class="couches__characteristics">
 										<%= couch.user.calculated_age %>, <%= couch.user.pronouns %>
 									</p>
+									<p class="couches__location">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+										<%= couch.city.name %>, <%= couch.country.name %>
+									</p>
 								</div>
 								<% if couch.reviews.any? %>
 									<p class="couches__rating">

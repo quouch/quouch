@@ -86,6 +86,19 @@
 		margin: 0;
 		a { color: $black; }
 	}
+
+	&__location {
+		@include caption;
+
+		display: flex;
+		gap: .3rem;
+		margin-top: .5rem;
+
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
 	
 	&__characteristics {
 		@include body-2;

@@ -47,7 +47,7 @@
 										</li>
 										<% if booking.host? %>
 											<li class="upcoming-booking__detail">
-												<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680088530/payments.svg') %>
+												<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680276588/payments.svg') %>
 												<% if booking.payments.where(status: 1).any? %>
 													<p>Booking has been paid.</p>
 												<% elsif booking.payments.where(status: 1).empty? && booking.confirmed? %>
