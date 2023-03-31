@@ -17,7 +17,7 @@ $headers-font: 'Outfit', 'sans-serif';
 	text-align: center;
 	margin: 2rem 0;
 
-	@media(max-width: $break-large) { font-size: 2rem; }
+	@media (max-width: $break-large) { font-size: 2rem; }
 }
 
 @mixin title-2 {

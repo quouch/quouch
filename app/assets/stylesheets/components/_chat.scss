@@ -33,7 +33,7 @@
     p {
       font-size: 0.75rem;
 
-      @media(min-width: $break-large) { font-size: 1rem; }
+      @media (min-width: $break-large) { font-size: 1rem; }
     }
 
     &--left { justify-content: start; }
