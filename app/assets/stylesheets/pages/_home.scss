@@ -42,4 +42,187 @@
 			@media (min-width: $break-medium) { margin: 2rem 0; }
 		}
 	}
+
+	&__content {
+		@include container;
+		
+		@media (min-width: $break-large){
+			margin: 4rem 8rem;
+			width: 60%;
+			max-width: $container;
+		}
+	}
+	
+	&__humour {
+		background-color: $beige;
+		padding: 4rem 2rem;
+		
+		@media (min-width: $break-large) {
+			display: flex;
+			justify-content: space-between;
+			gap: 2rem;
+			padding: 4rem auto 0;
+		}
+
+		@media (min-width: $break-large){ padding: 4rem 8rem; }
+
+		&-images {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+			
+			img:nth-child(2) {
+				height: 250px;
+				
+				@media (min-width: $break-medium) { height: 400px; }
+			}
+
+			img {
+				height: 200px;
+
+				@media (min-width: $break-medium) { height: 300px; }
+			}
+
+		}
+
+		&-content {
+			flex-basis: 50%;
+			margin-top: 1rem;
+
+			@media (min-width: $break-large) { margin: 0; }
+		}
+	}
+
+	&__subtitle {
+		@include title-2;
+
+		margin-bottom: 1rem;
+		color: $black;
+	}
+
+	&__supertitle { @include supertitle; }
+
+	&__header {
+		@include title-1;
+
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+		text-transform: uppercase;
+		text-align: left;
+		
+		@media (min-width: $break-medium) { padding: 2rem 2rem 2rem 8rem; }
+	}
+
+	&__split {
+		@media (min-width: $break-medium) { display: flex; }
+
+		img {
+			height: 400px;
+			width: 100%;
+			object-fit: cover;
+			object-position: center;
+
+			@media (min-width: $break-large) { width: 600px; }
+		}
+		
+		&--left {
+			justify-content: flex-end;
+			text-align: right;
+		}
+
+		&--right {
+			justify-content: flex-start;
+		}
+
+		&-content {
+			padding: 4rem 2rem;
+
+			@media (min-width: $break-medium) { width: 600px; }
+
+			p + h3 { margin-top: 1rem; }
+		}
+	}
+	
+	&__button {
+		@include input-field;
+		@include secondary-button;
+		
+		display: inline-block;
+		width: fit-content;
+		margin-top: 1rem;
+	}
+	
+	&__logos {
+		margin: 0 4rem 4rem;
+		
+		@media (min-width: $break-large) { margin: 4rem; }
+
+		&-title {
+			@include title-3;
+			
+			color: $black;
+		}
+	}
+
+	&__contact {
+		padding: 4rem;
+		background-color: $primary-transparent;
+		
+		@media (min-width: $break-medium) {
+			display: flex;
+			gap: 4rem;
+			justify-content: center;
+		}
+
+		&-title {
+			font-family: $headers-font;
+			font-size: 4rem;
+			font-weight: 900;
+			line-height: .9;
+			text-transform: uppercase;
+			color: $white;
+			margin-bottom: 1rem;
+
+			@media (min-width: $break-large) {
+				text-align: right;
+				font-size: 8rem;
+				margin-bottom: 0;
+			}
+		}
+
+		&-subtitle {
+			@include title-5;
+			
+			@media (min-width: $break-large) { width: 50%; }
+
+			margin: 0 0 1rem;
+		}
+
+		&-wrap {
+			@media (min-width: $break-large) { width: 70%; }
+
+			align-self: center;
+
+			p {
+				@include title-5;
+
+				margin: 0 0 1rem;
+				font-weight: 300;
+
+				@media (min-width: $break-medium) { width: 60%; }
+			}
+		}
+
+		&-button {
+			@include input-field;
+			@include primary-button;
+
+			margin: 1rem 0;
+
+			@media (min-width: $break-medium) { width: fit-content; }
+		}
+	}
 }

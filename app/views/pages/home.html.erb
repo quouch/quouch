@@ -103,4 +103,67 @@
 		</div>
 	</div>
 </div>
+<div class="home__content">
+	<h3 class="home__subtitle">
+		<span class="home__supertitle">Our Mission</span>
+		Meet other queer people & women you truly connect with
+	</h3>
+	<p>The first motivation to start Quouch was simply to create another homestay platform like Couchsurfing (CS) for queer people & women (FLINTA*). There is this <strong>initial layer of trust and understanding</strong> that you as a member of the LGBTQIA+ community feel when you meet another queer person. It is really hard to find that by coincidence. Building this travel platform where queer hosts and travellers can meet each other is one way to faciliate this - but then we thought, can't we make it even easier? We decided to develop a <strong>matching algorithm</strong>, so that you really meet the people you click with.
+</div>
+<h2 class="home__header">And how do we do it?</h2>
+<div class="home__humour">
+	<div class="home__humour-images">
+		<%= cl_image_tag('humour-1.jpg') %>
+		<%= cl_image_tag('humour-2.jpg') %>
+		<%= cl_image_tag('humour-3.jpg') %>
+	</div>
+	<div class="home__humour-content">
+		<h3 class="home__subtitle">We match travellers and hosts by humour</h3>
+		<p>So how do we make sure you do connect and have a really good time together?</p>
+		<p>We match hosts and travellers based on humour, preferences and personality. We developed a <strong>research-backed humour test</strong> to bring you together with someone who cracks up laughing about the same things you do.</p><br>
+		<p>Take the test and find out what humour type you are.</p>
+		<%= link_to 'Take the humour test', 'https://docs.google.com/forms/d/e/1FAIpQLSfzzQMH2d2KFXpcbyUFbLmrWDauuxPYqe8hQoFaNbW6VYGueA/viewform', class: 'home__button' %>
+	</div>
+</div>
+<div class="home__split home__split--left">
+	<div class="home__split-content">
+		<h3 class="home__subtitle home__subtitle--split">
+			<span class="home__supertitle">As a host</span>
+			Share your home with travellers
+		</h3>
+		<p>Stay at home and let the world come to you. You decide if, when and who you want to host and how much time you spend with them.</p>
+		<h3 class="home__subtitle home__subtitle--split">Trust & Privacy</h3>
+		<p>Build relationships with trustworthy people that you are being matched with. Quouch is invite-only and users need to adhere to a strict code of conduct.</p>
+	</div>
+	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680296613/landing-1.jpg') %>
+</div>
+<div class="home__split home__split--right">
+	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680296611/landing.jpg') %>
+	<div class="home__split-content">
+		<h3 class="home__subtitle home__subtitle--split">
+			<span class="home__supertitle">As a traveller</span>
+			Stay at a local's home
+		</h3>
+		<p>Hang out with people who know the area. Discover the queer local hotspots and places you would normally not be aware of.</p>
+		<h3 class="home__subtitle home__subtitle--split">Be around people who are like you</h3>
+		<p>Be in new places but still around people who understand you. Without having to explain the basics again and again.</p>
+	</div>
+</div>
+<div class="home__logos">
+	<h4 class="home__logos-title">Quouch is funded by</h4>
+	<%= image_tag('') %>
+	<%= image_tag('') %>
+	<%= image_tag('') %>
+	<%= image_tag('') %>
+	<%= image_tag('') %>
+</div>
+<div class="home__contact">
+	<h2 class="home__contact-title">Get in touch</h2>
+	<div class="home__contact-wrap">
+		<h3 class="home__contact-subtitle">Want to become part of the community?</h3>
+		<p>Explain your interest in an invite code and we will consider you.</p>
+		<p>Just want to say hi? Reach out!</p>
+		<%= link_to 'Get in touch', new_contact_path, class: 'home__contact-button' %>
+	</div>
+</div>
 <% end %>
