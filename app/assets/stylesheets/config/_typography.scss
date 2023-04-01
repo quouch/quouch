@@ -58,6 +58,16 @@ $headers-font: 'Outfit', 'sans-serif';
 	margin: 1rem auto;
 }
 
+@mixin supertitle {
+	font-family: $headers-font;
+	font-size: .9rem;
+	display: block;
+	color: $primary;
+	line-height: 1.4;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
 // Body mixins
 
 @mixin body-1 {
