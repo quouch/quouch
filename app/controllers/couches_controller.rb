@@ -11,7 +11,7 @@ class CouchesController < ApplicationController
 		elsif params[:query].present?
 			find_couches_by_location
 		else
-			@couches = Couch.all
+			@couches = Couch.all.where(active: true)
 		end
 
 		respond_to do |format|
