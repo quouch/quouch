@@ -6,13 +6,14 @@ class Users::InvitationsController < Devise::InvitationsController
     @user.country = set_country
     @user.city = set_city
 
+    @user.update_columns(country_id: set_country.id, city_id: set_city.id)
+
     if @user.couch.nil?
       create_couch
     end
 
     create_user_characteristics
     super
-    @user.update(country: set_country, city: set_city)
 	end
 
 	protected
