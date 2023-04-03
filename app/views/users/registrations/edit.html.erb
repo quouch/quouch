@@ -70,14 +70,16 @@
               <%= f.text_field  :street,
                                 required: true,
                                 value: @user.street,
-                                autofocus: true %>
+                                autofocus: true,
+                                id: 'street' %>
             </div>
             <div class="user__address-city">
               <%= f.label       :zipcode %>
               <%= f.text_field  :zipcode,
                                 required: true,
                                 value: @user.zipcode,
-                                autofocus: true %>
+                                autofocus: true,
+                                id: 'zip' %>
 
              <%= simple_fields_for :city do |ci| %>
               <%= ci.label         :city %>
@@ -85,7 +87,8 @@
                                    value: @user.city.try(:name),
                                    label: 'City',
                                    error: false,
-                                   autofocus: true %>
+                                   autofocus: true,
+                                   id: 'city' %>
             </div>
               <%= ci.error         :city, class: 'form-error' %>
             <% end %>
@@ -98,7 +101,8 @@
                                   value: @user.country.try(:name),
                                   boolean_style: :inline,
                                   error: false,
-                                  autofocus: true %>
+                                  autofocus: true,
+                                  id: 'country' %>
             </div>
               <%= cy.error        :country, class: 'form-error' %>
             <% end %>
