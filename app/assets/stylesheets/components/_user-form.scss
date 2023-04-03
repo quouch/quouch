@@ -44,11 +44,11 @@
 
 		&-icon {
 			display: inline-block;
-			padding-top: 1rem;
 			width: 200px;
 			height: 200px;
 			border-radius: $border-radius-round;
 			background-color: $secondary-transparent;
+			object-fit: cover;
 		}
 
 		&-upload {
