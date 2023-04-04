@@ -15,7 +15,7 @@
 			<div class="booking__host-right">
 				<h3 class="booking__host-name">
 					<%= @couch.user.first_name %>, <%= @couch.user.calculated_age %>
-					<span><%= @couch.user.pronouns %></span>
+					<span><%= @couch.user.pronouns.downcase %></span>
 				</h3>
 				<div class="request__chat chat-icon__wrap">
 					<% if @chat.nil? %>
