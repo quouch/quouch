@@ -27,6 +27,8 @@ $headers-font: 'Outfit', 'sans-serif';
 	line-height: 1.2;
 	text-transform: uppercase;
 	color: $primary;
+
+	@media (max-width: $break-large) { font-size: 1.6rem; }
 }
 
 @mixin title-3 {
@@ -37,6 +39,8 @@ $headers-font: 'Outfit', 'sans-serif';
 	line-height: 1.2;
 	letter-spacing: .01;
 	color: $primary;
+
+	@media (max-width: $break-large) { font-size: 1.2rem; }
 }
 
 @mixin title-4 {
@@ -46,6 +50,8 @@ $headers-font: 'Outfit', 'sans-serif';
 	line-height: 1.3;
 	letter-spacing: .03;
 	margin: 1rem auto;
+
+	@media (max-width: $break-large) { font-size: 1rem; }
 }
 
 @mixin title-5 {

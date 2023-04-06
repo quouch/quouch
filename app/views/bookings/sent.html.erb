@@ -13,13 +13,13 @@
 				<li>
 					<% if @booking.host? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
-						<p>couch</p>
+						<p>Host</p>
 					<% elsif @booking.hangout? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
-						<p>hangout</p>
+						<p>Hangout</p>
 					<% elsif @booking.cowork? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
-						<p>co-work</p>
+						<p>Cowork</p>
 					<% end %>
 				</li>
 				<li>
@@ -33,9 +33,9 @@
 			</ul>
 		</div>
 		<% if @booking.host? %>
-			<div class="sent__accomodation">
-				<h2>Accomodation</h2>
-				<ul class="sent__accomodation-list">
+			<div class="sent__accommodation">
+				<h2>Accommodation</h2>
+				<ul class="sent__accommodation-list">
 					<% @couch.facilities.each do |facility| %>
 						<% if facility.svg.attached? %>
 							<li>

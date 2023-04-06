@@ -14,8 +14,8 @@
 			justify-content: center;
 		}
 
-		@media (min-width: $break-medium) { grid-template-columns: repeat(3, 1fr); }
-		@media (min-width: $break-x-large) { grid-template-columns: repeat(4, 1fr); }
+		@media (min-width: $break-medium) { grid-template-columns: repeat(2, 1fr); }
+		@media (min-width: $break-large) { grid-template-columns: repeat(3, 1fr); }
 
 		li {
 			display: flex;
