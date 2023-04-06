@@ -26,23 +26,30 @@
 			</div>
 		</ul>
 		<ul class="couch__offers offers">
-			<% if @host.offers_couch %>
+			<% if @host.travelling %>
 				<li class="offers-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-					<p>host</p>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+					<p>currently travelling</p>
 				</li>
-			<% end %>
-			<% if @host.offers_hang_out %>
-				<li class="offers-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
-					<p>hangout</p>
-				</li>
-			<% end %>
-			<% if @host.offers_co_work %>
-				<li class="offers-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-					<p>cowork</p>
-				</li>
+			<% else %>
+				<% if @host.offers_couch %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+						<p>host</p>
+					</li>
+				<% end %>
+				<% if @host.offers_hang_out %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+						<p>hangout</p>
+					</li>
+				<% end %>
+				<% if @host.offers_co_work %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+						<p>cowork</p>
+					</li>
+				<% end %>
 			<% end %>
 		</ul>
 		<ul class="couch__features features">
