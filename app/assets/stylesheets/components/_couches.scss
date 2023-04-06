@@ -17,12 +17,12 @@
 		@media (min-width: $break-medium) { grid-template-columns: repeat(2, 1fr); }
 		@media (min-width: $break-large) { grid-template-columns: repeat(3, 1fr); }
 
-		li {
+		&-item {
 			display: flex;
 			align-items: stretch;
 		}
 
-		&-item {
+		&-article {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
