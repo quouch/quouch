@@ -29,7 +29,7 @@
 			<% if @host.offers_couch %>
 				<li class="offers-item">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-					<p>couch</p>
+					<p>host</p>
 				</li>
 			<% end %>
 			<% if @host.offers_hang_out %>
@@ -41,7 +41,7 @@
 			<% if @host.offers_co_work %>
 				<li class="offers-item">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-					<p>co-work</p>
+					<p>cowork</p>
 				</li>
 			<% end %>
 		</ul>
@@ -57,7 +57,7 @@
 		</div>
 
 		<div class="couch__accommodation">
-			<h2>Accomodation</h2>
+			<h2>Accommodation</h2>
 			<% if @host.offers_couch %>
 				<ul class="couch__accommodation-list">
 					<% @couch.facilities.each do |facility| %>
@@ -72,7 +72,7 @@
 					</li>
 				</ul>
 			<% else %>
-				<p>This host doesn't currently offer their couch, but you can still request them to hangout or co-work.</p>
+				<p>This host doesn't currently offer their couch, but you can still request them to hangout or cowork.</p>
 			<% end %>
 		</div>
 
@@ -120,13 +120,13 @@
 				<div class="review__type">
 					<% if review.booking.host? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-						<p>couch</p>
+						<p>host</p>
 					<% elsif review.booking.hangout? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
 						<p>hangout</p>
 					<% elsif review.booking.cowork? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-						<p>co-work</p>
+						<p>cowork</p>
 					<% end %>
 				</div>
 				<div class="review__rating">

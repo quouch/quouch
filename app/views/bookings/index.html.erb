@@ -28,13 +28,13 @@
 										<li class="upcoming-booking__detail">
 										<% if booking.host? %>
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
-											<p>host</p>
+											<p>Host</p>
 										<% elsif booking.hangout? %>
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
-											<p>hangout</p>
+											<p>Hangout</p>
 										<% elsif booking.cowork? %>
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
-											<p>co-work</p>
+											<p>Cowork</p>
 										<% end %>
 										</li>
 										<li class="upcoming-booking__detail">
@@ -53,7 +53,7 @@
 												<% elsif booking.payments.where(status: 1).empty? && booking.confirmed? %>
 													<p>Waiting for payment.</p>
 												<% elsif booking.pending? || booking.pending_reconfirmation? %>
-													<p>Waiting for the host to confirm.</p>
+													<p>Waiting for confirmation.</p>
 												<% end %>
 											</li>
 										<% end %>
