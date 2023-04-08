@@ -4,10 +4,6 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["trigger", "field"]
 
-  connect() {
-    this.toggleField()
-  }
-
    toggleField() {
     if (this.triggerTarget.checked) {
       this.fieldTarget.style.display = "block"
