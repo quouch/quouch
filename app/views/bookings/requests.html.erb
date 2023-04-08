@@ -40,18 +40,6 @@
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
 									<%= request.status.capitalize %>
 								</li>
-								<% if request.host? %>
-									<li class="upcoming-request__detail">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680276588/payments.svg') %>
-										<% if request.payments.where(status: 1).any? %>
-											<p>Booking has been paid.</p>
-										<% elsif request.payments.where(status: 1).empty? && request.confirmed? %>
-											<p>Waiting for payment.</p>
-										<% elsif request.pending? || request.pending_reconfirmation? %>
-											<p>Waiting for the host to confirm.</p>
-										<% end %>
-									</li>
-								<% end %>
 								<li class="upcoming-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
 									<%= pluralize request.number_travellers, "Traveller" %>
