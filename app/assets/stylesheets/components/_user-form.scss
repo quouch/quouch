@@ -123,6 +123,8 @@
 		}
 	}
 
+	&__travelling { margin: 1rem 0 .5rem; }
+
 	&__offers {
 		@media (min-width: $break-medium) {
 			display: flex;

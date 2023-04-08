@@ -127,9 +127,22 @@
                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
+          
+          <div class="user__travelling" data-controller="display-info-window">
+            <%= f.label :i_am_currently %>
+            <div class="user__offer">
+              <%= f.input               :travelling,
+                                        as: :boolean,
+                                        label: false,
+                                        autofocus: true,
+                                        input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }} %>
+              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+              <%= f.label               :travelling %>
+            </div>
+          </div>
 
           <div data-controller="conditional-user-fields">
-            <%= f.label :i_offer %>
+            <%= f.label :i_can %>
             <div class="user__offers">
               <div class="user__offer">
                 <%= f.input           :offers_couch,
@@ -137,13 +150,13 @@
                                       autofocus: true,
                                       input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
                 <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-                <%= f.label           :couch %>
+                <%= f.label           :host %>
               </div>
               <div class="user__offer">
                 <%= f.input_field     :offers_co_work,
                                       autofocus: true %>
                 <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-                <%= f.label           :co_working %>
+                <%= f.label           :cowork %>
               </div>
               <div class="user__offer">
                 <%= f.input_field     :offers_hang_out,

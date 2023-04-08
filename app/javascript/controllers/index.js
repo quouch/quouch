@@ -22,6 +22,9 @@ application.register("conditional-user-fields", ConditionalUserFieldsController)
 import ConfirmAlertController from "./confirm_alert_controller"
 application.register("confirm-alert", ConfirmAlertController)
 
+import DisplayInfoWindowController from "./display_info_window_controller"
+application.register("display-info-window", DisplayInfoWindowController)
+
 import DropdownMenuController from "./dropdown_menu_controller"
 application.register("dropdown-menu", DropdownMenuController)
 
