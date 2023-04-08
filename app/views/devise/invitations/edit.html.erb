@@ -63,6 +63,7 @@
           <%= f.label         :address, class: 'user__address-label' %>
           <div class="user__address">
             <%= f.input       :address,
+                              hint: 'we mainly need your address for billing - other users will only see city & country until you officially confirm a request to host',
                               label: false,
                               input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                               wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>

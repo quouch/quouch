@@ -74,6 +74,8 @@
 .hint {
 	color: $gray-05;
 	margin-left: 0.5rem;
+	font-size: .75rem;
+	letter-spacing: .06em;
 }
 
 input, select { @include input-field; }

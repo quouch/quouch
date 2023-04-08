@@ -77,6 +77,8 @@
 	}
 
 	&__address {
+		&-label { margin-bottom: 0 !important; }
+
 		&-street {
 			display: flex;
 			column-gap: 2rem;
