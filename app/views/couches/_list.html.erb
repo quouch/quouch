@@ -1,7 +1,7 @@
 <ul class="couches__list" data-characteristics-filter-target="couches">
 	<% @couches.each do |couch| %>
-		<li>
-			<article class="couches__list-item">
+		<li class="couches__list-item">
+			<article class="couches__list-article">
 				<%= link_to couch_path(couch) do %>
 					<% if couch.user.photo.key %>
 							<%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>

@@ -88,26 +88,18 @@
 			<article class="booking__location">
 				<h2>Location</h2>
 				<ul class="booking__address">
+				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 					<li class="booking__pin">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-						<p><%= @couch.user.city.name %></p>
+						<p><%= @couch.user.city.name %>, <%= @couch.user.country.name %></p>
 					</li>
+				<% elsif @booking.completed? %>
 					<li class="booking__pin">
-						<% if !@booking.cancelled? %>
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-							<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
-								<p><%= @couch.user.address %></p>
-							<% elsif @booking.confirmed? %>
-								<p>Visible after payment.</p>
-							<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
-								<p>Visible after confirmation & payment.</p>
-							<% elsif @booking.completed? %>
-								<p><%= @couch.user.address %></p>
-							<% end %>
-						<% end %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+						<p><%= @couch.user.address %></p>
 					</li>
 				</ul>
-				<% if @booking.confirmed? && @booking.payments.where(status: 1).any? %>
+				<% elsif @booking.confirmed? %>
 				<div class="booking__map"
 							data-controller="map"
 							data-map-marker-value="<%= @marker.to_json %>"
