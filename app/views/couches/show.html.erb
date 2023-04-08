@@ -153,7 +153,7 @@
 				<% end %>
 		</ul>
 		<% else %>
-		<h2>Here you will see reviews once they received one!</h2>
+		<h2>This space will be filled with reviews once given.</h2>
 		<div class="review__rating">
 			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
 			<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
