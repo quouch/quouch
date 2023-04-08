@@ -4,6 +4,12 @@
   margin: 4rem auto;
 }
 
+@mixin container-small {
+  width: 60%;
+  max-width: 60%;
+  margin: 4rem auto;
+}
+
 @mixin container-width {
 	width: 80%;
   max-width: $container;

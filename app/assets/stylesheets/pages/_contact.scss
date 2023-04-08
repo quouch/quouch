@@ -12,6 +12,8 @@
 	&__wrap {
 		@include container;
 		
+		@media (min-width: $break-large) { @include container-small; }
+		
 		> p { @include title-5; }
 	}
 
