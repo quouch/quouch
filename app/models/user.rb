@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy, as: :recipient
   has_many :chat_users
   has_many :chats, through: :chat_users
-  has_many :user_characteristics
+  has_many :user_characteristics, dependent: :destroy
   has_many :characteristics, through: :user_characteristics
 
   validates :photo, presence: { message: 'Please upload a picture' }
