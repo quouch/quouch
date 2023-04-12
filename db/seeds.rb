@@ -10,37 +10,7 @@ require 'faker'
 require 'factory_bot_rails'
 require 'open-uri'
 
-# Countries
-
-puts 'destroying & seeding countries...'
-Country.destroy_all
-
-germany = Country.create!(name: 'Germany')
-france = Country.create!(name: 'France')
-spain = Country.create!(name: 'Spain')
-italy = Country.create!(name: 'Italy')
-greece = Country.create!(name: 'Greece')
-portugal = Country.create!(name: 'Portugal')
-uk = Country.create!(name: 'United Kingdom')
-netherlands = Country.create!(name: 'Netherlands')
-
-puts "#{Country.count} countries created!"
-
-# Cities
-
-puts 'destroying & seeding cities...'
-City.destroy_all
-
-berlin = City.create!(name: 'Berlin', country: germany)
-paris = City.create!(name: 'Paris', country: france)
-madrid = City.create!(name: 'Madrid', country: spain)
-rome = City.create!(name: 'Rome', country: italy)
-athens = City.create!(name: 'Athens', country: greece)
-lisbon = City.create!(name: 'Lisbon', country: portugal)
-london = City.create!(name: 'London', country: uk)
-amsterdam = City.create!(name: 'Amsterdam', country: netherlands)
-
-puts "#{City.count} cities created!"
+locations = [['Berlin', 'Germany'], ['Paris', 'France'], ['Madrid', 'Spain'], ['Rome', 'Italy'], ['Athens', 'Greece'], ['Lisbon','Portugal'], ['London', 'United Kingdom of Great Britain and Northern Ireland'], ['Amsterdam', 'Netherlands']]
 
 # Characteristics
 puts 'destroying & seeding characteristics...'
@@ -73,6 +43,7 @@ puts "#{Characteristic.count} characteristics created!"
 puts 'destroying & seeding users...'
 User.destroy_all
 
+location = locations.sample
 user1 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -88,20 +59,20 @@ user1 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user1.country = City.find(user1.city_id).country
 photo1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user1.photo.attach(io: photo1, filename: 'profile.jpg', content_type: 'image/jpg')
 user1.save!
 
-UserCharacteristic.create!(characteristic_id: 12, user_id: user1.id)
-UserCharacteristic.create!(characteristic_id: 7, user_id: user1.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user1.id)
-UserCharacteristic.create!(characteristic_id: 4, user_id: user1.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user1.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user1.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user1.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user1.id)
 
+location = locations.sample
 user2 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -117,19 +88,19 @@ user2 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user2.country = City.find(user2.city_id).country
 photo2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user2.photo.attach(io: photo2, filename: 'profile.jpg', content_type: 'image/jpg')
 user2.save!
 
-UserCharacteristic.create!(characteristic_id: 1, user_id: user2.id)
-UserCharacteristic.create!(characteristic_id: 2, user_id: user2.id)
-UserCharacteristic.create!(characteristic_id: 7, user_id: user2.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user2.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user2.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user2.id)
 
+location = locations.sample
 user3 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -145,21 +116,21 @@ user3 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user3.country = City.find(user3.city_id).country
 photo3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user3.photo.attach(io: photo3, filename: 'profile.jpg', content_type: 'image/jpg')
 user3.save!
 
-UserCharacteristic.create!(characteristic_id: 15, user_id: user3.id)
-UserCharacteristic.create!(characteristic_id: 19, user_id: user3.id)
-UserCharacteristic.create!(characteristic_id: 8, user_id: user3.id)
-UserCharacteristic.create!(characteristic_id: 1, user_id: user3.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user3.id)
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user3.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user3.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user3.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user3.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user3.id)
 
+location = locations.sample
 user4 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -175,19 +146,19 @@ user4 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user4.country = City.find(user4.city_id).country
 photo4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user4.photo.attach(io: photo4, filename: 'profile.jpg', content_type: 'image/jpg')
 user4.save!
 
-UserCharacteristic.create!(characteristic_id: 4, user_id: user4.id)
-UserCharacteristic.create!(characteristic_id: 5, user_id: user4.id)
-UserCharacteristic.create!(characteristic_id: 6, user_id: user4.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user4.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user4.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user4.id)
 
+location = locations.sample
 user5 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -203,21 +174,21 @@ user5 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user5.country = City.find(user5.city_id).country
 photo5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user5.photo.attach(io: photo5, filename: 'profile.jpg', content_type: 'image/jpg')
 user5.save!
 
-UserCharacteristic.create!(characteristic_id: 8, user_id: user5.id)
-UserCharacteristic.create!(characteristic_id: 9, user_id: user5.id)
-UserCharacteristic.create!(characteristic_id: 11, user_id: user5.id)
-UserCharacteristic.create!(characteristic_id: 18, user_id: user5.id)
-UserCharacteristic.create!(characteristic_id: 17, user_id: user5.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user5.id)
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user5.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user5.id)
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user5.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user5.id)
 
+location = locations.sample
 user6 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -233,18 +204,18 @@ user6 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user6.country = City.find(user6.city_id).country
 photo6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user6.photo.attach(io: photo6, filename: 'profile.jpg', content_type: 'image/jpg')
 user6.save!
 
-UserCharacteristic.create!(characteristic_id: 6, user_id: user6.id)
-UserCharacteristic.create!(characteristic_id: 14, user_id: user6.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user6.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user6.id)
 
+location = locations.sample
 user7 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -260,20 +231,20 @@ user7 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user7.country = City.find(user7.city_id).country
 photo7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user7.photo.attach(io: photo7, filename: 'profile.jpg', content_type: 'image/jpg')
 user7.save!
 
-UserCharacteristic.create!(characteristic_id: 6, user_id: user7.id)
-UserCharacteristic.create!(characteristic_id: 4, user_id: user7.id)
-UserCharacteristic.create!(characteristic_id: 11, user_id: user7.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user7.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user7.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user7.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user7.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user7.id)
 
+location = locations.sample
 user8 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -289,21 +260,21 @@ user8 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user8.country = City.find(user8.city_id).country
 photo8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user8.photo.attach(io: photo8, filename: 'profile.jpg', content_type: 'image/jpg')
 user8.save!
 
-UserCharacteristic.create!(characteristic_id: 10, user_id: user8.id)
-UserCharacteristic.create!(characteristic_id: 11, user_id: user8.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user8.id)
-UserCharacteristic.create!(characteristic_id: 13, user_id: user8.id)
-UserCharacteristic.create!(characteristic_id: 14, user_id: user8.id)
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user8.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user8.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user8.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user8.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user8.id)
 
+location = locations.sample
 user9 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -319,20 +290,20 @@ user9 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user9.country = City.find(user9.city_id).country
 photo9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user9.photo.attach(io: photo9, filename: 'profile.jpg', content_type: 'image/jpg')
 user9.save!
 
-UserCharacteristic.create!(characteristic_id: 4, user_id: user9.id)
-UserCharacteristic.create!(characteristic_id: 18, user_id: user9.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user9.id)
-UserCharacteristic.create!(characteristic_id: 8, user_id: user9.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user9.id)
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user9.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user9.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user9.id)
 
+location = locations.sample
 user10 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -348,20 +319,20 @@ user10 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user10.country = City.find(user10.city_id).country
 photo10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user10.photo.attach(io: photo10, filename: 'profile.jpg', content_type: 'image/jpg')
 user10.save!
 
-UserCharacteristic.create!(characteristic_id: 2, user_id: user10.id)
-UserCharacteristic.create!(characteristic_id: 15, user_id: user10.id)
-UserCharacteristic.create!(characteristic_id: 7, user_id: user10.id)
-UserCharacteristic.create!(characteristic_id: 19, user_id: user10.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user10.id)
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user10.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user10.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user10.id)
 
+location = locations.sample
 user11 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -377,21 +348,21 @@ user11 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user11.country = City.find(user11.city_id).country
 photo11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user11.photo.attach(io: photo11, filename: 'profile.jpg', content_type: 'image/jpg')
 user11.save!
 
-UserCharacteristic.create!(characteristic_id: 8, user_id: user11.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user11.id)
-UserCharacteristic.create!(characteristic_id: 17, user_id: user11.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user11.id)
-UserCharacteristic.create!(characteristic_id: 4, user_id: user11.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user11.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user11.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user11.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user11.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user11.id)
 
+location = locations.sample
 user12 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -407,19 +378,19 @@ user12 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user12.country = City.find(user12.city_id).country
 photo12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user12.photo.attach(io: photo12, filename: 'profile.jpg', content_type: 'image/jpg')
 user12.save!
 
-UserCharacteristic.create!(characteristic_id: 5, user_id: user12.id)
-UserCharacteristic.create!(characteristic_id: 6, user_id: user12.id)
-UserCharacteristic.create!(characteristic_id: 17, user_id: user12.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user12.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user12.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user12.id)
 
+location = locations.sample
 user13 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -435,20 +406,20 @@ user13 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user13.country = City.find(user13.city_id).country
 photo13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user13.photo.attach(io: photo13, filename: 'profile.jpg', content_type: 'image/jpg')
 user13.save!
 
-UserCharacteristic.create!(characteristic_id: 1, user_id: user13.id)
-UserCharacteristic.create!(characteristic_id: 2, user_id: user13.id)
-UserCharacteristic.create!(characteristic_id: 19, user_id: user13.id)
-UserCharacteristic.create!(characteristic_id: 11, user_id: user13.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user13.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user13.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user13.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user13.id)
 
+location = locations.sample
 user14 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -464,20 +435,20 @@ user14 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user14.country = City.find(user14.city_id).country
 photo14 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user14.photo.attach(io: photo14, filename: 'profile.jpg', content_type: 'image/jpg')
 user14.save!
 
-UserCharacteristic.create!(characteristic_id: 4, user_id: user14.id)
-UserCharacteristic.create!(characteristic_id: 8, user_id: user14.id)
-UserCharacteristic.create!(characteristic_id: 10, user_id: user14.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user14.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user14.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user14.id)
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user14.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user14.id)
 
+location = locations.sample
 user15 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -493,19 +464,19 @@ user15 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user15.country = City.find(user15.city_id).country
 photo15 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user15.photo.attach(io: photo15, filename: 'profile.jpg', content_type: 'image/jpg')
 user15.save!
 
-UserCharacteristic.create!(characteristic_id: 18, user_id: user15.id)
-UserCharacteristic.create!(characteristic_id: 13, user_id: user15.id)
-UserCharacteristic.create!(characteristic_id: 14, user_id: user15.id)
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user15.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user15.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user15.id)
 
+location = locations.sample
 user16 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -521,21 +492,21 @@ user16 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user16.country = City.find(user16.city_id).country
 photo16 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user16.photo.attach(io: photo16, filename: 'profile.jpg', content_type: 'image/jpg')
 user16.save!
 
-UserCharacteristic.create!(characteristic_id: 12, user_id: user16.id)
-UserCharacteristic.create!(characteristic_id: 1, user_id: user16.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user16.id)
-UserCharacteristic.create!(characteristic_id: 9, user_id: user16.id)
-UserCharacteristic.create!(characteristic_id: 10, user_id: user16.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user16.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user16.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user16.id)
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user16.id)
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user16.id)
 
+location = locations.sample
 user17 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -551,18 +522,18 @@ user17 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user17.country = City.find(user17.city_id).country
 photo17 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user17.photo.attach(io: photo17, filename: 'profile.jpg', content_type: 'image/jpg')
 user17.save!
 
-UserCharacteristic.create!(characteristic_id: 11, user_id: user17.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user17.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user17.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user17.id)
 
+location = locations.sample
 user18 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -578,19 +549,19 @@ user18 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user18.country = City.find(user18.city_id).country
 photo18 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user18.photo.attach(io: photo18, filename: 'profile.jpg', content_type: 'image/jpg')
 user18.save!
 
-UserCharacteristic.create!(characteristic_id: 4, user_id: user18.id)
-UserCharacteristic.create!(characteristic_id: 15, user_id: user18.id)
-UserCharacteristic.create!(characteristic_id: 13, user_id: user18.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user18.id)
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user18.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user18.id)
 
+location = locations.sample
 user19 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -606,24 +577,24 @@ user19 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user19.country = City.find(user19.city_id).country
 photo19 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user19.photo.attach(io: photo19, filename: 'profile.jpg', content_type: 'image/jpg')
 user19.save!
 
-UserCharacteristic.create!(characteristic_id: 1, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 2, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 4, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 5, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 6, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 7, user_id: user19.id)
-UserCharacteristic.create!(characteristic_id: 8, user_id: user19.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user19.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user19.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user19.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user19.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user19.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user19.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user19.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user19.id)
 
+location = locations.sample
 user20 = User.new(
   email: Faker::Internet.email,
   password: '123456',
@@ -639,22 +610,21 @@ user20 = User.new(
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample,
-  country_id: [germany.id, france.id, spain.id, italy.id, greece.id, portugal.id, uk.id, netherlands.id].sample
+  city: location[0],
+  country: location[1]
 )
 
-user20.country = City.find(user20.city_id).country
 photo20 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
 user20.photo.attach(io: photo20, filename: 'profile.jpg', content_type: 'image/jpg')
 user20.save!
 
-UserCharacteristic.create!(characteristic_id: 9, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 8, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 11, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 12, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 5, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 16, user_id: user20.id)
-UserCharacteristic.create!(characteristic_id: 3, user_id: user20.id)
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user20.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user20.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user20.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user20.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user20.id)
+UserCharacteristic.create!(characteristic: vaccinated, user_id: user20.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user20.id)
 
 puts "#{User.count} users created!"
 
@@ -853,7 +823,4 @@ Couch.all.each do |sofa|
 end
 
 puts "#{CouchFacility.count} couch_facilities created!"
-
-
-
 puts "done with seeding, love - you are doing an amazing job!"
