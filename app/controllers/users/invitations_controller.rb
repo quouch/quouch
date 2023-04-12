@@ -1,5 +1,5 @@
 class Users::InvitationsController < Devise::InvitationsController
-	def update
+  def update
     @minimum_password_length = User.password_length.min
 
     @user = accept_resource
@@ -14,9 +14,9 @@ class Users::InvitationsController < Devise::InvitationsController
 
     create_user_characteristics
     super
-	end
+  end
 
-	protected
+  protected
 
   def couch_params
     params.require(:couch).permit(:capacity)
