@@ -57,7 +57,7 @@
 				<li><%= characteristic.name %></li>
 			<% end %>
 		</ul>
-		
+
 		<div class="couch__intro">
 			<h2>Introduction</h2>
 			<p><%= @host.summary %></p>
@@ -89,7 +89,7 @@
 			<h2>Location</h2>
 			<div class="couch__pin">
 				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-				<p><%= @couch.user.city.name %>, <%= @couch.user.country.name %></p>
+				<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
 			</div>
 		</div>
 
@@ -161,4 +161,3 @@
 		<% end %>
 	</div>
 </article>
-
