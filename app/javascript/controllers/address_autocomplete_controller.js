@@ -16,30 +16,32 @@ export default class extends Controller {
     this.geocoder.on('result', event => this.#setInputValue(event))
     this.geocoder.on('clear', () => this.#clearInputValue())
   }
-  
+
   #setInputValue(event) {
-    console.log(event)
     this.addressTarget.value = event.result.place_name
     const city = document.getElementById('city')
-    const address = document.getElementById('street')
+    // const address = document.getElementById('street')
     const zip = document.getElementById('zip')
-    const country = document.getElementById('country')
-    const street = event.result.text ? event.result.text : ''
-    const number = event.result.address ? event.result.address : ''
-    address.value = `${street} ${number}`
-    
+    const country = document.getElementById('user_country')
+    // const street = event.result.text ? event.result.text : ''
+    // const number = event.result.address ? event.result.address : ''
+    // address.value = `${street} ${number}`
+    let cityDone = false
     for (let i = 0; i < event.result.context.length; i++) {
       if (event.result.context[i].id.includes("postcode")) {
         zip.value = event.result.context[i].text;
       } else if (event.result.context[i].id.includes("place")) {
         city.value = event.result.context[i].text;
+        cityDone = true
       } else if (event.result.context[i].id.includes("country")) {
-        country.value = event.result.context[i].text;
+        country.value = event.result.context[i].short_code.toUpperCase();
       }
     }
-
+    if (!cityDone) {
+      city.value = event.result.place_name.split(",")[0]
+    }
   }
-  
+
   #clearInputValue() {
     this.addressTarget.value = ''
   }
