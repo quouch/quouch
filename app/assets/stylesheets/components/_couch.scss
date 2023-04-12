@@ -147,6 +147,7 @@
 		padding: 0 1rem;
 
 		@media (min-width: $break-large) {
+			margin-top: 2rem;
 			padding-top: 1rem;
 			padding-left: 3rem;
 			grid-row: 2;
@@ -163,6 +164,7 @@
 		@media (min-width: $break-large) {
 			h2 { margin-top: 2rem; }
 
+			margin-top: 2rem;
 			padding: 0 0 1rem;
 			grid-row: 2;
 			grid-column: 1;
