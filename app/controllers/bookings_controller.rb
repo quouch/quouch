@@ -3,14 +3,14 @@ class BookingsController < ApplicationController
 	before_action :set_couch, only: %i[new create]
 
 	def index
-		@bookings = Booking.where(user: current_user)
+		@bookings = Booking.includes(couch: [{user: [{photo_attachment: :blob}, :city]}]).where(user: current_user)
 		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }.sort_by { |booking| booking.start_date }
 		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by { |booking| booking.start_date }
 		@completed = @bookings.select { |booking| booking.completed? }.sort_by { |booking| booking.start_date }
 	end
 
 	def requests
-		@requests = Booking.select { |booking| booking.couch.user == current_user }
+		@requests = Booking.includes(couch: [:user]).select { |booking| booking.couch.user == current_user }
 		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }.sort_by { |request| request.start_date }
 		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by { |request| request.start_date }
 		@completed = @requests.select { |request| request.completed? }.sort_by { |request| request.start_date }

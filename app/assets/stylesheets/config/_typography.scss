@@ -1,9 +1,4 @@
-// Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;800&family=Outfit:wght@300;600;700;900&display=swap');
-
 // Define fonts for body and headers
-$body-font: 'Mulish', 'sans-serif';
-$headers-font: 'Outfit', 'sans-serif';
 
 // Header mixins
 
@@ -67,11 +62,11 @@ $headers-font: 'Outfit', 'sans-serif';
 @mixin supertitle {
 	font-family: $headers-font;
 	font-size: .9rem;
+	font-weight: 300;
 	display: block;
 	color: $primary;
 	line-height: 1.4;
 	text-transform: uppercase;
-	font-weight: 300;
 }
 
 // Body mixins
@@ -79,6 +74,7 @@ $headers-font: 'Outfit', 'sans-serif';
 @mixin body-1 {
 	font-family: $body-font;
 	font-size: 1rem;
+	font-weight: 400;
 	letter-spacing: .03em;
 }
 

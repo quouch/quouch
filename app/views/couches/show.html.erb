@@ -67,7 +67,7 @@
 			<h2>Accommodation</h2>
 			<% if @host.offers_couch %>
 				<ul class="couch__accommodation-list">
-					<% @couch.facilities.each do |facility| %>
+					<% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
 						<li>
 							<%= cl_image_tag(facility.svg.key) %>
 							<%= facility.name %>

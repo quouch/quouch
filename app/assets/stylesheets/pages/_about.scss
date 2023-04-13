@@ -28,10 +28,15 @@
 
 		img {
 			width: 100%;
-			max-height: 600px;
-			max-width: 400px;
+			height: 300px;
+			width: 300px;
 			object-fit: cover;
 			object-position: center;
+
+			@media (min-width: $break-large) {
+				min-height: 500px;
+				min-width: 400px;
+			}
 		}
 
 		&--left {

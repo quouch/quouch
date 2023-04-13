@@ -12,6 +12,17 @@ module.exports = {
     sourceMapFilename: '[file].map',
     path: path.resolve(__dirname, 'app/assets/builds'),
   },
+  module: {
+    rules: [
+      {
+        test: /\.(woff|woff2)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name][ext]'
+        }
+      }
+    ]
+  },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1
