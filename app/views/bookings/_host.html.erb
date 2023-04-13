@@ -9,7 +9,11 @@
 			<ul class="host__info">
 				<li class="host__location">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-					<%= @host.city %>, <%= @host.country %>
+					<% if @host.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+						<%= @host.city %>, United Kingdom
+					<% else %>
+						<%= @host.city %>, <%= @host.country %>
+					<% end %>
 				</li>
 				<li class="host__name"><%= @host.first_name %></li>
 				<div class="host__characteristics">
@@ -59,7 +63,7 @@
 					<% end %>
 					<li class="host__travellers">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
-						<%= @host.couch.capacity %> guests
+						<%= pluralize @host.couch.capacity, 'guest' %>
 					</li>
 				</ul>
 			</div>
