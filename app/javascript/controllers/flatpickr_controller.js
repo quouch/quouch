@@ -10,13 +10,27 @@ export default class extends Controller {
       format: "d.m.y",
       altFormat: "d.m.y",
       altInput: true,
-      defaultDate: Date.today
+      defaultDate: Date.today,
+      minDate: "today"
     })
     flatpickr(this.endTimeTarget, {
       format: "d.m.y",
       altFormat: "d.m.y",
       altInput: true,
-      defaultDate: Date.tomorrow
+      defaultDate: Date.tomorrow,
+      minDate: "today"
     })
+  }
+
+  updateEnd() {
+    const fpStart = this.startTimeTarget;
+    const fpEnd = flatpickr(this.endTimeTarget, {});
+    fpEnd.set('minDate', this.#dayAfter(fpStart.value));
+  }
+
+  #dayAfter(date) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + 1);
+    return result;
   }
 }
