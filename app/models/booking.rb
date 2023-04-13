@@ -7,26 +7,12 @@ class Booking < ApplicationRecord
 
   validates  :start_date, presence: true
   validates  :end_date, presence: true
-  validate   :date_in_future?, on: :create
-  validate   :valid_dates?, on: :create
   validate   :matches_capacity?
   validate   :duplicate_booking?, on: :create
   validate   :duplicate_request?, on: :create
 
   enum status: { pending: 0, confirmed: 1, declined: 2, pending_reconfirmation: 3, completed: 4, cancelled: -1 }
   enum request: { host: 0, hangout: 1, cowork: 2 }
-
-  def date_in_future?
-    if Date.yesterday > start_date
-      errors.add(:start_date, "Booking can't be in the past")
-    end
-  end
-
-  def valid_dates?
-    if start_date.after? end_date
-      errors.add(:start_date, "Dates not valid")
-    end
-  end
 
   def matches_capacity?
     if number_travellers > self.couch.capacity

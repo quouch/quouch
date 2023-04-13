@@ -5,14 +5,14 @@
 	border-radius: $border-radius-medium;
 	text-align: center;
 	box-shadow: $box-shadow;
-	
+
 	@media (min-width: $break-medium) { min-width: $break-x-small; }
-	
+
 	&__wrap {
 		@include container-width;
-		
+
 		margin: 8rem auto 4rem;
-		
+
 		@media (min-width: $break-medium) {
 			display: grid;
 			grid-template-columns: 2fr 1fr;
@@ -64,7 +64,7 @@
 		display: flex;
 		align-items: center;
 
-		input { 
+		input {
 			@include input-field;
 
 			border: 1px solid $gray-02;
@@ -92,7 +92,7 @@
 		flex-direction: column;
 		margin: 1rem auto;
 	}
-	
+
 	&__action {
 		display: flex;
 		align-items: center;
@@ -113,20 +113,23 @@
 		@include primary-button;
 	}
 
+	&__button[disabled] {
+		background-color: grey;
+	}
 }
 
 .date {
 	&-input {
 		display: flex;
 		align-items: center;
-		
+
 		input {
 			@include input-field;
 
 			border: 1px solid $gray-02;
 			width: 6em;
 		}
-		
+
 		img {
 			width: 24px;
 			height: 24px;

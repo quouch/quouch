@@ -1,18 +1,11 @@
 <div class="booking-form__wrap">
 	<%= render 'host' %>
 
-	<section class="booking-form">
+	<section class="booking-form" data-controller="validate-form">
 		<%= simple_form_for [@couch, @booking],
-				data: { controller: 'flatpickr' }, 
+				data: { controller: 'flatpickr' },
 				defaults: { required: false } do |f| %>
-			<% if @booking.errors.any? %>
-				<h2>Error:</h2>
-					<ul>
-						<% @booking.errors.full_messages.each do |error| %>
-							<li><%= error %></li>
-						<% end %>
-					</ul>
-			<% end %>
+
 			<div class="booking-form__type">
 				<label>Pick one</label>
 				<%= f.input :request,
@@ -28,29 +21,33 @@
 						<%= f.input :start_date,
 												as: :string,
 												placeholder: 'from',
-												input_html: { data: { flatpickr_target: 'startTime' } },
+												input_html: { data: { flatpickr_target: 'startTime',
+                                              validate_form_target: "start",
+                                              action: 'change->validate-form#enableButton',
+                                              action: 'change->flatpickr#updateEnd' } },
 												label: false %>
 					</div>
 					<div class="date-input">
 						<%= f.input :end_date,
 												as: :string,
 												placeholder: 'to',
-												input_html: { data: { flatpickr_target: 'endTime' } },
+												input_html: { data: { flatpickr_target: 'endTime', validate_form_target: "end", action: 'change->validate-form#enableButton' } },
 												label: false %>
 					</div>
 				</div>
 				<div class="booking-form__travellers">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
-					<%= f.input :number_travellers, 
+					<%= f.input :number_travellers,
 											label: false,
 											input_html: { value: 1 } %>
 				</div>
 			</div>
-			<%= f.input :message, 
+			<%= f.input :message,
 									label: :Message,
-									input_html: { rows: 4 } %>
-			<div class="booking-form__action">
-				<%= f.submit 'Send Request', class: 'booking-form__button' %>
+									input_html: { rows: 4, data: { validate_form_target: "message", action: 'blur->validate-form#enableButton'} } %>
+   <% end %>
+      <div class="booking-form__action">
+				<%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: "button"} %>
 			</div>
 		<% end %>
 	</section>
