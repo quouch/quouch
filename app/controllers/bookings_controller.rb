@@ -3,17 +3,18 @@ class BookingsController < ApplicationController
 	before_action :set_couch, only: %i[new create]
 
 	def index
-		@bookings = Booking.includes(couch: [{user: [{photo_attachment: :blob}, :city]}]).where(user: current_user)
-		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }.sort_by { |booking| booking.start_date }
-		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by { |booking| booking.start_date }
-		@completed = @bookings.select { |booking| booking.completed? }.sort_by { |booking| booking.start_date }
+		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
+		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }
+												 .sort_by(&:start_date)
+		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by(&:start_date)
+		@completed = @bookings.select(&:completed?).sort_by(&:start_date)
 	end
 
 	def requests
-		@requests = Booking.includes(couch: [:user]).select { |booking| booking.couch.user == current_user }
-		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }.sort_by { |request| request.start_date }
-		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by { |request| request.start_date }
-		@completed = @requests.select { |request| request.completed? }.sort_by { |request| request.start_date }
+		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }
+												 .sort_by(&:start_date)
+		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by(&:start_date)
+		@completed = @requests.select.select(&:completed?).sort_by(&:start_date)
 	end
 
 	def show
@@ -25,12 +26,13 @@ class BookingsController < ApplicationController
 		@review = Review.new
 		@marker = @hosts_array.geocoded.map do |host|
 			{
-				lat: host.latitude,
-				lng: host.longitude,
-				marker_html: render_to_string(partial: "marker")
+					lat: host.latitude,
+					lng: host.longitude,
+					marker_html: render_to_string(partial: 'marker')
 			}
 		end
-		@chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) || Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
+		@chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) ||
+						Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
 		@host_review = @booking.reviews.find_by(user: @host)
 		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
@@ -52,11 +54,11 @@ class BookingsController < ApplicationController
     if @booking.save
       @booking.pending!
       redirect_to sent_booking_path(@booking)
-      BookingMailer.with(booking: @booking).new_request_email.deliver_later
-    else
-			render :new, status: :unprocessable_entity
-    end
-  end
+			BookingMailer.with(booking: @booking).new_request_email.deliver_later
+  	else
+      render :new, status: :unprocessable_entity
+  	end
+	end
 
 	def edit
 		@host = @booking.couch.user
@@ -151,7 +153,7 @@ class BookingsController < ApplicationController
 		redirect_to new_booking_payment_path(@booking)
 	end
 
-	private
+		private
 
 	def booking_params
 		params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message)

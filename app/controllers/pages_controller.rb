@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @couches = Couch.where.not(user: current_user)
-    @active_couches = @couches.includes(:country, :reviews, :city, user: [{photo_attachment: :blob}, :characteristics]).uniq.select { |couch| couch.active == true }
+    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+                              .uniq.select { |couch| couch.active == true }
   end
 end

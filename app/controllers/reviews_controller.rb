@@ -13,21 +13,10 @@ class ReviewsController < ApplicationController
 		@host = @couch.user
 		@review.booking = @booking
 		@review.user = current_user
-		if @review.save
-			case @review.user
-			when @booking.user
-				ReviewMailer.with(booking: @booking).new_review_host_email.deliver_later
-				redirect_to booking_path(@booking)
-			when @booking.couch.user
-				ReviewMailer.with(booking: @booking).new_review_guest_email.deliver_later
-				redirect_to request_booking_path(@booking)
-			end
-		else
-			render template: 'bookings/show', locals: { booking: @booking }
-		end
+		handle_review(@booking, @review)
 	end
 
-	private
+		private
 
 	def review_params
 		params.require(:review).permit(:content, :rating)
@@ -39,5 +28,20 @@ class ReviewsController < ApplicationController
 
 	def set_couch
 		@couch = Couch.find(params[:couch_id])
+	end
+
+	def handle_review(booking, review)
+		if review.save
+			case review.user
+			when booking.user
+				ReviewMailer.with(booking:).new_review_host_email.deliver_later
+				redirect_to booking_path(booking)
+			when @booking.couch.user
+				ReviewMailer.with(booking:).new_review_guest_email.deliver_later
+				redirect_to request_booking_path(booking)
+			end
+		else
+			render template: 'bookings/show', locals: { booking: }
+		end
 	end
 end

@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
 
   validates  :start_date, presence: true
   validates  :end_date, presence: true
+  validates  :message, presence: true
   validate   :matches_capacity?
   validate   :duplicate_booking?, on: :create
   validate   :duplicate_request?, on: :create
@@ -15,20 +16,20 @@ class Booking < ApplicationRecord
   enum request: { host: 0, hangout: 1, cowork: 2 }
 
   def matches_capacity?
-    if number_travellers > self.couch.capacity
+    if number_travellers > couch.capacity
       errors.add(:number_travellers, "The couch you requested can't host that many people")
     end
   end
 
   def duplicate_booking?
     if Booking.where(couch: self.couch, start_date: self.start_date, end_date: self.end_date, status: 1).exists?
-      errors.add(:start_date, "Sorry, the couch is already booked for the dates you requested")
+      errors.add(:start_date, 'Sorry, the couch is already booked for the dates you requested')
     end
   end
 
   def duplicate_request?
     if Booking.where(user: self.user, couch: self.couch, start_date: self.start_date, end_date: self.end_date, status: 0 || 2).exists?
-      errors.add(:start_date, "Sorry, you already sent a request to this host for the same dates")
+      errors.add(:start_date, 'Sorry, you already sent a request to this host for the same dates')
     end
   end
 
@@ -56,7 +57,7 @@ class Booking < ApplicationRecord
 			  description: "Stay with #{booking.couch.user.first_name}",
         amount: booking.nights * 100,
         currency: 'eur',
-        metadata: {booking_id: booking.id},
+        metadata: { booking_id: booking.id },
         receipt_email: booking.user.email,
         confirm: true
       )
