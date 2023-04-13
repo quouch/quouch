@@ -39,3 +39,6 @@ application.register("map", MapController)
 
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
+
+import ValidateFormController from "./validate_form_controller"
+application.register("validate-form", ValidateFormController)

@@ -41,22 +41,22 @@ class BookingsController < ApplicationController
 		offers(@host)
 	end
 
-	def create
-		@booking = Booking.new(booking_params)
+  def create
+    @booking = Booking.new(booking_params)
     @booking.couch = @couch
-		@guest = @booking.user
-		@host = @couch.user
+    @guest = @booking.user
+    @host = @couch.user
     @booking.user = current_user
-		@booking.pending!
-		@booking.booking_date = DateTime.now
-		@booking.nights = (@booking.end_date - @booking.start_date).to_i
-		if @booking.save
+    @booking.booking_date = DateTime.now
+    @booking.nights = (@booking.end_date - @booking.start_date).to_i
+    if @booking.save
+      @booking.pending!
       redirect_to sent_booking_path(@booking)
-			BookingMailer.with(booking: @booking).new_request_email.deliver_later
+      BookingMailer.with(booking: @booking).new_request_email.deliver_later
     else
-      render :new
+			render :new, status: :unprocessable_entity
     end
-	end
+  end
 
 	def edit
 		@host = @booking.couch.user
