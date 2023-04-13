@@ -1,22 +1,15 @@
 class Users::InvitationsController < Devise::InvitationsController
-	def update
+  def update
     @minimum_password_length = User.password_length.min
 
     @user = accept_resource
-    @user.country = set_country
-    @user.city = set_city
 
-    @user.update_columns(country_id: set_country.id, city_id: set_city.id)
-
-    if @user.couch.nil?
-      create_couch
-    end
-
+    create_couch if @user.couch.nil?
     create_user_characteristics
     super
-	end
+  end
 
-	protected
+  protected
 
   def couch_params
     params.require(:couch).permit(:capacity)
@@ -73,30 +66,5 @@ class Users::InvitationsController < Devise::InvitationsController
 
   def delete_empty_string(array)
     array.delete("")
-  end
-
-  def create_city(city, country)
-    existing_city = City.find_by(name: city)
-    if existing_city.nil?
-      City.create(name: city.capitalize, country: country)
-    else
-      existing_city
-    end
-  end
-
-  def set_country
-    @country = params[:country][:name]
-    existing_country = Country.find_by(name: @country.capitalize)
-    if existing_country.nil?
-      new_country = Country.create(name: @country)
-    else
-      existing_country
-    end
-  end
-
-  def set_city
-    @city = params[:city][:name]
-    @country = set_country
-    create_city(@city, @country)
   end
 end

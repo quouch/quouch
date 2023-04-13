@@ -62,7 +62,7 @@
 						</li>
 					</ul>
 				</div>
-				
+
 				<% if @booking.host? %>
 					<div class="booking__accommodation">
 						<h2>Accommodation</h2>
@@ -91,7 +91,7 @@
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 					<li class="booking__pin">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-						<p><%= @couch.user.city.name %>, <%= @couch.user.country.name %></p>
+						<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
 					</li>
 				<% elsif @booking.completed? %>
 					<li class="booking__pin">

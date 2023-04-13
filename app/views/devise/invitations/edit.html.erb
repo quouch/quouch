@@ -1,10 +1,9 @@
 <section class="user">
   <h1>Set Account Details</h1>
-
   <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
 
       <div class="user__wrap">
-        
+
         <div class="user__image" data-controller="image-preview">
           <%= f.label :profile_picture %>
           <% if @user.photo.attached? %>
@@ -46,7 +45,7 @@
                             placeholder: 'Email',
                             error: false,
                             input_html: { autocomplete: 'email' } %>
-          
+
           <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
@@ -59,22 +58,16 @@
           <%= f.input         :pronouns,
                               autofocus: true,
                               input_html: { autocomplete: 'pronouns' } %>
-          
-          <%= f.label         :address, class: 'user__address-label' %>
+
           <div class="user__address">
-            <%= f.input       :address,
-                              hint: 'we mainly need your address for billing - other users will only see city & country until you officially confirm a request to host',
-                              label: false,
-                              input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
-                              wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
-            <div class="user__address-street">
-              <%= f.label       :street %>
-              <%= f.text_field  :street,
-                                required: true,
-                                value: @user.street,
-                                autofocus: true,
-                                id: 'street' %>
-            </div>
+              <p class="hint">We mainly need your address for billing - other users will only see city & country until you officially confirm a request to host</p>
+              <div class="user__address-street">
+              <%= f.label :address, class: 'user__address-label' %>
+              <%= f.input :address,
+                          label: false,
+                          input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
+                          wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+              </div>
             <div class="user__address-city">
               <%= f.label       :zipcode %>
               <%= f.text_field  :zipcode,
@@ -83,33 +76,34 @@
                                 autofocus: true,
                                 id: 'zip' %>
 
-             <%= simple_fields_for :city do |ci| %>
-              <%= ci.label         :city %>
-              <%= ci.text_field    :name,
-                                   value: @user.city.try(:name),
-                                   label: 'City',
-                                   error: false,
-                                   autofocus: true,
-                                   id: 'city' %>
+              <%= f.label       :city %>
+              <%= f.text_field  :city,
+                                required: true,
+                                value: @user.city,
+                                autofocus: true,
+                                id: 'city' %>
             </div>
-              <%= ci.error         :city, class: 'form-error' %>
-            <% end %>
 
             <div class="user__address-country">
+              <%= f.label :country %>
+              <%= f.input :country,
+                          collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
+                          label: false %>
+              <%= f.error       :country, class: 'form-error' %>
 
-            <%= simple_fields_for :country do |cy| %>
-              <%= cy.label        :country %>
-              <%= cy.text_field   :name,
+            <%#= simple_fields_for :country do |cy| %>
+              <%#= cy.label        :country %>
+              <%#= cy.text_field   :name,
                                   value: @user.country.try(:name),
                                   boolean_style: :inline,
                                   error: false,
                                   autofocus: true,
                                   id: 'country' %>
             </div>
-              <%= cy.error        :country, class: 'form-error' %>
-            <% end %>
+              <%#= cy.error        :country, class: 'form-error' %>
+            <%# end %>
           </div>
-          
+
           <%= f.label       :about_me %>
           <%= f.input_field :summary,
                             autofocus: true,
@@ -128,7 +122,7 @@
                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
-          
+
           <div class="user__travelling" data-controller="display-info-window">
             <%= f.label :i_am_currently %>
             <div class="user__offer">
