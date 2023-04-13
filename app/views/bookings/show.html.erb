@@ -91,7 +91,11 @@
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 					<li class="booking__pin">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-						<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
+						<% if @couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+							<p><%= @couch.user.city %>, United Kingdom</p>
+						<% else %>
+							<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
+						<% end %>
 					</li>
 				<% elsif @booking.completed? %>
 					<li class="booking__pin">
