@@ -3,8 +3,8 @@ class ChatsController < ApplicationController
 	before_action :set_notifications_to_read, only: %i[show]
 
 	def index
-		@chats = Chat.includes(:messages).where(user_sender_id: current_user.id).or(Chat.includes(:messages).where(user_receiver_id: current_user.id))
-		.order('messages.created_at DESC')
+		@chats = Chat.includes(:messages).where(user_sender_id: current_user.id).or(Chat.includes(:messages)
+								 .where(user_receiver_id: current_user.id)).order('messages.created_at DESC')
 	end
 
 	def show
@@ -15,12 +15,10 @@ class ChatsController < ApplicationController
 
 	def create
 		@chat = Chat.new(user_sender_id: params[:user_sender_id], user_receiver_id: params[:user_receiver_id])
-		if @chat.save
-			redirect_to chat_path(@chat)
-		end
+		redirect_to chat_path(@chat) if @chat.save
 	end
 
-	private
+		private
 
 	def set_chat
 		@chat = Chat.find(params[:id])

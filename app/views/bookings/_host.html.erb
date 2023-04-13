@@ -51,7 +51,7 @@
 			<div class="host__accommodation">
 				<h2 class="host__accommodation-title">Accommodation</h2>
 				<ul class="host__accommodation-list">
-					<% @host.couch.facilities.each do |facility| %>
+					<% @host.couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
 						<li>
 							<%= cl_image_tag(facility.svg.key) %>
 							<%= facility.name %>
