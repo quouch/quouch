@@ -10,7 +10,10 @@
 	text-transform: uppercase;
 	width: 100%;
 
-	&:hover { opacity: 0.9; }
+	&:hover {
+		opacity: 0.9;
+		cursor: pointer;
+	}
 }
 
 @mixin secondary-button {
@@ -26,6 +29,7 @@
 	&:hover {
 		color: $primary-light;
 		border: 1px solid $primary-light;
+		cursor: pointer;
 	}
 }
 
@@ -36,7 +40,10 @@
 	text-decoration: underline;
 	text-transform: uppercase;
 
-	&:hover { color: $primary-light; }
+	&:hover {
+		color: $primary-light;
+		cursor: pointer;
+	}
 }
 
 @mixin input-field {
