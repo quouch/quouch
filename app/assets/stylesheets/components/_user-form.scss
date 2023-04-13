@@ -108,6 +108,7 @@
 			align-items: center;
 
 			.input, .input select { width: 100%; }
+			.input select { background-color: $white; }
 		}
 	}
 
@@ -156,7 +157,6 @@
 	}
 
 	&__couch {
-		display: flex;
 		flex-direction: column;
 
 		&-capacity {

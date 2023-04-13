@@ -90,19 +90,8 @@
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           selected: @user.country,
                           label: false %>
-              <%= f.error       :country, class: 'form-error' %>
-
-            <%#= simple_fields_for :country do |cy| %>
-              <%#= cy.label        :country %>
-              <%#= cy.text_field   :name,
-                                  value: @user.country.try(:name),
-                                  boolean_style: :inline,
-                                  error: false,
-                                  autofocus: true,
-                                  id: 'country' %>
+              <%= f.error :country, class: 'form-error' %>
             </div>
-              <%#= cy.error        :country, class: 'form-error' %>
-            <%# end %>
           </div>
 
           <%= f.label       :about_me %>
@@ -162,7 +151,7 @@
               </div>
             </div>
 
-            <div class="user__couch" data-conditional-user-fields-target="field">
+            <div class="user__couch display-none" data-conditional-user-fields-target="field">
               <%= simple_fields_for     :couch do |cf| %>
                 <div class="user__couch-capacity">
                   <%= cf.label          :i_can_host %>

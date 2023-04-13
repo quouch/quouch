@@ -6,7 +6,7 @@ export default class extends Controller {
 
    toggleField() {
     if (this.triggerTarget.checked) {
-      this.fieldTarget.style.display = "block"
+      this.fieldTarget.style.display = "flex"
     } else {
       this.fieldTarget.style.display = "none"
     }
