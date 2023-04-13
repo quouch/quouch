@@ -50,6 +50,7 @@ gem 'geocoder'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 
+# Debugging
 gem 'pry-byebug'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
@@ -83,6 +84,9 @@ gem 'countries'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem 'image_processing', '~> 1.2'
 
+# Performance optimization analysis
+gem 'rubocop'
+gem 'rubocop-performance', require: false
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 6.1'
