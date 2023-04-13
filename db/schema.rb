@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_12_090543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,14 +85,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
     t.index ["user_sender_id"], name: "index_chats_on_user_sender_id"
   end
 
-  create_table "cities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_cities_on_country_id"
-  end
-
   create_table "couch_facilities", force: :cascade do |t|
     t.bigint "couch_id", null: false
     t.bigint "facility_id", null: false
@@ -109,12 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
     t.datetime "updated_at", null: false
     t.boolean "active", default: true
     t.index ["user_id"], name: "index_couches_on_user_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -201,7 +187,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
     t.text "question_two"
     t.text "question_three"
     t.text "question_four"
-    t.bigint "city_id"
     t.string "address"
     t.string "invitation_token"
     t.datetime "invitation_created_at"
@@ -216,11 +201,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
     t.float "longitude"
     t.string "zipcode"
     t.string "street"
-    t.bigint "country_id"
     t.boolean "travelling", default: false
+    t.string "country"
+    t.string "city"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
-    t.index ["city_id"], name: "index_users_on_city_id"
-    t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -234,7 +218,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
   add_foreign_key "bookings", "users"
   add_foreign_key "chats", "users", column: "user_receiver_id"
   add_foreign_key "chats", "users", column: "user_sender_id"
-  add_foreign_key "cities", "countries"
   add_foreign_key "couch_facilities", "couches"
   add_foreign_key "couch_facilities", "facilities"
   add_foreign_key "couches", "users"
@@ -245,5 +228,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_06_132801) do
   add_foreign_key "reviews", "users"
   add_foreign_key "user_characteristics", "characteristics"
   add_foreign_key "user_characteristics", "users"
-  add_foreign_key "users", "countries"
 end

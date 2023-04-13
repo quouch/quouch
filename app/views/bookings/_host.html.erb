@@ -9,7 +9,7 @@
 			<ul class="host__info">
 				<li class="host__location">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-					<%= @host.city.name %>, <%= @host.country.name %>
+					<%= @host.city %>, <%= @host.country %>
 				</li>
 				<li class="host__name"><%= @host.first_name %></li>
 				<div class="host__characteristics">
@@ -42,7 +42,7 @@
 					<li><%= characteristic.name %></li>
 				<% end %>
 			</ul>
-			
+
 			<div class="host__intro">
 				<h2 class="host__intro-title">Introduction</h2>
 				<p><%= @host.summary %></p>
