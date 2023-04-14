@@ -33,6 +33,7 @@ class User < ApplicationRecord
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+  before_create :generate_invite_code
 
   def calculated_age
     today = Date.today
@@ -57,6 +58,19 @@ class User < ApplicationRecord
   def validate_travelling
     unless at_least_one_option_checked?
       errors.add(:travelling, 'at least one option must be checked')
+    end
+  end
+
+  def generate_invite_code
+    loop do
+      new_invite_code = SecureRandom.hex(3)
+
+      # Check if the generated invite code already exists in the database
+      # If not, set it as the user's invite code and break out of the loop
+      unless User.exists?(invite_code: new_invite_code)
+        self.invite_code = new_invite_code
+        break
+      end
     end
   end
 end
