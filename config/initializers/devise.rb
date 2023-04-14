@@ -143,7 +143,6 @@ Devise.setup do |config|
   # After this period, the invited resource won't be able to accept the invitation.
   # When invite_for is 0 (the default), the invitation won't expire.
   # config.invite_for = 2.weeks
-  config.invite_for = 1.week
 
   # Number of invitations users can send.
   # - If invitation_limit is nil, there is no limit for invitations, users can
@@ -172,11 +171,11 @@ Devise.setup do |config|
   # The class name of the inviting model. If this is nil,
   # the #invited_by association is declared to be polymorphic.
   # Default: nil
-  config.invited_by_class_name = 'User'
+  # config.invited_by_class_name = 'User'
 
   # The foreign key to the inviting model (if invited_by_class_name is set)
   # Default: :invited_by_id
-  config.invited_by_foreign_key = :invited_by_id
+  # config.invited_by_foreign_key = :invited_by_id
 
   # The column name used for counter_cache column. If this is nil,
   # the #invited_by association is declared without counter_cache.
