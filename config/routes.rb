@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get '/guidelines', to: 'pages#guidelines'
   get '/impressum', to: 'pages#impressum'
   get '/privacy', to: 'pages#privacy'
+  get '/invite-code', to: 'invites#invite_code_form'
+  get '/validate-invite-code', to: 'invites#validate_invite_code'
 
   resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do
