@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  acts_as_token_authenticatable
-
   # Include default devise modules. Others available are:
   # :lockable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_one_attached :photo
