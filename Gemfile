@@ -96,7 +96,6 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
-  gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :development do
