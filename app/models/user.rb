@@ -26,9 +26,10 @@ class User < ApplicationRecord
   validates :city, presence: { message: 'City required'}
   validates :country, presence: { message: 'Country required'}
   validates :summary, presence: { message: 'Tell the community about you' },
-            length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
-  # validates :characteristics, presence: { message: 'Let others know what is important to you' }
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
+  validates :characteristics, presence: { message: 'Let others know what is important to you' }
   validate  :validate_age
+  validate :validate_travelling
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -40,12 +41,22 @@ class User < ApplicationRecord
     else
       calculation = 1
     end
-    return today.year - date_of_birth.year - calculation
+    today.year - date_of_birth.year - calculation
   end
 
   def validate_age
     if calculated_age.present? && calculated_age < 18
       errors.add(:date_of_birth, 'Sorry you are too young, please come back when you are 18!')
+    end
+  end
+
+  def at_least_one_option_checked?
+    offers_couch || offers_co_work || offers_hang_out || travelling
+  end
+
+  def validate_travelling
+    unless at_least_one_option_checked?
+      errors.add(:travelling, 'at least one option must be checked')
     end
   end
 end

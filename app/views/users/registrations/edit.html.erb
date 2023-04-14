@@ -113,41 +113,47 @@
             <% end %>
           </div>
 
-          <div class="user__travelling" data-controller="display-info-window">
-            <%= f.label :i_am_currently %>
-            <div class="user__offer">
-              <%= f.input               :travelling,
-                                        as: :boolean,
-                                        label: false,
-                                        autofocus: true,
-                                        input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }} %>
-              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
-              <%= f.label               :travelling %>
+          <div data-controller="display-info-window">
+            <div class="user__travelling">
+              <%= f.label :i_am_currently %>
+              <div class="user__offer">
+                <%= f.input               :travelling,
+                                          as: :boolean,
+                                          label: false,
+                                          error: false,
+                                          autofocus: true,
+                                          input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }} %>
+                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+                <%= f.label               :travelling %>
+              </div>
             </div>
-          </div>
 
-          <div data-controller="conditional-user-fields">
-            <%= f.label :i_can %>
-            <div class="user__offers">
-              <div class="user__offer">
-                <%= f.input           :offers_couch,
-                                      label: false,
-                                      autofocus: true,
-                                      input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-                <%= f.label           :host %>
-              </div>
-              <div class="user__offer">
-                <%= f.input_field     :offers_co_work,
-                                      autofocus: true %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-                <%= f.label           :cowork %>
-              </div>
-              <div class="user__offer">
-                <%= f.input_field     :offers_hang_out,
-                                      autofocus: true %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
-                <%= f.label           :hangout %>
+            <div data-controller="conditional-user-fields" data-display-info-window-target="list">
+              <%= f.label :i_can %>
+              <div class="user__offers">
+                <div class="user__offer">
+                  <%= f.input           :offers_couch,
+                                        label: false,
+                                        error: false,
+                                        autofocus: true,
+                                        input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
+                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+                  <%= f.label           :host %>
+                </div>
+                <div class="user__offer">
+                  <%= f.input_field     :offers_co_work,
+                                        error: false,
+                                        autofocus: true %>
+                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+                  <%= f.label           :cowork %>
+                </div>
+                <div class="user__offer">
+                  <%= f.input_field     :offers_hang_out,
+                                        error: false,
+                                        autofocus: true %>
+                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+                  <%= f.label           :hangout %>
+                </div>
               </div>
             </div>
 
@@ -173,6 +179,7 @@
               </div>
               <% end %>
             </div>
+            <%= f.error :travelling, class: 'form-error' %>
           </div>
 
           <%= f.label       :this_makes_me_really_happy %>
