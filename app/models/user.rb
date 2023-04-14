@@ -27,7 +27,7 @@ class User < ApplicationRecord
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates :characteristics, presence: { message: 'Let others know what is important to you' }
   validate  :validate_age
-  validate :validate_travelling
+  validate  :validate_travelling
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
