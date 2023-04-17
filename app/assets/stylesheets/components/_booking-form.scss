@@ -44,14 +44,15 @@
 	&__details {
 		margin: 2rem auto;
 
-		&__header {
-			@include title-5;
-			display: block;
-		}
-
 		&__wrap {
 			margin: 0 auto;
 			width: fit-content;
+
+			> label {
+				@include title-5;
+				
+				display: block;
+			}
 		}
 	}
 
