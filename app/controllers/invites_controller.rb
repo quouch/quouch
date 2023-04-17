@@ -12,4 +12,9 @@ class InvitesController < ApplicationController
 			render :invite_code_form, status: :unprocessable_entity
 		end
 	end
+
+	def invite_friend
+		@user = current_user
+		@invite_code = @user.invite_code
+	end
 end
