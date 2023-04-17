@@ -7,14 +7,14 @@
 				defaults: { required: false } do |f| %>
 
 			<div class="booking-form__type">
-				<label>Pick one</label>
+				<%= f.label :pick_one, required: true %>
 				<%= f.input :request,
 										as: :radio_buttons,
 										label: false,
 										collection: @offers.keys if @offers %>
 			</div>
-			<span class="booking-form__details__header">Dates & Travellers</span>
 			<div class="booking-form__details__wrap">
+			<%= f.label :dates_and_travellers, required: true %>
 				<div class="booking-form__dates date">
 					<div class="date-input">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
@@ -31,7 +31,7 @@
 						<%= f.input :end_date,
 												as: :string,
 												placeholder: 'to',
-												input_html: { data: { flatpickr_target: 'endTime', validate_form_target: "end", action: 'change->validate-form#enableButton' } },
+												input_html: { data: { flatpickr_target: 'endTime', validate_form_target: 'end', action: 'change->validate-form#enableButton' } },
 												label: false %>
 					</div>
 				</div>
@@ -44,8 +44,8 @@
 			</div>
 			<%= f.input :message,
 									label: :Message,
+									required: true,
 									input_html: { rows: 4, data: { validate_form_target: "message", action: 'blur->validate-form#enableButton'} } %>
-   <% end %>
       <div class="booking-form__action">
 				<%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: "button"} %>
 			</div>

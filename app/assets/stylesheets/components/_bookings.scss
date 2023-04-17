@@ -91,10 +91,7 @@
 		align-items: stretch;
 	}
 
-	@media (min-width: $break-x-large) {
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
-	}
+	@media (min-width: $break-x-large) { gap: 1.5rem; }
 }
 
 .past-booking {
