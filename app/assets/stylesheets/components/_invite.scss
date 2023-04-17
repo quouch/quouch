@@ -1,38 +1,34 @@
 .invite {
-	margin-top: 4rem;
-	background-color: $primary-transparent;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	margin: 4rem 0;
+
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
 	
 	&__wrap {
-		@include container-width;
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
 
-		margin: 0 auto 4rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		@media (min-width: $break-large) { width: 50%; }
+	}
+
+	&__subtitle {
+		@include title-2;
 		
-		input { @include input-field; }
-		label { @include title-4; }
-		form {
-			display: flex;
-			align-items: center
-		}
+		margin: 2rem auto;
 	}
-	
-	&__title {
+
+	&__content {
+
+	}
+
+	&__code {
 		@include title-1;
-		color: $warning;
+		
+		color: $secondary;
 	}
-
-	&__actions {
-		input { @include primary-button; }
-	}
-}
-
-.user_email {
-	display: flex;
-	gap: 1rem;
 }
