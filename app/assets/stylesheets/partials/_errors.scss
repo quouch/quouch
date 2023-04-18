@@ -5,11 +5,15 @@
 	gap: .2rem;
 	font-size: .75rem;
 	margin-left: .5rem;
+	text-align: start;
 
 	&-photo { margin: .2rem auto 0; }
 	&-characteristics { margin-top: -.5rem; }
 	&-rating { margin: .7rem 0 0; }
+	&-booking { margin-bottom: .5rem; }
 }
+
+.form-error + .form-error { margin-top: .5rem; }
 
 .form-error::before {
   content: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/error.svg');

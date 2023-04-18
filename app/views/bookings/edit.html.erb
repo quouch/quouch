@@ -5,14 +5,7 @@
 		<%= simple_form_for [@couch, @booking],
 				data: { controller: 'flatpickr' }, 
 				defaults: { required: false } do |f| %>
-			<% if @booking.errors.any? %>
-				<h2>Error:</h2>
-					<ul>
-						<% @booking.errors.full_messages.each do |error| %>
-							<li><%= error %></li>
-						<% end %>
-					</ul>
-			<% end %>
+				
 			<div class="booking-form__type">
 				<%= f.label :pick_one, required: true %>
 				<%= f.input :request,
@@ -29,6 +22,7 @@
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 						<%= f.input :start_date,
 												as: :string,
+												error: false,
 												placeholder: 'from',
 												input_html: { data: { flatpickr_target: 'startTime' } },
 												label: false %>
@@ -36,22 +30,27 @@
 					<div class="date-input">
 						<%= f.input :end_date,
 												as: :string,
+												error: false,
 												placeholder: 'to',
 												input_html: { data: { flatpickr_target: 'endTime' } },
 												label: false %>
 					</div>
 				</div>
+				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
 				<div class="booking-form__travellers">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
 					<%= f.input :number_travellers, 
 											label: false,
 											input_html: { value: @booking.number_travellers } %>
 				</div>
+				<%= f.error 	:number_travellers, class: 'form-error' %>
 			</div>
 			<%= f.input :message, 
 									label: :Message,
+									error: false,
 									required: true,
 									input_html: { rows: 4 } %>
+			<%= f.error :message, class: 'form-error' %>
 			<div class="booking-form__action booking-form__action--edit">
 				<%= f.submit 'Send updated request', class: 'booking-form__button' %>
 			</div>

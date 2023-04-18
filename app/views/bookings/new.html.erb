@@ -11,6 +11,7 @@
 				<%= f.input :request,
 										as: :radio_buttons,
 										label: false,
+										value: @offers.keys.first,
 										collection: @offers.keys if @offers %>
 			</div>
 			<div class="booking-form__details__wrap">
@@ -20,9 +21,10 @@
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 						<%= f.input :start_date,
 												as: :string,
+												error: false,
 												placeholder: 'from',
 												input_html: { data: { flatpickr_target: 'startTime',
-                                              validate_form_target: "start",
+                                              validate_form_target: 'start',
                                               action: 'change->validate-form#enableButton',
                                               action: 'change->flatpickr#updateEnd' } },
 												label: false %>
@@ -35,17 +37,22 @@
 												label: false %>
 					</div>
 				</div>
+				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
 				<div class="booking-form__travellers">
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
 					<%= f.input :number_travellers,
 											label: false,
+											error: false,
 											input_html: { value: 1 } %>
 				</div>
+				<%= f.error 	:number_travellers, class: 'form-error' %>
 			</div>
 			<%= f.input :message,
 									label: :Message,
 									required: true,
+									error: false,
 									input_html: { rows: 4, data: { validate_form_target: "message", action: 'blur->validate-form#enableButton'} } %>
+			<%= f.error :message, class: 'form-error' %>
       <div class="booking-form__action">
 				<%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: "button"} %>
 			</div>
