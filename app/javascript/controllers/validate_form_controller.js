@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="validate-form"
 export default class extends Controller {
-  static targets = ['start', 'end', 'message', 'button']
+  static targets = ['start', 'end', 'button']
 
   enableButton() {
     if (this.#allValid()) {
@@ -14,7 +14,7 @@ export default class extends Controller {
   }
 
   #allValid() {
-    return this.#isValid(this.startTarget) && this.#isValid(this.endTarget) && this.#isValid(this.messageTarget);
+    return this.#isValid(this.startTarget) && this.#isValid(this.endTarget);
   }
 
   #isValid(input) {

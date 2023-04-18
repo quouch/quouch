@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
 	skip_before_action :authenticate_user!
-	acts_as_token_authentication_handler_for User, except: %i[new create]
 
 	def new
 		@contact = Contact.new

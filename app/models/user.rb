@@ -1,9 +1,7 @@
 class User < ApplicationRecord
-  acts_as_token_authenticatable
-
   # Include default devise modules. Others available are:
   # :lockable, :trackable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_one_attached :photo
@@ -23,16 +21,19 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
-  validates :city, presence: { message: 'City required'}
-  validates :country, presence: { message: 'Country required'}
+  validates :address, presence: { message: 'Address required' }
+  validates :zipcode, presence: { message: 'Zipcode required' }
+  validates :city, presence: { message: 'City required' }
+  validates :country, presence: { message: 'Country required' }
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates :characteristics, presence: { message: 'Let others know what is important to you' }
   validate  :validate_age
-  validate :validate_travelling
+  validate  :validate_travelling
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
+  before_create :generate_invite_code
 
   def calculated_age
     today = Date.today
@@ -57,6 +58,19 @@ class User < ApplicationRecord
   def validate_travelling
     unless at_least_one_option_checked?
       errors.add(:travelling, 'at least one option must be checked')
+    end
+  end
+
+  def generate_invite_code
+    loop do
+      new_invite_code = SecureRandom.hex(3)
+
+      # Check if the generated invite code already exists in the database
+      # If not, set it as the user's invite code and break out of the loop
+      unless User.exists?(invite_code: new_invite_code)
+        self.invite_code = new_invite_code
+        break
+      end
     end
   end
 end

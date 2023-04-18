@@ -17,7 +17,10 @@
 			padding: 1rem;
 			text-align: center;
 			
-			p { color: $white; }
+			p {
+				color: $white;
+				margin: 1rem 0;
+			}
 
 			@media (min-width: $break-medium) {
 				width: 800px;
@@ -27,8 +30,17 @@
 				h1 { text-align: start; }
 				p {
 					@include title-4;
-					// color: $white;
+					
+					margin: 1rem 0;
 				}
+			}
+		}
+
+		&-button {
+			@media(min-width: $break-medium) {
+				display: flex;
+				gap: 1rem;
+				align-items: center;
 			}
 		}
 
@@ -36,9 +48,19 @@
 			@include input-field;
 			@include primary-button;
 
-			margin: 2rem auto;
+			margin: 2rem auto 1rem;
 			width: fit-content;
 		
+			@media (min-width: $break-medium) { margin: 2rem 0; }
+		}
+
+		&-secondary {
+			@include input-field;
+			@include primary-button;
+
+			margin: 1rem auto 2rem;
+			width: fit-content;
+
 			@media (min-width: $break-medium) { margin: 2rem 0; }
 		}
 	}

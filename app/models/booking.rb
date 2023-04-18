@@ -5,6 +5,7 @@ class Booking < ApplicationRecord
   has_many   :payments, through: :booking_payments
   has_many   :reviews
 
+  validates  :request, presence: { message: 'Please choose one' }
   validates  :start_date, presence: true
   validates  :end_date, presence: true
   validates  :message, presence: true
@@ -17,28 +18,28 @@ class Booking < ApplicationRecord
 
   def matches_capacity?
     if number_travellers > couch.capacity
-      errors.add(:number_travellers, "The couch you requested can't host that many people")
+      errors.add(:number_travellers, 'Capacity of couch exceeded')
     end
   end
 
   def duplicate_booking?
-    if Booking.where(couch: self.couch, start_date: self.start_date, end_date: self.end_date, status: 1).exists?
-      errors.add(:start_date, 'Sorry, the couch is already booked for the dates you requested')
+    if Booking.where(couch:, start_date:, end_date:, status: 1).exists?
+      errors.add(:start_date, 'Sorry, couch is already booked!')
     end
   end
 
   def duplicate_request?
-    if Booking.where(user: self.user, couch: self.couch, start_date: self.start_date, end_date: self.end_date, status: 0 || 2).exists?
-      errors.add(:start_date, 'Sorry, you already sent a request to this host for the same dates')
+    if Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
+      errors.add(:start_date, 'Duplicate request with host')
     end
   end
 
   def self.complete
-		completed_bookings = Booking.where(end_date: ...Date.today, status: 1)
+    completed_bookings = Booking.where(end_date: ...Date.today, status: 1)
     completed_bookings.update(status: 4)
     completed_bookings.each do |booking|
-      BookingMailer.with(booking: booking).booking_completed_guest_email.deliver_later
-      BookingMailer.with(booking: booking).booking_completed_host_email.deliver_later
+      BookingMailer.with(booking:).booking_completed_guest_email.deliver_later
+      BookingMailer.with(booking:).booking_completed_host_email.deliver_later
     end
     charge(completed_bookings)
 	end
