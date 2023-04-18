@@ -69,6 +69,7 @@
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
               </div>
+              <%= f.error         :address, class: 'form-error' %>
             <div class="user__address-city">
               <div class="user__address-wrap">
                 <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
@@ -87,6 +88,8 @@
                                   id: 'city' %>
               </div>
             </div>
+            <%= f.error         :zipcode, class: 'form-error' %>
+            <%= f.error         :city, class: 'form-error' %>
 
             <div class="user__address-country">
               <%= f.label :country, class: 'user__address-label' %>
@@ -107,11 +110,11 @@
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
-                                            Characteristic.all,
-                                            :id, :name,
-                                            checked: @user.characteristic_ids,
-                                            error: false,
-                                            input_html: { multiple: true, autocomplete: 'characteristics' } %>
+                                             Characteristic.all,
+                                             :id, :name,
+                                             checked: @user.characteristic_ids,
+                                             error: false,
+                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
 
@@ -165,9 +168,8 @@
                   <div class="user__couch-capacity">
                     <%= cf.label          :i_can_host %>
                     <%= cf.input_field    :capacity,
-                                          collection: 1..4,
                                           autofocus: true,
-                                          selected: @user.couch.capacity if @user.couch %>
+                                          collection: 1..4 %>
                     <%= cf.label          :guests,
                                           required: false %>
                   </div>
@@ -177,8 +179,7 @@
                     <%= cff.collection_check_boxes :facility_ids,
                                                     Facility.all, :id, :name,
                                                     input_html: { multiple: true },
-                                                    autofocus: true,
-                                                    checked: @user.couch.facility_ids if @user.couch %>
+                                                    autofocus: true %>
                   <% end %>
                 </div>
                 <% end %>

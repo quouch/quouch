@@ -1,6 +1,13 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  def new
-    redirect_to root_path
+  def create
+    super
+    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
+    @user.save(validate: false)
+    create_couch if @user.couch.nil?
+    create_user_characteristics
+    unless @user.update(invited_by_id: @invited_by.id)
+      @user.destroy
+    end
   end
 
   def update
@@ -9,14 +16,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch = @user.couch
     create_couch_facilities
 
-    if offers_couch == "0"
-      set_couch_inactive
-    elsif offers_couch == "1"
-      set_couch_active
-    end
-
     create_user_characteristics
     super
+    status_couch
   end
 
   protected
@@ -34,17 +36,33 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_couch
-    @couch = Couch.new(couch_params)
+    if params[:couch].present?
+      @couch = Couch.new(couch_params)
+    else
+      @couch = Couch.new(capacity: 0)
+    end
+
     @couch.user = @user
     @couch.save
+
+    status_couch
+
+    create_couch_facilities if params[:couch_facility].present?
   end
 
   def update_couch
     @couch.update(couch_params)
   end
 
-  def offers_couch
-    params[:user][:offers_couch]
+  def status_couch
+    if params[:user][:travelling] == '1'
+      @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
+      set_couch_inactive
+    elsif params[:user][:offers_couch] == '0'
+     set_couch_inactive
+    elsif params[:user][:offers_couch] == '1'
+      set_couch_active
+    end
   end
 
   def set_couch_inactive
@@ -76,6 +94,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def delete_empty_string(array)
-    array.delete("")
+    array.delete('')
   end
 end
