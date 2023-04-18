@@ -21,8 +21,10 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
-  validates :city, presence: { message: 'City required'}
-  validates :country, presence: { message: 'Country required'}
+  validates :address, presence: { message: 'Address required' }
+  validates :zipcode, presence: { message: 'Zipcode required' }
+  validates :city, presence: { message: 'City required' }
+  validates :country, presence: { message: 'Country required' }
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates :characteristics, presence: { message: 'Let others know what is important to you' }
