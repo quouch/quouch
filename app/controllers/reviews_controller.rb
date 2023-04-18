@@ -36,12 +36,12 @@ class ReviewsController < ApplicationController
 			when booking.user
 				ReviewMailer.with(booking:).new_review_host_email.deliver_later
 				redirect_to booking_path(booking)
-			when @booking.couch.user
+			when booking.couch.user
 				ReviewMailer.with(booking:).new_review_guest_email.deliver_later
 				redirect_to request_booking_path(booking)
 			end
 		else
-			render template: 'bookings/show', locals: { booking: }
+			render 'bookings/show', locals: { booking: }, status: :unprocessable_entity
 		end
 	end
 end

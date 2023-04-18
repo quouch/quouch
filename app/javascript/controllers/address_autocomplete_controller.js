@@ -49,21 +49,4 @@ export default class extends Controller {
   disconnect() {
     this.geocoder.onRemove()
   }
-
-  // autofill() {
-  //   const fullAddress = event.value
-  //   this.cityInput = fullAddress
-
-  // }
-
-  //     // from here all you have to do is to sync each value to right target input
-  //     // Target input address = fullAddressHash[:address_name]
-  //     // Target input zip_code = fullAddressHash[:zip_code]
-  //     // Target input city = fullAddressHash[:city]
-  //   });
-
-  //   function extractFullAddress(value) {
-  //     // do your regex stuff with the value to get an array of something like this ["12 rue blabla", "75000", "Paris"] and store in result
-  //     return { address_name: result[0], zip_code: result[1], city: result[2] };
-  //   };
 }

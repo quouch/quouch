@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get '/guidelines', to: 'pages#guidelines'
   get '/impressum', to: 'pages#impressum'
   get '/privacy', to: 'pages#privacy'
+  get '/invite-code', to: 'invites#invite_code_form'
+  get '/validate-invite-code', to: 'invites#validate_invite_code'
+  get '/invite-friend', to: 'invites#invite_friend'
 
   resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do
@@ -40,7 +43,7 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  devise_for :users, controllers: { registrations: 'users/registrations', invitations: 'users/invitations' }
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all

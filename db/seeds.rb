@@ -52,15 +52,16 @@ user1 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 50),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67op'
 )
 
 photo1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -81,15 +82,16 @@ user2 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67ol'
 )
 
 photo2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -109,15 +111,16 @@ user3 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah68op'
 )
 
 photo3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -139,15 +142,16 @@ user4 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: '1h67op'
 )
 
 photo4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -167,15 +171,16 @@ user5 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'az67op'
 )
 
 photo5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -197,15 +202,16 @@ user6 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67o5'
 )
 
 photo6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -224,15 +230,16 @@ user7 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67o9'
 )
 
 photo7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -253,15 +260,16 @@ user8 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67oy'
 )
 
 photo8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -283,15 +291,16 @@ user9 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah77op'
 )
 
 photo9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -312,15 +321,16 @@ user10 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah689p'
 )
 
 photo10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -341,15 +351,16 @@ user11 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'abz7op'
 )
 
 photo11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -371,15 +382,16 @@ user12 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah62op'
 )
 
 photo12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -399,15 +411,16 @@ user13 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ar67op'
 )
 
 photo13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -428,15 +441,16 @@ user14 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'bh67op'
 )
 
 photo14 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -457,15 +471,16 @@ user15 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah67wp'
 )
 
 photo15 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -485,15 +500,16 @@ user16 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah34op'
 )
 
 photo16 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -515,15 +531,16 @@ user17 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah12op'
 )
 
 photo17 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -542,15 +559,16 @@ user18 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'an67op'
 )
 
 photo18 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -570,15 +588,16 @@ user19 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'lq67op'
 )
 
 photo19 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
@@ -603,15 +622,16 @@ user20 = User.new(
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
-  country: location[1]
+  country: location[1],
+  invite_code: 'ah623p'
 )
 
 photo20 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')

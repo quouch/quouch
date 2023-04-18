@@ -27,7 +27,8 @@
         </div>
 
         <div class="user__info">
-          <%= f.label       :personal_info %>
+          <%= f.label       :personal_info,
+                            required: true %>
           <%= f.input_field :first_name,
                             required: true,
                             autofocus: true,
@@ -61,31 +62,44 @@
           <div class="user__address">
               <p class="hint">We mainly need your address for billing - other users will only see city & country until you officially confirm a request to host</p>
               <div class="user__address-street">
-              <%= f.label :address, class: 'user__address-label' %>
+              <%= f.label :address,
+                          required: true,
+                          class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
+                          error: false,
                           value: @user.address,
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
               </div>
+              <%= f.error         :address, class: 'form-error' %>
             <div class="user__address-city">
-              <%= f.label       :zipcode %>
-              <%= f.text_field  :zipcode,
-                                required: true,
-                                value: @user.zipcode,
-                                autofocus: true,
-                                id: 'zip' %>
-
-              <%= f.label       :city %>
-              <%= f.text_field  :city,
-                                required: true,
-                                value: @user.city,
-                                autofocus: true,
-                                id: 'city' %>
+              <div class="user__address-wrap">
+                <%= f.label       :zipcode,
+                                  required: true,
+                                  class: 'user__address-label' %>
+                <%= f.text_field  :zipcode,
+                                  required: true,
+                                  value: @user.zipcode,
+                                  autofocus: true,
+                                  id: 'zip' %>
+              </div>
+              <div class="user__address-wrap user__address-wrap--city">
+                <%= f.label       :city,
+                                  class: 'user__address-label' %>
+                <%= f.text_field  :city,
+                                  required: true,
+                                  value: @user.city,
+                                  autofocus: true,
+                                  id: 'city' %>
+              </div>
             </div>
+            <%= f.error         :zipcode, class: 'form-error' %>
+            <%= f.error         :city, class: 'form-error' %>
 
             <div class="user__address-country">
-              <%= f.label :country %>
+              <%= f.label :country,
+                          class: 'user__address-label' %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           selected: @user.country,
@@ -94,7 +108,9 @@
             </div>
           </div>
 
-          <%= f.label       :about_me %>
+          <%= f.label       :about_me,
+                            required: true,
+                            class: 'user__address-label' %>
           <%= f.input_field :summary,
                             required: true,
                             autofocus: true %>
@@ -102,7 +118,8 @@
 
 
           <%= f.label :characteristics %>
-          <%= f.error :characteristics, class: 'form-error form-error-characteristics' %>
+          <%= f.error :characteristics,
+                      class: 'form-error form-error-characteristics' %>
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
@@ -114,8 +131,10 @@
           </div>
 
           <div data-controller="display-info-window">
+            <%= f.label :my_current_status,
+                        required: true %>
             <div class="user__travelling">
-              <%= f.label :i_am_currently %>
+              <%= f.label :i_am %>
               <div class="user__offer">
                 <%= f.input               :travelling,
                                           as: :boolean,
@@ -155,31 +174,33 @@
                   <%= f.label           :hangout %>
                 </div>
               </div>
-            </div>
+            
 
-            <div class="user__couch display-none" data-conditional-user-fields-target="field">
-              <%= simple_fields_for     :couch do |cf| %>
-                <div class="user__couch-capacity">
-                  <%= cf.label          :i_can_host %>
-                  <%= cf.input_field    :capacity,
-                                        collection: 1..4,
-                                        autofocus: true,
-                                        selected: @user.couch.capacity if @user.couch %>
-                  <%= cf.label          :guests %>
+              <div class="user__couch display-none" data-conditional-user-fields-target="field">
+                <%= simple_fields_for     :couch do |cf| %>
+                  <div class="user__couch-capacity">
+                    <%= cf.label          :i_can_host %>
+                    <%= cf.input_field    :capacity,
+                                          collection: 1..4,
+                                          autofocus: true,
+                                          selected: @user.couch.capacity if @user.couch %>
+                    <%= cf.label          :guests,
+                                          required: false %>
+                  </div>
+                <%= cf.label                       :my_couch_comes_with %>
+                <div class="user__couch-facilities">
+                  <%= simple_fields_for            :couch_facility do |cff| %>
+                    <%= cff.collection_check_boxes :facility_ids,
+                                                    Facility.all, :id, :name,
+                                                    input_html: { multiple: true },
+                                                    autofocus: true,
+                                                    checked: @user.couch.facility_ids if @user.couch %>
+                  <% end %>
                 </div>
-              <%= cf.label                       :my_couch_comes_with %>
-              <div class="user__couch-facilities">
-                <%= simple_fields_for            :couch_facility do |cff| %>
-                  <%= cff.collection_check_boxes :facility_ids,
-                                                  Facility.all, :id, :name,
-                                                  input_html: { multiple: true },
-                                                  autofocus: true,
-                                                  checked: @user.couch.facility_ids if @user.couch %>
                 <% end %>
               </div>
-              <% end %>
+              <%= f.error :travelling, class: 'form-error' %>
             </div>
-            <%= f.error :travelling, class: 'form-error' %>
           </div>
 
           <%= f.label       :this_makes_me_really_happy %>
@@ -198,7 +219,9 @@
           <%= f.input_field :question_four,
                             required: true,
                             autofocus: true %>
+          <%= f.label :current_password, required: true, class: 'user__password-label' %>
           <%= f.input       :current_password,
+                            label: false,
                             hint: "we need your current password to make changes",
                             input_html: { autocomplete: "current-password" },
                             error: false %>

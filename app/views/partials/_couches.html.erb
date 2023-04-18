@@ -53,7 +53,11 @@
 								</p>
 								<p class="couches__location">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-									<%= couch.user.city %>, <%= couch.user.country %>
+									<% if couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+										<%= couch.user.city %>, United Kingdom
+									<% else %>
+										<%= couch.user.city %>, <%= couch.user.country %>
+									<% end %>
 								</p>
 							</div>
 							<% if couch.reviews.any? %>
