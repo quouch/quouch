@@ -120,16 +120,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_104912) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.string "checkout_session_id"
-    t.string "payment_intent"
-    t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.integer "operation"
-  end
-
   create_table "plans", force: :cascade do |t|
     t.string "name"
     t.string "description"
