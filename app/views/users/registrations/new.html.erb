@@ -116,6 +116,8 @@
                           value: params[:user]&.dig(:country) %>
             </div>
             <%= f.error   :country, class: 'form-error' %>
+            </div>
+            <%= f.error :country, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>

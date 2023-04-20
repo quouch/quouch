@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subscriptions, only: %i[new show create update]
+
   mount ActionCable.server => '/cable'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
