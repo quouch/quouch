@@ -49,16 +49,10 @@
                             autofocus: true,
                             placeholder: 'Email',
                             error: false,
-<<<<<<< HEAD
                             input_html: { autocomplete: 'email' },
                             value: params[:user]&.dig(:email) %>
           <%= f.error       :email, class: 'form-error' %>
           <%= f.label       :date_of_birth, required: true %>
-=======
-                            input_html: { autocomplete: 'email' } %>
-          <%= f.error       :email, class: 'form-error' %>
-          <%= f.label       :date_of_birth %>
->>>>>>> a1b6884 (add email error)
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
