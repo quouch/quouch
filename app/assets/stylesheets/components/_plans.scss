@@ -1,0 +1,62 @@
+.plans {
+	&__wrap {
+		@include container;
+
+		margin: 6rem auto 4rem;
+	}
+
+	&__title { color: $secondary; }
+	&__subtitle {
+		@include title-3;
+
+		color: $black;
+		display: block;
+	}
+
+	&__content {
+		h2 { @include title-5; }
+	
+		margin: 0 auto;
+	}
+
+	&__lists {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 1rem;
+	}
+
+	&__list {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		gap: 1rem;
+
+		&-item {
+			background-color: $secondary-super-transparent;
+			border-radius: $border-radius-medium;
+			padding: 2rem;
+		}
+	}
+
+	&__price {
+		@include title-3;
+		
+		text-align: center;
+	}
+
+	&__summary {
+		border-top: 1px solid $gray-03;
+		padding-top: 2rem;
+
+		p {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
+	&__total {
+		@include title-5;
+		
+		color: $primary;
+		margin-top: 2rem;
+	}
+}
