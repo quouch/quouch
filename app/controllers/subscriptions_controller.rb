@@ -3,10 +3,8 @@ class SubscriptionsController < ApplicationController
 
   def new
     @plans = Plan.all
-    @supporter = get_plans(@plans, 'supporter')
-    @member = get_plans(@plans, 'member')
-    @community = get_plans(@plans, 'community')
-
+    @monthly = get_plans(@plans, 'month')
+    @yearly = get_plans(@plans, 'year')
   end
 
   def show
@@ -42,7 +40,7 @@ class SubscriptionsController < ApplicationController
     params.require(:data).permit(:card_number, :exp_month, :exp_year, :cvc, :user_id, :plan_id, :active)
   end
 
-  def get_plans(plans, collection)
-    plans.where(collection:).order('id')
+  def get_plans(plans, interval)
+    plans.where(interval:).order('id')
   end
 end

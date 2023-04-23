@@ -2,7 +2,7 @@ class Plan < ApplicationRecord
 	validates :name, presence: true
 	validates :stripe_price_id, presence: true
 	validates :price_cents, presence: true
-	validates :name, uniqueness: true
+	validates :name, presence: true
 	validates :stripe_price_id, uniqueness: true
 
 	enum interval: %i[month year]

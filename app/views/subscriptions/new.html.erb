@@ -1,68 +1,48 @@
 <section class="plans">
   <div class="plans__wrap">
     <h1 class="plans__title">
-      Choose your subscription
-      <span class="plans__subtitle">so you can contact other Quouch members</span>
+      Choose a plan
     </h1>
 
-
-
     <div class="plans__content">
-      <h2>Choose one of our payment plans depending on your situation</h2>
+      <h2>And start contacting other members now</h2>
+      <p>Choose the subscription based on your situation</p>
+      <div class="switch-button">
+        <input class="switch-button-checkbox" type="checkbox"></input>
+        <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
+      </div>
+
       <div class="plans__lists">
         <ul class="plans__list">
-          <% @supporter.each do |plan| %>
+          <% @yearly.each do |plan| %>
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
-              <li>
+              <li class="plans__price">
+                <%= humanized_money_with_symbol plan.price_cents %> / <%= plan.interval %>
+              </li>
+              <li class="plans__description">
                 <%= plan.description %>
               </li>
-              <li>
-                <%= plan.interval %>ly
-              </li>
-              <li class="plans__price">
-                <%= humanized_money_with_symbol plan.price_cents %>
-              </li>
             </ul>
+            <a class="plans__button" href="">Choose plan</a>
           </li>
           <% end %>
         </ul>
 
         <ul class="plans__list">
-          <% @member.each do |plan| %>
+          <% @monthly.each do |plan| %>
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
-              <li>
+              <li class="plans__price">
+                <%= humanized_money_with_symbol plan.price_cents %> / <%= plan.interval %>
+              </li>
+              <li class="plans__description">
                 <%= plan.description %>
               </li>
-              <li>
-                <%= plan.interval %>ly
-              </li>
-              <li class="plans__price">
-                <%= humanized_money_with_symbol plan.price_cents %>
-              </li>
             </ul>
-          </li>
-          <% end %>
-        </ul>
-
-        <ul class="plans__list">
-          <% @community.each do |plan| %>
-          <li class="plans__list-item">
-            <h3><%= plan.name %></h3>
-            <ul class="plans__details">
-              <li>
-                <%= plan.description %>
-              </li>
-              <li>
-                <%= plan.interval %>ly
-              </li>
-              <li class="plans__price">
-                <%= humanized_money_with_symbol plan.price_cents %>
-              </li>
-            </ul>
+            <a class="plans__button" href="">Choose plan</a>
           </li>
           <% end %>
         </ul>

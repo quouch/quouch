@@ -17,23 +17,33 @@
 		h2 { @include title-5; }
 	
 		margin: 0 auto;
+		text-align: center;
 	}
 
 	&__lists {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
 		gap: 1rem;
 	}
 
 	&__list {
 		display: grid;
-		grid-template-rows: 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 		gap: 1rem;
 
 		&-item {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
 			background-color: $secondary-super-transparent;
 			border-radius: $border-radius-medium;
 			padding: 2rem;
+
+			h3 {
+				@include body-2;
+
+				margin: 1rem auto;
+			}
 		}
 	}
 
@@ -41,7 +51,11 @@
 		@include title-3;
 		
 		text-align: center;
+		color: $secondary;
+		margin: 2rem auto;
 	}
+
+	&__description { margin: 4rem auto; }
 
 	&__summary {
 		border-top: 1px solid $gray-03;
@@ -58,5 +72,13 @@
 		
 		color: $primary;
 		margin-top: 2rem;
+	}
+
+	&__button {
+		@include input-field;
+		@include primary-button;
+
+		margin-top: auto;
+		margin-bottom: 0;
 	}
 }
