@@ -20,16 +20,10 @@
 		text-align: center;
 	}
 
-	&__lists {
-		display: grid;
-		grid-template-rows: 1fr 1fr;
-		gap: 1rem;
-	}
-
 	&__list {
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr;
-		gap: 1rem;
+		gap: 2rem;
 
 		&-item {
 			display: flex;
@@ -40,7 +34,7 @@
 			padding: 2rem;
 
 			h3 {
-				@include body-2;
+				@include title-5;
 
 				margin: 1rem auto;
 			}
