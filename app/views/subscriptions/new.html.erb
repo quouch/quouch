@@ -4,22 +4,22 @@
       Choose a plan
     </h1>
 
-    <div class="plans__content">
+    <div class="plans__content" data-controller="plans-toggle">
       <h2>And start contacting other members now</h2>
       <p>Choose the subscription based on your situation</p>
       <div class="switch-button">
-        <input class="switch-button-checkbox" type="checkbox"></input>
+        <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
         <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
       </div>
 
       <div class="plans__lists">
-        <ul class="plans__list">
+        <ul class="plans__list" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
               <li class="plans__price">
-                <%= humanized_money_with_symbol plan.price_cents %> / <%= plan.interval %>
+                <%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %> / <%= plan.interval %>
               </li>
               <li class="plans__description">
                 <%= plan.description %>
@@ -30,13 +30,13 @@
           <% end %>
         </ul>
 
-        <ul class="plans__list">
+        <ul class="plans__list display-none" data-plans-toggle-target="month">
           <% @monthly.each do |plan| %>
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
               <li class="plans__price">
-                <%= humanized_money_with_symbol plan.price_cents %> / <%= plan.interval %>
+                <%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %> / <%= plan.interval %>
               </li>
               <li class="plans__description">
                 <%= plan.description %>

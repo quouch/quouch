@@ -52,6 +52,9 @@ application.register("message-submit", MessageSubmitController)
 import SkipBookingDateValidationController from "./skip_booking_date_validation_controller"
 application.register("skip-booking-date-validation", SkipBookingDateValidationController)
 
+import PlansToggleController from "./plans_toggle_controller"
+application.register("plans-toggle", PlansToggleController)
+
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
 
