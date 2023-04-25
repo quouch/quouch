@@ -6,7 +6,7 @@
 
     <div class="plans__content" data-controller="plans-toggle">
       <h2>And start contacting other members now</h2>
-      <p>Choose the subscription based on your situation</p>
+      <p>Choose a subscription based on your situation</p>
       <div class="switch-button">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
         <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
@@ -25,7 +25,7 @@
                 <%= plan.description %>
               </li>
             </ul>
-            <a class="plans__button" href="">Choose plan</a>
+            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
           </li>
           <% end %>
         </ul>
@@ -42,25 +42,11 @@
                 <%= plan.description %>
               </li>
             </ul>
-            <a class="plans__button" href="">Choose plan</a>
+            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
           </li>
           <% end %>
         </ul>
       </div>
     </div>
-
-    <button id="pay">Pay now</button>
-
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-      const paymentButton = document.getElementById('pay');
-      paymentButton.addEventListener('click', () => {
-        const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-        stripe.redirectToCheckout({
-          sessionId: '<#%= @payment.checkout_session_id %>'
-        });
-      });
-    </script>
-
   </div>
 </section>
