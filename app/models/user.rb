@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy, as: :recipient
   has_many :chat_users
   has_many :chats, through: :chat_users
-  has_many :user_characteristics, dependent: :destroy
+  has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
 
   validates :photo, presence: { message: 'Please upload a picture' }
@@ -27,7 +27,8 @@ class User < ApplicationRecord
   validates :country, presence: { message: 'Country required' }
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
-  validates :characteristics, presence: { message: 'Let others know what is important to you' }
+  validates_associated :characteristics, message: 'Let others know what is important to you'
+  validate  :validate_user_characteristics
   validate  :validate_age
   validate  :validate_travelling
 
@@ -72,5 +73,9 @@ class User < ApplicationRecord
         break
       end
     end
+  end
+
+  def validate_user_characteristics
+    errors.add(:user_characteristics, "Let others know what is important to you") if user_characteristics.empty?
   end
 end

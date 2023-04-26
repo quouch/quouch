@@ -1,12 +1,25 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  # * used the create from Devise: https://github.com/heartcombo/devise/blob/main/app/controllers/devise/registrations_controller.rb
   def create
-    super
-    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
-    @user.save(validate: false)
-    create_couch if @user.couch.nil?
+    build_resource(sign_up_params)
     create_user_characteristics
-    unless @user.update(invited_by_id: @invited_by.id)
-      @user.destroy
+
+    resource.save
+    if resource.persisted?
+      update_profile
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        sign_up(resource_name, resource)
+        respond_with resource, location: after_sign_up_path_for(resource)
+      else
+        set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+        expire_data_after_sign_in!
+        respond_with resource, location: after_inactive_sign_up_path_for(resource)
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
     end
   end
 
@@ -74,26 +87,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_couch_facilities
-    @couchfacilities = @couch.couch_facilities
-    @couchfacilities.destroy_all
-    delete_empty_string(couch_facility_params[:facility_ids])
-    couch_facility_params[:facility_ids].each do |id|
-      couchfacility = CouchFacility.create(couch_id: @couch, facility_id: id)
-      @couchfacilities << couchfacility
+    @couch.couch_facilities.destroy_all
+    couch_facility_params[:facility_ids].reject(&:empty?).each do |id|
+      CouchFacility.create(couch_id: @couch, facility_id: id)
     end
   end
 
   def create_user_characteristics
-    @usercharacteristics = @user.user_characteristics
-    @usercharacteristics.destroy_all
-    delete_empty_string(params[:user_characteristic][:characteristic_ids])
-    params[:user_characteristic][:characteristic_ids].each do |id|
-      usercharacteristic = UserCharacteristic.create(user_id: @user.id, characteristic_id: id)
-      @usercharacteristics << usercharacteristic
-    end
+    @user.user_characteristics.destroy_all
+    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
+    @user.user_characteristics.build(chars_hash)
   end
 
-  def delete_empty_string(array)
-    array.delete('')
+  def update_profile
+    create_couch if @user.couch.nil?
+    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
+    @user.update(invited_by_id: @invited_by.id)
   end
 end
