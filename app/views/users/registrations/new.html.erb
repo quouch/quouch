@@ -101,13 +101,16 @@
           </div>
 
           <%= f.label       :about_me, required: true %>
-          <%= f.input_field :summary,
-                            autofocus: true,
-                            error: false %>
-          <%= f.error       :about_me, class: 'form-error' %>
+          <%= f.input_field :summary %>
+          <%= f.error       :summary, class: 'form-error' %>
+
           <%= f.label :characteristics %>
-          <%= f.error :characteristics, class: 'form-error form-error-characteristics' %>
+          <% if @user.errors[:user_characteristics].any? %>
+            <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+          <% end %>
+
           <div class="user__characteristics">
+
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                              Characteristic.all,
@@ -200,11 +203,11 @@
             <%= f.label       :when_you_live_at_my_place_i_appreciate %>
             <%= f.input_field :question_four,
                               autofocus: true %>
-					<%= f.label :set_password, required: true, class: 'user__password-label' %>
 					<div class="user__password">
 						<%= f.password_field :password,
 																 hint: "#{@minimum_password_length} characters minimum",
-																 placeholder: 'Password' %>
+																 placeholder: 'Password',
+                                 autocomplete: "new-password" %>
 					</div>
           <%= f.hint             "#{@minimum_password_length} characters minimum",
                                  class: 'user__hint' %>
@@ -212,7 +215,8 @@
 
 					<div class="user__password">
 						<%= f.password_field :password_confirmation,
-																	placeholder: 'Password confirmation' %>
+																	placeholder: 'Password confirmation',
+                                  autocomplete: "new-password" %>
             <%= f.error          :password_confirmation, class: 'form-error' %>
 					</div>
 
