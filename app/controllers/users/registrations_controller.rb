@@ -3,10 +3,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     create_user_characteristics
-
+    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
     resource.save
+    resource.update(invited_by_id: @invited_by.id)
+
     if resource.persisted?
       update_profile
+      create_couch
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)
@@ -89,7 +92,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create_couch_facilities
     @couch.couch_facilities.destroy_all
     couch_facility_params[:facility_ids].reject(&:empty?).each do |id|
-      CouchFacility.create(couch_id: @couch, facility_id: id)
+      CouchFacility.create(couch_id: @couch.id, facility_id: id)
     end
   end
 
@@ -97,6 +100,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.user_characteristics.destroy_all
     chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
     @user.user_characteristics.build(chars_hash)
+    @user.user_characteristics.each(&:save)
   end
 
   def update_profile
