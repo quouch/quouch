@@ -66,6 +66,7 @@
               <%= f.label :address, required: true, class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
+                          error: false,
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
               </div>
@@ -95,7 +96,8 @@
               <%= f.label :country, class: 'user__address-label' %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
-                          label: false %>
+                          label: false,
+                          error: false %>
               <%= f.error       :country, class: 'form-error' %>
             </div>
           </div>
@@ -204,6 +206,7 @@
             <%= f.input_field :question_four,
                               autofocus: true %>
 					<div class="user__password">
+            <%= f.label          :set_password %>
 						<%= f.password_field :password,
 																 hint: "#{@minimum_password_length} characters minimum",
 																 placeholder: 'Password',
