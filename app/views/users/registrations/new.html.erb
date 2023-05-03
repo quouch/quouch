@@ -66,6 +66,7 @@
               <%= f.label :address, required: true, class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
+                          error: false,
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
               </div>
@@ -95,19 +96,23 @@
               <%= f.label :country, class: 'user__address-label' %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
-                          label: false %>
+                          label: false,
+                          error: false %>
               <%= f.error       :country, class: 'form-error' %>
             </div>
           </div>
 
           <%= f.label       :about_me, required: true %>
-          <%= f.input_field :summary,
-                            autofocus: true,
-                            error: false %>
-          <%= f.error       :about_me, class: 'form-error' %>
+          <%= f.input_field :summary %>
+          <%= f.error       :summary, class: 'form-error' %>
+
           <%= f.label :characteristics %>
-          <%= f.error :characteristics, class: 'form-error form-error-characteristics' %>
+          <% if @user.errors[:user_characteristics].any? %>
+            <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+          <% end %>
+
           <div class="user__characteristics">
+
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                              Characteristic.all,
@@ -200,11 +205,12 @@
             <%= f.label       :when_you_live_at_my_place_i_appreciate %>
             <%= f.input_field :question_four,
                               autofocus: true %>
-					<%= f.label :set_password, required: true, class: 'user__password-label' %>
 					<div class="user__password">
+            <%= f.label          :set_password %>
 						<%= f.password_field :password,
 																 hint: "#{@minimum_password_length} characters minimum",
-																 placeholder: 'Password' %>
+																 placeholder: 'Password',
+                                 autocomplete: "new-password" %>
 					</div>
           <%= f.hint             "#{@minimum_password_length} characters minimum",
                                  class: 'user__hint' %>
@@ -212,7 +218,8 @@
 
 					<div class="user__password">
 						<%= f.password_field :password_confirmation,
-																	placeholder: 'Password confirmation' %>
+																	placeholder: 'Password confirmation',
+                                  autocomplete: "new-password" %>
             <%= f.error          :password_confirmation, class: 'form-error' %>
 					</div>
 
