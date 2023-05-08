@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :subscriptions, only: %i[new show create update] do
+  resources :subscriptions, only: %i[new show create update destroy] do
     get :payment, on: :collection, defaults: { format: 'html' }
   end
 

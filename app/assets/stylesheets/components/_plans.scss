@@ -22,8 +22,11 @@
 
 	&__list {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr;
 		gap: 2rem;
+
+
+		@media (min-width: $break-large) { grid-template-columns: 1fr 1fr 1fr; }
 
 		&-item {
 			display: flex;
@@ -32,24 +35,50 @@
 			background-color: $secondary-super-transparent;
 			border-radius: $border-radius-medium;
 			padding: 2rem;
+			box-shadow: $box-shadow;
 
 			h3 {
 				@include title-5;
 
-				margin: 1rem auto;
+				margin: 0;
+			}
+
+			&__wrap {
+				display: flex;
+				align-items: center;
+				gap: 1.6rem;
+				text-align: left;
+
+				img {
+					height: 48px;
+					width: 48px;
+				}
 			}
 		}
 	}
 
 	&__price {
-		@include title-3;
+		@include title-4;
 		
-		text-align: center;
-		color: $secondary;
-		margin: 2rem auto;
+		margin: 0;
+
+		&-interval {
+			@include caption;
+
+			font-weight: 300;
+			letter-spacing: 0.1em;
+		}
 	}
 
-	&__description { margin: 4rem auto; }
+	&__description {
+		display: none;
+
+		@media (min-width: $break-medium) {
+			display: block;
+			margin: 3rem auto;
+			text-align: left;
+		}
+	}
 
 	&__summary {
 		border-top: 1px solid $gray-03;
@@ -61,18 +90,35 @@
 		}
 	}
 
-	&__total {
-		@include title-5;
-		
-		color: $primary;
-		margin-top: 2rem;
-	}
-
 	&__button {
 		@include input-field;
 		@include primary-button;
 
-		margin-top: auto;
-		margin-bottom: 0;
+		margin-top: 2rem;
+
+		@media (min-width: $break-medium) {
+			margin-top: auto;
+			margin-bottom: 0;
+		}
+	}
+}
+
+.current-plan {
+	background-color: $secondary-dark;
+	color: $white;
+
+	.plans__price { color: $white; }
+
+	&__label {
+		@include caption;
+
+		position: absolute;
+		font-weight: 700;
+		text-transform: uppercase;
+		background-color: $warning;
+		color: $secondary-dark;
+		border-bottom-right-radius: $border-radius-small;
+		width: fit-content;
+		padding: .2rem;
 	}
 }

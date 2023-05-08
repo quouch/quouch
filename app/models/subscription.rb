@@ -12,7 +12,9 @@ class Subscription < ApplicationRecord
       customer: self.user.stripe_id,
       items: [
         { price: self.plan.stripe_price_id }
-      ]
+      ],
+      payment_behavior: 'default_incomplete',
+      payment_settings: {save_default_payment_method: 'on_subscription'}
     })
 
     self.stripe_id = response.id
