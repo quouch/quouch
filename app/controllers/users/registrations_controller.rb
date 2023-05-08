@@ -3,9 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
     create_user_characteristics
-    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
     resource.save
-    resource.update(invited_by_id: @invited_by.id)
 
     if resource.persisted?
       update_profile
