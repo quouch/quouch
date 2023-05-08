@@ -113,4 +113,8 @@ class User < ApplicationRecord
   def retrieve_stripe_reference
     Stripe::Customer.retrieve(stripe_id)
   end
+
+  def validate_user_characteristics
+    errors.add(:user_characteristics, "Let others know what is important to you") if user_characteristics.empty?
+  end
 end

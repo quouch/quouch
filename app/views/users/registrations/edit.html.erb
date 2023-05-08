@@ -136,6 +136,7 @@
           <% end %>
 
           <div class="user__characteristics">
+
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                             Characteristic.find_each,
