@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: %i[new create payment]
+  before_action :set_subscription, except: %i[new create payment destroy]
 
   def new
     @plans = Plan.all
@@ -8,7 +8,10 @@ class SubscriptionsController < ApplicationController
   end
 
   def show
-    @subscription
+    @plans = Plan.all
+    @monthly = get_plans(@plans, 'month')
+    @yearly = get_plans(@plans, 'year')
+    @plan = current_user.subscription.plan
   end
 
   def create
@@ -51,6 +54,11 @@ class SubscriptionsController < ApplicationController
     @subscription.checkout_session_id = checkout_session.id
     @subscription.save!
     redirect_to checkout_session.url, allow_other_host: true
+  end
+
+  def destroy
+    # remove subscription from stripe
+    @subscription.destroy
   end
 
   private

@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
+  has_one :subscription
 
   validates :photo, presence: { message: 'Please upload a picture' }, on: :create
   validates :first_name, presence: { message: 'First name required' }, on: :create
