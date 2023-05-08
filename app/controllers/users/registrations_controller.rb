@@ -30,8 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch = @user.couch
     create_couch_facilities
 
-    create_user_characteristics
-    resource.save
+    update_user_characteristics
     super
     beautify_country
     disable_offers_if_travelling
@@ -83,6 +82,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?)
                                                                   .map { |id| { characteristic_id: id } }
     @user.user_characteristics.build(chars_hash)
+  end
+
+  def update_user_characteristics
+    @user.user_characteristics.destroy_all
+    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
+    @user.user_characteristics.build(chars_hash)
+    @user.user_characteristics.each(&:save)
   end
 
   def update_profile
