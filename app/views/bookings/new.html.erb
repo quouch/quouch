@@ -1,18 +1,20 @@
 <div class="booking-form__wrap">
 	<%= render 'host' %>
-
 	<section class="booking-form" data-controller="validate-form">
 		<%= simple_form_for [@couch, @booking],
 				data: { controller: 'flatpickr' },
 				defaults: { required: false } do |f| %>
 
 			<div class="booking-form__type">
-				<%= f.label :pick_one, required: true %>
-				<%= f.input :request,
-										as: :radio_buttons,
-										label: false,
-										value: @offers.keys.first,
-										collection: @offers.keys if @offers %>
+				<%= f.label :request, required: true %>
+        <div class="booking_request">
+          <%= collection_radio_buttons(:booking, :request, @offers.to_a, :first, :first, checked: @offers.to_a.first )  do |b|%>
+            <div>
+              <%= b.radio_button %>
+              <%= b.label %>
+            </div>
+          <% end %>
+        </div>
 			</div>
 			<div class="booking-form__details__wrap">
 			<%= f.label :dates_and_travellers, required: true %>
