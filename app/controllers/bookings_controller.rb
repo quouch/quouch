@@ -122,17 +122,17 @@ class BookingsController < ApplicationController
 	end
 
 	def accept
-    if @booking.confirmed!
+		if @booking.confirmed!
 			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 			redirect_to confirmed_booking_path(@booking)
 		end
-  end
+	end
 
-  def decline
-    if @booking.declined!
+	def decline
+		if @booking.declined!
 			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 		end
-  end
+	end
 
 	def pay
 		customer = Stripe::Customer.create(
