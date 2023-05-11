@@ -8,7 +8,6 @@ export default class extends Controller {
     if (this.#allValid()) {
       this.buttonTarget.disabled = false;
     } else {
-
       this.buttonTarget.disabled = true;
     }
   }
