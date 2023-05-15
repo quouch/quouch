@@ -43,21 +43,22 @@ class BookingsController < ApplicationController
 		offers(@host)
 	end
 
-  def create
-    @booking = Booking.new(booking_params)
-    @booking.couch = @couch
-    @guest = @booking.user
-    @host = @couch.user
-    @booking.user = current_user
-    @booking.booking_date = DateTime.now
-    @booking.nights = (@booking.end_date - @booking.start_date).to_i
-    if @booking.save
-      @booking.pending!
-      redirect_to sent_booking_path(@booking)
+	def create
+		@booking = Booking.new(booking_params)
+		@booking.couch = @couch
+		@guest = @booking.user
+		@host = @couch.user
+		@booking.user = current_user
+		@booking.booking_date = DateTime.now
+		@booking.nights = (@booking.end_date - @booking.start_date).to_i
+		if @booking.save
+			@booking.pending!
+			redirect_to sent_booking_path(@booking)
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
-  	else
-      render :new, status: :unprocessable_entity
-  	end
+		else
+			offers(@host)
+			render :new, status: :unprocessable_entity
+		end
 	end
 
 	def edit
@@ -121,17 +122,17 @@ class BookingsController < ApplicationController
 	end
 
 	def accept
-    if @booking.confirmed!
+		if @booking.confirmed!
 			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 			redirect_to confirmed_booking_path(@booking)
 		end
-  end
+	end
 
-  def decline
-    if @booking.declined!
+	def decline
+		if @booking.declined!
 			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 		end
-  end
+	end
 
 	def pay
 		customer = Stripe::Customer.create(
