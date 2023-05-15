@@ -106,19 +106,30 @@
 .current-plan {
 	background-color: $secondary-dark;
 	color: $white;
+	padding-top: .5rem;
 
 	.plans__price { color: $white; }
+
+	form {
+		@media (min-width: $break-medium) {
+			margin-top: auto;
+			margin-bottom: 0;
+		}
+	}
 
 	&__label {
 		@include caption;
 
-		position: absolute;
+		position: relative;
+		top: -8px;
+		left: -32px;
+		padding: .2rem;
 		font-weight: 700;
 		text-transform: uppercase;
 		background-color: $warning;
 		color: $secondary-dark;
 		border-bottom-right-radius: $border-radius-small;
+		border-top-left-radius: $border-radius-small;
 		width: fit-content;
-		padding: .2rem;
 	}
 }
