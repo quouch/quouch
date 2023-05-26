@@ -3,6 +3,6 @@
 	<p>Nice, you confirmed the booking of <%= @guest.first_name %> who will now receive a notification with a payment request. Once paid, we will grant access to your address. You are contributing to a safer space for our travellers!</p>
 	<div class="confirmed__buttons">
 		<%= link_to 'Back to guest overview', :back, class: 'confirmed__back' %>
-		<%= link_to "Browse couches", couches_path, class: 'confirmed__link' %>
+		<%= link_to "Browse couches", root_path, class: 'confirmed__link' %>
 	</div>
 </section>
