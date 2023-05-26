@@ -5,6 +5,7 @@ class ChatsController < ApplicationController
 	def index
 		@chats = Chat.includes(:messages).where(user_sender_id: current_user.id).or(Chat.includes(:messages)
 								 .where(user_receiver_id: current_user.id)).order('messages.created_at DESC')
+    @chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
 	end
 
 	def show
@@ -15,7 +16,7 @@ class ChatsController < ApplicationController
 
 	def create
 		@chat = Chat.new(user_sender_id: params[:user_sender_id], user_receiver_id: params[:user_receiver_id])
-		redirect_to chat_path(@chat) if @chat.save
+		redirect_to chats_path(chat: @chat) if @chat.save
 	end
 
 		private

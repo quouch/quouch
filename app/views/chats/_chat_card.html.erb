@@ -1,0 +1,34 @@
+<% unread = chat.notifications_as_chat.where(type: MessageNotification.name, recipient: current_user).unread %>
+
+<% if chat.user_sender_id == current_user.id %>
+	<% @other_user = User.find(chat.user_receiver_id) %>
+<% else %>
+	<% @other_user = User.find(chat.user_sender_id) %>
+<% end %>
+
+	<li class="chats__list-item">
+		<%= link_to chats_path(chat: chat) do %>
+      <div class="chats__user-infos">
+        <% if @other_user.photo.key %>
+          <%#= cl_image_tag @other_user.photo.key %>
+          <%= image_tag "logo.png" %>
+        <% else %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+        <% end %>
+        <% if unread.count > 0  %>
+          <div class="chats__notifications">
+            <aside><%= "#{unread.count}" %></aside>
+          </div>
+        <% end %>
+      </div>
+    <div class="chats__details">
+      <p class="chats__details-name <%= 'chats__details-name--unread' if unread.count > 0 %>">
+        <%= @other_user.first_name %>
+      </p>
+      <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(50) %></p>
+      <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>">
+        Last message on <%= chat.messages.last.created_at.strftime("%^b %d ⋅ %I:%M %p").downcase %>
+      </p>
+    </div>
+    <% end %>
+	</li>
