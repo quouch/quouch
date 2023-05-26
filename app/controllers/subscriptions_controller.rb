@@ -1,64 +1,42 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, except: %i[new create payment destroy]
+  before_action :set_subscription, except: %i[new payment]
 
   def new
-    @plans = Plan.all
-    @monthly = get_plans(@plans, 'month')
-    @yearly = get_plans(@plans, 'year')
+    display_plans
   end
 
   def show
-    @plans = Plan.all
-    @monthly = get_plans(@plans, 'month')
-    @yearly = get_plans(@plans, 'year')
+    display_plans
     @plan = current_user.subscription.plan
   end
 
-  def create
-    @subscription = Subscription.new(subscription_params)
-    @plan = Plan.find(plan_id)
-
-    if @subscription.save
-      render 'subscription/show', status: :created
-    else
-      render 'subscription/new', status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @subscription.update(subscription_params)
-      render 'subscription/show', status: :created
-    else
-      flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
-      render 'subscription/show', status: :unprocessable_entity
-    end
-  end
-
   def payment
-    subscription_id = SecureRandom.uuid
-    plan_id = params[:plan_id]
-    @subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
+    @subscription = current_user.subscription
+    if @subscription
+      plan_id = params[:plan_id]
+      @subscription.update(id: @subscription.id, plan_id:, user_id: current_user.id, active: true)
+    else
+      subscription_id = SecureRandom.uuid
+      plan_id = params[:plan_id]
+      @subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
+    end
 
-    checkout_session = Stripe::Checkout::Session.create({
-      customer_email: current_user.email,
-      payment_method_types: ['card'],
-      line_items: [{
-        price: @subscription.plan.stripe_price_id,
-        quantity: 1
-      }],
-      mode: 'subscription',
-      success_url: subscription_url(@subscription),
-      cancel_url: new_subscription_url
-    })
-
-    @subscription.checkout_session_id = checkout_session.id
+    @checkout_session = create_checkout_session(@subscription)
+    @subscription.checkout_session_id = @checkout_session.id
     @subscription.save!
-    redirect_to checkout_session.url, allow_other_host: true
+    redirect_to @checkout_session.url, allow_other_host: true
   end
 
   def destroy
-    # remove subscription from stripe
-    @subscription.destroy
+    session = Stripe::Checkout::Session.retrieve(@subscription.checkout_session_id)
+    @subscription.update(stripe_id: session.subscription)
+    Stripe::Subscription.cancel(@subscription.stripe_id)
+    if Subscription.find(@subscription.id).destroy
+      flash[:alert] = 'You successfully unsubscriped the Quouch service. Sad to see you go!'
+    else
+      flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
+    end
+    render 'subscriptions/new'
   end
 
   private
@@ -73,5 +51,25 @@ class SubscriptionsController < ApplicationController
 
   def get_plans(plans, interval)
     plans.where(interval:).order('id')
+  end
+
+  def display_plans
+    @plans = Plan.all
+    @monthly = get_plans(@plans, 'month')
+    @yearly = get_plans(@plans, 'year')
+  end
+
+  def create_checkout_session(subscription)
+    Stripe::Checkout::Session.create({
+      customer: current_user.stripe_id,
+      payment_method_types: ['card'],
+      line_items: [{
+        price: subscription.plan.stripe_price_id,
+        quantity: 1
+      }],
+      mode: 'subscription',
+      success_url: subscription_url(subscription),
+      cancel_url: new_subscription_url
+    })
   end
 end
