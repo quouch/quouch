@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
 	before_action :set_booking, except: %i[index requests new create]
-	before_action :set_couch, only: %i[new create]
+	before_action :set_couch, only: %i[new create requests]
 
 	def index
 		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
@@ -11,10 +11,11 @@ class BookingsController < ApplicationController
 	end
 
 	def requests
+    @requests = @couch.bookings
 		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }
-												 .sort_by(&:start_date)
+												.sort_by(&:start_date)
 		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by(&:start_date)
-		@completed = @requests.select.select(&:completed?).sort_by(&:start_date)
+		@completed = @requests.select(&:completed?).sort_by(&:start_date)
 	end
 
 	def show
@@ -165,7 +166,7 @@ class BookingsController < ApplicationController
 	end
 
 	def set_couch
-		@couch = Couch.find(params[:couch_id])
+		@couch = Couch.includes(:bookings).find(params[:couch_id])
 	end
 
 	def offers(host)
