@@ -1,3 +1,21 @@
+.chat__header {
+  box-shadow: $box-shadow;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+
+   h3 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  span {
+    font-size: 1rem;
+    color: $gray-05
+  }
+}
+
 .chat {
   @include container;
 
@@ -48,7 +66,7 @@
     border-top-right-radius: $border-radius-small;
     border-bottom-right-radius: $border-radius-small;
   }
-  
+
   &__receiver {
     background-color: $primary-light;
     color: $white;
@@ -59,7 +77,7 @@
 
   &__form {
     display: flex;
-  
+
     div:first-child { width: 100%; }
 
     &-input { width: 100%; }
