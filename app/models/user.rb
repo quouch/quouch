@@ -12,8 +12,9 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :notifications, dependent: :destroy, as: :recipient
-  has_many :chat_users
-  has_many :chats, through: :chat_users
+  has_many :chats_as_receiver, class_name: "Chat", foreign_key: :user_receiver_id
+  has_many :chats_as_sender, class_name: "Chat", foreign_key: :user_sender_id
+
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
 
@@ -44,6 +45,10 @@ class User < ApplicationRecord
       calculation = 1
     end
     today.year - date_of_birth.year - calculation
+  end
+
+  def chats
+    Chat.where('user_receiver_id = ? OR user_sender_id = ?', id, id)
   end
 
   def validate_age
