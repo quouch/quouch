@@ -48,7 +48,14 @@ class User < ApplicationRecord
   end
 
   def chats
-    Chat.where('user_receiver_id = ? OR user_sender_id = ?', id, id)
+    Chat.includes(:messages).where('user_receiver_id = ? OR user_sender_id = ?', id, id)
+  end
+
+  def latest_message_chat
+    Chat.joins(:messages)
+        .where('chats.user_sender_id = :user_id OR chats.user_receiver_id = :user_id', user_id: id)
+        .order('messages.created_at DESC')
+        .first
   end
 
   def validate_age

@@ -1,12 +1,11 @@
-<% if chat.user_sender_id == current_user.id %>
-	<% other_user = User.find(chat.user_receiver_id) %>
-<% else %>
-	<% other_user = User.find(chat.user_sender_id) %>
-<% end %>
-
 <div class="chat__header">
-  <h3><%= other_user.first_name %> <%= other_user.last_name[0].upcase %>. <span> <%= other_user.pronouns %></span> </h3>
-  <%= link_to "see profile", couch_path(other_user.couch) %>
+  <div class="chat__header__left">
+    <%= link_to chats_path, class: "back-link"  do %>
+      <i class="fa-solid fa-angle-left"></i>
+    <% end %>
+    <h3><%= other_user.first_name %> <%= other_user.last_name[0].upcase %>. <span> <%= other_user.pronouns %></span> </h3>
+  </div>
+  <%= link_to "...", couch_path(other_user.couch) %>
 </div>
 <div class="chat"
      data-controller="chat-subscription"

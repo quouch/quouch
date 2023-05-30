@@ -7,7 +7,7 @@
       <ul class="chats__list">
         <% @chats.each do |chat| %>
           <% if chat.messages.any? %>
-            <%= render 'chats/chat_card', chat: chat %>
+            <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
           <% end %>
         <% end %>
       </ul>
@@ -20,9 +20,5 @@
         </div>
       </div>
     <% end %>
-  </div>
-
-  <div class="chat__container">
-    <%= render 'chats/chat', chat: @chat, message: Message.new %>
   </div>
 </section>

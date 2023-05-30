@@ -1,13 +1,51 @@
+.chat__show {
+  display: flex;
+  margin-top: 4rem;
+
+  .chats__list__container {
+    display: none;
+    flex: 1 0 0%;
+
+    @media (min-width: $break-small) {
+      display: block;
+      flex: 0 0 30%;
+      box-shadow: $box-shadow;
+      overflow-y: scroll;
+    }
+  }
+
+  .chat__container {
+    flex: 1 0 0%;
+    @media (min-width: $break-small) {
+      display: block;
+    }
+  }
+}
 .chat__header {
-  box-shadow: $box-shadow;
+  box-shadow: 0 4px 4px -4px $gray-02;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
+  &__left {
+    display: flex;
+    align-items: center;
+  }
 
-   h3 {
+  .back-link {
+    @media (min-width: $break-small) {
+      display: none;
+    }
+  }
+
+   h3, a {
     font-size: 1.5rem;
     line-height: 1.2;
+  }
+
+  h3 {
+    margin: 0;
+    margin-left: 2rem;
   }
 
   span {
