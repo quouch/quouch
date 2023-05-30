@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_23_185001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,29 +42,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "booking_payments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "booking_id"
-    t.bigint "payment_id"
-    t.index ["booking_id"], name: "index_booking_payments_on_booking_id"
-    t.index ["payment_id"], name: "index_booking_payments_on_payment_id"
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
     t.integer "status"
     t.date "booking_date"
     t.date "cancellation_date"
-    t.integer "nights"
     t.bigint "couch_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number_travellers"
     t.text "message"
-    t.integer "price_cents", default: 0, null: false
     t.integer "request"
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
@@ -131,14 +120,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.string "checkout_session_id"
-    t.string "payment_intent"
-    t.integer "status"
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "interval"
+    t.integer "price_cents"
+    t.string "stripe_price_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.integer "operation"
+    t.string "collection"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -152,6 +142,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
     t.index ["couch_id"], name: "index_reviews_on_couch_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "active", default: true
+    t.string "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "checkout_session_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "user_characteristics", force: :cascade do |t|
@@ -196,6 +198,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
     t.string "city"
     t.string "invite_code"
     t.bigint "invited_by_id"
+    t.string "stripe_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -215,6 +218,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_17_095430) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "reviews", "couches"
   add_foreign_key "reviews", "users"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "user_characteristics", "characteristics"
   add_foreign_key "user_characteristics", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
