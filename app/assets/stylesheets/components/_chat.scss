@@ -1,9 +1,12 @@
 .chat__show {
   display: flex;
   margin-top: 4rem;
+  height: calc(100vh - 4rem);
 
   .chats__list__container {
     display: none;
+    height: 100%;
+    overflow: hidden;
     flex: 1 0 0%;
 
     @media (min-width: $break-small) {
@@ -16,9 +19,10 @@
 
   .chat__container {
     flex: 1 0 0%;
-    @media (min-width: $break-small) {
-      display: block;
-    }
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 }
 .chat__header {
@@ -55,12 +59,16 @@
 }
 
 .chat {
-  @include container;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  &__messages {
+  &__messages__container {
     display: flex;
     flex-direction: column;
     min-height: 10vh;
+    flex: 1;
+    overflow-y: auto;
 
     img {
       height: 140px;
@@ -82,6 +90,10 @@
         margin: 1rem auto;
       }
     }
+  }
+
+  &__messages {
+    @include container;
   }
 
   &__message {
@@ -113,7 +125,15 @@
     border-bottom-left-radius: $border-radius-small;
   }
 
+  &__form__container {
+    @include container;
+    margin: 2rem auto;
+    position: sticky;
+    bottom: 0;
+  }
+
   &__form {
+    flex: 0 0 auto;
     display: flex;
 
     div:first-child { width: 100%; }
