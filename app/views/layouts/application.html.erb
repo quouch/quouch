@@ -9,9 +9,9 @@
     <%= favicon_link_tag asset_path('logo.png') %>
 
     <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
-  
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
-    
+
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
 
@@ -24,6 +24,6 @@
 
     <%= yield %>
 
-    <%= render 'shared/footer' %>
+    <%= render 'shared/footer' unless controller_name == 'chats' && action_name == 'show'  %>
   </body>
 </html>
