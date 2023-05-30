@@ -18,7 +18,7 @@ class ChatsController < ApplicationController
 
 	def create
 		@chat = Chat.new(user_sender_id: params[:user_sender_id], user_receiver_id: params[:user_receiver_id])
-		redirect_to chats_path(chat: @chat) if @chat.save
+		redirect_to chat_path(@chat) if @chat.save
 	end
 
 		private

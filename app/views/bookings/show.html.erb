@@ -23,7 +23,7 @@
 							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
 						<% end %>
 					<% else %>
-						<%= link_to chats_path(chat: @chat) do %>
+						<%= link_to chat_path(@chat) do %>
 							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
 						<% end %>
 					<% end %>
