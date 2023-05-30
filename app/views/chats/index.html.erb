@@ -1,22 +1,24 @@
 <section class="chats">
-	<h1 class="chats__title">Your Conversations</h1>
-	<% if @chats.any? %>
-		<ul class="chats__list">
-			<% @chats.each do |chat| %>
-				<% if chat.messages.any? %>
-					<%= link_to chat_path(chat) do %>
-							<%= render 'chats/chat', chat: chat %>
-					<% end %>
-				<% end %>
-			<% end %>
-		</ul>
-	<% else %>
-		<div class="chat__messages"
-         data-chat-subscription-target="messages">
-      <div class=" chat__messages--empty" data-chat-subscription-target="empty">
-        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
-        <p class="chat__messages">No conversations yet!</p>
-      </div>
+  <div class="chats__list__container">
+    <div>
+      <h1 class="chats__title">Your Conversations</h1>
     </div>
-	<% end %>
+    <% if @chats.any? %>
+      <ul class="chats__list">
+        <% @chats.each do |chat| %>
+          <% if chat.messages.any? %>
+            <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
+          <% end %>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="chat__messages"
+          data-chat-subscription-target="messages">
+        <div class=" chat__messages--empty" data-chat-subscription-target="empty">
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
+          <p class="chat__messages">No conversations yet!</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </section>

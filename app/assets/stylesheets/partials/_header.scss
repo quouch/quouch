@@ -42,6 +42,17 @@
 
 }
 
+.header .chat__medium-break__link {
+  display: none;
+  @media (min-width: $break-medium) { display: block; }
+}
+
+@media (min-width: $break-medium) {
+  .header .chat__small-break__link {
+    display: none;
+  }
+}
+
 .header .chats__notifications {
 	position: absolute;
 	top: 44px;
