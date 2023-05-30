@@ -1,6 +1,6 @@
 <header class="header">
 	<aside class="header__logo">
-		<%= link_to 'Q', root_path %> 
+		<%= link_to 'Q', root_path %>
 	</aside>
 	<% if user_signed_in? %>
 		<%= render "shared/navbar" %>
@@ -34,10 +34,11 @@
 					<% end %>
 					<li class="collapsible__chat">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
-						<%= link_to 'Chat', chats_path %>
-						<% if current_user.notifications.any? %>
-							<%= render 'shared/notifications' %>
-						<% end %>
+            <%= link_to 'Chats', chats_path, class: "chat__small-break__link" %>
+            <%= link_to 'Chats', chat_path(current_user.latest_message_chat), class: "chat__medium-break__link" %>
+            <% if current_user.notifications.any? %>
+              <%= render 'shared/notifications' %>
+            <% end %>
 					</li>
 				</ul>
 				<ul>

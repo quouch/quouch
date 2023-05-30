@@ -1,58 +1,28 @@
-<turbo-frame id="chat-frame">
-  <% if chat.user_sender_id == current_user.id %>
-	<% other_user = User.find(chat.user_receiver_id) %>
-<% else %>
-	<% other_user = User.find(chat.user_sender_id) %>
-<% end %>
-
-<div class="chat__header">
-  <h3><%= other_user.first_name %> <%= other_user.last_name[0].upcase %>. <span> <%= other_user.pronouns %></span> </h3>
-  <%= link_to "see profile", couch_path(other_user.couch) %>
-</div>
-<div class="chat"
-     data-controller="chat-subscription"
-     data-chat-subscription-chat-id-value="<%= chat.id %>"
-     data-chat-subscription-current-user-id-value="<%= current_user.id %>">
-
-  <% if chat.messages.any? %>
-    <div class="chat__messages"
-        data-chat-subscription-target="messages">
-      <% chat.messages.each do |message| %>
-        <div class="chat__message chat__message<%= message.sender?(current_user) ? '--left' : '--right' %>">
-          <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
-            <%= render "messages/message", message: message %>
-          </div>
-        </div>
+<section class="chat__show">
+  <div class="chats__list__container">
+    <div>
+      <h1 class="chats__title">Your Conversations</h1>
+    </div>
+    <% if @chats.any? %>
+      <ul class="chats__list">
+        <% @chats.each do |chat| %>
+          <% if chat.messages.any? %>
+            <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
+          <% end %>
         <% end %>
-    </div>
-  <% else %>
-    <div class="chat__messages"
-         data-chat-subscription-target="messages">
-      <div class="chat__messages--empty">
-        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
-        <p class="chat__messages">Be the first to reach out and start a conversation!</p>
+      </ul>
+    <% else %>
+      <div class="chat__messages"
+          data-chat-subscription-target="messages">
+        <div class=" chat__messages--empty" data-chat-subscription-target="empty">
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
+          <p class="chat__messages">No conversations yet!</p>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
-  <%= simple_form_for [chat, message], remote: true,
-    html: {
-      class: 'chat__form',
-      data: {
-        action: 'turbo:submit-end->chat-subscription#resetForm',
-        chat_subscription_target: 'form'
-      }
-    } do |f| %>
-      <%= f.input :content,
-                  label: false,
-                  placeholder: "Message ##{@name}",
-                  input_html: { class: 'chat__form-input' } %>
-      <%= button_tag(class: 'chat__form-button') do %>
-        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/send.svg') %>
-      <% end %>
-      <%= f.error :content, class: 'form-error' %>
-  <% end %>
-</div>
-
-
-</turbo-frame>
+  <div class="chat__container">
+    <%= render 'chats/chat', chat: @chat, message: Message.new, other_user: @other_user %>
+  </div>
+</section>
