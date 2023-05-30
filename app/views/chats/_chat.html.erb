@@ -14,12 +14,11 @@
       data-chat-subscription-current-user-id-value="<%= current_user.id %>">
 
     <% if chat.messages.any? %>
-      <div class="chat__messages__container"
-          data-chat-subscription-target="messages">
+      <div class="chat__messages__container">
 
-        <div class="chat__messages">
+        <div class="chat__messages" data-chat-subscription-target="messages">
           <% chat.messages.each do |message| %>
-            <div class="chat__message chat__message<%= message.sender?(current_user) ? '--left' : '--right' %>">
+            <div class="chat__message chat__message<%= message.sender?(current_user) ? '--right' : '--left' %>">
               <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
                 <%= render "messages/message", message: message %>
               </div>

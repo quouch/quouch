@@ -6,11 +6,11 @@ export default class extends Controller {
   static targets = ['messages', 'form']
 
   connect() {
-    this.messagesTarget.scrollIntoView(true, {block: 'end'})
     this.channel = createConsumer().subscriptions.create(
       { channel: 'ChatChannel', id: this.chatIdValue },
       { received: data => this.#insertMessageAndScrollDown(data) }
-    )
+      )
+      this.messagesTarget.lastElementChild.scrollIntoView(true, {block: 'end'})
     console.log(`Subscribed to the chat with the id ${this.chatIdValue}.`)
   }
 
@@ -20,7 +20,8 @@ export default class extends Controller {
     const currentUserIsSender = this.currentUserIdValue === data.sender_id
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
     this.messagesTarget.insertAdjacentHTML('beforeend', messageElement)
-    this.messagesTarget.scrollTo(0, this.messagesTarget.scrollHeight)
+    this.messagesTarget.lastElementChild.scrollIntoView(true, {block: 'end'})
+
   }
 
   #buildMessageElement(currentUserIsSender, message) {
@@ -34,9 +35,9 @@ export default class extends Controller {
   }
 
   #justifyClass(currentUserIsSender) {
-    return currentUserIsSender ? "chat__message chat__message--left" : "chat__message chat__message--right"
+    return currentUserIsSender ? "chat__message chat__message--right" : "chat__message chat__message--left"
   }
-  
+
   #userStyleClass(currentUserIsSender) {
     return currentUserIsSender ? "message chat__sender" : "message chat__receiver"
   }
