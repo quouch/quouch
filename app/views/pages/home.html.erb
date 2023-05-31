@@ -1,35 +1,41 @@
 <% if user_signed_in? %>
-<div class="home__wrap" data-controller="characteristics-filter">
-	<section class="search__section">
-		<div class="search__wrap">
-			<%= form_with url: couches_path,
-										class: 'search',
-										data: { characteristics_filter_target: 'form',
-														action: 'submit->characteristics-filter#listCouches' },
-										method: :get do %>
-				<%= text_field_tag :query,
-														params[:query],
-														placeholder: 'Find hosts in city or country' %>
-			<%= submit_tag "Search", class: 'search__button' %>
-		</div>
-		<div class="search__characteristics">
-				<% Characteristic.all.each do |characteristic| %>
-					<%= check_box_tag 'characteristics[]',
-							characteristic.id,
-							params[:characteristics]&.include?(characteristic.id),
-							id: "characteristic_#{characteristic.id}",
-							class: 'search__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
-				<% end %>
-		<% end %>
-		</div>
-	</section>
+  <div class="home__wrap" data-controller="characteristics-filter">
+    <section class="search__section">
+      <div class="search__wrap" >
+        <%= form_with url: couches_path,
+                      class: 'search',
+                      data: { characteristics_filter_target: 'form',
+                              action: 'submit->characteristics-filter#listCouches' },
+                      method: :get do %>
+          <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="autocomplete__container">
+            <%= text_field_tag :query,
+                                params[:query],
+                                placeholder: 'Find hosts in city or country',
+                                class: "form-control",
+                                data: { autocomplete_target: "input"} %>
+            <%= hidden_field_tag "city", data: { autocomplete_target: "hidden"} %>
+            <ul class="list-group" data-autocomplete-target="results"></ul>
+          </div>
+        <%= submit_tag "Search", class: 'search__button' %>
+      </div>
+      <div class="search__characteristics">
+        <% Characteristic.all.each do |characteristic| %>
+          <%= check_box_tag 'characteristics[]',
+              characteristic.id,
+              params[:characteristics]&.include?(characteristic.id),
+              id: "characteristic_#{characteristic.id}",
+              class: 'search__checkbox',
+              data: { action: 'change->characteristics-filter#listCouches' } %>
+          <%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+        <% end %>
+      </div>
+      <% end %>
+    </section>
 
-	<section data-characteristics-filter-target="list">
-		<%= render 'partials/couches', couches: @active_couches %>
-	</section>
-</div>
+    <section data-characteristics-filter-target="list">
+      <%= render 'partials/couches', couches: @active_couches %>
+    </section>
+  </div>
 <% else %>
 <div class="home__banner">
 	<div class="home__banner-wrap">

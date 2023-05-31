@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :trackable and :omniauthable
+  include PgSearch::Model
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -36,6 +38,13 @@ class User < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
+
+  pg_search_scope :search_city,
+                  against: [:city],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
 
   def calculated_age
     today = Date.today

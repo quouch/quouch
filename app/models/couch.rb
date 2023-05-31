@@ -13,7 +13,6 @@ class Couch < ApplicationRecord
   pg_search_scope :search,
                   associated_against: {
                     user: %i[
-                      address
                       city
                       country
                     ]
