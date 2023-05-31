@@ -18,19 +18,46 @@
           </div>
         <%= submit_tag "Search", class: 'search__button' %>
       </div>
-      <div class="search__characteristics">
-        <% Characteristic.all.each do |characteristic| %>
-          <%= check_box_tag 'characteristics[]',
-              characteristic.id,
-              params[:characteristics]&.include?(characteristic.id),
-              id: "characteristic_#{characteristic.id}",
-              class: 'search__checkbox',
-              data: { action: 'change->characteristics-filter#listCouches' } %>
-          <%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
-        <% end %>
-      </div>
-      <% end %>
-    </section>
+			<div class="search__offers">
+						<%= check_box_tag 'offers_couch',
+								'1',
+								params[:offers_couch] == 'true',
+								id: "offers_couch",
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "offers_couch", "hosting" %>
+
+						<%= check_box_tag 'offers_co_work',
+								'1',
+								params[:offers_co_work] == 'true',
+								id: "offers_co_work",
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "offers_co_work", "coworking" %>
+
+
+						<%= check_box_tag 'offers_hang_out',
+								'1',
+								params[:offers_hang_out] == 'true',
+								id: "offers_hang",
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "offers_hang", "hanging out" %>
+				</div>
+
+				<div class="search__characteristics">
+					<% Characteristic.all.each do |characteristic| %>
+						<%= check_box_tag 'characteristics[]',
+								characteristic.id,
+								params[:characteristics]&.include?(characteristic.id),
+								id: "characteristic_#{characteristic.id}",
+								class: 'search__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+					<% end %>
+				</div>
+		<% end %>
+	</section>
 
     <section data-characteristics-filter-target="list">
       <%= render 'partials/couches', couches: @active_couches %>
