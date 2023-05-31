@@ -10,6 +10,8 @@ class Couch < ApplicationRecord
   has_many   :facilities, through: :couch_facilities
   accepts_nested_attributes_for :couch_facilities
 
+  scope :active, -> { joins(:user).where(users: { offers_couch: true }) }
+
   pg_search_scope :search,
                   associated_against: {
                     user: %i[

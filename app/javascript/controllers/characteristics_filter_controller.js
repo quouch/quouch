@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['form', 'list', 'couches']
 
   listCouches(event) {
+    console.log("hello")
     event.preventDefault()
 
     const formData = new FormData(this.formTarget);

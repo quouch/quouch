@@ -1,8 +1,10 @@
 class CouchesController < ApplicationController
   def index
-    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).where(active: true)
-    @couches = @couches.search(params[:query]) if params[:query].present?
-    find_couches_by_characteristics if params[:characteristics].present?
+    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+
+    apply_search_filter if params[:query].present?
+    apply_characteristics_filter if params[:characteristics].present?
+    apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
     respond_to do |format|
       format.html { redirect_to couches_path(@couches) }
@@ -21,8 +23,22 @@ class CouchesController < ApplicationController
 
   private
 
-  def find_couches_by_characteristics
+  def apply_search_filter
+    @couches = @couches.search(params[:query])
+  end
+
+  def apply_characteristics_filter
     @couches = @couches.joins(user: { user_characteristics: :characteristic })
-                       .where(characteristics: { id: params[:characteristics] }).uniq
+                       .where(characteristics: { id: params[:characteristics] })
+  end
+
+  def apply_offers_filter
+    offers_conditions = {}
+
+    offers_conditions[:offers_hang_out] = true if params[:offers_hang_out]
+    offers_conditions[:offers_co_work] = true if params[:offers_co_work]
+    offers_conditions[:offers_couch] = true if params[:offers_couch]
+
+    @couches = @couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end
