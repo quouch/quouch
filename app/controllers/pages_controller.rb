@@ -4,6 +4,10 @@ class PagesController < ApplicationController
   def home
     @couches = Couch.where.not(user: current_user)
     @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
-                              .uniq.select { |couch| couch.active == true }
+  end
+
+  def search_cities
+    @cities = params[:q].present? ? User.search_city(params[:q]).pluck(:city).uniq.sort : User.pluck(:city).uniq.sort
+    render layout: false
   end
 end
