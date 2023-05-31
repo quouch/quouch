@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[home about search_city]
+  skip_before_action :authenticate_user!, only: %i[home about]
 
   def home
     @couches = Couch.where.not(user: current_user)
