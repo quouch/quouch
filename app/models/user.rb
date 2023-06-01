@@ -45,7 +45,6 @@ class User < ApplicationRecord
                     tsearch: { prefix: true }
                   }
 
-
   def calculated_age
     today = Date.today
     if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)

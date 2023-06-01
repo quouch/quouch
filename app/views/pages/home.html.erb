@@ -7,7 +7,7 @@
                       data: { characteristics_filter_target: 'form',
                               action: 'submit->characteristics-filter#listCouches' },
                       method: :get do %>
-          <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="autocomplete__container">
+          <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="search__autocomplete">
             <%= text_field_tag :query,
                                 params[:query],
                                 placeholder: 'Find hosts in city or country',
