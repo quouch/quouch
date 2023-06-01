@@ -21,7 +21,7 @@
 		<ul class="couch__info">
 			<li class="couch__name"><%= @host.first_name %></li>
 			<div class="couch__characteristics">
-				<li><%= @host.pronouns.downcase %></li>
+				<li><%= @host.pronouns.downcase if @host.pronouns %></li>
 				<li><%= @host.calculated_age if @host.date_of_birth %></li>
 			</div>
 		</ul>

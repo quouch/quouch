@@ -7,27 +7,29 @@ namespace :import do
 	desc 'Import users from Airtable'
 
 	task :import => :environment do
-		Profile.all.each do |row|
+		Profile.all.each_with_index do |row, index|
+			break if index >= 5  # Stop after processing 5 users
+		
 			user = User.new
 			user.email = row['Email']
-			user.first_name = row['First Name']
-			user.last_name = row['Last Name']
-			user.pronouns = row['Pronouns']
+			user.first_name = row['First Name'].capitalize
+			user.last_name = row['Last Name'].capitalize
+			user.pronouns = row['Pronouns'].downcase if !row['Pronouns'].nil?
 			user.summary = row['Summary']
 			user.question_one = row['This makes me really happy']
 			user.question_two = row["What I can't stand"]
 			user.question_three = row['When you live at my place, I appreciate....']
-			user.question_four = row['What I mostly need right now from the people around me ']
+			user.question_four = row['What I mostly need right now from the people around me']
 			user.offers_couch = row['Available to host']
 			user.offers_hang_out = row['Open to hangout']
 			user.offers_co_work = row['Open to co-work']
 			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
-			user.country = row['Country']
-			user.city = row['City']
+			user.country = row['Country'].capitalize if !row['Country'].nil?
+			user.city = row['City'].capitalize if !row['City'].nil?
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
 			user.invited_by_id = find_user(invited_by)
-			user.characteristics = create_user_characteristics(row['Characteristics'], user) if !row['Characteristics'].nil?
+			user.characteristics = create_user_characteristics(row['Filter'], user) if !row['Filter'].nil?
 			photo_url = row['Profile Picture']
 			attach_image(photo_url, user)
 			user.save!(validate: false)
@@ -60,16 +62,15 @@ namespace :import do
 				cloudinary_url = cloudinary_upload['secure_url']
 
 				# Attach the Cloudinary URL to user.photo
-				user.photo.attach = cloudinary_url
+				user.photo.attach(io: URI.open(cloudinary_url), filename: photo_filename)
 			else
 				puts "Error fetching image: #{response.code} - #{response.message}"
 			end
-
+	
 			temp_file.close
 			temp_file.unlink
 		end
 	end
-	
 
 	def find_user(invited_by)
 		User.find_by(invite_code: invited_by.downcase)
@@ -78,14 +79,13 @@ namespace :import do
 	def create_user_characteristics(row, user)
 		characteristics = []
 		usercharacteristics = []
-		row.split(',').each do |char|
-			characteristic = Characteristic.find_by(name: char.strip)
+		row.each do |char|
+			characteristic = Characteristic.find_by(name: char)
 			next if characteristic.nil?
-			p characteristic
 			characteristics << characteristic
       usercharacteristic = UserCharacteristic.create(user_id: user.id, characteristic_id: characteristic.id)
-     usercharacteristics << usercharacteristic
+     	usercharacteristics << usercharacteristic
     end
-   characteristics
+   	characteristics
 	end
 end
