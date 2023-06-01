@@ -117,9 +117,8 @@
 				<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
 				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Cancel Request</button>
 				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
-				<% elsif @booking.host? && @booking.confirmed? && @booking.payments.where(status: 1).empty? %>
+				<% elsif @booking.host? && @booking.confirmed?%>
 					<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
-					<%= link_to 'Pay now', pay_booking_path(@booking), id: 'booking__pay' %>
 				<% elsif @booking.confirmed? %>
 					<%= link_to 'Update Booking', edit_booking_path(@booking), class: 'booking__update' %>
 					<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Cancel Request</button>
