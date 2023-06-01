@@ -39,8 +39,8 @@ class User < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
 
-  pg_search_scope :search_city,
-                  against: [:city],
+  pg_search_scope :search_city_or_country,
+                  against: %i[city country],
                   using: {
                     tsearch: { prefix: true }
                   }
