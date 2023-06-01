@@ -32,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     create_user_characteristics
     super
-    status_couch
+    disable_offers_if_traveling
   end
 
   protected
@@ -59,8 +59,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch.user = @user
     @couch.save
 
-    status_couch
-
+    disable_offers_if_traveling
     create_couch_facilities if params[:couch_facility].present?
   end
 
@@ -68,23 +67,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch.update(couch_params)
   end
 
-  def status_couch
-    if params[:user][:travelling] == '1'
-      @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
-      set_couch_inactive
-    elsif params[:user][:offers_couch] == '0'
-     set_couch_inactive
-    elsif params[:user][:offers_couch] == '1'
-      set_couch_active
-    end
-  end
+  def disable_offers_if_traveling
+    return unless params[:user][:travelling] == '1'
 
-  def set_couch_inactive
-    @couch.update(active: false)
-  end
-
-  def set_couch_active
-    @couch.update(active: true)
+    @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
   end
 
   def create_couch_facilities
