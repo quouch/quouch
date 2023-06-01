@@ -1,5 +1,5 @@
-<% @cities.each do |city| %>
-  <li class="list-group-item" role="option" data-autocomplete-value="<%= city %>" data-autocomplete-label="<%= city %>">
+<% @results.each do |city| %>
+  <li class="search__autocomplete-list-item" role="option" data-autocomplete-value="<%= city %>" data-autocomplete-label="<%= city %>">
     <%= city %>
   </li>
 <% end %>
