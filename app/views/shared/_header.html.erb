@@ -7,7 +7,7 @@
 		<div data-controller="dropdown-menu">
 		<% if current_user.photo.key %>
 			<%= cl_image_tag current_user.photo.key, class: 'header__avatar', data: { dropdown_menu_target: 'toggle', action: 'click->dropdown-menu#displayAndHideMenu' } %>
-			<% if current_user.notifications.any? %>
+			<% if current_user.notifications.unread.count != 0 %>
 				<%= render 'shared/notifications' %>
 			<% end %>
 		<% else %>
@@ -36,7 +36,7 @@
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
             <%= link_to 'Chats', chats_path, class: "chat__small-break__link" %>
             <%= link_to 'Chats', chat_path(current_user.latest_message_chat), class: "chat__medium-break__link" %>
-            <% if current_user.notifications.any? %>
+            <% if current_user.notifications.unread.count != 0 %>
               <%= render 'shared/notifications' %>
             <% end %>
 					</li>
