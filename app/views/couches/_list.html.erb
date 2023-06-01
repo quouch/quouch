@@ -49,7 +49,7 @@
 									<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
 								</h2>
 								<p class="couches__characteristics">
-									<%= couch.user.calculated_age %> ⋅ <%= couch.user.pronouns %>
+									<%= couch.user.calculated_age %> ⋅ <%= couch.user.pronouns.downcase %>
 								</p>
 								<p class="couches__location">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
