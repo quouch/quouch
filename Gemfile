@@ -62,10 +62,6 @@ gem 'pry-byebug'
 # Integration of money gem - used for handling prices in DB
 gem 'money-rails', '~>1.12'
 
-# Payments
-gem 'stripe'
-gem 'stripe_event'
-
 # CDN
 gem 'cloudinary'
 

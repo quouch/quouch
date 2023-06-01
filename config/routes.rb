@@ -26,15 +26,11 @@ Rails.application.routes.draw do
       get :show_request, as: 'request'
       get :sent
       get :confirmed
-      get :pay
       patch :accept
       patch :decline
       delete :cancel
     end
-    resources :payments, only: %i[new]
   end
-
-  mount StripeEvent::Engine, at: '/update-payment'
 
   resources :chats, only: %i[index show create] do
     resources :messages, only: %i[create]
