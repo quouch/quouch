@@ -1,8 +1,6 @@
 class Booking < ApplicationRecord
   belongs_to :couch
   belongs_to :user
-  has_many   :booking_payments
-  has_many   :payments, through: :booking_payments
   has_many   :reviews
 
   validates  :request, presence: { message: 'Please choose one' }
@@ -40,30 +38,6 @@ class Booking < ApplicationRecord
     completed_bookings.each do |booking|
       BookingMailer.with(booking:).booking_completed_guest_email.deliver_later
       BookingMailer.with(booking:).booking_completed_host_email.deliver_later
-    end
-    charge(completed_bookings)
-	end
-
-  def self.charge(bookings)
-    bookings.each do |booking|
-      payment = booking.payments.find_by(operation: 1)
-      session = Stripe::Checkout::Session.retrieve(
-        id: payment.checkout_session_id,
-        expand: ['setup_intent']
-      )
-
-      intent = Stripe::PaymentIntent.create(
-        customer: session[:customer],
-        payment_method: session[:setup_intent].payment_method,
-			  description: "Stay with #{booking.couch.user.first_name}",
-        amount: booking.nights * 100,
-        currency: 'eur',
-        metadata: { booking_id: booking.id },
-        receipt_email: booking.user.email,
-        confirm: true
-      )
-
-      payment.update(payment_intent: intent.id, status: 2)
     end
   end
 

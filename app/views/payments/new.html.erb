@@ -34,19 +34,5 @@
         </p>
       </div>
     </div>
-
-    <button id="pay">Pay now</button>
-
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-      const paymentButton = document.getElementById('pay');
-      paymentButton.addEventListener('click', () => {
-        const stripe = Stripe('<%= ENV['STRIPE_PUBLISHABLE_KEY'] %>');
-        stripe.redirectToCheckout({
-          sessionId: '<%= @payment.checkout_session_id %>'
-        });
-      });
-    </script>
-
   </div>
 </section>

@@ -21,7 +21,6 @@ class BookingMailer < ApplicationMailer
 
 	def request_confirmed_email
 		@url = booking_url(@booking)
-		@payment_url = pay_booking_url(@booking)
 		mail(to: @guest.email, subject: "Your request with #{@host.first_name.capitalize} has been confirmed")
 	end
 

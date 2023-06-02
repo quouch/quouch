@@ -210,12 +210,3 @@
 		width: 100%;
 	}
 }
-	
-#booking__pay {
-	@include input-field;
-	@include primary-button;
-	
-	color: $white;
-	padding: .3rem 2rem;
-	border: 1px solid;
-}
