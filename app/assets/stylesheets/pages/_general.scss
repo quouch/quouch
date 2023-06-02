@@ -14,12 +14,25 @@
 		margin: 2rem auto;
 	}
 
-	&__subtitle { @include title-2; }
+	&__subheader { @include title-2; }
+
+	&__list {
+		list-style: circle;
+		margin-left: 2rem;
+	}
+
+	&__title {
+		@include title-3;
+		margin: 2rem 0;
+	}
+
+	&__important {
+		color: $primary;
+		font-size: 1.2rem;
+	}
 
 	p { margin: 1rem auto; }
 	ol { list-style: none; }
 }
 
-.faq-link {
-	text-decoration: underline;
-}
+.faq-link { text-decoration: underline; }
