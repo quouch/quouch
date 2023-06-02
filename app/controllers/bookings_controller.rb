@@ -50,7 +50,6 @@ class BookingsController < ApplicationController
 		@host = @couch.user
 		@booking.user = current_user
 		@booking.booking_date = DateTime.now
-		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		if @booking.save
 			@booking.pending!
 			redirect_to sent_booking_path(@booking)
@@ -67,7 +66,6 @@ class BookingsController < ApplicationController
 	end
 
 	def update
-		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		@booking.update(booking_params)
 		if @booking.pending?
 			flash[:notice] = 'Request successfully updated!'
