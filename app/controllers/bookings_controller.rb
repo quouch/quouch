@@ -19,7 +19,6 @@ class BookingsController < ApplicationController
 	end
 
 	def show
-		@payment = @booking.payments.where(operation: 1)
 		@couch = @booking.couch
 		@host = @couch.user
 		@guest = @booking.user
@@ -51,7 +50,6 @@ class BookingsController < ApplicationController
 		@host = @couch.user
 		@booking.user = current_user
 		@booking.booking_date = DateTime.now
-		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		if @booking.save
 			@booking.pending!
 			redirect_to sent_booking_path(@booking)
@@ -68,7 +66,6 @@ class BookingsController < ApplicationController
 	end
 
 	def update
-		@booking.nights = (@booking.end_date - @booking.start_date).to_i
 		@booking.update(booking_params)
 		if @booking.pending?
 			flash[:notice] = 'Request successfully updated!'
@@ -133,26 +130,6 @@ class BookingsController < ApplicationController
 		if @booking.declined!
 			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 		end
-	end
-
-	def pay
-		customer = Stripe::Customer.create(
-			address: @booking.user.address,
-			email: @booking.user.email,
-			name: "#{@booking.user.first_name} #{@booking.user.last_name}"
-		)
-
-		session = Stripe::Checkout::Session.create(
-			payment_method_types: ['card'],
-			customer: customer.id,
-			mode: 'setup',
-			success_url: booking_url(@booking),
-			cancel_url: bookings_url
-		)
-
-		@payment = Payment.create(checkout_session_id: session.id, amount_cents: @booking.nights * 100, operation: 1, status: 0)
-		BookingPayment.create(booking: @booking, payment: @payment)
-		redirect_to new_booking_payment_path(@booking)
 	end
 
 		private
