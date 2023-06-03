@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/impressum', to: 'pages#impressum'
   get '/privacy', to: 'pages#privacy'
   get '/safety', to: 'pages#safety'
+  get '/terms', to: 'pages#terms'
   get '/invite-code', to: 'invites#invite_code_form'
   get '/validate-invite-code', to: 'invites#validate_invite_code'
   get '/invite-friend', to: 'invites#invite_friend'

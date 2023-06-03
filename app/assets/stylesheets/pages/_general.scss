@@ -15,24 +15,31 @@
 	}
 
 	&__subheader { @include title-2; }
-
+	&__supertitle { @include body-2; }
+	
 	&__list {
-		list-style: circle;
+		list-style: inside;
 		margin-left: 2rem;
 	}
 
+	&__numbered-list {
+		list-style: lower-alpha;
+		margin-left: 2rem;
+	}
+	
 	&__title {
 		@include title-3;
 		margin: 2rem 0;
 	}
-
+	
 	&__important {
 		color: $primary;
 		font-size: 1.2rem;
 	}
-
+	
 	p { margin: 1rem auto; }
 	ol { list-style: none; }
+	aside { font-style: italic; }
 }
 
 .faq-link { text-decoration: underline; }
