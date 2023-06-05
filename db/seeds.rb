@@ -9,7 +9,7 @@
 require 'faker'
 require 'open-uri'
 
-locations = [['Berlin', 'Germany'], ['Paris', 'France'], ['Madrid', 'Spain'], ['Rome', 'Italy'], ['Athens', 'Greece'], ['Lisbon','Portugal'], ['London', 'United Kingdom of Great Britain and Northern Ireland'], ['Amsterdam', 'Netherlands']]
+locations = [['Berlin', 'Germany', '10117'], ['Paris', 'France', '75001'], ['Madrid', 'Spain', '28001'], ['Rome', 'Italy', '00118'], ['Athens', 'Greece', '11141'], ['Lisbon','Portugal', '1990'], ['London', 'United Kingdom of Great Britain and Northern Ireland', 'EC1A'], ['Amsterdam', 'Netherlands', '1014']]
 
 # Characteristics
 puts 'destroying & seeding characteristics...'
@@ -60,6 +60,7 @@ user1 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67op'
 )
 
@@ -90,6 +91,7 @@ user2 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67ol'
 )
 
@@ -119,6 +121,7 @@ user3 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah68op'
 )
 
@@ -150,6 +153,7 @@ user4 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: '1h67op'
 )
 
@@ -179,6 +183,7 @@ user5 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'az67op'
 )
 
@@ -210,6 +215,7 @@ user6 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67o5'
 )
 
@@ -238,6 +244,7 @@ user7 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67o9'
 )
 
@@ -268,6 +275,7 @@ user8 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67oy'
 )
 
@@ -299,6 +307,7 @@ user9 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah77op'
 )
 
@@ -329,6 +338,7 @@ user10 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah689p'
 )
 
@@ -359,6 +369,7 @@ user11 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'abz7op'
 )
 
@@ -390,6 +401,7 @@ user12 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah62op'
 )
 
@@ -419,6 +431,7 @@ user13 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ar67op'
 )
 
@@ -449,6 +462,7 @@ user14 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'bh67op'
 )
 
@@ -479,6 +493,7 @@ user15 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah67wp'
 )
 
@@ -508,6 +523,7 @@ user16 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah34op'
 )
 
@@ -539,6 +555,7 @@ user17 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah12op'
 )
 
@@ -567,6 +584,7 @@ user18 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'an67op'
 )
 
@@ -596,6 +614,7 @@ user19 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'lq67op'
 )
 
@@ -630,6 +649,7 @@ user20 = User.new(
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
   city: location[0],
   country: location[1],
+  zipcode: location[2],
   invite_code: 'ah623p'
 )
 
