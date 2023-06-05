@@ -7,7 +7,6 @@
 # #   Character.create(name: "Luke", movie: movies.first)
 
 require 'faker'
-require 'factory_bot_rails'
 require 'open-uri'
 
 locations = [['Berlin', 'Germany'], ['Paris', 'France'], ['Madrid', 'Spain'], ['Rome', 'Italy'], ['Athens', 'Greece'], ['Lisbon','Portugal'], ['London', 'United Kingdom of Great Britain and Northern Ireland'], ['Amsterdam', 'Netherlands']]
