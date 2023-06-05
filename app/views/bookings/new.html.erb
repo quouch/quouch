@@ -16,9 +16,14 @@
           <% end %>
         </div>
 			</div>
-			<div class="booking-form__details__wrap">
+			<div class="booking-form__details__wrap" data-controller="skip-booking-date-validation">
 			<%= f.label :dates_and_travellers, required: true %>
-				<div class="booking-form__dates date">
+				<%= f.input :flexible,
+										label: 'flexible travel dates',
+										wrapper_html: { class: 'booking-form__flexible' },
+										input_html: { data: { skip_booking_date_validation_target: 'checkbox',
+                                          action: 'click->skip-booking-date-validation#hideFields'}} %>
+				<div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
 					<div class="date-input">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 						<%= f.input :start_date,

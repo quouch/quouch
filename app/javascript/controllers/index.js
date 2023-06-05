@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import { Autocomplete } from 'stimulus-autocomplete'
-application.register('autocomplete', Autocomplete)
-
 import AddressAutocompleteController from "./address_autocomplete_controller"
 application.register("address-autocomplete", AddressAutocompleteController)
 
@@ -39,6 +36,9 @@ application.register("image-preview", ImagePreviewController)
 
 import MapController from "./map_controller"
 application.register("map", MapController)
+
+import SkipBookingDateValidationController from "./skip_booking_date_validation_controller"
+application.register("skip-booking-date-validation", SkipBookingDateValidationController)
 
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
