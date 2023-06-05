@@ -14,8 +14,8 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :notifications, dependent: :destroy, as: :recipient
-  has_many :chats_as_receiver, class_name: "Chat", foreign_key: :user_receiver_id
-  has_many :chats_as_sender, class_name: "Chat", foreign_key: :user_sender_id
+  has_many :chats_as_receiver, class_name: 'Chat', foreign_key: :user_receiver_id
+  has_many :chats_as_sender, class_name: 'Chat', foreign_key: :user_sender_id
 
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
@@ -24,14 +24,14 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
-  validates :address, presence: { message: 'Address required' }
+  # validates :address, presence: { message: 'Address required' }
   validates :zipcode, presence: { message: 'Zipcode required' }
   validates :city, presence: { message: 'City required' }
   validates :country, presence: { message: 'Country required' }
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates_associated :characteristics, message: 'Let others know what is important to you'
-  validate  :validate_user_characteristics
+  # validate  :validate_user_characteristics
   validate  :validate_age
   validate  :validate_travelling
 
@@ -96,6 +96,6 @@ class User < ApplicationRecord
   end
 
   def validate_user_characteristics
-    errors.add(:user_characteristics, "Let others know what is important to you") if user_characteristics.empty?
+    errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
   end
 end
