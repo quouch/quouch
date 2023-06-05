@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_172354) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,15 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "booking_payments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "booking_id"
-    t.bigint "payment_id"
-    t.index ["booking_id"], name: "index_booking_payments_on_booking_id"
-    t.index ["payment_id"], name: "index_booking_payments_on_payment_id"
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
@@ -63,10 +54,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.datetime "updated_at", null: false
     t.integer "number_travellers"
     t.text "message"
-    t.integer "nights", default: 0, null: false
     t.integer "request"
     t.index ["couch_id"], name: "index_bookings_on_couch_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "characteristics", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chats", force: :cascade do |t|
@@ -76,14 +72,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.bigint "user_receiver_id"
     t.index ["user_receiver_id"], name: "index_chats_on_user_receiver_id"
     t.index ["user_sender_id"], name: "index_chats_on_user_sender_id"
-  end
-
-  create_table "cities", force: :cascade do |t|
-    t.string "name"
-    t.bigint "country_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["country_id"], name: "index_cities_on_country_id"
   end
 
   create_table "couch_facilities", force: :cascade do |t|
@@ -101,12 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_couches_on_user_id"
-  end
-
-  create_table "countries", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "facilities", force: :cascade do |t|
@@ -137,18 +119,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.string "checkout_session_id"
-    t.string "payment_intent"
-    t.integer "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.integer "operation"
-  end
-
   create_table "reviews", force: :cascade do |t|
-    t.text "description"
+    t.text "content"
     t.integer "rating"
     t.bigint "booking_id", null: false
     t.bigint "couch_id", null: false
@@ -158,6 +130,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
     t.index ["couch_id"], name: "index_reviews_on_couch_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "user_characteristics", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "characteristic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["characteristic_id"], name: "index_user_characteristics_on_characteristic_id"
+    t.index ["user_id"], name: "index_user_characteristics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -184,22 +165,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
     t.text "question_two"
     t.text "question_three"
     t.text "question_four"
-    t.bigint "city_id"
-    t.text "characteristics", array: true
     t.string "address"
-    t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer "invitation_limit"
-    t.string "invited_by_type"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "zipcode"
+    t.boolean "travelling", default: false
+    t.string "country"
+    t.string "city"
+    t.string "invite_code"
     t.bigint "invited_by_id"
-    t.integer "invitations_count", default: 0
-    t.index ["city_id"], name: "index_users_on_city_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
-    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -209,7 +185,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
   add_foreign_key "bookings", "users"
   add_foreign_key "chats", "users", column: "user_receiver_id"
   add_foreign_key "chats", "users", column: "user_sender_id"
-  add_foreign_key "cities", "countries"
   add_foreign_key "couch_facilities", "couches"
   add_foreign_key "couch_facilities", "facilities"
   add_foreign_key "couches", "users"
@@ -218,4 +193,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_12_145431) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "reviews", "couches"
   add_foreign_key "reviews", "users"
+  add_foreign_key "user_characteristics", "characteristics"
+  add_foreign_key "user_characteristics", "users"
+  add_foreign_key "users", "users", column: "invited_by_id"
 end

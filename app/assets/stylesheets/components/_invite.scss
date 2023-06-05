@@ -1,0 +1,34 @@
+.invite {
+	margin: 4rem 0;
+
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
+	
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
+
+		@media (min-width: $break-large) { width: 50%; }
+	}
+
+	&__subtitle {
+		@include title-2;
+		
+		margin: 2rem auto;
+	}
+
+	&__content {
+
+	}
+
+	&__code {
+		@include title-1;
+		
+		color: $secondary;
+	}
+}

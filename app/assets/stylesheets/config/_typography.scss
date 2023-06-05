@@ -1,9 +1,151 @@
+// Define fonts for body and headers
+
+// Header mixins
+
+@mixin title-1 {
+	font-family: $headers-font;
+	font-size: 2.8rem;
+	font-weight: 900;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: $primary;
+	text-align: center;
+	margin: 2rem 0;
+
+	@media (max-width: $break-large) { font-size: 2rem; }
+}
+
+@mixin title-2 {
+	font-family: $headers-font;
+	font-size: 2.24rem;
+	font-weight: 700;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: $primary;
+
+	@media (max-width: $break-large) { font-size: 1.6rem; }
+}
+
+@mixin title-3 {
+	font-family: $headers-font;
+	color: $primary;
+	font-size: 1.88rem;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: .01;
+	color: $primary;
+
+	@media (max-width: $break-large) { font-size: 1.2rem; }
+}
+
+@mixin title-4 {
+	font-family: $headers-font;
+	font-size: 1.44rem;
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: .03;
+	margin: 1rem auto;
+
+	@media (max-width: $break-large) { font-size: 1rem; }
+}
+
+@mixin title-5 {
+	font-family: $headers-font;
+	font-size: 1.19rem;
+	font-weight: 600;
+	line-height: 1.4;
+	letter-spacing: .05em;
+	text-transform: uppercase;
+	margin: 1rem auto;
+}
+
+@mixin supertitle {
+	font-family: $headers-font;
+	font-size: .9rem;
+	font-weight: 300;
+	display: block;
+	color: $primary;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+
+// Body mixins
+
+@mixin body-1 {
+	font-family: $body-font;
+	font-size: 1rem;
+	font-weight: 400;
+	letter-spacing: .03em;
+}
+
+@mixin body-2 {
+	font-family: $body-font;
+	font-size: .875rem;
+	font-weight: 800;
+	letter-spacing: .03em;
+}
+
+@mixin body-3 {
+	font-family: $body-font;
+	font-size: .875rem;
+	font-weight: 500;
+	letter-spacing: .05em;
+}
+
+@mixin caption {
+	font-family: $body-font;
+	font-size: .75rem;
+	letter-spacing: .06em;
+}
+
+@mixin input-text {
+	font-family: $body-font;
+	font-size: .75rem;
+	color: $gray-05;
+
+	@media (min-width: $break-large) { font-size: 1rem; }
+}
+
+@mixin profile-title {
+	color: $gray-04;
+	font-size: 1rem;
+	font-weight: 700;
+	margin: 1rem 0;
+}
+
+@mixin facility-name {
+	font-family: $body-font;
+	font-weight: 500;
+	font-size: .875rem;
+	color: $gray-06;
+
+	@media (min-width: $break-large) { font-size: 1rem; }
+}
+
+@mixin nav-title {
+	font-family: $headers-font;
+	font-weight: 300;
+	text-transform: uppercase;
+	
+	a { color: $primary; }
+}
+
+@mixin feature-tag { font-size: .75rem; }
+
+// General
+
 // Header
-h1 { @include header-1; }
-h2 { @include header-2; }
-h3 { @include header-3; }
-h4 { @include header-4; }
-h5 { @include header-5 };
+h1 { @include title-1; }
 
 // Body
+body {
+	font-family: $body-font;
+	color: $gray-06;
+}
+
 p { @include body-1; }
+
+a {
+	color: $secondary;
+	text-decoration: none;
+}

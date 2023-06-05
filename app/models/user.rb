@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # , :lockable, :timeoutable, :trackable and :omniauthable, :confirmable  
-  devise :invitable, :database_authenticatable, :registerable,
+  # :lockable, :trackable and :omniauthable
+  include PgSearch::Model
+
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_one_attached :photo
@@ -12,15 +14,36 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :notifications, dependent: :destroy, as: :recipient
-  has_many :chat_users
-  has_many :chats, through: :chat_users
+  has_many :chats_as_receiver, class_name: "Chat", foreign_key: :user_receiver_id
+  has_many :chats_as_sender, class_name: "Chat", foreign_key: :user_sender_id
 
-  belongs_to :city, optional: true
+  has_many :user_characteristics, dependent: :destroy, autosave: true
+  has_many :characteristics, through: :user_characteristics
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :date_of_birth, presence: true
-  validate :validate_age
+  validates :photo, presence: { message: 'Please upload a picture' }
+  validates :first_name, presence: { message: 'First name required' }
+  validates :last_name, presence: { message: 'Last name required' }
+  validates :date_of_birth, presence: { message: 'Please provide your age' }
+  validates :address, presence: { message: 'Address required' }
+  validates :zipcode, presence: { message: 'Zipcode required' }
+  validates :city, presence: { message: 'City required' }
+  validates :country, presence: { message: 'Country required' }
+  validates :summary, presence: { message: 'Tell the community about you' },
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
+  validates_associated :characteristics, message: 'Let others know what is important to you'
+  validate  :validate_user_characteristics
+  validate  :validate_age
+  validate  :validate_travelling
+
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
+  before_create :generate_invite_code
+
+  pg_search_scope :search_city_or_country,
+                  against: %i[city country],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   def calculated_age
     today = Date.today
@@ -29,16 +52,50 @@ class User < ApplicationRecord
     else
       calculation = 1
     end
-    return today.year - date_of_birth.year - calculation
+    today.year - date_of_birth.year - calculation
+  end
+
+  def chats
+    Chat.includes(:messages).where('user_receiver_id = ? OR user_sender_id = ?', id, id)
+  end
+
+  def latest_message_chat
+    Chat.joins(:messages)
+        .where('chats.user_sender_id = :user_id OR chats.user_receiver_id = :user_id', user_id: id)
+        .order('messages.created_at DESC')
+        .first
   end
 
   def validate_age
     if calculated_age.present? && calculated_age < 18
-      errors.add(:date_of_birth, 'Sorry, come back when you are 18!')
+      errors.add(:date_of_birth, 'Sorry you are too young, please come back when you are 18!')
     end
   end
 
-  def full_name
-    return first_name + last_name
+  def at_least_one_option_checked?
+    offers_couch || offers_co_work || offers_hang_out || travelling
+  end
+
+  def validate_travelling
+    unless at_least_one_option_checked?
+      errors.add(:travelling, 'at least one option must be checked')
+    end
+  end
+
+  def generate_invite_code
+    loop do
+      new_invite_code = SecureRandom.hex(3)
+
+      # Check if the generated invite code already exists in the database
+      # If not, set it as the user's invite code and break out of the loop
+      unless User.exists?(invite_code: new_invite_code)
+        self.invite_code = new_invite_code
+        break
+      end
+    end
+  end
+
+  def validate_user_characteristics
+    errors.add(:user_characteristics, "Let others know what is important to you") if user_characteristics.empty?
   end
 end

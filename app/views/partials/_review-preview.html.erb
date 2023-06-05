@@ -1,0 +1,62 @@
+<section class="review review--preview">
+	<% if @host == current_user %>
+		<h2>Your experience with <%= @booking.user.first_name %></h2>
+		<div>
+			<span class="review__stars">
+				<% case @booking.reviews.find_by(user: @host).rating %>
+				<% when 1 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 2 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 3 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 4 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 5 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% end %>
+				</span>
+			<p class="review__content"><%= @booking.reviews.find_by(user: @host).content %></p>
+		</div>
+	<% else %>
+		<h2>Your experience with <%= @host.first_name %></h2>
+		<div>
+			<span class="review__stars">
+				<% case @booking.reviews.find_by(user: @booking.user).rating %>
+				<% when 1 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 2 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 3 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 4 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% when 5 %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+				<% end %>
+				</span>
+			<p class="review__content"><%= @booking.reviews.find_by(user: @booking.user).content %></p>
+		</div>
+	<% end %>
+<section>
+

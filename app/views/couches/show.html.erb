@@ -1,80 +1,167 @@
-<h1><%= @user.first_name %></h1>
-
-<p><%= @user.pronouns %></p>
-<p><%= @user.calculated_age %></p>
-<h2>About Me</h2>
-<h3>The Small Talk</h3>
-<p><%= @user.summary %></p>
-<h3>This makes me really happy</h3>
-<p><%= @user.question_one %></p>
-<h3>What I need and like</h3>
-<p><%= @user.question_two %></p>
-<h3>What I can't stand</h3>
-<p><%= @user.question_three %></p>
-<h3>When you live at my place, I appreciate</h3>
-<p><%= @user.question_four %></p>
-
-
-<h2>offers</h2>
-<ul>
-	<% if @user.offers_couch %>
-		<li>
-			<%= image_tag('icons/sleep.svg') %>
-			<p>couch</p>
-		</li>
-	<% end %>
-	<% if @user.offers_hang_out %>
-		<li>
-			<%= image_tag('icons/hangout.svg') %>
-			<p>hangout</p>
-		</li>
-	<% end %>
-	<% if @user.offers_co_work %>
-		<li>
-			<%= image_tag('icons/work.svg') %>
-			<p>co-work</p>
-		</li>
-	<% end %>
-</ul>
-
-<% if @user.offers_couch %>
-	<h2>My Couch</h2>
-	<p>My couch has space for <%= pluralize @user.couch.capacity, "guest" %><p>
-	<ul>
-		<% @user.couch.facilities.each do |facility| %>
-			<% if facility.image.attached? %>
-				<li>
-					<%# <%= image_tag ('images/icons/armchair.svg') %>
-					<%= facility.name %>
+<article class="couch">
+	<div class="couch__gallery">
+		<% if @host.photo.key %>
+			<%= cl_image_tag @host.photo.key, class: 'couch__image' %>
+		<% else %>
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couch__image') %>
+		<% end %>
+		<div class="couch__chat chat-icon__wrap">
+			<% if @chat.nil? %>
+				<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+				<% end %>
+			<% else %>
+				<%= link_to chat_path(@chat) do %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+				<% end %>
+			<% end %>
+		</div>
+	</div>
+	<div class="couch__content">
+		<ul class="couch__info">
+			<li class="couch__name"><%= @host.first_name %></li>
+			<div class="couch__characteristics">
+				<li><%= @host.pronouns.downcase if @host.pronouns %></li>
+				<li><%= @host.calculated_age if @host.date_of_birth %></li>
+			</div>
+		</ul>
+		<ul class="couch__offers offers">
+			<% if @host.travelling %>
+				<li class="offers-item">
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+					<p>currently travelling</p>
 				</li>
 			<% else %>
-				<li>
-					<%= facility.name %>
-				</li>
+				<% if @host.offers_couch %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+						<p>host</p>
+					</li>
+				<% end %>
+				<% if @host.offers_hang_out %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+						<p>hangout</p>
+					</li>
+				<% end %>
+				<% if @host.offers_co_work %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+						<p>cowork</p>
+					</li>
+				<% end %>
 			<% end %>
-		<% end %>
-	</ul>
-<% end %>
+		</ul>
+		<ul class="couch__features features">
+			<% @host.characteristics.each  do |characteristic| %>
+				<li><%= characteristic.name %></li>
+			<% end %>
+		</ul>
 
-<% if @reviews.any? %>
-	<h2>Get a feeling for what it is like to spend time with <%= @user.first_name %></h2>
-	<ul>
-		<% @reviews.each do |review| %>
-		<li>
-			<ul>
-				<li><%= review.user.first_name %></li>
-				<li><%= review.booking.month %> <%= review.booking.year  %></li>
-				<li><%= review.rating %></li>
-				<li><%= review.description %></li>
-			</ul>
-		<% end %>
-		</li>
-	</ul>
-<% end %>
+		<div class="couch__intro">
+			<h2>Introduction</h2>
+			<p><%= @host.summary %></p>
+		</div>
 
-<% if @chat.nil? %>
-	<%= button_to "Chat with #{@user.first_name}", chats_path(user_sender_id: current_user.id, user_receiver_id: @user.id), method: :post %>
-<% else %>
-	<%= link_to "Chat with #{@user.first_name}", chat_path(@chat) %>
-<% end %>
-<%= link_to "Send #{@user.first_name} a concrete request", new_couch_booking_path(@couch.id) %>
+		<div class="couch__accommodation">
+			<h2>Accommodation</h2>
+			<% if @host.offers_couch %>
+				<ul class="couch__accommodation-list">
+					<% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
+						<li>
+							<%= cl_image_tag(facility.svg.key) %>
+							<%= facility.name %>
+						</li>
+					<% end %>
+					<li class="couch__travellers">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+						<%= @host.couch.capacity %> guests
+					</li>
+				</ul>
+			<% elsif @host.offers_co_work || @host.offers_hang_out %>
+				<p>This host doesn't currently offer their couch, but you can still request them to hangout or cowork.</p>
+			<% elsif @host.travelling %>
+				<p>This host is currently on the road and you can't request them.</p>
+			<% end %>
+		</div>
+
+		<div class="couch__location">
+			<h2>Location</h2>
+			<div class="couch__pin">
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+				<% if @couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+					<p><%= @couch.user.city %>, United Kingdom</p>
+				<% else %>
+					<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
+				<% end %>
+			</div>
+		</div>
+
+	</div>
+	<div class="couch__questions">
+		<h2>This makes me really happy</h2>
+		<p><%= @host.question_one %></p>
+		<h2>What I can't stand</h2>
+		<p><%= @host.question_two %></p>
+		<h2>What I need from the people around me</h2>
+		<p><%= @host.question_three %></p>
+		<h2>What I otherwise need and like</h2>
+		<p><%= @host.question_four %></p>
+		<%= link_to "Send quouch request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
+	</div>
+	<div class="couch__reviews">
+		<% if @reviews.any? %>
+		<h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
+		<div class="review__rating">
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
+			<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
+		</div>
+		<ul class="reviews">
+			<% @reviews.each do |review| %>
+			<li class="review">
+				<div class="review__details">
+				<% if review.user.photo.key %>
+					<%= cl_image_tag review.user.photo.key, class: 'review__image' %>
+				<% else %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'review__image') %>
+				<% end %>
+					<div>
+						<p class="review__name"><%= review.user.first_name.capitalize %></p>
+						<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
+					</div>
+				</div>
+				<div class="review__type">
+					<% if review.booking.host? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+						<p>host</p>
+					<% elsif review.booking.hangout? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+						<p>hangout</p>
+					<% elsif review.booking.cowork? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+						<p>cowork</p>
+					<% end %>
+				</div>
+				<div class="review__rating">
+					<div class="review__stars">
+						<% review.rating.round.times do %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+						<% end %>
+						<% (5 - review.rating).round.times do %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/star-empty.svg') %>
+						<% end %>
+					</div>
+				</div>
+				<p class="review__content"><%= review.content %></p>
+			</li>
+				<% end %>
+		</ul>
+		<% else %>
+		<h2><%= @host.first_name.capitalize %> is still waiting for their first review.</h2>
+		<div class="review__rating">
+			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
+			<p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
+		</div>
+		<% end %>
+	</div>
+</article>

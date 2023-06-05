@@ -1,0 +1,97 @@
+@mixin primary-button {
+	@include body-3;
+
+	background-color: $primary;
+	color: white;
+	display: block;
+	margin: auto;
+	padding: .7rem 2rem;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+
+	&:hover {
+		opacity: 0.9;
+		cursor: pointer;
+	}
+}
+
+@mixin secondary-button {
+	@include body-3;
+
+	background-color: transparent;
+	border: 1px solid $primary;
+	color: $primary;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+
+	&:hover {
+		color: $primary-light;
+		border: 1px solid $primary-light;
+		cursor: pointer;
+	}
+}
+
+@mixin tertiary-button {
+	@include body-3;
+
+	color: $primary;
+	text-decoration: underline;
+	text-transform: uppercase;
+
+	&:hover {
+		color: $primary-light;
+		cursor: pointer;
+	}
+}
+
+@mixin input-field {
+	@include input-text;
+
+	border: 0;
+	border-radius: $border-radius-small;
+	padding: .7rem;
+	margin: .5rem 0;
+}
+
+@mixin date-input {
+	@include input-text;
+
+	border: 0;
+	border-radius: $border-radius-small;
+	background-color: $white;
+	padding: .7rem;
+	margin: .5rem 0;
+	width: calc(98% / 3);
+}
+
+.password {
+	display: flex;
+	flex-direction: column;
+	
+	span { @include caption; }
+}
+
+.user_date_of_birth {
+	display: flex;
+	justify-content: space-between;
+}
+
+.hint {
+	color: $gray-05;
+	margin-left: 0.5rem;
+	font-size: .75rem;
+	letter-spacing: .06em;
+}
+
+input, select { @include input-field; }
+
+
+textarea {
+	@include input-field;
+
+	border-radius: $border-radius-small;
+	border: 1px solid $gray-02;
+	padding: .5rem;
+}

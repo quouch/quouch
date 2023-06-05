@@ -1,13 +1,58 @@
 // Graphical variables
 @import 'config/fonts';
 @import 'config/colors';
-@import 'config/typography';
 @import 'config/variables';
+@import 'config/base';
+@import 'config/typography';
+
+// Mixins
+@import 'mixins/container';
+@import 'mixins/inputs';
+@import 'mixins/logo';
 
 // External libraries
-// @import 'bootstrap/scss/bootstrap';
-@import 'font-awesome';
+@import 'flatpickr/dist/flatpickr.css';
+@import 'flatpickr/dist/themes/material_orange';
+@import 'star-rating.js/dist/star-rating.css';
+@import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder';
 
 // Your CSS partials
-@import 'components/header';
+@import 'components/booking';
+@import 'components/bookings';
+@import 'components/booking-form';
+@import 'components/chat';
+@import 'components/chats';
+@import 'components/checkout';
+@import 'components/city';
+@import 'components/confirmed';
+@import 'components/couch';
+@import 'components/couches';
+@import 'components/error';
+@import 'components/host';
+@import 'components/invite';
+@import 'components/invite-code';
+@import 'components/requests';
+@import 'components/sent';
+@import 'components/signin';
 @import 'components/signup';
+@import 'components/user-form';
+
+@import 'partials/chat-icon';
+@import 'partials/collapsible';
+@import 'partials/errors';
+@import 'partials/features';
+@import 'partials/flashes';
+@import 'partials/footer';
+@import 'partials/header';
+@import 'partials/message';
+@import 'partials/modal';
+@import 'partials/navigation';
+@import 'partials/offers';
+@import 'partials/review';
+@import 'partials/review-form';
+@import 'partials/search';
+
+@import 'pages/about';
+@import 'pages/contact';
+@import 'pages/home';
+@import 'pages/general';

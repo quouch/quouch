@@ -1,0 +1,87 @@
+.contact {
+	margin: 4rem 0 0;
+	background-color: $primary-super-transparent;
+
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
+
+	&__wrap {
+		@include container;
+		
+		@media (min-width: $break-large) { @include container-small; }
+		
+		> p { @include title-5; }
+	}
+
+	&__subtitle {
+		@include title-2;
+		margin-bottom: 2rem;
+	}
+
+	&__contact {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		@media (min-width: $break-medium) {
+			flex-direction: row;
+			gap: 1rem;
+		}
+	}
+
+	&__input {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+
+		@media (min-width: $break-medium) { width: 50%; }
+
+		label { @include input-text; }
+	}
+
+	&__message {
+		display: flex;
+		flex-direction: column;
+		
+		label { @include input-text; }
+		textarea { width: 100%; }
+	}
+
+	&__action {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		@media (min-width: $break-medium) {
+			flex-direction: row;
+			gap: 5rem;
+			margin-top: 1rem;
+		}
+	}
+
+	&__legal {
+		@include input-text;
+		margin-bottom: 1rem;
+		
+		@media (min-width: $break-medium) {
+			width: 40%;
+			margin-bottom: 0;
+		}
+	}
+
+	&__button {
+		width: 100%;
+		@media (min-width: $break-medium) { width: 60%; }
+
+		input {
+			@include input-field;
+			@include primary-button;
+
+			width: 100%;
+		}
+	}
+}

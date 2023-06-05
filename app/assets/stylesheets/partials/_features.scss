@@ -1,0 +1,16 @@
+.features {
+	@include feature-tag;
+
+	display: flex;
+	gap: .5rem;
+	flex-wrap: wrap;
+	margin-bottom: .5rem;
+
+	li {
+		height: fit-content;
+		color: $primary-light;
+		background-color: $primary-super-transparent;
+		padding: .1rem .8rem;
+		border-radius: $border-radius-xlarge;
+	}
+}

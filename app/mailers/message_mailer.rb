@@ -3,14 +3,26 @@ class MessageMailer < ApplicationMailer
 	default from: 'dev.quouch@gmail.com'
 
 	def message_notification
-		mail(to: @receiver.email, subject: "You have a new message")
+		mail(to: @recipient.email, subject: "You have a new message")
 	end
 
 	private
 
+	def find_recipient(message)
+		@users = [User.find(message.chat.user_sender_id), User.find(message.chat.user_receiver_id)]
+		@users.each do |user|
+			next if user.eql?(message.user)
+
+			@user = user
+		end
+		@user
+	end
+
 	def set_message_details
+		@chat = params[:chat]
+		@recipient = params[:recipient]
+		@sender = params[:message].user
 		@message = params[:message]
-		@receiver = User.find(@message.chat.user_receiver_id)
-		@sender = User.find(@message.chat.user_sender_id)
+		@url = chat_url(@chat)
 	end
 end

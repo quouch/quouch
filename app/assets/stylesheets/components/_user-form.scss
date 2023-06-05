@@ -1,0 +1,292 @@
+.user {
+	background-color: $primary-transparent;
+	margin-top: 4rem;
+
+	label {
+		@include body-2;
+
+		margin: 1rem 0;
+		text-transform: uppercase;
+	}
+
+	&__form {
+		@include container-width;
+		margin: 0 auto;
+	}
+
+	&__wrap {
+		@media (min-width: $break-medium) {
+			display: flex;
+			gap: 4rem;
+		}
+	}
+
+	&__info { width: 100%; }
+
+	&__image {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		min-width: 200px;
+
+		> label { margin: 1rem auto; }
+
+		@media (min-width: $break-medium) { align-items: flex-start; }
+
+		&-preview {
+			display: inline-block;
+			width: 200px;
+			height: 200px;
+			border-radius: $border-radius-round;
+			object-fit: cover;
+			object-position: center;
+		}
+
+		&-icon {
+			display: inline-block;
+			width: 200px;
+			height: 200px;
+			border-radius: $border-radius-round;
+			background-color: $secondary-transparent;
+			object-fit: cover;
+		}
+
+		&-upload {
+			display: flex;
+			gap: .3rem;
+			margin: 1rem auto 0;
+
+			&:hover { opacity: .7; }
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__birthdate {
+		display: flex;
+		gap: .5rem;
+		align-items: center;
+
+		select {
+			background-color: $white;
+			flex-grow: 1;
+		}
+	}
+
+	&__address {
+    margin-top: 1rem;
+
+		&-street {
+      display: flex;
+			column-gap: 1rem;
+			align-items: center;
+
+      .user_address { width: 100%; }
+
+      .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        min-width: 0;
+        height: 40px;
+
+				@media (min-width: $break-small) {
+					min-width: 100%;	
+					width: 100%;
+				}
+
+				@media (min-width: $break-large) { height: 46px; }
+				
+				.mapboxgl-ctrl-geocoder--input { height: auto; }
+      }
+
+		}
+
+		&-wrap {
+			display: flex;
+			column-gap: 1.4rem;
+			align-items: center;
+			@media (min-width: $break-medium) { width: 50%; }
+
+			&--city {
+				@media (max-width: $break-medium) { column-gap: 3.3rem; } // shame
+			}
+		}
+
+		&-city {
+			@media (min-width: $break-medium) {
+				display: flex;
+				column-gap: 1.5rem;
+				align-items: center;
+			}
+
+			input { width: 100%; }
+		}
+
+		&-country {
+			display: flex;
+			column-gap: 1rem;
+			align-items: center;
+
+			.input, .input select { width: 100%; }
+			.input select {
+				background-color: $white;
+				
+				@media (min-width: $break-large) { height: 46px; }
+			}
+		}
+
+		&-label {
+			display: flex;
+			flex-direction: row;
+			gap: .3rem;
+		}
+	}
+
+	&__characteristics {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		margin-bottom: 1rem;
+
+		span {
+			label {
+				@include body-3;
+
+				display: flex;
+				align-items: center;
+				gap: .3rem;
+				margin: .5rem 0;
+
+				label {
+					flex-shrink: 0;
+					margin: 0;
+				}
+			}
+		}
+	}
+
+	&__travelling { margin: 1rem 0 .5rem; }
+
+	&__offers {
+		@media (min-width: $break-medium) {
+			display: flex;
+			flex-wrap: wrap;
+			column-gap: 2rem;
+		}
+	}
+
+	&__offer {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		flex-shrink: 0;
+
+		label {
+			@include body-3;
+
+			margin: .5rem 0;
+		}
+	}
+
+	&__couch {
+		flex-direction: column;
+
+		&-capacity {
+			select {
+				background-color: $white;
+				margin: 1rem .3rem;
+			}
+		}
+
+		&-facilities {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+			span {
+				label {
+					@include body-3;
+
+					display: flex;
+					align-items: center;
+					gap: .3rem;
+					margin: .5rem 0;
+
+					label {
+						flex-shrink: 0;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+
+
+	&__password {
+		&-change { color: $primary; }
+	}
+
+	&__hint { font-size: .75rem; }
+
+	&__submit {
+		input {
+			@include primary-button;
+			margin: 1rem 0;
+
+			@media (min-width: $break-large) {
+				width: fit-content;
+			}
+		}
+	}
+
+	&__cancel {
+		@include container-width;
+		width: 80%;
+		margin: 1rem auto;
+		display: flex;
+		align-items: center;
+
+		&-link {
+			@include input-field;
+			@include tertiary-button;
+		}
+	}
+
+	&__password {
+		display: flex;
+		flex-direction: column;
+
+		&-label {
+			flex-direction: row;
+			gap: .3rem;
+		}
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+	}
+}
+
+.user_pronouns {
+	display: flex;
+	flex-direction: column;
+}
+
+.mapboxgl-ctrl-geocoder {
+	@include input-field;
+
+	box-shadow: 0 0 0 0;
+	display: flex;
+	align-items: center;
+	padding: 0;
+
+	&--icon {
+		display: block;
+		margin-left: 1rem;
+		position: inherit;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
