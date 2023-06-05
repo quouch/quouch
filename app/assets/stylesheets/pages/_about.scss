@@ -1,0 +1,49 @@
+.about {
+	margin: 4rem 0;
+
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
+
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
+	}
+
+	&__team { margin-top: 4rem; }
+	
+	&__member {
+		border-top: 1px solid $primary-transparent;
+		padding: 4rem 0;
+
+		@media (min-width: $break-medium) {
+			display: flex;
+			gap: 3rem;
+			align-items: center;
+		}
+
+		img {
+			width: 100%;
+			height: 300px;
+			width: 300px;
+			object-fit: cover;
+			object-position: center;
+
+			@media (min-width: $break-large) {
+				min-height: 500px;
+				min-width: 400px;
+			}
+		}
+
+		&--left {
+			img { margin-bottom: 1rem; }
+		}
+	}
+
+	p { margin: 1rem auto; }
+	ol { list-style: none; }
+}

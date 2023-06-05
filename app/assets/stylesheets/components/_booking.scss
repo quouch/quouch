@@ -1,0 +1,212 @@
+.booking {
+	&-section {
+		margin: 4rem 0 0;
+		@media (min-width: $break-large) { margin: 4rem 0 4rem}
+	}
+	
+	h2 { @include profile-title; }
+	
+	@media (min-width: $break-small) {
+		@include container-width;
+		
+		margin: 0 auto;
+		border-radius: $border-radius-large;
+		box-shadow: $box-shadow;
+	}
+
+	@media (min-width: $break-medium) { width: 60%; }
+
+	&__host {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 1rem;
+		background-color: $primary-super-transparent;
+		text-align: center;
+
+		@media (min-width: $break-small) {
+			border-top-left-radius: $border-radius-large;
+			border-top-right-radius: $border-radius-large;
+		}
+
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			padding: 2rem 6rem;
+			text-align: start;
+		}
+
+		&-left {
+			h2 { flex-shrink: 0; }
+
+			@media (min-width: $break-large) {
+				grid-column: 1;
+				display: flex;
+				gap: 1rem;
+				justify-content: right;
+				margin-right: 3rem;
+			}
+		}
+
+		&-right {
+			margin: 1rem 0;
+			width: fit-content;
+			
+			@media (min-width: $break-large) {
+				margin-top: 2rem;
+				grid-column: 2;
+			}
+		}
+
+		&-image {
+			height: 200px;
+			width: 200px;
+			border-radius: $border-radius-round;
+			max-width: revert;
+		}
+
+		&-name {
+			span {
+				@include body-3;
+
+				display: block;
+				color: $gray-04;
+				margin: .5rem 0 1rem;
+			}
+		}
+	}
+	
+	&__wrap {
+		background-color: $white;
+		border-bottom-left-radius: $border-radius-large;
+		border-bottom-right-radius: $border-radius-large;
+		padding: 1rem 2rem;
+		margin-bottom: 4rem;
+		
+		@media (min-width: $break-large) { padding: 1rem 4rem; }
+	}
+	
+	&__info {
+		display: flex;
+		flex-direction: column;
+		
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	&__details {
+		margin-bottom: 1rem;
+		flex-shrink: 0;
+
+		@media (min-width: $break-large) { margin-bottom: 0; }
+		
+		&-list {
+			li {
+				img {
+					height: 16px;
+					width: 16px;
+				}
+				
+				display: flex;
+				align-items: center;
+				gap: .3rem;
+				margin-bottom: .5rem;
+			}
+		}
+	}
+
+	&__message {
+		margin-bottom: 1rem;
+
+		@media (min-width: $break-large) { grid-column: 2; }
+
+		p:before { content: "\201C"; }
+		p:after { content: "\201D"; }
+	}
+	
+	&__accommodation {
+		@include facility-name;
+		
+		&-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+			gap: 1rem 2rem;
+		}
+		
+		li {
+			display: flex;
+			align-items: center;
+			gap: .5rem;
+			
+			img {
+				height: 16px;
+				width: 16px;
+			}
+		}
+	}
+	
+	&__location { margin-top: 1.5rem; }
+	
+	&__address {
+		li { margin-bottom: .5rem; }
+	}
+	
+	&__pin {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	&__map {
+		margin: 2rem 0;
+		height: 300px;
+		border-radius: $border-radius-small;
+	}
+
+	&__links {
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			justify-content: center;
+			align-items: center;
+			margin-top: 1rem;
+			column-gap: 1rem;
+			
+			form { width: 100%; }
+		}
+	}
+
+	&__accept {
+		@include input-field;
+		@include primary-button;
+	
+		display: inline-block;
+		padding: .3rem 2rem;
+	}
+
+	&__update {
+		@include input-field;
+		@include secondary-button;
+	
+		display: inline-block;
+		padding: .3rem 2rem;
+	}
+
+	&__decline {
+		@include input-field;
+		@include tertiary-button;
+
+		display: inline-block;
+		background-color: transparent;
+		padding: .3rem 2rem;
+		width: 100%;
+	}
+}

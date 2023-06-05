@@ -3,7 +3,6 @@ class Review < ApplicationRecord
   belongs_to :couch
   belongs_to :user
 
-  validates :description, presence: true
-  validates :rating, presence: true, inclusion: { in: [1, 2, 3, 4, 5] }
-  validates :booking, uniqueness: true
+  validates :content, presence: { message: 'Please add a few lines about your experience' }
+  validates :rating, presence: { message: 'Please leave a rating' }
 end

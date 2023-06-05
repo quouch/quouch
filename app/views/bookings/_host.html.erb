@@ -1,0 +1,72 @@
+<section>
+	<div class="host">
+	<% if @host.photo.key %>
+		<%= cl_image_tag @host.photo.key, class: 'host__gallery' %>
+	<% else %>
+		<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'host__gallery') %>
+	<% end %>
+		<div class="host__content">
+			<ul class="host__info">
+				<li class="host__location">
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+					<% if @host.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+						<%= @host.city %>, United Kingdom
+					<% else %>
+						<%= @host.city %>, <%= @host.country %>
+					<% end %>
+				</li>
+				<li class="host__name"><%= @host.first_name %></li>
+				<div class="host__characteristics">
+					<li><%= @host.pronouns.downcase %></li>
+					<li><%= @host.calculated_age %></li>
+				</div>
+			</ul>
+			<ul class="host__offers offers">
+				<% if @host.offers_couch %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+						<p>host</p>
+					</li>
+				<% end %>
+				<% if @host.offers_hang_out %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+						<p>hangout</p>
+					</li>
+				<% end %>
+				<% if @host.offers_co_work %>
+					<li class="offers-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+						<p>cowork</p>
+					</li>
+				<% end %>
+			</ul>
+			<ul class="host__features features">
+				<% @host.characteristics.each  do |characteristic| %>
+					<li><%= characteristic.name %></li>
+				<% end %>
+			</ul>
+
+			<div class="host__intro">
+				<h2 class="host__intro-title">Introduction</h2>
+				<p><%= @host.summary %></p>
+			</div>
+
+			<div class="host__accommodation">
+				<h2 class="host__accommodation-title">Accommodation</h2>
+				<ul class="host__accommodation-list">
+					<% @host.couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
+						<li>
+							<%= cl_image_tag(facility.svg.key) %>
+							<%= facility.name %>
+						</li>
+					<% end %>
+					<li class="host__travellers">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+						<%= pluralize @host.couch.capacity, 'guest' %>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

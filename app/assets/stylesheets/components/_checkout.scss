@@ -1,0 +1,56 @@
+.checkout {
+	&__wrap {
+		@include container;
+
+		margin: 6rem auto 4rem;
+	}
+
+	&__title { color: $secondary; }
+
+	&__content {
+		h2 { @include title-5; }
+		background-color: $secondary-super-transparent;
+	
+		margin: 0 auto;
+		padding: 2rem;
+		border-radius: $border-radius-medium;
+
+		@media (min-width: $break-large) {
+			max-width: 40%;
+		}
+	}
+
+	&__details {
+		flex-shrink: 0;
+		margin-bottom: 2rem;
+		
+		li {
+			img {
+				height: 16px;
+				width: 16px;
+			}
+			
+			display: flex;
+			align-items: center;
+			gap: .3rem;
+			margin-bottom: .5rem;
+		}
+	}
+
+	&__summary {
+		border-top: 1px solid $gray-03;
+		padding-top: 2rem;
+
+		p {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+
+	&__total {
+		@include title-5;
+		
+		color: $primary;
+		margin-top: 2rem;
+	}
+}

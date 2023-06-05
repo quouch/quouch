@@ -1,45 +1,129 @@
-<h1> My Requests </h1>
 
-<% if @requests.any? %>
-	<% @requests.each do |request| %>
-		<% if request.pending? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'See details and reply', request_booking_path(request) %></li>
-			</ul>
-		<% elsif request.confirmed? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'See Details', request_booking_path(request) %></li>
-			</ul>
-		<% elsif request.cancelled? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li>This request has been cancelled on <%= request.cancellation_date %>.</li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<li><%= link_to 'Browse other couches' %>
-			</ul>
-		<% elsif request.completed? %>
-			<ul>
-				<li><%= request.user.first_name %></li>
-				<li><%= request.status %></li>
-				<li>You hosted <%= request.user.first_name %>.</li>
-				<li><%= request.start_date %> - <%= request.end_date %></li>
-				<li><%= request.number_travellers %></li>
-				<% if request.review.nil? %>
-					<li><%= link_to "Leave #{request.user.first_name} a review", new_couch_booking_review_path(request.user.couch, request) %>
+<section class="requests">
+	<h1>Guests</h1>
+	<div class="requests__wrap">
+	<% if @requests.any? %>
+		<% if @upcoming.any? %>
+		<h2 class="requests__title">Upcoming Guests</h2>
+		<ul class="upcoming-requests">
+			<% @upcoming.each do |request| %>
+				<%= link_to request_booking_path(request) do %>
+					<li>
+						<ul class="upcoming-request">
+							<% if request.user.photo.key %>
+								<%= cl_image_tag request.user.photo.key, class: 'upcoming-request__profile' %>
+							<% else %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'upcoming-request__profile') %>
+							<% end %>
+							<div class="upcoming-request__wrap">
+								<div class="upcoming-request__info">
+									<li class="upcoming-request__host"><%= request.user.first_name %></li>
+									<li class="upcoming-request__pronouns"><%= request.user.pronouns %></li>
+								</div>
+								<li class="upcoming-request__detail">
+								<% if request.host? %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
+									<p>host</p>
+								<% elsif request.hangout? %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
+									<p>hangout</p>
+								<% elsif request.cowork? %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
+									<p>cowork</p>
+								<% end %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+									<%= request.start_date.strftime("%B %d") %> - <%= request.end_date.strftime("%B %d, %Y") %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
+									<%= request.status.capitalize %>
+								</li>
+								<li class="upcoming-request__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
+									<%= pluralize request.number_travellers, 'Traveller' %>
+								</li>
+							</div>
+						</ul>
+					</li>
+				<% end %>
+			<% end %>
+		</ul>
+		<% end %>
+
+		<% if @completed.any? %>
+			<h2 class="requests__title">Hosted Guests</h2>
+			<ul class="past-requests">
+				<% @completed.each do |request| %>
+					<li>
+						<ul class="past-request">
+							<li class="past-request__profile">
+								<% if request.user.photo.key %>
+								<%= cl_image_tag request.user.photo.key, class: 'past-request__profile' %>
+							<% else %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-request__profile') %>
+							<% end %>
+							</li>
+							<div class="past-request__wrap">
+								<li class="past-request__host">
+									<%= request.user.first_name %>
+								</li>
+								<li class="past-request__pronouns">
+									<%= request.user.pronouns %>
+								</li>
+								<li class="past-request__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+									<%= request.start_date.strftime("%B, %Y") %>
+								</li>
+								<% if request.reviews.find_by(user: request.couch.user).nil? %>
+								<li class="past-request__link">
+									<%= link_to "See Details & Leave Review", request_booking_path(request) %>
+								</li>
+								<% else %>
+								<li class="past-request__link">
+									<%= link_to "See Details", request_booking_path(request) %>
+								</li>
+								<% end %>
+							</div>
+						</ul>
+					</li>
 				<% end %>
 			</ul>
 		<% end %>
-	<% end %>
-<% else %>
-	<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
-<% end %>
+
+		<% if @cancelled.any? %>
+			<h2 class="requests__title">Cancelled Requests</h2>
+			<ul class="past-requests">
+				<% @cancelled.each do |request| %>
+					<li>
+						<ul class="past-request">
+							<li class="past-request__profile">
+								<% if request.user.photo.key %>
+								<%= cl_image_tag request.user.photo.key, class: 'past-request__profile' %>
+							<% else %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-request__profile') %>
+							<% end %>
+							</li>
+							<div class="past-request__wrap">
+								<li class="past-request__host">
+									<%= request.user.first_name %>
+								</li>
+								<li class="past-request__pronouns">
+									<%= request.user.pronouns %>
+								</li>
+								<li class="past-request__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+									<%= request.start_date.strftime("%B, %Y") %>
+								</li>
+							</div>
+						</ul>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+		<% else %>
+			<p>No one has requested to stay on your couch yet. Enjoy the silence!</p>
+		<% end %>
+	</div>
+</section>

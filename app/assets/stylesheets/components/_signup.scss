@@ -1,6 +1,56 @@
 .signup {
+	background-color: $neutral-03;
+
+	&__wrap {
+		width: 320px;
+		margin: 6rem auto;
+	}
+
+	&__subtitle {
+		@include title-4;
+
+		margin: 0 auto 2rem;
+		text-align: center;
+		color: $primary;
+	}
+
 	&__form {
-		width: 800px;
+		width: 100%;
 		margin: 0 auto;
+
+		input { @include input-field; }
+	}
+	
+	&__input {
+		margin-bottom: 1rem;
+		
+		&-date {
+			@include date-input;
+		}
+	}
+
+	&__button {
+		input { @include primary-button; }
+
+		margin: 1rem auto;
+	}
+
+	&__footer {
+		display: flex;
+		justify-content: center;
+	}
+	
+	&__terms {
+		@include caption;
+
+		width: 200px;
+		text-align: center;
+		margin: 2rem auto;
+		color: $gray-05;
+	}
+
+	.user_first_name, .user_last_name, .user_email {
+		display: flex;
+		flex-direction: column;
 	}
 }

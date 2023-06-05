@@ -1,0 +1,60 @@
+.header {
+	position: fixed;
+	width: 100vw;
+	top: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	background-color: $primary-super-transparent;
+	z-index: 2;
+
+	&__logo {
+		a { @include logo; }
+	}
+
+	&__avatar {
+		border-radius: $border-radius-round;
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+		object-position: center;
+		cursor: pointer;
+	}
+
+	&__collapsible {
+		position: absolute;
+		height: 95vh;
+		width: 100%;
+		right: 0;
+		top: 72px;
+		padding: 1rem 0 4rem 2rem;
+		z-index: 2;
+
+		@media (min-width: $break-medium) { width: $break-x-small; }
+	}
+
+	&__note {
+		@include caption;
+
+		color: $gray-05;
+	}
+
+}
+
+.header .chat__medium-break__link {
+  display: none;
+  @media (min-width: $break-medium) { display: block; }
+}
+
+@media (min-width: $break-medium) {
+  .header .chat__small-break__link {
+    display: none;
+  }
+}
+
+.header .chats__notifications {
+	position: absolute;
+	top: 44px;
+  right: 14px;
+}

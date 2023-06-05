@@ -1,0 +1,107 @@
+.search {
+	display: flex;
+	justify-content: center;
+	gap: .5rem;
+	margin: 2rem auto;
+
+	input:first-child {
+		@include input-field;
+		margin: 0;
+		box-shadow: $box-shadow;
+	}
+
+	&__wrap {
+		display: flex;
+		justify-content: center;
+	}
+
+  &__autocomplete {
+		position: relative;
+		
+		&-list {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-direction: column;
+			flex-direction: column;
+			border-radius: $border-radius-medium;
+			padding-left: 0;
+			margin-bottom: 0;
+			position: absolute;
+			left: 0;
+			right: 0;
+	
+			&-item {
+				position: relative;
+				display: block;
+				padding: 0.75rem 1.25rem;
+				margin-bottom: -1px;
+				background-color: #fff;
+				border: 1px solid $gray-02;
+			}
+		}
+		
+		&-list-item:first-child {
+			border-top-left-radius: 0.25rem;
+			border-top-right-radius: 0.25rem;
+		}
+		
+		&-list-item:last-child {
+			border-bottom-left-radius: 0.25rem;
+			border-bottom-right-radius: 0.25rem;
+		}
+	}
+
+	
+	&__button {
+		@include input-field;
+		@include primary-button;
+		
+		box-shadow: $box-shadow;
+	}
+	
+	&__characteristics, &__offers {
+		margin: 0 auto 2rem;
+		text-align: center;
+		
+		@media (min-width: $break-medium) { width: 80%; }
+	}
+	
+	&__offers { margin-bottom: 0; }
+	
+	&__checkbox {
+		position: absolute;
+		transform: scale(0);
+	}
+	
+	&__checkbox + label {
+		@include caption;
+		
+		cursor: pointer;
+		
+		display: inline-block;
+		color: $secondary-light;
+		background-color: $secondary-super-transparent;
+		padding: .4rem .8rem;
+		margin: .2rem;
+		border-radius: $border-radius-xlarge;
+		border: 1px solid $secondary-light;
+	}
+	
+	&__checkbox:checked + label {
+		color: white;
+		background-color: $secondary-light;
+		font-weight: 500;
+	}
+	
+	&__checkbox.offer__checkbox + label {
+		color: $primary-light;
+		background-color: $primary-super-transparent;
+    border: 1px solid $primary-light;
+		
+  }
+	
+  &__checkbox.offer__checkbox:checked + label {
+		background-color: $primary-light;
+		color: white;
+	}
+}

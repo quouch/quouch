@@ -1,14 +1,22 @@
 // Box shadow
+$box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+$box-shadow-hover: rgba(100, 100, 100, 0.1) 0px 2px 8px 0px;
+$box-shadow-alert: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;;
+$box-shadow-quchi: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
 // Border radius
 $border-radius-xlarge: 24px;
 $border-radius-large: 16px;
 $border-radius-medium: 12px;
 $border-radius-small: 8px;
+$border-radius-round: 100%;
 
 // Breakpoints
-$x-small: 360px;
-$small: 480px;
-$medium: 768px;
-$large: 1024px;
-$x-large: 1440px;
+$break-x-small: 360px;
+$break-small: 480px;
+$break-medium: 768px;
+$break-large: 1024px;
+$break-x-large: 1440px;
+
+// Container
+$container: 1140px;

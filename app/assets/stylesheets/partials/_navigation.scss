@@ -1,0 +1,15 @@
+.navigation {
+	flex-grow: 2;
+	
+	&__list {
+		display: flex;
+		justify-content: center;
+		gap: 10rem;
+
+		@media (max-width: $break-medium) { display: none; }
+
+		a:hover { color: $primary-light; }
+	}
+
+	&__link { @include nav-title; }
+}

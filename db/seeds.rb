@@ -8,423 +8,643 @@
 
 require 'faker'
 require 'factory_bot_rails'
+require 'open-uri'
 
-# Countries
+locations = [['Berlin', 'Germany'], ['Paris', 'France'], ['Madrid', 'Spain'], ['Rome', 'Italy'], ['Athens', 'Greece'], ['Lisbon','Portugal'], ['London', 'United Kingdom of Great Britain and Northern Ireland'], ['Amsterdam', 'Netherlands']]
 
-puts 'destroying & seeding countries...'
-Country.destroy_all
+# Characteristics
+puts 'destroying & seeding characteristics...'
+Characteristic.destroy_all
 
-germany = Country.create!(name: 'Germany')
-france = Country.create!(name: 'France')
-spain = Country.create!(name: 'Spain')
-italy = Country.create!(name: 'Italy')
-greece = Country.create!(name: 'Greece')
-portugal = Country.create!(name: 'Portugal')
-uk = Country.create!(name: 'United Kingdom')
-netherlands = Country.create!(name: 'Netherlands')
+trans_only = Characteristic.create!(name: 'Trans Only')
+party_lover = Characteristic.create!(name: 'Party Lover')
+bipoc_only = Characteristic.create!(name: 'BIPOC Only')
+non_smoker = Characteristic.create!(name: 'Non-Smoker')
+sw_friendly = Characteristic.create!(name: 'SW Friendly')
+vegan = Characteristic.create!(name: 'Vegan')
+gnc = Characteristic.create!(name: 'GNC')
+clean_freak = Characteristic.create!(name: 'Clean Freak')
+abortion_friendly = Characteristic.create!(name: 'Abortion Friendly')
+drag_performer = Characteristic.create!(name: 'Drag Performer')
+sober = Characteristic.create!(name: 'Sober')
+queer = Characteristic.create!(name: 'Queer')
+wheelchair_accessibility = Characteristic.create!(name: 'Wheelchair Accessibility')
+sign_language = Characteristic.create!(name: 'Sign Language')
+neuro_diverse = Characteristic.create!(name: 'Neurodiverse')
+vaccinated = Characteristic.create!(name: 'Vaccinated')
+alone_time = Characteristic.create!(name: 'Alone Time')
+exhibitions = Characteristic.create!(name: 'Exhibitions')
+political_activism = Characteristic.create!(name: 'Political Activisim')
 
-puts "#{Country.count} countries created!"
-
-# Cities
-
-puts 'destroying & seeding cities...'
-City.destroy_all
-
-berlin = City.create!(name: 'Berlin', country: germany)
-paris = City.create!(name: 'Paris', country: france)
-madrid = City.create!(name: 'Madrid', country: spain)
-rome = City.create!(name: 'Rome', country: italy)
-athens = City.create!(name: 'Athens', country: greece)
-lisbon = City.create!(name: 'Lisbon', country: portugal)
-london = City.create!(name: 'London', country: uk)
-amsterdam = City.create!(name: 'Amsterdam', country: netherlands)
-
-puts "#{City.count} cities created!"
+puts "#{Characteristic.count} characteristics created!"
 
 # Users
 
 puts 'destroying & seeding users...'
 User.destroy_all
 
-user1 = User.create!(
+location = locations.sample
+user1 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
-  date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
+  date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 50),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67op'
 )
 
-user2 = User.create!(
+photo1 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user1.photo.attach(io: photo1, filename: 'profile.jpg', content_type: 'image/jpg')
+user1.save!
+
+UserCharacteristic.create!(characteristic: queer, user_id: user1.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user1.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user1.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user1.id)
+
+location = locations.sample
+user2 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67ol'
 )
 
-user3 = User.create!(
+photo2 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user2.photo.attach(io: photo2, filename: 'profile.jpg', content_type: 'image/jpg')
+user2.save!
+
+UserCharacteristic.create!(characteristic: trans_only, user_id: user2.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user2.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user2.id)
+
+location = locations.sample
+user3 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah68op'
 )
 
-user4 = User.create!(
+photo3 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user3.photo.attach(io: photo3, filename: 'profile.jpg', content_type: 'image/jpg')
+user3.save!
+
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user3.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user3.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user3.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user3.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user3.id)
+
+location = locations.sample
+user4 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: '1h67op'
 )
 
-user5 = User.create!(
+photo4 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user4.photo.attach(io: photo4, filename: 'profile.jpg', content_type: 'image/jpg')
+user4.save!
+
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user4.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user4.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user4.id)
+
+location = locations.sample
+user5 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'az67op'
 )
 
-user6 = User.create!(
+photo5 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user5.photo.attach(io: photo5, filename: 'profile.jpg', content_type: 'image/jpg')
+user5.save!
+
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user5.id)
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user5.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user5.id)
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user5.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user5.id)
+
+location = locations.sample
+user6 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67o5'
 )
 
-user7 = User.create!(
+photo6 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user6.photo.attach(io: photo6, filename: 'profile.jpg', content_type: 'image/jpg')
+user6.save!
+
+UserCharacteristic.create!(characteristic: vegan, user_id: user6.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user6.id)
+
+location = locations.sample
+user7 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67o9'
 )
 
-user8 = User.create!(
+photo7 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user7.photo.attach(io: photo7, filename: 'profile.jpg', content_type: 'image/jpg')
+user7.save!
+
+UserCharacteristic.create!(characteristic: vegan, user_id: user7.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user7.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user7.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user7.id)
+
+location = locations.sample
+user8 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67oy'
 )
 
-user9 = User.create!(
+photo8 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user8.photo.attach(io: photo8, filename: 'profile.jpg', content_type: 'image/jpg')
+user8.save!
+
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user8.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user8.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user8.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user8.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user8.id)
+
+location = locations.sample
+user9 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah77op'
 )
 
-user10 = User.create!(
+photo9 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user9.photo.attach(io: photo9, filename: 'profile.jpg', content_type: 'image/jpg')
+user9.save!
+
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user9.id)
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user9.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user9.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user9.id)
+
+location = locations.sample
+user10 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah689p'
 )
 
-user11 = User.create!(
+photo10 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user10.photo.attach(io: photo10, filename: 'profile.jpg', content_type: 'image/jpg')
+user10.save!
+
+UserCharacteristic.create!(characteristic: party_lover, user_id: user10.id)
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user10.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user10.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user10.id)
+
+location = locations.sample
+user11 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'abz7op'
 )
 
-user12 = User.create!(
+photo11 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user11.photo.attach(io: photo11, filename: 'profile.jpg', content_type: 'image/jpg')
+user11.save!
+
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user11.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user11.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user11.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user11.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user11.id)
+
+location = locations.sample
+user12 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah62op'
 )
 
-user13 = User.create!(
+photo12 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user12.photo.attach(io: photo12, filename: 'profile.jpg', content_type: 'image/jpg')
+user12.save!
+
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user12.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user12.id)
+UserCharacteristic.create!(characteristic: alone_time, user_id: user12.id)
+
+location = locations.sample
+user13 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ar67op'
 )
 
-user14 = User.create!(
+photo13 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user13.photo.attach(io: photo13, filename: 'profile.jpg', content_type: 'image/jpg')
+user13.save!
+
+UserCharacteristic.create!(characteristic: trans_only, user_id: user13.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user13.id)
+UserCharacteristic.create!(characteristic: political_activism, user_id: user13.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user13.id)
+
+location = locations.sample
+user14 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'bh67op'
 )
 
-user15 = User.create!(
+photo14 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user14.photo.attach(io: photo14, filename: 'profile.jpg', content_type: 'image/jpg')
+user14.save!
+
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user14.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user14.id)
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user14.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user14.id)
+
+location = locations.sample
+user15 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah67wp'
 )
 
-user16 = User.create!(
+photo15 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user15.photo.attach(io: photo15, filename: 'profile.jpg', content_type: 'image/jpg')
+user15.save!
+
+UserCharacteristic.create!(characteristic: exhibitions, user_id: user15.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user15.id)
+UserCharacteristic.create!(characteristic: sign_language, user_id: user15.id)
+
+location = locations.sample
+user16 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah34op'
 )
 
-user17 = User.create!(
+photo16 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user16.photo.attach(io: photo16, filename: 'profile.jpg', content_type: 'image/jpg')
+user16.save!
+
+UserCharacteristic.create!(characteristic: queer, user_id: user16.id)
+UserCharacteristic.create!(characteristic: trans_only, user_id: user16.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user16.id)
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user16.id)
+UserCharacteristic.create!(characteristic: drag_performer, user_id: user16.id)
+
+location = locations.sample
+user17 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah12op'
 )
 
-user18 = User.create!(
+photo17 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user17.photo.attach(io: photo17, filename: 'profile.jpg', content_type: 'image/jpg')
+user17.save!
+
+UserCharacteristic.create!(characteristic: sober, user_id: user17.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user17.id)
+
+location = locations.sample
+user18 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'an67op'
 )
 
-user19 = User.create!(
+photo18 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user18.photo.attach(io: photo18, filename: 'profile.jpg', content_type: 'image/jpg')
+user18.save!
+
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user18.id)
+UserCharacteristic.create!(characteristic: neuro_diverse, user_id: user18.id)
+UserCharacteristic.create!(characteristic: wheelchair_accessibility, user_id: user18.id)
+
+location = locations.sample
+user19 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'lq67op'
 )
 
-user20 = User.create!(
+photo19 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user19.photo.attach(io: photo19, filename: 'profile.jpg', content_type: 'image/jpg')
+user19.save!
+
+UserCharacteristic.create!(characteristic: trans_only, user_id: user19.id)
+UserCharacteristic.create!(characteristic: party_lover, user_id: user19.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user19.id)
+UserCharacteristic.create!(characteristic: non_smoker, user_id: user19.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user19.id)
+UserCharacteristic.create!(characteristic: vegan, user_id: user19.id)
+UserCharacteristic.create!(characteristic: gnc, user_id: user19.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user19.id)
+
+location = locations.sample
+user20 = User.new(
   email: Faker::Internet.email,
   password: '123456',
-  encrypted_password: '123456',
   first_name: Faker::Games::SuperMario.character,
   last_name: Faker::TvShows::GameOfThrones.house,
   pronouns: ['she/her', 'he/him', 'they/them'].sample,
   date_of_birth: Faker::Date.birthday(min_age: 18, max_age: 100),
   summary: Faker::Lorem.paragraph(sentence_count: 10),
-  offers_couch: ['true', 'false'].sample,
-  offers_co_work: ['true', 'false'].sample,
-  offers_hang_out: ['true', 'false'].sample,
+  offers_couch: %i[true false].sample,
+  offers_co_work: %i[true false].sample,
+  offers_hang_out: %i[true false].sample,
   question_one: Faker::Lorem.paragraph(sentence_count: 10),
   question_two: Faker::Lorem.paragraph(sentence_count: 10),
   question_three: Faker::Lorem.paragraph(sentence_count: 10),
   question_four: Faker::Lorem.paragraph(sentence_count: 10),
-  city_id: [berlin.id, paris.id, madrid.id, rome.id, athens.id, lisbon.id, london.id, amsterdam.id].sample
+  city: location[0],
+  country: location[1],
+  invite_code: 'ah623p'
 )
+
+photo20 = URI.open('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg')
+user20.photo.attach(io: photo20, filename: 'profile.jpg', content_type: 'image/jpg')
+user20.save!
+
+UserCharacteristic.create!(characteristic: abortion_friendly, user_id: user20.id)
+UserCharacteristic.create!(characteristic: clean_freak, user_id: user20.id)
+UserCharacteristic.create!(characteristic: sober, user_id: user20.id)
+UserCharacteristic.create!(characteristic: queer, user_id: user20.id)
+UserCharacteristic.create!(characteristic: sw_friendly, user_id: user20.id)
+UserCharacteristic.create!(characteristic: vaccinated, user_id: user20.id)
+UserCharacteristic.create!(characteristic: bipoc_only, user_id: user20.id)
 
 puts "#{User.count} users created!"
 
@@ -541,74 +761,73 @@ puts 'destroying & seeding facilities...'
 Facility.destroy_all
 
 couch = Facility.create(name: 'couch')
-file = File.open("app/assets/images/icons/couch.svg")
-couch.image.attach(io: file, filename: 'couch.svg', content_type: 'image/svg')
+file1 = File.open('app/assets/images/icons/couch.svg')
+couch.svg.attach(io: file1, filename: 'couch.svg', content_type: 'image/svg')
 couch.save!
 
 bed = Facility.create(name: 'bed')
-file = File.open("app/assets/images/icons/bed.svg")
-bed.image.attach(io: file, filename: 'bed.svg', content_type: 'image/svg')
+file2 = File.open('app/assets/images/icons/bed.svg')
+bed.svg.attach(io: file2, filename: 'bed.svg', content_type: 'image/svg')
 bed.save!
 
-shared_bathroom = Facility.create(name: 'shared bathroom')
-file = File.open("app/assets/images/icons/bathroom.svg")
-shared_bathroom.image.attach(io: file, filename: 'bathroom.svg', content_type: 'image/svg')
-shared_bathroom.save!
+extra_key = Facility.create(name: 'extra key')
+file3 = File.open('app/assets/images/icons/key.svg')
+extra_key.svg.attach(io: file3, filename: 'key.svg', content_type: 'image/svg')
+extra_key.save!
 
-private_bathroom = Facility.create(name: 'private bathroom')
-file = File.open("app/assets/images/icons/bathroom.svg")
-private_bathroom.image.attach(io: file, filename: 'bathroom.svg', content_type: 'image/svg')
-private_bathroom.save!
+plant_lover = Facility.create(name: 'plant lover')
+file4 = File.open('app/assets/images/icons/plant.svg')
+plant_lover.svg.attach(io: file4, filename: 'plant.svg', content_type: 'image/svg')
+plant_lover.save!
 
 wifi = Facility.create(name: 'wifi')
-file = File.open("app/assets/images/icons/wifi.svg")
-wifi.image.attach(io: file, filename: 'wifi.svg', content_type: 'image/svg')
+file5 = File.open('app/assets/images/icons/wifi.svg')
+wifi.svg.attach(io: file5, filename: 'wifi.svg', content_type: 'image/svg')
 wifi.save!
 
 pets_allowed = Facility.create(name: 'pets allowed')
-file = File.open("app/assets/images/icons/pets.svg")
-pets_allowed.image.attach(io: file, filename: 'pets.svg', content_type: 'image/svg')
+file6 = File.open('app/assets/images/icons/pets.svg')
+pets_allowed.svg.attach(io: file6, filename: 'pets.svg', content_type: 'image/svg')
 pets_allowed.save!
 
-shared_kitchen = Facility.create(name: 'shared kitchen')
-file = File.open("app/assets/images/icons/kitchen.svg")
-shared_kitchen.image.attach(io: file, filename: 'kitchen.svg', content_type: 'image/svg')
-shared_kitchen.save!
+shared_room = Facility.create(name: 'shared room')
+file7 = File.open('app/assets/images/icons/shared.svg')
+shared_room.svg.attach(io: file7, filename: 'shared-room.svg', content_type: 'image/svg')
+shared_room.save!
 
-tv = Facility.create(name: 'TV')
-file = File.open("app/assets/images/icons/tv.svg")
-tv.image.attach(io: file, filename: 'tv.svg', content_type: 'image/svg')
-tv.save!
+balcony = Facility.create(name: 'balcony')
+file8 = File.open('app/assets/images/icons/balcony.svg')
+balcony.svg.attach(io: file8, filename: 'balcony.svg', content_type: 'image/svg')
+balcony.save!
 
-washing_machine = Facility.create(name: 'washing machine')
-file = File.open("app/assets/images/icons/laundry.svg")
-washing_machine.image.attach(io: file, filename: 'laundry.svg', content_type: 'image/svg')
-washing_machine.save!
+barrier_free = Facility.create(name: 'barrier free')
+file9 = File.open('app/assets/images/icons/barrier-free.svg')
+barrier_free.svg.attach(io: file9, filename: 'barrier-free.svg', content_type: 'image/svg')
+barrier_free.save!
 
-public_transport = Facility.create(name: 'public transport')
-file = File.open("app/assets/images/icons/public.svg")
-public_transport.image.attach(io: file, filename: 'public.svg', content_type: 'image/svg')
-public_transport.save!
+elevator = Facility.create(name: 'elevator')
+file10 = File.open('app/assets/images/icons/elevator.svg')
+elevator.svg.attach(io: file10, filename: 'elevator.svg', content_type: 'image/svg')
+elevator.save!
 
 private_room = Facility.create(name: 'private room')
-file = File.open("app/assets/images/icons/private.svg")
-private_room.image.attach(io: file, filename: 'private.svg', content_type: 'image/svg')
+file11 = File.open('app/assets/images/icons/lock.svg')
+private_room.svg.attach(io: file11, filename: 'lock.svg', content_type: 'image/svg')
 private_room.save!
 
-supermarket = Facility.create(name: 'supermarket')
-file = File.open("app/assets/images/icons/supermarket.svg")
-supermarket.image.attach(io: file, filename: 'supermarket.svg', content_type: 'image/svg')
-supermarket.save!
+vegan = Facility.create(name: 'vegan')
+file12 = File.open('app/assets/images/icons/vegan.svg')
+vegan.svg.attach(io: file12, filename: 'vegan.svg', content_type: 'image/svg')
+vegan.save!
 
 smoking_allowed = Facility.create(name: 'smoking allowed')
-file = File.open("app/assets/images/icons/smoking.svg")
-smoking_allowed.image.attach(io: file, filename: 'smoking.svg', content_type: 'image/svg')
+file13 = File.open('app/assets/images/icons/smoking.svg')
+smoking_allowed.svg.attach(io: file13, filename: 'smoking.svg', content_type: 'image/svg')
 smoking_allowed.save!
 
 puts "#{Facility.count} facilities created!"
 
-facilities = [couch, bed, shared_bathroom, private_bathroom, wifi, pets_allowed, shared_kitchen, tv, washing_machine,
-              public_transport, private_room, supermarket, smoking_allowed]
+facilities = [couch, bed, shared_room, vegan, wifi, pets_allowed, elevator, balcony, barrier_free, plant_lover, private_room, smoking_allowed, extra_key]
 
 # Couch_Facilities (random amount)
 
@@ -624,7 +843,4 @@ Couch.all.each do |sofa|
 end
 
 puts "#{CouchFacility.count} couch_facilities created!"
-
-
-
 puts "done with seeding, love - you are doing an amazing job!"

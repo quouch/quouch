@@ -1,0 +1,41 @@
+.collapsible {
+	background-color: $secondary-super-transparent;
+	padding: 1rem 0 1rem 2rem;
+	overflow-y: scroll;
+	position: relative;
+	z-index: 3;
+
+	li {
+			display: flex;
+			align-items: center;
+			gap: .4rem;
+			margin-bottom: .4rem;
+
+			img {
+					width: 16px;
+					height: 16px;
+			}
+	}
+
+	a, button { color: $gray-05; }
+	a:hover, button:hover { opacity: .8; }
+
+	&__title {
+		@include title-4;
+		color: $primary;
+	}
+
+	&__subtitle {
+		@include title-5;
+		color: $gray-05;
+	}
+	
+	&__logout {
+		background-color: transparent;
+		border: 0;
+	}
+
+	&__chat .chats__notifications {
+		position: inherit !important; // box of shame
+	}
+}

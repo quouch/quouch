@@ -2,9 +2,16 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Booking Confirmation</title>
   </head>
   <body>
-    <h1>Your request at <%= @host.first_name.capitalize %>'s place has been confirmed!</h1>
-    <p><%= link_to 'Pay now', new_booking_payment_path(@booking) %> to finalize the booking and to get access to your hosts' address.</p>
+      <h1>Your request at <%= @host.first_name.capitalize %>'s place has been confirmed!</h1>
+      <p>Dear [Guest],</p>
+      <p>We are thrilled to confirm your booking for <%= @booking.start_date %> - <%= @booking.end_date %> with Quouch.</p>
+      <p>We want to assure you that your comfort and safety are our top priorities, and we are committed to creating a welcoming and inclusive environment for all of our guests. We understand how important it is to find a safe and comfortable space when traveling, and we are proud to offer our platform as a haven for members of the queer and female community.</p>
+      <p>Your host, <%= @host.first_name.capitalize %>, is looking forward to welcoming you into their home and providing you with a memorable stay. They are dedicated to making your experience as enjoyable and comfortable as possible, and are available to answer any questions you may have about the area or your accommodations.</p>
+      <p>Thank you for choosing our platform for your travels. We look forward to hosting you and providing you with a safe and welcoming home away from home.</p>
+      <p><%= link_to 'Pay now', pay_booking_url(@booking) %> to complete your booking and to get access to your hosts' address.</p>
+      <p>Warm regards,<br>your Quouch Team</p>
   </body>
 </html>

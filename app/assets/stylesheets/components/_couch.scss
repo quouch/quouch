@@ -1,0 +1,174 @@
+.couch {
+	h2 { @include profile-title; }
+
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: $break-large) {
+		@include container;
+		
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: min-content 1fr;
+		border-radius: $border-radius-large;
+	}
+
+	&__gallery {
+		position: relative;
+		max-height: 400px;
+		border-radius: $border-radius-large;
+		box-shadow: $box-shadow;
+		grid-row: 1;
+
+		@media (min-width: $break-large) {
+			margin-top: 4rem;
+			display: block;
+			max-height: 500px;
+		}
+	}
+	
+	&__chat {
+		position: absolute;
+		bottom: -20px;
+		left: 20px;
+
+		@media (min-width: $break-large) { bottom: 1rem; }
+	}
+	
+	&__image {
+		object-fit: cover;
+		object-position: center;
+		height: 100%;
+		width: 100%;
+		
+		@media (min-width: $break-large) { border-radius: $border-radius-large; }
+	}
+
+	&__content {
+		padding: 1rem 1rem 0;
+
+		@media (min-width: $break-large) { margin: 4rem 0 2rem 2rem; }
+	}
+
+	&__features { justify-content: center; }
+
+	&__name {
+		@include title-3;
+
+		text-align: center;
+		color: $black;
+	}
+
+	&__characteristics {
+		@include body-2;
+		
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		color: $gray-05;
+	}
+
+	&__offers {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		margin: 1rem;
+		
+		&-item {
+			display: flex;
+			gap: .2rem;
+			color: $primary;
+			flex-shrink: 0;
+			
+			img { color: $primary; }
+		}
+	}
+
+	&__accommodation {
+		&-list {
+			@include facility-name;
+
+			@media (min-width: $break-x-small) {
+				grid-template-columns: max-content auto;
+				display: grid;
+				gap: 1rem 2rem;
+			}
+
+			li {
+				display: flex;
+				align-items: center;
+				
+				img {
+					margin-right: .5rem;
+					height: 16px;
+					width: 16px;
+					color: black;
+				}
+			}
+		}
+	}
+
+	&__travellers {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	&__pin {
+		display: flex;
+		align-items: center;
+		gap: .3rem;
+		
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
+
+	&__button {
+		@include input-field;
+		@include primary-button;
+
+		max-width: fit-content;
+		display: flex;
+		flex-direction: column;
+		margin: 2rem auto;
+		@media (min-width: $break-large) { margin-left: 0; }
+	}
+
+	&__questions {
+		padding: 0 1rem;
+
+		@media (min-width: $break-large) {
+			margin-top: 2rem;
+			padding-top: 1rem;
+			padding-left: 3rem;
+			grid-row: 2;
+			grid-column: 2;
+			border-top: 1px solid $gray-02;
+		}
+	}
+
+	&__reviews {
+		h2 { margin-top: 0; }
+
+		padding: 0 1rem;
+
+		@media (min-width: $break-large) {
+			h2 { margin-top: 2rem; }
+
+			margin-top: 2rem;
+			padding: 0 0 1rem;
+			grid-row: 2;
+			grid-column: 1;
+			border-top: 1px solid $gray-02;
+		}
+	}
+}

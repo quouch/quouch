@@ -1,34 +1,103 @@
-<h1>Request Overview</h1>
+<section class="booking-section">
+<h1>Guest Overview</h1>
+	<div class="booking">
+		<article class="booking__host">
+		<div class="booking__host-left">
+			<h2>Your Guest</h2>
+			<%= link_to couch_path(@couch) do %>
+				<% if @booking.couch.user.photo.key %>
+					<%= cl_image_tag @booking.user.photo.key, class: 'booking__host-image' %>
+				<% else %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'booking__host-image') %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="booking__host-right">
+			<h3 class="booking__host-name">
+				<%= @booking.user.first_name %>, <%= @booking.user.calculated_age %>
+				<span><%= @booking.user.pronouns.downcase %></span>
+			</h3>
+			<div class="booking__chat chat-icon__wrap">
+				<% if @chat.nil? %>
+					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @guest.id), method: :post do %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+					<% end %>
+				<% else %>
+					<%= link_to chat_path(@chat) do %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</article>
 
-<h2>Your Guest</h2>
-<h3><%= @booking.user.first_name %>, <%= @booking.user.calculated_age %></h3>
-<p><%= @booking.user.pronouns %></p>
+	<div class="booking__wrap">
+		<article class="booking__info">
+			<div class="booking__details">
+				<h2>Travel Details</h2>
+				<ul class="booking__details-list">
+					<li>
+					<% if @booking.host? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
+						<p>couch</p>
+					<% elsif @booking.hangout? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
+						<p>hangout</p>
+					<% elsif @booking.cowork? %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
+						<p>cowork</p>
+					<% end %>
+					</li>
+					<li>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+						<%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
+					</li>
+					<li>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
+						<%= @booking.status.capitalize %>
+					</li>
+					<li>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
+						<%= pluralize @booking.number_travellers, 'Traveller' %>
+					</li>
+				</ul>
+			</div>
 
-<%= link_to "Check out #{@booking.user.first_name}'s profile", couch_path(@booking.user.couch) %>
+			<div class="booking__message">
+				<h2>Message</h2>
+				<% if @booking.message.empty? %>
+					<p><%= @booking.user.first_name %> didn't find the words.</p>
+				<% else %>
+					<p><%= @booking.message %></p>
+				<% end %>
+			</div>
+		</article>
 
+		<div class="booking__links" data-controller="confirm-alert">
+			<% if @booking.confirmed? %>
+				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Cancel Booking</button>
+				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
+			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
+				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
+				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Decline Request</button>
+				<%= button_to '', decline_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
+			<% end %>
+		</div>
 
-<h3>Travel Details</h3>
-<ul>
-	<li>
-		Booking Status: <%= @booking.status %>
-	</li>
-	<li>
-		Travel Period: <%= @booking.start_date %> - <%= @booking.end_date %>
-	</li>
-	<li>
-		Booking Date: <%= @booking.booking_date %>
-	</li>
-	<li>
-		Travellers: <%= @booking.number_travellers %>
-	</li>
-	<li>
-		Message: <%= @booking.message %>
-	</li>
-</ul>
+		<% if @host == current_user %>
+			<% if @booking.completed? && @host_review.nil? %>
+				<%= render 'partials/new-review' %>
+			<% elsif @booking.completed? && !@host_review.nil? %>
+				<%= render 'partials/review-preview' %>
+			<% end %>
+		<% else %>
+			<% if @booking.completed? && @guest_review.nil? %>
+				<%= render 'partials/new-review' %>
+			<% elsif @booking.completed? && !@guest_review.nil? %>
+				<%= render 'partials/review-preview' %>
+			<% end %>
+		<% end %>
 
-<% if @booking.status == 'confirmed' %>
-	<%= button_to 'Cancel Booking', cancel_booking_path(@booking), method: :patch %>
-<% elsif @booking.status == 'pending' %>
-	<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch %>
-	<%= button_to 'Decline Request', decline_booking_path(@booking), method: :patch %>
-<% end %>
+		</div>
+	</div>
+</section>

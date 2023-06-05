@@ -1,0 +1,22 @@
+.flash {
+	position: absolute;
+	z-index: 10;
+	top: 10px;
+	left: 10px;
+	padding: .7rem 1rem;
+	background-color: $secondary-super-transparent;
+	border-radius: 16px;
+	width: fit-content;
+	box-shadow: $box-shadow-alert;
+	transition: opacity 1s ease-in-out;
+
+
+	&__button {
+		width: 16px;
+		height: 16px;
+
+		background-color: transparent;
+		border: 0;
+		margin-left: .2rem;
+	}
+}

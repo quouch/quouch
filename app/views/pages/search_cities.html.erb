@@ -1,0 +1,5 @@
+<% @results.each do |city| %>
+  <li class="search__autocomplete-list-item" role="option" data-autocomplete-value="<%= city %>" data-autocomplete-label="<%= city %>">
+    <%= city %>
+  </li>
+<% end %>
