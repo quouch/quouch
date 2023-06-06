@@ -1,23 +1,23 @@
 @font-face {
 	font-family: 'Outfit';
-	src: url('assets/outfit/Outfit-Light.woff2') format('woff2'),
-			 url('assets/outfit/Outfit-Light.woff') format('woff');
+	src: asset_path(Outfit-Light) format('woff2'),
+			 asset_path(Outfit-Light) format('woff');
 	font-weight: 300;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Outfit';
-	src: url('assets/outfit/Outfit-Bold.woff2') format('woff2'),
-			 url('assets/outfit/Outfit-Bold.woff') format('woff');
+	src: asset_path(Outfit-Bold) format('woff2'),
+			 asset_path(Outfit-Bold) format('woff');
 	font-weight: 700;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Outfit';
-	src: url('assets/outfit/Outfit-Black.woff2') format('woff2'),
-			 url('assets/outfit/Outfit-Black.woff') format('woff');
+	src: asset_path(Outfit-Black) format('woff2'),
+			 asset_path(Outfit-Black) format('woff');
 	font-weight: 900;
 	font-style: normal;
 }
@@ -25,32 +25,32 @@
 
 @font-face {
 	font-family: 'Outfit';
-	src: url('assets/outfit/Outfit-SemiBold.woff2') format('woff2'),
-			 url('assets/outfit/Outfit-SemiBold.woff') format('woff');
+	src: asset_path(Outfit-SemiBold) format('woff2'),
+			 asset_path(Outfit-SemiBold) format('woff');
 	font-weight: 600;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Mulish';
-	src: url('assets/mulish/Mulish-Regular.woff2') format('woff2'),
-			 url('assets/mulish/Mulish-Regular.woff') format('woff');
+	src: asset_path(Mulish-Regular) format('woff2'),
+			 asset_path(Mulish-Regular) format('woff');
 	font-weight: 400;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Mulish';
-	src: url('assets/mulish/Mulish-Medium.woff2') format('woff2'),
-			 url('assets/mulish/Mulish-Medium.woff') format('woff');
+	src: asset_path(Mulish-Medium) format('woff2'),
+			 asset_path(Mulish-Medium) format('woff');
 	font-weight: 500;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'Mulish';
-	src: url('assets/mulish/Mulish-ExtraBold.woff2') format('woff2'),
-			 url('assets/mulish/Mulish-ExtraBold.woff') format('woff');
+	src: asset_path(Mulish-ExtraBold) format('woff2'),
+			 asset_path(Mulish-ExtraBold) format('woff');
 	font-weight: 800;
 	font-style: normal;
 }
