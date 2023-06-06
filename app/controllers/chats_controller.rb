@@ -5,7 +5,7 @@ class ChatsController < ApplicationController
   def index
     @chats = current_user.chats.order('messages.created_at DESC')
     @chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
-    @other_user = @chat.other_user(current_user)
+    @other_user = @chat.other_user(current_user) if @chat.any?
   end
 
 	def show
