@@ -22,7 +22,8 @@
 										label: 'flexible travel dates',
 										wrapper_html: { class: 'booking-form__flexible' },
 										input_html: { data: { skip_booking_date_validation_target: 'checkbox',
-                                          action: 'click->skip-booking-date-validation#hideFields'}} %>
+																					validate_form_target: 'flexible',
+                                          action: 'click->skip-booking-date-validation#hideFields change->validate-form#enableButton' }} %>
 				<div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
 					<div class="date-input">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
