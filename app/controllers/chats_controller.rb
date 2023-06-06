@@ -9,7 +9,6 @@ class ChatsController < ApplicationController
   end
 
 	def show
-		@chat = current_user.chats.first if @chat.nil?
     @chats = current_user.chats.order('messages.created_at DESC')
     @other_user = @chat.other_user(current_user)
 		@receiver = User.find_by(id: @chat.user_receiver_id)
