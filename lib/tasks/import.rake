@@ -12,6 +12,7 @@ namespace :import do
 		
 			user = User.new
 			user.email = row['Email']
+			user.password = '123456'
 			user.first_name = row['First Name'].capitalize
 			user.last_name = row['Last Name'].capitalize
 			user.pronouns = row['Pronouns'].downcase if !row['Pronouns'].nil?
@@ -26,6 +27,7 @@ namespace :import do
 			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
 			user.country = row['Country'].capitalize if !row['Country'].nil?
 			user.city = row['City'].capitalize if !row['City'].nil?
+			user.address = "#{user.city}, #{user.country}"
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
 			user.invited_by_id = find_user(invited_by)
