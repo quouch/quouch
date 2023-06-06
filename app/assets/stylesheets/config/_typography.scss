@@ -140,6 +140,7 @@ h1 { @include title-1; }
 // Body
 body {
 	font-family: $body-font;
+	font-weight: 400;
 	color: $gray-06;
 }
 
