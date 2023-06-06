@@ -4,8 +4,6 @@ class Booking < ApplicationRecord
   has_many   :reviews
 
   validates  :request, presence: { message: 'Please choose one' }
-  validates  :start_date, presence: true
-  validates  :end_date, presence: true
   validates  :message, presence: true
   validate   :matches_capacity?
   validate   :duplicate_booking?, on: :create
