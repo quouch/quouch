@@ -24,7 +24,11 @@
 				</li>
 				<li>
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-					<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
+					<% if @booking.flexible %>
+						<p>Flexible Dates</p>
+					<% else %>
+						<%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
+					<% end %>
 				</li>
 				<li>
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
