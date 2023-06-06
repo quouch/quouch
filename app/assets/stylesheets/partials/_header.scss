@@ -47,10 +47,8 @@
   @media (min-width: $break-medium) { display: block; }
 }
 
-@media (min-width: $break-medium) {
-  .header .chat__small-break__link {
-    display: none;
-  }
+.header .chat__small-break__link {
+	@media (min-width: $break-medium) { display: none; }
 }
 
 .header .chats__notifications {

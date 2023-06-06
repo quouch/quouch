@@ -35,6 +35,7 @@
 					<li class="collapsible__chat">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
             <%= link_to 'Chats', chats_path, class: "chat__small-break__link" %>
+            <%= link_to 'Chats', chat_path(current_user.latest_message_chat), class: "chat__medium-break__link" %>
             <% if current_user.notifications.unread.count != 0 %>
               <%= render 'shared/notifications' %>
             <% end %>
