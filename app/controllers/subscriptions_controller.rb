@@ -24,6 +24,7 @@ class SubscriptionsController < ApplicationController
     @checkout_session = create_checkout_session(@subscription)
     @subscription.checkout_session_id = @checkout_session.id
     @subscription.save!
+    skip_after_action :turbo_stream
     redirect_to @checkout_session.url, allow_other_host: true
   end
 
