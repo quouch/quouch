@@ -31,9 +31,6 @@ wheelchair_accessibility = Characteristic.create!(name: 'Wheelchair Accessibilit
 sign_language = Characteristic.create!(name: 'Sign Language')
 neuro_diverse = Characteristic.create!(name: 'Neurodiverse')
 vaccinated = Characteristic.create!(name: 'Vaccinated')
-alone_time = Characteristic.create!(name: 'Alone Time')
-exhibitions = Characteristic.create!(name: 'Exhibitions')
-political_activism = Characteristic.create!(name: 'Political Activisim')
 
 puts "#{Characteristic.count} characteristics created!"
 
