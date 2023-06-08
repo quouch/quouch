@@ -39,7 +39,11 @@
 										</li>
 										<li class="upcoming-booking__detail">
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-											<%= booking.start_date.strftime("%B %d") %> - <%= booking.end_date.strftime("%B %d, %Y") %>
+											<% if booking.start_date %>
+												<%= booking.start_date.strftime("%b %d") %> - <%= booking.end_date.strftime("%b %d, %Y") %>
+											<% else %>
+												<p>Flexible</p>
+											<% end %>
 										</li>
 										<li class="upcoming-booking__detail">
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
