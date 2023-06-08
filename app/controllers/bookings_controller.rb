@@ -5,17 +5,17 @@ class BookingsController < ApplicationController
 	def index
 		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
 		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }
-												 .sort_by(&:start_date)
-		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by(&:start_date)
-		@completed = @bookings.select(&:completed?).sort_by(&:start_date)
+												 .sort_by(&:booking_date)
+		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by(&:booking_date)
+		@completed = @bookings.select(&:completed?).sort_by(&:booking_date)
 	end
 
 	def requests
     @requests = @couch.bookings
 		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }
-												.sort_by(&:start_date)
-		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by(&:start_date)
-		@completed = @requests.select(&:completed?).sort_by(&:start_date)
+												.sort_by(&:booking_date)
+		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by(&:booking_date)
+		@completed = @requests.select(&:completed?).sort_by(&:booking_date)
 	end
 
 	def show
