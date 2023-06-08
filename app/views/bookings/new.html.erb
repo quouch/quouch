@@ -8,12 +8,16 @@
 			<div class="booking-form__type">
 				<%= f.label :request, required: true %>
         <div class="booking_request">
-          <%= collection_radio_buttons(:booking, :request, @offers.to_a, :first, :first, checked: @offers.to_a.first )  do |b|%>
-            <div>
-              <%= b.radio_button %>
-              <%= b.label %>
-            </div>
-          <% end %>
+					<% if @host.travelling %>
+						<p>This user is currently on the road and does not receive requests!</p>
+					<% else %>
+						<%= collection_radio_buttons(:booking, :request, @offers.to_a, :first, :first, checked: @offers.to_a.first )  do |b|%>
+							<div>
+								<%= b.radio_button %>
+								<%= b.label %>
+							</div>
+						<% end %>
+					<% end %>
         </div>
 			</div>
 			<div class="booking-form__details__wrap" data-controller="skip-booking-date-validation">

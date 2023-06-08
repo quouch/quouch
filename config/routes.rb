@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get :show_request, as: 'request'
       get :sent
       get :confirmed
+      patch :complete
       patch :accept
       patch :decline
       delete :cancel
