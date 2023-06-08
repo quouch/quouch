@@ -8,8 +8,6 @@ namespace :import do
 
 	task :import => :environment do
 		Profile.all.each_with_index do |row, index|
-			break if index >= 5  # Stop after processing 5 users
-		
 			user = User.new
 			user.email = row['Email']
 			user.password = '123456'
