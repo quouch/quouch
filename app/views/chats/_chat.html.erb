@@ -1,6 +1,6 @@
 <div class="chat__header">
   <div class="chat__header__left">
-    <%= link_to chats_path, class: "back-link"  do %>
+    <%= link_to chats_path, class: 'back-link' do %>
       <i class="fa-solid fa-angle-left"></i>
     <% end %>
     <h3><%= other_user.first_name %> <%= other_user.last_name[0].upcase %>. <span> <%= other_user.pronouns %></span> </h3>
@@ -47,7 +47,7 @@
         } do |f| %>
           <%= f.input :content,
                       label: false,
-                      placeholder: "Message ##{@name}",
+                      placeholder: "Message #{@name}",
                       input_html: { class: 'chat__form-input' } %>
           <%= button_tag(class: 'chat__form-button') do %>
             <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/send.svg') %>
