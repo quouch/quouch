@@ -84,7 +84,11 @@
 							</li>
 							<li class="past-booking__detail">
 								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-								<%= booking.start_date.strftime("%B, %Y") %>
+								<% if booking.start_date %>
+									<%= booking.start_date.strftime("%B, %Y") %>
+								<% else %>
+									<p>Flexible</p>
+								<% end %>
 							</li>
 							<% if booking.reviews.find_by(user: booking.user).nil? %>
 							<li class="past-booking__link">
@@ -125,7 +129,11 @@
 								</li>
 								<li class="past-booking__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<%= booking.start_date.strftime("%B, %Y") %>
+									<% if booking.start_date %>
+										<%= booking.start_date.strftime("%B, %Y") %>
+									<% else %>
+										<p>Flexible</p>
+									<% end %>
 								</li>
 								<li class="past-booking__note">Request has been declined.</li>
 							</div>
