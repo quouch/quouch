@@ -8,6 +8,7 @@ namespace :import do
 
 	task :import => :environment do
 		Profile.all.each_with_index do |row, index|
+			p row
 			user = User.new
 			user.email = row['Email']
 			user.password = '123456'
@@ -23,8 +24,8 @@ namespace :import do
 			user.offers_hang_out = row['Open to hangout']
 			user.offers_co_work = row['Open to co-work']
 			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
-			user.country = row['Country'].capitalize if !row['Country'].nil?
-			user.city = row['City'].capitalize if !row['City'].nil?
+			user.country = row['Country'].strip.capitalize if !row['Country'].nil?
+			user.city = row['City'].strip.capitalize if !row['City'].nil?
 			user.address = "#{user.city}, #{user.country}"
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
@@ -62,7 +63,9 @@ namespace :import do
 				cloudinary_url = cloudinary_upload['secure_url']
 
 				# Attach the Cloudinary URL to user.photo
-				user.photo.attach(io: URI.open(cloudinary_url), filename: photo_filename)
+				rescue Cloudinary::CloudinaryException => e
+					puts "Error uploading image to Cloudinary: #{e.message}"
+				end
 			else
 				puts "Error fetching image: #{response.code} - #{response.message}"
 			end

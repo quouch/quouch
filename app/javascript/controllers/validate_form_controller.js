@@ -2,10 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="validate-form"
 export default class extends Controller {
-  static targets = ['start', 'end', 'button']
+  static targets = ['start', 'end', 'button', 'flexible']
 
   enableButton() {
-    if (this.#allValid()) {
+    if (this.#allValid() || this.flexibleTarget.checked) {
       this.buttonTarget.disabled = false;
     } else {
       this.buttonTarget.disabled = true;
