@@ -8,17 +8,27 @@
 			<div class="booking-form__type">
 				<%= f.label :request, required: true %>
         <div class="booking_request">
-          <%= collection_radio_buttons(:booking, :request, @offers.to_a, :first, :first, checked: @offers.to_a.first )  do |b|%>
-            <div>
-              <%= b.radio_button %>
-              <%= b.label %>
-            </div>
-          <% end %>
+					<% if @host.travelling %>
+						<p>This user is currently on the road and does not receive requests!</p>
+					<% else %>
+						<%= collection_radio_buttons(:booking, :request, @offers.to_a, :first, :first, checked: @offers.to_a.first )  do |b|%>
+							<div>
+								<%= b.radio_button %>
+								<%= b.label %>
+							</div>
+						<% end %>
+					<% end %>
         </div>
 			</div>
-			<div class="booking-form__details__wrap">
+			<div class="booking-form__details__wrap" data-controller="skip-booking-date-validation">
 			<%= f.label :dates_and_travellers, required: true %>
-				<div class="booking-form__dates date">
+				<%= f.input :flexible,
+										label: 'flexible travel dates',
+										wrapper_html: { class: 'booking-form__flexible' },
+										input_html: { data: { skip_booking_date_validation_target: 'checkbox',
+																					validate_form_target: 'flexible',
+                                          action: 'click->skip-booking-date-validation#hideFields change->validate-form#enableButton' }} %>
+				<div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
 					<div class="date-input">
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
 						<%= f.input :start_date,
