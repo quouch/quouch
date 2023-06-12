@@ -12,8 +12,8 @@ namespace :import do
 			user = User.new
 			user.email = row['Email']
 			user.password = '123456'
-			user.first_name = row['First Name'].capitalize
-			user.last_name = row['Last Name'].capitalize
+			user.first_name = row['First Name'].capitalize !row['First Name'].nil?
+			user.last_name = row['Last Name'].capitalize !row['Last Name'].nil?
 			user.pronouns = row['Pronouns'].downcase if !row['Pronouns'].nil?
 			user.summary = row['Summary']
 			user.question_one = row['This makes me really happy']
