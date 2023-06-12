@@ -29,7 +29,7 @@ namespace :import do
 			user.address = "#{user.city}, #{user.country}"
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
-			user.invited_by_id = find_user(invited_by)
+			user.invited_by_id = find_user(invited_by) if !invited_by.nil?
 			user.characteristics = create_user_characteristics(row['Filter'], user) if !row['Filter'].nil?
 			photo_url = row['Profile Picture']
 			attach_image(photo_url, user)
