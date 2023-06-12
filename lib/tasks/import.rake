@@ -56,20 +56,22 @@ namespace :import do
 				temp_file.write(response.body)
 				temp_file.rewind
 
-				# Upload the image to Cloudinary
-				cloudinary_upload = Cloudinary::Uploader.upload(temp_file.path)
+				begin
+					# Upload the image to Cloudinary
+					cloudinary_upload = Cloudinary::Uploader.upload(temp_file.path)
 
-				# Get the public URL of the uploaded image from the Cloudinary response
-				cloudinary_url = cloudinary_upload['secure_url']
+					# Get the public URL of the uploaded image from the Cloudinary response
+					cloudinary_url = cloudinary_upload['secure_url']
 
-				# Attach the Cloudinary URL to user.photo
+					# Attach the Cloudinary URL to user.photo
+					user.photo.attach(io: URI.open(cloudinary_url), filename: photo_filename)
 				rescue Cloudinary::CloudinaryException => e
 					puts "Error uploading image to Cloudinary: #{e.message}"
 				end
 			else
 				puts "Error fetching image: #{response.code} - #{response.message}"
 			end
-	
+
 			temp_file.close
 			temp_file.unlink
 		end
