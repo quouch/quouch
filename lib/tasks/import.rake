@@ -7,7 +7,7 @@ namespace :import do
 	desc 'Import users from Airtable'
 
 	task :import => :environment do
-		Profile.all.each_with_index do |row, index|
+		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, index|
 			p row
 			user = User.new
 			user.email = row['Email']
