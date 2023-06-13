@@ -24,8 +24,8 @@ namespace :import do
 			user.offers_hang_out = row['Open to hangout']
 			user.offers_co_work = row['Open to co-work']
 			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
-			user.country = row['Country'].strip.capitalize if !row['Country'].nil?
-			user.city = row['City'].strip.capitalize if !row['City'].nil?
+			user.country = row['Country'].strip.titleize if !row['Country'].nil?
+			user.city = row['City'].strip.titleize if !row['City'].nil?
 			user.address = "#{user.city}, #{user.country}"
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
