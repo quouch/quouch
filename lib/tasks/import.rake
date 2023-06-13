@@ -7,7 +7,7 @@ namespace :import do
 	desc 'Import users from Airtable'
 
 	task :import => :environment do
-		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, index|
+		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
 			p row
 			user = User.new
 			user.email = row['Email']
@@ -34,6 +34,7 @@ namespace :import do
 			photo_url = row['Profile Picture']
 			attach_image(photo_url, user)
 			user.save!(validate: false)
+			p User.count
 			couch = Couch.new(user_id: user.id)
 			couch.save!(validate: false)
 		end
