@@ -73,10 +73,12 @@
 							<%= facility.name %>
 						</li>
 					<% end %>
-					<li class="couch__travellers">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
-						<%= @host.couch.capacity %> guests
-					</li>
+					<% if !@couch.capacity.nil? %>
+						<li class="couch__travellers">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+							<%= @host.couch.capacity %> guests
+						</li>
+					<% end %>
 				</ul>
 			<% elsif @host.offers_co_work || @host.offers_hang_out %>
 				<p>This host doesn't currently offer their couch, but you can still request them to hangout or cowork.</p>
