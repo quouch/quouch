@@ -8,6 +8,7 @@ namespace :import do
 
 	task :import => :environment do
 		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
+			break if _index >= 100
 			p row
 			user = User.new
 			user.email = row['Email']
@@ -20,9 +21,7 @@ namespace :import do
 			user.question_two = row["What I can't stand"]
 			user.question_three = row['When you live at my place, I appreciate....']
 			user.question_four = row['What I mostly need right now from the people around me']
-			user.offers_couch = row['Available to host']
-			user.offers_hang_out = row['Open to hangout']
-			user.offers_co_work = row['Open to co-work']
+			add_offers(row['I can ...'], user) if !row['I can ...'].nil?
 			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
 			user.country = row['Country'].strip.titleize if !row['Country'].nil?
 			user.city = row['City'].strip.titleize if !row['City'].nil?
@@ -93,5 +92,12 @@ namespace :import do
      	usercharacteristics << usercharacteristic
     end
    	characteristics
+	end
+
+	def add_offers(row, user)
+		user.offers_couch = row.include?('host')
+		user.offers_hang_out = row.include?('hang out')
+		user.offers_co_work = row.include?('co-work')
+		user.travelling = row.include?('currently travelling')
 	end
 end
