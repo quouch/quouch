@@ -73,25 +73,29 @@
               </div>
               <%= f.error         :address, class: 'form-error' %>
             <div class="user__address-city">
-              <div class="user__address-wrap">
-                <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
-                <%= f.text_field  :zipcode,
-                                  required: true,
-                                  value: @user.zipcode,
-                                  autofocus: true,
-                                  id: 'zip' %>
+              <div>
+                <div class="user__address-wrap">
+                  <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
+                  <%= f.text_field  :zipcode,
+                                    required: true,
+                                    value: @user.zipcode,
+                                    autofocus: true,
+                                    id: 'zip' %>
+                </div>
+                <%= f.error         :zipcode, class: 'form-error' %>
               </div>
-              <div class="user__address-wrap user__address-wrap--city">
-                <%= f.label       :city, class: 'user__address-label' %>
-                <%= f.text_field  :city,
-                                  required: true,
-                                  value: @user.city,
-                                  autofocus: true,
-                                  id: 'city' %>
+              <div>
+                <div class="user__address-wrap user__address-wrap--city">
+                  <%= f.label       :city, class: 'user__address-label' %>
+                  <%= f.text_field  :city,
+                                    required: true,
+                                    value: @user.city,
+                                    autofocus: true,
+                                    id: 'city' %>
+                </div>
+                <%= f.error         :city, class: 'form-error' %>
               </div>
             </div>
-            <%= f.error         :zipcode, class: 'form-error' %>
-            <%= f.error         :city, class: 'form-error' %>
 
             <div class="user__address-country">
               <%= f.label :country, class: 'user__address-label' %>
@@ -99,8 +103,8 @@
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
                           error: false %>
-              <%= f.error       :country, class: 'form-error' %>
             </div>
+            <%= f.error       :country, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>
