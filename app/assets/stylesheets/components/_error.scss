@@ -1,9 +1,10 @@
 .error {
-	margin: 4rem auto;
-	width: 90%;
-	max-width: $container;
-
-	@media (min-width: $break-large) { width: 80%; }
+	&-page {
+		width: 90%;
+		max-width: $container;
+	
+		@media (min-width: $break-large) { width: 80%; }
+	}
 
 	&__image {
 		border-radius: $border-radius-round;
