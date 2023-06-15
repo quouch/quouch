@@ -811,11 +811,6 @@ file3 = File.open('app/assets/images/icons/key.svg')
 extra_key.svg.attach(io: file3, filename: 'key.svg', content_type: 'image/svg')
 extra_key.save!
 
-plant_lover = Facility.create(name: 'plant lover')
-file4 = File.open('app/assets/images/icons/plant.svg')
-plant_lover.svg.attach(io: file4, filename: 'plant.svg', content_type: 'image/svg')
-plant_lover.save!
-
 wifi = Facility.create(name: 'wifi')
 file5 = File.open('app/assets/images/icons/wifi.svg')
 wifi.svg.attach(io: file5, filename: 'wifi.svg', content_type: 'image/svg')
@@ -850,11 +845,6 @@ private_room = Facility.create(name: 'private room')
 file11 = File.open('app/assets/images/icons/lock.svg')
 private_room.svg.attach(io: file11, filename: 'lock.svg', content_type: 'image/svg')
 private_room.save!
-
-vegan = Facility.create(name: 'vegan')
-file12 = File.open('app/assets/images/icons/vegan.svg')
-vegan.svg.attach(io: file12, filename: 'vegan.svg', content_type: 'image/svg')
-vegan.save!
 
 smoking_allowed = Facility.create(name: 'smoking allowed')
 file13 = File.open('app/assets/images/icons/smoking.svg')

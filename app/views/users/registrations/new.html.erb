@@ -47,6 +47,7 @@
                             placeholder: 'Email',
                             error: false,
                             input_html: { autocomplete: 'email' } %>
+          <%= f.error       :email, class: 'form-error' %>
           <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,

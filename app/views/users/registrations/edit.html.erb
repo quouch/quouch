@@ -41,11 +41,12 @@
                             required: true,
                             autofocus: true,
                             input_html: { autocomplete: 'last_name' } %>
+          <%= f.error       :last_name, class: 'form-error' %>
           <%= f.input_field :email,
                             required: true,
                             autofocus: true,
                             input_html: { autocomplete: 'email' } %>
-          <%= f.error       :last_name, class: 'form-error' %>
+          <%= f.error       :email, class: 'form-error' %>
           <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
