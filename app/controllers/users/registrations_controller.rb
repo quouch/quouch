@@ -84,7 +84,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user.user_characteristics.destroy_all
     chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
     @user.user_characteristics.build(chars_hash)
-    @user.user_characteristics.each(&:save)
   end
 
   def update_profile
