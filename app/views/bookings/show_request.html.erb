@@ -14,7 +14,7 @@
 		</div>
 		<div class="booking__host-right">
 			<h3 class="booking__host-name">
-				<%= @booking.user.first_name %>, <%= @booking.user.calculated_age %>
+				<%= @booking.user.first_name %>, <%= @booking.user.calculated_age if @booking.user.date_of_birth %>
 				<span><%= @booking.user.pronouns.downcase %></span>
 			</h3>
 			<div class="booking__chat chat-icon__wrap">
