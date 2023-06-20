@@ -64,6 +64,8 @@
 			width: 200px;
 			border-radius: $border-radius-round;
 			max-width: revert;
+			object-fit: cover;
+			object-position: center;
 		}
 
 		&-name {
