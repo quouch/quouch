@@ -106,7 +106,7 @@
 			display: flex;
 			column-gap: 1.4rem;
 			align-items: center;
-			@media (min-width: $break-medium) { width: 50%; }
+			@media (min-width: $break-medium) { width: 100%; }
 
 			&--city {
 				@media (max-width: $break-medium) { column-gap: 3.3rem; } // shame
@@ -119,7 +119,7 @@
 				column-gap: 1.5rem;
 				align-items: center;
 			}
-
+			> div { flex-grow: 1; }
 			input { width: 100%; }
 		}
 
