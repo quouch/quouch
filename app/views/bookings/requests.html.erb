@@ -34,7 +34,11 @@
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<%= request.start_date.strftime("%B %d") %> - <%= request.end_date.strftime("%B %d, %Y") %>
+									<% if request.start_date %>
+										<%= request.start_date.strftime("%b %d") %> - <%= request.end_date.strftime("%b %d, %Y") %>
+									<% else %>
+										<p>Flexible</p>
+									<% end %>
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
@@ -74,7 +78,11 @@
 								</li>
 								<li class="past-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<%= request.start_date.strftime("%B, %Y") %>
+									<% if request.start_date %>
+										<%= request.start_date.strftime("%B, %Y") %>
+									<% else %>
+										<p>Flexible</p>
+									<% end %>
 								</li>
 								<% if request.reviews.find_by(user: request.couch.user).nil? %>
 								<li class="past-request__link">
@@ -114,7 +122,11 @@
 								</li>
 								<li class="past-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<%= request.start_date.strftime("%B, %Y") %>
+									<% if request.start_date %>
+										<%= request.start_date.strftime("%B, %Y") %>
+									<% else %>
+										<p>Flexible</p>
+									<% end %>
 								</li>
 							</div>
 						</ul>
