@@ -30,8 +30,9 @@ class CouchesController < ApplicationController
   def apply_characteristics_filter
     @couches = @couches.joins(user: { user_characteristics: :characteristic })
                        .where(characteristics: { id: params[:characteristics] })
-                       .group('couches.id')
+                       .group('couches.id, pg_search_f35fa88ea3370a67b353fc.rank')
                        .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+                       .select('couches.*, pg_search_f35fa88ea3370a67b353fc.rank')
   end
 
   def apply_offers_filter
