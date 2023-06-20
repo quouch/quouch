@@ -59,7 +59,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch.user = @user
     @couch.save
 
-    disable_offers_if_traveling
+    disable_offers_if_travelling
     create_couch_facilities if params[:couch_facility].present?
   end
 
@@ -67,7 +67,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @couch.update(couch_params)
   end
 
-  def disable_offers_if_traveling
+  def disable_offers_if_travelling
     return unless params[:user][:travelling] == '1'
 
     @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
