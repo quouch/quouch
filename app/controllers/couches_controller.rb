@@ -32,7 +32,6 @@ class CouchesController < ApplicationController
                        .where(characteristics: { id: params[:characteristics] })
                        .group('couches.id, pg_search_f35fa88ea3370a67b353fc.rank')
                        .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
-                       .select('couches.*, pg_search_f35fa88ea3370a67b353fc.rank')
   end
 
   def apply_offers_filter
