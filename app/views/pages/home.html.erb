@@ -58,10 +58,11 @@
 			</div>
 			<% end %>
 		</section>
-
-    <section data-characteristics-filter-target="list">
-      <%= render 'partials/couches', couches: @active_couches %>
-    </section>
+		<%= turbo_frame_tag 'lazy_couches', src: lazy_couches_path do %>
+			<section data-characteristics-filter-target="list">
+				<%= render 'partials/couches', couches: @active_couches %>
+			</section>
+		<% end %>
   </div>
 <% else %>
 <div class="home__banner">

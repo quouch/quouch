@@ -1,0 +1,5 @@
+<%= turbo_frame_tag 'lazy_couches' do %>
+	<section data-characteristics-filter-target="list">
+		<%= render 'partials/couches', couches: @active_couches %>
+	</section>
+<% end %>

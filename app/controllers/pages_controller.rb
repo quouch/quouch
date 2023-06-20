@@ -2,8 +2,14 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about search_city]
 
   def home
+    @couches = Couch.where.not(user: current_user).limit(9)
+    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+  end
+
+  def lazy_couches
     @couches = Couch.where.not(user: current_user)
     @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+    render layout: false
   end
 
   def search_cities
