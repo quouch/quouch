@@ -67,7 +67,7 @@
 					</ul>
 				</div>
 
-				<% if @booking.host? %>
+				<% if @booking.host? && !@host.couch.facilities.empty? %>
 					<div class="booking__accommodation">
 						<h2>Accommodation</h2>
 						<ul class="booking__accommodation-list">

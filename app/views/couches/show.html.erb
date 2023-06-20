@@ -65,7 +65,7 @@
 
 		<div class="couch__accommodation">
 			<h2>Accommodation</h2>
-			<% if @host.offers_couch %>
+			<% if @host.offers_couch && !@host.couch.facilities.empty? %>
 				<ul class="couch__accommodation-list">
 					<% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
 						<li>

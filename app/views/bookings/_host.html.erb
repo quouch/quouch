@@ -53,6 +53,7 @@
 			</div>
 
 			<div class="host__accommodation">
+			<% if !@host.couch.facilities.empty? %>
 				<h2 class="host__accommodation-title">Accommodation</h2>
 				<ul class="host__accommodation-list">
 					<% @host.couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
@@ -68,6 +69,7 @@
 						</li>
 					<% end %>
 				</ul>
+				<% end %>
 			</div>
 		</div>
 	</div>
