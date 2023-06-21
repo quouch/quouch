@@ -11,7 +11,7 @@
             <%= text_field_tag :query,
                                 params[:query],
                                 placeholder: 'Find hosts in city or country',
-                                class: "form-control",
+                                class: 'form-control',
                                 data: { autocomplete_target: 'input' } %>
             <%= hidden_field_tag 'city', data: { autocomplete_target: 'hidden' } %>
             <ul class="search__autocomplete-list" data-autocomplete-target="results"></ul>
