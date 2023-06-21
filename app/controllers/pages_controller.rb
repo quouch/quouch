@@ -12,8 +12,8 @@ class PagesController < ApplicationController
     countries = []
 
     if query.present?
-      cities = User.search_city_or_country(query).pluck(:city).uniq
-      countries = User.search_city_or_country(query).pluck(:country).uniq
+      cities = User.search_city_or_country(query).pluck(:city).uniq.sort
+      countries = User.search_city_or_country(query).pluck(:country).uniq.sort
     end
 
     @results = (cities + countries).select { |entry| entry.downcase.starts_with?(query) }
