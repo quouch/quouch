@@ -22,6 +22,9 @@ export default class extends Controller {
         'X-Requested-With': 'XMLHttpRequest'
       }
     })
+      .then(() => {
+        this.inputTarget.value = '';
+      })
       .catch(error => {
         // Handle any errors that occurred during the request
         console.error(error);
