@@ -40,6 +40,7 @@ class CouchesController < ApplicationController
     offers_conditions[:offers_hang_out] = true if params[:offers_hang_out]
     offers_conditions[:offers_co_work] = true if params[:offers_co_work]
     offers_conditions[:offers_couch] = true if params[:offers_couch]
+    offers_conditions[:travelling] = false
 
     @couches = @couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
