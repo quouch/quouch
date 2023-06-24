@@ -8,7 +8,6 @@
 	}
 
 	&__banner {
-		padding: 4rem 0;
 		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1681314726/banner.jpg');
 		background-size: cover;
 		background-position: center;
@@ -17,8 +16,11 @@
 		justify-content: space-between;
 	
 		&-wrap {
-			padding: 1rem;
-			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 600px;
+			margin: 4rem auto 2rem;
 			text-align: center;
 
 			h1 { margin-bottom: 0; } 
@@ -32,7 +34,7 @@
 
 			@media (min-width: $break-medium) {
 				width: 400px;
-				padding: 4rem 0;
+				padding: 4rem auto 2rem;
 			}
 		}
 
@@ -44,40 +46,46 @@
 			@include input-field;
 			@include primary-button;
 
-			margin: 2rem auto 1rem;
+			margin: 1rem auto;
 			width: fit-content;
 		
-			@media (min-width: $break-medium) { margin: 2rem 0; }
+			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
 
 		&-secondary {
 			@include input-field;
 			@include primary-button;
 
-			margin: 1rem auto 2rem;
+			margin: 1rem auto;
 			width: fit-content;
 
-			@media (min-width: $break-medium) { margin: 2rem 0; }
+			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
 	}
 
 	&__numbers {
 		background: $primary-super-transparent;
-		padding: 1rem;
+		padding: 2rem 1rem;
 		text-align: center;
+		
+		@media (min-width: $break-medium) { padding: 4rem 8rem; }
 	}
 
 	&__list {
+		display: flex;
+		flex-direction: column;
+		row-gap: 3rem;
+		
 		@media (min-width: $break-medium) {
-			display: flex;
+			flex-direction: row;
 			justify-content: space-between;
 		}
 
 		&-wrap {
 			@include container;
 
-			@media (min-width: $break-large){
-				margin: 4rem auto;
+			@media (min-width: $break-large) {
+				margin: 4rem auto 0;
 				width: 60%;
 				max-width: $container;
 			}
@@ -86,6 +94,7 @@
 		&-item {
 			display: flex;
 			align-items: center;
+			justify-content: space-evenly;
 			gap: 2rem;
 
 			@media (min-width: $break-large) { flex-direction: column; }
@@ -100,6 +109,8 @@
 			p:nth-child(2) {
 				@include title-5;
 
+				color: $primary;
+				font-weight: 300;
 				margin: 0;
 				text-align: center;
 				text-transform: uppercase;
@@ -113,27 +124,31 @@
 			}
 		}
 	}
-
-	&__voices {
-		padding: 1rem;
-
-		h2 {
-			@include title-2;
-			
-			text-align: center;
-			margin: 1rem auto;
-		}
-	}
 	
 	&__slider {
-		div { padding: 1rem; }
 		text-align: center;
+		overflow: hidden;
+
+		&-list {
+			display: flex;
+			gap: 1rem;
+			overflow-x: auto;
+			margin-top: 0;
+			margin-bottom: -1rem;
+			padding: 2rem 1rem;
+			
+			@media (min-width: $break-medium) { justify-content: center; }
+		}
+
+		div { padding: 1rem; }
 	}
 
 	&__card {
 		display: flex;
 		flex-direction: column;
-		width: 100%;
+		min-width: 300px;
+		max-width: 400px;
+		height: 100%;
 		border-radius: $border-radius-medium;
 		background-color: $white;
 		box-shadow: $box-shadow;
@@ -164,30 +179,43 @@
 
 	&__measures {
 		background-color: $secondary-super-transparent;
-		padding: 1rem;
+		padding: 2rem 1rem;
 
-		p { margin: 1rem auto; }
+		@media (min-width: $break-medium) { padding: 4rem 8rem; }
+
+		p { margin: .3rem auto 1rem; }
 
 		&-title {
 			@include title-2;
 
 			text-transform: uppercase;
+			color: $secondary;
 		}
 
 		&-list {
 			&-item {
 				display: flex;
 				align-items: start;
-				gap: 1rem;
+				gap: .3rem;
+
+				img {
+					width: 30px;
+					height: 30px;
+
+					@media (min-width: $break-medium) {
+						width: 50px;
+						height: 50px;
+					}
+				}
 			}
 		}
 	}
 
 	&__subtitle {
-		@include title-3;
+		@include title-2;
 
-		font-size: 2rem;
-		margin-bottom: 1rem;
+		margin: 2rem auto;
+		text-align: center;
 	}
 	
 	&__button {
@@ -197,6 +225,10 @@
 		display: inline-block;
 		width: fit-content;
 		margin-top: 1rem;
+	}
+
+	&__join {
+		background-image: url();
 	}
 	
 	&__logos {
