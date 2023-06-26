@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @couches = Couch.where.not(user: current_user)
-    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).find_each(batch_size: 100)
   end
 
   def search_cities
