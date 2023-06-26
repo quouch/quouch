@@ -1,6 +1,7 @@
 class CouchesController < ApplicationController
   def index
     @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).find_each(batch_size: 100)
+    @unfiltered_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
@@ -24,14 +25,14 @@ class CouchesController < ApplicationController
   private
 
   def apply_search_filter
-    @couches = @couches.search(params[:query])
+    @couches = @unfiltered_couches.search(params[:query])
   end
 
   def apply_characteristics_filter
-    @couches = @couches.joins(user: { user_characteristics: :characteristic })
-                       .where(characteristics: { id: params[:characteristics] })
-                       .group('couches.id, characteristics.id')
-                       .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+    @couches = @unfiltered_couches.joins(user: { user_characteristics: :characteristic })
+                                  .where(characteristics: { id: params[:characteristics] })
+                                  .group('couches.id, characteristics.id')
+                                  .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
   end
 
   def apply_offers_filter
@@ -42,6 +43,6 @@ class CouchesController < ApplicationController
     offers_conditions[:offers_couch] = true if params[:offers_couch]
     offers_conditions[:travelling] = false
 
-    @couches = @couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+    @couches = @unfiltered_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end
