@@ -124,7 +124,7 @@
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
-                                            Characteristic.all,
+                                            Characteristic.find_each,
                                             :id, :name,
                                             checked: @user.characteristic_ids,
                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
@@ -192,7 +192,7 @@
                 <div class="user__couch-facilities">
                   <%= simple_fields_for            :couch_facility do |cff| %>
                     <%= cff.collection_check_boxes :facility_ids,
-                                                    Facility.all, :id, :name,
+                                                    Facility.find_each, :id, :name,
                                                     input_html: { multiple: true },
                                                     autofocus: true,
                                                     checked: @user.couch.facility_ids if @user.couch %>
