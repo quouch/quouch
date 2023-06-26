@@ -1,6 +1,6 @@
 class CouchesController < ApplicationController
   def index
-    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).find_each(batch_size: 100)
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
