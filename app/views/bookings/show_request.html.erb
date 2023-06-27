@@ -39,13 +39,13 @@
 					<li>
 					<% if @booking.host? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg') %>
-						<p>couch</p>
+						<p>Couch</p>
 					<% elsif @booking.hangout? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg') %>
-						<p>hangout</p>
+						<p>Hangout</p>
 					<% elsif @booking.cowork? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg') %>
-						<p>cowork</p>
+						<p>Cowork</p>
 					<% end %>
 					</li>
 					<li>
@@ -85,6 +85,11 @@
 				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
 				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Decline Request</button>
 				<%= button_to '', decline_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
+			<% elsif @booking.host? && @booking.confirmed? %>
+				<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
+				<% if @booking.flexible %>
+					<%= button_to 'Complete Booking', complete_booking_path(@booking), method: :patch, class: 'booking__complete' %>
+				<% end %>
 			<% end %>
 		</div>
 
