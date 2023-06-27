@@ -69,7 +69,7 @@
 			<div class="home__banner-wrap">
 				<div>
 					<h1>Quouch</h1>
-					<p>Couch-surfing for queer people and women</p>
+					<p class="home__banner-subtitle">Couch-surfing for queer people and women</p>
 				</div>
 				<div class="home__banner-button">
 					<%= link_to 'Log in', new_user_session_path, class: 'home__banner-secondary' %>
@@ -78,8 +78,8 @@
 			</div>
 		</div>
 		<section class="home__numbers">
-			<h2 class="home__subtitle">Surf queer couches now!</h3>
-			<p>Quouch is the newest couch-surfing platform for women and queer people to explore the world safely while finding community.</p>
+			<h2 class="home__subtitle">Find your queer couch</h3>
+			<p>Quouch is the newest couch-surfing platform for queer people and women to explore the world safely while finding community.</p>
 			<div class="home__list-wrap">
 				<ul class="home__list">
 					<li class="home__list-item">
@@ -87,21 +87,21 @@
 							<p>89+</p>
 							<p>Countries</p>
 						</div>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/landing-pin.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/countries-landing.svg') %>
 					</li>
 					<li class="home__list-item">
 						<div>
 							<p>392+</p>
 							<p>Cities</p>
 						</div>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/city.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/cities-landing.svg') %>
 					</li>
 					<li class="home__list-item">
 						<div>
 							<p>2000+</p>
 							<p>Users</p>
 						</div>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/user.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/users-landing.svg') %>
 					</li>
 				</ul>
 			</div>
@@ -135,36 +135,36 @@
 			</div>
 		</section>
 		<section class="home__measures">
-			<p>We provide a safe environment for queer people and women to travel without having to worry about unsolicited creepy proposals and harrassment.</p>
-			<p>For that, we have different <strong>safety measures:</strong></p>
-			<ul class="home__measures-list">
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
-					<div>
-						<h3 class="home__measures-title">Invite-only</h3>
-						<p>You can only use Quouch with an invite code, or by applying which keeps it safe and a friends-of-friends vibe.</p>
-					</div>
-				</li>
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
-					<div>
-						<h3 class="home__measures-title">Filters</h3>
-						<p>No matter what your community, we have a filter to make sure you feel safe and seen wherever you go. These include trans-only, bipoc only, sw-friendly, 
-						neurodiverse and many more.</p>
-					</div>
-				</li>
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
-					<div>
-						<h3 class="home__measures-title">Protection</h3>
-						<p>We monitor who applies to Quouch to have an extra layer of safety, provide safety community guidelines and act fast on blocking those who are found to be 
-						harassing others.</p>
-					</div>
-				</li>
-			</ul>
+			<div class="home__measures-wrap">
+				<ul class="home__measures-list">
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Invite-only</h3>
+							<p>You can only use Quouch with an invite code, or by applying for one, which keeps it safe and a friends-of-friends vibe.</p>
+						</div>
+					</li>
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Filters</h3>
+							<p>No matter what your community, we have a filter to make sure you feel safe and seen wherever you go. These include trans-only, bipoc only, sw-friendly, 
+							neurodiverse and many more.</p>
+						</div>
+					</li>
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Monitoring</h3>
+							<p>We monitor who applies to Quouch to have an extra layer of safety, provide safety community guidelines and act fast on blocking those who are found to be 
+							harassing others.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
 		</section>
 		<section class="home__voices">
-			<h2 class="home__subtitle">Read more about us</h2>
+			<h2 class="home__subtitle">Check us out</h2>
 			<div class="home__slider">
 				<ul class="home__slider-list">
 					<%= link_to '' do %>
@@ -202,7 +202,7 @@
 		</section>
 		<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680296611/landing.jpg') %>
 		<section class="home__logos">
-			<h4 class="home__logos-title">Quouch is funded by</h4>
+			<h4 class="home__logos-title">Quouch is supported by</h4>
 			<%= image_tag('') %>
 			<%= image_tag('') %>
 			<%= image_tag('') %>
