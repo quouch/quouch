@@ -80,7 +80,7 @@
 						</li>
 					<% end %>
 				</ul>
-			<% elsif @host.offers_co_work || @host.offers_hang_out %>
+			<% elsif !@host.offers_couch %>
 				<p>This host doesn't currently offer their couch, but you can still request them to hangout or cowork.</p>
 			<% elsif @host.travelling %>
 				<p>This host is currently on the road and you can't request them.</p>
