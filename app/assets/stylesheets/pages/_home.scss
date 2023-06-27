@@ -1,4 +1,12 @@
 .home {
+	&__wrap {
+		margin: 4rem auto;
+		width: 90%;
+		max-width: $container;
+
+		@media (min-width: $break-large) { width: 80%; }
+	}
+
 	&__banner {
 		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1681314726/banner.jpg');
 		background-size: cover;
