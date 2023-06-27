@@ -26,11 +26,11 @@ class CouchesController < ApplicationController
   private
 
   def apply_search_filter
-    @couches = @unfiltered_couches.search(params[:query])
+    @couches = @couches.search(params[:query])
   end
 
   def apply_characteristics_filter
-    @couches = @unfiltered_couches.joins(user: { user_characteristics: :characteristic })
+    @couches = @couches.joins(user: { user_characteristics: :characteristic })
                                   .where(characteristics: { id: params[:characteristics] })
                                   .group('couches.id, characteristics.id')
                                   .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
@@ -44,6 +44,6 @@ class CouchesController < ApplicationController
     offers_conditions[:offers_couch] = true if params[:offers_couch]
     offers_conditions[:travelling] = false
 
-    @couches = @unfiltered_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+    @couches = @couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end
