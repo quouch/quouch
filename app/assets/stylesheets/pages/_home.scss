@@ -1,171 +1,249 @@
 .home {
-	&__wrap {
-		margin: 4rem auto;
-		width: 90%;
-		max-width: $container;
-
-		@media (min-width: $break-large) { width: 80%; }
-	}
-
 	&__banner {
-		padding: 4rem 0;
 		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1681314726/banner.jpg');
 		background-size: cover;
 		background-position: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 	
 		&-wrap {
-			padding: 1rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: 500px;
+			margin: 4rem 1rem 2rem;
 			text-align: center;
-			
-			p {
-				color: $white;
-				margin: 1rem 0;
+
+			@media (min-width: $break-medium) { margin: 4rem auto; }
+
+			h1 {
+				text-transform: capitalize;
+				font-size: 4rem;
+
+				@media (min-width: $break-medium) { font-size: 4.8rem; }
 			}
 
 			@media (min-width: $break-medium) {
-				width: 800px;
-				padding: 4rem 8rem;
-				text-align: start;
-	
-				h1 { text-align: start; }
-				p {
-					@include title-4;
-					
-					margin: 1rem 0;
-				}
+				width: 400px;
+				padding: 4rem auto 2rem;
 			}
 		}
 
+		&-subtitle {
+			@include title-4;
+				
+			color: $primary;
+			font-weight: 400;
+			font-size: 2rem;
+
+			@media (max-width: $break-large) { font-size: 2rem; }
+		}
+
 		&-button {
-			@media(min-width: $break-medium) {
-				display: flex;
-				gap: 1rem;
-				align-items: center;
-			}
+			a { width: 100%; }
 		}
 
 		&-primary {
 			@include input-field;
 			@include primary-button;
 
-			margin: 2rem auto 1rem;
+			margin: 1rem auto;
 			width: fit-content;
 		
-			@media (min-width: $break-medium) { margin: 2rem 0; }
+			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
 
 		&-secondary {
 			@include input-field;
 			@include primary-button;
 
-			margin: 1rem auto 2rem;
+			margin: 1rem auto;
 			width: fit-content;
 
-			@media (min-width: $break-medium) { margin: 2rem 0; }
+			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
 	}
 
-	&__content {
-		@include container;
+	&__numbers {
+		background: $primary-super-transparent;
+		padding: 2rem 1rem;
+		text-align: center;
 		
-		@media (min-width: $break-large){
-			margin: 4rem 8rem;
-			width: 60%;
-			max-width: $container;
+		h2 { margin-bottom: 1rem; }
+
+		&-wrap {
+			@include container;
+
+			@media (min-width: $break-large) {
+				margin: 4rem auto;
+				width: 60%;
+				max-width: $container;
+			}
 		}
 	}
-	
-	&__humour {
-		background-color: $beige;
-		padding: 4rem 2rem;
+
+	&__list {
+		display: flex;
+		flex-direction: column;
+		row-gap: 3rem;
 		
 		@media (min-width: $break-large) {
-			display: flex;
+			flex-direction: row;
 			justify-content: space-between;
-			gap: 2rem;
-			padding: 4rem auto 0;
 		}
 
-		@media (min-width: $break-large){ padding: 4rem 8rem; }
+		&-wrap {
+			@include container;
 
-		&-images {
+			@media (min-width: $break-large) {
+				margin: 4rem auto 0;
+				max-width: $container;
+			}
+		}
+
+		&-item {
 			display: flex;
 			align-items: center;
-			justify-content: center;
-			flex-shrink: 0;
-			
-			img:nth-child(2) {
-				height: 250px;
+			justify-content: space-evenly;
+			gap: 2rem;
+
+			@media (min-width: $break-large) { flex-direction: column; }
+
+			p:first-child {
+				@include title-1;
 				
-				@media (min-width: $break-medium) { height: 400px; }
+				color: $primary;
+				margin: 0;
+			}
+
+			p:nth-child(2) {
+				@include title-5;
+
+				color: $primary;
+				font-weight: 300;
+				margin: 0;
+				text-align: center;
+				text-transform: uppercase;
 			}
 
 			img {
-				height: 200px;
+				width: 100px;
+				height: 100px;
 
-				@media (min-width: $break-medium) { height: 300px; }
+				@media (min-width: $break-large) { margin: 0 auto; }
 			}
+		}
+	}
+	
+	&__slider {
+		text-align: center;
+		overflow: hidden;
+		margin-bottom: 1rem;
 
+		&-list {
+			display: flex;
+			gap: 1rem;
+			overflow-x: auto;
+			margin-top: 0;
+			margin-bottom: -1rem;
+			padding: 1rem 1rem 2rem;
+			
+			@media (min-width: $break-medium) { justify-content: center; }
 		}
 
-		&-content {
-			flex-basis: 50%;
-			margin-top: 1rem;
+		div { padding: 1rem; }
+	}
 
-			@media (min-width: $break-large) { margin: 0; }
+	&__card {
+		display: flex;
+		flex-direction: column;
+		min-width: 300px;
+		height: 100%;
+		border-radius: $border-radius-medium;
+		background-color: $white;
+		box-shadow: $box-shadow;
+		transition: all 160ms ease-in-out;
+		margin-bottom: 1rem;
+		color: $black;
+
+		@media (min-width: $break-large) { max-width: 400px; }
+		
+		&:hover {
+			transform: scale(1.04);
+			box-shadow: $box-shadow-hover;
+		}
+		
+		img {
+			width: 100%;
+			height: 240px;
+			object-fit: cover;
+			object-position: center;
+			border-top-left-radius: $border-radius-medium;
+			border-top-right-radius: $border-radius-medium;
+		}
+
+		blockquote:before { content: open-quote; }
+		blockquote:after { content: close-quote; }
+		blockquote { margin-bottom: 1rem; }
+
+		@media (min-width: $break-small) { margin-bottom: 0; }
+	}
+
+	&__voices {
+		h2 { margin-bottom: 3rem; }
+
+		&-wrap { margin: 4rem auto 4rem; }
+	}
+
+	&__measures {
+		background-color: $secondary-super-transparent;
+		
+		&-wrap {
+			padding: 2rem 1rem;
+
+			@media (min-width: $break-medium) { @include container; }
+			@media (min-width: $break-medium) {
+				padding: 4rem 0;
+				max-width: $container;
+			}
+		}
+
+
+		p:not(:last-child) { margin: .3rem auto 1rem; }
+
+		&-title {
+			@include title-2;
+			
+			text-transform: uppercase;
+			color: $secondary;
+		}
+
+		&-list {
+			li:not(:last-child) { margin-bottom: 1rem; }
+			
+			&-item {
+				display: flex;
+				align-items: start;
+				gap: .3rem;
+
+				img {
+					width: 30px;
+					height: 30px;
+
+					@media (min-width: $break-medium) {
+						width: 40px;
+						height: 40px;
+					}
+				}
+			}
 		}
 	}
 
 	&__subtitle {
 		@include title-2;
 
-		margin-bottom: 1rem;
-		color: $black;
-	}
-
-	&__supertitle { @include supertitle; }
-
-	&__header {
-		@include title-1;
-
-		color: $white;
-		background-color: $primary-transparent;
-		margin: 0;
-		padding: 2rem;
-		text-transform: uppercase;
-		text-align: left;
-		
-		@media (min-width: $break-medium) { padding: 2rem 2rem 2rem 8rem; }
-	}
-
-	&__split {
-		@media (min-width: $break-medium) { display: flex; }
-
-		img {
-			height: 400px;
-			width: 100%;
-			object-fit: cover;
-			object-position: center;
-
-			@media (min-width: $break-large) { width: 600px; }
-		}
-		
-		&--left {
-			justify-content: flex-end;
-			text-align: right;
-		}
-
-		&--right {
-			justify-content: flex-start;
-		}
-
-		&-content {
-			padding: 4rem 2rem;
-
-			@media (min-width: $break-medium) { width: 600px; }
-
-			p + h3 { margin-top: 1rem; }
-		}
+		text-align: center;
 	}
 	
 	&__button {
@@ -176,75 +254,42 @@
 		width: fit-content;
 		margin-top: 1rem;
 	}
-	
+
 	&__logos {
-		margin: 0 4rem 4rem;
+		@include container;
+
+		@media (min-width: $break-large) {
+			margin: 4rem auto;
+			width: 60%;
+			max-width: $container;
+		}
 		
-		@media (min-width: $break-large) { margin: 4rem; }
-
-		&-title {
-			@include title-3;
-			
-			color: $black;
-		}
-	}
-
-	&__contact {
-		padding: 4rem;
-		background-color: $primary-transparent;
-		
-		@media (min-width: $break-medium) {
-			display: flex;
-			gap: 4rem;
-			justify-content: center;
-		}
-
-		&-title {
-			font-family: $headers-font;
-			font-size: 4rem;
-			font-weight: 900;
-			line-height: .9;
-			text-transform: uppercase;
-			color: $white;
-			margin-bottom: 1rem;
-
-			@media (min-width: $break-large) {
-				text-align: right;
-				font-size: 8rem;
-				margin-bottom: 0;
-			}
-		}
-
-		&-subtitle {
-			@include title-5;
-			
-			@media (min-width: $break-large) { width: 50%; }
-
-			margin: 0 0 1rem;
-		}
+		@media (min-width: $break-medium) { margin: 4rem auto; }
+		h2 { margin-bottom: 4rem; }
 
 		&-wrap {
-			@media (min-width: $break-large) { width: 70%; }
+			display: flex;
+			align-items: center;
+			flex-flow: column;
+			gap: 1rem;
+			justify-content: center;
 
-			align-self: center;
-
-			p {
-				@include title-5;
-
-				margin: 0 0 1rem;
-				font-weight: 300;
-
-				@media (min-width: $break-medium) { width: 60%; }
+			@media (min-width: $break-small) {
+				flex-flow: row;
+				flex-wrap: wrap;
+				gap: 2rem;
 			}
-		}
 
-		&-button {
-			@include input-field;
-			@include primary-button;
+			img {
+				height: auto;
+				width: 160px;
+				object-fit: contain;
 
-			margin: 1rem 0;
-
-			@media (min-width: $break-medium) { width: fit-content; }
+				@media (min-width: $break-medium) {
+					height: auto;
+					width: 160px;
+				}
+			}
 		}
 	}
 }

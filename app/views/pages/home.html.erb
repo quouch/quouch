@@ -1,141 +1,215 @@
-<% if user_signed_in? %>
-  <div class="home__wrap" data-controller="characteristics-filter">
-    <section class="search__section">
-      <div class="search__wrap" >
-        <%= form_with url: couches_path,
-                      class: 'search',
-                      data: { characteristics_filter_target: 'form',
-                              action: 'submit->characteristics-filter#listCouches' },
-                      method: :get do %>
-          <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="search__autocomplete">
-            <%= text_field_tag :query,
-                                params[:query],
-                                placeholder: 'Find hosts in city or country',
-                                class: 'form-control',
-                                data: { autocomplete_target: 'input' } %>
-            <%= hidden_field_tag 'city', data: { autocomplete_target: 'hidden' } %>
-            <ul class="search__autocomplete-list" data-autocomplete-target="results"></ul>
-        	</div>
-        	<%= submit_tag 'Search', class: 'search__button' %>
-      	</div>
-				<div class="search__offers">
-					<%= check_box_tag 'offers_couch',
-							'1',
-							params[:offers_couch] == 'true',
-							id: 'offers_couch',
-							class: 'search__checkbox offer__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag 'offers_couch', 'host' %>
+<article>
+	<% if user_signed_in? %>
+		<div class="home__wrap" data-controller="characteristics-filter">
+			<section class="search__section">
+				<div class="search__wrap" >
+					<%= form_with url: couches_path,
+												class: 'search',
+												data: { characteristics_filter_target: 'form',
+																action: 'submit->characteristics-filter#listCouches' },
+												method: :get do %>
+						<div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="search__autocomplete">
+							<%= text_field_tag :query,
+																	params[:query],
+																	placeholder: 'Find hosts in city or country',
+																	class: 'form-control',
+																	data: { autocomplete_target: 'input' } %>
+							<%= hidden_field_tag 'city', data: { autocomplete_target: 'hidden' } %>
+							<ul class="search__autocomplete-list" data-autocomplete-target="results"></ul>
+						</div>
+						<%= submit_tag 'Search', class: 'search__button' %>
+					</div>
+					<div class="search__offers">
+						<%= check_box_tag 'offers_couch',
+								'1',
+								params[:offers_couch] == 'true',
+								id: 'offers_couch',
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag 'offers_couch', 'host' %>
 
-					<%= check_box_tag 'offers_co_work',
-							'1',
-							params[:offers_co_work] == 'true',
-							id: 'offers_co_work',
-							class: 'search__checkbox offer__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag 'offers_co_work', 'cowork' %>
+						<%= check_box_tag 'offers_co_work',
+								'1',
+								params[:offers_co_work] == 'true',
+								id: 'offers_co_work',
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag 'offers_co_work', 'cowork' %>
 
 
-					<%= check_box_tag 'offers_hang_out',
-							'1',
-							params[:offers_hang_out] == 'true',
-							id: 'offers_hang',
-							class: 'search__checkbox offer__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag 'offers_hang', 'hang out' %>
-			</div>
+						<%= check_box_tag 'offers_hang_out',
+								'1',
+								params[:offers_hang_out] == 'true',
+								id: 'offers_hang',
+								class: 'search__checkbox offer__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag 'offers_hang', 'hang out' %>
+				</div>
 
-			<div class="search__characteristics">
-				<% Characteristic.all.each do |characteristic| %>
-					<%= check_box_tag 'characteristics[]',
-							characteristic.id,
-							params[:characteristics]&.include?(characteristic.id),
-							id: "characteristic_#{characteristic.id}",
-							class: 'search__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+				<div class="search__characteristics">
+					<% Characteristic.all.each do |characteristic| %>
+						<%= check_box_tag 'characteristics[]',
+								characteristic.id,
+								params[:characteristics]&.include?(characteristic.id),
+								id: "characteristic_#{characteristic.id}",
+								class: 'search__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+					<% end %>
+				</div>
 				<% end %>
-			</div>
-			<% end %>
-		</section>
+			</section>
 
-    <section data-characteristics-filter-target="list">
-      <%= render 'partials/couches', couches: @active_couches %>
-    </section>
-  </div>
-<% else %>
-<div class="home__banner">
-	<div class="home__banner-wrap">
-		<h1>Like Couchsurfing, but very different.</h1>
-		<p>Homestay from a female & queer perspective</p>
-		<div class="home__banner-button">
-			<%= link_to 'Sign up with code', invite_code_path, class: 'home__banner-primary' %>
-			<p>or</p>
-			<%= link_to 'Request code', new_contact_path, class: 'home__banner-secondary' %>
+			<section data-characteristics-filter-target="list">
+				<%= render 'partials/couches', couches: @active_couches %>
+			</section>
 		</div>
-	</div>
-</div>
-<div class="home__content">
-	<h3 class="home__subtitle">
-		<span class="home__supertitle">Our Mission</span>
-		Meet other queer people & women you truly connect with
-	</h3>
-	<p>The first motivation to start Quouch was simply to create another homestay platform like Couchsurfing (CS) for queer people & women (FLINTA*). There is this <strong>initial layer of trust and understanding</strong> that you as a member of the LGBTQIA+ community feel when you meet another queer person. It is really hard to find that by coincidence. Building this travel platform where queer hosts and travellers can meet each other is one way to faciliate this - but then we thought, can't we make it even easier? We decided to develop a <strong>matching algorithm</strong>, so that you really meet the people you click with.
-</div>
-<h2 class="home__header">And how do we do it?</h2>
-<div class="home__humour">
-	<div class="home__humour-images">
-		<%= cl_image_tag('humour-1.jpg') %>
-		<%= cl_image_tag('humour-2.jpg') %>
-		<%= cl_image_tag('humour-3.jpg') %>
-	</div>
-	<div class="home__humour-content">
-		<h3 class="home__subtitle">We match travellers and hosts by humour</h3>
-		<p>So how do we make sure you do connect and have a really good time together?</p>
-		<p>We match hosts and travellers based on humour, preferences and personality. We developed a <strong>research-backed humour test</strong> to bring you together with someone who cracks up laughing about the same things you do.</p><br>
-		<p>Take the test and find out what humour type you are.</p>
-		<%= link_to 'Take the humour test', 'https://docs.google.com/forms/d/e/1FAIpQLSfzzQMH2d2KFXpcbyUFbLmrWDauuxPYqe8hQoFaNbW6VYGueA/viewform', class: 'home__button' %>
-	</div>
-</div>
-<div class="home__split home__split--left">
-	<div class="home__split-content">
-		<h3 class="home__subtitle home__subtitle--split">
-			<span class="home__supertitle">As a host</span>
-			Share your home with travellers
-		</h3>
-		<p>Stay at home and let the world come to you. You decide if, when and who you want to host and how much time you spend with them.</p>
-		<h3 class="home__subtitle home__subtitle--split">Trust & Privacy</h3>
-		<p>Build relationships with trustworthy people that you are being matched with. Quouch is invite-only and users need to adhere to a strict code of conduct.</p>
-	</div>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680296613/landing-1.jpg') %>
-</div>
-<div class="home__split home__split--right">
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680296611/landing.jpg') %>
-	<div class="home__split-content">
-		<h3 class="home__subtitle home__subtitle--split">
-			<span class="home__supertitle">As a traveller</span>
-			Stay at a local's home
-		</h3>
-		<p>Hang out with people who know the area. Discover the queer local hotspots and places you would normally not be aware of.</p>
-		<h3 class="home__subtitle home__subtitle--split">Be around people who are like you</h3>
-		<p>Be in new places but still around people who understand you. Without having to explain the basics again and again.</p>
-	</div>
-</div>
-<div class="home__logos">
-	<h4 class="home__logos-title">Quouch is funded by</h4>
-	<%= image_tag('') %>
-	<%= image_tag('') %>
-	<%= image_tag('') %>
-	<%= image_tag('') %>
-	<%= image_tag('') %>
-</div>
-<div class="home__contact">
-	<h2 class="home__contact-title">Get in touch</h2>
-	<div class="home__contact-wrap">
-		<h3 class="home__contact-subtitle">Want to become part of the community?</h3>
-		<p>Explain your interest in an invite code and we will consider you.</p>
-		<p>Just want to say hi? Reach out!</p>
-		<%= link_to 'Get in touch', new_contact_path, class: 'home__contact-button' %>
-	</div>
-</div>
-<% end %>
+	<% else %>
+		<div class="home__banner">
+			<div class="home__banner-wrap">
+				<div>
+					<h1>Quouch</h1>
+					<p class="home__banner-subtitle">Couch-surfing for queer people and women</p>
+				</div>
+				<div class="home__banner-button">
+					<%= link_to 'Log in', new_user_session_path, class: 'home__banner-secondary' %>
+					<%= link_to 'Sign up', invite_code_path, class: 'home__banner-primary' %>
+				</div>
+			</div>
+		</div>
+		<section class="home__numbers">
+			<div class="home__numbers-wrap">
+				<h2 class="home__subtitle">Find your queer couch</h3>
+				<p>Quouch is the newest couch-surfing platform for queer people and women to explore the world safely while finding community.</p>
+				<div class="home__list-wrap">
+					<ul class="home__list">
+						<li class="home__list-item">
+							<div>
+								<p>89+</p>
+								<p>Countries</p>
+							</div>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/countries-landing.svg') %>
+						</li>
+						<li class="home__list-item">
+							<div>
+								<p>392+</p>
+								<p>Cities</p>
+							</div>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/cities-landing.svg') %>
+						</li>
+						<li class="home__list-item">
+							<div>
+								<p>2000+</p>
+								<p>Users</p>
+							</div>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/users-landing.svg') %>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section class="home__voices">
+			<div class="home__voices-wrap">
+				<h2 class="home__subtitle">What our users say</h2>
+				<div class="home__slider">
+					<ul class="home__slider-list">
+						<li class="home__card">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+							<div>
+								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+								<p><strong>Laura, Valencia</strong></p>
+							</div>
+						</li>
+						<li class="home__card">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+							<div>
+								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+								<p><strong>Laura, Valencia</strong></p>
+							</div>
+						</li>
+						<li class="home__card">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+							<div>
+								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+								<p><strong>Laura, Valencia</strong></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section class="home__measures">
+			<div class="home__measures-wrap">
+				<ul class="home__measures-list">
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Invite-only</h3>
+							<p>You can only use Quouch with an invite code, or by applying for one, which keeps it safe and a friends-of-friends vibe.</p>
+						</div>
+					</li>
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Filters</h3>
+							<p>No matter what your community, we have a filter to make sure you feel safe and seen wherever you go. These include trans-only, bipoc only, sw-friendly, 
+							neurodiverse and many more.</p>
+						</div>
+					</li>
+					<li class="home__measures-list-item">
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg') %>
+						<div>
+							<h3 class="home__measures-title">Monitoring</h3>
+							<p>We monitor who applies to Quouch to have an extra layer of safety, provide safety community guidelines and act fast on blocking those who are found to be 
+							harassing others.</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="home__voices">
+			<div class="home__voices-wrap">
+				<h2 class="home__subtitle">Check us out</h2>
+				<div class="home__slider">
+					<ul class="home__slider-list">
+						<%= link_to '' do %>
+							<li class="home__card">
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+								<div>
+									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+									<p><strong>Siegessäule, Berlin Queer Magazine</strong></p>
+								</div>
+							</li>
+						<% end %>
+						<%= link_to '' do %>
+							<li class="home__card">
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+								<div>
+									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+									<p><strong>L.Mag, Lesbian Magazine</strong></p>
+								</div>
+							</li>
+						<% end %>
+						<%= link_to '' do %>
+							<li class="home__card">
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+								<div>
+									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
+									<p><strong>QX, London Queer Magazine</strong></p>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+				<div>
+			</div>
+		</section>
+		<section class="home__logos">
+			<h2 class="home__subtitle">Supported by</h4>
+			<div class="home__logos-wrap">
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687870180/l-mag.png') %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687870179/qx.png') %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687870180/siegess%C3%A4ule.jpg') %>
+			</div>
+		</section>
+	<% end %>
+</article>
