@@ -33,7 +33,6 @@
 		&-subtitle {
 			@include title-4;
 				
-			margin: 0;
 			color: $primary;
 			font-weight: 400;
 			font-size: 2rem;
@@ -71,9 +70,17 @@
 		padding: 2rem 1rem;
 		text-align: center;
 		
-		@media (min-width: $break-medium) { padding: 4rem 8rem; }
-
 		h2 { margin-bottom: 1rem; }
+
+		&-wrap {
+			@include container;
+
+			@media (min-width: $break-large) {
+				margin: 4rem auto;
+				width: 60%;
+				max-width: $container;
+			}
+		}
 	}
 
 	&__list {
@@ -91,7 +98,6 @@
 
 			@media (min-width: $break-large) {
 				margin: 4rem auto 0;
-				width: 60%;
 				max-width: $container;
 			}
 		}
@@ -187,28 +193,22 @@
 	&__voices {
 		h2 { margin-bottom: 3rem; }
 
-		&-wrap {
-			@media (min-width: $break-large) {
-				margin: 4rem auto 4rem;
-			}
-		}
+		&-wrap { margin: 4rem auto 4rem; }
 	}
 
 	&__measures {
+		background-color: $secondary-super-transparent;
+		
 		&-wrap {
-			@media (min-width: $break-medium) {
-				@include container;
-			}
+			padding: 2rem 1rem;
 
-			@media (min-width: $break-large) {
-				margin: 4rem auto 4rem;
-				width: 60%;
+			@media (min-width: $break-medium) { @include container; }
+			@media (min-width: $break-medium) {
+				padding: 4rem 0;
 				max-width: $container;
 			}
 		}
 
-		background-color: $secondary-super-transparent;
-		padding: 2rem 1rem;
 
 		p:not(:last-child) { margin: .3rem auto 1rem; }
 
@@ -256,22 +256,40 @@
 	}
 
 	&__logos {
-		margin: 4rem 4rem;
+		@include container;
+
+		@media (min-width: $break-large) {
+			margin: 4rem auto;
+			width: 60%;
+			max-width: $container;
+		}
 		
-		@media (min-width: $break-large) { margin: 4rem; }
+		@media (min-width: $break-medium) { margin: 4rem auto; }
+		h2 { margin-bottom: 4rem; }
 
 		&-wrap {
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			flex-flow: column;
 			gap: 1rem;
+			justify-content: center;
+
+			@media (min-width: $break-small) {
+				flex-flow: row;
+				flex-wrap: wrap;
+				gap: 2rem;
+			}
 
 			img {
-				height: 200px;
+				height: auto;
 				width: 160px;
 				object-fit: contain;
+
+				@media (min-width: $break-medium) {
+					height: auto;
+					width: 160px;
+				}
 			}
 		}
-
 	}
 }
