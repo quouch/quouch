@@ -72,6 +72,8 @@
 		text-align: center;
 		
 		@media (min-width: $break-medium) { padding: 4rem 8rem; }
+
+		h2 { margin-bottom: 1rem; }
 	}
 
 	&__list {
@@ -182,16 +184,26 @@
 		@media (min-width: $break-small) { margin-bottom: 0; }
 	}
 
+	&__voices {
+		h2 { margin-bottom: 3rem; }
+		
+		&-wrap {
+			@media (min-width: $break-large) {
+				margin: 4rem auto 4rem;
+			}
+		}
+	}
+
 	&__measures {
 		&-wrap {
 			@media (min-width: $break-medium) {
 				@include container;
-	
-				@media (min-width: $break-large) {
-					margin: 4rem auto 0;
-					width: 60%;
-					max-width: $container;
-				}
+			}
+
+			@media (min-width: $break-large) {
+				margin: 4rem auto 4rem;
+				width: 60%;
+				max-width: $container;
 			}
 		}
 
@@ -231,7 +243,6 @@
 	&__subtitle {
 		@include title-2;
 
-		margin: 2rem auto 1rem;
 		text-align: center;
 	}
 	
