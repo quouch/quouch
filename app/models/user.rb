@@ -24,7 +24,7 @@ class User < ApplicationRecord
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
   validates :date_of_birth, presence: { message: 'Please provide your age' }
-  # validates :address, presence: { message: 'Address required' }
+  validates :address, presence: { message: 'Address required' }
   validates :zipcode, presence: { message: 'Zipcode required' }
   validates :city, presence: { message: 'City required' }
   validates :country, presence: { message: 'Country required' }

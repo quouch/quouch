@@ -111,7 +111,7 @@
           <%= f.input_field :summary %>
           <%= f.error       :summary, class: 'form-error' %>
 
-          <%= f.label :characteristics %>
+          <%= f.label :characteristics, required: true %>
           <% if @user.errors[:user_characteristics].any? %>
             <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
           <% end %>
