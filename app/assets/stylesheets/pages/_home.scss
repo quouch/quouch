@@ -186,7 +186,7 @@
 
 	&__voices {
 		h2 { margin-bottom: 3rem; }
-		
+
 		&-wrap {
 			@media (min-width: $break-large) {
 				margin: 4rem auto 4rem;
@@ -255,15 +255,23 @@
 		margin-top: 1rem;
 	}
 
-	&__join {
-		background-image: url();
-	}
-	
 	&__logos {
-		margin: 0 4rem 4rem;
+		margin: 4rem 4rem;
 		
 		@media (min-width: $break-large) { margin: 4rem; }
 
-		&-title { @include title-3; }
+		&-wrap {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+
+			img {
+				height: 200px;
+				width: 160px;
+				object-fit: contain;
+			}
+		}
+
 	}
 }
