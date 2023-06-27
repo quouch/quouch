@@ -1,11 +1,12 @@
 class CouchesController < ApplicationController
   def index
-    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).find_each(batch_size: 100)
-    @unfiltered_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
+
+    @couches = @couches.find_each(batch_size: 100)
 
     respond_to do |format|
       format.html { redirect_to couches_path(@couches) }
