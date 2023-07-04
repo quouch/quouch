@@ -54,7 +54,7 @@ class BookingMailer < ApplicationMailer
 		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} stayed with you - review now")
 	end
 
-	private
+		private
 
 	def set_booking_details
 		@booking = params[:booking]
