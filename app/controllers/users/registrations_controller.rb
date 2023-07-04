@@ -1,13 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # * used the create from Devise: https://github.com/heartcombo/devise/blob/main/app/controllers/devise/registrations_controller.rb
   def create
-    invite_code = params[:invite][:invite_code]
-		if User.exists?(invite_code:) || User.exists?(invite_code: invite_code.downcase)
-			redirect_to new_user_registration_path(invite_code:)
-		else
-			flash[:alert] = 'Invite code not valid. Try again or contact the Quouch team'
-			render :invite_code_form, status: :unprocessable_entity
-		end
     build_resource(sign_up_params)
     create_user_characteristics
     resource.save
