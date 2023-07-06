@@ -50,11 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def create_couch
-    if params[:couch].present?
-      @couch = Couch.new(couch_params)
-    else
-      @couch = Couch.new(capacity: 0)
-    end
+    @couch = params[:couch].present? ? Couch.new(couch_params) : Couch.new(capacity: 0)
 
     @couch.user = @user
     @couch.save
