@@ -4,6 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>The request from <%= @guest.first_name.capitalize %> has been updated!</h1>
+    <h1>The request from <%= @user.first_name.capitalize %> has been updated!</h1>
+    <p><%= @user.first_name.capitalize %> has updated their request. Please review the request and confirm or decline depending on your availability and willingness to host <%= @user.first_name.capitalize %>.</p>
+    <p>If you have any questions, please feel free to contact us.</p>
+    <p>Best regards,<br>your Quouch Team</p>
   </body>
 </html>
