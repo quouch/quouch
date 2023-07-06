@@ -83,7 +83,12 @@
 				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
 			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept' %>
-				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert">Decline Request</button>
+				<button class="booking__decline"
+								data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert"
+								data-confirm-title="Confirm"
+								data-confirm-text="Are you sure you want to decline this booking?"
+								data-confirm-buttons='["No, go back", "Yes, decline"]'>
+								>Decline Request</button>
 				<%= button_to '', decline_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
 			<% elsif @booking.host? && @booking.confirmed? %>
 				<%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
