@@ -4,6 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @user.first_name.capitalize %> updated the booking and it requires new confirmation.</h1>
+    <h1>The request from <%= @guest.first_name.capitalize %> has been updated!</h1>
+    <p><%= @guest.first_name.capitalize %> has updated their booking. Please review the new request and confirm or decline depending on your availability and willingness to host <%= @guest.first_name.capitalize %>.</p>
+    <p>If you have any questions, please feel free to contact us.</p>
+    <p>Best regards,<br>your Quouch Team</p>
   </body>
 </html>
