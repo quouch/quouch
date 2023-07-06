@@ -32,7 +32,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     create_user_characteristics
     super
-    disable_offers_if_traveling
+    disable_offers_if_travelling
   end
 
   protected
