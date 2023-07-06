@@ -4,18 +4,16 @@ class BookingsController < ApplicationController
 
 	def index
 		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
-		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }
-												 .sort_by(&:booking_date)
-		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by(&:booking_date)
-		@completed = @bookings.select(&:completed?).sort_by(&:booking_date)
+		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }.sort_by { |booking| booking.start_date || Date.today }
+		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by { |booking| booking.start_date || Date.today }
+		@completed = @bookings.select(&:completed?).sort_by { |booking| booking.start_date || Date.today }
 	end
 
 	def requests
     @requests = @couch.bookings
-		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }
-												.sort_by(&:booking_date)
-		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by(&:booking_date)
-		@completed = @requests.select(&:completed?).sort_by(&:booking_date)
+		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }.sort_by { |request| request.start_date || Date.today }
+		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by { |request| request.start_date || Date.today }
+		@completed = @requests.select(&:completed?).sort_by { |request| request.start_date || Date.today }
 	end
 
 	def show
