@@ -4,6 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @host.first_name.capitalize %> cancelled the booking!</h1>
+    <h1>We're sorry, <%= @guest.first_name.capitalize %>. </h1>
+    <p><%= @host.first_name.capitalize %> cancelled the booking!</p>
+    <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to accommodate you at this time. We want to thank you anyways for your interest in using our platform to find a place to stay. We appreciate your consideration and your desire to be a part of our community.</p>
+    <p>We understand that this may be disappointing news, but we hope you can find another Couch to sleep on!</p>
+    <%= link_to 'Browse other couches', @url %>
+    <p>Best regards,<br>your Quouch Team</p>
   </body>
 </html>
