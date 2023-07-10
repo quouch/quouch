@@ -109,7 +109,9 @@
 		<p><%= @host.question_three %></p>
 		<h2>What I otherwise need and like</h2>
 		<p><%= @host.question_four %></p>
-		<%= link_to "Send quouch request", new_couch_booking_path(@couch.id), class: 'couch__button' %>
+		<% if @couch != current_user.couch %>
+			<%= link_to 'Send quouch request', new_couch_booking_path(@couch.id), class: 'couch__button' %>
+		<% end %>
 	</div>
 	<div class="couch__reviews">
 		<% if @reviews.any? %>
