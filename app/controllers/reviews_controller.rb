@@ -9,10 +9,10 @@ class ReviewsController < ApplicationController
 
 	def create
 		@review = Review.new(review_params)
-		@review.couch = current_user.couch
-		@host = @couch.user
-		@review.booking = @booking
+		@host = @booking.couch.user
 		@review.user = current_user
+		@review.couch = @host == current_user ? @booking.user.couch : @host.couch
+		@review.booking = @booking
 		handle_review(@booking, @review)
 	end
 
