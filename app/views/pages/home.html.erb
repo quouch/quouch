@@ -62,6 +62,7 @@
 
 			<section data-characteristics-filter-target="list">
 				<%= render 'partials/couches', couches: @active_couches %>
+				<%= will_paginate @active_couches %>
 			</section>
 		</div>
 	<% else %>
