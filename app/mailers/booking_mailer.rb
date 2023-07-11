@@ -5,17 +5,17 @@ class BookingMailer < ApplicationMailer
 	default from: 'dev.quouch@gmail.com'
 
 	def new_request_email
-		@url = booking_url(@booking)
+		@url = request_booking_url(@booking)
 		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} sent you a request")
 	end
 
 	def request_updated_email
-		@url = booking_url(@booking)
+		@url = request_booking_url(@booking)
 		mail(to: @host.email, subject: "Request from #{@guest.first_name.capitalize} has been updated")
 	end
 
 	def request_cancelled_email
-		@url = booking_url(@booking)
+		@url = request_booking_url(@booking)
 		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} cancelled the request")
 	end
 
@@ -30,7 +30,7 @@ class BookingMailer < ApplicationMailer
 	end
 
 	def booking_cancelled_by_guest_email
-		@url = booking_url(@booking)
+		@url = request_booking_url(@booking)
 		mail(to: @host.email, subject: "Your guest #{@guest.first_name.capitalize} cancelled the booking")
 	end
 
@@ -40,17 +40,17 @@ class BookingMailer < ApplicationMailer
 	end
 
 	def booking_updated_email
-		@url = booking_url(@booking)
+		@url = request_booking_url(@booking)
 		mail(to: @host.email, subject: "Your guest #{@guest.first_name.capitalize} updated the booking")
 	end
 
 	def booking_completed_guest_email
-		@url = new_couch_booking_review(@booking.couch, @booking)
+		@url = new_couch_booking_review_url(@booking.couch, @booking)
 		mail(to: @guest.email, subject: "You stayed with #{@host.first_name.capitalize} - review now")
 	end
 
 	def booking_completed_host_email
-		@url = new_couch_booking_review(@booking.user.couch, @booking)
+		@url = new_couch_booking_review_url(@booking.user.couch, @booking)
 		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} stayed with you - review now")
 	end
 
