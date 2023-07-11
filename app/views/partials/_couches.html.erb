@@ -1,5 +1,5 @@
 <ul class="couches__list" data-characteristics-filter-target="couches">
-	<% couches.each do |couch| %>
+	<% couches.to_a.shuffle.each do |couch| %>
 		<li class="couches__list-item">
 			<article class="couches__list-article">
 				<%= link_to couch_path(couch) do %>

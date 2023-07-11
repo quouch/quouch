@@ -7,12 +7,12 @@
   <body>
       <h1>You have a new booking request from <%= @guest.first_name.capitalize %></h1>
       <p>Hello <%= @host.first_name.capitalize %>,</p>
-      <p>We are excited to inform you that <%= @guest.first_name.capitalize %> has requested to stay at your place from <%= @booking.start_date %> - <%= @booking.end_date %>.</p>
+      <p>We are excited to inform you that <%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %><% if @booking.flexible %>, but <%= @guest.first_name.capitalize %> has not specified dates yet. You'll want to connect to arrange this.<% else %>from <%= @booking.start_date %> to <%= @booking.end_date %>.<% end %></p>
       <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we have vetted <%= @guest.first_name.capitalize %> and believe they would be an excellent guest for your space.</p>
       <p>We know how important it is for you to have a comfortable and secure experience as a host, and we want to assure you that we are committed to supporting you throughout the entire hosting process. If you have any questions or concerns about this booking request, please do not hesitate to reach out to our team.</p>
       <p>We encourage you to review <%= @guest.first_name.capitalize %>'s profile and message them directly to discuss any specific details or requirements for their stay. Once you feel comfortable, you can approve or decline the request directly from your dashboard.</p>
       <p>Thank you for being a valued member of our community and for opening up your home to our guests. We look forward to helping you create a memorable and enjoyable experience for your guests.</p>
-      <p><%= link_to 'View Request', booking_url(@booking) %> to review the details of the booking request and take action.</p>
+      <p><%= link_to 'View Request', @url %> to review the details of the booking request and take action.</p>
       <p>Warm regards,<br>your Quouch Team</p>
   </body>
 </html>
