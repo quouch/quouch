@@ -4,7 +4,7 @@
 		<article class="booking__host">
 		<div class="booking__host-left">
 			<h2>Your Guest</h2>
-			<%= link_to couch_path(@guest) do %>
+			<%= link_to couch_path(@guest.couch) do %>
 				<% if @booking.couch.user.photo.key %>
 					<%= cl_image_tag @booking.user.photo.key, class: 'booking__host-image' %>
 				<% else %>
