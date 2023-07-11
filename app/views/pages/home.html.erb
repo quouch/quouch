@@ -46,20 +46,23 @@
 						<%= label_tag 'offers_hang', 'hang out' %>
 				</div>
 
-			<div class="search__characteristics">
-				<% Characteristic.find_each do |characteristic| %>
-					<%= check_box_tag 'characteristics[]',
-							characteristic.id,
-							params[:characteristics]&.include?(characteristic.id),
-							id: "characteristic_#{characteristic.id}",
-							class: 'search__checkbox',
-							data: { action: 'change->characteristics-filter#listCouches' } %>
-					<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+				<div class="search__characteristics">
+					<% Characteristic.all.each do |characteristic| %>
+						<%= check_box_tag 'characteristics[]',
+								characteristic.id,
+								params[:characteristics]&.include?(characteristic.id),
+								id: "characteristic_#{characteristic.id}",
+								class: 'search__checkbox',
+								data: { action: 'change->characteristics-filter#listCouches' } %>
+						<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
+					<% end %>
+				</div>
 				<% end %>
 			</section>
 
 			<section data-characteristics-filter-target="list">
 				<%= render 'partials/couches', couches: @active_couches %>
+				<%= will_paginate @active_couches %>
 			</section>
 		</div>
 	<% else %>
