@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = ['cancel', 'action'];
   
   displayConfirmAlert(event) {
-    console.log(event.target.confirmButtons)
     const title = event.target.dataset.confirmTitle
     const text = event.target.dataset.confirmText
     const buttons = JSON.parse(event.target.dataset.confirmButtons || '[]')
