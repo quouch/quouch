@@ -176,6 +176,18 @@ GEM
     jsbundling-rails (1.1.1)
       railties (>= 6.0.0)
     json (2.6.3)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     llhttp-ffi (0.4.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
@@ -360,7 +372,6 @@ GEM
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    will_paginate (4.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.7)
@@ -385,6 +396,7 @@ DEPENDENCIES
   geocoder
   jbuilder
   jsbundling-rails
+  kaminari
   mail_form
   money-rails (~> 1.12)
   noticed (~> 1.6)
@@ -406,7 +418,6 @@ DEPENDENCIES
   web-console
   webdrivers
   whenever
-  will_paginate (~> 4.0)
 
 RUBY VERSION
    ruby 3.1.2p20

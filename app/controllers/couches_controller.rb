@@ -6,7 +6,7 @@ class CouchesController < ApplicationController
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
-    @couches = @couches.find_each(batch_size: 100)
+    @couches = @couches.page(params[:page]).per(30)
 
     respond_to do |format|
       format.html { redirect_to couches_path(@couches) }

@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @couches = Couch.where.not(user: current_user)
-    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).paginate(page: params[:page], per_page: 30)
+    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).page(params[:page]).per(30)
   end
 
   def search_cities
