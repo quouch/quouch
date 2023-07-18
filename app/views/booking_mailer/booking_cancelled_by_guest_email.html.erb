@@ -4,8 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @user.first_name.capitalize %> cancelled the booking!</h1>
-    <p>Unfortunately, <%= @booking.couch.user.first_name.capitalize %> cancelled their booking at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
+    <h1><%= @guest.first_name.capitalize %> cancelled the booking!</h1>
+    <p>Unfortunately, <%= @host.first_name.capitalize %> cancelled their booking at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
     <p>Are you already planning your next trip?</p>
     <%= link_to 'Browse couches', @url %>
     <p>Best regards,<br>your Quouch Team</p>
