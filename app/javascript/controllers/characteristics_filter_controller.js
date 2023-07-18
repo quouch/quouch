@@ -7,15 +7,15 @@ export default class extends Controller {
   listCouches(event) {
     event.preventDefault()
 
-    const formData = new FormData(this.formTarget);
-    const searchParams = new URLSearchParams(formData).toString();
-    const url = `${this.formTarget.action}?${searchParams}`;
+    const formData = new FormData(this.formTarget)
+    const searchParams = new URLSearchParams(formData).toString()
+    const url = `${this.formTarget.action}?${searchParams}`
 
     fetch(url, {
       headers: { 'Accept': 'application/json' },
     })
-      .then(response => response.json())
-      .then((data) => {
+    .then(response => response.json())
+    .then((data) => {
         this.couchesTarget.remove()
         this.listTarget.insertAdjacentHTML('afterbegin', data.inserted_list)
       })

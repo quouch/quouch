@@ -3,7 +3,15 @@ class PagesController < ApplicationController
 
   def home
     @couches = Couch.where.not(user: current_user)
-    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).page(params[:page]).per(30)
+    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+                              .page(params[:page])
+                              .per(30)
+
+    apply_search_filter if params[:query].present?
+    apply_characteristics_filter if params[:characteristics].present?
+    apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
+
+    @active_couches = @active_couches.page(params[:page]).per(30)
   end
 
   def search_cities
@@ -18,5 +26,27 @@ class PagesController < ApplicationController
 
     @results = (cities + countries).select { |entry| entry.downcase.starts_with?(query) }
     render layout: false
+  end
+
+  def apply_search_filter
+    @active_couches = @active_couches.search(params[:query])
+  end
+
+  def apply_characteristics_filter
+    @active_couches = @active_couches.joins(user: { user_characteristics: :characteristic })
+                                     .where(characteristics: { id: params[:characteristics] })
+                                     .group('couches.id')
+                                     .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+  end
+
+  def apply_offers_filter
+    offers_conditions = {}
+
+    offers_conditions[:offers_hang_out] = true if params[:offers_hang_out]
+    offers_conditions[:offers_co_work] = true if params[:offers_co_work]
+    offers_conditions[:offers_couch] = true if params[:offers_couch]
+    offers_conditions[:travelling] = false
+
+    @active_couches = @active_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end

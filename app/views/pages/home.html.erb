@@ -36,7 +36,6 @@
 								data: { action: 'change->characteristics-filter#listCouches' } %>
 						<%= label_tag 'offers_co_work', 'cowork' %>
 
-
 						<%= check_box_tag 'offers_hang_out',
 								'1',
 								params[:offers_hang_out] == 'true',
@@ -62,7 +61,6 @@
 
 			<section data-characteristics-filter-target="list">
 				<%= render 'partials/couches', couches: @active_couches %>
-				<%= paginate @active_couches %>
 			</section>
 		</div>
 	<% else %>
