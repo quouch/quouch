@@ -6,7 +6,7 @@
   </head>
   <body>
       <h1>Your request at <%= @host.first_name.capitalize %>'s place has been confirmed!</h1>
-      <p>Dear [Guest],</p>
+      <p>Dear <%= @guest.first_name.capitalize %>,</p>
       <p>We are thrilled to confirm your booking for <%= @booking.start_date %> - <%= @booking.end_date %> with Quouch.</p>
       <p>We want to assure you that your comfort and safety are our top priorities, and we are committed to creating a welcoming and inclusive environment for all of our guests. We understand how important it is to find a safe and comfortable space when traveling, and we are proud to offer our platform as a haven for members of the queer and female community.</p>
       <p>Your host, <%= @host.first_name.capitalize %>, is looking forward to welcoming you into their home and providing you with a memorable stay. They are dedicated to making your experience as enjoyable and comfortable as possible, and are available to answer any questions you may have about the area or your accommodations.</p>
