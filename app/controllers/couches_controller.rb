@@ -13,7 +13,6 @@ class CouchesController < ApplicationController
       format.html
       format.json
     end
-    binding.pry
   end
 
   def show
