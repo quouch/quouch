@@ -15,17 +15,19 @@ export default class extends Controller {
     this.geocoder.addTo(this.element)
     this.geocoder.on('result', event => this.#setInputValue(event))
     this.geocoder.on('clear', () => this.#clearInputValue())
+
+    if (this.addressTarget.value) {
+      const addressValue = this.addressTarget.value
+      let address = document.querySelector('.mapboxgl-ctrl-geocoder--input')
+      address.value = addressValue
+    }
   }
 
   #setInputValue(event) {
     this.addressTarget.value = event.result.place_name
     const city = document.getElementById('city')
-    // const address = document.getElementById('street')
     const zip = document.getElementById('zip')
     const country = document.getElementById('user_country')
-    // const street = event.result.text ? event.result.text : ''
-    // const number = event.result.address ? event.result.address : ''
-    // address.value = `${street} ${number}`
     let cityDone = false
     for (let i = 0; i < event.result.context.length; i++) {
       if (event.result.context[i].id.includes("postcode")) {
