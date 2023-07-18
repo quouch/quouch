@@ -4,7 +4,15 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['trigger', 'field']
 
-   toggleField() {
+  connect() {
+    if (this.triggerTarget.checked) {
+      this.fieldTarget.style.display = 'flex'
+    } else {
+      this.fieldTarget.style.display = 'none'
+    }
+  }
+
+  toggleField() {
     if (this.triggerTarget.checked) {
       this.fieldTarget.style.display = 'flex'
     } else {

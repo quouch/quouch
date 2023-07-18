@@ -34,19 +34,22 @@
                             label: false,
                             placeholder: 'First Name',
                             error: false,
-                            input_html: { autocomplete: 'first_name' } %>
+                            input_html: { autocomplete: 'first_name' },
+                            value: params[:user]&.dig(:first_name) %>
           <%= f.error       :first_name, class: 'form-error' %>
           <%= f.input_field :last_name,
                             autofocus: true,
 														placeholder: 'Last Name',
                             error: false,
-                            input_html: { autocomplete: 'last_name' } %>
+                            input_html: { autocomplete: 'last_name' },
+                            value: params[:user]&.dig(:last_name) %>
           <%= f.error       :last_name, class: 'form-error' %>
           <%= f.input_field :email,
                             autofocus: true,
                             placeholder: 'Email',
                             error: false,
-                            input_html: { autocomplete: 'email' } %>
+                            input_html: { autocomplete: 'email' },
+                            value: params[:user]&.dig(:email) %>
           <%= f.error       :email, class: 'form-error' %>
           <%= f.label       :date_of_birth %>
           <div class="user__birthdate">
@@ -54,20 +57,23 @@
                               start_year: Date.today.year - 100,
                               end_year: Date.today.year,
                               autofocus: true,
-                              error: false %>
+                              error: false,
+                            value: params[:user]&.dig(:date_of_birth) %>
           </div>
           <%= f.error         :date_of_birth, class: 'form-error' %>
           <%= f.input         :pronouns,
                               autofocus: true,
-                              input_html: { autocomplete: 'pronouns' } %>
+                              input_html: { autocomplete: 'pronouns' },
+                              value: params[:user]&.dig(:pronouns) %>
 
           <div class="user__address">
               <p class="hint">We mainly need your address for billing - other users will only see city & country until you officially confirm a request to host</p>
               <div class="user__address-street">
-              <%= f.label :address, required: true, class: 'user__address-label' %>
+              <%= f.label :address, class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
                           error: false,
+                          value: params[:user]&.dig(:address),
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
               </div>
@@ -80,7 +86,8 @@
                                     required: true,
                                     value: @user.zipcode,
                                     autofocus: true,
-                                    id: 'zip' %>
+                                    id: 'zip',
+                                    value: params[:user]&.dig(:zipcode) %>
                 </div>
                 <%= f.error         :zipcode, class: 'form-error' %>
               </div>
@@ -91,7 +98,8 @@
                                     required: true,
                                     value: @user.city,
                                     autofocus: true,
-                                    id: 'city' %>
+                                    id: 'city',
+                                    value: params[:user]&.dig(:city) %>
                 </div>
                 <%= f.error         :city, class: 'form-error' %>
               </div>
@@ -102,13 +110,15 @@
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
-                          error: false %>
+                          error: false,
+                          value: params[:user]&.dig(:country) %>
             </div>
             <%= f.error       :country, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>
-          <%= f.input_field :summary %>
+          <%= f.input_field :summary,
+                            value: params[:user]&.dig(:summary) %>
           <%= f.error       :summary, class: 'form-error' %>
 
           <%= f.label :characteristics, required: true %>
@@ -122,7 +132,7 @@
               <%= ucf.collection_check_boxes :characteristic_ids,
                                              Characteristic.find_each,
                                              :id, :name,
-                                             checked: @user.characteristic_ids,
+                                             checked: params[:user_characteristic]&.dig(:characteristic_ids),
                                              error: false,
                                              input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
@@ -139,9 +149,10 @@
                                           label: false,
                                           error: false,
                                           autofocus: true,
-                                          input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }} %>
+                                          input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }},
+                                          value: params[:user]&.dig(:travelling) %>
                 <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
-                <%= f.label               :travelling %>
+                <%= f.label               :currently_travelling %>
               </div>
             </div>
 
@@ -153,21 +164,26 @@
                                         label: false,
                                         error: false,
                                         autofocus: true,
-                                        input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
+                                        input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }},
+                                        value: params[:user]&.dig(:offers_couch) %>
                   <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
                   <%= f.label           :host %>
                 </div>
                 <div class="user__offer">
-                  <%= f.input_field     :offers_co_work,
+                  <%= f.input           :offers_co_work,
                                         error: false,
-                                        autofocus: true %>
+                                        autofocus: true,
+                                        label: false,
+                                        value: params[:user]&.dig(:offers_co_work) %>
                   <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
                   <%= f.label           :cowork %>
                 </div>
                 <div class="user__offer">
-                  <%= f.input_field     :offers_hang_out,
+                  <%= f.input           :offers_hang_out,
                                         error: false,
-                                        autofocus: true %>
+                                        autofocus: true,
+                                        label: false,
+                                        value: params[:user]&.dig(:offers_hang_out) %>
                   <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
                   <%= f.label           :hangout %>
                 </div>
@@ -179,7 +195,8 @@
                     <%= cf.label          :i_can_host %>
                     <%= cf.input_field    :capacity,
                                           autofocus: true,
-                                          collection: 1..4 %>
+                                          collection: 1..4,
+                                          selected: params[:couch]&.dig(:capacity) %>
                     <%= cf.label          :guests,
                                           required: false %>
                   </div>
@@ -187,9 +204,11 @@
                 <div class="user__couch-facilities">
                   <%= simple_fields_for            :couch_facility do |cff| %>
                     <%= cff.collection_check_boxes :facility_ids,
-                                                    Facility.find_each, :id, :name,
+                                                    Facility.find_each,
+                                                    :id, :name,
                                                     input_html: { multiple: true },
-                                                    autofocus: true %>
+                                                    autofocus: true,
+                                                    checked: params[:couch_facility]&.dig(:facility_ids) %>
                   <% end %>
                 </div>
                 <% end %>
@@ -200,16 +219,20 @@
 
             <%= f.label       :this_makes_me_really_happy %>
             <%= f.input_field :question_one,
-                              autofocus: true %>
+                              autofocus: true,
+                              value: params[:user]&.dig(:question_one) %>
             <%= f.label       :what_i_cant_stand %>
             <%= f.input_field :question_two,
-                              autofocus: true %>
+                              autofocus: true,
+                              value: params[:user]&.dig(:question_two) %>
             <%= f.label       :tell_us_what_you_need_and_like %>
             <%= f.input_field :question_three,
-                              autofocus: true %>
+                              autofocus: true,
+                              value: params[:user]&.dig(:question_three) %>
             <%= f.label       :when_you_live_at_my_place_i_appreciate %>
             <%= f.input_field :question_four,
-                              autofocus: true %>
+                              autofocus: true,
+                              value: params[:user]&.dig(:question_four) %>
 					<div class="user__password">
             <%= f.label          :set_password %>
 						<%= f.password_field :password,
@@ -229,6 +252,27 @@
 					</div>
 
            <%= hidden_field_tag 'invite_code', params[:invite_code] %>
+           <%= hidden_field_tag 'form_data[first_name]', params[:first_name] %>
+           <%= hidden_field_tag 'form_data[last_name]', params[:last_name] %>
+           <%= hidden_field_tag 'form_data[email]', params[:email] %>
+           <%= hidden_field_tag 'form_data[date_of_birth]', params[:date_of_birth] %>
+           <%= hidden_field_tag 'form_data[pronouns]', params[:pronouns] %>
+           <%= hidden_field_tag 'form_data[address]', params[:address] %>
+           <%= hidden_field_tag 'form_data[zipcode]', params[:zipcode] %>
+           <%= hidden_field_tag 'form_data[city]', params[:city] %>
+           <%= hidden_field_tag 'form_data[country]', params[:country] %>
+           <%= hidden_field_tag 'form_data[summary]', params[:summary] %>
+           <%= hidden_field_tag 'form_data[user_characteristics]', params[:user_characteristic] %>
+           <%= hidden_field_tag 'form_data[travelling]', params[:travelling] %>
+           <%= hidden_field_tag 'form_data[offers_couch]', params[:offers_couch] %>
+           <%= hidden_field_tag 'form_data[offers_co_work]', params[:offers_co_work] %>
+           <%= hidden_field_tag 'form_data[offers_hang_out]', params[:offers_hang_out] %>
+           <%= hidden_field_tag 'form_data[capacity]', params[:couch] %>
+           <%= hidden_field_tag 'form_data[facilities]', params[:couch_facility] %>
+           <%= hidden_field_tag 'form_data[question_one]', params[:question_one] %>
+           <%= hidden_field_tag 'form_data[question_two]', params[:question_two] %>
+           <%= hidden_field_tag 'form_data[question_three]', params[:question_three] %>
+           <%= hidden_field_tag 'form_data[question_four]', params[:question_four] %>
 
 					<div class="user__submit">
 						<%= f.submit "Create Account" %>
