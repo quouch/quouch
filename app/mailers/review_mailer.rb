@@ -3,7 +3,7 @@ class ReviewMailer < ApplicationMailer
 	default from: 'dev.quouch@gmail.com'
 
 	def new_review_host_email
-		mail(to: @host.email, subject: "Your guest #{@host.first_name.capitalize} left you a review")
+		mail(to: @host.email, subject: "Your guest #{@guest.first_name.capitalize} left you a review")
 	end
 
 	def new_review_guest_email
