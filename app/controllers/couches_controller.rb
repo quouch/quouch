@@ -1,17 +1,19 @@
 class CouchesController < ApplicationController
   def index
-    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+    # repeating code from home controller as a quick performance fix
+    @active_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
-    @couches = @couches.find_each(batch_size: 100)
+    @active_couches = @active_couches.page(params[:page]).per(30)
 
     respond_to do |format|
-      format.html { redirect_to couches_path(@couches) }
+      format.html
       format.json
     end
+    binding.pry
   end
 
   def show
@@ -26,14 +28,14 @@ class CouchesController < ApplicationController
   private
 
   def apply_search_filter
-    @couches = @couches.search(params[:query])
+    @active_couches = @active_couches.search(params[:query])
   end
 
   def apply_characteristics_filter
-    @couches = @couches.joins(user: { user_characteristics: :characteristic })
-                       .where(characteristics: { id: params[:characteristics] })
-                       .group('couches.id')
-                       .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+    @active_couches = @active_couches.joins(user: { user_characteristics: :characteristic })
+                                     .where(characteristics: { id: params[:characteristics] })
+                                     .group('couches.id')
+                                     .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
   end
 
   def apply_offers_filter
@@ -44,6 +46,6 @@ class CouchesController < ApplicationController
     offers_conditions[:offers_couch] = true if params[:offers_couch]
     offers_conditions[:travelling] = false
 
-    @couches = @couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+    @active_couches = @active_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end
