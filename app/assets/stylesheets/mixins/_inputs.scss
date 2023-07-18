@@ -83,6 +83,11 @@
 	margin-left: 0.5rem;
 	font-size: .75rem;
 	letter-spacing: .06em;
+
+	&--photo {
+		width: 200px;
+		margin-top: 1rem;
+	}
 }
 
 input, select { @include input-field; }

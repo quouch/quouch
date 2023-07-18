@@ -2,6 +2,11 @@
 	background-color: $primary-transparent;
 	margin-top: 4rem;
 
+	h1 {
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+	
 	label {
 		@include body-2;
 
