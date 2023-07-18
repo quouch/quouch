@@ -122,7 +122,7 @@
 		</div>
 		<ul class="reviews">
 			<% @reviews.each do |review| %>
-			<li class="review">
+			<li class="review review--card">
 				<div class="review__details">
 				<% if review.user.photo.key %>
 					<%= cl_image_tag review.user.photo.key, class: 'review__image' %>
