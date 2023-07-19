@@ -23,7 +23,7 @@
                         error: false,
                         required: false %>
           </div>
-          <p class="hint hint--photo">To use Quouch, a profile picture, on which you are clearly visible, is required</p>
+          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
             <%= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
@@ -128,7 +128,6 @@
           <% end %>
 
           <div class="user__characteristics">
-
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                              Characteristic.find_each,

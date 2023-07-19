@@ -23,6 +23,7 @@
                         label: 'Upload a photo',
                         error: false %>
           </div>
+          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
           <%= f.error :photo, class: 'form-error form-error-photo' %>
         </div>
 
@@ -118,15 +119,18 @@
           <%= f.error       :about_me, class: 'form-error' %>
 
 
-          <%= f.label :characteristics %>
-          <%= f.error :characteristics,
-                      class: 'form-error form-error-characteristics' %>
+          <%= f.label :characteristics, required: true %>
+          <% if @user.errors[:user_characteristics].any? %>
+            <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+          <% end %>
+
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
                                             Characteristic.find_each,
                                             :id, :name,
                                             checked: @user.characteristic_ids,
+                                            error: false,
                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
@@ -251,7 +255,7 @@
     </div>
 
     <div class="user__submit">
-      <%= f.button :submit, "Update" %>
+      <%= f.button :submit, 'Update' %>
     </div>
   <% end %>
 
