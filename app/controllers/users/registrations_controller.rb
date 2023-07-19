@@ -31,6 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     create_couch_facilities
 
     create_user_characteristics
+    resource.save
     super
     disable_offers_if_travelling
   end
@@ -78,7 +79,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create_user_characteristics
     @user.user_characteristics.destroy_all
-    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
+    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?)
+                                                                  .map { |id| { characteristic_id: id } }
     @user.user_characteristics.build(chars_hash)
   end
 
