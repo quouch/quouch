@@ -253,6 +253,8 @@
 		&-link {
 			@include input-field;
 			@include tertiary-button;
+
+			background-color: transparent;
 		}
 	}
 

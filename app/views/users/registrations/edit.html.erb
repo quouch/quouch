@@ -261,6 +261,6 @@
 
   <div class="user__cancel">
     <p>Unhappy?</p>
-    <%= link_to 'Delete account', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete, class: 'user__cancel-link' %>
+    <%= button_to 'Delete account', user_registration_path, form: { data: { turbo_confirm: "Are you sure?" } }, method: :delete, class: 'user__cancel-link' %>
   </div>
 </section>
