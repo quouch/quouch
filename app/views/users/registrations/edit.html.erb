@@ -1,5 +1,6 @@
 <section class="user">
   <h1>Edit Profile</h1>
+  <%= link_to 'Take a peek at my own profile', couch_path(current_user.couch), class: 'user__header-link' %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
 
     <div>

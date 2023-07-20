@@ -3,6 +3,7 @@
 	margin-top: 4rem;
 
 	h1 {
+		margin-bottom: .5rem;
 		margin-right: 1rem;
 		margin-left: 1rem;
 	}
@@ -12,6 +13,13 @@
 
 		margin: 1rem 0;
 		text-transform: uppercase;
+	}
+
+	&__header-link {
+		@include tertiary-button;
+
+		display: block;
+		text-align: center; 
 	}
 
 	&__form {
