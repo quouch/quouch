@@ -11,13 +11,13 @@
 
         <div class="form-inputs">
           <%= f.input :password,
-                      label: "New password",
+                      placeholder: 'New password',
                       autofocus: true,
                       hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                      input_html: { autocomplete: "new-password" } %>
+                      input_html: { autocomplete: 'new-password' } %>
           <%= f.input :password_confirmation,
-                      label: "Confirm your new password",
-                      input_html: { autocomplete: "new-password" } %>
+                      placeholder: 'Confirm your new password',
+                      input_html: { autocomplete: 'new-password' } %>
         </div>
 
         <div class="signin__button form-actions">
