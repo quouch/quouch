@@ -133,6 +133,8 @@ class BookingsController < ApplicationController
 	def complete
 		@booking = Booking.find(params[:id])
 		@booking.completed!
+		BookingMailer.with(booking: @booking).booking_completed_guest_email.deliver_later
+		BookingMailer.with(booking: @booking).booking_completed_host_email.deliver_later
 		redirect_to booking_path(@booking)
 	end
 

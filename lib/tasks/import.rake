@@ -6,34 +6,33 @@ Profile = Airrecord.table('keyrIce3j9tcNJk4g', 'appDpsZBMpBy9wBuf', 'Profiles')
 namespace :import do
 	desc 'Import users from Airtable'
 
-	task :import => :environment do
+	task import: :environment do
 		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
 			break if _index >= 100
-			p row
+
 			user = User.new
 			user.email = row['Email']
 			user.password = '123456'
-			user.first_name = row['First Name'].capitalize if !row['First Name'].nil?
-			user.last_name = row['Last Name'].capitalize if !row['Last Name'].nil?
-			user.pronouns = row['Pronouns'].downcase if !row['Pronouns'].nil?
+			user.first_name = row['First Name'].capitalize unless row['First Name'].nil?
+			user.last_name = row['Last Name'].capitalize unless row['Last Name'].nil?
+			user.pronouns = row['Pronouns'].downcase unless row['Pronouns'].nil?
 			user.summary = row['Summary']
 			user.question_one = row['This makes me really happy']
 			user.question_two = row["What I can't stand"]
 			user.question_three = row['When you live at my place, I appreciate....']
 			user.question_four = row['What I mostly need right now from the people around me']
-			add_offers(row['I can ...'], user) if !row['I can ...'].nil?
-			user.date_of_birth = row['Birthdate'] if !row['Birthdate'].nil?
-			user.country = row['Country'].strip.titleize if !row['Country'].nil?
-			user.city = row['City'].strip.titleize if !row['City'].nil?
+			add_offers(row['I can ...'], user) unless row['I can ...'].nil?
+			user.date_of_birth = row['Birthdate'] unless row['Birthdate'].nil?
+			user.country = row['Country'].strip.titleize unless row['Country'].nil?
+			user.city = row['City'].strip.titleize unless row['City'].nil?
 			user.address = "#{user.city}, #{user.country}"
 			user.invite_code = row['Invitation Code']
 			invited_by = row['Used Invite Code']
-			user.invited_by_id = find_user(invited_by) if !invited_by.nil?
-			user.characteristics = create_user_characteristics(row['Filter'], user) if !row['Filter'].nil?
+			user.invited_by_id = find_user(invited_by) unless invited_by.nil?
+			user.characteristics = create_user_characteristics(row['Filter'], user) unless row['Filter'].nil?
 			photo_url = row['Profile Picture']
 			attach_image(photo_url, user)
 			user.save!(validate: false)
-			p User.count
 			couch = Couch.new(user_id: user.id)
 			couch.save!(validate: false)
 		end
@@ -87,11 +86,12 @@ namespace :import do
 		row.each do |char|
 			characteristic = Characteristic.find_by(name: char)
 			next if characteristic.nil?
+
 			characteristics << characteristic
-      usercharacteristic = UserCharacteristic.create(user_id: user.id, characteristic_id: characteristic.id)
-     	usercharacteristics << usercharacteristic
-    end
-   	characteristics
+			usercharacteristic = UserCharacteristic.create(user_id: user.id, characteristic_id: characteristic.id)
+			usercharacteristics << usercharacteristic
+		end
+		characteristics
 	end
 
 	def add_offers(row, user)
