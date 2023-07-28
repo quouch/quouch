@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'tempfile'
 
-Profile = Airrecord.table('keydvfoifnj4Bugys', 'appDpsZBMpBy9wBuf', 'Profiles')
+Profile = Airrecord.table(ENV.fetch('AIRTABLE_KEY'), ENV.fetch('AIRTABLE_APP_KEY'), 'Profiles')
 
 namespace :import do
 	desc 'Import users from Airtable'
