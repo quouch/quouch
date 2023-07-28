@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
     @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
                               .page(params[:page])
-                              .per(30)
+                              .per(31)
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
