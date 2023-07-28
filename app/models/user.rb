@@ -32,7 +32,7 @@ class User < ApplicationRecord
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates_associated :characteristics, message: 'Let others know what is important to you'
   validate  :validate_user_characteristics
-  validate  :validate_age, on: %i[create update]
+  validate  :validate_age, on: %i[create update], if: -> { !encrypted_password_changed? }
   validate  :validate_travelling
 
   geocoded_by :address
