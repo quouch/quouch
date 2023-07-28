@@ -32,7 +32,7 @@ class User < ApplicationRecord
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates_associated :characteristics, message: 'Let others know what is important to you'
   validate  :validate_user_characteristics
-  validate  :validate_age, on: %i[create update], if: -> { !encrypted_password_changed? }
+  validate  :validate_age
   validate  :validate_travelling
 
   geocoded_by :address
@@ -97,5 +97,22 @@ class User < ApplicationRecord
 
   def validate_user_characteristics
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
+  end
+
+  def reset_password(new_password, new_password_confirmation)
+    if new_password.present?
+      self.password = new_password
+      self.password_confirmation = new_password_confirmation
+      return true if save
+  
+      password_valid = (errors.messages.keys & [:password, :password_confirmation]).blank?
+      if password_valid
+        errors.clear
+        save(validate: false)
+      end
+    else
+      errors.add(:password, :blank)
+      false
+    end
   end
 end
