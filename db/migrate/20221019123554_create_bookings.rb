@@ -6,7 +6,6 @@ class CreateBookings < ActiveRecord::Migration[7.0]
       t.integer :status
       t.date :booking_date
       t.date :cancellation_date
-      t.integer :nights
       t.float :total_amount
       t.references :couch, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
