@@ -1,7 +1,8 @@
 require 'open-uri'
 require 'tempfile'
+require 'dotenv/tasks'
 
-Profile = Airrecord.table(ENV.fetch('AIRTABLE_KEY'), ENV.fetch('AIRTABLE_APP_KEY'), 'Profiles')
+Profile = Airrecord.table(ENV['AIRTABLE_KEY'], ENV['AIRTABLE_APP_KEY'], 'Profiles')
 
 namespace :import do
 	desc 'Import users from Airtable'
@@ -36,6 +37,8 @@ namespace :import do
 			couch = Couch.new(user_id: user.id)
 			couch.save!(validate: false)
 		end
+
+		puts "Import finished. #{User.count} users created."
 	end
 
 	def attach_image(photo_url, user)
