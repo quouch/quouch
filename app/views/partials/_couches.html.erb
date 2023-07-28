@@ -1,77 +1,75 @@
 <div data-characteristics-filter-target="couches">
 	<ul class="couches__list" data-characteristics-filter-target="couches">
 		<% couches.to_a.shuffle.each do |couch| %>
-			<li class="couches__list-item">
-				<article class="couches__list-article">
-					<%= link_to couch_path(couch) do %>
-						<% if couch.user.photo.key %>
+			<% if couch.user.photo.key %>
+				<li class="couches__list-item">
+					<article class="couches__list-article">
+						<%= link_to couch_path(couch) do %>
 							<%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>
-						<% else %>
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couches__image') %>
 						<% end %>
-					<% end %>
-					<div class="couches__content">
-						<ul class="couches__features features">
-							<% couch.user.characteristics.each  do |characteristic| %>
-								<li><%= characteristic.name %></li>
-							<% end %>
-						</ul>
-						<div class="couches__content-wrap">
-							<ul class="couches__offers offers">
-								<% if couch.user.travelling %>
-									<li class="offers-item">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
-										<p>currently travelling</p>
-									</li>
-								<% else %>
-									<% if couch.user.offers_couch %>
-										<li class="offers-item">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
-											<p>host</p>
-										</li>
-									<% end %>
-									<% if couch.user.offers_hang_out %>
-										<li class="offers-item">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
-											<p>hangout</p>
-										</li>
-									<% end %>
-									<% if couch.user.offers_co_work %>
-										<li class="offers-item">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-											<p>cowork</p>
-										</li>
-									<% end %>
+						<div class="couches__content">
+							<ul class="couches__features features">
+								<% couch.user.characteristics.each  do |characteristic| %>
+									<li><%= characteristic.name %></li>
 								<% end %>
 							</ul>
-							<div class="couches__details">
-								<div>
-									<h2 class="couches__name">
-										<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
-									</h2>
-									<p class="couches__characteristics">
-										<%= couch.user.calculated_age if couch.user.date_of_birth %> ⋅ <%= couch.user.pronouns %>
-									</p>
-									<p class="couches__location">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-										<% if couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
-											<%= couch.user.city %>, United Kingdom
-										<% else %>
-											<%= couch.user.city %>, <%= couch.user.country %>
+							<div class="couches__content-wrap">
+								<ul class="couches__offers offers">
+									<% if couch.user.travelling %>
+										<li class="offers-item">
+											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+											<p>currently travelling</p>
+										</li>
+									<% else %>
+										<% if couch.user.offers_couch %>
+											<li class="offers-item">
+												<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+												<p>host</p>
+											</li>
 										<% end %>
-									</p>
+										<% if couch.user.offers_hang_out %>
+											<li class="offers-item">
+												<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+												<p>hangout</p>
+											</li>
+										<% end %>
+										<% if couch.user.offers_co_work %>
+											<li class="offers-item">
+												<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+												<p>cowork</p>
+											</li>
+										<% end %>
+									<% end %>
+								</ul>
+								<div class="couches__details">
+									<div>
+										<h2 class="couches__name">
+											<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
+										</h2>
+										<p class="couches__characteristics">
+											<%= couch.user.calculated_age if couch.user.date_of_birth %> ⋅ <%= couch.user.pronouns %>
+										</p>
+										<p class="couches__location">
+											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+											<% if couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+												<%= couch.user.city %>, United Kingdom
+											<% else %>
+												<%= couch.user.city %>, <%= couch.user.country %>
+											<% end %>
+										</p>
+									</div>
+									<% if couch.reviews.any? %>
+										<p class="couches__rating">
+											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
+											<%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
+										</p>
+									<% end %>
 								</div>
-								<% if couch.reviews.any? %>
-									<p class="couches__rating">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
-										<%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
-									</p>
-								<% end %>
 							</div>
 						</div>
-					</div>
-				</article>
-			</li>
+					</article>
+				</li>
+			<% end %>
 		<% end %>
 	</ul>
 	<%= paginate @active_couches, remote: true %>

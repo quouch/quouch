@@ -2,7 +2,12 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about search_city]
 
   def home
-    @couches = Couch.where.not(user: current_user)
+    @couches = Couch.joins(:user)
+                    .where.not(users: { first_name: nil })
+                    .where.not(users: { city: nil })
+                    .where.not(users: { country: nil })
+                    .where.not(user: current_user)
+
     @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
                               .page(params[:page])
                               .per(30)
