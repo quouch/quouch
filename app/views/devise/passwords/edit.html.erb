@@ -6,20 +6,6 @@
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
         <%= f.error_notification %>
 
-          <% if resource.errors.any? %>
-            <div>
-              <div>
-                <%= pluralize(resource.errors.count, "error") %> prohibited this page from being saved:
-              </div>
-
-              <ul>
-                <% resource.errors.each do |error| %>
-                  <li><%= error.full_message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-
         <%= f.input :reset_password_token, as: :hidden %>
         <%= f.error :reset_password_token %>
 
