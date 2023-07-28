@@ -23,9 +23,9 @@ class User < ApplicationRecord
   validates :photo, presence: { message: 'Please upload a picture' }
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
-  validates :date_of_birth, presence: { message: 'Please provide your age' }
+  validates :date_of_birth, presence: { message: 'Please provide your age' }, unless: :encrypted_password_changed?
   validates :address, presence: { message: 'Address required' }
-  validates :zipcode, presence: { message: 'Zipcode required' }
+  validates :zipcode, presence: { message: 'Zipcode required' }, unless: :encrypted_password_changed?
   validates :city, presence: { message: 'City required' }
   validates :country, presence: { message: 'Country required' }
   validates :summary, presence: { message: 'Tell the community about you' },
@@ -97,20 +97,5 @@ class User < ApplicationRecord
 
   def validate_user_characteristics
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
-  end
-
-  def reset_password!(new_password, new_password_confirmation)
-    self.password = new_password
-    self.password_confirmation = new_password_confirmation
-
-    validates_presence_of     :password
-    validates_confirmation_of :password
-    validates_length_of       :password, within: Devise.password_length, allow_blank: true
-
-    if errors.empty?
-      clear_reset_password_token
-      after_password_reset
-      save(validate: false)
-    end
   end
 end
