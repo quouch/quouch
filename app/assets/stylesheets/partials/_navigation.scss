@@ -11,5 +11,9 @@
 		a:hover { color: $primary-light; }
 	}
 
-	&__link { @include nav-title; }
+	&__link {
+		@include nav-title;
+		
+		&--donation { @media (max-width: $break-large) { display: none; } }
+	}
 }
