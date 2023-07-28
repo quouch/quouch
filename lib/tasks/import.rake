@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'tempfile'
-require 'dotenv/tasks'
 
 Profile = Airrecord.table(ENV['AIRTABLE_KEY'], ENV['AIRTABLE_APP_KEY'], 'Profiles')
 
