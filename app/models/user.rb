@@ -32,7 +32,7 @@ class User < ApplicationRecord
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates_associated :characteristics, message: 'Let others know what is important to you'
   validate  :validate_user_characteristics
-  validate  :validate_age
+  validate  :validate_age, unless: :encrypted_password_changed?
   validate  :validate_travelling
 
   geocoded_by :address
@@ -99,20 +99,18 @@ class User < ApplicationRecord
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
   end
 
-  def reset_password(new_password, new_password_confirmation)
-    if new_password.present?
-      self.password = new_password
-      self.password_confirmation = new_password_confirmation
-      return true if save
-  
-      password_valid = (errors.messages.keys & [:password, :password_confirmation]).blank?
-      if password_valid
-        errors.clear
-        save(validate: false)
-      end
-    else
-      errors.add(:password, :blank)
-      false
+  def reset_password!(new_password, new_password_confirmation)
+    self.password = new_password
+    self.password_confirmation = new_password_confirmation
+
+    validates_presence_of     :password
+    validates_confirmation_of :password
+    validates_length_of       :password, within: Devise.password_length, allow_blank: true
+
+    if errors.empty?
+      clear_reset_password_token
+      after_password_reset
+      save(validate: false)
     end
   end
 end
