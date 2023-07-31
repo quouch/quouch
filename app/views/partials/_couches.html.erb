@@ -72,5 +72,5 @@
 			<% end %>
 		<% end %>
 	</ul>
-	<%= paginate @active_couches, remote: true %>
+	<%= paginate @active_couches, remote: true, params: params.permit.merge({ controller: :pages, action: :home }) %>
 </div>
