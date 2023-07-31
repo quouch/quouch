@@ -3,7 +3,6 @@ puts 'destroying & seeding characteristics...'
 Characteristic.destroy_all
 
 Characteristic.create!(name: 'Trans Only')
-Characteristic.create!(name: 'Party Lover')
 Characteristic.create!(name: 'BIPOC Only')
 Characteristic.create!(name: 'Non-Smoker')
 Characteristic.create!(name: 'SW Friendly')

@@ -92,7 +92,7 @@
 							</li>
 							<% if booking.reviews.find_by(user: booking.user).nil? %>
 							<li class="past-booking__link">
-								<%= link_to "See Details & Leave Review", booking_path(booking) %>
+								<%= link_to "Leave Review", booking_path(booking) %>
 							</li>
 							<% else %>
 							<li class="past-booking__link">
