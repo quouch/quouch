@@ -22,10 +22,7 @@
 		margin-left: 2rem;
 	}
 
-	&__numbered-list {
-		list-style: lower-alpha;
-		margin-left: 2rem;
-	}
+	&__numbered-list { margin: 0 0 2rem 2rem; }
 	
 	&__title {
 		@include title-3;
@@ -43,3 +40,4 @@
 }
 
 .faq-link { text-decoration: underline; }
+#numbered { list-style: decimal; }
