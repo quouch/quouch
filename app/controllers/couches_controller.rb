@@ -2,6 +2,10 @@ class CouchesController < ApplicationController
   def index
     # repeating code from home controller as a quick performance fix
     @active_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+                           .where.not(user: current_user)
+                           .where.not(users: { first_name: nil })
+                           .where.not(users: { city: nil })
+                           .where.not(users: { country: nil })
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
