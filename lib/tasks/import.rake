@@ -8,7 +8,7 @@ namespace :import do
 
 	task import: :environment do
 		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
-			break if _index >= 100
+			# break if _index >= 100
 
 			user = User.new
 			user.email = row['Email']
