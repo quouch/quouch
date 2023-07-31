@@ -102,9 +102,7 @@
 	border-radius: $border-radius-medium;
 	box-shadow: $box-shadow;
 
-	@media (min-width: $break-medium) {
-		margin: 0;
-	}
+	@media (min-width: $break-medium) { margin: 0; }
 	
 	&__profile {
 		width: 40%;
