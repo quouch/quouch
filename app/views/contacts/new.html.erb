@@ -2,41 +2,27 @@
 	<% if user_signed_in? %>
 	<h1 class="contact__header">Contact the Quouch Team</h1>
 	<div class="contact__wrap">
-		<h2 class="contact__subtitle">How can we help you?</h2>
-		<p>We have gathered most commonly asked questions in your FAQ section. Couldn't find the answer to your question? Send us a message!</p>
-		<p>Your host/guest didn't feel so safe after all? SEND US A MESSAGE!</p>
-		<p>You experienced technical issues or something in the app bothers you and you would like to suggest an improvement? Send us a message!</p>
-		<p>General feedback? Send us a message!</p>
+		<h2 class="contact__subtitle">Say hi</h2>
+		<p>We would love to hear from you!</p>
 	<% else %>
 	<h1 class="contact__header">Request invite code</h1>
 	<div class="contact__wrap">
 		<h2 class="contact__subtitle">Tell us more about you and your motivation to become a part of Quouch or just say hi!</h2>
 	<% end %>
 	<%= simple_form_for @contact do |f| %>
-		<% if @contact.errors.any? %>
-			<div>
-				<div>
-					<%= pluralize(@contact.errors.count, "error") %> prohibited this page from being saved:
-				</div>
-
-				<ul>
-					<% @contact.errors.each do |error| %>
-						<li><%= error.full_message %></li>
-					<% end %>
-				</ul>
-			</div>
-		<% end %>
 
 		<div class="contact__contact">
 			<div class="contact__input">
 				<%= f.label      :name %>
 				<%= f.text_field :name,
 												 placeholder: 'Full Name' %>
+				<%= f.error :name, class: 'form-error' %>
 			</div>
 			<div class="contact__input">
 				<%= f.label       :email %>
 				<%= f.email_field :email,
 													placeholder: 'Email Address' %>
+				<%= f.error :email, class: 'form-error' %>
 			</div>
 		</div>
 
@@ -44,8 +30,10 @@
 			<%= f.label :message %>
 			<%= f.input :message,
 									as: :text,
+									error: false,
 									label: false,
 									input_html: { rows: 8 } %>
+			<%= f.error :message, class: 'form-error' %>
 		</div>
 
 		<div class="display-none">
