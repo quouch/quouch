@@ -126,6 +126,7 @@ class BookingsController < ApplicationController
 
 	def decline
 		if @booking.declined!
+			redirect_to requests_couch_bookings_path(@booking.couch)
 			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 		end
 	end
