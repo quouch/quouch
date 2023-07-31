@@ -120,7 +120,6 @@ class BookingsController < ApplicationController
 	def accept
 		if @booking.confirmed!
 			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
-			redirect_to confirmed_booking_path(@booking)
 		end
 	end
 
