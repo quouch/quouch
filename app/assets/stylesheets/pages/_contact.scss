@@ -14,12 +14,18 @@
 		
 		@media (min-width: $break-large) { @include container-small; }
 		
-		> p { @include title-5; }
+		> p {
+			@include title-5;
+			
+			margin-bottom: 2rem;
+			text-align: center;
+		}
 	}
 
 	&__subtitle {
 		@include title-2;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
+		text-align: center;
 	}
 
 	&__contact {
