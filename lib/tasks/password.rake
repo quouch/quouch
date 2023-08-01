@@ -6,6 +6,7 @@ namespace :password do
 			unless user.confirmed?
 				user.confirm
 				user.reset_password('abc123', 'abc123')
+				sleep 1
 				user.send_reset_password_instructions
 				p "password instruction sent to #{user.id}"
 			end
