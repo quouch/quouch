@@ -39,7 +39,11 @@ Rails.application.routes.draw do
     resources :messages, only: %i[create]
   end
 
-  resources :contacts, only: %i[new create]
+  resources :contacts, only: %i[new create] do
+    collection do
+      get :code
+    end
+  end
 
   mount ActionCable.server => '/cable'
 

@@ -2,18 +2,29 @@
 	<div class="footer__wrap">
 		<div class="footer__top">
 			<div class="footer__about">
-			<h3>About us</h3>
-			<ul class="footer__links">
-				<li>
-					<%= link_to 'About', about_path %>
-				</li>
-				<li>
-					<%= link_to 'FAQ', faq_path %>
-				</li>
-				<li>
-					<%= link_to 'Contact Us', new_contact_path %>
-				</li>
-			</ul>
+				<h3>About us</h3>
+				<ul class="footer__links">
+					<li>
+						<%= link_to 'About', about_path %>
+					</li>
+					<li>
+						<%= link_to 'FAQ', faq_path %>
+					</li>
+					<li>
+						<%= link_to 'Get Invite Code', code_contacts_path %>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h3>Safety</h3>
+				<ul class="footer__links">
+					<li>
+						<%= link_to 'Safety Advice', safety_path %>
+					</li>
+					<li>
+						<%= link_to 'Guidelines', guidelines_path %>
+					</li>
+				</ul>
 			</div>
 			<div class="footer__legal">
 				<h3>Legal</h3>
@@ -23,6 +34,9 @@
 					</li>
 					<li>
 						<%= link_to 'Impressum', impressum_path %>
+					</li>
+					<li>
+						<%= link_to 'Contact Us', new_contact_path %>
 					</li>
 				</ul>
 			</div>
