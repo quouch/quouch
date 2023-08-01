@@ -68,8 +68,8 @@
                               value: params[:user]&.dig(:pronouns) %>
 
           <div class="user__address">
-              <p class="hint">We mainly need your address for billing - other users will only see city & country until you officially confirm a request to host</p>
-              <div class="user__address-street">
+            <p class="hint">We mainly need your address for billing - other users will only see city & country until you officially confirm a request to host</p>
+            <div class="user__address-street">
               <%= f.label :address, class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
@@ -77,8 +77,8 @@
                           value: params[:user]&.dig(:address),
                           input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
-              </div>
-              <%= f.error         :address, class: 'form-error' %>
+            </div>
+            <%= f.error         :address, class: 'form-error' %>
             <div class="user__address-city">
               <div>
                 <div class="user__address-wrap">
@@ -122,7 +122,8 @@
                             value: params[:user]&.dig(:summary) %>
           <%= f.error       :summary, class: 'form-error' %>
 
-          <%= f.label :characteristics, required: true %>
+          <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
+          <p class="hint">When using the filters - think <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender. <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong></p>
           <% if @user.errors[:user_characteristics].any? %>
             <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
           <% end %>

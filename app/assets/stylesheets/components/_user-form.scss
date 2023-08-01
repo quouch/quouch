@@ -159,7 +159,7 @@
 	&__characteristics {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		margin-bottom: 1rem;
+		margin: 1rem 0;
 
 		span {
 			label {
@@ -305,3 +305,5 @@
 		bottom: 0;
 	}
 }
+
+#user__characteristics-title { margin-bottom: .3rem; }
