@@ -11,7 +11,7 @@ namespace :import do
 		# User.destroy_all
 		# puts 'All users destroyed..'
 
-		Profile.all(sort: { 'CreatedDate' => 'asc' })[1005..].each_with_index do |row, _index|
+		Profile.all(sort: { 'CreatedDate' => 'asc' })[2553..].each_with_index do |row, _index|
 			# break if _index >= 100
 
 			user = User.new
