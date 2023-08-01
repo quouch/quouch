@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'tempfile'
 
-Profile = Airrecord.table('keydvfoifnj4Bugys', 'appDpsZBMpBy9wBuf', 'Profiles')
+Profile = Airrecord.table('', '', 'Profiles')
 
 namespace :import do
 	desc 'Import users from Airtable'
@@ -11,7 +11,7 @@ namespace :import do
 		# User.destroy_all
 		# puts 'All users destroyed..'
 
-		Profile.all(sort: { 'CreatedDate' => 'asc' })[2553..].each_with_index do |row, _index|
+		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
 			# break if _index >= 100
 
 			user = User.new
