@@ -17,7 +17,11 @@ class ContactsController < ApplicationController
 			redirect_to root_path
 		else
 			flash[:alert] = 'Could not send message, please try again'
-			render :new, status: :unprocessable_entity
+			if params[:contact][:type] == 'code'
+				render :code, status: :unprocessable_entity
+			else
+				render :new, status: :unprocessable_entity
+			end
 		end
 	end
 end
