@@ -7,8 +7,7 @@ namespace :password do
 				user.confirm
 				user.reset_password('abc123', 'abc123')
 				sleep 1
-				user.send_reset_password_instructions
-				p "password instruction sent to #{user.id}"
+				p "password instruction sent to #{user.id}" if user.send_reset_password_instructions
 			end
 		end
 	end
