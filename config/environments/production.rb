@@ -64,7 +64,7 @@ Rails.application.configure do
 
   host = 'quouch.herokuapp.com'
   config.action_mailer.default_url_options = { host: }
-  config.action_mailer.default_options = { from: 'nora@quouch-app.com' }
+  config.action_mailer.default_options = { from: 'lisbeth@quouch-app.com' }
   # Don't care if the mailer can't send.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
