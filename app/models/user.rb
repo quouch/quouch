@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include PgSearch::Model
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
 
   has_one_attached :photo
   has_one :couch, dependent: :destroy, autosave: true
