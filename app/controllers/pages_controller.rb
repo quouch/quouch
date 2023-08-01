@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[home about search_city]
+  skip_before_action :authenticate_user!, only: %i[home about search_city faq guidelines safety privacy impressum]
 
   def home
     @couches = Couch.joins(:user)
