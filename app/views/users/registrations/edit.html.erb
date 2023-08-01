@@ -89,7 +89,8 @@
               </div>
               <div class="user__address-wrap user__address-wrap--city">
                 <%= f.label       :city,
-                                  class: 'user__address-label' %>
+                                  class: 'user__address-label',
+                                  required: true %>
                 <%= f.text_field  :city,
                                   required: true,
                                   value: @user.city,
@@ -102,6 +103,7 @@
 
             <div class="user__address-country">
               <%= f.label :country,
+                          required: true,
                           class: 'user__address-label' %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
