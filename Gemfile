@@ -9,6 +9,8 @@ gem 'devise'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
 
+gem 'dotenv-rails'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -92,7 +94,6 @@ gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 
 gem 'kaminari'
 
-gem 'dotenv-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
