@@ -68,7 +68,6 @@
 			<div class="home__banner-wrap">
 				<div>
 					<h1>Quouch</h1>
-					<p class="home__banner-subtitle">Couch-surfing for queer people and women</p>
 				</div>
 				<div class="home__banner-button">
 					<%= link_to 'Log in', new_user_session_path, class: 'home__banner-secondary' %>
@@ -76,7 +75,7 @@
 				</div>
 			</div>
 		</div>
-		<section class="home__numbers">
+		<section class="home__numbers" data-controller="home-modal">
 			<div class="home__numbers-wrap">
 				<h2 class="home__subtitle">Find your queer couch</h3>
 				<p>Quouch is the newest couch-surfing platform for queer people and women to explore the world safely while finding community.</p>
@@ -98,7 +97,7 @@
 						</li>
 						<li class="home__list-item">
 							<div>
-								<p>2000+</p>
+								<p>3000+</p>
 								<p>Users</p>
 							</div>
 							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/users-landing.svg') %>
@@ -113,24 +112,21 @@
 				<div class="home__slider">
 					<ul class="home__slider-list">
 						<li class="home__card">
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
 							<div>
-								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-								<p><strong>Laura, Valencia</strong></p>
+								<blockquote>We were traveling in Switzerland, Austria and Slovenia. Thanks to Quouch, we found an amazing queer collective of 7 (plus two cute cats) who share their house in Vienna. They very kindly opened their house to us, where we stayed for a few days. This would have been almost impossible without Quouch putting us in contact, it was amazing! The general vibe af all the messages we got through the app, even the ones who couldn’t host is, was so respectful and it felt really safe.</blockquote>
+								<p><strong>Pablo & Fede</strong></p>
 							</div>
 						</li>
 						<li class="home__card">
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
 							<div>
-								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-								<p><strong>Laura, Valencia</strong></p>
+								<blockquote>I found Quouch when I needed it most! I had only found somewhere to stay in Berlin for half the time I planned to spend there, but then I sent a few quick messages to hosts and just like that: I had somewhere to stay. My host was incredibly kind. They offered to meet me beforehand and it felt like I was meeting up with old friends. There are truly no strangers in the Quouch community, only friends that are excited to meet you.</blockquote>
+								<p><strong>Theo</strong></p>
 							</div>
 						</li>
 						<li class="home__card">
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
 							<div>
-								<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-								<p><strong>Laura, Valencia</strong></p>
+								<blockquote>I was traveling on my own in Berlin for the first time a couple of months ago, and finding a stay through Quouch was a major highlight. My host was away the weekend that I requested, but she very generously provided me with her own beautiful room, full of plants and light, in an apartment of lovely friends. I've been traveling for a long time now, and having a stay that felt so safe and welcoming was a true gift of comfort. Thanks so much to Quouch! When I return back home, I look forward to paying it forward and using Quouch to meet other queer friends from around the world :)</blockquote>
+								<p><strong>Hannah</strong></p>
 							</div>
 						</li>
 					</ul>
@@ -164,42 +160,6 @@
 						</div>
 					</li>
 				</ul>
-			</div>
-		</section>
-		<section class="home__voices">
-			<div class="home__voices-wrap">
-				<h2 class="home__subtitle">Check us out</h2>
-				<div class="home__slider">
-					<ul class="home__slider-list">
-						<%= link_to '' do %>
-							<li class="home__card">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-								<div>
-									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-									<p><strong>Siegessäule, Berlin Queer Magazine</strong></p>
-								</div>
-							</li>
-						<% end %>
-						<%= link_to '' do %>
-							<li class="home__card">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-								<div>
-									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-									<p><strong>L.Mag, Lesbian Magazine</strong></p>
-								</div>
-							</li>
-						<% end %>
-						<%= link_to '' do %>
-							<li class="home__card">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-								<div>
-									<blockquote>Lorem ipsum quote example text to see what this would look like once we added actual content.</blockquote>
-									<p><strong>QX, London Queer Magazine</strong></p>
-								</div>
-							</li>
-						<% end %>
-					</ul>
-				<div>
 			</div>
 		</section>
 		<section class="home__logos">
