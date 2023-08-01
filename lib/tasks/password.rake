@@ -3,9 +3,11 @@ namespace :password do
 
 	task reset: :environment do
 		User.all.each do |user|
-			user.confirm
-			user.reset_password('abc123', 'abc123')
-			user.send_reset_password_instructions
+			if !user.confirmed?
+				user.confirm
+				user.reset_password('abc123', 'abc123')
+				user.send_reset_password_instructions
+			end
 		end
 	end
 end
