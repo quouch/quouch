@@ -1,6 +1,6 @@
 class ReviewMailer < ApplicationMailer
 	before_action :set_booking_details
-	default from: 'dev.quouch@gmail.com'
+	default from: 'hello.quouch@gmail.com'
 
 	def new_review_host_email
 		mail(to: @host.email, subject: "Your guest #{@guest.first_name.capitalize} left you a review")
