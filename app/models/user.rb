@@ -4,7 +4,7 @@ class User < ApplicationRecord
   include PgSearch::Model
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable
 
   has_one_attached :photo
   has_one :couch, dependent: :destroy, autosave: true
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   validates :photo, presence: { message: 'Please upload a picture' }
   validates :first_name, presence: { message: 'First name required' }
   validates :last_name, presence: { message: 'Last name required' }
-  validates :date_of_birth, presence: { message: 'Please provide your age' }, unless: :encrypted_password_changed?
+  validates :date_of_birth, presence: { message: 'Please provide your age' }
   validates :address, presence: { message: 'Address required' }
   validates :zipcode, presence: { message: 'Zipcode required' }, unless: :encrypted_password_changed?
   validates :city, presence: { message: 'City required' }
@@ -32,7 +32,7 @@ class User < ApplicationRecord
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
   validates_associated :characteristics, message: 'Let others know what is important to you'
   validate  :validate_user_characteristics
-  validate  :validate_age, unless: :encrypted_password_changed?
+  # validate  :validate_age
   validate  :validate_travelling
 
   geocoded_by :address
