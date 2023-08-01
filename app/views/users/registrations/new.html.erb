@@ -112,9 +112,10 @@
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
                           error: false,
+                          required: true,
                           value: params[:user]&.dig(:country) %>
             </div>
-            <%= f.error       :country, class: 'form-error' %>
+            <%= f.error   :country, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>

@@ -106,6 +106,7 @@
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           selected: @user.country,
+                          required: true,
                           label: false %>
               <%= f.error :country, class: 'form-error' %>
             </div>
