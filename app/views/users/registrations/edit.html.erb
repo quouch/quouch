@@ -24,8 +24,8 @@
                         label: 'Upload a photo',
                         error: false %>
           </div>
-          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
           <%= f.error :photo, class: 'form-error form-error-photo' %>
+          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
         </div>
 
         <div class="user__info">
@@ -49,7 +49,7 @@
                             autofocus: true,
                             input_html: { autocomplete: 'email' } %>
           <%= f.error       :email, class: 'form-error' %>
-          <%= f.label       :date_of_birth %>
+          <%= f.label       :date_of_birth, required: true %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
@@ -224,12 +224,12 @@
           <%= f.label       :current_password, required: true, class: 'user__password-label' %>
           <%= f.input       :current_password,
                             label: false,
-                            hint: "we need your current password to make changes",
-                            input_html: { autocomplete: "current-password" },
+                            hint: 'we need your current password to make changes',
+                            input_html: { autocomplete: 'current-password' },
                             error: false %>
           <%= f.error       :current_password, class: 'form-error' %>
           <div class="user__submit">
-            <%= f.button :submit, "Update" %>
+            <%= f.button :submit, 'Update' %>
           </div>
         </div>
       </div>
