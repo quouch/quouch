@@ -224,10 +224,11 @@
 			
 			text-transform: uppercase;
 			color: $secondary;
+			font-size: 2rem;
 		}
 
 		&-list {
-			li:not(:last-child) { margin-bottom: 1rem; }
+			li:not(:last-child) { margin-bottom: 2rem; }
 			
 			&-item {
 				display: flex;
@@ -258,6 +259,11 @@
 			color: $primary;
 			text-align: center;
 			margin: 4rem auto;
+		}
+
+		&--secondary {
+			color: $secondary;
+			margin-bottom: 3rem;
 		}
 	}
 	
