@@ -22,9 +22,10 @@
 			margin-top: 3rem;
 			color: $gray-05;
 		}
+
 		@media (min-width: $break-medium) {
 			display: grid;
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(4, 1fr);
 			margin-top: 1rem;
 		}
 	}
