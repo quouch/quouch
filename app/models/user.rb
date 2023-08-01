@@ -20,20 +20,20 @@ class User < ApplicationRecord
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
 
-  validates :photo, presence: { message: 'Please upload a picture' }
-  validates :first_name, presence: { message: 'First name required' }
-  validates :last_name, presence: { message: 'Last name required' }
-  validates :date_of_birth, presence: { message: 'Please provide your age' }
-  validates :address, presence: { message: 'Address required' }
-  validates :zipcode, presence: { message: 'Zipcode required' }, unless: :encrypted_password_changed?
-  validates :city, presence: { message: 'City required' }
-  validates :country, presence: { message: 'Country required' }
+  validates :photo, presence: { message: 'Please upload a picture' }, on: :create
+  validates :first_name, presence: { message: 'First name required' }, on: :create
+  validates :last_name, presence: { message: 'Last name required' }, on: :create
+  validates :date_of_birth, presence: { message: 'Please provide your age' }, on: :create
+  validates :address, presence: { message: 'Address required' }, on: :create
+  validates :zipcode, presence: { message: 'Zipcode required' }, on: :create
+  validates :city, presence: { message: 'City required' }, on: :create
+  validates :country, presence: { message: 'Country required' }, on: :create
   validates :summary, presence: { message: 'Tell the community about you' },
-                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }
-  validates_associated :characteristics, message: 'Let others know what is important to you'
-  validate  :validate_user_characteristics
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
+  validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
+  validate  :validate_user_characteristics, on: :create
   validate  :validate_age, on: :create
-  validate  :validate_travelling
+  validate  :validate_travelling, on: :create
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
