@@ -23,8 +23,8 @@
                         error: false,
                         required: false %>
           </div>
-          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
           <%= f.error :photo, class: 'form-error form-error-photo' %>
+          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
         </div>
 
         <div class="user__info">
@@ -52,14 +52,14 @@
                             input_html: { autocomplete: 'email' },
                             value: params[:user]&.dig(:email) %>
           <%= f.error       :email, class: 'form-error' %>
-          <%= f.label       :date_of_birth %>
+          <%= f.label       :date_of_birth, required: true %>
           <div class="user__birthdate">
             <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
                               end_year: Date.today.year,
                               autofocus: true,
                               error: false,
-                            value: params[:user]&.dig(:date_of_birth) %>
+                              value: params[:user]&.dig(:date_of_birth) %>
           </div>
           <%= f.error         :date_of_birth, class: 'form-error' %>
           <%= f.input         :pronouns,
