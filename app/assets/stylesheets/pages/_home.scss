@@ -151,6 +151,8 @@
 
 		&-list {
 			display: flex;
+			height: 100%;
+			align-items: stretch;
 			gap: 1rem;
 			overflow-x: auto;
 			margin-top: 0;
@@ -166,21 +168,16 @@
 	&__card {
 		display: flex;
 		flex-direction: column;
-		min-width: 300px;
-		height: 100%;
+		min-width: 320px;
+		height: auto;
 		border-radius: $border-radius-medium;
 		background-color: $white;
 		box-shadow: $box-shadow;
-		transition: all 160ms ease-in-out;
+		padding: 2rem;
 		margin-bottom: 1rem;
 		color: $black;
 
 		@media (min-width: $break-large) { max-width: 400px; }
-		
-		&:hover {
-			transform: scale(1.04);
-			box-shadow: $box-shadow-hover;
-		}
 		
 		img {
 			width: 100%;
@@ -196,6 +193,8 @@
 		blockquote { margin-bottom: 1rem; }
 
 		@media (min-width: $break-small) { margin-bottom: 0; }
+
+		p { margin-top: auto; }
 	}
 
 	&__voices {
