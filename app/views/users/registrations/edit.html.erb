@@ -170,17 +170,16 @@
                                         error: false,
                                         autofocus: true %>
                   <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
-                  <%= f.label           :cowork %>
+                  <%= f.label           :cowork, 'Co-Work' %>
                 </div>
                 <div class="user__offer">
                   <%= f.input_field     :offers_hang_out,
                                         error: false,
                                         autofocus: true %>
                   <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
-                  <%= f.label           :hangout %>
+                  <%= f.label           :hangout, 'Hang Out' %>
                 </div>
               </div>
-            
 
               <div class="user__couch display-none" data-conditional-user-fields-target="field">
                 <%= simple_fields_for     :couch do |cf| %>
@@ -213,19 +212,15 @@
           <%= f.input_field :question_one,
                             required: true,
                             autofocus: true %>
-          <%= f.label       :what_i_cant_stand %>
+          <%= f.label       :what_i_cant_stand, "What I can't stand" %>
           <%= f.input_field :question_two,
                             required: true,
                             autofocus: true %>
-          <%= f.label       :tell_us_what_you_need_and_like %>
+          <%= f.label       :what_i_need_from_the_people_around_me %>
           <%= f.input_field :question_three,
                             required: true,
                             autofocus: true %>
-          <%= f.label       :when_you_live_at_my_place_i_appreciate %>
-          <%= f.input_field :question_four,
-                            required: true,
-                            autofocus: true %>
-          <%= f.label :current_password, required: true, class: 'user__password-label' %>
+          <%= f.label       :current_password, required: true, class: 'user__password-label' %>
           <%= f.input       :current_password,
                             label: false,
                             hint: "we need your current password to make changes",
