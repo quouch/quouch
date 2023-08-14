@@ -6,7 +6,7 @@
 			<h2>Host</h2>
 			<h3 class="sent__host">
 				<%= @couch.user.first_name %>
-				<span><%= @couch.user.pronouns.downcase %></span>
+				<span><%= @couch.user.pronouns.downcase  if @host.pronouns %></span>
 			</h3>
 			<h2>Travel Details</h2>
 			<ul class="sent__details-list">
@@ -57,7 +57,7 @@
 		<% end %>
 		</article>
 		<div class="sent__message">
-			<p >Now it is up to <%= @host.first_name %> to check the dates and your message. Once <%= @host.pronouns.downcase.split("/").first %> accepted your request, you are able to chat with <%= @host.pronouns.downcase.split("/").second %> and get in touch about open questions and things and bananas.<p>
+			<p >Now it is up to <%= @host.first_name %> to check the dates and your message. Once <%= @host.pronouns.downcase.split("/").first  if @host.pronouns %> accepted your request, you are able to chat with <%= @host.pronouns.downcase.split("/").second  if @host.pronouns %> and get in touch about open questions and things and bananas.<p>
 			<%= link_to "Keep Browsing", root_path, class: 'sent__link' %>
 		</div>
 	</div>
