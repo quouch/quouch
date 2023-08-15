@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about search_city faq guidelines safety privacy impressum terms]
+  before_action :authenticate, only: [:download_emails]
 
   def home
     @couches = Couch.joins(:user)
@@ -54,5 +55,18 @@ class PagesController < ApplicationController
     offers_conditions[:travelling] = false
 
     @active_couches = @active_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+  end
+
+  private
+
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == 'admin' && password == 'secret'
+    end
+  end
+
+  def emails
+    emails = User.pluck(:email).join('\n')
+    send_data emails, filename: 'emails.txt', type: 'text/plain'
   end
 end
