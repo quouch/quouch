@@ -57,6 +57,11 @@ class PagesController < ApplicationController
     @active_couches = @active_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 
+  def emails
+    emails = User.pluck(:email).join('\n')
+    send_data emails, filename: 'emails.txt', type: 'text/plain'
+  end
+  
   private
 
   def authenticate
@@ -65,8 +70,4 @@ class PagesController < ApplicationController
     end
   end
 
-  def emails
-    emails = User.pluck(:email).join('\n')
-    send_data emails, filename: 'emails.txt', type: 'text/plain'
-  end
 end
