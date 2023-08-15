@@ -58,10 +58,10 @@ class PagesController < ApplicationController
   end
 
   def emails
-    emails = User.pluck(:email).join('\n')
+    emails = User.pluck(:email).join(',')
     send_data emails, filename: 'emails.txt', type: 'text/plain'
   end
-  
+
   private
 
   def authenticate
@@ -69,5 +69,4 @@ class PagesController < ApplicationController
       username == 'admin' && password == 'secret'
     end
   end
-
 end
