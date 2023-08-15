@@ -16,13 +16,13 @@
                       error: false,
                       hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                       input_html: { autocomplete: 'new-password' } %>
-          <%= f.error :password %>
+          <%= f.error :password, class: 'form-error' %>
           <%= f.input :password_confirmation,
                       label: false,
                       error: false,
                       placeholder: 'Confirm your new password',
                       input_html: { autocomplete: 'new-password' } %>
-          <%= f.error :password_confirmation %>
+          <%= f.error :password_confirmation, class: 'form-error'  %>
         </div>
 
         <div class="signin__button form-actions">
