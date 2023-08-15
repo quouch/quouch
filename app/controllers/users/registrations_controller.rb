@@ -87,6 +87,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update_profile
     create_couch if @user.couch.nil?
     @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
-    @user.update(invited_by_id: @invited_by.id)
+    @user.update(invited_by_id: @invited_by.id) if @invited_by
   end
 end
