@@ -13,11 +13,13 @@
                       placeholder: 'New password',
                       autofocus: true,
                       label: false,
+                      error: false,
                       hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
                       input_html: { autocomplete: 'new-password' } %>
           <%= f.error :password %>
           <%= f.input :password_confirmation,
                       label: false,
+                      error: false,
                       placeholder: 'Confirm your new password',
                       input_html: { autocomplete: 'new-password' } %>
           <%= f.error :password_confirmation %>
