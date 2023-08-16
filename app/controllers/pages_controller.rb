@@ -1,3 +1,5 @@
+require 'csv'
+
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about search_city faq guidelines safety privacy impressum terms]
   before_action :authenticate, only: [:download_emails]
@@ -58,8 +60,14 @@ class PagesController < ApplicationController
   end
 
   def emails
-    emails = User.pluck(:email).join('\n')
-    send_data emails, filename: 'emails.txt', type: 'text/plain'
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << ['Email'] # This creates a header row
+      User.pluck(:email).each do |email|
+        csv << [email]
+      end
+    end
+
+    send_data csv_data, filename: 'emails.csv', type: 'text/csv'
   end
 
   private
