@@ -58,7 +58,7 @@ class PagesController < ApplicationController
   end
 
   def emails
-    emails = User.pluck(:email).join(',')
+    emails = User.pluck(:email).join('\n')
     send_data emails, filename: 'emails.txt', type: 'text/plain'
   end
 
