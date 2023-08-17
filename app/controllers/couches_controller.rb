@@ -12,7 +12,7 @@ class CouchesController < ApplicationController
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
-    @active_couches = @active_couches.page(params[:page]).per(31)
+    @active_couches = @active_couches.page(params[:page]).per(30)
 
     respond_to do |format|
       format.html
