@@ -1,0 +1,16 @@
+<h1>User Stats Report</h1>
+<h2>Total Users</h2>
+<p><%= @total_users %></p>
+<h2>Users per City</h2>
+<ol>
+	<% @users_per_city.each do |city| %>
+		<li>
+			<%= city[0] %>: <%= city[1] %>
+		</li>
+	<% end %>
+</ol>
+
+<h2>Bookings of today per type</h2>
+<% @bookings_today.each do |booking| %>
+	<p><%= booking[0] %>: <%= booking[1] %></p>
+<% end %>
