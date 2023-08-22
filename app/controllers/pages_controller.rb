@@ -2,7 +2,7 @@ require 'csv'
 
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[home about search_city faq guidelines safety privacy impressum terms]
-  before_action :authenticate, only: [:download_emails]
+  before_action :authenticate, only: [:emails]
 
   def home
     @couches = Couch.joins(:user)
