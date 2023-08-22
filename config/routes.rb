@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/invite-code', to: 'invites#invite_code_form'
   get '/validate-invite-code', to: 'invites#validate_invite_code'
   get '/invite-friend', to: 'invites#invite_friend'
-  get '/export-emails', to: 'pages#emails'
 
   resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do
