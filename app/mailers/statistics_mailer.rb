@@ -5,7 +5,7 @@ class StatisticsMailer < ApplicationMailer
 		@users_per_city = users_per_city
 		@bookings_today = bookings_today
 
-		mail(to: 'hello.quouch@gmail.com', subject: 'User Stats Report')
+		mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
 	end
 
 		private
