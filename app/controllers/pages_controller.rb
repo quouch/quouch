@@ -6,9 +6,9 @@ class PagesController < ApplicationController
 
   def home
     @couches = Couch.joins(:user)
-                    .where.not(users: { first_name: nil })
-                    .where.not(users: { city: nil })
-                    .where.not(users: { country: nil })
+                    .where.not(user: { first_name: nil })
+                    .where.not(user: { city: nil })
+                    .where.not(user: { country: nil })
                     .where.not(user: current_user)
 
     @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
@@ -61,7 +61,7 @@ class PagesController < ApplicationController
 
   def emails
     csv_data = CSV.generate(headers: true) do |csv|
-      csv << ['Email'] # This creates a header row
+      csv << ['Email']
       User.pluck(:email).each do |email|
         csv << [email]
       end
