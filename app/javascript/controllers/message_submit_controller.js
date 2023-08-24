@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = [ 'input', 'form' ]
 
   submitMessage(event) {
-    console.log('hola')
     if (event.key === 'Enter') {
       event.preventDefault();
       this.submitForm();
