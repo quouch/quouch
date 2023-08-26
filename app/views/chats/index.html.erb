@@ -3,7 +3,7 @@
     <div>
       <h1 class="chats__title">Your Conversations</h1>
     </div>
-    <% if @chats.any? %>
+    <% if @chats.any? && @messages.empty? %>
       <ul class="chats__list">
         <% @chats.each do |chat| %>
           <% if chat.messages.any? %>
