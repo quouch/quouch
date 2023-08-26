@@ -2,15 +2,17 @@ class ChatsController < ApplicationController
 	before_action :set_chat, only: %i[show set_notifications_to_read]
 	before_action :set_notifications_to_read, only: %i[show]
 
-  def index
-    @chats = current_user.chats.order('messages.created_at DESC')
-    @chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
-    @other_user = @chat.other_user(current_user) if !@chat.nil?
-  end
+	def index
+		@chats = current_user.chats.order('messages.created_at DESC')
+		@messages = []
+		@chats.each { |chat| @messages << chat.messages }
+		@chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
+		@other_user = @chat.other_user(current_user) unless @chat.nil?
+	end
 
 	def show
-    @chats = current_user.chats.order('messages.created_at DESC')
-    @other_user = @chat.other_user(current_user)
+		@chats = current_user.chats.order('messages.created_at DESC')
+		@other_user = @chat.other_user(current_user)
 		@receiver = User.find_by(id: @chat.user_receiver_id)
 		@receiver == current_user ? @name = User.find_by(id: @chat.user_sender_id).first_name : @name = @receiver.first_name
 		@message = Message.new
