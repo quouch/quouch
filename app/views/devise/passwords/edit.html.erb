@@ -6,11 +6,8 @@
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
 
         <%= f.input :reset_password_token, as: :hidden %>
-        <%= f.error :reset_password_token %>
 
-        <p class="form-error">
-          <%= resource.errors.full_messages.to_sentence %>
-        </p>
+        <%= resource.errors.full_messages.to_sentence %>
 
         <div class="form-inputs">
           <%= f.input :password,
