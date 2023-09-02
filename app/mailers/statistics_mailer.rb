@@ -6,11 +6,11 @@ class StatisticsMailer < ApplicationMailer
 		@users_per_country = users_per_country
 		@amount_reviews = Review.count
 		@review_average = Review.average(:rating)
-		@reviews_today = Review.where(created_at: Date.today)
+		@reviews_today = Review.where(created_at: Date.today).count
 		@bookings_today = bookings_today
-		@completed_bookings = Booking.where(status: 4)
-		@confirmed_bookings = Booking.where(status: 1)
-		@cancelled_bookings = Booking.where(status: -1)
+		@completed_bookings = Booking.where(status: 4).count
+		@confirmed_bookings = Booking.where(status: 1).count
+		@cancelled_bookings = Booking.where(status: -1).count
 
 		mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
 	end
