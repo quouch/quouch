@@ -20,7 +20,7 @@
           <% chat.messages.each do |message| %>
             <div class="chat__message chat__message<%= message.sender?(current_user) ? '--right' : '--left' %>">
               <div class="message <%= message.sender?(current_user) ? 'chat__sender' : 'chat__receiver' %>">
-                <%= render "messages/message", message: message %>
+                <%= render 'messages/message', message: message %>
               </div>
             </div>
           <% end %>
