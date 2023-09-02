@@ -1,6 +1,16 @@
 <h1>User Stats Report</h1>
 <h2>Total Users</h2>
 <p><%= @total_users %></p>
+<h2>Users per Country</h2>
+
+<ol>
+	<% @users_per_country.each do |country| %>
+		<li>
+			<%= country[0] %>: <%= country[1] %>
+		</li>
+	<% end %>
+</ol>
+
 <h2>Users per City</h2>
 <ol>
 	<% @users_per_city.each do |city| %>
@@ -10,7 +20,19 @@
 	<% end %>
 </ol>
 
-<h2>Bookings of today per type</h2>
+<h2>Reviews</h2>
+<%= @amount_reviews %>
+<h3>Reviews today</h3>
+<%= @reviews.today %>
+<h3>Review Average</h3>
+<%= @review_average %>
+
+
+<h2>Booking Stats</h2>
+<p>Confirmed Bookings: <%= @confirmed_bookings %></p>
+<p>Completed Bookings: <%= @completed_bookings %></p>
+<p>Cancelled Bookings: <%= @cancelled_bookings %></p>
+<h3>Bookings of today per type</h2>
 <% @bookings_today.each do |booking| %>
 	<p><%= booking[0] %>: <%= booking[1] %></p>
 <% end %>
