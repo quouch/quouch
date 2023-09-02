@@ -28,7 +28,7 @@ class StatisticsMailer < ApplicationMailer
 	end
 
 	def bookings_today
-		result = Booking.where(booking_date: Date.today).group_by(&:request)
+		result = Booking.where(booking_date: Date.today).group_by(&:request) if Booking.where(booking_date: Date.today)
 		result.transform_values(&:count)
 	end
 end
