@@ -11,7 +11,7 @@ class Contact < MailForm::Base
     subject_prefix = type == 'contact' ? 'Contact Form' : 'Request for Invite Code'
 
     {
-      to: 'nora@quouch-app.com',
+      to: 'hello.quouch@gmail.com',
       subject: subject_prefix.to_s,
       from: email.to_s,
       reply_to: %("#{name}" <#{email}>)
