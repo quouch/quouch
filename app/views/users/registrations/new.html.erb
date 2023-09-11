@@ -126,7 +126,7 @@
           <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
           <p class="hint">When using the filters - think <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender. <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong></p>
           <% if @user.errors[:user_characteristics].any? %>
-            <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+            <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
           <% end %>
 
           <div class="user__characteristics">
@@ -143,6 +143,7 @@
           <div data-controller="display-info-window">
             <%= f.label :my_current_status,
                         required: true %>
+            <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
             <div class="user__travelling">
               <%= f.label :i_am %>
               <div class="user__offer">
@@ -215,7 +216,6 @@
                 </div>
                 <% end %>
               </div>
-              <%= f.error :travelling, class: 'form-error' %>
             </div>
           </div>
 

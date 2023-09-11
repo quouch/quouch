@@ -34,6 +34,7 @@ class User < ApplicationRecord
   validate  :validate_user_characteristics, on: :create
   validate  :validate_age, on: :create
   validate  :validate_travelling, on: :create
+  validate  :at_least_one_option_checked?
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?

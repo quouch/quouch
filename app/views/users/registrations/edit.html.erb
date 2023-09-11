@@ -143,6 +143,7 @@
           <div data-controller="display-info-window">
             <%= f.label :my_current_status,
                         required: true %>
+            <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
             <div class="user__travelling">
               <%= f.label :i_am %>
               <div class="user__offer">
