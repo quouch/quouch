@@ -3,15 +3,7 @@
     <div>
       <h1 class="chats__title">Your Conversations</h1>
     </div>
-    <% if @chats.any? %>
-      <ul class="chats__list">
-        <% @chats.each do |chat| %>
-          <% if chat.messages.any? %>
-            <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
-          <% end %>
-        <% end %>
-      </ul>
-    <% else %>
+    <% if @chats.empty? || @messages.empty? %>
       <div class="chat__messages"
           data-chat-subscription-target="messages">
         <div class=" chat__messages--empty" data-chat-subscription-target="empty">
@@ -19,6 +11,14 @@
           <p class="chat__messages">No conversations yet!</p>
         </div>
       </div>
+    <% elsif @chats.any? %>
+      <ul class="chats__list">
+        <% @chats.each do |chat| %>
+          <% if chat.messages.any? %>
+            <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
+          <% end %>
+        <% end %>
+      </ul>
     <% end %>
   </div>
 </section>
