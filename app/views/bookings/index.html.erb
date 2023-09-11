@@ -66,42 +66,44 @@
 		<h2 class="bookings__title">Past Trips</h2>
 		<ul class="past-bookings">
 			<% @completed.each do |booking| %>
-				<li>
-					<ul class="past-booking">
-						<li class="past-booking__profile">
-							<% if booking.couch.user.photo.key %>
-								<%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile' %>
-							<% else %>
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile') %>
-							<% end %>
-						</li>
-						<div class="past-booking__wrap">
-							<li class="past-booking__host">
-								<%= booking.couch.user.first_name %>
-							</li>
-							<li class="past-booking__city">
-								<%= booking.couch.user.city %>
-							</li>
-							<li class="past-booking__detail">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-								<% if booking.start_date %>
-									<%= booking.start_date.strftime("%B, %Y") %>
+				<%= link_to couch_path(booking.user.couch) do %>
+					<li>
+						<ul class="past-booking">
+							<li class="past-booking__profile">
+								<% if booking.couch.user.photo.key %>
+									<%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile' %>
 								<% else %>
-									<p>Flexible</p>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile') %>
 								<% end %>
 							</li>
-							<% if booking.reviews.find_by(user: booking.user).nil? %>
-							<li class="past-booking__link">
-								<%= link_to "Leave Review", booking_path(booking) %>
-							</li>
-							<% else %>
-							<li class="past-booking__link">
-								<%= link_to "See Details", booking_path(booking) %>
-							</li>
-							<% end %>
-						</div>
-					</ul>
-				</li>
+							<div class="past-booking__wrap">
+								<li class="past-booking__host">
+									<%= booking.couch.user.first_name %>
+								</li>
+								<li class="past-booking__city">
+									<%= booking.couch.user.city %>
+								</li>
+								<li class="past-booking__detail">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+									<% if booking.start_date %>
+										<%= booking.start_date.strftime("%B, %Y") %>
+									<% else %>
+										<p>Flexible</p>
+									<% end %>
+								</li>
+								<% if booking.reviews.find_by(user: booking.user).nil? %>
+								<li class="past-booking__link">
+									<%= link_to "Leave Review", booking_path(booking) %>
+								</li>
+								<% else %>
+								<li class="past-booking__link">
+									<%= link_to "See Details", booking_path(booking) %>
+								</li>
+								<% end %>
+							</div>
+						</ul>
+					</li>
+				<% end %>
 			<% end %>
 		</ul>
 		<% end %>
