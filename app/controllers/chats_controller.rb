@@ -8,8 +8,6 @@ class ChatsController < ApplicationController
 		@chats.each { |chat| @messages.concat(chat.messages.to_a) }
 		@chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
 		@other_user = @chat.other_user(current_user) unless @chat.nil?
-		location = Geocoder.search(request.remote_ip).first
-		@timezone = location.data['time_zone']
 	end
 
 	def show
