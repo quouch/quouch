@@ -6,9 +6,6 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.chat = @chat
     @message.user = current_user
-    location = Geocoder.search(request.remote_ip).first
-    timezone = location.data['time_zone']
-    @current_time = Time.now.in_time_zone(timezone)
     if @message.save
       ChatChannel.broadcast_to(
         @chat,

@@ -20,7 +20,7 @@
       </p>
       <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(30) %></p>
       <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>">
-        Last message on <%= chat.messages.last.created_at.in_time_zone(@timezone).strftime("%^b %d ⋅ %I:%M %p").downcase %>
+        Last message on <%= chat.messages.last.created_at.strftime("%^b %d ⋅ %I:%M %p").downcase %>
       </p>
     </div>
     <% end %>

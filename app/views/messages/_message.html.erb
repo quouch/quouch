@@ -3,7 +3,7 @@
   <div>
     <small class="message-details">
       <strong><%= link_to message.user.first_name, couch_path(message.user.couch) %></strong>
-      <i><%= message.created_at.in_time_zone(@timezone).strftime("%b %e ⋅ %l:%M %p") %></i>
+      <i><%= message.created_at.strftime("%b %e ⋅ %l:%M %p") %></i>
     </small>
     <p><%= message.content %></p>
   </div>
