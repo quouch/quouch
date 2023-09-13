@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import { Autocomplete } from 'stimulus-autocomplete'
-application.register('autocomplete', Autocomplete)
-
 import AddressAutocompleteController from "./address_autocomplete_controller"
 application.register("address-autocomplete", AddressAutocompleteController)
 
@@ -40,6 +37,9 @@ application.register("home-modal", HomeModalController)
 import ImagePreviewController from "./image_preview_controller"
 application.register("image-preview", ImagePreviewController)
 
+import LastMessageTimestampController from "./last_message_timestamp_controller"
+application.register("last-message-timestamp", LastMessageTimestampController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 
@@ -51,6 +51,9 @@ application.register("skip-booking-date-validation", SkipBookingDateValidationCo
 
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
+
+import TimestampController from "./timestamp_controller"
+application.register("timestamp", TimestampController)
 
 import ValidateFormController from "./validate_form_controller"
 application.register("validate-form", ValidateFormController)

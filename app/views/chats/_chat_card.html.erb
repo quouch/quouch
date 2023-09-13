@@ -1,27 +1,27 @@
 <% unread = chat.notifications_as_chat.where(type: MessageNotification.name, recipient: current_user).unread %>
 
-	<li class="chats__list-item">
-		<%= link_to chat_path(chat)  do %>
-      <div class="chats__user-infos">
-        <% if other_user.photo.key %>
-          <%= cl_image_tag other_user.photo.key %>
-        <% else %>
-          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-        <% end %>
-        <% if unread.count > 0  %>
-          <div class="chats__notifications">
-            <aside><%= "#{unread.count}" %></aside>
-          </div>
-        <% end %>
-      </div>
-    <div class="chats__details">
-      <p class="chats__details-name <%= 'chats__details-name--unread' if unread.count > 0 %>">
-        <%= other_user.first_name %>
-      </p>
-      <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(30) %></p>
-      <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>">
-        Last message on <%= chat.messages.last.created_at.strftime("%^b %d ⋅ %I:%M %p").downcase %>
-      </p>
+<li class="chats__list-item">
+  <%= link_to chat_path(chat)  do %>
+    <div class="chats__user-infos">
+      <% if other_user.photo.key %>
+        <%= cl_image_tag other_user.photo.key %>
+      <% else %>
+        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
+      <% end %>
+      <% if unread.count > 0  %>
+        <div class="chats__notifications">
+          <aside><%= "#{unread.count}" %></aside>
+        </div>
+      <% end %>
     </div>
-    <% end %>
-	</li>
+  <div class="chats__details">
+    <p class="chats__details-name <%= 'chats__details-name--unread' if unread.count > 0 %>">
+      <%= other_user.first_name %>
+    </p>
+    <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(30) %></p>
+    <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>" data-controller="last-message-timestamp" data-last-message-timestamp-target="last" data-last-message-timestamp-time-value="<%= chat.messages.first.created_at.strftime('%Y-%m-%dT%H:%M') %>">
+      Last message on <%= chat.messages.last.created_at.strftime("%^b %d at %I:%M %p").downcase %>
+    </p>
+  </div>
+  <% end %>
+</li>
