@@ -3,7 +3,7 @@
     <%= link_to chats_path, class: 'back-link' do %>
       <i class="fa-solid fa-angle-left"></i>
     <% end %>
-    <h3><%= other_user.first_name %> <%= other_user.last_name[0].upcase %>. <span> <%= other_user.pronouns %></span> </h3>
+    <h3><%= other_user.first_name %> <span> <%= other_user.pronouns %></span> </h3>
   </div>
   <%= link_to "...", couch_path(other_user.couch) %>
 </div>
