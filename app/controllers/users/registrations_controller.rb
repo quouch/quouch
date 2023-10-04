@@ -85,8 +85,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def update_profile
+    beautify_country
     create_couch if @user.couch.nil?
     @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
     @user.update(invited_by_id: @invited_by.id) if @invited_by
+  end
+
+  def beautify_country
+    country = ISO3166::Country[params[:user][:country]].translations[I18n.locale.to_s]
+    @user.update(country:)
   end
 end
