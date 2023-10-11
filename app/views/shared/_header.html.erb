@@ -1,104 +1,107 @@
-<header class="header">
-	<aside class="header__logo">
-		<%= link_to 'Q', root_path %>
-	</aside>
-	<% if user_signed_in? %>
-		<%= render "shared/navbar" %>
-		<div data-controller="dropdown-menu">
-		<% if current_user.photo.key %>
-			<%= cl_image_tag current_user.photo.key, class: 'header__avatar', data: { dropdown_menu_target: 'toggle', action: 'click->dropdown-menu#displayAndHideMenu' } %>
-			<% if current_user.notifications.unread.count != 0 %>
-				<%= render 'shared/notifications' %>
+<header class="header-wrap">
+	<div class="header">
+		<aside class="header__logo">
+			<%= link_to 'Q', root_path %>
+		</aside>
+		<% if user_signed_in? %>
+			<%= render "shared/navbar" %>
+			<div data-controller="dropdown-menu">
+			<% if current_user.photo.key %>
+				<%= cl_image_tag current_user.photo.key, class: 'header__avatar', data: { dropdown_menu_target: 'toggle', action: 'click->dropdown-menu#displayAndHideMenu' } %>
+				<% if current_user.notifications.unread.count != 0 %>
+					<%= render 'shared/notifications' %>
+				<% end %>
+			<% else %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar') %>
 			<% end %>
-		<% else %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar') %>
-		<% end %>
-			<div class="header__collapsible collapsible display-none"
-					data-dropdown-menu-target="menu">
-				<p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
-				<ul>
-					<p class="collapsible__subtitle">Personal</p>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680013949/edit-profile.svg') %>
-						<%= link_to 'Edit Profile', edit_user_registration_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/trip.svg') %>
-						<%= link_to 'Trips', bookings_path %>
-					</li>
-					<% if current_user.couch %>
+				<div class="header__collapsible collapsible display-none"
+						data-dropdown-menu-target="menu">
+					<p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
+					<ul>
+						<p class="collapsible__subtitle">Personal</p>
 						<li>
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
-							<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680013949/edit-profile.svg') %>
+							<%= link_to 'Edit Profile', edit_user_registration_path %>
 						</li>
-					<% end %>
-					<li class="collapsible__chat">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
-            <%= link_to 'Chats', chats_path %>
-            <% if current_user.notifications.unread.count != 0 %>
-              <%= render 'shared/notifications' %>
-            <% end %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Community</p>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/mission.svg') %>
-						<%= link_to 'About Us', about_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/guidelines.svg') %>
-						<%= link_to 'Guidelines', guidelines_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/invite.svg') %>
-						<%= link_to 'Invite a Friend', invite_friend_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/euro.svg') %>
-						<%= link_to 'Make a Donation', 'https://buy.stripe.com/7sIdSL2DD5KV9zy3cc' %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Support</p>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680087695/faq.svg') %>
-						<%= link_to 'FAQ', faq_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690907803/shield.svg') %>
-						<%= link_to 'Safety Advice', safety_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/contact.svg') %>
-						<%= link_to 'Contact Us', new_contact_path %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">General</p>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/impressum.svg') %>
-						<%= link_to 'Impressum', impressum_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/privacy.svg') %>
-						<%= link_to 'Privacy Center', privacy_path %>
-					</li>
-					<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/conditions.svg') %>
-						<%= link_to 'Terms & Conditions', terms_path %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Session</p>
 						<li>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/logout.svg') %>
-						<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
-					</li>
-				</ul>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/trip.svg') %>
+							<%= link_to 'Trips', bookings_path %>
+						</li>
+						<% if current_user.couch %>
+							<li>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg') %>
+								<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
+							</li>
+						<% end %>
+						<li class="collapsible__chat">
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/chat.svg') %>
+							<%= link_to 'Chats', chats_path %>
+							<% if current_user.notifications.unread.count != 0 %>
+								<%= render 'shared/notifications' %>
+							<% end %>
+						</li>
+					</ul>
+					<ul>
+						<p class="collapsible__subtitle">Community</p>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/mission.svg') %>
+							<%= link_to 'About Us', about_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/guidelines.svg') %>
+							<%= link_to 'Guidelines', guidelines_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/invite.svg') %>
+							<%= link_to 'Invite a Friend', invite_friend_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/euro.svg') %>
+							<%= link_to 'Make a Donation', 'https://buy.stripe.com/7sIdSL2DD5KV9zy3cc' %>
+						</li>
+					</ul>
+					<ul>
+						<p class="collapsible__subtitle">Support</p>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680087695/faq.svg') %>
+							<%= link_to 'FAQ', faq_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690907803/shield.svg') %>
+							<%= link_to 'Safety Advice', safety_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/contact.svg') %>
+							<%= link_to 'Contact Us', new_contact_path %>
+						</li>
+					</ul>
+					<ul>
+						<p class="collapsible__subtitle">General</p>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/impressum.svg') %>
+							<%= link_to 'Impressum', impressum_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/privacy.svg') %>
+							<%= link_to 'Privacy Center', privacy_path %>
+						</li>
+						<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005861/conditions.svg') %>
+							<%= link_to 'Terms & Conditions', terms_path %>
+						</li>
+					</ul>
+					<ul>
+						<p class="collapsible__subtitle">Session</p>
+							<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/logout.svg') %>
+							<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
+						</li>
+					</ul>
+				</div>
 			</div>
-		</div>
-	<% else %>
-	<aside class="header__note">Already have an account? <a href="/users/sign_in">Log in</a></aside>
-	<% end %>
+		<% else %>
+		<aside class="header__note">Already have an account? <a href="/users/sign_in">Log in</a></aside>
+		<% end %>
+	</div>
+	<%= render 'shared/running-header' %>
 </header>

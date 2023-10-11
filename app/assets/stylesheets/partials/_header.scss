@@ -1,13 +1,16 @@
 .header {
-	position: fixed;
-	width: 100vw;
-	top: 0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1rem;
 	background-color: $primary-super-transparent;
-	z-index: 2;
+
+	&-wrap {
+		position: fixed;
+		width: 100vw;
+		top: 0;
+		z-index: 2;
+	}
 
 	&__logo {
 		a { @include logo; }
@@ -46,4 +49,33 @@
 	position: absolute;
 	top: 44px;
   right: 14px;
+}
+
+.running-header {
+	overflow: hidden;
+	padding: .3rem;
+	background-color: $secondary-dark;
+	white-space: nowrap;
+	
+	a {
+		display: inline;
+		color: $warning;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
+}
+
+.running-text {
+	display: inline-block;
+	transform: translateX(0);
+	animation: carousel 30s linear infinite;
+}
+
+@keyframes carousel {
+	0% {
+			transform: translateX(30%);
+	}
+	100% {
+			transform: translateX(-100%);
+	}
 }
