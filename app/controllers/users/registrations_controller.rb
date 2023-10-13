@@ -33,6 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     create_user_characteristics
     resource.save
     super
+    beautify_country
     disable_offers_if_travelling
   end
 
