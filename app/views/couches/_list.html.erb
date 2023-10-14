@@ -1,6 +1,6 @@
 <div data-characteristics-filter-target="couches">
 	<ul class="couches__list">
-		<% @active_couches.to_a.shuffle.each do |couch| %>
+		<% @active_couches.each do |couch| %>
 			<% if couch.user.photo.key %>
 				<li class="couches__list-item">
 					<article class="couches__list-article">

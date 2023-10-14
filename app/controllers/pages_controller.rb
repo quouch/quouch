@@ -11,15 +11,15 @@ class PagesController < ApplicationController
                     .where.not(user: { country: nil })
                     .where.not(user: current_user)
 
-    @active_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
-                              .page(params[:page])
-                              .per(30)
+    shuffled_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).shuffle
+    @active_couches = Kaminari.paginate_array(shuffled_couches).page(params[:page]).per(30)
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
     @active_couches = @active_couches.page(params[:page]).per(30)
+    @active_couches = Kaminari.paginate_array(shuffled_couches).page(params[:page]).per(30)
   end
 
   def search_cities
