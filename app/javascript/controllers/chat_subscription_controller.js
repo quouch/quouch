@@ -23,7 +23,7 @@ export default class extends Controller {
     this.messagesTarget.lastElementChild.scrollIntoView(true, {block: 'end'})
     swal({
       title: 'Thank Quouch now for providing this service to you! 🙏',
-      text: 'Support our team by donating to our crowdfunding campaign. Your support can save Quouch. The coolest rewards are waiting for you 🏆👀',
+      text: 'Support our team by contributing to our crowdfunding campaign. Any amount helps! The coolest rewards are waiting for you as a reverse thank you 🏆👀',
       button: 'Take me there!'
     }).then((result) => {
       if (result) {
