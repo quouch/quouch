@@ -1,8 +1,6 @@
 <section class="plans">
   <div class="plans__wrap">
-    <h1 class="plans__title">
-      Manage Subscription
-    </h1>
+    <h1 class="plans__title">Manage Subscription</h1>
 
     <div class="plans__content" data-controller="plans-toggle">
       <h2>Your circumstances have changed? Update your payment model!</h2>
@@ -12,6 +10,7 @@
         <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
       </div>
 
+			<% if current_user.subscription.plan.interval == 'year' %>
       <div class="plans__lists">
         <ul class="plans__list" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
@@ -26,7 +25,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button' %>
+								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
@@ -38,7 +37,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
+								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
 							</li>
 						<% end %>
           <% end %>
@@ -57,7 +56,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button' %>
+								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
@@ -69,12 +68,77 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
+								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
 							</li>
 						<% end %>
 					<% end %>
         </ul>
       </div>
+			<% elsif current_user.subscription.plan.interval == 'month' %>
+			<div class="plans__lists">
+        <ul class="plans__list display-none" data-plans-toggle-target="year">
+          <% @yearly.each do |plan| %>
+						<% if plan == @plan %>
+							<li class="plans__list-item current-plan">
+								<aside class="current-plan__label">Your Plan</aside>
+								<div class="plans__list-item__wrap">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<div>
+										<h3><%= plan.name %></h3>
+										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+									</div>
+								</div>
+								<p class="plans__description"><%= plan.description %></p>
+								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+							</li>
+						<% else %>
+							<li class="plans__list-item">
+								<div class="plans__list-item__wrap">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<div>
+										<h3><%= plan.name %></h3>
+										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+									</div>
+								</div>
+								<p class="plans__description"><%= plan.description %></p>
+								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+							</li>
+						<% end %>
+          <% end %>
+        </ul>
+
+        <ul class="plans__list" data-plans-toggle-target="month">
+          <% @monthly.each do |plan| %>
+						<% if plan == @plan %>
+							<li class="plans__list-item current-plan">
+								<aside class="current-plan__label">Your Plan</aside>
+								<div class="plans__list-item__wrap">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<div>
+										<h3><%= plan.name %></h3>
+										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+									</div>
+								</div>
+								<p class="plans__description"><%= plan.description %></p>
+								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+							</li>
+						<% else %>
+							<li class="plans__list-item">
+								<div class="plans__list-item__wrap">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<div>
+										<h3><%= plan.name %></h3>
+										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+									</div>
+								</div>
+								<p class="plans__description"><%= plan.description %></p>
+								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+							</li>
+						<% end %>
+					<% end %>
+        </ul>
+      </div>
+			<% end %>
     </div>
   </div>
 </section>

@@ -24,7 +24,6 @@ class SubscriptionsController < ApplicationController
     @checkout_session = create_checkout_session(@subscription)
     @subscription.checkout_session_id = @checkout_session.id
     @subscription.save!
-    skip_after_action :turbo_stream
     redirect_to @checkout_session.url, allow_other_host: true
   end
 
@@ -37,7 +36,7 @@ class SubscriptionsController < ApplicationController
     else
       flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
     end
-    render 'subscriptions/new'
+    redirect_to new_subscription_path
   end
 
   private
