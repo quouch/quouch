@@ -25,7 +25,7 @@
                 <%= plan.description %>
               </li>
             </ul>
-            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
+            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
           </li>
           <% end %>
         </ul>
@@ -42,7 +42,7 @@
                 <%= plan.description %>
               </li>
             </ul>
-            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button' %>
+            <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
           </li>
           <% end %>
         </ul>
