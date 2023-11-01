@@ -5,12 +5,13 @@
     <div class="plans__content" data-controller="plans-toggle">
       <h2>Your circumstances have changed? Update your payment model!</h2>
       <p>Choose a subscription based on your situation</p>
-      <div class="switch-button">
+			
+			<% if current_user.subscriptions.find_by(active: true).plan.interval == 'year' %>
+      <div class="switch-button switch-button--yearly">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
         <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
       </div>
 
-			<% if current_user.subscription.plan.interval == 'year' %>
       <div class="plans__lists">
         <ul class="plans__list" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
@@ -37,7 +38,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
 							</li>
 						<% end %>
           <% end %>
@@ -68,13 +69,20 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
 							</li>
 						<% end %>
 					<% end %>
         </ul>
       </div>
-			<% elsif current_user.subscription.plan.interval == 'month' %>
+
+			<% elsif current_user.subscriptions.find_by(active: true).plan.interval == 'month' %>
+
+			<div class="switch-button switch-button--monthly">
+        <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
+        <label class="switch-button-label" for=""><span class="switch-button-label-span">Monthly</span></label>
+      </div>
+
 			<div class="plans__lists">
         <ul class="plans__list display-none" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
@@ -101,7 +109,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
 							</li>
 						<% end %>
           <% end %>
@@ -132,7 +140,7 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
 							</li>
 						<% end %>
 					<% end %>
