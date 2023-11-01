@@ -18,9 +18,7 @@
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
-              <li class="plans__price">
-                <%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %> / <%= plan.interval %>
-              </li>
+              <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
               <li class="plans__description">
                 <%= plan.description %>
               </li>
@@ -35,9 +33,7 @@
           <li class="plans__list-item">
             <h3><%= plan.name %></h3>
             <ul class="plans__details">
-              <li class="plans__price">
-                <%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %> / <%= plan.interval %>
-              </li>
+              <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
               <li class="plans__description">
                 <%= plan.description %>
               </li>

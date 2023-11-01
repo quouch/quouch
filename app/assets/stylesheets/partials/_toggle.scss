@@ -12,9 +12,17 @@
   position: relative;
 	margin: 3rem auto;
 	box-shadow: $box-shadow-hover;
+  &:before { content: 'Monthly'; }
+
+  &--yearly {
+    &:before { content: 'Monthly'; }
+  }
+
+  &--monthly {
+    &:before { content: 'Yearly'; }
+  }
 
   &:before {
-    content: 'Monthly';
     position: absolute;
     top: 0;
     bottom: 0;

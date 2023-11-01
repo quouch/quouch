@@ -7,19 +7,13 @@ class SubscriptionsController < ApplicationController
 
   def show
     display_plans
-    @plan = current_user.subscription.plan
+    @plan = current_user.subscriptions.find_by(active: true).plan
   end
 
   def payment
-    @subscription = current_user.subscription
-    if @subscription
-      plan_id = params[:plan_id]
-      @subscription.update(id: @subscription.id, plan_id:, user_id: current_user.id, active: true)
-    else
-      subscription_id = SecureRandom.uuid
-      plan_id = params[:plan_id]
-      @subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
-    end
+    subscription_id = SecureRandom.uuid
+    plan_id = params[:plan_id]
+    @subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
 
     @checkout_session = create_checkout_session(@subscription)
     @subscription.checkout_session_id = @checkout_session.id
@@ -27,15 +21,37 @@ class SubscriptionsController < ApplicationController
     redirect_to @checkout_session.url, allow_other_host: true
   end
 
+  def update
+    subscription = Stripe::Subscription.retrieve(@subscription.stripe_id)
+    plan = Plan.find(params[:plan])
+
+    Stripe::SubscriptionSchedule.update(
+      subscription.schedule,
+      {
+        phases: [
+          {
+            items: [
+              {
+                price: @subscription.plan.stripe_price_id
+              }
+            ],
+            start_date: subscription.start_date,
+            end_date: subscription.current_period_end
+          }
+        ]
+      }
+    )
+  end
+
   def destroy
     session = Stripe::Checkout::Session.retrieve(@subscription.checkout_session_id)
     @subscription.update(stripe_id: session.subscription)
     Stripe::Subscription.cancel(@subscription.stripe_id)
-    if Subscription.find(@subscription.id).destroy
-      flash[:alert] = 'You successfully unsubscriped the Quouch service. Sad to see you go!'
-    else
-      flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
-    end
+    flash[:alert] = if Subscription.find(@subscription.id).destroy
+                      'You successfully unsubscribed the Quouch service. Sad to see you go!'
+                    else
+                      'Something went wrong. Please try again or contact the Quouch Team.'
+                    end
     redirect_to new_subscription_path
   end
 
@@ -60,16 +76,18 @@ class SubscriptionsController < ApplicationController
   end
 
   def create_checkout_session(subscription)
-    Stripe::Checkout::Session.create({
-      customer: current_user.stripe_id,
-      payment_method_types: ['card'],
-      line_items: [{
-        price: subscription.plan.stripe_price_id,
-        quantity: 1
-      }],
-      mode: 'subscription',
-      success_url: subscription_url(subscription),
-      cancel_url: new_subscription_url
-    })
+    Stripe::Checkout::Session.create(
+      {
+        customer: current_user.stripe_id,
+        payment_method_types: ['card'],
+        line_items: [{
+          price: subscription.plan.stripe_price_id,
+          quantity: 1
+        }],
+        mode: 'subscription',
+        success_url: subscription_url(subscription),
+        cancel_url: new_subscription_url
+      }
+    )
   end
 end
