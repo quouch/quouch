@@ -21,16 +21,6 @@ export default class extends Controller {
     const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
     this.messagesTarget.insertAdjacentHTML('beforeend', messageElement)
     this.messagesTarget.lastElementChild.scrollIntoView(true, {block: 'end'})
-    swal({
-      title: 'Thank Quouch now for providing this service to you! 🙏',
-      text: 'Support our team by contributing to our crowdfunding campaign. Any amount helps! The coolest rewards are waiting for you as a reverse thank you 🏆👀',
-      button: 'Take me there!'
-    }).then((result) => {
-      if (result) {
-        // If the user clicks "Yes, I have", open the link
-        window.location.href = 'https://www.kickstarter.com/projects/norafromquouch/quouch-couch-surfing-for-queer-people-and-women/rewards';
-      }
-    })
   }
 
   #buildMessageElement(currentUserIsSender, message) {
