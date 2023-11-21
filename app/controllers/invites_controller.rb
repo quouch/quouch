@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
 
 	def validate_invite_code
 		invite_code = params[:invite][:invite_code]
-		if User.exists?(invite_code:) || User.exists?(invite_code: invite_code.downcase)
+		if User.exists?(invite_code: invite_code.strip) || User.exists?(invite_code: invite_code.strip.downcase)
 			redirect_to new_user_registration_path(invite_code:)
 		else
 			flash[:alert] = 'Invite code not valid. Try again or contact the Quouch team'
