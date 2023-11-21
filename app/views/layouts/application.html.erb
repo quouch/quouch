@@ -16,6 +16,13 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
 
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWGXEQSWDX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GWGXEQSWDX');
+    </script>
   </head>
 
   <body>
