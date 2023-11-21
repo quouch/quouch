@@ -23,11 +23,19 @@
 	&__title {
 		@include title-4;
 		color: $primary;
+		margin-bottom: 0.2rem;
 	}
 
 	&__subtitle {
 		@include title-5;
 		color: $gray-05;
+	}
+
+	&__code {
+		@include title-5;
+		color: $secondary-light;
+		font-size: 1rem;
+		margin-top: 0.2rem;
 	}
 	
 	&__logout {
