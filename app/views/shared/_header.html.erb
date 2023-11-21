@@ -17,6 +17,7 @@
 				<div class="header__collapsible collapsible display-none"
 						data-dropdown-menu-target="menu">
 					<p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
+					<p class="collapsible__code">Your invite code: <%= current_user.invite_code %></p>
 					<ul>
 						<p class="collapsible__subtitle">Personal</p>
 						<li>
