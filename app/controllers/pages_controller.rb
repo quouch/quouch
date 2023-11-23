@@ -19,7 +19,7 @@ class PagesController < ApplicationController
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
-    @active_couches = Kaminari.paginate_array(@active_couches.shuffle).page(params[:page]).per(30)
+    @active_couches = @active_couches.page(params[:page]).per(30)
   end
 
   def search_cities
