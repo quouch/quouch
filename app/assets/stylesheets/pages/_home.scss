@@ -209,13 +209,17 @@
 		&-wrap {
 			padding: 2rem 1rem;
 
-			@media (min-width: $break-medium) { @include container; }
+			@media (min-width: $break-medium) {
+				@include container;
+				
+				margin-bottom: 0;
+			}
+
 			@media (min-width: $break-medium) {
 				padding: 4rem 0;
 				max-width: $container;
 			}
 		}
-
 
 		p:not(:last-child) { margin: .3rem auto 1rem; }
 
@@ -274,6 +278,34 @@
 		display: inline-block;
 		width: fit-content;
 		margin-top: 1rem;
+	}
+
+	&__humor {
+		background: $primary-super-transparent;
+		text-align: center;
+		
+		h2 { margin-bottom: 2rem; }
+		img {
+			width: 100px;
+			margin: 0 auto;
+		}
+
+		&-content { margin-top: 2rem; }
+		
+		&-wrap {
+			padding: 2rem 1rem;
+
+			@media (min-width: $break-medium) {
+				@include container-small;
+
+				margin-top: 0;
+			}
+
+			@media (min-width: $break-medium) {
+				padding: 4rem 0;
+				max-width: $container;
+			}
+		}
 	}
 
 	&__logos {
