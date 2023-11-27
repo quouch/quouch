@@ -11,48 +11,37 @@ class SubscriptionsController < ApplicationController
   end
 
   def payment
-    subscription_id = SecureRandom.uuid
     plan_id = params[:plan_id]
-    @subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
-
-    @checkout_session = create_checkout_session(@subscription)
-    @subscription.checkout_session_id = @checkout_session.id
-    @subscription.save!
-    redirect_to @checkout_session.url, allow_other_host: true
+    subscription_id = Subscription.last ? Subscription.last.id + 1 : 1
+    subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
+    checkout_session = create_checkout_session(subscription)
+    subscription.checkout_session_id = checkout_session.id
+    subscription.save! if redirect_to checkout_session.url, allow_other_host: true
   end
 
   def update
-    subscription = Stripe::Subscription.retrieve(@subscription.stripe_id)
-    plan = Plan.find(params[:plan])
-
-    Stripe::SubscriptionSchedule.update(
-      subscription.schedule,
-      {
-        phases: [
-          {
-            items: [
-              {
-                price: @subscription.plan.stripe_price_id
-              }
-            ],
-            start_date: subscription.start_date,
-            end_date: subscription.current_period_end
-          }
-        ]
-      }
-    )
+    plan_id = params[:plan_id]
+    id = Subscription.last.id + 1
+    new_subscription = Subscription.new(id:, plan_id:, user: current_user, active: false)
+    cancel_inactive_subscriptions if current_user.subscriptions.count > 2
+    if create_new_subscription(@subscription, new_subscription)
+      Stripe::Subscription.update(
+        @subscription.stripe_id,
+        { cancel_at_period_end: true }
+      )
+    end
   end
 
   def destroy
-    session = Stripe::Checkout::Session.retrieve(@subscription.checkout_session_id)
-    @subscription.update(stripe_id: session.subscription)
-    Stripe::Subscription.cancel(@subscription.stripe_id)
-    flash[:alert] = if Subscription.find(@subscription.id).destroy
-                      'You successfully unsubscribed the Quouch service. Sad to see you go!'
+    inactive_subscriptions = current_user.subscriptions.where(active: false)
+    active_subscription = current_user.subscriptions.find(active: true)
+    cancel_all_subscriptions(inactive_subscriptions, active_subscription)
+    flash[:alert] = if cancel_all_subscriptions
+                      'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
                     else
                       'Something went wrong. Please try again or contact the Quouch Team.'
                     end
-    redirect_to new_subscription_path
+    redirect_to subscription_path(active_subscription)
   end
 
   private
@@ -89,5 +78,43 @@ class SubscriptionsController < ApplicationController
         cancel_url: new_subscription_url
       }
     )
+  end
+
+  def create_new_subscription(current_subscription, new_subscription)
+    checkout_session = Stripe::Checkout::Session.create(
+      {
+        customer: current_user.stripe_id,
+        payment_method_types: ['card'],
+        mode: 'setup',
+        success_url: subscription_url(new_subscription.id),
+        cancel_url: subscription_url(current_subscription.id)
+      }
+    )
+
+    new_subscription.checkout_session_id = checkout_session.id
+    new_subscription.save!
+    redirect_to checkout_session.url, allow_other_host: true
+  end
+
+  def cancel_inactive_subscriptions(inactive_subscriptions)
+    inactive_subscriptions.each do |subscription|
+      session = Stripe::Checkout::Session.retrieve(subscription.checkout_session_id)
+      subscription.destroy if Stripe::Subscription.cancel(session.subscription)
+    end
+  end
+
+  def cancel_active_subscription(active_subscription)
+    begin
+      subscription = Stripe::Subscription.retrieve(active_subscription.stripe_id)
+      subscription.cancel_at_period_end = true
+      subscription.save
+    rescue Stripe::StripeError => e
+      puts "Stripe error while updating subscription: #{e.message}"
+    end
+  end
+
+  def cancel_all_subscriptions
+    cancel_inactive_subscriptions
+    cancel_active_subscription
   end
 end
