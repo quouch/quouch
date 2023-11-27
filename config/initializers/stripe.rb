@@ -13,4 +13,15 @@ StripeEvent.configure do |events|
   events.subscribe 'checkout.session.completed' do |event|
     StripeCheckoutSessionService.new.call(event)
   end
+  # this event is triggered 2 ways:
+  # 1. when subscription is deleted by user manually,
+  # 2. when subscription is deleted cause its billing cycle is over
+  events.subscribe 'customer.subscription.deleted' do |event|
+    StripeSetSubscriptionToActiveService.new.call(event)
+    StripeDeleteSubscriptionService.new.call(event)
+  end
+  # this event is triggered when trial for inactive subscription ends
+  events.subscribe 'customer.subscription.trial_will_end' do |event|
+    StripeSetSubscriptionToActiveService.new.call(event)
+  end
 end
