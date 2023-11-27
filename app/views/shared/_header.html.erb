@@ -102,7 +102,13 @@
 						<%= link_to 'Terms & Conditions', terms_path %>
 					</li>
 				</ul>
-
+				<ul>
+						<p class="collapsible__subtitle">Session</p>
+							<li>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/logout.svg') %>
+							<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
+						</li>
+					</ul>
 				</div>
 			</div>
 		<% else %>
