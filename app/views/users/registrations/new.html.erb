@@ -116,8 +116,6 @@
                           value: params[:user]&.dig(:country) %>
             </div>
             <%= f.error   :country, class: 'form-error' %>
-            </div>
-            <%= f.error :country, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>
@@ -153,7 +151,6 @@
                                           as: :boolean,
                                           label: false,
                                           error: false,
-                                          required: true,
                                           autofocus: true,
                                           input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }},
                                           value: params[:user]&.dig(:travelling) %>
