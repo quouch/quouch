@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_154758) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_29_104912) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -120,6 +120,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_154758) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
+  create_table "plans", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "interval"
+    t.integer "price_cents"
+    t.string "stripe_price_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "collection"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "content"
     t.integer "rating"
@@ -131,6 +142,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_154758) do
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
     t.index ["couch_id"], name: "index_reviews_on_couch_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "active", default: true
+    t.string "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "checkout_session_id"
+    t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "user_characteristics", force: :cascade do |t|
@@ -175,6 +198,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_154758) do
     t.string "city"
     t.string "invite_code"
     t.bigint "invited_by_id"
+    t.string "stripe_id"
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -194,6 +219,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_154758) do
   add_foreign_key "reviews", "bookings"
   add_foreign_key "reviews", "couches"
   add_foreign_key "reviews", "users"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "user_characteristics", "characteristics"
   add_foreign_key "user_characteristics", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
