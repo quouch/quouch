@@ -90,13 +90,17 @@ gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 6.1'
 gem 'simple_form', github: 'heartcombo/simple_form'
 
-gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
-
+# Pagination
 gem 'kaminari'
+
+# Give team access to DB
+gem 'rails_admin', '3.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
+  # Fake test data
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 end
 
 group :development do
@@ -116,3 +120,4 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+gem "sassc-rails"
