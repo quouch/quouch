@@ -5,11 +5,11 @@
     <title>Booking Completed</title>
   </head>
   <body>
-    <h1>Thank you for hosting <%= @booking.user.first_name.capitalize %></h1>
+    <h1>Thank you for hosting <%= @guest.first_name.capitalize %></h1>
 
-    <p>Dear <%= @booking.couch.user.first_name.capitalize %>,</p>
-    <p>Thank you for hosting <%= @booking.user.first_name.capitalize %> at your space. We hope that you felt safe and had a good time with your guest.</p>
-    <p>It would be a dream to let the community know how it went. We kindly ask that you take a few moments to leave a review for <%= @booking.user.first_name.capitalize %> based on your experience hosting them.</p>
+    <p>Dear <%= @host.first_name.capitalize %>,</p>
+    <p>Thank you for hosting <%= @guest.first_name.capitalize %> at your space. We hope that you felt safe and had a good time with your guest.</p>
+    <p>It would be a dream to let the community know how it went. We kindly ask that you take a few moments to leave a review for <%= @guest.first_name.capitalize %> based on your experience hosting them.</p>
 
     <p><%= link_to 'Leave a Review', @review_url %></p>
 
