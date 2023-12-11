@@ -3,24 +3,23 @@ class ReviewMailer < ApplicationMailer
 	default from: 'nora@quouch-app.com'
 
 	def new_review_host_email
-		mail(to: @host.email, subject: "Your guest #{@guest.first_name.capitalize} left you a review")
+		mail(to: @host.email, subject: 'Your host left you a review 🎉')
 	end
 
 	def new_review_guest_email
-		mail(to: @guest.email, subject: "Your host #{@host.first_name.capitalize} left you a review")
+		mail(to: @guest.email, subject: 'Your guest left you a review 🎉')
 	end
 
-	def review_reminder_email
-	end
-
-	private
+		private
 
 	def set_booking_details
 		@booking = params[:booking]
 		@guest = @booking.user
 		@couch = @booking.couch
 		@host = @couch.user
-		@host_url = couch_url(@couch)
-		@guest_url = couch_url(@booking.user.couch)
+		@host_profile = couch_url(@couch)
+		@guest_profile = couch_url(@booking.user.couch)
+		@guest_review = request_booking_url(@booking)
+		@host_review = booking_url(@booking)
 	end
 end

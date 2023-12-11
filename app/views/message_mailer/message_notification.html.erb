@@ -5,7 +5,7 @@
   </head>
   <body>
     <h1><%= @sender.first_name.capitalize %> sent you a message!</h1>
-    <p><%=  @message.content %></p>
-    <%= link_to 'Answer now', @url %>
+    <p>"<%=  @message.content %>"</p>
+    <%= link_to 'Answer now', @chat_url %>
   </body>
 </html>

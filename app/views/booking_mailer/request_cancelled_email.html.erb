@@ -5,9 +5,12 @@
   </head>
   <body>
     <h1><%= @guest.first_name.capitalize %> cancelled the request!</h1>
-    <p>Unfortunately, <%= @guest.first_name.capitalize %> cancelled their request at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
+    <p>Unfortunately, <%= @guest.first_name.capitalize %> cancelled their request at your place. Thank you so much for offering your place on Quouch. This is truly making a difference.</p>
+    <p><%= link_to 'View cancelled request', @request_url %></p>
     <p>Are you already planning your next trip?</p>
-    <%= link_to 'Browse couches', @url %>
-    <p>Best regards,<br>your Quouch Team</p>
+    <%= link_to 'Browse couches', @browse_couches %>
+    <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
+    <p>Lots of love,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>
