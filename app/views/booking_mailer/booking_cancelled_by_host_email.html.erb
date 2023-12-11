@@ -4,11 +4,21 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>We're sorry, <%= @guest.first_name.capitalize %>. </h1>
+    <h1>We are sorry, <%= @guest.first_name.capitalize %>.</h1>
     <p><%= @host.first_name.capitalize %> cancelled the booking!</p>
-    <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to accommodate you at this time. We want to thank you anyways for your interest in using our platform to find a place to stay. We appreciate your consideration and your desire to be a part of our community.</p>
-    <p>We understand that this may be disappointing news, but we hope you can find another Couch to sleep on!</p>
-    <%= link_to 'Browse other couches', @url %>
-    <p>Best regards,<br>your Quouch Team</p>
+    <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to host you at this time. Thank you for trying to use Quouch - maybe it works with another user? We hope that you are not too disappointed and that you still find a great way to make the most of your trip!</p>
+
+    <p><%= link_to 'View cancelled booking', @booking_url %></p>
+
+    <p><%= link_to 'Browse other couches', @browse_couches %></p>
+
+    <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we do take absolute precaution as to who joins our platform. Still, this is the internet and there will always be some risk. Please be cautious and take independent care, as stated in our <%= link_to 'safety guidelines', @guidelines %>.</p>
+
+    <p>You can <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_guest %> about your experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while. </p>
+
+    <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
+
+    <p>Safe travels,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>
