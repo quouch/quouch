@@ -3,10 +3,10 @@ class MessageMailer < ApplicationMailer
 	default from: 'nora@quouch-app.com'
 
 	def message_notification
-		mail(to: @recipient.email, subject: "You have a new message")
+		mail(to: @recipient.email, subject: 'New Message 💜🧡')
 	end
 
-	private
+		private
 
 	def find_recipient(message)
 		@users = [User.find(message.chat.user_sender_id), User.find(message.chat.user_receiver_id)]
@@ -23,6 +23,6 @@ class MessageMailer < ApplicationMailer
 		@recipient = params[:recipient]
 		@sender = params[:message].user
 		@message = params[:message]
-		@url = chat_url(@chat)
+		@chat_url = chat_url(@chat)
 	end
 end

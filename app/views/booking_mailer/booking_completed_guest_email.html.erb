@@ -5,13 +5,19 @@
     <title>Booking Completed - Please Leave a Review</title>
   </head>
   <body>
-      <h1>Thank you for staying at <%= @booking.couch.user.first_name.capitalize %>'s place</h1>
-      <p>Dear <%= @booking.user.first_name.capitalize %>,</p>
-      <p>We would like to inform you that your booking with <%= @booking.user.first_name.capitalize %> has been successfully completed. We hope you had a great experience staying at their place.</p>
-      <p>We encourage you to leave a review for <%= @booking.user.first_name.capitalize %> on their profile to help other guests make informed decisions about staying with them in the future.</p>
-      <p>Leaving a review is quick and easy. Simply follow the link below and share your honest thoughts about your stay with <%= @booking.user.first_name.capitalize %>.</p>
-      <p><%= link_to 'Leave a Review', @url %></p>
-      <p>Thank you for choosing to stay with <%= @booking.user.first_name.capitalize %>. We hope to welcome you back soon.</p>
-      <p>Best regards,<br>The <%= @booking.user.first_name.capitalize %> Team</p>
+    <h1>You completed your stay at <%= booking.couch.user.first_name.capitalize %>'s place</h1>
+
+    <p>Hello <%= booking.user.first_name.capitalize %>,</p>
+    <p>your booking with <%= booking.user.first_name.capitalize %> has been successfully completed. We hope you had a great experience staying at their place - that you felt warm and safe and welcomed.</p>
+    <p>It would mean the world to your host and other travellers to hear how it went!</p>
+    <p>Leaving a review is very painless. Simply follow the link below and share your honest thoughts about your stay with <%= booking.user.first_name.capitalize %>.
+
+    <p><%= link_to 'Leave a Review', @review_url %></p>
+
+    <p>You can also <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_guest %> about your experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while. </p>
+    Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
+
+    <p>Lots of love,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>

@@ -6,7 +6,9 @@
   <body>
     <h1>The request from <%= @guest.first_name.capitalize %> has been updated!</h1>
     <p><%= @guest.first_name.capitalize %> has updated their request. Please review the request and confirm or decline depending on your availability and willingness to host <%= @guest.first_name.capitalize %>.</p>
+    <p><%= link_to 'View request', @request_url %></p>
     <p>If you have any questions, please feel free to contact us.</p>
-    <p>Best regards,<br>your Quouch Team</p>
+    <p>Best regards,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>

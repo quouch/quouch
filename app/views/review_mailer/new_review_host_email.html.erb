@@ -5,6 +5,9 @@
   </head>
   <body>
     <h1>You received a new review from <%= @guest.first_name.capitalize %>!</h1>
-    <p>Click <%= link_to 'here', @host_url %> to read it</p>
+    <p>Click <%= link_to 'here', @host_profile %> to read it.</p>
+    <p>Haven't left a review for <%= @guest.first_name.capitalize %>? Add review <%= link_to 'now', @guest_review %>!
+    <p>Lots of love,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>
