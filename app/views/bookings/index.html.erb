@@ -66,7 +66,7 @@
 		<h2 class="bookings__title">Past Trips</h2>
 		<ul class="past-bookings">
 			<% @completed.each do |booking| %>
-				<%= link_to couch_path(booking.user.couch) do %>
+				<%= link_to booking_path(booking) do %>
 					<li>
 						<ul class="past-booking">
 							<li class="past-booking__profile">
@@ -93,11 +93,11 @@
 								</li>
 								<% if booking.reviews.find_by(user: booking.user).nil? %>
 								<li class="past-booking__link">
-									<%= link_to "Leave Review", booking_path(booking) %>
+									Leave Review
 								</li>
 								<% else %>
 								<li class="past-booking__link">
-									<%= link_to "See Details", booking_path(booking) %>
+									See Details
 								</li>
 								<% end %>
 							</div>
