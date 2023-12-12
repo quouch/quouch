@@ -48,12 +48,14 @@ class User < ApplicationRecord
 
   def calculated_age
     today = Date.today
-    if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
-      calculation = 0
-    else
-      calculation = 1
+    return unless date_of_birth
+      if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
+        calculation = 0
+      else
+        calculation = 1
+      end
+      today.year - date_of_birth.year - calculation
     end
-    today.year - date_of_birth.year - calculation
   end
 
   def chats
