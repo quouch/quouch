@@ -48,7 +48,10 @@
 										</h2>
 										<p class="couches__characteristics">
 										<% if couch.user.date_of_birth && (!couch.user.date_of_birth.nil? || couch.user.date_of_birth != 0) %>
-											<%= couch.user.calculated_age %> ⋅
+											<%= couch.user.calculated_age %>
+										<% end %>
+										<% if couch.user.date_of_birth && couch.user.pronouns != "" %>
+										 ⋅
 										<% end %>
 										<%= couch.user.pronouns %>
 										</p>
