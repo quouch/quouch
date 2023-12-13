@@ -71,7 +71,10 @@
 				</div>
 				<div class="home__banner-button">
 					<%= link_to 'Log in', new_user_session_path, class: 'home__banner-secondary' %>
-					<%= link_to 'Sign up', invite_code_path, class: 'home__banner-primary' %>
+					<a href="/invite-code" class="home__banner-primary">
+						Sign up
+						<span>or request invite code</span>
+					</a>
 				</div>
 			</div>
 		</div>
