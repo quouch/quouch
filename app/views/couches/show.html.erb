@@ -110,7 +110,7 @@
 		<div class="couch__action">
 		<% if @couch != current_user.couch %>
 			<%= link_to 'Send quouch request', new_couch_booking_path(@couch), class: 'couch__button' %>
-			<%= link_to 'Report user', report_contacts_path(couch: @couch), class: 'couch__report' %>
+			<%= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
 		<% end %>
 		</div>
 	</div>
