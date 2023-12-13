@@ -147,15 +147,15 @@
 			</div>
 
 			<% if @host == current_user %>
-				<% if @booking.completed? && @host_review.nil? %>
+				<% if (@booking.confirmed? || @booking.completed?) && @host_review.nil? %>
 					<%= render 'partials/new-review' %>
-				<% elsif @booking.completed? && !@host_review.nil? %>
+				<% elsif (@booking.confirmed? || @booking.completed?) && !@host_review.nil? %>
 					<%= render 'partials/review-preview' %>
 				<% end %>
-			<% else %>
-				<% if @booking.completed? && @guest_review.nil? %>
+			<% elsif @guest == current_user %>
+				<% if (@booking.confirmed? || @booking.completed?) && @guest_review.nil? %>
 					<%= render 'partials/new-review' %>
-				<% elsif @booking.completed? && !@guest_review.nil? %>
+				<% elsif (@booking.confirmed? || @booking.completed?) && !@guest_review.nil? %>
 					<%= render 'partials/review-preview' %>
 				<% end %>
 			<% end %>
