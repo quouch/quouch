@@ -76,7 +76,7 @@
 					<% if !@couch.capacity.nil? %>
 						<li class="couch__travellers">
 							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
-							<%= @host.couch.capacity %> guests
+							<%= pluralize(@host.couch.capacity, 'guest') %>
 						</li>
 					<% end %>
 				</ul>
@@ -107,9 +107,12 @@
 		<p><%= @host.question_two %></p>
 		<h2>What I need from the people around me</h2>
 		<p><%= @host.question_three %></p>
+		<div class="couch__action">
 		<% if @couch != current_user.couch %>
-			<%= link_to 'Send quouch request', new_couch_booking_path(@couch.id), class: 'couch__button' %>
+			<%= link_to 'Send quouch request', new_couch_booking_path(@couch), class: 'couch__button' %>
+			<%= link_to 'Report user', report_contacts_path(couch: @couch), class: 'couch__report' %>
 		<% end %>
+		</div>
 	</div>
 	<div class="couch__reviews">
 		<% if @reviews.any? %>
