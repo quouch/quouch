@@ -132,6 +132,11 @@
 		}
 	}
 
+	&__action {
+		display: flex;
+  	flex-direction: column;
+	}
+
 	&__button {
 		@include input-field;
 		@include primary-button;
@@ -139,8 +144,16 @@
 		max-width: fit-content;
 		display: flex;
 		flex-direction: column;
-		margin: 2rem auto;
-		@media (min-width: $break-large) { margin-left: 0; }
+		margin: 1rem auto;
+		@media (min-width: $break-large) { margin: 1rem 0; }
+	}
+
+	&__report {
+		// @include input-field;
+		@include tertiary-button;
+
+  	margin: 0 auto 1rem;
+		@media (min-width: $break-large) { margin: 0; }
 	}
 
 	&__questions {

@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :contacts, only: %i[new create] do
     collection do
       get :code
+      get :report
     end
   end
 
