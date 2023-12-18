@@ -18,13 +18,15 @@ class StatisticsMailer < ApplicationMailer
 		private
 
 	def users_per_city
-		result = User.all.group_by(&:city)
-		result.transform_values(&:count)
+		users_by_city = User.all.group_by(&:city)
+		users_count_by_city = users_by_city.transform_values(&:count)
+		users_count_by_city.sort_by { |_, count| count }.reverse
 	end
 
 	def users_per_country
-		result = User.all.group_by(&:country)
-		result.transform_values(&:count)
+		users_by_country = User.all.group_by(&:country)
+		users_count_by_country = users_by_country.transform_values(&:count)
+		users_count_by_country.sort_by { |_, count| count }.reverse
 	end
 
 	def bookings_today
