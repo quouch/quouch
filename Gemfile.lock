@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/faker-ruby/faker.git
-  revision: 7cf0bbb99cb843fec5a0eb6d0115dfaf0b0aa6a9
-  branch: main
-  specs:
-    faker (3.2.1)
-      i18n (>= 1.8.11, < 2)
-
-GIT
   remote: https://github.com/heartcombo/simple_form.git
   revision: 8f77f598b32ed11b0d56c44481607a6e911bcecb
   specs:
@@ -219,6 +211,7 @@ GEM
       railties (>= 3.0)
     nested_form (0.3.2)
     msgpack (1.7.2)
+    msgpack (1.7.0)
     net-http-persistent (4.0.2)
       connection_pool (~> 2.2)
     net-imap (0.4.2)
@@ -405,7 +398,6 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  faker!
   font-awesome-sass (~> 6.1)
   geocoder
   jbuilder
@@ -419,7 +411,6 @@ DEPENDENCIES
   pry-byebug
   puma (~> 5.0)
   rails (~> 7.0.4)
-  rails_admin (= 3.0)
   redis (~> 4.0)
   rubocop
   rubocop-performance
