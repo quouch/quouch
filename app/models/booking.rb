@@ -33,10 +33,11 @@ class Booking < ApplicationRecord
   def self.complete
     completed_bookings = Booking.where(end_date: ...Date.today, status: 1)
     return unless completed_bookings.update(status: 4)
-      completed_bookings.each do |booking|
-        BookingMailer.with(booking:).booking_completed_guest_email.deliver_later
-        BookingMailer.with(booking:).booking_completed_host_email.deliver_later
-      end
+
+    completed_bookings.each do |booking|
+      BookingMailer.with(booking:).booking_completed_guest_email.deliver_later
+      BookingMailer.with(booking:).booking_completed_host_email.deliver_later
+    end
   end
 
   def self.delete
