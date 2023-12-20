@@ -80,6 +80,22 @@
 		}
 	}
 
+	&__info {
+		@include feature-tag;
+
+		display: flex;
+		align-items: start;
+		gap: .5rem;
+
+		color: $gray-05;
+		text-align: left;
+
+		img {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
 	&__summary {
 		border-top: 1px solid $gray-03;
 		padding-top: 2rem;
