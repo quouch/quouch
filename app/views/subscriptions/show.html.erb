@@ -6,7 +6,7 @@
       <h2>Your circumstances have changed? Update your payment model!</h2>
       <p>Choose a subscription based on your situation</p>
 			
-			<% if current_user.subscriptions.find_by(active: true).plan.interval == 'year' %>
+			<% if current_user.subscription.plan.interval == 'year' %>
       <div class="switch-button switch-button--yearly">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
         <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
@@ -38,7 +38,10 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
+								<p class="plans__info">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
+								</p>
 							</li>
 						<% end %>
           <% end %>
@@ -69,14 +72,17 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
+								<p class="plans__info">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
+								</p>
 							</li>
 						<% end %>
 					<% end %>
         </ul>
       </div>
 
-			<% elsif current_user.subscriptions.find_by(active: true).plan.interval == 'month' %>
+			<% elsif current_user.subscription.plan.interval == 'month' %>
 
 			<div class="switch-button switch-button--monthly">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
@@ -109,7 +115,10 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
+								<p class="plans__info">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
+								</p>
 							</li>
 						<% end %>
           <% end %>
@@ -140,7 +149,10 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Change plan', subscription_path(@subscription), method: :patch, class: 'plans__button', data: { turbo: false }, params: { plan_id: plan } %>
+								<p class="plans__info">
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
+								</p>
 							</li>
 						<% end %>
 					<% end %>
