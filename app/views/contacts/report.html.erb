@@ -8,7 +8,7 @@
 			<div class="contact__input">
 				<%= f.label      :name %>
 				<%= f.text_field :name,
-												 placeholder: 'Full Name' %>
+												 placeholder: 'Your Name' %>
 				<%= f.error :name, class: 'form-error' %>
 			</div>
 			<div class="contact__input">
@@ -25,7 +25,7 @@
 									as: :text,
 									error: false,
 									label: false,
-									input_html: { rows: 8 } %>
+									input_html: { rows: 8, value: "I unfortunately have to report #{Couch.find(params[:couch]).user.first_name} due to them… (please describe the reason of you reporting them as detailed as possible!)" } %>
 			<%= f.error :message, class: 'form-error' %>
 		</div>
 
