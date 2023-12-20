@@ -60,7 +60,7 @@
 			<h2 class="requests__title">Hosted Guests</h2>
 			<ul class="past-requests">
 				<% @completed.each do |request| %>
-					<%= link_to couch_path(request.user.couch) do %>
+					<%= link_to request_booking_path(request) do %>
 						<li>
 							<ul class="past-request">
 								<li class="past-request__profile">
@@ -87,11 +87,11 @@
 									</li>
 									<% if request.reviews.find_by(user: request.couch.user).nil? %>
 									<li class="past-request__link">
-										<%= link_to "See Details & Leave Review", request_booking_path(request) %>
+										Leave Review
 									</li>
 									<% else %>
 									<li class="past-request__link">
-										<%= link_to "See Details", request_booking_path(request) %>
+										See Details
 									</li>
 									<% end %>
 								</div>
