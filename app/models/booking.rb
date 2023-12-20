@@ -32,16 +32,25 @@ class Booking < ApplicationRecord
 
   def self.complete
     completed_bookings = Booking.where(end_date: ...Date.today, status: 1)
-    return unless completed_bookings.update(status: 4)
+    return if completed_bookings.empty?
 
-    completed_bookings.each do |booking|
-      BookingMailer.with(booking:).booking_completed_guest_email.deliver_later
-      BookingMailer.with(booking:).booking_completed_host_email.deliver_later
-    end
+    send_completed_emails(completed_bookings)
+    update_status(completed_bookings)
   end
 
   def self.delete
     pending_bookings = Booking.where(start_date: ...Date.today, status: 0)
     pending_bookings.destroy_all
+  end
+
+  def self.update_status(bookings)
+    bookings.update_all(status: 4)
+  end
+
+  def self.send_completed_emails(bookings)
+    bookings.each do |booking|
+      BookingMailer.with(booking:).booking_completed_guest_email.deliver
+      BookingMailer.with(booking:).booking_completed_host_email.deliver
+    end
   end
 end
