@@ -46,7 +46,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def get_plans(plans, interval)
-    plans.where(interval:).order('id')
+    plans.where(interval:).order('price_cents')
   end
 
   def display_plans
