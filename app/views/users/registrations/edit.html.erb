@@ -104,11 +104,18 @@
               <%= f.label :country,
                           required: true,
                           class: 'user__address-label' %>
+              <% if ISO3166::Country.find_country_by_iso_short_name(@user.country) != nil %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           required: true,
                           label: false,
-                          selected: ISO3166::Country.find_country_by_iso_short_name(@user.country).alpha2 if ISO3166::Country.find_country_by_iso_short_name(@user.country) %>
+                          selected: ISO3166::Country.find_country_by_iso_short_name(@user.country).alpha2 %>
+              <% else %>
+              <%= f.input :country,
+                          collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
+                          required: true,
+                          label: false %>
+              <% end %>
               <%= f.error :country, class: 'form-error' %>
             </div>
           </div>
