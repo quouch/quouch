@@ -3,7 +3,6 @@
   <%= link_to 'Take a peek at my own profile', couch_path(current_user.couch), class: 'user__header-link' %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
 
-    <div>
       <div class="user__wrap">
 
         <div class="user__image" data-controller="image-preview">
@@ -107,9 +106,9 @@
                           class: 'user__address-label' %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
-                          selected: ISO3166::Country.find_country_by_iso_short_name(@user.country).alpha2,
                           required: true,
-                          label: false %>
+                          label: false,
+                          selected: ISO3166::Country.find_country_by_iso_short_name(@user.country).alpha2 if ISO3166::Country.find_country_by_iso_short_name(@user.country) %>
               <%= f.error :country, class: 'form-error' %>
             </div>
           </div>
@@ -253,7 +252,6 @@
                         required: false,
                         error: false %>
       <%= f.error       :password_confirmation, class: 'form-error' %>
-    </div>
 
     <div class="user__submit">
       <%= f.button :submit, 'Update' %>
