@@ -3,8 +3,8 @@
     <h1 class="plans__title">Manage Subscription</h1>
 
     <div class="plans__content" data-controller="plans-toggle">
-      <h2>Your circumstances have changed? Update your payment model!</h2>
-      <p>Choose a subscription based on your situation</p>
+<!--      <h2>Your circumstances have changed? Update your payment model!</h2>
+      <p>Choose a subscription based on your situation</p>-->
 			
 			<% if current_user.subscription.plan.interval == 'year' %>
       <div class="switch-button switch-button--yearly">
@@ -16,7 +16,7 @@
         <ul class="plans__list" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
 						<% if plan == @plan %>
-							<li class="plans__list-item current-plan">
+							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
@@ -26,7 +26,19 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info plans__info--cancelled">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+									</p>
+								<% else %>
+									<button class="plans__button"
+										data-cancel-subscription-target="cancel" data-action="click->cancel-subscription#displayInfo"
+										data-confirm-title="Confirm Cancellation"
+										data-confirm-text="Are you sure you want to cancel your subscription? In case you cancel your subscription today, it will still run until the billing cycle you initially chose ends. Once the billing cycle ended, you can choose another plan."
+										data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Subscription</button>
+									<%= button_to '', subscription_path(@subscription), method: :patch, class: 'display-none', data: { turbo: false, cancel_subscription_target: 'action' } %>
+								<% end %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
@@ -50,7 +62,7 @@
         <ul class="plans__list display-none" data-plans-toggle-target="month">
           <% @monthly.each do |plan| %>
 						<% if plan == @plan %>
-							<li class="plans__list-item current-plan">
+							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
@@ -60,7 +72,19 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info plans__info--cancelled">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+									</p>
+								<% else %>
+									<button class="plans__button"
+										data-cancel-subscription-target="cancel" data-action="click->cancel-subscription#displayInfo"
+										data-confirm-title="Confirm Cancellation"
+										data-confirm-text="Are you sure you want to cancel your subscription? In case you cancel your subscription today, it will still run until the billing cycle you initially chose ends. Once the billing cycle ended, you can choose another plan."
+										data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Subscription</button>
+									<%= button_to '', subscription_path(@subscription), method: :patch, class: 'display-none', data: { turbo: false, cancel_subscription_target: 'action' } %>
+								<% end %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
@@ -93,7 +117,7 @@
         <ul class="plans__list display-none" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
 						<% if plan == @plan %>
-							<li class="plans__list-item current-plan">
+							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
@@ -103,7 +127,19 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info plans__info--cancelled">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+									</p>
+								<% else %>
+									<button class="plans__button"
+										data-cancel-subscription-target="cancel" data-action="click->cancel-subscription#displayInfo"
+										data-confirm-title="Confirm Cancellation"
+										data-confirm-text="Are you sure you want to cancel your subscription? In case you cancel your subscription today, it will still run until the billing cycle you initially chose ends. Once the billing cycle ended, you can choose another plan."
+										data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Subscription</button>
+									<%= button_to '', subscription_path(@subscription), method: :patch, class: 'display-none', data: { turbo: false, cancel_subscription_target: 'action' } %>
+								<% end %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
@@ -127,7 +163,7 @@
         <ul class="plans__list" data-plans-toggle-target="month">
           <% @monthly.each do |plan| %>
 						<% if plan == @plan %>
-							<li class="plans__list-item current-plan">
+							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
@@ -137,7 +173,19 @@
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<%= button_to 'Cancel plan', subscription_path(@subscription), method: :delete, class: 'plans__button', data: { turbo: false } %>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info plans__info--cancelled">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+									</p>
+								<% else %>
+									<button class="plans__button"
+										data-cancel-subscription-target="cancel" data-action="click->cancel-subscription#displayInfo"
+										data-confirm-title="Confirm Cancellation"
+										data-confirm-text="Are you sure you want to cancel your subscription? In case you cancel your subscription today, it will still run until the billing cycle you initially chose ends. Once the billing cycle ended, you can choose another plan."
+										data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Subscription</button>
+									<%= button_to '', subscription_path(@subscription), method: :patch, class: 'display-none', data: { turbo: false, cancel_subscription_target: 'action' } %>
+								<% end %>
 							</li>
 						<% else %>
 							<li class="plans__list-item">
