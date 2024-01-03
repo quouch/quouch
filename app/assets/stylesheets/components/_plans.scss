@@ -86,6 +86,8 @@
 		display: flex;
 		align-items: start;
 		gap: .5rem;
+		margin-top: auto;
+  	margin-bottom: 0;
 
 		color: $gray-05;
 		text-align: left;
@@ -93,6 +95,10 @@
 		img {
 			width: 20px;
 			height: 20px;
+		}
+
+		&--cancelled {
+			color: $white;
 		}
 	}
 
