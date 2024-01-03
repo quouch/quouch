@@ -24,15 +24,12 @@ class SubscriptionsController < ApplicationController
     subscription.cancel_at_period_end = true
     return unless subscription.save
 
-    flash[:alert] = if @subscription.update!(active: false)
+    flash[:alert] = if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
                       'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
                     else
                       'Something went wrong. Please try again or contact the Quouch Team.'
                     end
-  end
-
-  def destroy
-    current_user.subscription.destroy
+    redirect_to subscription_path(@subscription)
   end
 
   private
