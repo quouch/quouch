@@ -71,12 +71,11 @@
 	}
 
 	&__description {
-		display: none;
+		margin: 1rem 0;
+		text-align: start;
 
 		@media (min-width: $break-medium) {
-			display: block;
 			margin: 3rem auto;
-			text-align: left;
 		}
 	}
 
