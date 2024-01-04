@@ -3,8 +3,6 @@
     <h1 class="plans__title">Manage Subscription</h1>
 
     <div class="plans__content" data-controller="plans-toggle">
-<!--      <h2>Your circumstances have changed? Update your payment model!</h2>
-      <p>Choose a subscription based on your situation</p>-->
 			
 			<% if current_user.subscription.plan.interval == 'year' %>
       <div class="switch-button switch-button--yearly">
@@ -19,7 +17,7 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394412/stack_transparent.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
@@ -28,8 +26,8 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg') %>
+										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
 									<button class="plans__button"
@@ -43,17 +41,24 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
-								</p>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You can subscribe to this plan once your current plan has ended.</em>
+									</p>
+								<% else %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
+									</p>
+									<% end %>
 							</li>
 						<% end %>
           <% end %>
@@ -65,7 +70,7 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394412/stack_transparent.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
@@ -74,8 +79,8 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg') %>
+										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
 									<button class="plans__button"
@@ -89,17 +94,24 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
-								</p>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You can subscribe to this plan once your current plan has ended.</em>
+									</p>
+								<% else %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
+									</p>
+								<% end %>
 							</li>
 						<% end %>
 					<% end %>
@@ -120,7 +132,7 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
@@ -129,8 +141,8 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg') %>
+										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
 									<button class="plans__button"
@@ -144,17 +156,24 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
-								</p>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You can subscribe to this plan once your current plan has ended.</em>
+									</p>
+								<% else %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
+									</p>
+								<% end %>
 							</li>
 						<% end %>
           <% end %>
@@ -166,7 +185,7 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
@@ -175,8 +194,8 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-										<em>You cancelled this subscription. It ends <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it won't renew automatically after its billing cycle has ended. To continue using our service, you can then subscribe to a new plan.</em>
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg') %>
+										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
 									<button class="plans__button"
@@ -190,17 +209,24 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1683567462/stack.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
-								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
-									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a new plan.</em>
-								</p>
+								<% if @subscription.end_of_period %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>You can subscribe to this plan once your current plan has ended.</em>
+									</p>
+								<% else %>
+									<p class="plans__info">
+										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg') %>
+										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
+									</p>
+								<% end %>
 							</li>
 						<% end %>
 					<% end %>
