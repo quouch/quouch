@@ -113,6 +113,7 @@
 			<%= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
 		<% elsif @couch != current_user.couch && !current_user.subscription %>
 			<%= link_to 'Send Quouch request', new_subscription_path, class: 'couch__button' %>
+			<%= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
 		<% end %>
 		</div>
 	</div>
