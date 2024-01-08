@@ -11,9 +11,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def payment
-    plan_id = params[:plan_id]
-    subscription_id = Subscription.last ? Subscription.last.id + 1 : 1
-    subscription = Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
+    add_stripe_id_to_user unless current_user.stripe_id
+    subscription = create_subscription
     checkout_session = create_checkout_session(subscription)
     subscription.checkout_session_id = checkout_session.id
     subscription.save! if redirect_to checkout_session.url, allow_other_host: true
@@ -52,6 +51,12 @@ class SubscriptionsController < ApplicationController
     @yearly = get_plans(@plans, 'year')
   end
 
+  def create_subscription
+    plan_id = params[:plan_id]
+    subscription_id = Subscription.last ? Subscription.last.id + 1 : 1
+    Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
+  end
+
   def create_checkout_session(subscription)
     Stripe::Checkout::Session.create(
       {
@@ -66,5 +71,10 @@ class SubscriptionsController < ApplicationController
         cancel_url: new_subscription_url
       }
     )
+  end
+
+  def add_stripe_id_to_user
+    response = Stripe::Customer.create(email: current_user.email)
+    current_user.update!(stripe_id: response.id)
   end
 end
