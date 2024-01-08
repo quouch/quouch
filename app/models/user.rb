@@ -37,7 +37,7 @@ class User < ApplicationRecord
   validate  :validate_travelling, on: :create
   validate  :at_least_one_option_checked?, on: :create
 
-  validates :stripe_id, presence: true, uniqueness: true
+  validates :stripe_id, presence: true, uniqueness: true, on: :create
   before_validation :create_stripe_reference, on: :create
 
   geocoded_by :address
