@@ -5,7 +5,7 @@
     </h1>
 
     <div class="plans__content" data-controller="plans-toggle">
-      <h2>And start contacting other members now</h2>
+      <h2>And start sending Quouch requests now</h2>
       <p>Choose a subscription based on your situation</p>
       <div class="switch-button">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
@@ -16,13 +16,14 @@
         <ul class="plans__list" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
           <li class="plans__list-item">
-            <h3><%= plan.name %></h3>
-            <ul class="plans__details">
-              <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
-              <li class="plans__description">
-                <%= plan.description %>
-              </li>
-            </ul>
+            <div class="plans__list-item__wrap">
+              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
+              <div>
+                <h3><%= plan.name %></h3>
+                  <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+              </div>
+            </div>
+            <p class="plans__description"><%= plan.description %></p>
             <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
           </li>
           <% end %>
@@ -31,13 +32,14 @@
         <ul class="plans__list display-none" data-plans-toggle-target="month">
           <% @monthly.each do |plan| %>
           <li class="plans__list-item">
-            <h3><%= plan.name %></h3>
-            <ul class="plans__details">
-              <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
-              <li class="plans__description">
-                <%= plan.description %>
-              </li>
-            </ul>
+            <div class="plans__list-item__wrap">
+              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
+              <div>
+                <h3><%= plan.name %></h3>
+                  <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+              </div>
+            </div>
+            <p class="plans__description"><%= plan.description %></p>
             <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
           </li>
           <% end %>
