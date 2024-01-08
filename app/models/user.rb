@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics
+  has_one :subscription
 
   validates :photo, presence: { message: 'Please upload a picture' }, on: :create
   validates :first_name, presence: { message: 'First name required' }, on: :create
@@ -35,6 +36,9 @@ class User < ApplicationRecord
   validate  :validate_age, on: :create
   validate  :validate_travelling, on: :create
   validate  :at_least_one_option_checked?, on: :create
+
+  validates :stripe_id, presence: true, uniqueness: true
+  before_validation :create_stripe_reference, on: :create
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -100,5 +104,14 @@ class User < ApplicationRecord
 
   def validate_user_characteristics
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
+  end
+
+  def create_stripe_reference
+    response = Stripe::Customer.create(email:)
+    self.stripe_id = response.id
+  end
+
+  def retrieve_stripe_reference
+    Stripe::Customer.retrieve(stripe_id)
   end
 end

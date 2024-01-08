@@ -3,8 +3,8 @@ import swal from 'sweetalert';
 
 // Connects to data-controller="confirm-alert"
 export default class extends Controller {
-  static targets = ['cancel', 'action', 'accept'];
-  
+  static targets = ['cancel', 'action'];
+
   displayConfirmAlert(event) {
     const title = event.target.dataset.confirmTitle
     const text = event.target.dataset.confirmText
