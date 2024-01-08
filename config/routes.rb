@@ -48,7 +48,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :subscriptions, only: %i[new show create update destroy] do
+    get :payment, on: :collection, defaults: { format: 'html' }
+  end
+
   mount ActionCable.server => '/cable'
+  mount StripeEvent::Engine, at: '/stripe-webhooks'
 
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
