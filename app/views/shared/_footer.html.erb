@@ -68,11 +68,14 @@
 					</li>
 				</ul>
 			</div>
-			<%# <div class="footer__newsletter">
+			<div class="footer__newsletter">
 				<h3>Newsletter</h3>
 				<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
-				<%= link_to 'Subscribe' %>
-			<%# </div> %>
+				<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= ENV['BREVO_API_KEY'] %>">
+    			<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
+					<button type="submit">Subscribe</button>
+				</form>
+			</div>
 		</div>
 		<div class="footer__logo">
 			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680011936/logo.png') %>
