@@ -25,7 +25,7 @@
 
 		@media (min-width: $break-medium) {
 			display: grid;
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(5, 1fr);
 			margin-top: 1rem;
 		}
 	}
@@ -58,7 +58,7 @@
 	}
 
 	&__newsletter {
-		a {
+		button {
 			@include input-field;
 			@include primary-button;
 
