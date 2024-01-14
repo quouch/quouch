@@ -14,5 +14,6 @@ export default class extends Controller {
       body: JSON.stringify({ 'email': this.inputTarget.value, 'listIds': [2] })
     })
       .then(response => response.json())
+      .then(data => console.log(data))
   }
 }
