@@ -1,4 +1,4 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 import swal from 'sweetalert';
 
 // Connects to data-controller="confirm-alert"

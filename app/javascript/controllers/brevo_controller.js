@@ -1,4 +1,6 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
+import swal from 'sweetalert';
+
 
 // Connects to data-controller="brevo"
 export default class extends Controller {
@@ -14,6 +16,16 @@ export default class extends Controller {
       body: JSON.stringify({ 'email': this.inputTarget.value, 'listIds': [2] })
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        if (data.success) {
+          swal({
+            title: 'Signed up!',
+            text: 'You have successfully subscribed to our newsletter and will now stay up to date. We would love to welcome you into our community!',
+            button: 'Lots of love!'
+          }).then(() => {
+            window.location.reload()
+          })
+        }}
+      )
   }
 }
