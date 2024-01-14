@@ -21,8 +21,6 @@ export default class extends Controller {
             title: 'Signed up!',
             text: 'You have successfully subscribed to our newsletter and will now stay up to date. We would love to welcome you into our community!',
             button: 'Lots of love!'
-          }).then(() => {
-            window.location.reload()
           })
         }
       })
