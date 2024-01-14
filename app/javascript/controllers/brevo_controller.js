@@ -16,17 +16,15 @@ export default class extends Controller {
       body: JSON.stringify({ 'email': this.inputTarget.value, 'listIds': [2] })
     })
       .then((response) => {
-        console.log(response)
+        if (response.status === 201) {
+          swal({
+            title: 'Signed up!',
+            text: 'You have successfully subscribed to our newsletter and will now stay up to date. We would love to welcome you into our community!',
+            button: 'Lots of love!'
+          }).then(() => {
+            window.location.reload()
+          })
+        }
       })
-      //   if (response.status === 200) {
-      //     swal({
-      //       title: 'Signed up!',
-      //       text: 'You have successfully subscribed to our newsletter and will now stay up to date. We would love to welcome you into our community!',
-      //       button: 'Lots of love!'
-      //     }).then(() => {
-      //       window.location.reload()
-      //     })
-      //   }
-      // })
   }
 }
