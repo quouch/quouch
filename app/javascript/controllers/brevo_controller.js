@@ -15,7 +15,16 @@ export default class extends Controller {
       headers: {'Content-Type': 'application/json', 'api-key': this.apiKeyValue },
       body: JSON.stringify({ 'email': this.inputTarget.value, 'listIds': [2] })
     })
-      .then(response => console.log(response.json()))
-      .then(data => console.log(data))
+      .then((response) => {
+        if (response.status === 200) {
+          swal({
+            title: 'Signed up!',
+            text: 'You have successfully subscribed to our newsletter and will now stay up to date. We would love to welcome you into our community!',
+            button: 'Lots of love!'
+          }).then(() => {
+            window.location.reload()
+          })
+        }
+      })
   }
 }
