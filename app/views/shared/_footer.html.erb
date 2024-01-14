@@ -1,5 +1,13 @@
 <footer class="footer">
 	<div class="footer__wrap">
+		<div class="footer__newsletter footer__newsletter--mobile">
+			<h3>Newsletter</h3>
+			<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
+			<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= ENV['BREVO_API_KEY'] %>">
+				<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
+				<button type="submit">Subscribe</button>
+			</form>
+		</div>
 		<div class="footer__top">
 			<div class="footer__about">
 				<h3>About us</h3>
@@ -68,7 +76,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="footer__newsletter">
+			<div class="footer__newsletter footer__newsletter--desktop">
 				<h3>Newsletter</h3>
 				<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
 				<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= ENV['BREVO_API_KEY'] %>">
