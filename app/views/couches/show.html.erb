@@ -91,7 +91,7 @@
 			<h2>Location</h2>
 			<div class="couch__pin">
 				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-				<% if @couch.user.country == 'United Kingdom of Great Britain and Northern Ireland' %>
+				<% if @couch.user.country == 'United Kingdom Of Great Britain and Northern Ireland' %>
 					<p><%= @couch.user.city %>, United Kingdom</p>
 				<% else %>
 					<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
