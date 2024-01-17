@@ -61,7 +61,7 @@ class SubscriptionsController < ApplicationController
     Stripe::Checkout::Session.create(
       {
         customer: current_user.stripe_id,
-        payment_method_types: ['card'],
+        payment_method_types: %w[card paypal],
         line_items: [{
           price: subscription.plan.stripe_price_id,
           quantity: 1
