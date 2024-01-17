@@ -37,15 +37,15 @@ class User < ApplicationRecord
   validate  :validate_travelling, on: :create
   validate  :at_least_one_option_checked?, on: :create
 
-  validates :stripe_id, presence: true, uniqueness: true, on: :create
-  after_validation :create_stripe_reference, on: :create
-
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
 
+  validates :stripe_id, presence: true, uniqueness: true, on: :create
+  before_save :create_stripe_reference_if_new_record
+
   pg_search_scope :search_city_or_country,
-                  against: %i[city country],
+  against: %i[city country],
                   using: {
                     tsearch: { prefix: true }
                   }
@@ -104,6 +104,12 @@ class User < ApplicationRecord
 
   def validate_user_characteristics
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
+  end
+
+  def create_stripe_reference_if_new_record
+    return unless new_record?
+
+    create_stripe_reference
   end
 
   def create_stripe_reference
