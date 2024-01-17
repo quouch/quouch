@@ -37,15 +37,14 @@ class User < ApplicationRecord
   validate  :validate_travelling, on: :create
   validate  :at_least_one_option_checked?, on: :create
 
+  after_validation :create_stripe_reference, on: :create
+
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
 
-  validates :stripe_id, presence: true, uniqueness: true, on: :create
-  before_save :create_stripe_reference_if_new_record
-
   pg_search_scope :search_city_or_country,
-  against: %i[city country],
+                  against: %i[city country],
                   using: {
                     tsearch: { prefix: true }
                   }
@@ -93,8 +92,6 @@ class User < ApplicationRecord
     loop do
       new_invite_code = SecureRandom.hex(3)
 
-      # Check if the generated invite code already exists in the database
-      # If not, set it as the user's invite code and break out of the loop
       unless User.exists?(invite_code: new_invite_code)
         self.invite_code = new_invite_code
         break
@@ -106,18 +103,8 @@ class User < ApplicationRecord
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
   end
 
-  def create_stripe_reference_if_new_record
-    return unless new_record?
-
-    create_stripe_reference
-  end
-
   def create_stripe_reference
     response = Stripe::Customer.create(email:)
     self.stripe_id = response.id
-  end
-
-  def retrieve_stripe_reference
-    Stripe::Customer.retrieve(stripe_id)
   end
 end

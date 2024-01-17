@@ -1,5 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  # * used the create from Devise: https://github.com/heartcombo/devise/blob/main/app/controllers/devise/registrations_controller.rb
   def create
     build_resource(sign_up_params)
     create_user_characteristics
