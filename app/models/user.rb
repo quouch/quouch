@@ -38,7 +38,7 @@ class User < ApplicationRecord
   validate  :at_least_one_option_checked?, on: :create
 
   validates :stripe_id, presence: true, uniqueness: true, on: :create
-  before_validation :create_stripe_reference, on: :create
+  after_validation :create_stripe_reference, on: :create
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
