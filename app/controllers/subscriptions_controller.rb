@@ -17,10 +17,6 @@ class SubscriptionsController < ApplicationController
     subscription.checkout_session_id = checkout_session.id
     subscription.save!
     redirect_to checkout_session.url, allow_other_host: true
-  rescue Stripe::StripeError => e
-    handle_checkout_error(subscription, "An error occurred processing the payment: #{e.message}")
-  rescue StandardError => e
-    handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
   end
 
   def update
