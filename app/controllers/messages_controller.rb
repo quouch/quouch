@@ -6,13 +6,13 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.chat = @chat
     @message.user = current_user
-    if @message.save
-      ChatChannel.broadcast_to(
-        @chat,
-        { message: render_to_string(partial: 'message', locals: { message: @message }), sender_id: @message.user.id }
-      )
-      head :ok
-    end
+    return unless @message.save
+
+    ChatChannel.broadcast_to(
+      @chat,
+      { message: render_to_string(partial: 'message', locals: { message: @message }), sender_id: @message.user.id }
+    )
+    head :ok
   end
 
   private

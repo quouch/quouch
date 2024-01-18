@@ -4,16 +4,24 @@ class BookingsController < ApplicationController
 
 	def index
 		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
-		@upcoming = @bookings.select { |booking| booking.confirmed? || booking.pending? || booking.pending_reconfirmation? }.sort_by { |booking| booking.start_date || Date.today }
-		@cancelled = @bookings.select { |booking| booking.cancelled? || booking.declined? }.sort_by { |booking| booking.start_date || Date.today }
+		@upcoming = @bookings.select do |booking|
+ booking.confirmed? || booking.pending? || booking.pending_reconfirmation?
+              end.sort_by { |booking| booking.start_date || Date.today }
+		@cancelled = @bookings.select do |booking|
+ booking.cancelled? || booking.declined?
+               end.sort_by { |booking| booking.start_date || Date.today }
 		@completed = @bookings.select(&:completed?).sort_by { |booking| booking.start_date || Date.today }
 	end
 
 	def requests
     @requests = @couch.bookings
-		@upcoming = @requests.select { |request| request.confirmed? || request.pending? || request.pending_reconfirmation? }.sort_by { |request| request.start_date || Date.today }
-		@cancelled = @requests.select { |request| request.cancelled? || request.declined? }.sort_by { |request| request.start_date || Date.today }
-		@completed = @requests.select(&:completed?).sort_by { |request| request.start_date || Date.today }
+		  @upcoming = @requests.select do |request|
+ request.confirmed? || request.pending? || request.pending_reconfirmation?
+                end.sort_by { |request| request.start_date || Date.today }
+		  @cancelled = @requests.select do |request|
+ request.cancelled? || request.declined?
+                 end.sort_by { |request| request.start_date || Date.today }
+		  @completed = @requests.select(&:completed?).sort_by { |request| request.start_date || Date.today }
 	end
 
 	def show
@@ -30,7 +38,7 @@ class BookingsController < ApplicationController
 			}
 		end
 		@chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) ||
-						Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
+						    Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
 		@host_review = @booking.reviews.find_by(user: @host)
 		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
@@ -81,8 +89,9 @@ class BookingsController < ApplicationController
 		@booking.cancelled!
 		@booking.cancellation_date = DateTime.now
 		@canceller = current_user
-		if @booking.save
-			if @canceller == @booking.user
+		return unless @booking.save
+
+		if @canceller == @booking.user
 				redirect_to bookings_path
 				case status_before_cancellation
 				when 'pending'
@@ -90,11 +99,10 @@ class BookingsController < ApplicationController
 				when 'confirmed'
 					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
 				end
-			else
+		else
 				redirect_to requests_couch_bookings_path(@booking.couch)
 				BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
-			end
-		end
+  end
 	end
 
 	def show_request
@@ -102,7 +110,9 @@ class BookingsController < ApplicationController
 		@couch = @booking.couch
 		@host = @couch.user
 		@guest = @booking.user
-		@chat = Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id)
+		@chat = Chat.find_by(user_sender_id: @guest.id,
+                       user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id,
+                                                                   user_receiver_id: @guest.id)
 		@host_review = @booking.reviews.find_by(user: @host)
 		@guest_review = @booking.reviews.find_by(user: @booking.user)
 	end
@@ -118,16 +128,16 @@ class BookingsController < ApplicationController
 	end
 
 	def accept
-		if @booking.confirmed!
-			BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
-		end
+		return unless @booking.confirmed!
+
+		BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 	end
 
 	def decline
-		if @booking.declined!
-			redirect_to requests_couch_bookings_path(@booking.couch)
-			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
-		end
+		return unless @booking.declined!
+
+		redirect_to requests_couch_bookings_path(@booking.couch)
+		BookingMailer.with(booking: @booking).request_declined_email.deliver_later
 	end
 
 	def complete
