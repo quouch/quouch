@@ -15,7 +15,12 @@ class SubscriptionsController < ApplicationController
     subscription = create_subscription
     checkout_session = create_checkout_session(subscription)
     subscription.checkout_session_id = checkout_session.id
-    subscription.save! if redirect_to checkout_session.url, allow_other_host: true
+    subscription.save!
+    redirect_to checkout_session.url, allow_other_host: true
+  rescue Stripe::StripeError => e
+    handle_checkout_error(subscription, "An error occurred processing the payment: #{e.message}")
+  rescue StandardError => e
+    handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
   end
 
   def update
@@ -23,12 +28,18 @@ class SubscriptionsController < ApplicationController
     subscription.cancel_at_period_end = true
     return unless subscription.save
 
-    flash[:alert] = if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
-                      'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
-                    else
-                      'Something went wrong. Please try again or contact the Quouch Team.'
-                    end
+    if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
+      flash[:alert] =
+        'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
+    else
+      flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
+    end
+
     redirect_to subscription_path(@subscription)
+  rescue Stripe::StripeError => e
+      handle_subscription_update_error(e.message)
+  rescue StandardError => e
+      handle_subscription_update_error("An unexpected error occurred: #{e.message}")
   end
 
   private
@@ -71,10 +82,25 @@ class SubscriptionsController < ApplicationController
         cancel_url: new_subscription_url
       }
     )
+  rescue Stripe::StripeError => e
+    raise e
+  rescue StandardError => e
+    raise StandardError, "An unexpected error occurred during checkout session creation: #{e.message}"
   end
 
   def add_stripe_id_to_user
     response = Stripe::Customer.create(email: current_user.email)
     current_user.update!(stripe_id: response.id)
+  end
+
+  def handle_checkout_error(subscription, error_message)
+    subscription.destroy if subscription.persisted?
+    flash[:error] = error_message
+    redirect_to new_subscription_url
+  end
+
+  def handle_subscription_update_error(error_message)
+    flash[:error] = "Error updating subscription: #{error_message}"
+    redirect_to subscription_path(@subscription)
   end
 end

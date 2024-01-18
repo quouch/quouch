@@ -1,9 +1,9 @@
 class Booking < ApplicationRecord
   belongs_to :couch
   belongs_to :user
-  has_many   :reviews
+  has_many   :reviews, dependent: :destroy
 
-  validates  :request, presence: { message: 'Please choose one' }
+  validates  :request, presence: { message: 'Please select one' }
   validates  :message, presence: true
   validate   :matches_capacity?, if: -> { couch.capacity }
   validate   :duplicate_booking?, on: :create
@@ -13,21 +13,21 @@ class Booking < ApplicationRecord
   enum request: { host: 0, hangout: 1, cowork: 2 }
 
   def matches_capacity?
-    if number_travellers > couch.capacity
-      errors.add(:number_travellers, 'Capacity of couch exceeded')
-    end
+    return unless number_travellers > couch.capacity
+
+    errors.add(:number_travellers, 'Capacity of couch exceeded')
   end
 
   def duplicate_booking?
-    if Booking.where(couch:, start_date:, end_date:, status: 1).exists?
-      errors.add(:start_date, 'Sorry, couch is already booked!')
-    end
+    return unless Booking.where(couch:, start_date:, end_date:, status: 1).exists?
+
+    errors.add(:start_date, 'Sorry, couch is already booked!')
   end
 
   def duplicate_request?
-    if Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
-      errors.add(:start_date, 'Duplicate request with host')
-    end
+    return unless Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
+
+    errors.add(:start_date, 'Duplicate request with host')
   end
 
   def self.complete
