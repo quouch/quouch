@@ -35,6 +35,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     disable_offers_if_travelling
   end
 
+  def destroy
+    User.where(invited_by_id: @user.id).update!(invited_by_id: nil)
+    if @user.destroy!
+      sign_out(@user) # Optional: Sign out the user after deletion
+      redirect_to root_path
+      flash[:alert] = 'You successfully unsubscribed the Quouch service and deleted your profile. Sad to see you go!'
+    else
+      redirect_to root_path
+      flash[:alert] = 'Something went wrong. Please contact the Quouch Team to make sure you are not billed again.'
+    end
+  end
+
   protected
 
   def couch_params
@@ -85,7 +97,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def update_user_characteristics
     @user.user_characteristics.destroy_all
-    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map { |id| { characteristic_id: id } }
+    chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map do |id|
+ { characteristic_id: id }
+    end
     @user.user_characteristics.build(chars_hash)
     @user.user_characteristics.each(&:save)
   end

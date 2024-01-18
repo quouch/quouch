@@ -12,14 +12,14 @@ class User < ApplicationRecord
   has_many :bookings, dependent: :destroy
   has_many :reviews, dependent: :destroy
 
-  has_many :messages
+  has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy, as: :recipient
-  has_many :chats_as_receiver, class_name: 'Chat', foreign_key: :user_receiver_id
-  has_many :chats_as_sender, class_name: 'Chat', foreign_key: :user_sender_id
+  has_many :chats_as_receiver, class_name: 'Chat', foreign_key: :user_receiver_id, dependent: :destroy
+  has_many :chats_as_sender, class_name: 'Chat', foreign_key: :user_sender_id, dependent: :destroy
 
   has_many :user_characteristics, dependent: :destroy, autosave: true
-  has_many :characteristics, through: :user_characteristics
-  has_one :subscription
+  has_many :characteristics, through: :user_characteristics, dependent: :destroy
+  has_one  :subscription, dependent: :destroy
 
   validates :photo, presence: { message: 'Please upload a picture' }, on: :create
   validates :first_name, presence: { message: 'First name required' }, on: :create
@@ -49,6 +49,8 @@ class User < ApplicationRecord
                     tsearch: { prefix: true }
                   }
 
+  after_destroy :cancel_stripe_subscription
+
   def calculated_age
     today = Date.today
     return unless date_of_birth
@@ -73,9 +75,9 @@ class User < ApplicationRecord
   end
 
   def validate_age
-    if calculated_age.present? && calculated_age < 18
-      errors.add(:date_of_birth, 'Sorry you are too young, please come back when you are 18!')
-    end
+    return unless calculated_age.present? && calculated_age < 18
+
+    errors.add(:date_of_birth, 'Sorry you are too young, please come back when you are 18!')
   end
 
   def at_least_one_option_checked?
@@ -83,9 +85,9 @@ class User < ApplicationRecord
   end
 
   def validate_travelling
-    unless at_least_one_option_checked?
-      errors.add(:travelling, 'at least one option must be checked')
-    end
+    return if at_least_one_option_checked?
+
+    errors.add(:travelling, 'at least one option must be checked')
   end
 
   def generate_invite_code
@@ -104,7 +106,35 @@ class User < ApplicationRecord
   end
 
   def create_stripe_reference
-    response = Stripe::Customer.create(email:)
-    self.stripe_id = response.id
+      response = Stripe::Customer.create(email: current_user.email)
+      self.stripe_id = response.id
+  rescue Stripe::StripeError => e
+      handle_stripe_reference_creation_error("Error creating Stripe customer: #{e.message}")
+  rescue StandardError => e
+      handle_stripe_reference_creation_error("An unexpected error occurred during Stripe customer creation: #{e.message}")
+  end
+
+  def handle_stripe_reference_creation_error(error_message)
+    flash[:error] = error_message
+    redirect_to new_subscription_url
+  end
+
+  def cancel_stripe_subscription
+      return unless subscription
+
+      stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_id)
+      stripe_subscription.cancel_at_period_end = true
+      return unless stripe_subscription.save
+
+      subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
+  rescue Stripe::StripeError => e
+      handle_subscription_cancellation_error("Error cancelling subscription: #{e.message}")
+  rescue StandardError => e
+      handle_subscription_cancellation_error("An unexpected error occurred during subscription cancellation: #{e.message}")
+  end
+
+  def handle_subscription_cancellation_error(error_message)
+    flash[:error] = error_message
+    redirect_to subscription_path(subscription)
   end
 end

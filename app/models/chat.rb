@@ -1,7 +1,7 @@
 class Chat < ApplicationRecord
   belongs_to :user_sender, class_name: 'User'
   belongs_to :user_receiver, class_name: 'User'
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   has_noticed_notifications model_name: 'Notification'
 
