@@ -7,7 +7,6 @@ namespace :import do
 	desc 'Import users from Airtable'
 
 	task import: :environment do
-
 		Profile.all(sort: { 'CreatedDate' => 'asc' }).each_with_index do |row, _index|
 			# break if _index >= 100
 
@@ -42,18 +41,19 @@ namespace :import do
 	end
 
 	def attach_image(photo_url, user)
-		if photo_url && photo_url.is_a?(Array)
-			url = photo_url[0]['url']
-			photo_filename = photo_url[0]['filename']
-			temp_file = Tempfile.new(photo_filename)
+		return unless photo_url && photo_url.is_a?(Array)
 
-			uri = URI.parse(url)
-			http = Net::HTTP.new(uri.host, uri.port)
-			http.use_ssl = true if uri.scheme == 'https'
-			request = Net::HTTP::Get.new(uri.request_uri)
-			response = http.request(request)
+		url = photo_url[0]['url']
+		photo_filename = photo_url[0]['filename']
+		temp_file = Tempfile.new(photo_filename)
 
-			if response.code.to_i == 200
+		uri = URI.parse(url)
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true if uri.scheme == 'https'
+		request = Net::HTTP::Get.new(uri.request_uri)
+		response = http.request(request)
+
+		if response.code.to_i == 200
 				temp_file.binmode
 				temp_file.write(response.body)
 				temp_file.rewind
@@ -70,13 +70,12 @@ namespace :import do
 				rescue StandardError => e
 					puts "Error uploading image to Cloudinary: #{e.message}"
 				end
-			else
+		else
 				puts "Error fetching image: #{response.code} - #{response.message}"
-			end
+  end
 
-			temp_file.close
-			temp_file.unlink
-		end
+		temp_file.close
+		temp_file.unlink
 	end
 
 	def find_user(invited_by)

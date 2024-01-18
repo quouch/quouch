@@ -26,6 +26,6 @@ class Message < ApplicationRecord
 
   def notify_recipient
     recipient = find_recipient(self)
-    MessageNotification.with(message: self, chat: self.chat).deliver_later(recipient)
+    MessageNotification.with(message: self, chat:).deliver_later(recipient)
   end
 end
