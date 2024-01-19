@@ -21,7 +21,6 @@ class SubscriptionsController < ApplicationController
     handle_checkout_error(subscription, "An error occurred processing the payment: #{e.message}")
   rescue StandardError => e
     handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
-    end
   end
 
   def update
