@@ -106,7 +106,7 @@ class User < ApplicationRecord
   end
 
   def create_stripe_reference
-    response = Stripe::Customer.create(email: current_user.email)
+    response = Stripe::Customer.create(email:)
     self.stripe_id = response.id
   end
 
