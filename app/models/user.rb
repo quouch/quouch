@@ -37,7 +37,7 @@ class User < ApplicationRecord
   validate  :validate_travelling, on: :create
   validate  :at_least_one_option_checked?, on: :create
 
-  # after_validation :create_stripe_reference, on: :create
+  after_validation :create_stripe_reference, on: :create
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
@@ -51,7 +51,7 @@ class User < ApplicationRecord
 
   after_destroy :cancel_stripe_subscription
 
-  def calculated_age
+  def calculated_age # rubocop:disable Metrics/AbcSize
     today = Date.today
     return unless date_of_birth
 
@@ -106,35 +106,17 @@ class User < ApplicationRecord
   end
 
   def create_stripe_reference
-      response = Stripe::Customer.create(email: current_user.email)
-      self.stripe_id = response.id
-  # rescue Stripe::StripeError => e
-  #     handle_stripe_reference_creation_error("Error creating Stripe customer: #{e.message}")
-  # rescue StandardError => e
-  #     handle_stripe_reference_creation_error("An unexpected error occurred during Stripe customer creation: #{e.message}")
-  end
-
-  def handle_stripe_reference_creation_error(error_message)
-    flash[:error] = error_message
-    redirect_to new_subscription_url
+    response = Stripe::Customer.create(email: current_user.email)
+    self.stripe_id = response.id
   end
 
   def cancel_stripe_subscription
-      return unless subscription
+    return unless subscription
 
-      stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_id)
-      stripe_subscription.cancel_at_period_end = true
-      return unless stripe_subscription.save
+    stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_id)
+    stripe_subscription.cancel_at_period_end = true
+    return unless stripe_subscription.save
 
-      subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
-  rescue Stripe::StripeError => e
-      handle_subscription_cancellation_error("Error cancelling subscription: #{e.message}")
-  rescue StandardError => e
-      handle_subscription_cancellation_error("An unexpected error occurred during subscription cancellation: #{e.message}")
-  end
-
-  def handle_subscription_cancellation_error(error_message)
-    flash[:error] = error_message
-    redirect_to subscription_path(subscription)
+    subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
   end
 end
