@@ -9,12 +9,16 @@ class Plan < ApplicationRecord
 	before_validation :create_stripe_reference, on: :create
 
 	def create_stripe_reference
-			response = Stripe::Customer.create(email: current_user.email)
-			self.stripe_id = response.id
-	rescue Stripe::StripeError => e
-		handle_stripe_reference_creation_error("Error creating Stripe customer: #{e.message}")
-	rescue StandardError => e
-		handle_stripe_reference_creation_error("An unexpected error occurred during Stripe customer creation: #{e.message}")
+		response = Stripe::Price.create({
+			unit_amount: price_cents,
+			currency: 'eur',
+			recurring: {
+				interval:,
+				interval_count: interval == month ? 6 : nil
+			},
+			product_data: { name: }
+		})
+		self.stripe_price_id = response.id
 	end
 
 	def handle_stripe_reference_creation_error(error_message)

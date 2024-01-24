@@ -68,7 +68,7 @@ class SubscriptionsController < ApplicationController
     Subscription.new(id: subscription_id, plan_id:, user_id: current_user.id)
   end
 
-  def create_checkout_session(subscription)
+  def create_checkout_session(subscription) # rubocop:disable Metrics/MethodLength
     Stripe::Checkout::Session.create(
       {
         customer: current_user.stripe_id,
