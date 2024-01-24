@@ -20,9 +20,4 @@ class Plan < ApplicationRecord
 		})
 		self.stripe_price_id = response.id
 	end
-
-	def handle_stripe_reference_creation_error(error_message)
-		flash[:error] = error_message
-		redirect_to new_subscription_url
-	end
 end
