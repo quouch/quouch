@@ -6,13 +6,11 @@
 
     <div class="plans__content" data-controller="plans-toggle">
       <h2>And start sending Quouch requests now</h2>
-      <p>Hello wonderful Quouch user. Congratulations for planning on travelling the coolest way possible! You can’t even guess yet what kind of adventures are waiting for you, the new friends to be made and people to meet you feel inspired by.</p>
-      <p>We came up with three subscription plans to meet you wherever you are in your financial situation. No money should not be a reason to not travel, but sadly, it needs money to make this platform work. We put all our efforts in creating a safer and inclusive environment - for example being invite-only.</p>
-      <p>This leads to much more work for us. We are reading and vetting every single application for an invite code. It slows down the growth of Quouch a lot, but we want to make sure that this is the best community it can be.</p>
-      <p>It is crucial to understand that, as a smaller community, we heavily rely on your support to sustain and improve Quouch.</p>
+      <p>Congratulations for planning on travelling the coolest way possible!</p>
+      <p>We came up with a sliding scale subscription plan to meet you wherever you are in your financial situation. No money should not be a reason to not travel, but sadly, it needs money to make this platform work.</p>
       <div class="switch-button">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
-        <label class="switch-button-label" for=""><span class="switch-button-label-span">Yearly</span></label>
+        <label class="switch-button-label" for=""><span class="switch-button-label-span">Paid Yearly</span></label>
       </div>
 
       <div class="plans__lists">
@@ -23,7 +21,7 @@
               <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
               <div>
                 <h3><%= plan.name %></h3>
-                  <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+                  <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
               </div>
             </div>
             <p class="plans__description"><%= plan.description %></p>
@@ -39,7 +37,7 @@
               <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
               <div>
                 <h3><%= plan.name %></h3>
-                  <p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/<%= plan.interval %></span></p>
+                  <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
               </div>
             </div>
             <p class="plans__description"><%= plan.description %></p>
