@@ -12,14 +12,17 @@
   position: relative;
 	margin: 2rem auto;
 	box-shadow: $box-shadow-hover;
-  &:before { content: '6-Monthly'; }
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:before { content: 'Paid 6-Monthly'; }
 
   &--yearly {
-    &:before { content: '6-Monthly'; }
+    &:before { content: 'Paid 6-Monthly'; }
   }
 
   &--monthly {
-    &:before { content: 'Yearly'; }
+    &:before { content: 'Paid Yearly'; }
   }
 
   &:before {
