@@ -10,11 +10,11 @@
       <p>We came up with a sliding scale subscription plan to meet you wherever you are in your financial situation. No money should not be a reason to not travel, but sadly, it needs money to make this platform work.</p>
       <div class="switch-button">
         <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch"></input>
-        <label class="switch-button-label" for=""><span class="switch-button-label-span">Paid Yearly</span></label>
+        <label class="switch-button-label"><span class="switch-button-label-span">Paid 6-Monthly</span></label>
       </div>
 
       <div class="plans__lists">
-        <ul class="plans__list" data-plans-toggle-target="year">
+        <ul class="plans__list display-none" data-plans-toggle-target="year">
           <% @yearly.each do |plan| %>
           <li class="plans__list-item">
             <div class="plans__list-item__wrap">
@@ -30,7 +30,7 @@
           <% end %>
         </ul>
 
-        <ul class="plans__list display-none" data-plans-toggle-target="month">
+        <ul class="plans__list" data-plans-toggle-target="month">
           <% @monthly.each do |plan| %>
           <li class="plans__list-item">
             <div class="plans__list-item__wrap">
