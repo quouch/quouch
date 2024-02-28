@@ -7,16 +7,10 @@ export default class extends Controller {
   connect() {
     if (this.triggerTarget.checked) {
       this.fieldTarget.style.display = 'flex'
-    } else {
-      this.fieldTarget.style.display = 'none'
     }
   }
 
   toggleField() {
-    if (this.triggerTarget.checked) {
-      this.fieldTarget.style.display = 'flex'
-    } else {
-      this.fieldTarget.style.display = 'none'
-    }
+		this.fieldTarget.classList.toggle('display-none')
   }
 }
