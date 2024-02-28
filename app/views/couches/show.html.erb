@@ -142,6 +142,8 @@
 						<p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
 					</div>
 				</div>
+
+				<% if review.booking %>
 				<div class="review__type">
 					<% if review.booking.host? %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
@@ -154,6 +156,8 @@
 						<p>cowork</p>
 					<% end %>
 				</div>
+				<% end %>
+				
 				<div class="review__rating">
 					<div class="review__stars">
 						<% review.rating.round.times do %>
