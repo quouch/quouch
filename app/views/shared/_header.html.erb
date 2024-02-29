@@ -81,7 +81,7 @@
 					<p class="collapsible__subtitle">Subscription</p>
 					<li>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/account.svg') %>
-						<% if current_user.subscription.stripe_id %>
+						<% if current_user.subscription && current_user.subscription.stripe_id != nil %>
 							<%= link_to 'Subscription', subscription_path(current_user.subscription) %>
 						<% else %>
 							<%= link_to 'Subscribe', new_subscription_path %>
