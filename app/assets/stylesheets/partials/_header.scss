@@ -56,6 +56,7 @@
 	padding: .3rem;
 	background-color: $secondary-dark;
 	white-space: nowrap;
+	text-align: center;
 	
 	a {
 		display: inline;
@@ -67,8 +68,6 @@
 
 .running-text {
 	display: inline-block;
-	transform: translateX(0);
-	animation: carousel 30s linear infinite;
 }
 
 @keyframes carousel {

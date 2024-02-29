@@ -81,7 +81,7 @@
 					<p class="collapsible__subtitle">Subscription</p>
 					<li>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/account.svg') %>
-						<% if current_user.subscription %>
+						<% if current_user.subscription.stripe_id %>
 							<%= link_to 'Subscription', subscription_path(current_user.subscription) %>
 						<% else %>
 							<%= link_to 'Subscribe', new_subscription_path %>
@@ -117,4 +117,5 @@
 			<aside class="header__note">Already have an account? <a href="/users/sign_in">Log in</a></aside>
 		<% end %>
 	</div>
+<%= render "shared/running-header" %>
 </header>

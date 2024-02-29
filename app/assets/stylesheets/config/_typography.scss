@@ -10,7 +10,7 @@
 	text-transform: uppercase;
 	color: $primary;
 	text-align: center;
-	margin: 2rem 0;
+	margin: 4rem 0 2rem;
 
 	@media (max-width: $break-large) { font-size: 2rem; }
 }
