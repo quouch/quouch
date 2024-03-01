@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ 'startTime', 'endTime' ]
 
   connect() {
-    flatpickr(this.startTimeTarget,  this.#options(true))
+    flatpickr(this.startTimeTarget, this.#options(true))
     flatpickr(this.endTimeTarget, this.#options(false))
   }
 
