@@ -111,7 +111,7 @@
 								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 								<div>
 									<h3><%= plan.name %></h3>
-									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 								</div>
 							</div>
 							<p class="plans__description"><%= plan.description %></p>
