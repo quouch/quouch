@@ -108,17 +108,13 @@
 		<h2>What I need from the people around me</h2>
 		<p><%= @host.question_three %></p>
 		<div class="couch__action">
-		<% if @couch != current_user.couch %>
+		<% if @couch != current_user.couch && current_user.subscription && current_user.subscription.stripe_id != nil %>
 			<%= link_to 'Send Quouch request', new_couch_booking_path(@couch), class: 'couch__button' %>
 			<%= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
+		<% elsif @couch != current_user.couch && !current_user.subscription %>
+			<%= link_to 'Send Quouch request', new_subscription_path, class: 'couch__button' %>
+			<%= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
 		<% end %>
-		<%# if @couch != current_user.couch && current_user.subscription %>
-			<%#= link_to 'Send Quouch request', new_couch_booking_path(@couch), class: 'couch__button' %>
-			<%#= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
-		<%# elsif @couch != current_user.couch && !current_user.subscription %>
-			<%#= link_to 'Send Quouch request', new_subscription_path, class: 'couch__button' %>
-			<%#= link_to "🚨 report #{@host.first_name}", report_contacts_path(couch: @couch), class: 'couch__report' %>
-		<%# end %>
 		</div>
 	</div>
 	<div class="couch__reviews">
@@ -157,7 +153,7 @@
 					<% end %>
 				</div>
 				<% end %>
-				
+
 				<div class="review__rating">
 					<div class="review__stars">
 						<% review.rating.round.times do %>
