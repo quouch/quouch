@@ -3,6 +3,6 @@ namespace :booking do
 
 	task complete: :environment do
 		Booking.complete
-		Booking.delete
+		# Booking.delete
 	end
 end
