@@ -23,7 +23,7 @@ class SubscriptionsController < ApplicationController
     handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
   end
 
-  def update
+  def update # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     subscription = Stripe::Subscription.retrieve(@subscription.stripe_id)
     subscription.cancel_at_period_end = true
     return unless subscription.save
@@ -31,6 +31,7 @@ class SubscriptionsController < ApplicationController
     if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
       flash[:alert] =
         'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
+      SubscriptionMailer.with(subscription: @subscription).subscription_cancelled.deliver_later
     else
       flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
     end
@@ -72,7 +73,7 @@ class SubscriptionsController < ApplicationController
     Stripe::Checkout::Session.create(
       {
         customer: current_user.stripe_id,
-        payment_method_types: %w[card paypal],
+        payment_method_types: %w[card],
         line_items: [{
           price: subscription.plan.stripe_price_id,
           quantity: 1

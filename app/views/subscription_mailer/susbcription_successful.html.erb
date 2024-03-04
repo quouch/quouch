@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Quouch! Your Membership Plan Confirmation</h1>
+    <p>Dear <%= @subscriber %>,
+    <p>Congratulations on travelling the coolest way possible! We are thrilled to inform you that your membership plan with Quouch has been successfully confirmed!</p>
+    <p><strong>For changes:</strong> Log in to your account and navigate to "Membership” to edit or cancel your plan.</p>
+    <p><strong>Stay Updated:</strong> Keep an eye on our newsletters and communications for exciting updates, special promotions, and community news.</p>
+    <p><strong>Reach Out:</strong> We are here to assist you with any questions or concerns. It is just Lis and Nora answering, so it sometimes might take a while.</p>
+    <p>And now: Get ready for an exciting world of meeting cool queers all around the globe. Remember to share your <strong>own invite code</strong> with friends that you trust. We'd love to hear about your experiences. Just respond to this mail any time or use the following forms:</p>
+    <ul>
+      <li><%= link_to 'Feedback as a traveller', @feedback_form_guest %></li>
+      <li><%= link_to 'Feedback as a host', @feedback_form_host %></li>
+      <li><%= link_to 'Usability of our web app', @feedback_form_app %></li>
+    </ul>
+    <p>Lots of love,</p>
+    <p>your Quouch Team</p>
+  </body>
+</html>
