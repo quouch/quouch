@@ -18,6 +18,11 @@
 		text-align: center;
 	}
 
+	&__note {
+		@include caption;
+		margin-top: .5rem;
+	}
+
 	&__list {
 		display: grid;
 		grid-template-rows: 1fr 1fr 1fr;
