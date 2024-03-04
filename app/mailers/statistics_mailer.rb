@@ -1,5 +1,5 @@
 class StatisticsMailer < ApplicationMailer
-	def send_stats
+	def send_stats # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
 		# Collect your stats here
 		@total_users = User.count
 		@users_per_city = users_per_city
@@ -11,6 +11,7 @@ class StatisticsMailer < ApplicationMailer
 		@completed_bookings = Booking.where(status: 4).count
 		@confirmed_bookings = Booking.where(status: 1).count
 		@cancelled_bookings = Booking.where(status: -1).count
+		@total_subscriptions = Subscription.count
 
 		mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
 	end
