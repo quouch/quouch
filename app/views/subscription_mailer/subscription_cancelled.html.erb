@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Quouch Membership Cancellation</h1>
+    <p>Dear <%= @subscriber %>,
+    <p>We are very sad to see you go - of course, your membership plan stays active until the end of your respective billing cycle and will not be renewed afterwards.</p>
+    <p>We would love to hear your feedback and wish you all the best,</p>
+    <p>your Quouch Team</p>
+    <ul>
+      <li><%= link_to 'Feedback as a traveller', @feedback_form_guest %></li>
+      <li><%= link_to 'Feedback as a host', @feedback_form_host %></li>
+      <li><%= link_to 'Usability of our web app', @feedback_form_app %></li>
+    </ul>
+  </body>
+</html>
