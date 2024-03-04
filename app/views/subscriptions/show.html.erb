@@ -5,6 +5,7 @@
     <div class="plans__content" data-controller="plans-toggle">
 			<p>Congratulations for planning on travelling the coolest way possible!</p>
       <p>We came up with a sliding scale membership plan to meet you wherever you are in your financial situation. No money should not be a reason to not travel, but sadly, it does need money to make this platform work.</p>
+			<p>To just browse profiles and/or be a host, you do not need a membership fee - still, we appreciate any support.</p>
 
 			<% if @subscription.plan.interval == 'year' %>
       <div class="switch-button switch-button--yearly">
@@ -22,7 +23,7 @@
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394412/stack_transparent.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
-										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
@@ -46,7 +47,7 @@
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
-										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
@@ -73,7 +74,7 @@
 								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 								<div>
 									<h3><%= plan.name %></h3>
-									<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 								</div>
 							</div>
 							<p class="plans__description"><%= plan.description %></p>
@@ -107,7 +108,7 @@
 								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 								<div>
 									<h3><%= plan.name %></h3>
-									<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 								</div>
 							</div>
 							<p class="plans__description"><%= plan.description %></p>
@@ -159,7 +160,7 @@
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg') %>
 									<div>
 										<h3><%= plan.name %></h3>
-										<p class="plans__price"><%= number_to_currency(plan.price_cents / 100.0, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 									</div>
 								</div>
 								<p class="plans__description"><%= plan.description %></p>
