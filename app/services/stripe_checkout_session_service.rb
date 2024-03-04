@@ -4,6 +4,6 @@ class StripeCheckoutSessionService
     subscription = Subscription.find_by(checkout_session_id: checkout_session.id)
     subscription.update!(stripe_id: checkout_session.subscription)
     Subscription.where(user_id: subscription.user, stripe_id: nil).destroy_all
-    SubscriptionMailer.with(subscription: @subscription).subscription_successful.deliver_later
+    SubscriptionMailer.with(subscription:).subscription_successful.deliver_later
   end
 end
