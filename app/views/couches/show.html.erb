@@ -59,8 +59,10 @@
 		</ul>
 
 		<div class="couch__intro">
+			<% if @host.summary != nil %>
 			<h2>Introduction</h2>
 			<p><%= @host.summary %></p>
+			<% end %>
 		</div>
 
 		<div class="couch__accommodation">
@@ -75,7 +77,7 @@
 					<% end %>
 					<% if !@couch.capacity.nil? %>
 						<li class="couch__travellers">
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680279507/people-black.svg') %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1709577001/people-black.svg') %>
 							<%= pluralize(@host.couch.capacity, 'guest') %>
 						</li>
 					<% end %>
@@ -101,12 +103,18 @@
 
 	</div>
 	<div class="couch__questions">
+		<% if @host.question_one != nil %>
 		<h2>This makes me really happy</h2>
 		<p><%= @host.question_one %></p>
+		<% end %>
+		<% if @host.question_two != nil %>
 		<h2>What I can't stand</h2>
 		<p><%= @host.question_two %></p>
+		<% end %>
 		<h2>What I need from the people around me</h2>
+		<% if @host.question_three != nil %>
 		<p><%= @host.question_three %></p>
+		<% end %>
 		<div class="couch__action">
 		<% if @couch != current_user.couch %>
 			<% if current_user.subscription != nil && current_user.subscription.stripe_id != nil %>
