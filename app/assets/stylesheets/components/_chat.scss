@@ -79,26 +79,26 @@
     }
 
   }
-  
+
   &__messages {
     @include container;
     margin: 2rem auto;
-    
+
     &--empty {
       @include title-5;
-  
+
       color: $secondary-light;
       margin: 4rem auto;
       max-width: $break-small;
       text-align: center;
-  
+
       img {
         height: 64px;
         margin: 1rem auto;
       }
     }
   }
-  
+
   &__message {
     display: flex;
     margin-bottom: 1rem;
@@ -148,6 +148,12 @@
       border: 0;
       transform: rotate(45deg);
     }
+  }
+
+  &__note {
+    @include caption;
+    
+    color: $gray-04;
   }
 }
 
