@@ -146,7 +146,8 @@
 		</ul>
 		<% end %>
 	<% else %>
-		<p>We couldn't find any bookings in your system yet - plan your trip now!</p>
+		<p class="bookings__empty">We couldn't find any bookings in your system yet - plan your trip now!</p>
+		<%= link_to 'Browse hosts now', root_path, class: 'bookings__redirect' %>
 	<% end %>
 	</div>
 </section>

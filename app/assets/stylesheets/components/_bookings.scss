@@ -11,6 +11,17 @@
 	}
 
 	&__title { margin: 2rem auto; }
+
+	&__redirect {
+		@include input-field;
+		@include primary-button;
+		
+		margin-top: 2rem;
+		
+		@media (min-width: $break-medium) { width: 50%; }
+	}
+
+	&__empty { text-align: center; }
 }
 
 .upcoming-booking {
