@@ -37,4 +37,12 @@ export default class extends Controller {
         }
       })
   }
+
+  signUp() {
+    fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'api-key': this.apiKeyValue },
+      body: JSON.stringify({ 'email': this.inputTarget.value, 'listIds': [2] })
+    })
+  }
 }

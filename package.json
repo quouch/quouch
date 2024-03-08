@@ -12,8 +12,10 @@
     "flatpickr": "^4.6.13",
     "star-rating.js": "^4.3.0",
     "stimulus-autocomplete": "^3.1.0",
-    "sweetalert": "^2.1.2",
-    "webpack": "^5.76.2",
-    "webpack-cli": "^5.0.1"
+    "sweetalert": "^2.1.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
   }
 }
