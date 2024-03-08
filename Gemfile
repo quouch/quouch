@@ -123,3 +123,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem "importmap-rails", "~> 2.0"

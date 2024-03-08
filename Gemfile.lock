@@ -168,6 +168,10 @@ GEM
     http-form_data (2.3.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    importmap-rails (2.0.1)
+      actionpack (>= 6.0.0)
+      activesupport (>= 6.0.0)
+      railties (>= 6.0.0)
     io-console (0.6.0)
     irb (1.8.3)
       rdoc
@@ -415,6 +419,7 @@ DEPENDENCIES
   faker!
   font-awesome-sass (~> 6.1)
   geocoder
+  importmap-rails (~> 2.0)
   jbuilder
   jsbundling-rails
   kaminari
