@@ -56,6 +56,10 @@ class BookingMailer < ApplicationMailer
 		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} stayed with you - please leave review")
 	end
 
+	def pending_booking_reminder_email
+		mail(to: @host.email, subject: "#{@guest.first_name.capitalize} is waiting for your response")
+	end
+
 		private
 
 	def set_urls

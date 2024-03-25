@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Pending Booking Request</title>
+  </head>
+  <body>
+    <h1>Your Quouch request from <%= @guest.first_name.capitalize %> is still open.</h1>
+
+    <p>Hello dearest <%= @host.first_name.capitalize %>,</p>
+    <p><%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %>, but you haven't reacted to it yet.
+
+    <p>"<%= @booking.message %>"</p>
+
+    <p><%= link_to 'View request', @request_url %></p>
+
+    <p>You can send them a message, confirm or decline it. Think about your time, space and boundaries - just because you opted in to be able to host travellers, it is totally ok if right now is not the time. Often though, you will be surprised of HOW MUCH you are actually getting out of this as well - you are making friends all over the world. <strong>In any case, it would mean a lot if you let them know your decision, even if it's a no.</strong></p>
+
+    <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we do take absolute precaution as to who joins our platform. Still, this is the internet and there will always be some risk. Please be cautious and take independent care, as stated in our <%= link_to 'safety guidelines', @guidelines %>. You can <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_host %> about your hosting experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while.</p>
+
+    <p>Thank you for being a part of Quouch and for opening up your home to other travellers from our community. This is incredibly meaningful.</p>
+    <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
+
+    <p>Warmest,</p>
+    <p>your Quouch Team</p>
+  </body>
+</html>
