@@ -2,13 +2,13 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-    <title>Pending Booking Request</title>
+    <title>Reminder: Pending Booking Request</title>
   </head>
   <body>
     <h1>Your Quouch request from <%= @guest.first_name.capitalize %> is still open.</h1>
 
     <p>Hello dearest <%= @host.first_name.capitalize %>,</p>
-    <p><%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %>, but you haven't reacted to it yet.
+    <p><%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %>. This is just a friendly reminder to take that second to let them know if you can make it or not. 
 
     <p>"<%= @booking.message %>"</p>
 
