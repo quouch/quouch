@@ -38,6 +38,13 @@ class Booking < ApplicationRecord
     update_status(completed_bookings)
   end
 
+  def self.remind
+    pending_bookings = Booking.where('start_date >= ?', Date.today).where(status: 0)
+    return if pending_bookings.empty?
+
+    send_reminder_emails(pending_bookings)
+  end
+
   def self.delete
     pending_bookings = Booking.where(start_date: ...Date.today, status: 0)
     pending_bookings.destroy_all
@@ -51,6 +58,12 @@ class Booking < ApplicationRecord
     bookings.each do |booking|
       BookingMailer.with(booking:).booking_completed_guest_email.deliver
       BookingMailer.with(booking:).booking_completed_host_email.deliver
+    end
+  end
+
+  def self.send_reminder_emails(bookings)
+    bookings.each do |booking|
+      BookingMailer.with(booking:).pending_booking_reminder_email.deliver
     end
   end
 end
