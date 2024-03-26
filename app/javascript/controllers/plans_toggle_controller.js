@@ -1,12 +1,9 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
 // Connects to data-controller="plans-toggle"
 export default class extends Controller {
   static targets = ['toggle', 'month', 'year']
-
   switch() {
-    console.log(this.monthTarget)
-    console.log(this.yearTarget)
     if (this.monthTarget.classList.contains('display-none')) {
       this.monthTarget.classList.remove('display-none')
       this.yearTarget.classList.add('display-none')

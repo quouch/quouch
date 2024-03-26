@@ -75,8 +75,8 @@
                           label: false,
                           error: false,
                           value: params[:user]&.dig(:address),
-                          input_html: { data: { address_autocomplete_target: 'address' }, class: 'display-none' },
-                          wrapper_html: { data: { controller: 'address-autocomplete', address_autocomplete_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
+                          input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
+                          wrapper_html: { data: { controller: 'autofill', autofill_api_key_value: ENV["MAPBOX_API_KEY"] }} %>
             </div>
             <%= f.error         :address, class: 'form-error' %>
             <div class="user__address-city">

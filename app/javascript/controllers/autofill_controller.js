@@ -1,7 +1,7 @@
-import { Controller } from "@hotwired/stimulus"
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder"
+import { Controller } from '@hotwired/stimulus'
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
-// Connects to data-controller="address-autocomplete"
+// Connects to data-controller="autofill"
 export default class extends Controller {
   static values = { apiKey: String }
 

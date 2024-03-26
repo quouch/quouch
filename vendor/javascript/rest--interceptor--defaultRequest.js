@@ -1,0 +1,2 @@
+import"../client.js";import"../client/default.js";import"../util/normalizeHeaderName.js";import"../util/responsePromise.js";import i from"../util/mixin.js";import n from"../interceptor.js";var r={};var t,e,o;t=n;e=i;o=function(){function mixin(i,n,r){(i in n||i in r)&&(n[i]=e({},r[i],n[i]))}function copy(i,n,r){i in r&&!(i in n)&&(n[i]=r[i])}var i={method:copy,path:copy,params:mixin,headers:mixin,entity:copy,mixin:mixin};return function(n,r){for(var t in i)i[t](t,n,r);return n}}();r=t({request:function handleRequest(i,n){return o(i,n)}});var m=r;export default m;
+
