@@ -1,0 +1,2 @@
+import"../client.js";import"../client/default.js";import"../util/normalizeHeaderName.js";import"../util/responsePromise.js";import t from"../util/mixin.js";import r from"../interceptor.js";import"../util/uriEncoder.js";import e from"../util/uriTemplate.js";var a={};var i,m,p;i=r;m=e;p=t;a=i({init:function(t){t.params=t.params||{};t.template=t.template||"";return t},request:function(t,r){var e,a;e=t.path||r.template;a=p({},t.params,r.params);t.path=m.expand(e,a);delete t.params;return t}});var o=a;export default o;
+
