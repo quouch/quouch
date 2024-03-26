@@ -150,11 +150,7 @@
     }
   }
 
-  &__note {
-    @include caption;
-    
-    color: $gray-04;
-  }
+  &__note { @include caption; }
 }
 
 .message { padding: 1rem; }
