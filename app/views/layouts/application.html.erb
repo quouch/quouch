@@ -8,14 +8,17 @@
 
     <%= favicon_link_tag asset_path('logo.png') %>
 
-    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.2/css/all.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_orange.css">
+    <link rel="stylesheet" href="https://ga.jspm.io/npm:star-rating.js@4.3.0/dist/star-rating.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWGXEQSWDX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

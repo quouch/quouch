@@ -1,5 +1,5 @@
-import { Controller } from "@hotwired/stimulus"
-import { createConsumer } from "@rails/actioncable"
+import { Controller } from '@hotwired/stimulus'
+import { createConsumer } from '@rails/actioncable'
 
 export default class extends Controller {
   static values = { chatId: Number, currentUserId: Number }

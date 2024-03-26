@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import swal from 'sweetalert';
+import swal from 'sweetalert'
 
 
 // Connects to data-controller="brevo"
