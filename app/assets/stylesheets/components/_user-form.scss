@@ -110,7 +110,10 @@
 
 				@media (min-width: $break-large) { height: 46px; }
 				
-				.mapboxgl-ctrl-geocoder--input { height: auto; }
+				.mapboxgl-ctrl-geocoder--input {
+					height: auto;
+					padding: 6px 10px;
+				}
       }
 
 		}
@@ -301,6 +304,12 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+	&--icon-search {
+		top: 0px;
+		left: 0px;
+		width: 20px;
+		height: 20px;
 	}
 }
 
