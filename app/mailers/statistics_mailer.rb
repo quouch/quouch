@@ -11,7 +11,7 @@ class StatisticsMailer < ApplicationMailer
 		@completed_bookings = Booking.where(status: 4).count
 		@confirmed_bookings = Booking.where(status: 1).count
 		@cancelled_bookings = Booking.where(status: -1).count
-		@total_subscriptions = Subscription.count
+		@total_subscriptions = Subscription.where.not(stripe_id: nil).count
 
 		mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
 	end
