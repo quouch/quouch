@@ -80,7 +80,7 @@
 					<p class="collapsible__subtitle">Membership</p>
 					<li>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/account.svg') %>
-						<% if current_user.subscription != nil && current_user.subscription.stripe_id != nil %>
+						<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
 							<%= link_to 'Your Membership', subscription_path(current_user.subscription) %>
 						<% else %>
 							<%= link_to 'Join now', new_subscription_path %>

@@ -6,12 +6,18 @@
 			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couch__image') %>
 		<% end %>
 		<div class="couch__chat chat-icon__wrap">
-			<% if @chat.nil? %>
-				<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+			<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
+				<% if @chat.nil? %>
+					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+					<% end %>
+				<% else %>
+					<%= link_to chat_path(@chat) do %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+					<% end %>
 				<% end %>
 			<% else %>
-				<%= link_to chat_path(@chat) do %>
+				<%= link_to new_subscription_path do %>
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
 				<% end %>
 			<% end %>
@@ -117,7 +123,7 @@
 		<% end %>
 		<div class="couch__action">
 		<% if @couch != current_user.couch %>
-			<% if current_user.subscription != nil && current_user.subscription.stripe_id != nil %>
+			<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
 				<%= link_to 'Send Quouch request', new_couch_booking_path(@couch), class: 'couch__button' %>
 			<% else %>
 				<%= link_to 'Send Quouch request', new_subscription_path, class: 'couch__button' %>

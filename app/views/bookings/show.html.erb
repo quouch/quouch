@@ -18,12 +18,18 @@
 					<span><%= @couch.user.pronouns.downcase %></span>
 				</h3>
 				<div class="request__chat chat-icon__wrap">
-					<% if @chat.nil? %>
-						<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
-							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+					<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
+						<% if @chat.nil? %>
+							<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+							<% end %>
+						<% else %>
+							<%= link_to chat_path(@chat) do %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+							<% end %>
 						<% end %>
 					<% else %>
-						<%= link_to chat_path(@chat) do %>
+						<%= link_to new_subscription_path do %>
 							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
 						<% end %>
 					<% end %>
