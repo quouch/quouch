@@ -126,7 +126,11 @@
           <%= f.input_field :summary,
                             required: true,
                             autofocus: true %>
-          <%= f.error       :about_me, class: 'form-error' %>
+          <%= f.error       :summary, class: 'form-error' %>
+
+          <%= f.label       :this_would_make_my_day %>
+          <p class="hint">What could we pass on to your future guest to surprise you with that would make you smile? :)</p>
+          <%= f.input_field :passion %>
 
 
           <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>

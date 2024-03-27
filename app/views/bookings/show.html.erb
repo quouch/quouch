@@ -92,6 +92,13 @@
 						</ul>
 					</div>
 				<% end %>
+
+				<% if @host.passion.present? %>
+				<div class="booking__passion">
+					<h2>A bird told us <%= @host.first_name.capitalize %> likes..</h2>
+					<p><%= @host.passion %></p>
+				</div>
+				<% end %>
 			</article>
 
 			<% if @booking.host? %>
