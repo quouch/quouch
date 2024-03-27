@@ -1,7 +1,8 @@
 <% unread = chat.notifications_as_chat.where(type: MessageNotification.name, recipient: current_user).unread %>
+<% host_chat_access = Booking.where(couch_id: current_user.couch, user_id: other_user, start_date: Date.today..).any? %>
 
 <li class="chats__list-item">
-  <%= link_to chat_path(chat)  do %>
+  <%= link_to ((current_user.subscription.present? && current_user.subscription.stripe_id_present?) || host_chat_access) ? chat_path(chat) : new_subscription_path do %>
     <div class="chats__user-infos">
       <% if other_user.photo.key %>
         <%= cl_image_tag other_user.photo.key %>
@@ -14,14 +15,14 @@
         </div>
       <% end %>
     </div>
-  <div class="chats__details">
-    <p class="chats__details-name <%= 'chats__details-name--unread' if unread.count > 0 %>">
-      <%= other_user.first_name %>
-    </p>
-    <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(30) %></p>
-    <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>" data-controller="last-message-timestamp" data-last-message-timestamp-target="last" data-last-message-timestamp-time-value="<%= chat.messages.first.created_at.strftime('%Y-%m-%dT%H:%M') %>">
-      Last message on <%= chat.messages.last.created_at.strftime("%^b %d at %I:%M %p").downcase %>
-    </p>
-  </div>
+    <div class="chats__details">
+      <p class="chats__details-name <%= 'chats__details-name--unread' if unread.count > 0 %>">
+        <%= other_user.first_name %>
+      </p>
+      <p class="chats__details-content chats__details-content--unread"><%= chat.messages.first.content.truncate(30) %></p>
+      <p class="chats__details-time <%= 'chats__details-time--unread' if unread.count > 0 %>" data-controller="last-message-timestamp" data-last-message-timestamp-target="last" data-last-message-timestamp-time-value="<%= chat.messages.first.created_at.strftime('%Y-%m-%dT%H:%M') %>">
+        Last message on <%= chat.messages.last.created_at.strftime("%^b %d at %I:%M %p").downcase %>
+      </p>
+    </div>
   <% end %>
 </li>

@@ -5,8 +5,8 @@
 		<div class="booking__host-left">
 			<h2>Your Guest</h2>
 			<%= link_to couch_path(@guest.couch) do %>
-				<% if @booking.couch.user.photo.key %>
-					<%= cl_image_tag @booking.user.photo.key, class: 'booking__host-image' %>
+				<% if @host.photo.key %>
+					<%= cl_image_tag @guest.photo.key, class: 'booking__host-image' %>
 				<% else %>
 					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'booking__host-image') %>
 				<% end %>
@@ -14,16 +14,22 @@
 		</div>
 		<div class="booking__host-right">
 			<h3 class="booking__host-name">
-				<%= @booking.user.first_name %>
-				<span><%= @booking.user.pronouns.downcase %></span>
+				<%= @guest.first_name %>
+				<span><%= @guest.pronouns.downcase %></span>
 			</h3>
 			<div class="booking__chat chat-icon__wrap">
-				<% if @chat.nil? %>
-					<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @guest.id), method: :post do %>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+				<% if (current_user.subscription.present? && current_user.subscription.stripe_id_present? || @host == current_user ) %>
+					<% if @chat.nil? %>
+						<%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @guest.id), method: :post do %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+						<% end %>
+					<% else %>
+						<%= link_to chat_path(@chat) do %>
+							<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
+						<% end %>
 					<% end %>
 				<% else %>
-					<%= link_to chat_path(@chat) do %>
+					<%= link_to new_subscription_path do %>
 						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005864/message.svg', class: 'chat-icon') %>
 					<% end %>
 				<% end %>
@@ -70,7 +76,7 @@
 			<div class="booking__message">
 				<h2>Message</h2>
 				<% if @booking.message.empty? %>
-					<p><%= @booking.user.first_name %> didn't find the words.</p>
+					<p><%= @guest.first_name %> didn't find the words.</p>
 				<% else %>
 					<p><%= @booking.message %></p>
 				<% end %>
