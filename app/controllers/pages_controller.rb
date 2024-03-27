@@ -5,15 +5,15 @@ class PagesController < ApplicationController
   before_action :authenticate, only: [:emails]
 
   def home
-    @couches = Couch.joins(:user)
+    @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+                    .joins(:user)
+                    .where.not(user: current_user)
                     .where.not(user: { first_name: nil })
                     .where.not(user: { city: nil })
                     .where.not(user: { country: nil })
-                    .where.not(user: current_user)
 
     @shuffled_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics]).shuffle
     @active_couches = Kaminari.paginate_array(@shuffled_couches).page(params[:page]).per(30)
-    @active_unshuffled_couches = @couches.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
@@ -56,7 +56,7 @@ class PagesController < ApplicationController
     offers_conditions[:offers_couch] = true if params[:offers_couch]
     offers_conditions[:travelling] = false
 
-    @active_couches = @active_unshuffled_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+    @active_couches = @active_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 
   def emails
