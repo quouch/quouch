@@ -34,7 +34,7 @@
 								</li>
 								<li class="upcoming-request__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<% if request.start_date %>
+									<% if request.start_date.present? %>
 										<%= request.start_date.strftime("%b %d") %> - <%= request.end_date.strftime("%b %d, %Y") %>
 									<% else %>
 										<p>Flexible</p>
@@ -79,7 +79,7 @@
 									</li>
 									<li class="past-request__detail">
 										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-										<% if request.start_date %>
+										<% if request.start_date.present? %>
 											<%= request.start_date.strftime("%B, %Y") %>
 										<% else %>
 											<p>Flexible</p>
@@ -125,7 +125,7 @@
 									</li>
 									<li class="past-request__detail">
 										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-										<% if request.start_date %>
+										<% if request.start_date.present? %>
 											<%= request.start_date.strftime("%B, %Y") %>
 										<% else %>
 											<p>Flexible</p>
