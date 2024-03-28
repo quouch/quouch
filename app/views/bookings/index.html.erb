@@ -39,7 +39,7 @@
 										</li>
 										<li class="upcoming-booking__detail">
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-											<% if booking.start_date %>
+											<% if booking.flexible %>
 												<%= booking.start_date.strftime("%b %d") %> - <%= booking.end_date.strftime("%b %d, %Y") %>
 											<% else %>
 												<p>Flexible</p>
@@ -85,7 +85,7 @@
 								</li>
 								<li class="past-booking__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<% if booking.start_date %>
+									<% if booking.flexible %>
 										<%= booking.start_date.strftime("%B, %Y") %>
 									<% else %>
 										<p>Flexible</p>
@@ -131,7 +131,7 @@
 								</li>
 								<li class="past-booking__detail">
 									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
-									<% if booking.start_date %>
+									<% if booking.flexible %>
 										<%= booking.start_date.strftime("%B, %Y") %>
 									<% else %>
 										<p>Flexible</p>
