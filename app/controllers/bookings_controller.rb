@@ -91,18 +91,7 @@ class BookingsController < ApplicationController
 		@canceller = current_user
 		return unless @booking.save
 
-		if @canceller == @booking.user
-				redirect_to bookings_path
-				case status_before_cancellation
-				when 'pending'
-					BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-				when 'confirmed'
-					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
-				end
-		else
-				redirect_to requests_couch_bookings_path(@booking.couch)
-				BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
-  end
+		cancel_booking(@canceller, @booking, status_before_cancellation)
 	end
 
 	def show_request
@@ -163,20 +152,27 @@ class BookingsController < ApplicationController
 	end
 
 	def offers(host)
-		if host.offers_couch && host.offers_hang_out && host.offers_co_work
-			@offers = { host: 0, hangout: 1, cowork: 2 }
-		elsif host.offers_couch && host.offers_hang_out
-			@offers = { host: 0, hangout: 1 }
-		elsif host.offers_couch && host.offers_co_work
-			@offers = { host: 0, cowork: 2 }
-		elsif host.offers_hang_out && host.offers_co_work
-			@offers = { hangout: 1, cowork: 2 }
-		elsif host.offers_couch
-			@offers = { host: 0 }
-		elsif host.offers_hang_out
-			@offers = { hangout: 1 }
-		elsif host.offers_co_work
-			@offers = { cowork: 2 }
+		@offers = {}
+
+		@offers[:host] = 0 if host.offers_couch
+		@offers[:hangout] = 1 if host.offers_hang_out
+		@offers[:cowork] = 2 if host.offers_co_work
+
+		@offers
+	end
+
+	def cancel_booking(canceller, booking, status_before_cancellation)
+		if canceller == booking.user
+			redirect_to bookings_path
+			case status_before_cancellation
+			when 'pending'
+				BookingMailer.with(booking:).request_cancelled_email.deliver_later
+			when 'confirmed'
+				BookingMailer.with(booking:).booking_cancelled_by_guest_email.deliver_later
+			end
+		else
+			redirect_to requests_couch_bookings_path(booking.couch)
+			BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
 		end
 	end
 end
