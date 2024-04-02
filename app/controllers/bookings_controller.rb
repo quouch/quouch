@@ -91,7 +91,18 @@ class BookingsController < ApplicationController
 		@canceller = current_user
 		return unless @booking.save
 
-		cancel_booking(@canceller, @booking, status_before_cancellation)
+		if @canceller == @booking.user
+				redirect_to bookings_path
+				case status_before_cancellation
+				when 'pending'
+					BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
+				when 'confirmed'
+					BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
+				end
+		else
+				redirect_to requests_couch_bookings_path(@booking.couch)
+				BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
+		end
 	end
 
 	def show_request
@@ -135,6 +146,17 @@ class BookingsController < ApplicationController
 		BookingMailer.with(booking: @booking).booking_completed_guest_email.deliver_later
 		BookingMailer.with(booking: @booking).booking_completed_host_email.deliver_later
 		redirect_to booking_path(@booking)
+	end
+
+	def decline_and_send_message
+		if chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
+			Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
+			Message.create(user_id: current_user.id, chat:)
+		else
+			chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
+			Message.create(user_id: current_user.id, chat_id: chat.id)
+		end
+		decline
 	end
 
 		private
