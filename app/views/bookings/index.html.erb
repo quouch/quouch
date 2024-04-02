@@ -109,7 +109,7 @@
 		<% end %>
 
 		<% if @cancelled.any? %>
-		<h2 class="bookings__title">Declined Trips</h2>
+		<h2 class="bookings__title">Declined and Cancelled Trips</h2>
 		<ul class="past-bookings">
 			<% @cancelled.each do |booking| %>
 				<%= link_to booking_path(booking) do %>
