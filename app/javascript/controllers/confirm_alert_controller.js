@@ -13,10 +13,19 @@ export default class extends Controller {
     swal({
       title: title,
       text: text,
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: 'Leave a message for your guest..',
+          type: 'text'
+        }
+      },
       buttons: buttons
     }).then((value) => {
+      console.log(value)
       if (value === true) {
-        this.actionTarget.click()
+        const messageContent = document.querySelector('.swal-content__input')
+        this.actionTarget.click(messageContent)
       }
     })
   }
