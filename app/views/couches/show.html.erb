@@ -28,7 +28,9 @@
 			<li class="couch__name"><%= @host.first_name %></li>
 			<div class="couch__characteristics">
 				<li><%= @host.pronouns.downcase if @host.pronouns %></li>
-				<li><%= @host.calculated_age if (!@host.date_of_birth.nil? || @host.calculated_age != 0) %></li>
+				<% if @host.date_of_birth.present? && @host.calculated_age != 0 %>
+				<li><%= @host.calculated_age %></li>
+				<% end %>
 			</div>
 		</ul>
 		<ul class="couch__offers offers">
