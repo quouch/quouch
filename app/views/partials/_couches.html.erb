@@ -47,13 +47,13 @@
 											<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
 										</h2>
 										<p class="couches__characteristics">
-										<% if couch.user.date_of_birth && (!couch.user.date_of_birth.nil? || couch.user.date_of_birth != 0) %>
-											<%= couch.user.calculated_age %>
-										<% end %>
-										<% if couch.user.date_of_birth && couch.user.pronouns != "" %>
-										 ⋅
-										<% end %>
-										<%= couch.user.pronouns %>
+											<% if couch.user.date_of_birth.present? && couch.user.date_of_birth != 0 %>
+												<%= couch.user.calculated_age %>
+											<% end %>
+											<% if couch.user.date_of_birth.present? && couch.user.date_of_birth != 0 && couch.user.pronouns != "" %>
+											⋅
+											<% end %>
+											<%= couch.user.pronouns %>
 										</p>
 										<p class="couches__location">
 											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
