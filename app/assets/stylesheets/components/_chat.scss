@@ -149,8 +149,6 @@
       transform: rotate(45deg);
     }
   }
-
-  &__note { @include caption; }
 }
 
 .message { padding: 1rem; }
