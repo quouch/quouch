@@ -47,10 +47,10 @@
 											<%= link_to "#{couch.user.first_name}", couch_path(couch.id) %>
 										</h2>
 										<p class="couches__characteristics">
-											<% if couch.user.date_of_birth.present? && couch.user.date_of_birth != 0 %>
+											<% if couch.user.date_of_birth.present? && couch.user.calculated_age != 0 %>
 												<%= couch.user.calculated_age %>
 											<% end %>
-											<% if couch.user.date_of_birth.present? && couch.user.date_of_birth != 0 && couch.user.pronouns != "" %>
+											<% if couch.user.date_of_birth.present? && couch.user.calculated_age != 0 && couch.user.pronouns != "" %>
 											⋅
 											<% end %>
 											<%= couch.user.pronouns %>
