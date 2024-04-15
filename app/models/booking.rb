@@ -39,6 +39,9 @@ class Booking < ApplicationRecord
   end
 
   def self.remind
+    today = Date.today
+    return unless (today.day % 3).zero?
+
     pending_bookings = Booking.where('start_date >= ?', Date.today).where(status: 0)
     return if pending_bookings.empty?
 
