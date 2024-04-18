@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  authenticate :user, -> (user) { user.admin? } do
-    mount RailsPerformance::Engine, at: 'rails/performance'
-  end
-
   root to: 'pages#home'
 
   get '/search_cities', to: 'pages#search_cities'
