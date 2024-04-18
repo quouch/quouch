@@ -15,13 +15,13 @@ class BookingsController < ApplicationController
 
 	def requests
     @requests = @couch.bookings
-		  @upcoming = @requests.select do |request|
- request.confirmed? || request.pending? || request.pending_reconfirmation?
-                end.sort_by { |request| request.start_date || Date.today }
-		  @cancelled = @requests.select do |request|
- request.cancelled? || request.declined?
-                 end.sort_by { |request| request.start_date || Date.today }
-		  @completed = @requests.select(&:completed?).sort_by { |request| request.start_date || Date.today }
+		@upcoming = @requests.includes(:user).select do |request|
+			request.confirmed? || request.pending? || request.pending_reconfirmation?
+    	end.sort_by { |request| request.start_date || Date.today }
+		@cancelled = @requests.includes(:user).select do |request|
+ 			request.cancelled? || request.declined?
+      end.sort_by { |request| request.start_date || Date.today }
+		@completed = @requests.includes(:user).select(&:completed?).sort_by { |request| request.start_date || Date.today }
 	end
 
 	def show

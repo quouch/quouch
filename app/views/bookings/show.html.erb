@@ -77,7 +77,7 @@
 					<div class="booking__accommodation">
 						<h2>Accommodation</h2>
 						<ul class="booking__accommodation-list">
-							<% @couch.facilities.each do |facility| %>
+							<% @couch.facilities.includes([{ svg_attachment: :blob }]).each do |facility| %>
 								<% if facility.svg.attached? %>
 									<li>
 										<%= cl_image_tag(facility.svg.key) %>
