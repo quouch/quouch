@@ -106,7 +106,7 @@
 			<h2 class="requests__title">Cancelled Requests</h2>
 			<ul class="past-requests">
 				<% @cancelled.each do |request| %>
-					<%= link_to couch_path(request.user.couch) do %>
+					<%= link_to request_booking_path(request) do %>
 						<li>
 							<ul class="past-request">
 								<li class="past-request__profile">
