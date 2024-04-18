@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   before_action :authenticate, only: [:emails]
 
   def home
+    return unless user_signed_in?
+
     @couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
                     .joins(:user)
                     .where.not(user: current_user)

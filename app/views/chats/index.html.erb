@@ -13,7 +13,7 @@
       </div>
     <% elsif @chats.any? %>
       <ul class="chats__list">
-        <% @chats.each do |chat| %>
+        <% @chats.includes(:user_receiver).each do |chat| %>
           <% if chat.messages.any? %>
             <%= render 'chats/chat_card', chat: chat, other_user: chat.other_user(current_user) %>
           <% end %>
