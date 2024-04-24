@@ -1,6 +1,6 @@
 <div data-characteristics-filter-target="couches">
 	<ul class="couches__list">
-		<% @active_couches.each do |couch| %>
+		<% @couches.each do |couch| %>
 			<% if couch.user.photo.key %>
 				<li class="couches__list-item">
 					<article class="couches__list-article">
@@ -78,5 +78,5 @@
 			<% end %>
 		<% end %>
 	</ul>
-	<%= paginate @active_couches, remote: true, params: params.permit.merge({ controller: :pages, action: :home }) %>
+	<%= paginate @couches, remote: true %>
 </div>
