@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
-  root to: 'pages#home'
+  authenticated :user do
+    root 'couches#index', as: :authenticated_root
+  end
 
-  get '/search_cities', to: 'pages#search_cities'
+  root 'pages#home'
+
+  get '/search_cities', to: 'couches#search_cities'
   get '/about', to: 'pages#about'
   get '/faq', to: 'pages#faq'
   get '/guidelines', to: 'pages#guidelines'
