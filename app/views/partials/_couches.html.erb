@@ -4,5 +4,5 @@
 			<%= render 'partials/couch', couch: couch %>
 		<% end %>
 	</ul>
-	<%= paginate @couches, remote: true %>
+	<%== pagy_nav @pagy if @pagy.pages > 1 %>
 </div>
