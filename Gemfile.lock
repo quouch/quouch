@@ -251,6 +251,7 @@ GEM
       http (>= 4.0.0)
       rails (>= 5.2.0)
     orm_adapter (0.5.0)
+    pagy (6.0.4)
     parallel (1.24.0)
     parser (3.3.0.5)
       ast (~> 2.4.1)
@@ -418,10 +419,10 @@ DEPENDENCIES
   geocoder
   importmap-rails (~> 1.2.3)
   jbuilder
-  kaminari
   mail_form
   money-rails (~> 1.12)
   noticed (~> 1.6)
+  pagy
   pg (~> 1.1)
   pg_search
   pry-byebug

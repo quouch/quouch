@@ -5,14 +5,14 @@ class CouchesController < ApplicationController
                                .where.not(user: current_user)
                                .where.not(user: { first_name: nil, city: nil, country: nil })
 
-    @shuffled_couches = @unfiltered_couches.shuffle
-    @couches = Kaminari.paginate_array(@shuffled_couches).page(params[:page]).per(9)
+    @shuffled_couches = @unfiltered_couches.order('RANDOM()')
+    @pagy, @couches = pagy(@shuffled_couches, items: 9)
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
 
-    @couches = @unfiltered_couches.page(params[:page]).per(9)
+    @pagy, @couches = pagy(@shuffled_couches, items: 9)
 
     respond_to do |format|
       format.html
@@ -46,15 +46,15 @@ class CouchesController < ApplicationController
   private
 
   def apply_search_filter
-    @unfiltered_couches = @unfiltered_couches.search(params[:query])
+    @shuffled_couches = @shuffled_couches.search(params[:query])
   end
 
   def apply_characteristics_filter
-    @unfiltered_couches = @unfiltered_couches.joins(user: { user_characteristics: :characteristic })
-                                  .where(characteristics: { id: params[:characteristics] })
-                                  .group('couches.id')
-                                  .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
-                                  .reorder(nil)
+    @shuffled_couches = @shuffled_couches.joins(user: { user_characteristics: :characteristic })
+                                         .where(characteristics: { id: params[:characteristics] })
+                                         .group('couches.id')
+                                         .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+                                         .reorder(nil)
   end
 
   def apply_offers_filter
@@ -65,6 +65,6 @@ class CouchesController < ApplicationController
     offers_conditions[:offers_couch] = true if params[:offers_couch]
     offers_conditions[:travelling] = false
 
-    @unfiltered_couches = @unfiltered_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
+    @shuffled_couches = @shuffled_couches.joins(:user).where(user: offers_conditions) if offers_conditions.any?
   end
 end
