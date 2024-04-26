@@ -1,8 +1,8 @@
 <section class="invite-code">
   <h1 class="invite-code__header">Validate invite code</h1>
   <div class="invite-code__wrap">
-    <h2 class="invite-code__subtitle">Someone shared their invite code with you? Great!</h2>
-    <p class="invite-code__content">Validate the code now and become part of our safer travel space.</p>
+    <h2 class="invite-code__subtitle">To make sure that Quouch is the safest version it can be, you need an invite code to participate.</h2>
+    <p class="invite-code__content">If you have one, validate the code below and become part of our safer travel community.</p>
     <div class="invite-code__form">
       <%= simple_form_for :invite, url: validate_invite_code_path, method: :get do |f| %>
         <%= f.input :invite_code,
@@ -12,6 +12,11 @@
         <%= f.button :submit, 'Validate Invite Code', class: 'invite-code__button' %>
       <% end %>
     </div>
-    <p class="invite-code__content">Don't have an invite code yet? <%= link_to 'Request one', code_contacts_path %> right now!</p>
+    <p class="invite-code__content">If you don't have an invite code yet, you can apply for one <%= link_to 'here', code_contacts_path %>. We try to get back to you within 24 hours and are so happy to see you here.</p>
   </div>
 </section>
+
+
+
+
+
