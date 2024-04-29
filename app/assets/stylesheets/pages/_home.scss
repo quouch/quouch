@@ -57,15 +57,9 @@
 			@include primary-button;
 
 			margin: 1rem auto;
-			padding: .32rem 2rem;
 			width: fit-content;
 		
 			@media (min-width: $break-medium) { margin: 1rem 0; }
-
-			span {
-				display: block;
-				font-size: .5rem;
-			}
 		}
 
 		&-secondary {
@@ -74,6 +68,7 @@
 
 			margin: 1rem auto;
 			width: fit-content;
+			background-color: $secondary;
 
 			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
