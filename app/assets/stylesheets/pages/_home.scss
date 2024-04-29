@@ -92,7 +92,10 @@
 				max-width: $container;
 			}
 
-			p { font-weight: 700; }
+			p {
+				font-weight: 700;
+				font-size: 1.2rem;
+			}
 		}
 	}
 
@@ -225,7 +228,10 @@
 				max-width: $container;
 			}
 
-			p { font-weight: 700; }
+			p {
+				font-weight: 700;
+				font-size: 1.2rem;
+			}
 		}
 
 		p:not(:last-child) { margin: .3rem auto 1rem; }
@@ -236,6 +242,7 @@
 			text-transform: uppercase;
 			color: $secondary;
 			font-size: 2rem;
+			margin-bottom: .3rem;
 		}
 
 		&-list {
@@ -296,7 +303,10 @@
 			width: 100px;
 			margin: 0 auto;
 		}
-		p { font-weight: 700; }
+		p {
+			font-weight: 700;
+			font-size: 1.2rem;
+		}
 
 		&-content { margin-top: 2rem; }
 		
