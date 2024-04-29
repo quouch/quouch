@@ -91,6 +91,8 @@
 				width: 60%;
 				max-width: $container;
 			}
+
+			p { font-weight: 700; }
 		}
 	}
 
@@ -222,6 +224,8 @@
 				padding: 4rem 0;
 				max-width: $container;
 			}
+
+			p { font-weight: 700; }
 		}
 
 		p:not(:last-child) { margin: .3rem auto 1rem; }
@@ -292,6 +296,7 @@
 			width: 100px;
 			margin: 0 auto;
 		}
+		p { font-weight: 700; }
 
 		&-content { margin-top: 2rem; }
 		
