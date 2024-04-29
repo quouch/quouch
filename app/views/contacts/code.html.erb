@@ -7,8 +7,8 @@
 	<% else %>
 	<h1 class="contact__header">Request invite code</h1>
 	<div class="contact__wrap">
-		<h2 class="contact__subtitle">Tell us more about you and your motivation to become a part of Quouch!</h2>
-		<p>Why would you like to be part of Quouch? Do you identify as queer in any way? Are you travelling a lot or can you also host? We would love to hear from you and will try to get back to you in less than 24 hours. Please don't forget to check our <%= link_to 'guidelines', guidelines_path %> to check if this space is for you. Thank you for being here.</p>
+		<h2 class="contact__subtitle">Tell us more about yourself!</h2>
+		<p>Why would you like to be part of Quouch? Do you identify as queer in any way (no need to tell us in which)? Do you mainly travel or can you also host? We would love to hear from you and will try to get back to you in less than 24 hours. Please don't forget to check our <%= link_to 'guidelines', guidelines_path %> to see if this space is for you. Thank you for being here.</p>
 	<% end %>
 	<%= simple_form_for @contact, data: { controller: 'brevo', action: 'submit->brevo#signUp', brevo_api_key_value: ENV['BREVO_API_KEY'] } do |f| %>
 
