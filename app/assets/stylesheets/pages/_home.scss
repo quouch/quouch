@@ -58,6 +58,7 @@
 
 			margin: 1rem auto;
 			width: fit-content;
+			font-weight: 700;
 		
 			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
@@ -66,9 +67,10 @@
 			@include input-field;
 			@include primary-button;
 
+			background-color: $secondary;
 			margin: 1rem auto;
 			width: fit-content;
-			background-color: $secondary;
+			font-weight: 700;
 
 			@media (min-width: $break-medium) { margin: 1rem 0; }
 		}
