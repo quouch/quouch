@@ -1,15 +1,9 @@
 <article class="contact">
-	<% if user_signed_in? %>
 	<h1 class="contact__header">Contact the Quouch Team</h1>
 	<div class="contact__wrap">
 		<h2 class="contact__subtitle">Say hi</h2>
-		<p>We would love to hear from you!</p>
-	<% else %>
-	<h1 class="contact__header">Contact Us</h1>
-	<div class="contact__wrap">
-		<h2 class="contact__subtitle">Say hi!</h2>
-	<% end %>
-	<%= simple_form_for @contact do |f| %>
+		<p>Do you have feedback or any questions for us? Reach out!</p>
+		<%= simple_form_for @contact do |f| %>
 
 		<div class="contact__contact">
 			<div class="contact__input">
@@ -55,6 +49,6 @@
 				<%= f.submit "Send Message" %>
 			</div>
 		</div>
-	<% end %>
+		<% end %>
 	</div>
 </article>
