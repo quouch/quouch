@@ -54,6 +54,7 @@ class CouchesController < ApplicationController
                                          .where(characteristics: { id: params[:characteristics] })
                                          .group('couches.id')
                                          .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+                                         .reorder('RANDOM()')
   end
 
   def apply_offers_filter
