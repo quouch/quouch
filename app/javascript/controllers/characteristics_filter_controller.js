@@ -14,10 +14,10 @@ export default class extends Controller {
     fetch(url, {
       headers: { 'Accept': 'application/json' },
     })
-    .then(response => response.json())
-    .then((data) => {
-        this.couchesTarget.remove()
-        this.listTarget.insertAdjacentHTML('afterbegin', data.inserted_list)
-      })
+      .then(response => response.json())
+      .then((data) => {
+          this.couchesTarget.remove()
+          this.listTarget.insertAdjacentHTML('afterbegin', data.inserted_list)
+        })
   }
 }
