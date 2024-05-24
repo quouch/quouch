@@ -58,6 +58,7 @@
 				<%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
 			<% end %>
 		</div>
+		<button class="search__clear" data-action="click->characteristics-filter#resetForm">Clear Filter</button>
 		<% end %>
 	</section>
 
