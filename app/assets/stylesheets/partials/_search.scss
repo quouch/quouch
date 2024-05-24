@@ -53,7 +53,6 @@
 			border-bottom-right-radius: 0.25rem;
 		}
 	}
-
 	
 	&__button {
 		@include input-field;
@@ -63,9 +62,18 @@
 		width: fit-content;
 		margin: 0;
 	}
+
+	&__clear {
+		@include input-field;
+		@include tertiary-button;
+		
+		width: fit-content;
+		margin: 0 auto;
+		background: inherit;
+	}
 	
 	&__characteristics, &__offers {
-		margin: 0 auto 2rem;
+		margin: 0 auto;
 		text-align: center;
 		
 		@media (min-width: $break-medium) { width: 80%; }

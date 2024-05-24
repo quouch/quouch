@@ -11,6 +11,16 @@ export default class extends Controller {
     const searchParams = new URLSearchParams(formData).toString()
     const url = `${this.formTarget.action}?${searchParams}`
 
+    this.#fetchCouches(url)
+  }
+
+  resetForm() {
+    const url = this.formTarget.action
+    this.formTarget.reset()
+    this.#fetchCouches(url)
+  }
+
+  #fetchCouches(url) {
     fetch(url, {
       headers: { 'Accept': 'application/json' },
     })
