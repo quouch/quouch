@@ -15,7 +15,8 @@ class StatisticsMailer < ApplicationMailer
 	  @response_rate = message_response_rate
 	  @booking_response_rate = request_response_rate
 		@booking_confirmation_rate = request_confirmation_rate
-		
+		@booking_confirmation_rate_ten_requests = ten_requests_confirmation_rate
+		@subscription_success_rate = subscription_success_rate
 
     mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
   end
@@ -40,7 +41,6 @@ class StatisticsMailer < ApplicationMailer
   end
 
 	def message_response_rate
-		# Calculate the response rate
 		response_rate_query = <<-SQL
 			SELECT ROUND((COUNT(DISTINCT m1.chat_id)::numeric / (SELECT COUNT(*) FROM chats)) * 100, 2) AS response_rate
 			FROM messages AS m1
@@ -64,5 +64,38 @@ class StatisticsMailer < ApplicationMailer
 		total_bookings_count = Booking.count
 		percentage = (confirmed_bookings_count.to_f / total_bookings_count * 100).round(2)
 		format('%.0f%%', percentage)
+	end
+
+	def ten_requests_confirmation_rate
+		response_rate = request_confirmation_rate.to_f / 100
+		probability_not_confirmed = 1 - response_rate
+		probability_at_least_one_confirmed = 1 - (probability_not_confirmed**10)
+		percentage = probability_at_least_one_confirmed.to_f
+		format('%.0f%%', percentage * 100)
+	end
+
+	def subscription_success_rate
+		valid_subscriptions = Subscription.where.not(stripe_id: nil)
+		users_with_valid_subscription = User.joins(:subscription).merge(valid_subscriptions)
+
+		total_success_rate = 0
+		total_users_with_subscription = users_with_valid_subscription.count
+
+		users_with_valid_subscription.each do |user|
+			booking_requests_after_subscription_start = user.bookings.where('created_at > ?', user.subscription.created_at)
+			total_booking_requests_after_subscription_start = booking_requests_after_subscription_start.count
+			confirmed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.confirmed.count
+
+			if total_booking_requests_after_subscription_start > 0
+				success_rate = (confirmed_booking_requests_after_subscription_start.to_f / total_booking_requests_after_subscription_start * 100)
+				total_success_rate += success_rate
+			end
+		end
+
+		if total_users_with_subscription > 0
+			average_success_rate = total_success_rate / total_users_with_subscription
+		end
+
+		format('%.0f%%', average_success_rate)
 	end
 end
