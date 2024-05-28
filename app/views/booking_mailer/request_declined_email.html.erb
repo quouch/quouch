@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-    <title>Declined Booking Request</title>
+    <title>Declined Request</title>
   </head>
   <body>
       <h1>We're sorry, <%= @guest.first_name.capitalize %></h1>
-      <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to accommodate your booking request at this time. We want to thank you anyways for your interest in using our platform to find a place to stay. We appreciate your consideration and your desire to be a part of our community.</p>
+      <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to accommodate your request at this time. We want to thank you anyways for your interest in using our platform to find a place to stay. We appreciate your consideration and your desire to be a part of our community.</p>
 
       <p><%= link_to 'View declined request', @request_url %></p>
 

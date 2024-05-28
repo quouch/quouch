@@ -5,10 +5,10 @@
   </head>
   <body>
     <h1>We are sorry, <%= @guest.first_name.capitalize %>.</h1>
-    <p><%= @host.first_name.capitalize %> cancelled the booking!</p>
+    <p><%= @host.first_name.capitalize %> cancelled the request!</p>
     <p>Unfortunately, <%= @host.first_name.capitalize %> is unable to host you at this time. Thank you for trying to use Quouch - maybe it works with another user? We hope that you are not too disappointed and that you still find a great way to make the most of your trip!</p>
 
-    <p><%= link_to 'View cancelled booking', @booking_url %></p>
+    <p><%= link_to 'View cancelled request', @booking_url %></p>
 
     <p><%= link_to 'Browse other couches', @browse_couches %></p>
 
