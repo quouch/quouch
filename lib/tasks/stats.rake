@@ -16,7 +16,6 @@ namespace :stats do
 
 				if total_booking_requests_after_subscription_start > 0
 					success_rate = (confirmed_booking_requests_after_subscription_start.to_f / total_booking_requests_after_subscription_start * 100)
-					success_rate
 					total_success_rate += success_rate
 				end
 			end

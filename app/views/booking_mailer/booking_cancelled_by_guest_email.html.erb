@@ -4,10 +4,10 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @guest.first_name.capitalize %> cancelled the booking!</h1>
-    <p>Unfortunately, <%= @guest.first_name.capitalize %> cancelled their booking at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
+    <h1><%= @guest.first_name.capitalize %> cancelled the request!</h1>
+    <p>Unfortunately, <%= @guest.first_name.capitalize %> cancelled their request at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
 
-    <p><%= link_to 'View cancelled booking', @request_url %></p>
+    <p><%= link_to 'View cancelled request', @request_url %></p>
 
     <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we do take absolute precaution as to who joins our platform. Still, this is the internet and there will always be some risk. Please be cautious and take independent care, as stated in our <%= link_to 'safety guidelines', @guidelines %>.</p>
 

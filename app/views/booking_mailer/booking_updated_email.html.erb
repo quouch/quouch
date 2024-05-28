@@ -4,8 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @guest.first_name.capitalize %> updated the booking and it requires a new confirmation.</h1>
-    <p><%= @guest.first_name.capitalize %> has updated their booking and is now waiting for your confirmation. Please <%= link_to 'preview the request and confirm or decline', @request_url %> depending on your availability.</p>
+    <h1><%= @guest.first_name.capitalize %> updated the request and it requires a new confirmation.</h1>
+    <p><%= @guest.first_name.capitalize %> has updated their request and is now waiting for your confirmation. Please <%= link_to 'preview the request and confirm or decline', @request_url %> depending on your availability.</p>
 
     <p>If you have any questions, please feel free to contact us.</p>
     <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
