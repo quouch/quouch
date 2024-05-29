@@ -16,18 +16,25 @@ export default class extends Controller {
       content: {
         element: 'input',
         attributes: {
-          placeholder: 'Leave a message for your guest..',
+          placeholder: 'Leave a kind message for your guest..',
           type: 'text'
         }
       },
       buttons: buttons
     }).then((value) => {
-      console.log(value)
-      if (value === true) {
-        const messageContent = document.querySelector('.swal-content__input')
-        this.actionTarget.click(messageContent)
-      }
-    })
+      const messageInput = value.trim();
+
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'message';
+      hiddenInput.value = messageInput;
+
+      const form = this.actionTarget.closest('form');
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      this.actionTarget.click();
+    });
   }
 
   displayAcceptAlert(event) {
