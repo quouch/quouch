@@ -13,12 +13,28 @@ export default class extends Controller {
     swal({
       title: title,
       text: text,
+      content: {
+        element: 'input',
+        attributes: {
+          placeholder: 'Leave a kind message for your guest..',
+          type: 'text'
+        }
+      },
       buttons: buttons
     }).then((value) => {
-      if (value === true) {
-        this.actionTarget.click()
-      }
-    })
+      const messageInput = value.trim();
+
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'message';
+      hiddenInput.value = messageInput;
+
+      const form = this.actionTarget.closest('form');
+      form.appendChild(hiddenInput);
+
+      // Submit the form
+      this.actionTarget.click();
+    });
   }
 
   displayAcceptAlert(event) {
