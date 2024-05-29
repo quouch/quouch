@@ -133,11 +133,15 @@ class BookingsController < ApplicationController
 		BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
 	end
 
-	def decline
+	def decline(chat)
 		return unless @booking.declined!
 
-		redirect_to requests_couch_bookings_path(@booking.couch)
-		BookingMailer.with(booking: @booking).request_declined_email.deliver_later
+		if chat.nil?
+			redirect_to requests_couch_bookings_path(@booking.couch)
+		else
+			redirect_to chat_path(chat)
+			BookingMailer.with(booking: @booking).request_declined_email.deliver_later
+		end
 	end
 
 	def complete
@@ -149,14 +153,18 @@ class BookingsController < ApplicationController
 	end
 
 	def decline_and_send_message
-		if chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
-			Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
-			Message.create(user_id: current_user.id, chat:)
+		content = params[:message]
+
+		if content.blank?
+			decline(nil)
 		else
-			chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
-			Message.create(user_id: current_user.id, chat_id: chat.id)
+			chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
+						Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
+
+			chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id) if chat.nil?
+			Message.create(user_id: current_user.id, chat:, content:)
+			decline(chat)
 		end
-		decline
 	end
 
 		private

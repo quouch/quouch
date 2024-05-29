@@ -38,8 +38,8 @@ Rails.application.routes.draw do
       patch :complete
       patch :accept
       patch :decline
+      patch :decline_and_send_message
       delete :cancel
-      delete :decline_and_send_message
     end
   end
 
