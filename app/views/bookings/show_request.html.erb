@@ -86,7 +86,7 @@
 		<div class="booking__links" data-controller="confirm-alert">
 			<% if @booking.confirmed? %>
 				<button class="booking__decline" 
-								data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert"
+								data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayDeclineAlert"
 								data-confirm-title="Confirm"
 								data-confirm-text="Are you sure you want to cancel this booking?"
 								data-confirm-buttons='["No, go back", "Yes, cancel and leave message"]'>Cancel Booking</button>

@@ -138,7 +138,7 @@
 				<% if @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
 				<button class="booking__decline"
-									data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert"
+									data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayCancelAlert"
 									data-confirm-title="Confirm"
 									data-confirm-text="Are you sure you want to cancel this booking?"
 									data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Request</button>

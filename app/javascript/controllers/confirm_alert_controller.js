@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 export default class extends Controller {
   static targets = ['cancel', 'action'];
 
-  displayConfirmAlert(event) {
+  displayDeclineAlert(event) {
     const title = event.target.dataset.confirmTitle
     const text = event.target.dataset.confirmText
     const buttons = JSON.parse(event.target.dataset.confirmButtons || '[]')
@@ -35,6 +35,22 @@ export default class extends Controller {
       // Submit the form
       this.actionTarget.click();
     });
+  }
+
+  displayCancelAlert(event) {
+    const title = event.target.dataset.confirmTitle
+    const text = event.target.dataset.confirmText
+    const buttons = JSON.parse(event.target.dataset.confirmButtons || '[]')
+
+    swal({
+      title: title,
+      text: text,
+      buttons: buttons
+    }).then((value) => {
+      if (value === true) {
+        this.actionTarget.click()
+      }
+    })
   }
 
   displayAcceptAlert(event) {
