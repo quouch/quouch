@@ -30,7 +30,7 @@
                                           action: 'click->skip-booking-date-validation#hideFields change->validate-form#enableButton' }} %>
 				<div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
 					<div class="date-input">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
 						<%= f.input :start_date,
 												as: :string,
 												error: false,
@@ -50,7 +50,7 @@
 				</div>
 				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
 				<div class="booking-form__travellers">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg', alt: 'People icon') %>
 					<%= f.input :number_travellers,
 											label: false,
 											error: false,
@@ -62,10 +62,10 @@
 									label: :Message,
 									required: true,
 									error: false,
-									input_html: { rows: 4, data: { validate_form_target: "message", action: 'blur->validate-form#enableButton'} } %>
+									input_html: { rows: 4, data: { validate_form_target: 'message', action: 'blur->validate-form#enableButton'} } %>
 			<%= f.error :message, class: 'form-error' %>
       <div class="booking-form__action">
-				<%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: "button"} %>
+				<%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: 'button'} %>
 			</div>
 		<% end %>
 	</section>

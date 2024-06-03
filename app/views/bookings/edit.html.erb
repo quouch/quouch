@@ -19,7 +19,7 @@
 				<%= f.label :dates_and_travellers, required: true %>
 				<div class="booking-form__dates date">
 					<div class="date-input">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg') %>
+						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
 						<%= f.input :start_date,
 												as: :string,
 												error: false,
@@ -38,7 +38,7 @@
 				</div>
 				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
 				<div class="booking-form__travellers">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg') %>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg', alt: 'People icon') %>
 					<%= f.input :number_travellers, 
 											label: false,
 											input_html: { value: @booking.number_travellers } %>
