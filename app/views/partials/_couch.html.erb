@@ -14,25 +14,25 @@
 					<ul class="couches__offers offers">
 						<% if couch.user.travelling %>
 							<li class="offers-item">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg') %>
+								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg', alt: 'World icon') %>
 								<p>currently travelling</p>
 							</li>
 						<% else %>
 							<% if couch.user.offers_couch %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg', alt: 'Sleep icon') %>
 									<p>host</p>
 								</li>
 							<% end %>
 							<% if couch.user.offers_hang_out %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg', alt: 'Hangout icon') %>
 									<p>hangout</p>
 								</li>
 							<% end %>
 							<% if couch.user.offers_co_work %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg') %>
+									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg', alt: 'Work icon') %>
 									<p>cowork</p>
 								</li>
 							<% end %>
