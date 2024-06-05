@@ -7,6 +7,7 @@ class StatisticsMailer < ApplicationMailer
     @amount_reviews = Review.count
     @review_average = Review.average(:rating)
     @reviews_today = Review.where(created_at: Date.today).count
+		@bookings = Booking.count
     @bookings_today = bookings_today
     @completed_bookings = Booking.where(status: 4).count
     @confirmed_bookings = Booking.where(status: 1).count

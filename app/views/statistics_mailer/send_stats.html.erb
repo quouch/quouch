@@ -1,8 +1,7 @@
 <h1>User Stats Report</h1>
-<h2>Total Users</h2>
-<p><%= @total_users %></p>
-<h2>Users per Country</h2>
-
+<h2>Users</h2>
+<p>total: <%= @total_users %></p>
+<p>per country:</p>
 <ol>
 	<% @users_per_country.each do |country| %>
 		<li>
@@ -10,8 +9,7 @@
 		</li>
 	<% end %>
 </ol>
-
-<h2>Users per City</h2>
+<p>per city:</p>
 <ol>
 	<% @users_per_city.each do |city| %>
 		<li>
@@ -21,33 +19,26 @@
 </ol>
 
 <h2>Reviews</h2>
-<%= @amount_reviews %>
-<h3>Reviews today</h3>
-<%= @reviews_today %>
-<h3>Review Average</h3>
-<%= @review_average %>
+<p>total: <%= @amount_reviews %></p>
+<p>today: <%= @reviews_today %></p>
+<p>average: <%= @review_average %></p>
 
-
-<h2>Booking Stats</h2>
-<p>Confirmed Bookings: <%= @confirmed_bookings %></p>
-<p>Completed Bookings: <%= @completed_bookings %></p>
-<p>Cancelled Bookings: <%= @cancelled_bookings %></p>
-<h3>Bookings of today per type</h2>
+<h2>Bookings</h2>
+<p>total: <%= @bookings %></p>
+<p>confirmed: <%= @confirmed_bookings %></p>
+<p>completed: <%= @completed_bookings %></p>
+<p>cancelled: <%= @cancelled_bookings %></p>
+<p>today:</p>
 <% @bookings_today.each do |booking| %>
 	<p><%= booking[0] %>: <%= booking[1] %></p>
 <% end %>
+<p>response rate: <%= @booking_response_rate %></p>
+<p>success rate:<%= @booking_confirmation_rate %></p>
+<p>10 requests success rate: <%= @booking_confirmation_rate_ten_requests %>
 
+<h2>Subscriptions</h2>
+<p>total: <%= @total_subscriptions %></p>
+<p>subscription success rate: <%= @subscription_success_rate %>
 
-<h2>Subscription Stats</h2>
-<p><%= @total_subscriptions %></p>
-
-<h2>Message Response Rate</h2>
-<p><%= @response_rate %></p>
-
-<h2>Booking Response Rate</h2>
-<p><%= @booking_response_rate %></p>
-
-<h2>Booking Confirmation Rate</h2>
-<p><%= @booking_confirmation_rate %></p>
-<p>10 Requests Rate: <%= @booking_confirmation_rate_ten_requests %>
-<p>Subscription Success Rate: <%= @subscription_success_rate %>
+<h2>Messages</h2>
+<p>response rate: <%= @response_rate %></p>
