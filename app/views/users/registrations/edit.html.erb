@@ -143,11 +143,11 @@
 
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
-                                            Characteristic.find_each,
-                                            :id, :name,
-                                            checked: @user.characteristic_ids,
-                                            error: false,
-                                            input_html: { multiple: true, autocomplete: 'characteristics' } %>
+                                             Characteristic.order(id: :desc),
+                                             :id, :name,
+                                             checked: @user.characteristic_ids,
+                                             error: false,
+                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
           </div>
 
