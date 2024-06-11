@@ -8,9 +8,9 @@
 	}
 
 	&__banner {
-		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1716829251/hero.webp');
+		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1717692290/4_wnwxnw.webp');
 		background-size: cover;
-		background-position: center;
+		background-position: 61% 0%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -19,21 +19,13 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
+			align-items: center;
 			height: 500px;
-			margin: 4rem 1rem 2rem;
-			text-align: center;
+			margin: 4rem 2rem 2rem;
 
 			@media (min-width: $break-medium) { margin: 4rem auto; }
 
-			h1 {
-				text-transform: capitalize;
-				font-size: 4rem;
-
-				@media (min-width: $break-medium) { font-size: 4.8rem; }
-			}
-
 			@media (min-width: $break-medium) {
-				width: 400px;
 				padding: 4rem auto 2rem;
 			}
 		}
@@ -49,6 +41,10 @@
 		}
 
 		&-button {
+			width: 100%;
+
+			@media (min-width: $break-large) { width: 400px; }
+
 			a { width: 100%; }
 		}
 
