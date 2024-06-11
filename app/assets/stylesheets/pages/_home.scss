@@ -8,9 +8,9 @@
 	}
 
 	&__banner {
-		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1716829251/hero.webp');
+		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1717692290/4_wnwxnw.webp');
 		background-size: cover;
-		background-position: center;
+		background-position: 50% 25%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -20,17 +20,10 @@
 			flex-direction: column;
 			justify-content: space-between;
 			height: 500px;
-			margin: 4rem 1rem 2rem;
+			margin: 4rem 2rem 2rem;
 			text-align: center;
 
 			@media (min-width: $break-medium) { margin: 4rem auto; }
-
-			h1 {
-				text-transform: capitalize;
-				font-size: 4rem;
-
-				@media (min-width: $break-medium) { font-size: 4.8rem; }
-			}
 
 			@media (min-width: $break-medium) {
 				width: 400px;
