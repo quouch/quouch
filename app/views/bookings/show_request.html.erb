@@ -94,7 +94,7 @@
 			<% elsif @booking.pending? || @booking.pending_reconfirmation? %>
 				<%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept', data: { confirm_alert_target: 'confirm', action: 'click->confirm-alert#displayAcceptAlert' } %>
 				<button class="booking__decline"
-								data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayConfirmAlert"
+								data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayDeclineAlert"
 								data-confirm-title="Confirm"
 								data-confirm-text="Are you sure you want to decline this booking?"
 								data-confirm-buttons='["No, go back", "Yes, decline"]'>
