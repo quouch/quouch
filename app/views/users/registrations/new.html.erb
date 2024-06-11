@@ -137,7 +137,7 @@
           <div class="user__characteristics">
             <%= simple_fields_for :user_characteristic do |ucf| %>
               <%= ucf.collection_check_boxes :characteristic_ids,
-                                             Characteristic.order(id: :desc),
+                                             Characteristic.find_each,
                                              :id, :name,
                                              checked: params[:user_characteristic]&.dig(:characteristic_ids),
                                              error: false,
