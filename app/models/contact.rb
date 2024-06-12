@@ -12,7 +12,7 @@ class Contact < MailForm::Base
     when 'contact'
       subject_prefix = 'Contact Form'
       {
-        to: 'nora@quouch-app.com',
+        to: 'hello@quouch-app.com',
         subject: subject_prefix.to_s,
         from: email.to_s,
         reply_to: %("#{name}" <#{email}>)
@@ -20,7 +20,7 @@ class Contact < MailForm::Base
     when 'code'
       subject_prefix = 'Request for Invite Code'
       {
-        to: 'nora@quouch-app.com',
+        to: 'hello@quouch-app.com',
         subject: subject_prefix.to_s,
         from: email.to_s,
         reply_to: %("#{name}" <#{email}>)
@@ -28,7 +28,7 @@ class Contact < MailForm::Base
     when 'report'
       subject_prefix = 'User Report'
       {
-        to: 'nora@quouch-app.com',
+        to: 'hello@quouch-app.com',
         subject: "#{subject_prefix} of Couch #{couch}",
         from: email.to_s,
         reply_to: %("#{name}" <#{email}>)

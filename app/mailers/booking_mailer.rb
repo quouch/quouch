@@ -3,7 +3,7 @@ class BookingMailer < ApplicationMailer
 	before_action :set_couch, only: %i[booking_completed_host_email booking_completed_guest_email]
 	before_action :set_urls
 
-	default from: 'nora@quouch-app.com'
+	default from: 'hello@quouch-app.com'
 
 	def new_request_email
 		@request_url = request_booking_url(@booking)

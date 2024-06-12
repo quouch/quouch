@@ -19,7 +19,7 @@ class StatisticsMailer < ApplicationMailer
 		@booking_confirmation_rate_ten_requests = ten_requests_confirmation_rate
 		@subscription_success_rate = subscription_success_rate
 
-    mail(to: 'nora@quouch-app.com', subject: 'User Stats Report')
+    mail(to: 'hello@quouch-app.com', subject: 'User Stats Report')
   end
 
   private
