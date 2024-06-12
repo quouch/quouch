@@ -62,9 +62,11 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "quouch_production"
 
+  # config/environments/production.rb
+
   host = 'quouch-app.com'
   config.action_mailer.default_url_options = { host: }
-  config.action_mailer.default_options = { from: 'nora@quouch-app.com' }
+  config.action_mailer.default_options = { from: 'Quouch <hello@quouch-app.com>' }
   # Don't care if the mailer can't send.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
