@@ -4,8 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1><%= @sender.first_name.capitalize %> sent you a message!</h1>
+    <h1><%= @sender.first_name.capitalize %> sent you a message! 💭</h1>
     <p>"<%=  @message.content %>"</p>
-    <%= link_to 'Answer now', @chat_url %>
+    <%= link_to 'Answer now', @chat_url %> 💌
+    <p>We are so delighted that you are using Quouch to connect with others. If you have any doubts or questions, please feel free to reach out.</p>
+    <p>Warmly,</p>
+    <p>your Quouch Team</p>
   </body>
 </html>
