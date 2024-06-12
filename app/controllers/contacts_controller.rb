@@ -14,7 +14,7 @@ class ContactsController < ApplicationController
 	end
 
 	def create
-		@contact = Contact.new(contact_params)
+		@contact = Contact.new(params[:contact])
 		@contact.request = request
 
 		if @contact.deliver
@@ -27,10 +27,6 @@ class ContactsController < ApplicationController
 	end
 
 	 private
-
-	def contact_params
-		params.require(:contact).permit(:type, other_allowed_parameters)
-	end
 
 	def render_response
 		if params[:contact][:type] == 'code'
