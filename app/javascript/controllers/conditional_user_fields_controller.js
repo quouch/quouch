@@ -6,8 +6,7 @@ export default class extends Controller {
 
   connect() {
     if (this.triggerTarget.checked) {
-      this.fieldTarget.style.display = 'flex'
-      this.fieldTarget.style.flexDirection = 'column'
+      this.fieldTarget.classList.remove('display-none')
     }
   }
 
