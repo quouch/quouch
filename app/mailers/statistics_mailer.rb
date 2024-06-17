@@ -62,8 +62,10 @@ class StatisticsMailer < ApplicationMailer
 
 	def request_confirmation_rate
 		confirmed_bookings_count = Booking.where(status: 1).count
+		completed_bookings_count = Booking.where(status: 4).count
+		successful_bookings_count = confirmed_bookings_count + completed_bookings_count
 		total_bookings_count = Booking.count
-		percentage = (confirmed_bookings_count.to_f / total_bookings_count * 100).round(2)
+		percentage = (successful_bookings_count.to_f / total_bookings_count * 100).round(2)
 		format('%.0f%%', percentage)
 	end
 
@@ -86,9 +88,11 @@ class StatisticsMailer < ApplicationMailer
 			booking_requests_after_subscription_start = user.bookings.where('created_at > ?', user.subscription.created_at)
 			total_booking_requests_after_subscription_start = booking_requests_after_subscription_start.count
 			confirmed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.confirmed.count
+			completed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.completed.count
+			successful_booking_requests_after_subscription_start = confirmed_booking_requests_after_subscription_start + completed_booking_requests_after_subscription_start
 
 			if total_booking_requests_after_subscription_start > 0
-				success_rate = (confirmed_booking_requests_after_subscription_start.to_f / total_booking_requests_after_subscription_start * 100)
+				success_rate = (successful_booking_requests_after_subscription_start.to_f / total_booking_requests_after_subscription_start * 100)
 				total_success_rate += success_rate
 			end
 		end
