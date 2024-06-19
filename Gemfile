@@ -123,3 +123,4 @@ group :test do
 end
 
 gem 'importmap-rails', '~> 1.2.3'
+gem 'amplitude-api'

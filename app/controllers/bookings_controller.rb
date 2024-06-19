@@ -3,25 +3,19 @@ class BookingsController < ApplicationController
 	before_action :set_couch, only: %i[new create requests]
 
 	def index
-		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user)
-		@upcoming = @bookings.select do |booking|
- booking.confirmed? || booking.pending? || booking.pending_reconfirmation?
-              end.sort_by { |booking| booking.start_date || Date.today }
-		@cancelled = @bookings.select do |booking|
- booking.cancelled? || booking.declined?
-               end.sort_by { |booking| booking.start_date || Date.today }
-		@completed = @bookings.select(&:completed?).sort_by { |booking| booking.start_date || Date.today }
+		@bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user).order(start_date: :asc)
+		categorized_bookings = @bookings.group_by { |booking| categorize_booking(booking) }
+		@upcoming = categorized_bookings[:upcoming] || []
+		@cancelled = categorized_bookings[:cancelled] || []
+		@completed = categorized_bookings[:completed] || []
 	end
 
 	def requests
-    @requests = @couch.bookings
-		@upcoming = @requests.includes(:user).select do |request|
-			request.confirmed? || request.pending? || request.pending_reconfirmation?
-    	end.sort_by { |request| request.start_date || Date.today }
-		@cancelled = @requests.includes(:user).select do |request|
- 			request.cancelled? || request.declined?
-      end.sort_by { |request| request.start_date || Date.today }
-		@completed = @requests.includes(:user).select(&:completed?).sort_by { |request| request.start_date || Date.today }
+		@requests = @couch.bookings.includes(:user).order(start_date: :asc)
+		categorized_bookings = @requests.group_by { |request| categorize_booking(request) }
+		@upcoming = categorized_bookings[:upcoming] || []
+		@cancelled = categorized_bookings[:cancelled] || []
+		@completed = categorized_bookings[:completed] || []
 	end
 
 	def show
@@ -58,8 +52,15 @@ class BookingsController < ApplicationController
 		@booking.booking_date = DateTime.now
 		if @booking.save
 			@booking.pending!
-			redirect_to sent_booking_path(@booking)
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
+			event = AmplitudeAPI::Event.new(
+			  user_id: current_user.id.to_s,
+			  event_type: 'Booking Created',
+			  time: Time.now
+			)
+
+			AmplitudeAPI.track(event)
+			redirect_to sent_booking_path(@booking)
 		else
 			offers(@host)
 			render :new, status: :unprocessable_entity
@@ -159,7 +160,7 @@ class BookingsController < ApplicationController
 			decline(nil)
 		else
 			chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
-						Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
+						 Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
 
 			chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id) if chat.nil?
 			Message.create(user_id: current_user.id, chat:, content:)
@@ -179,6 +180,16 @@ class BookingsController < ApplicationController
 
 	def set_couch
 		@couch = Couch.includes(:bookings).find(params[:couch_id])
+	end
+
+	def categorize_booking(booking)
+		if booking.pending? || booking.pending_reconfirmation? || booking.confirmed?
+			:upcoming
+		elsif booking.cancelled? || booking.declined?
+			:cancelled
+		else
+			:completed
+		end
 	end
 
 	def offers(host)
