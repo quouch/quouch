@@ -92,6 +92,8 @@ GEM
       faraday (>= 1.0, < 3.0)
       faraday-net_http_persistent
       net-http-persistent
+    amplitude-api (0.4.2)
+      faraday (>= 1.0, < 3.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
@@ -405,6 +407,7 @@ PLATFORMS
 
 DEPENDENCIES
   airrecord
+  amplitude-api
   autoprefixer-rails
   bootsnap
   bullet
