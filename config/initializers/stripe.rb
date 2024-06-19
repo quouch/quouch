@@ -1,5 +1,3 @@
-require_relative '../../app/services/stripe_checkout_session_service'
-
 Rails.configuration.stripe = {
   publishable_key: ENV.fetch('STRIPE_PUBLISHABLE_KEY'),
   secret_key:      ENV.fetch('STRIPE_SECRET_KEY'),
