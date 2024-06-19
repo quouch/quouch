@@ -40,7 +40,7 @@
 			<div class="sent__accommodation">
 				<h2>Accommodation</h2>
 				<ul class="sent__accommodation-list">
-					<% @couch.facilities.each do |facility| %>
+					<% @couch.facilities.includes([svg_attachment: :blob]).each do |facility| %>
 						<% if facility.svg.attached? %>
 							<li>
 								<%= cl_image_tag(facility.svg.key) %>
