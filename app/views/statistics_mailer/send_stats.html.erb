@@ -38,7 +38,14 @@
 
 <h2>Subscriptions</h2>
 <p>total: <%= @total_subscriptions %></p>
-<p>subscription success rate: <%= @subscription_success_rate %>
+<p>subscription success rate (amount successful bookings since subscription start / amount booking requests since subscription start): <%= @subscription_success_rate %>
+<p>subscription but no request: <%= @total_users_with_subscription_no_request %>
+<p>amount requests from subscribers: <%= @requests_subscribers %>
+<p>amount pending requests from subscribers: <%= @total_booking_requests_pending %>
+<p>amount confirmed requests from subscribers: <%= @total_booking_requests_confirmed %>
+<p>amount completed requests from subscribers: <%= @total_booking_requests_completed %>
+<p>amount declined requests from subscribers: <%= @total_booking_requests_declined %>
+<p>amount cancelled requests from subscribers: <%= @total_booking_requests_cancelled %>
 
 <h2>Messages</h2>
 <p>response rate: <%= @response_rate %></p>
