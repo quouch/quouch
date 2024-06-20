@@ -67,15 +67,15 @@
 		</ul>
 
 		<div class="couch__intro">
-			<% if @host.summary != nil %>
+			<% if !@host.summary.nil? %>
 			<h2>Introduction</h2>
 			<p><%= @host.summary %></p>
 			<% end %>
 		</div>
 
 		<div class="couch__accommodation">
-			<h2>Accommodation</h2>
 			<% if @host.offers_couch && !@host.couch.facilities.empty? %>
+			<h2>Accommodation</h2>
 				<ul class="couch__accommodation-list">
 					<% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
 						<li>
@@ -98,30 +98,32 @@
 		</div>
 
 		<div class="couch__location">
-			<h2>Location</h2>
-			<div class="couch__pin">
-				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
-				<% if @couch.user.country == 'United Kingdom Of Great Britain and Northern Ireland' %>
-					<p><%= @couch.user.city %>, United Kingdom</p>
-				<% else %>
-					<p><%= @couch.user.city %>, <%= @couch.user.country %></p>
-				<% end %>
-			</div>
+			<% if !@host.country.nil? %>
+				<h2>Location</h2>
+				<div class="couch__pin">
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+					<% if @host.country == 'United Kingdom Of Great Britain and Northern Ireland' %>
+						<p><%= @host.city %>, United Kingdom</p>
+					<% else %>
+						<p><%= @host.city %>, <%= @host.country %></p>
+					<% end %>
+				</div>
+			<% end %>
 		</div>
 
 	</div>
 	<div class="couch__questions">
-		<% if @host.question_one != nil %>
-		<h2>This makes me really happy</h2>
-		<p><%= @host.question_one %></p>
+		<% if !@host.question_one.nil? %>
+			<h2>This makes me really happy</h2>
+			<p><%= @host.question_one %></p>
 		<% end %>
-		<% if @host.question_two != nil %>
-		<h2>What I can't stand</h2>
-		<p><%= @host.question_two %></p>
+		<% if !@host.question_two.nil? %>
+			<h2>What I can't stand</h2>
+			<p><%= @host.question_two %></p>
 		<% end %>
-		<h2>What I need from the people around me</h2>
-		<% if @host.question_three != nil %>
-		<p><%= @host.question_three %></p>
+		<% if !@host.question_three.nil? %>
+			<h2>What I need from the people around me</h2>
+			<p><%= @host.question_three %></p>
 		<% end %>
 		<div class="couch__action">
 		<% if @couch != current_user.couch %>

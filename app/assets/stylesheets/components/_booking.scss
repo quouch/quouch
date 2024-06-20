@@ -149,6 +149,14 @@
 			}
 		}
 	}
+
+	&__passion {
+		p:last-child {
+			@include caption;
+
+			margin-top: .5rem;
+		}
+	}
 	
 	&__location { margin-top: 1.5rem; }
 	
