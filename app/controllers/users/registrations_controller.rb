@@ -21,6 +21,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
       set_minimum_password_length
       respond_with resource
     end
+
+    event = AmplitudeAPI::Event.new(
+			  user_id: resource.id.to_s,
+			  event_type: 'New User Created',
+        user_properties: {
+          age: resource.calculated_age,
+          country: resource.country,
+          host: resource.offers_couch,
+          travelling: resource.travelling,
+          invited_by: resource.invited_by_id
+        },
+			  time: Time.now
+			)
+
+			AmplitudeAPI.track(event)
   end
 
   def update
