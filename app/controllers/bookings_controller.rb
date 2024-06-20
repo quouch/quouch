@@ -53,14 +53,14 @@ class BookingsController < ApplicationController
 		if @booking.save
 			@booking.pending!
 			BookingMailer.with(booking: @booking).new_request_email.deliver_later
+			redirect_to sent_booking_path(@booking)
 			event = AmplitudeAPI::Event.new(
 			  user_id: current_user.id.to_s,
-			  event_type: 'Booking Created',
+			  event_type: 'New Booking Created',
 			  time: Time.now
 			)
 
 			AmplitudeAPI.track(event)
-			redirect_to sent_booking_path(@booking)
 		else
 			offers(@host)
 			render :new, status: :unprocessable_entity
