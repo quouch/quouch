@@ -113,15 +113,15 @@
 
 	</div>
 	<div class="couch__questions">
-		<% if !@host.question_one.nil? %>
+		<% if !@host.question_one.blank? %>
 			<h2>This makes me really happy</h2>
 			<p><%= @host.question_one %></p>
 		<% end %>
-		<% if !@host.question_two.nil? %>
+		<% if !@host.question_two.blank? %>
 			<h2>What I can't stand</h2>
 			<p><%= @host.question_two %></p>
 		<% end %>
-		<% if !@host.question_three.nil? %>
+		<% if !@host.question_three.blank? %>
 			<h2>What I need from the people around me</h2>
 			<p><%= @host.question_three %></p>
 		<% end %>
