@@ -35,8 +35,8 @@ class CouchesController < ApplicationController
     countries = []
 
     if query.present?
-      cities = User.search_city_or_country(query).pluck(:city).uniq.sort
-      countries = User.search_city_or_country(query).pluck(:country).uniq.sort
+      cities = User.search_city_or_country(query).pluck(:city).uniq.compact.sort
+      countries = User.search_city_or_country(query).pluck(:country).uniq.compact.sort
     end
 
     @results = (cities + countries).select { |entry| entry.downcase.starts_with?(query) }
