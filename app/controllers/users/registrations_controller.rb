@@ -24,7 +24,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     event = AmplitudeAPI::Event.new(
 			  user_id: resource.id.to_s,
-			  event_type: 'New User Created',
+			  event_type: 'New User',
         user_properties: {
           age: resource.calculated_age,
           country: resource.country,

@@ -56,7 +56,7 @@ class BookingsController < ApplicationController
 			redirect_to sent_booking_path(@booking)
 			event = AmplitudeAPI::Event.new(
 			  user_id: current_user.id.to_s,
-			  event_type: 'New Booking Created',
+			  event_type: 'New Booking',
 			  time: Time.now
 			)
 
