@@ -1,8 +1,13 @@
 <article class="invite">
-	<h1 class="invite__header">Invite a friend</h1>
+	<h1 class="invite__header">Build the Quouch community!</h1>
 	<div class="invite__wrap">
 		<h2 class="invite__subtitle">Share your personal invite code with the people you trust!</h2>
 		<p class="invite__content">Quouch lives from creating a safe community and only bringing people onto the platform that we can trust. Each user therefore has a unique invite code which they can share with their trusted people. That way, we hope to build a respectful, tolerant and trustworthy platform.</p>
-		<p class="invite__code">Your personal code:<br> <%= @invite_code %></p>
+			
+		<form  data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
+			<input>
+			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="input" readonly="true">
+
+		<form>
 	</div>
 </article>
