@@ -6,7 +6,8 @@
 			
 		<form  data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
 			<input>
-			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="input" readonly="true">
+			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="code" readonly="true">
+			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="link" readonly="true">
 
 		<form>
 	</div>
