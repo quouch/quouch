@@ -7,6 +7,13 @@
 # Ignore bundler config.
 /.bundle
 
+# ignore compiled code
+out/
+
+# Ignore sensitive data
+config/credentials.yml.enc
+db/data/
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -36,10 +43,16 @@
 /node_modules
 # Ignore .env file containing credentials.
 .env*
+!.env.example
 
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
+.idea
+
+# Ignore IDE files
+.idea
+*.iml
 
 
 node_modules
