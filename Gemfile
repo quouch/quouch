@@ -93,8 +93,15 @@ gem 'pagy'
 # Give team access to DB
 gem 'rails_admin', '3.0'
 
+# Stripe for payments
 gem 'stripe'
 gem 'stripe_event'
+
+# Amplitude API for tracking
+gem 'amplitude-api'
+
+# Importmap for JS modules
+gem 'importmap-rails', '~> 1.2.3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -121,6 +128,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-gem 'importmap-rails', '~> 1.2.3'
-gem 'amplitude-api'
