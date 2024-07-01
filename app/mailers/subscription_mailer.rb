@@ -1,4 +1,5 @@
 class SubscriptionMailer < ApplicationMailer
+	default from: 'Quouch <hello@quouch-app.com>'
 	before_action :set_subscription_details
 
 	def subscription_cancelled
