@@ -38,14 +38,18 @@ Booking app for homestay from queer & female perspective.
    ```bash 
    cp .env.example .env
    ```
-   > Please get in contact Liz to obtain the credentials.
+   > Please get in contact Liz to obtain the integration credentials.
 
-   Add your PostgreSQL username and password to the `.env` file:
+   Make sure to add your personal credentials to the bottom of the `.env` file. This should include your PostgreSQL username and
+   password, as well as your preferred email and password for login into the app.
 
    ```
    DEFAULT_DATABASE_USER=postgres
    DEFAULT_DATABASE_PASSWORD=
-   ``` 
+   
+   BASE_USER_EMAIL=
+   BASE_USER_PASSWORD=
+   ```
 
 4. Install dependencies
    ```bash
