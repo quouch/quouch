@@ -82,3 +82,22 @@ smoking_allowed.svg.attach(io: file13, filename: 'smoking.svg', content_type: 'i
 smoking_allowed.save!
 
 puts "#{Facility.count} facilities created!"
+
+# Create a base user to get started with the app. Use the email and password from the .env file!
+user_email = ENV['BASE_USER_EMAIL']
+user_password = ENV['BASE_USER_PASSWORD']
+puts 'Create first user'
+User.destroy_all
+base_user = User.new(
+  email: user_email,
+  password: user_password,
+  first_name: 'Admin',
+  last_name: 'Local',
+  confirmed_at: Time.now
+)
+
+base_user.save!(validate: false)
+
+Couch.create!(
+  user: base_user
+)

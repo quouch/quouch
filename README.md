@@ -32,7 +32,7 @@ Booking app for homestay from queer & female perspective.
       - publishable_key: 
       - signing_secret_key: 
    ```
-   > Please get in contact Liz to obtain the credentials.   
+   > Please get in contact Liz to obtain the credentials.
 
 3. Create your .env file
    ```bash 
@@ -46,12 +46,12 @@ Booking app for homestay from queer & female perspective.
    DEFAULT_DATABASE_USER=postgres
    DEFAULT_DATABASE_PASSWORD=
    ``` 
-   
+
 4. Install dependencies
    ```bash
    bundle install
    ```
-   
+
 5. Create the database
    ```bash
    rails db:create
@@ -69,6 +69,11 @@ Booking app for homestay from queer & female perspective.
    rails s
    ```
 
+8. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
+
+It is recommended to complete your profile at this point, as the app is still in development and there might be errors
+if you try to access certain pages without a complete profile. You can do it by
+visiting [your profile](http://localhost:3000/users/edit).
 
 ## Troubleshooting
 
