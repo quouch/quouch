@@ -106,8 +106,11 @@ gem 'importmap-rails', '~> 1.2.3'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails'
   # Fake test data
+  gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 end
 
@@ -123,6 +126,7 @@ group :development do
 end
 
 group :test do
+  gem 'simplecov', require: false
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
   gem 'selenium-webdriver'
