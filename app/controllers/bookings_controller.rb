@@ -52,15 +52,7 @@ class BookingsController < ApplicationController
 		@booking.booking_date = DateTime.now
 		if @booking.save
 			@booking.pending!
-			BookingMailer.with(booking: @booking).new_request_email.deliver_later
-			redirect_to sent_booking_path(@booking)
-			event = AmplitudeAPI::Event.new(
-			  user_id: current_user.id.to_s,
-			  event_type: 'New Booking',
-			  time: Time.now
-			)
-
-			AmplitudeAPI.track(event)
+			track_booking_event_amplitude('New Booking')
 		else
 			offers(@host)
 			render :new, status: :unprocessable_entity
@@ -132,6 +124,7 @@ class BookingsController < ApplicationController
 		return unless @booking.confirmed!
 
 		BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
+		track_booking_event_amplitude('Booking Confirmed')
 	end
 
 	def decline(chat)
@@ -151,6 +144,7 @@ class BookingsController < ApplicationController
 		BookingMailer.with(booking: @booking).booking_completed_guest_email.deliver_later
 		BookingMailer.with(booking: @booking).booking_completed_host_email.deliver_later
 		redirect_to booking_path(@booking)
+		track_booking_event_amplitude('Booking Completed')
 	end
 
 	def decline_and_send_message
@@ -215,5 +209,23 @@ class BookingsController < ApplicationController
 			redirect_to requests_couch_bookings_path(booking.couch)
 			BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
 		end
+		
+	end
+
+	def track_booking_event_amplitude(amplitude_event)
+		event = AmplitudeAPI::Event.new(
+				user_id: current_user.id.to_s,
+				event_type: amplitude_event,
+				couch: @booking.couch_id,
+				booking: @booking.id,
+				flexible: @booking.flexible,
+				request: @booking.request,
+				status: @booking.status,
+				start_date: @booking.start_date,
+				end_date: @booking.end_date,
+				number_travellers: @booking.number_travellers,
+				time: Time.now
+		)
+		AmplitudeAPI.track(event)
 	end
 end
