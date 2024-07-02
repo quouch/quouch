@@ -12,7 +12,7 @@
 					<%= render 'shared/notifications' %>
 				<% end %>
 			<% else %>
-				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar', alt: 'Example profile picture of Quouch example user') %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar', alt: 'Example profile picture of Quouch example user', data: { dropdown_menu_target: 'toggle', action: 'click->dropdown-menu#displayAndHideMenu' } ) %>
 			<% end %>
 				<div class="header__collapsible collapsible display-none"
 						data-dropdown-menu-target="menu">
