@@ -75,6 +75,7 @@ class BookingsController < ApplicationController
 			BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
 		end
 		redirect_to booking_path(@booking)
+		track_booking_event_amplitude('Booking Updated')
 	end
 
 	def cancel
@@ -96,6 +97,7 @@ class BookingsController < ApplicationController
 				redirect_to requests_couch_bookings_path(@booking.couch)
 				BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
 		end
+		track_booking_event_amplitude('Booking Cancelled')
 	end
 
 	def show_request
@@ -160,6 +162,7 @@ class BookingsController < ApplicationController
 			Message.create(user_id: current_user.id, chat:, content:)
 			decline(chat)
 		end
+		track_booking_event_amplitude('Booking Declined')
 	end
 
 		private
@@ -209,7 +212,7 @@ class BookingsController < ApplicationController
 			redirect_to requests_couch_bookings_path(booking.couch)
 			BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
 		end
-		
+
 	end
 
 	def track_booking_event_amplitude(amplitude_event)
