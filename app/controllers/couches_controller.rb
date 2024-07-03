@@ -1,12 +1,14 @@
 class CouchesController < ApplicationController
   def index
-    @unfiltered_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
-                               .joins(:user)
-                               .where.not(user: current_user)
-                               .where.not(user: { first_name: nil, city: nil, country: nil })
+    session[:seed] ||= rand(100)
+    session_seed = session[:seed]
+    Couch.select("setseed(#{session_seed})").first
 
-    @shuffled_couches = @unfiltered_couches.order('RANDOM()')
-    @pagy, @couches = pagy(@shuffled_couches, items: 9)
+    @shuffled_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
+                             .joins(:user)
+                             .where.not(user: current_user)
+                             .where.not(user: { first_name: nil, city: nil, country: nil })
+                             .order('RANDOM()')
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
@@ -54,7 +56,6 @@ class CouchesController < ApplicationController
                                          .where(characteristics: { id: params[:characteristics] })
                                          .group('couches.id')
                                          .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
-                                         .reorder('RANDOM()')
   end
 
   def apply_offers_filter
