@@ -94,9 +94,7 @@ rails dev:populate
 ```
 
 This will create:
-- 10 new users
-- 40 new listings
-- ???
+- 30 new users with random data
 
 ## Troubleshooting
 
