@@ -61,9 +61,35 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users,
+             controllers: {
+               registrations: 'users/registrations'
+             }
+
 
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
   match '/422', to: 'errors#unprocessable_content', via: :all
+
+  # API Endpoints
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      # Configure devise to work with the API endpoints
+      devise_scope :user do
+        get 'login', to: 'users/sessions#new'
+        post 'login', to: 'users/sessions#create'
+        delete 'logout', to: 'users/sessions#destroy'
+
+        get 'users/edit' => 'users/registrations#edit'
+
+        post 'update/:id', to: 'users/registrations#update'
+        # Do we want to enable creating and updating user data?
+        #   get 'api/auth/signup', to: 'users/registrations#new'
+        #   post 'api/auth/signup', to: 'users/registrations#create'
+        #   put 'api/auth/update', to: 'users/registrations#update'
+      end
+
+      resources :couches, only: %i[index show create destroy]
+    end
+  end
 end

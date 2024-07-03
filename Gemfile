@@ -5,6 +5,8 @@ ruby '3.1.2'
 
 # Authentication
 gem 'devise'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
@@ -18,6 +20,9 @@ gem 'sprockets-rails'
 gem 'pg', '~> 1.1'
 
 gem 'airrecord'
+
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
