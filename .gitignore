@@ -30,6 +30,7 @@ db/data/
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
+coverage/
 
 /public/assets
 
@@ -47,7 +48,6 @@ db/data/
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store
-.idea
 
 # Ignore IDE files
 .idea

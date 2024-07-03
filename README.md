@@ -67,17 +67,34 @@ Booking app for homestay from queer & female perspective.
    rails db:migrate
    ```
 
-7. Start the server
+7. Seed the project with some initial data
+
+   ```bash
+   rails db:seed
+   ```
+
+8. Start the server
 
    ```bash
    rails s
    ```
 
-8. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
+9. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
 
 It is recommended to complete your profile at this point, as the app is still in development and there might be errors
 if you try to access certain pages without a complete profile. You can do it by
 visiting [your profile](http://localhost:3000/users/edit).
+
+### 1.3. [Optional] Creating mock data for your local database
+
+If you want to create mock data for your local database, you can run the following command:
+
+```bash
+rails dev:populate
+```
+
+This will create:
+- 30 new users with random data
 
 ## Troubleshooting
 
