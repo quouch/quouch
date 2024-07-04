@@ -41,7 +41,7 @@ namespace :import do
   end
 
   def attach_image(photo_url, user)
-    return unless photo_url && photo_url.is_a?(Array)
+    return unless photo_url.is_a?(Array)
 
     url = photo_url[0]['url']
     photo_filename = photo_url[0]['filename']
