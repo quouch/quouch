@@ -15,40 +15,14 @@ Booking app for homestay from queer & female perspective.
     ```bash
     gh repo clone lisbethpurrucker/quouch
     ```
-2. Create your credentials file
-    ```bash
-    EDITOR=vim rails credentials:edit
-    ```
-   The file has the following format:
-    ```yml
-   gmail:
-   - username: 
-   - password: 
-   # Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
-   secret_key_base: 
-   stripe:
-   - production:
-      - secret_key: 
-      - publishable_key: 
-      - signing_secret_key: 
+2. Create the `master.key` file and add the key provided by Liz
+   ```bash
+   touch config/master.key
    ```
-   > Please get in contact Liz to obtain the credentials.
 
-3. Create your .env file
+3. Create your .env file and replace the values with your own credentials. 
    ```bash 
    cp .env.example .env
-   ```
-   > Please get in contact Liz to obtain the integration credentials.
-
-   Make sure to add your personal credentials to the bottom of the `.env` file. This should include your PostgreSQL username and
-   password, as well as your preferred email and password for login into the app.
-
-   ```
-   DEFAULT_DATABASE_USER=postgres
-   DEFAULT_DATABASE_PASSWORD=
-   
-   BASE_USER_EMAIL=
-   BASE_USER_PASSWORD=
    ```
 
 4. Install dependencies

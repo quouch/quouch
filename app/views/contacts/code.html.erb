@@ -10,7 +10,7 @@
 		<h2 class="contact__subtitle">Why would you like to be part of Quouch?</h2>
 		<p>Do you identify as queer in any way (no need to tell us in which)? Do you mainly travel or can you also host? We will try to get back to you in less than 24 hours. Please don't forget to check our <%= link_to 'guidelines', guidelines_path %> to see if this space is for you.</p>
 	<% end %>
-	<%= simple_form_for @contact, data: { controller: 'brevo', action: 'submit->brevo#signUp', brevo_api_key_value: ENV['BREVO_API_KEY'] } do |f| %>
+	<%= simple_form_for @contact, data: { controller: 'brevo', action: 'submit->brevo#signUp', brevo_api_key_value: Rails.application.credentials.dig(:brevo, :api_key) } do |f| %>
 
 		<div class="contact__contact">
 			<div class="contact__input">

@@ -3,7 +3,7 @@
 		<div class="footer__newsletter footer__newsletter--mobile">
 			<h3>Newsletter</h3>
 			<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
-			<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= ENV['BREVO_API_KEY'] %>">
+			<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
 				<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
 				<button type="submit">Subscribe</button>
 			</form>
@@ -79,7 +79,7 @@
 			<div class="footer__newsletter footer__newsletter--desktop">
 				<h3>Newsletter</h3>
 				<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
-				<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= ENV['BREVO_API_KEY'] %>">
+				<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
 					<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
 					<button type="submit">Subscribe</button>
 				</form>
