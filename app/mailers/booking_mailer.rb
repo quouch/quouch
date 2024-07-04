@@ -60,6 +60,7 @@ class BookingMailer < ApplicationMailer
     @request_url = request_booking_url(@booking)
     mail(to: @host.email, subject: "Reminder: pending booking request from #{@guest.first_name.capitalize}")
   end
+
     private
 
   def set_urls
