@@ -3,7 +3,7 @@
 Rails.configuration.stripe = {
   publishable_key: Rails.application.credentials.dig(:stripe, :publishable_key),
   secret_key: Rails.application.credentials.dig(:stripe, :secret_key),
-  signing_secret: Rails.application.credentials.dig(:stripe, :signing_secret)
+  signing_secret: Rails.application.credentials.dig(:stripe, :signing_secret_key)
 }
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
