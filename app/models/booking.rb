@@ -13,19 +13,19 @@ class Booking < ApplicationRecord
   enum request: { host: 0, hangout: 1, cowork: 2 }
 
   def matches_capacity?
-    return unless number_travellers > couch.capacity
+    return false unless number_travellers > couch.capacity
 
     errors.add(:number_travellers, 'Capacity of couch exceeded')
   end
 
   def duplicate_booking?
-    return unless Booking.where(couch:, start_date:, end_date:, status: 1).exists?
+    return false unless Booking.where(couch:, start_date:, end_date:, status: 1).exists?
 
     errors.add(:start_date, 'Sorry, couch is already booked!')
   end
 
   def duplicate_request?
-    return unless Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
+    return false unless Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
 
     errors.add(:start_date, 'Duplicate request with host')
   end

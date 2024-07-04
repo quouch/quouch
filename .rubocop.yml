@@ -1,8 +1,11 @@
 AllCops:
+  TargetRubyVersion: 3.1.2
   Exclude:
     - 'db/**/*'
     - 'bin/*'
+    - 'vendor/**/*'
   SuggestExtensions: false
+  NewCops: enable
 
 Style/FrozenStringLiteralComment:
   Enabled: false

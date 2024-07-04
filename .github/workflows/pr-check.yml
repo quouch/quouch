@@ -42,7 +42,7 @@ jobs:
         run: bin/rails dev:populate
       # Add or replace test runners here
       - name: Run tests
-        run: bundler exec rake
+        run: bundle exec rake
 
   lint:
     runs-on: ubuntu-latest
@@ -54,8 +54,8 @@ jobs:
         with:
           bundler-cache: true
       - name: Lint Ruby files
-        run: bundler exec rubocop --parallel
+        run: bundle exec rubocop --display-only-fail-level-offenses
       - name: Security audit dependencies
-        run: bundler exec bundler-audit --update
+        run: bundle exec bundler-audit --update
       - name: Security audit application code
-        run: bundler exec brakeman -q -w2
+        run: bundle exec brakeman -q -w2

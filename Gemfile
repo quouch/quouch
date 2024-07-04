@@ -132,7 +132,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
   # Use static analysis tools
-  gem 'bundler-audit', require: false
   gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
-
