@@ -66,7 +66,7 @@ namespace :import do
         cloudinary_url = cloudinary_upload['secure_url']
 
         # Attach the Cloudinary URL to user.photo
-        user.photo.attach(io: URI.open(cloudinary_url), filename: photo_filename)
+        user.photo.attach(io: URI.parse(cloudinary_url), filename: photo_filename).open
       rescue StandardError => e
         puts "Error uploading image to Cloudinary: #{e.message}"
       end
