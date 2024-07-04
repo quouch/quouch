@@ -1,7 +1,9 @@
+# Use Rails Credentials to initialize the configuration.
+# Pass Rails.env.to_sym to ensure the correct credentials are used based on the environment.
 Rails.configuration.stripe = {
-  publishable_key: ENV.fetch('STRIPE_PUBLISHABLE_KEY'),
-  secret_key: ENV.fetch('STRIPE_SECRET_KEY'),
-  signing_secret: ENV.fetch('STRIPE_SIGNING_SECRET_KEY')
+  publishable_key: Rails.application.credentials.dig(:stripe, :publishable_key),
+  secret_key: Rails.application.credentials.dig(:stripe, :secret_key),
+  signing_secret: Rails.application.credentials.dig(:stripe, :signing_secret)
 }
 
 Stripe.api_key = Rails.configuration.stripe[:secret_key]
