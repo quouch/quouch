@@ -72,7 +72,7 @@ namespace :import do
       end
     else
       puts "Error fetching image: #{response.code} - #{response.message}"
-  end
+    end
 
     temp_file.close
     temp_file.unlink
