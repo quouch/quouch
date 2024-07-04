@@ -38,9 +38,9 @@ class SubscriptionsController < ApplicationController
 
     redirect_to subscription_path(@subscription)
   rescue Stripe::StripeError => e
-      handle_subscription_update_error(e.message)
+    handle_subscription_update_error(e.message)
   rescue StandardError => e
-      handle_subscription_update_error("An unexpected error occurred: #{e.message}")
+    handle_subscription_update_error("An unexpected error occurred: #{e.message}")
   end
 
   private

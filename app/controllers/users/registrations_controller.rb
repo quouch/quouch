@@ -115,7 +115,7 @@ module Users
     def update_user_characteristics
       @user.user_characteristics.destroy_all
       chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map do |id|
-  { characteristic_id: id }
+        { characteristic_id: id }
       end
       @user.user_characteristics.build(chars_hash)
       @user.user_characteristics.each(&:save)
