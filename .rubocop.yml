@@ -1,3 +1,9 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+  SuggestExtensions: false
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 
