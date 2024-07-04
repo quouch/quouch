@@ -18,13 +18,13 @@ class StatisticsMailer < ApplicationMailer
     @booking_confirmation_rate = request_confirmation_rate
     @booking_confirmation_rate_ten_requests = ten_requests_confirmation_rate
     @subscription_success_rate = subscription_success_rate
-    @total_users_with_subscription_no_request = @total_users_with_subscription_no_request || 0
-    @requests_subscribers = @requests_subscribers || 0
-    @total_booking_requests_pending = @total_booking_requests_pending || 0
-    @total_booking_requests_cancelled = @total_booking_requests_cancelled || 0
-    @total_booking_requests_confirmed = @total_booking_requests_confirmed || 0
-    @total_booking_requests_declined = @total_booking_requests_declined || 0
-    @total_booking_requests_completed = @total_booking_requests_completed || 0
+    @total_users_with_subscription_no_request ||= 0
+    @requests_subscribers ||= 0
+    @total_booking_requests_pending ||= 0
+    @total_booking_requests_cancelled ||= 0
+    @total_booking_requests_confirmed ||= 0
+    @total_booking_requests_declined ||= 0
+    @total_booking_requests_completed ||= 0
 
     mail(to: 'hello@quouch-app.com', subject: 'User Stats Report')
   end
