@@ -124,9 +124,7 @@ class StatisticsMailer < ApplicationMailer
       end
     end
 
-    if total_users_with_subscription.positive?
-      average_success_rate = total_success_rate / total_users_with_subscription
-    end
+    average_success_rate = total_success_rate / total_users_with_subscription if total_users_with_subscription.positive?
 
     format('%.0f%%', average_success_rate)
   end
