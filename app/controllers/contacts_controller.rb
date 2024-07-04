@@ -15,15 +15,15 @@ class ContactsController < ApplicationController
 
    def create
       @contact = Contact.new(params[:contact])
-     @contact.request = request
+      @contact.request = request
 
-     if @contact.deliver
-        flash[:notice] = 'Message successfully sent!'
-       redirect_to root_path
-     else
-        flash[:alert] = 'Could not send message, please try again'
-       render_response
-     end
+      if @contact.deliver
+         flash[:notice] = 'Message successfully sent!'
+         redirect_to root_path
+      else
+         flash[:alert] = 'Could not send message, please try again'
+         render_response
+      end
    end
 
    private

@@ -14,12 +14,12 @@ class ReviewMailer < ApplicationMailer
 
    def set_booking_details
       @booking = params[:booking]
-     @guest = @booking.user
-     @couch = @booking.couch
-     @host = @couch.user
-     @host_profile = couch_url(@couch)
-     @guest_profile = couch_url(@booking.user.couch)
-     @guest_review = request_booking_url(@booking)
-     @host_review = booking_url(@booking)
+      @guest = @booking.user
+      @couch = @booking.couch
+      @host = @couch.user
+      @host_profile = couch_url(@couch)
+      @guest_profile = couch_url(@booking.user.couch)
+      @guest_review = request_booking_url(@booking)
+      @host_review = booking_url(@booking)
    end
 end

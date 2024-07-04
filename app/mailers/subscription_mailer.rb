@@ -14,10 +14,10 @@ class SubscriptionMailer < ApplicationMailer
 
    def set_subscription_details
       @subscription = params[:subscription]
-     @subscriber = @subscription.user
-     @plan = @subscription.plan
-     @feedback_form_guest = 'https://forms.gle/mAiFEpxrw5PsbKD87'
-     @feedback_form_host = 'https://forms.gle/AwrdCDawwWJ1VNvL9'
-     @feedback_form_app = 'https://forms.gle/by6szdpGKtpfv6mD7'
+      @subscriber = @subscription.user
+      @plan = @subscription.plan
+      @feedback_form_guest = 'https://forms.gle/mAiFEpxrw5PsbKD87'
+      @feedback_form_host = 'https://forms.gle/AwrdCDawwWJ1VNvL9'
+      @feedback_form_app = 'https://forms.gle/by6szdpGKtpfv6mD7'
    end
 end

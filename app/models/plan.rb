@@ -18,6 +18,6 @@ class Plan < ApplicationRecord
         },
         product_data: { name: }
       })
-     self.stripe_price_id = response.id
+      self.stripe_price_id = response.id
    end
 end
