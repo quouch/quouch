@@ -6,7 +6,7 @@ class MessageMailer < ApplicationMailer
     mail(to: @recipient.email, subject: 'New Message 💜🧡')
   end
 
-    private
+  private
 
   def find_recipient(message)
     @users = [User.find(message.chat.user_sender_id), User.find(message.chat.user_receiver_id)]

@@ -26,9 +26,9 @@ class BookingsController < ApplicationController
     @review = Review.new
     @marker = @hosts_array.geocoded.map do |host|
       {
-          lat: host.latitude,
-          lng: host.longitude,
-          marker_html: render_to_string(partial: 'marker')
+        lat: host.latitude,
+        lng: host.longitude,
+        marker_html: render_to_string(partial: 'marker')
       }
     end
     @chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) ||
@@ -165,7 +165,7 @@ class BookingsController < ApplicationController
     track_booking_event_amplitude('Booking Declined')
   end
 
-    private
+  private
 
   def booking_params
     params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message, :flexible)
@@ -216,17 +216,17 @@ class BookingsController < ApplicationController
 
   def track_booking_event_amplitude(amplitude_event)
     event = AmplitudeAPI::Event.new(
-        user_id: current_user.id.to_s,
-        event_type: amplitude_event,
-        couch: @booking.couch_id,
-        booking: @booking.id,
-        flexible: @booking.flexible,
-        request: @booking.request,
-        status: @booking.status,
-        start_date: @booking.start_date,
-        end_date: @booking.end_date,
-        number_travellers: @booking.number_travellers,
-        time: Time.now
+      user_id: current_user.id.to_s,
+      event_type: amplitude_event,
+      couch: @booking.couch_id,
+      booking: @booking.id,
+      flexible: @booking.flexible,
+      request: @booking.request,
+      status: @booking.status,
+      start_date: @booking.start_date,
+      end_date: @booking.end_date,
+      number_travellers: @booking.number_travellers,
+      time: Time.now
     )
     AmplitudeAPI.track(event)
   end

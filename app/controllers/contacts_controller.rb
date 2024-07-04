@@ -26,7 +26,7 @@ class ContactsController < ApplicationController
     end
   end
 
-   private
+  private
 
   def render_response
     if params[:contact][:type] == 'code'

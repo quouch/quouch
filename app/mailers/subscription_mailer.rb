@@ -10,7 +10,7 @@ class SubscriptionMailer < ApplicationMailer
     mail(to: @subscriber.email, subject: 'Welcome to Quouch! Your Membership Plan Confirmation')
   end
 
-    private
+  private
 
   def set_subscription_details
     @subscription = params[:subscription]

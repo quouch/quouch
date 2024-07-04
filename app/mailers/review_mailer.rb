@@ -10,7 +10,7 @@ class ReviewMailer < ApplicationMailer
     mail(to: @guest.email, subject: 'Your guest left you a review 🎉')
   end
 
-    private
+  private
 
   def set_booking_details
     @booking = params[:booking]

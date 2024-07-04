@@ -16,18 +16,18 @@ class ReviewsController < ApplicationController
     handle_review(@booking, @review)
 
     event = AmplitudeAPI::Event.new(
-        user_id: current_user.id.to_s,
-        event_type: 'New Review',
-        rating: @review.rating,
-        couch: @review.couch.id,
-        booking: @review.booking.id,
-        time: Time.now
+      user_id: current_user.id.to_s,
+      event_type: 'New Review',
+      rating: @review.rating,
+      couch: @review.couch.id,
+      booking: @review.booking.id,
+      time: Time.now
     )
 
     AmplitudeAPI.track(event)
   end
 
-    private
+  private
 
   def review_params
     params.require(:review).permit(:content, :rating)

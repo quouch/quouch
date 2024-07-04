@@ -61,7 +61,7 @@ class BookingMailer < ApplicationMailer
     mail(to: @host.email, subject: "Reminder: pending booking request from #{@guest.first_name.capitalize}")
   end
 
-    private
+  private
 
   def set_urls
     @browse_couches = root_url

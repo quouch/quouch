@@ -23,7 +23,7 @@ class ChatsController < ApplicationController
     redirect_to chat_path(@chat) if @chat.save
   end
 
-    private
+  private
 
   def set_chat
     @chat = Chat.find(params[:id])
