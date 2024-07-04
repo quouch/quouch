@@ -212,7 +212,6 @@ class BookingsController < ApplicationController
       redirect_to requests_couch_bookings_path(booking.couch)
       BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
     end
-
   end
 
   def track_booking_event_amplitude(amplitude_event)
