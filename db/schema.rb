@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_27_150030) do
     t.bigint 'blob_id', null: false
     t.datetime 'created_at', null: false
     t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
-    t.index ['record_type', 'record_id', 'name', 'blob_id'], name: 'index_active_storage_attachments_uniqueness', 
+    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness', 
 unique: true
   end
 
@@ -40,7 +40,7 @@ unique: true
   create_table 'active_storage_variant_records', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
-    t.index ['blob_id', 'variation_digest'], name: 'index_active_storage_variant_records_uniqueness', unique: true
+    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
   create_table 'bookings', force: :cascade do |t|
@@ -118,7 +118,7 @@ unique: true
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['read_at'], name: 'index_notifications_on_read_at'
-    t.index ['recipient_type', 'recipient_id'], name: 'index_notifications_on_recipient'
+    t.index %w[recipient_type recipient_id], name: 'index_notifications_on_recipient'
   end
 
   create_table 'plans', force: :cascade do |t|
