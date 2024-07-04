@@ -109,7 +109,7 @@ class StatisticsMailer < ApplicationMailer
       @cancelled_booking_requests_after_subscription_start = booking_requests_after_subscription_start.cancelled.count
       successful_booking_requests_after_subscription_start = @confirmed_booking_requests_after_subscription_start + @completed_booking_requests_after_subscription_start
 
-      if total_booking_requests_after_subscription_start > 0
+      if total_booking_requests_after_subscription_start.positive?
         @total_users_with_subscription_request += 1
         @requests_subscribers += total_booking_requests_after_subscription_start
         @total_booking_requests_pending += @pending_booking_requests_after_subscription_start
@@ -124,7 +124,7 @@ class StatisticsMailer < ApplicationMailer
       end
     end
 
-    if total_users_with_subscription > 0
+    if total_users_with_subscription.positive?
       average_success_rate = total_success_rate / total_users_with_subscription
     end
 

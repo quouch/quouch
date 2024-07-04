@@ -14,13 +14,13 @@ namespace :stats do
         total_booking_requests_after_subscription_start = booking_requests_after_subscription_start.count
         confirmed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.confirmed.count
 
-        if total_booking_requests_after_subscription_start > 0
+        if total_booking_requests_after_subscription_start.positive?
           success_rate = (confirmed_booking_requests_after_subscription_start.to_f / total_booking_requests_after_subscription_start * 100)
           total_success_rate += success_rate
         end
       end
 
-      if total_users_with_subscription > 0
+      if total_users_with_subscription.positive?
         average_success_rate = total_success_rate / total_users_with_subscription
       end
 
