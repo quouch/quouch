@@ -106,7 +106,7 @@ gem 'importmap-rails', '~> 1.2.3'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   # Fake test data
