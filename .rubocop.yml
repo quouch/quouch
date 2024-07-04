@@ -1,0 +1,31 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/*'
+  SuggestExtensions: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# TODO: Reevaluate if these should or shouldn't be included. IMO they should be at least warning
+Layout/LineLength:
+  Severity: info
+
+Metrics/BlockLength:
+  Severity: info
+
+Metrics/MethodLength:
+  Severity: info
+
+Metrics/AbcSize:
+  Severity: info
+
+Metrics/CyclomaticComplexity:
+  Severity: info
+
+Metrics/ClassLength:
+  Severity: info
+
+# TODO: This is temporary. We should change them to at least warning
+Style/Documentation:
+  Severity: info

@@ -21,7 +21,7 @@ FactoryBot.define do
     user_characteristics { build_list(:user_characteristic, 3) }
 
     after(:build) do |user|
-      file = URI.open(Faker::Avatar.image)
+      file = URI.parse(Faker::Avatar.image).open
       user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
 
       random_address = ADDRESSES.sample
