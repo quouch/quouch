@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: %i[invite_code_form validate_invite_code]
 
   def invite_code_form; end
 
@@ -13,8 +13,13 @@ class InvitesController < ApplicationController
     end
   end
 
-  def invite_friend
-    @user = current_user
-    @invite_code = @user.invite_code
+  def invite_friend; end
+
+  def send_invite_email
+    email = params[:invite][:email]
+
+    InviteMailer.with(email:, current_user:).invite_email.deliver_now
+    redirect_to root_path
+    flash[:notice] = 'Invite sent!'
   end
 end

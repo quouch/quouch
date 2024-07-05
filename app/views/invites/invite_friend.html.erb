@@ -3,9 +3,13 @@
 	<div class="invite__wrap">
 		<h2 class="invite__subtitle">Share your personal invite code with the people you trust!</h2>
 		<p class="invite__content">Quouch lives from creating a safe community and only bringing people onto the platform that we can trust. Each user therefore has a unique invite code which they can share with their trusted people. That way, we hope to build a respectful, tolerant and trustworthy platform.</p>
-			
+
+		<%= simple_form_for :invite, url: send_invite_email_path, method: :get do |f| %>
+			<%= f.input :email, placeholder: "Enter recipient's email" %>
+			<%= f.button :submit, 'Send invite', class: 'invite-code__button' %>
+		<% end %>
+
 		<form  data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
-			<input>
 			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="code" readonly="true">
 			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="link" readonly="true">
 
