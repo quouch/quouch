@@ -38,7 +38,6 @@ module Api
               message: "Couldn't find an active session."
             }, status: :unauthorized
           end
-
         end
       end
     end

@@ -49,6 +49,4 @@ module CouchesConcern
 
     @shuffled_couches = @shuffled_couches.joins(:user).where(user: offers_conditions)
   end
-
 end
-

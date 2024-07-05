@@ -61,11 +61,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   mount StripeEvent::Engine, at: '/stripe-webhooks'
 
-  devise_for :users,
-             controllers: {
-               registrations: 'users/registrations'
-             }
-
+  devise_for :users, controllers: { registrations: 'users/registrations' }
 
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
@@ -90,6 +86,7 @@ Rails.application.routes.draw do
       end
 
       resources :couches, only: %i[index show create destroy]
+      resources :users, only: %i[index show]
     end
   end
 end

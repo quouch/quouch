@@ -7,6 +7,8 @@ module Api
       before_action :check_basic_auth
       skip_before_action :verify_authenticity_token
 
+      respond_to? :json
+
       private
 
       def check_basic_auth
@@ -24,6 +26,19 @@ module Api
             head :unauthorized
           end
         end
+      end
+
+      def pagy_metadata(pagy)
+        {
+          page: pagy.page,
+          items: pagy.items,
+          total: pagy.count,
+          from: pagy.from,
+          to: pagy.to,
+          prev: pagy.prev,
+          next: pagy.next,
+          last: pagy.last
+        }
       end
 
       attr_reader :current_user
