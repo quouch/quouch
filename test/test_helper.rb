@@ -1,6 +1,9 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'faker'
+
+Faker::Config.random = Random.new
 
 module ActiveSupport
   class TestCase
