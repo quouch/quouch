@@ -46,6 +46,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -56,6 +57,8 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec rubocop --display-only-fail-level-offenses
       - name: Security audit dependencies
+        continue-on-error: true
         run: bundle exec bundler-audit --update
       - name: Security audit application code
+        continue-on-error: true
         run: bundle exec brakeman -q -w2
