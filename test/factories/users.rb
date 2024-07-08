@@ -3,7 +3,7 @@
 require_relative '../support/addresses'
 
 FactoryBot.define do
-  factory :random_user, class: User do
+  factory :user, class: User do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     email { Faker::Internet.email }
@@ -20,20 +20,38 @@ FactoryBot.define do
 
     user_characteristics { build_list(:user_characteristic, 3) }
 
-    after(:build) do |user|
-      file = URI.parse(Faker::Avatar.image).open
-      user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
+    factory :random_user do
+      after(:build) do |user|
+        file = URI.parse(Faker::Avatar.image).open
+        user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
 
-      random_address = ADDRESSES.sample
-      user.address = random_address[:street]
-      user.zipcode = random_address[:zipcode]
-      user.city = random_address[:city]
-      user.country = random_address[:country]
+        random_address = ADDRESSES.sample
+        user.address = random_address[:street]
+        user.zipcode = random_address[:zipcode]
+        user.city = random_address[:city]
+        user.country = random_address[:country]
+      end
+
+      after(:create) do |user|
+        # Needed for the search to work: add a couch for the newly created user
+        Couch.create!(user:)
+      end
     end
 
-    after(:create) do |user|
-      # Needed for the search to work: add a couch for the newly created user
-      Couch.create!(user:)
+
+    factory :test_user, class: User do
+      after(:build) do |user|
+        user.photo.attach(
+          io: File.open('test/fixtures/files/avatar.png'),
+          filename: 'my_image.jpg',
+          content_type: 'image/jpeg'
+        )
+        random_address = ADDRESSES.sample
+        user.address = random_address[:street]
+        user.zipcode = random_address[:zipcode]
+        user.city = random_address[:city]
+        user.country = random_address[:country]
+      end
     end
   end
 end

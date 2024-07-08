@@ -5,6 +5,7 @@ require 'faker'
 
 Faker::Config.random = Random.new
 
+# TODO: Mock away Geocoder in tests
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
