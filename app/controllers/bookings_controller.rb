@@ -53,6 +53,7 @@ class BookingsController < ApplicationController
     if @booking.save
       @booking.pending!
       track_booking_event_amplitude('New Booking')
+      redirect_to sent_booking_path(@booking)
     else
       offers(@host)
       render :new, status: :unprocessable_entity
