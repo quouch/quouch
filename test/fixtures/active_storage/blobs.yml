@@ -1,0 +1,1 @@
+avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "avatar.png" %>
