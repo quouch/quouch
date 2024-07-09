@@ -147,6 +147,8 @@
       background-color: transparent;
       border: 0;
       transform: rotate(45deg);
+
+      :hover { cursor: pointer; }
     }
   }
 }

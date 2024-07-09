@@ -13,7 +13,10 @@ class InvitesController < ApplicationController
     end
   end
 
-  def invite_friend; end
+  def invite_friend
+    @invite_code = current_user.invite_code
+    @invite_url = "https://quouch-app.com/users/sign_up?invite_code=#{@invite_code}"
+  end
 
   def send_invite_email
     email = params[:invite][:email]

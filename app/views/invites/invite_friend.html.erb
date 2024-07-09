@@ -4,15 +4,34 @@
 		<h2 class="invite__subtitle">Share your personal invite code with the people you trust!</h2>
 		<p class="invite__content">Quouch lives from creating a safe community and only bringing people onto the platform that we can trust. Each user therefore has a unique invite code which they can share with their trusted people. That way, we hope to build a respectful, tolerant and trustworthy platform.</p>
 
-		<%= simple_form_for :invite, url: send_invite_email_path, method: :get do |f| %>
-			<%= f.input :email, placeholder: "Enter recipient's email" %>
-			<%= f.button :submit, 'Send invite', class: 'invite-code__button' %>
+		<%= simple_form_for :invite,
+												url: send_invite_email_path,
+												html: { class: 'invite__email-form' },
+												method: :get do |f| %>
+			<%= f.input :email,
+									label: false,
+									wrapper_html: { class: 'invite__input-wrapper' },
+									placeholder: "Enter recipient's email" %>
+			<%= button_tag(class: 'chat__form-button') do %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/send.svg') %>
+			<% end %>
+			<%= f.error :email, class: 'form-error' %>
 		<% end %>
 
-		<form  data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
-			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="code" readonly="true">
-			<input class="form-control invite__code" type="text" value="<%= @invite_code %>" data-copy-to-clipboard-target="link" readonly="true">
 
+		<form class="invite__copy-form" data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
+			<div>
+				<input class="invite__input" type="text" value="<%= @invite_code.upcase %>" data-copy-to-clipboard-target="code" readonly="true">
+				<a>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
+				</a>
+			</div>
+			<div>
+				<input class="invite__input" type="text" value="<%= @invite_url %>" data-copy-to-clipboard-target="link" readonly="true">
+				<a>
+					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
+				</a>
+			</div>
 		<form>
 	</div>
 </article>

@@ -18,17 +18,43 @@
 
 	&__subtitle {
 		@include title-2;
-		
+
 		margin: 2rem auto;
 	}
 
-	&__content {
+	&__content { margin-bottom: 2rem; }
 
+	&__email-form, &__copy-form div {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+
+		@media (min-width: $break-medium) {
+			width: 70%;
+			margin: 0 auto;
+		}
 	}
 
-	&__code {
-		@include title-1;
-		
+	&__copy-form { a:hover { cursor: pointer; } }
+
+	&__email {
+		flex-grow: 1;
+
+		input { width: 100%; }
+	}
+
+	&__input {
+		background-color: $secondary-super-transparent;
 		color: $secondary;
+		flex-grow: 1;
+
+		&-wrapper {
+			flex-grow: 1;
+
+			input {
+				width: 100%;
+				background-color: $secondary-super-transparent;
+			}
+		}
 	}
 }
