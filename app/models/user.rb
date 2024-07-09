@@ -2,9 +2,11 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # Include default devise modules. Others available are:
   # :lockable, :trackable and :omniauthable
   include PgSearch::Model
+  include Devise::JWT::RevocationStrategies::JTIMatcher
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_one_attached :photo
   has_one :couch, dependent: :destroy, autosave: true

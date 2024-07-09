@@ -137,6 +137,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-jwt (0.11.0)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.8)
     diff-lcs (1.5.1)
     docile (1.4.0)
     domain_name (0.6.20240107)
@@ -144,6 +147,15 @@ GEM
     dotenv-rails (3.1.0)
       dotenv (= 3.1.0)
       railties (>= 6.1)
+    dry-auto_inject (1.0.1)
+      dry-core (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-configurable (1.2.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.1)
+      concurrent-ruby (~> 1.0)
+      zeitwerk (~> 2.6)
     erubi (1.12.0)
     execjs (2.9.1)
     factory_bot (6.4.6)
@@ -194,6 +206,10 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
+    jwt (2.8.2)
+      base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -282,6 +298,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.7.3)
     rack (2.2.9)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.8.1)
@@ -412,6 +430,11 @@ GEM
     uri (0.13.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    warden-jwt_auth (0.9.0)
+      dry-auto_inject (>= 0.8, < 2)
+      dry-configurable (>= 0.13, < 2)
+      jwt (~> 2.1)
+      warden (~> 1.2)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -448,6 +471,7 @@ DEPENDENCIES
   countries
   debug
   devise
+  devise-jwt
   dotenv-rails
   factory_bot_rails
   faker!
@@ -455,6 +479,7 @@ DEPENDENCIES
   geocoder
   importmap-rails (~> 1.2.3)
   jbuilder
+  jsonapi-serializer
   mail_form
   money-rails (~> 1.12)
   noticed (~> 1.6)
@@ -463,6 +488,7 @@ DEPENDENCIES
   pg_search
   pry-byebug
   puma (~> 5.0)
+  rack-cors
   rails (~> 7.0.4)
   rails_admin (= 3.0)
   redis (~> 4.0)
