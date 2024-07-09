@@ -1,13 +1,17 @@
 AllCops:
+  TargetRubyVersion: 3.1.2
   Exclude:
     - 'db/**/*'
     - 'bin/*'
+    - 'vendor/**/*'
   SuggestExtensions: false
+  NewCops: enable
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# TODO: Reevaluate if these should or shouldn't be included. IMO they should be at least warning
+# TODO: Reevaluate if these should or shouldn't be included.
+# IMO they should be at least warning
 Layout/LineLength:
   Severity: info
 

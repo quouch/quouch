@@ -1,0 +1,89 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  RAILS_ENV: test
+  CI: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      - name: Lint Ruby files
+        run: bundle exec rubocop --display-only-fail-level-offenses
+
+      - name: Lint YAML files
+        uses: karancode/yamllint-github-action@master
+        with:
+          yamllint_strict: false
+          yamllint_comment: true
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Security audit dependencies
+        continue-on-error: true
+        run: bundle exec bundler-audit --update
+      - name: Security audit application code
+        continue-on-error: true
+        run: bundle exec brakeman -q -w2
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: quouch_development
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
+      BASE_USER_EMAIL: "test@quouch.com"
+      BASE_USER_PASSWORD: "password" # Change for a random secret!
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+
+      - name: Run migrations
+        run: bin/rails db:migrate
+
+      - name: Seed the database
+        run: bin/rails db:seed
+
+      # Hint: Uncomment this line if we happen to need seed data for our tests
+      # - name: Populate database with mock data
+      #   run: bin/rails dev:populate
+
+      # Add or replace test runners here
+      - name: Run tests
+        run: bin/rails test

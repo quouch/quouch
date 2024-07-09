@@ -136,4 +136,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+  # Use static analysis tools
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
