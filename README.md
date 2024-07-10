@@ -70,6 +70,16 @@ rails dev:populate
 This will create:
 - 30 new users with random data
 
+## 2. Developing
+
+### 2.1 IDEs
+
+Feel free to use whichever IDE you like! Our configuration is IDE agnostic and rubocop handles all of the code styling, so as long as you're running rubocop before committing, you should be good!
+
+#### Want to use a browser-based IDE?
+
+[Open in GitPod](https://gitpod.io/#https://github.com/lisbethpurrucker/quouch)
+
 ## Troubleshooting
 
 ### PostgreSQL in MacOS (M1)

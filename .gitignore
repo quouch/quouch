@@ -52,7 +52,6 @@ coverage/
 # Ignore IDE files
 .idea
 *.iml
-.gitpod.yml
 
 node_modules
 *.local
