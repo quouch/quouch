@@ -85,8 +85,12 @@ gem 'countries'
 # gem 'image_processing', '~> 1.2'
 
 # Performance optimization analysis
-gem 'rubocop'
-gem 'rubocop-performance', require: false
+#
+group :development, :rubocop, :test do
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+end
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass', '~> 6.1'
