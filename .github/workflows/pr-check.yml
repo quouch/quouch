@@ -38,6 +38,7 @@ jobs:
           reporter: github-pr-check # Default is github-pr-check
           skip_install: true
           use_bundler: true
+          rubocop_flags: "--display-only-fail-level-offenses"
       - name: Lint YAML files
         uses: karancode/yamllint-github-action@master
         with:
