@@ -15,6 +15,7 @@ tasks:
       bundle install &&
       yarn install
       gp sync-done installs
+      pip install yamllint
     openMode: split-left
   - name: create database & start server
     init: gp sync-await installs
