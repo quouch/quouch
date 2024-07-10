@@ -14,24 +14,31 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   RAILS_ENV: test
   CI: true
 
 jobs:
   lint:
+    name: runner / rubocop
     runs-on: ubuntu-latest
-    continue-on-error: true
+    env:
+      BUNDLE_ONLY: rubocop
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
           bundler-cache: true
-      - name: Lint Ruby files
-        run: bundle exec rubocop --display-only-fail-level-offenses
-
+      - uses: reviewdog/action-rubocop@v2
+        with:
+          reporter: github-pr-check # Default is github-pr-check
+          skip_install: true
+          use_bundler: true
+          rubocop_flags: "--display-only-fail-level-offenses"
       - name: Lint YAML files
         uses: karancode/yamllint-github-action@master
         with:
@@ -40,6 +47,17 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  analysis:
+    runs-on: ubuntu-latest
+    needs: lint
+    continue-on-error: true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
       - name: Security audit dependencies
         continue-on-error: true
         run: bundle exec bundler-audit --update
