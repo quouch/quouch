@@ -86,6 +86,7 @@ This repository contains configuration files to get started with in GitPod with 
 
 Please note that the build/serving of the app will fail until you add the master key to the repository. You can do this by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable to GitPod called `RAILS_MASTER_KEY`.
 
+
 ## Troubleshooting
 
 ### PostgreSQL in MacOS (M1)
