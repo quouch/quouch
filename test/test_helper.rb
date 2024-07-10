@@ -15,5 +15,12 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    # Clean up the database
+    Minitest.after_run do
+      ActiveRecord::Base.subclasses.each do |subclass|
+        subclass.delete_all if subclass.table_name
+      end
+    end
   end
 end

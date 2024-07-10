@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'open-uri'
+
 require_relative '../support/addresses'
 
 FactoryBot.define do
@@ -40,11 +42,9 @@ FactoryBot.define do
 
     factory :test_user, class: User do
       after(:build) do |user|
-        user.photo.attach(
-          io: File.open('test/fixtures/files/avatar.png'),
-          filename: 'my_image.jpg',
-          content_type: 'image/jpeg'
-        )
+        file = URI.parse(Faker::Avatar.image).open
+        user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
+
         random_address = ADDRESSES.sample
         user.address = random_address[:street]
         user.zipcode = random_address[:zipcode]
