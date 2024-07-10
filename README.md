@@ -15,6 +15,7 @@ Booking app for homestay from queer & female perspective.
     ```bash
     gh repo clone lisbethpurrucker/quouch
     ```
+
 2. Create the `master.key` file and add the key provided by Liz
    ```bash
    touch config/master.key
@@ -69,6 +70,21 @@ rails dev:populate
 
 This will create:
 - 30 new users with random data
+
+## 2. Developing
+
+### 2.1 IDEs
+
+Feel free to use whichever IDE you like! Our configuration is IDE agnostic and rubocop handles all of the code styling, so as long as you're running rubocop before committing, you should be good!
+
+#### Want to use a browser-based IDE?
+
+> Gitpod is a cloud development environment for teams to efficiently and securely develop software.
+
+This repository contains configuration files to get started with in GitPod with very little effort! Try it out:
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lisbethpurrucker/quouch)
+
+Please note that the build/serving of the app will fail until you add the master key to the repository. You can do this by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable to GitPod called `RAILS_MASTER_KEY`.
 
 ## Troubleshooting
 
