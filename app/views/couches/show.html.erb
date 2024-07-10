@@ -75,7 +75,7 @@
 
 		<div class="couch__accommodation">
 			<% if @host.offers_couch && !@host.couch.facilities.empty? %>
-			<h2>Accommodation</h2>
+				<h2>Accommodation</h2>
 				<ul class="couch__accommodation-list">
 					<% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
 						<li>
@@ -90,10 +90,6 @@
 						</li>
 					<% end %>
 				</ul>
-			<% elsif !@host.offers_couch %>
-				<p>This host doesn't currently offer their couch, but you can still request them to hangout or cowork.</p>
-			<% elsif @host.travelling %>
-				<p>This host is currently on the road and you can't request them.</p>
 			<% end %>
 		</div>
 
