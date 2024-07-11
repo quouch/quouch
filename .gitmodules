@@ -1,0 +1,3 @@
+[submodule "vendor/q-icons"]
+	path = vendor/q-icons
+	url = git@github.com:quouch/quouch-icons.git
