@@ -6,7 +6,7 @@
 
 		<%= simple_form_for :invite,
 												url: send_invite_email_path,
-												html: { class: 'invite__email-form' },
+												html: { class: 'invite__form' },
 												method: :get do |f| %>
 			<%= f.input :email,
 									label: false,
@@ -19,19 +19,12 @@
 		<% end %>
 
 
-		<form class="invite__copy-form" data-controller="copy-to-clipboard" data-copy-to-clipboard-feedback-text-value="Copied!">
-			<div>
-				<input class="invite__input" type="text" value="<%= @invite_code.upcase %>" data-copy-to-clipboard-target="code" readonly="true">
-				<a>
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
-				</a>
-			</div>
-			<div>
-				<input class="invite__input" type="text" value="<%= @invite_url %>" data-copy-to-clipboard-target="link" readonly="true">
-				<a>
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
-				</a>
-			</div>
+		<form class="invite__form" data-controller="copy-to-clipboard">
+			<input class="invite__input" type="text" value="<%= @invite_url %>" data-copy-to-clipboard-target="link" readonly="true">
+			<button class="invite__button" data-action="click->copy-to-clipboard#copyLink">
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
+			</button>
+			<aside class="invite__note display-none" data-copy-to-clipboard-target="note">Copied!</aside>
 		<form>
 	</div>
 </article>
