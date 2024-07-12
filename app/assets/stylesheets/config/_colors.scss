@@ -79,13 +79,3 @@ $color-map: (
         color: $color;
     }
 }
-
-i {
-    &[class^="quouch-"],
-    &[class*="quouch-"],
-    &[class^="fa-"],
-    &[class*="fa-"] {
-        padding: 2px 4px;
-        text-align: center;
-    }
-}
