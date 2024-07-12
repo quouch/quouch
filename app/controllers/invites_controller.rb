@@ -21,12 +21,13 @@ class InvitesController < ApplicationController
   def send_invite_email
     email = params[:invite][:email]
 
-    if InviteMailer.with(email:, current_user:).invite_email.deliver_now
+    if email.present?
+      InviteMailer.with(email:, current_user:).invite_email.deliver_now
       redirect_to :invite_friend
       flash[:notice] = 'Invite sent!'
     else
-      render invite_friend_path :unprocessable_entity
-      # flash[:alert] = 'Invite coul sent. Try again or contact the Quouch team'
+      redirect_to :invite_friend
+      flash[:alert] = 'No email provided. Please try again.'
     end
   end
 end
