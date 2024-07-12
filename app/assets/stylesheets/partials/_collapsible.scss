@@ -1,49 +1,59 @@
 .collapsible {
-	background-color: $secondary-super-transparent;
-	padding: 1rem 0 1rem 2rem;
-	overflow-y: scroll;
-	position: relative;
-	z-index: 3;
+    background-color: $secondary-super-transparent;
+    padding: 1rem 0 1rem 2rem;
+    overflow-y: scroll;
+    position: relative;
+    z-index: 3;
 
-	li {
-			display: flex;
-			align-items: center;
-			gap: .4rem;
-			margin-bottom: .4rem;
+    li {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        margin-bottom: .4rem;
 
-			img {
-					width: 16px;
-					height: 16px;
-			}
-	}
+        img {
+            width: 16px;
+            height: 16px;
+        }
 
-	a, button { color: $gray-05; }
-	a:hover, button:hover { opacity: .8; }
+        i {
+            font-size: 16px;
+        }
 
-	&__title {
-		@include title-4;
-		color: $primary;
-		margin-bottom: 0.2rem;
-	}
+    }
 
-	&__subtitle {
-		@include title-5;
-		color: $gray-05;
-	}
+    a, button {
+        color: $gray-05;
+    }
 
-	&__code {
-		@include title-5;
-		color: $secondary-light;
-		font-size: 1rem;
-		margin-top: 0.2rem;
-	}
-	
-	&__logout {
-		background-color: transparent;
-		border: 0;
-	}
+    a:hover, button:hover {
+        opacity: .8;
+    }
 
-	&__chat .chats__notifications {
-		position: inherit !important; // box of shame
-	}
+    &__title {
+        @include title-4;
+        color: $primary;
+        margin-bottom: 0.2rem;
+    }
+
+    &__subtitle {
+        @include title-5;
+        color: $gray-05;
+    }
+
+    &__code {
+        @include title-5;
+        color: $secondary-light;
+        font-size: 1rem;
+        margin-top: 0.2rem;
+    }
+
+    &__logout {
+        background-color: transparent;
+        border: 0;
+    }
+
+    &__chat .chats__notifications {
+        position: inherit !important; // box of shame
+    }
 }
