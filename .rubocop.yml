@@ -1,7 +1,8 @@
 AllCops:
   TargetRubyVersion: 3.1.2
   Exclude:
-    - 'db/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
     - 'bin/*'
     - 'vendor/**/*'
   SuggestExtensions: false

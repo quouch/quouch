@@ -84,8 +84,8 @@ smoking_allowed.save!
 puts "#{Facility.count} facilities created!"
 
 # Create a base user to get started with the app. Use the email and password from the .env file!
-user_email = ENV['BASE_USER_EMAIL']
-user_password = ENV['BASE_USER_PASSWORD']
+user_email = ENV.fetch('BASE_USER_EMAIL', nil)
+user_password = ENV.fetch('BASE_USER_PASSWORD', nil)
 puts 'Create first user'
 User.destroy_all
 base_user = User.new(
