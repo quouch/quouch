@@ -28,11 +28,20 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_ONLY: rubocop
+    permissions:
+      checks: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
         with:
           bundler-cache: true
+      - name: Standard Ruby
+        uses: standardrb/standard-ruby-action@v1
+        with:
+          autofix: false
+      - name: Lint ERB Files
+        run: bundle exec erblint --lint-all
       - uses: reviewdog/action-rubocop@v2
         with:
           reporter: github-pr-check # Default is github-pr-check

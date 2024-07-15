@@ -1,0 +1,6 @@
+parallel: true
+ignore:
+  - 'vendor/**/*'
+  - 'db/migrate/*'
+plugins:
+  - standard-rails
