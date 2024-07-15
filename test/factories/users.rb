@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../support/addresses'
+require_relative "../support/addresses"
 
 FactoryBot.define do
   factory :random_user, class: User do
@@ -22,7 +22,7 @@ FactoryBot.define do
 
     after(:build) do |user|
       file = URI.parse(Faker::Avatar.image).open
-      user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
+      user.photo.attach(io: file, filename: "avatar.png", content_type: "image/png")
 
       random_address = ADDRESSES.sample
       user.address = random_address[:street]

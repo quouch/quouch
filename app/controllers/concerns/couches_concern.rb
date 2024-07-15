@@ -11,15 +11,15 @@ module CouchesConcern
     session_seed = session[:seed]
     Couch.select("setseed(#{session_seed})").first
 
-    @shuffled_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
-                             .joins(:user)
-                             .where.not(user: current_user)
-                             .where.not(user: { first_name: nil, city: nil, country: nil })
-                             .order('RANDOM()')
+    @shuffled_couches = Couch.includes(:reviews, user: [{photo_attachment: :blob}, :characteristics])
+      .joins(:user)
+      .where.not(user: current_user)
+      .where.not(user: {first_name: nil, city: nil, country: nil})
+      .order("RANDOM()")
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
-    apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
+    apply_offers_filter if params.keys.any? { |key| key.include?("offers") }
 
     items = params[:items] || 9
 
@@ -33,10 +33,10 @@ module CouchesConcern
   end
 
   def apply_characteristics_filter
-    @shuffled_couches = @shuffled_couches.joins(user: { user_characteristics: :characteristic })
-                                         .where(characteristics: { id: params[:characteristics] })
-                                         .group('couches.id')
-                                         .having('COUNT(DISTINCT characteristics.id) = ?', params[:characteristics].length)
+    @shuffled_couches = @shuffled_couches.joins(user: {user_characteristics: :characteristic})
+      .where(characteristics: {id: params[:characteristics]})
+      .group("couches.id")
+      .having("COUNT(DISTINCT characteristics.id) = ?", params[:characteristics].length)
   end
 
   def apply_offers_filter

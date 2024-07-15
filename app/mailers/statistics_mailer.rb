@@ -26,7 +26,7 @@ class StatisticsMailer < ApplicationMailer
     @total_booking_requests_declined ||= 0
     @total_booking_requests_completed ||= 0
 
-    mail(to: 'hello@quouch-app.com', subject: 'User Stats Report')
+    mail(to: "hello@quouch-app.com", subject: "User Stats Report")
   end
 
   private
@@ -56,15 +56,15 @@ class StatisticsMailer < ApplicationMailer
     SQL
 
     result = ActiveRecord::Base.connection.execute(response_rate_query)
-    response_rate = result[0]['response_rate'].to_f
-    format('%.0f%%', response_rate)
+    response_rate = result[0]["response_rate"].to_f
+    format("%.0f%%", response_rate)
   end
 
   def request_response_rate
     non_pending_bookings_count = Booking.where.not(status: 0).count
     total_bookings_count = Booking.count
     percentage = (non_pending_bookings_count.to_f / total_bookings_count * 100).round(2)
-    format('%.0f%%', percentage)
+    format("%.0f%%", percentage)
   end
 
   def request_confirmation_rate
@@ -73,7 +73,7 @@ class StatisticsMailer < ApplicationMailer
     successful_bookings_count = confirmed_bookings_count + completed_bookings_count
     total_bookings_count = Booking.count
     percentage = (successful_bookings_count.to_f / total_bookings_count * 100).round(2)
-    format('%.0f%%', percentage)
+    format("%.0f%%", percentage)
   end
 
   def ten_requests_confirmation_rate
@@ -81,7 +81,7 @@ class StatisticsMailer < ApplicationMailer
     probability_not_confirmed = 1 - response_rate
     probability_at_least_one_confirmed = 1 - (probability_not_confirmed**10)
     percentage = probability_at_least_one_confirmed.to_f
-    format('%.0f%%', percentage * 100)
+    format("%.0f%%", percentage * 100)
   end
 
   def subscription_success_rate
@@ -100,7 +100,7 @@ class StatisticsMailer < ApplicationMailer
     total_users_with_subscription = users_with_valid_subscription.count
 
     users_with_valid_subscription.each do |user|
-      booking_requests_after_subscription_start = user.bookings.where('created_at > ?', user.subscription.created_at)
+      booking_requests_after_subscription_start = user.bookings.where("created_at > ?", user.subscription.created_at)
       total_booking_requests_after_subscription_start = booking_requests_after_subscription_start.count
       @confirmed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.confirmed.count
       @completed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.completed.count
@@ -126,6 +126,6 @@ class StatisticsMailer < ApplicationMailer
 
     average_success_rate = total_success_rate / total_users_with_subscription if total_users_with_subscription.positive?
 
-    format('%.0f%%', average_success_rate)
+    format("%.0f%%", average_success_rate)
   end
 end

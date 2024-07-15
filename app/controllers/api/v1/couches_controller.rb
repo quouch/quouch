@@ -1,4 +1,4 @@
-require_relative '../../concerns/couches_concern'
+require_relative "../../concerns/couches_concern"
 
 module Api
   module V1

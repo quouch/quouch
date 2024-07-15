@@ -3,7 +3,7 @@ class BookingMailer < ApplicationMailer
   before_action :set_couch, only: %i[booking_completed_host_email booking_completed_guest_email]
   before_action :set_urls
 
-  default from: 'Quouch <hello@quouch-app.com>'
+  default from: "Quouch <hello@quouch-app.com>"
 
   def new_request_email
     @request_url = request_booking_url(@booking)
@@ -65,11 +65,11 @@ class BookingMailer < ApplicationMailer
 
   def set_urls
     @browse_couches = root_url
-    @guidelines = 'https://quouch-app.com/guidelines'
-    @invite_code = 'https://quouch-app.com/invite-friend'
-    @feedback_form_guest = 'https://forms.gle/mAiFEpxrw5PsbKD87'
-    @feedback_form_host = 'https://forms.gle/AwrdCDawwWJ1VNvL9'
-    @feedback_form_app = 'https://forms.gle/by6szdpGKtpfv6mD7'
+    @guidelines = "https://quouch-app.com/guidelines"
+    @invite_code = "https://quouch-app.com/invite-friend"
+    @feedback_form_guest = "https://forms.gle/mAiFEpxrw5PsbKD87"
+    @feedback_form_host = "https://forms.gle/AwrdCDawwWJ1VNvL9"
+    @feedback_form_app = "https://forms.gle/by6szdpGKtpfv6mD7"
   end
 
   def set_booking_details

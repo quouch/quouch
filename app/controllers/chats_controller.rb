@@ -3,7 +3,7 @@ class ChatsController < ApplicationController
   before_action :set_notifications_to_read, only: %i[show]
 
   def index
-    @chats = current_user.chats.includes(user_sender: [{ photo_attachment: :blob }]).order('messages.created_at DESC')
+    @chats = current_user.chats.includes(user_sender: [{photo_attachment: :blob}]).order("messages.created_at DESC")
     @messages = []
     @chats.each { |chat| @messages.concat(chat.messages.to_a) }
     @chat = params[:chat].present? ? Chat.find(params[:chat]) : @chats.first
@@ -11,10 +11,10 @@ class ChatsController < ApplicationController
   end
 
   def show
-    @chats = current_user.chats.includes(user_receiver: [{ photo_attachment: :blob }]).order('messages.created_at DESC')
+    @chats = current_user.chats.includes(user_receiver: [{photo_attachment: :blob}]).order("messages.created_at DESC")
     @other_user = @chat.other_user(current_user)
     @receiver = User.find_by(id: @chat.user_receiver_id)
-    @name = @receiver == current_user ? User.find_by(id: @chat.user_sender_id).first_name : @receiver.first_name
+    @name = (@receiver == current_user) ? User.find_by(id: @chat.user_sender_id).first_name : @receiver.first_name
     @message = Message.new
   end
 

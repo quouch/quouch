@@ -26,7 +26,7 @@ module Users
 
       event = AmplitudeAPI::Event.new(
         user_id: resource.id.to_s,
-        event_type: 'New User',
+        event_type: "New User",
         user_properties: {
           age: resource.calculated_age,
           country: resource.country,
@@ -57,10 +57,10 @@ module Users
       if @user.destroy!
         sign_out(@user) # Optional: Sign out the user after deletion
         redirect_to root_path
-        flash[:alert] = 'You successfully unsubscribed the Quouch service and deleted your profile. Sad to see you go!'
+        flash[:alert] = "You successfully unsubscribed the Quouch service and deleted your profile. Sad to see you go!"
       else
         redirect_to root_path
-        flash[:alert] = 'Something went wrong. Please contact the Quouch Team to make sure you are not billed again.'
+        flash[:alert] = "Something went wrong. Please contact the Quouch Team to make sure you are not billed again."
       end
     end
 
@@ -93,7 +93,7 @@ module Users
     end
 
     def disable_offers_if_travelling
-      return unless params[:user][:travelling] == '1'
+      return unless params[:user][:travelling] == "1"
 
       @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
     end
@@ -108,14 +108,14 @@ module Users
     def create_user_characteristics
       @user.user_characteristics.destroy_all
       chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?)
-                                                                    .map { |id| { characteristic_id: id } }
+        .map { |id| {characteristic_id: id} }
       @user.user_characteristics.build(chars_hash)
     end
 
     def update_user_characteristics
       @user.user_characteristics.destroy_all
       chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map do |id|
-        { characteristic_id: id }
+        {characteristic_id: id}
       end
       @user.user_characteristics.build(chars_hash)
       @user.user_characteristics.each(&:save)

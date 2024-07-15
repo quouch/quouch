@@ -1,9 +1,9 @@
 class MessageMailer < ApplicationMailer
   before_action :set_message_details
-  default from: 'Quouch <hello@quouch-app.com>'
+  default from: "Quouch <hello@quouch-app.com>"
 
   def message_notification
-    mail(to: @recipient.email, subject: 'New Message 💜🧡')
+    mail(to: @recipient.email, subject: "New Message 💜🧡")
   end
 
   private

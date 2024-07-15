@@ -11,13 +11,13 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @host = @booking.couch.user
     @review.user = current_user
-    @review.couch = @host == current_user ? @booking.user.couch : @host.couch
+    @review.couch = (@host == current_user) ? @booking.user.couch : @host.couch
     @review.booking = @booking
     handle_review(@booking, @review)
 
     event = AmplitudeAPI::Event.new(
       user_id: current_user.id.to_s,
-      event_type: 'New Review',
+      event_type: "New Review",
       rating: @review.rating,
       couch: @review.couch.id,
       booking: @review.booking.id,
@@ -52,7 +52,7 @@ class ReviewsController < ApplicationController
         redirect_to request_booking_path(booking)
       end
     else
-      render 'bookings/show', locals: { booking: }, status: :unprocessable_entity
+      render "bookings/show", locals: {booking:}, status: :unprocessable_entity
     end
   end
 end

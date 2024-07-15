@@ -1,5 +1,5 @@
 namespace :stats do
-  desc 'Send user statistics'
+  desc "Send user statistics"
 
   task print: :environment do
     def subscription_success_rate
@@ -10,7 +10,7 @@ namespace :stats do
       total_users_with_subscription = users_with_valid_subscription.count
 
       users_with_valid_subscription.each do |user|
-        booking_requests_after_subscription_start = user.bookings.where('created_at > ?', user.subscription.created_at)
+        booking_requests_after_subscription_start = user.bookings.where("created_at > ?", user.subscription.created_at)
         total_booking_requests_after_subscription_start = booking_requests_after_subscription_start.count
         confirmed_booking_requests_after_subscription_start = booking_requests_after_subscription_start.confirmed.count
 
@@ -24,7 +24,7 @@ namespace :stats do
         average_success_rate = total_success_rate / total_users_with_subscription
       end
 
-      format('%.0f%%', average_success_rate)
+      format("%.0f%%", average_success_rate)
     end
 
     subscription_success_rate

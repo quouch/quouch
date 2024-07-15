@@ -19,7 +19,7 @@ class SubscriptionsController < ApplicationController
     redirect_to checkout_session.url, allow_other_host: true
   rescue Stripe::StripeError => e
     handle_checkout_error(subscription, "An error occurred processing the payment: #{e.message}")
-  rescue StandardError => e
+  rescue => e
     handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
   end
 
@@ -30,16 +30,16 @@ class SubscriptionsController < ApplicationController
 
     if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
       flash[:alert] =
-        'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
+        "You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!"
       SubscriptionMailer.with(subscription: @subscription).subscription_cancelled.deliver_later
     else
-      flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
+      flash[:alert] = "Something went wrong. Please try again or contact the Quouch Team."
     end
 
     redirect_to subscription_path(@subscription)
   rescue Stripe::StripeError => e
     handle_subscription_update_error(e.message)
-  rescue StandardError => e
+  rescue => e
     handle_subscription_update_error("An unexpected error occurred: #{e.message}")
   end
 
@@ -54,13 +54,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def get_plans(plans, interval)
-    plans.where(interval:).order('price_cents')
+    plans.where(interval:).order("price_cents")
   end
 
   def display_plans
     @plans = Plan.all
-    @monthly = get_plans(@plans, 'month')
-    @yearly = get_plans(@plans, 'year')
+    @monthly = get_plans(@plans, "month")
+    @yearly = get_plans(@plans, "year")
   end
 
   def create_subscription
@@ -78,14 +78,14 @@ class SubscriptionsController < ApplicationController
           price: subscription.plan.stripe_price_id,
           quantity: 1
         }],
-        mode: 'subscription',
+        mode: "subscription",
         success_url: subscription_url(subscription),
         cancel_url: new_subscription_url
       }
     )
   rescue Stripe::StripeError => e
     raise e
-  rescue StandardError => e
+  rescue => e
     raise StandardError, "An unexpected error occurred during checkout session creation: #{e.message}"
   end
 

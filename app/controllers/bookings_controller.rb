@@ -3,7 +3,7 @@ class BookingsController < ApplicationController
   before_action :set_couch, only: %i[new create requests]
 
   def index
-    @bookings = Booking.includes(couch: [user: [{ photo_attachment: :blob }]]).where(user: current_user).order(start_date: :asc)
+    @bookings = Booking.includes(couch: [user: [{photo_attachment: :blob}]]).where(user: current_user).order(start_date: :asc)
     categorized_bookings = @bookings.group_by { |booking| categorize_booking(booking) }
     @upcoming = categorized_bookings[:upcoming] || []
     @cancelled = categorized_bookings[:cancelled] || []
@@ -28,11 +28,11 @@ class BookingsController < ApplicationController
       {
         lat: host.latitude,
         lng: host.longitude,
-        marker_html: render_to_string(partial: 'marker')
+        marker_html: render_to_string(partial: "marker")
       }
     end
     @chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) ||
-            Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
+      Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)
   end
@@ -52,7 +52,7 @@ class BookingsController < ApplicationController
     @booking.booking_date = DateTime.now
     if @booking.save
       @booking.pending!
-      track_booking_event_amplitude('New Booking')
+      track_booking_event_amplitude("New Booking")
       redirect_to sent_booking_path(@booking)
     else
       offers(@host)
@@ -68,15 +68,15 @@ class BookingsController < ApplicationController
   def update
     @booking.update(booking_params)
     if @booking.pending?
-      flash[:notice] = 'Request successfully updated!'
+      flash[:notice] = "Request successfully updated!"
       BookingMailer.with(booking: @booking).request_updated_email.deliver_later
     elsif @booking.confirmed?
-      flash[:notice] = 'Booking successfully updated!'
+      flash[:notice] = "Booking successfully updated!"
       @booking.pending!
       BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
     end
     redirect_to booking_path(@booking)
-    track_booking_event_amplitude('Booking Updated')
+    track_booking_event_amplitude("Booking Updated")
   end
 
   def cancel
@@ -89,16 +89,16 @@ class BookingsController < ApplicationController
     if @canceller == @booking.user
       redirect_to bookings_path
       case status_before_cancellation
-      when 'pending'
+      when "pending"
         BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-      when 'confirmed'
+      when "confirmed"
         BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
       end
     else
       redirect_to requests_couch_bookings_path(@booking.couch)
       BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
     end
-    track_booking_event_amplitude('Booking Cancelled')
+    track_booking_event_amplitude("Booking Cancelled")
   end
 
   def show_request
@@ -107,8 +107,8 @@ class BookingsController < ApplicationController
     @host = @couch.user
     @guest = @booking.user
     @chat = Chat.find_by(user_sender_id: @guest.id,
-                         user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id,
-                                                                     user_receiver_id: @guest.id)
+      user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id,
+        user_receiver_id: @guest.id)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)
   end
@@ -127,7 +127,7 @@ class BookingsController < ApplicationController
     return unless @booking.confirmed!
 
     BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
-    track_booking_event_amplitude('Booking Confirmed')
+    track_booking_event_amplitude("Booking Confirmed")
   end
 
   def decline(chat)
@@ -147,7 +147,7 @@ class BookingsController < ApplicationController
     BookingMailer.with(booking: @booking).booking_completed_guest_email.deliver_later
     BookingMailer.with(booking: @booking).booking_completed_host_email.deliver_later
     redirect_to booking_path(@booking)
-    track_booking_event_amplitude('Booking Completed')
+    track_booking_event_amplitude("Booking Completed")
   end
 
   def decline_and_send_message
@@ -157,13 +157,13 @@ class BookingsController < ApplicationController
       decline(nil)
     else
       chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
-             Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
+        Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
 
       chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id) if chat.nil?
       Message.create(user_id: current_user.id, chat:, content:)
       decline(chat)
     end
-    track_booking_event_amplitude('Booking Declined')
+    track_booking_event_amplitude("Booking Declined")
   end
 
   private
@@ -204,9 +204,9 @@ class BookingsController < ApplicationController
     if canceller == booking.user
       redirect_to bookings_path
       case status_before_cancellation
-      when 'pending'
+      when "pending"
         BookingMailer.with(booking:).request_cancelled_email.deliver_later
-      when 'confirmed'
+      when "confirmed"
         BookingMailer.with(booking:).booking_cancelled_by_guest_email.deliver_later
       end
     else

@@ -18,10 +18,10 @@ class ContactsController < ApplicationController
     @contact.request = request
 
     if @contact.deliver
-      flash[:notice] = 'Message successfully sent!'
+      flash[:notice] = "Message successfully sent!"
       redirect_to root_path
     else
-      flash[:alert] = 'Could not send message, please try again'
+      flash[:alert] = "Could not send message, please try again"
       render_response
     end
   end
@@ -29,7 +29,7 @@ class ContactsController < ApplicationController
   private
 
   def render_response
-    if params[:contact][:type] == 'code'
+    if params[:contact][:type] == "code"
       render :code, status: :unprocessable_entity
     else
       render :new, status: :unprocessable_entity

@@ -37,15 +37,15 @@ json.user do
 
   json.questions do
     json.child! do
-      json.question 'This makes me really happy'
+      json.question "This makes me really happy"
       json.answer @user.question_one
     end
     json.child! do
-      json.question 'What I can\'t stand'
+      json.question "What I can't stand"
       json.answer @user.question_two
     end
     json.child! do
-      json.question 'What I need from the people around me'
+      json.question "What I need from the people around me"
       json.answer @user.question_three
     end
   end

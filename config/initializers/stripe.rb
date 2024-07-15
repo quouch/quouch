@@ -10,11 +10,11 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 StripeEvent.signing_secret = Rails.configuration.stripe[:signing_secret]
 
 StripeEvent.configure do |events|
-  events.subscribe 'checkout.session.completed' do |event|
+  events.subscribe "checkout.session.completed" do |event|
     StripeCheckoutSessionService.new.call(event)
   end
 
-  events.subscribe 'customer.subscription.deleted' do |event|
+  events.subscribe "customer.subscription.deleted" do |event|
     StripeDeleteSubscriptionService.new.call(event)
   end
 end
