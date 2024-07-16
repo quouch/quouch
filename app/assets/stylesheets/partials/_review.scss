@@ -1,86 +1,98 @@
 .review {
-	margin: 1rem 0;
-	min-width: 300px;
-	width: 50%;
-	background-color: $secondary-super-transparent;
-	border-radius: $border-radius-medium;
-	
-	&--card { padding: 1rem; }
+    margin: 1rem 0;
+    min-width: 300px;
+    width: 50%;
+    background-color: $secondary-super-transparent;
+    border-radius: $border-radius-medium;
 
-	&--preview {
-		width: 100%;
-		background-color: $white;
-	}
+    &--card {
+        padding: 1rem;
+    }
 
-	&__rating {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 1rem;
+    &--preview {
+        width: 100%;
+        background-color: $white;
+    }
 
-		p {
-			@include facility-name;
-			line-height: 1rem;
-		}
-	}
+    &__rating {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
 
-	&__stars {
-		display: flex;
+        p {
+            @include facility-name;
+            line-height: 1rem;
+        }
 
-		img {
-			width: 16px;
-			height: 16px;
-		}
-	}
+        i {
+            font-size: 24px;
+        }
+    }
 
-	&__details {
-		p { @include facility-name; }
+    &__stars {
+        display: flex;
 
-		display: flex;
-		align-items: center;
-		gap: .5rem;
-		margin: 1rem 0;
-	}
+        img {
+            width: 16px;
+            height: 16px;
+        }
+    }
 
-	&__type {
-		p { @include caption; }
+    &__details {
+        p {
+            @include facility-name;
+        }
 
-		display: flex;
-		align-items: center;
-		gap: .3rem;
-		margin: .5rem 0;
-		
-		img {
-			height: 16px;
-			width: 16px;
-		}
-	}
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        margin: 1rem 0;
+    }
 
-	&__image {
-		width: 50px;
-		height: 50px;
-		border-radius: $border-radius-round;
-		object-fit: cover;
-	}
+    &__type {
+        p {
+            @include caption;
+        }
 
-	&__content {
-		@include facility-name;
-		
-		line-height: 1.5rem;
-		margin-top: .5rem;
-	}
+        display: flex;
+        align-items: center;
+        gap: .3rem;
+        margin: .5rem 0;
+
+        img {
+            height: 16px;
+            width: 16px;
+        }
+    }
+
+    &__image {
+        width: 50px;
+        height: 50px;
+        border-radius: $border-radius-round;
+        object-fit: cover;
+    }
+
+    &__content {
+        @include facility-name;
+
+        line-height: 1.5rem;
+        margin-top: .5rem;
+    }
 }
 
 .reviews {
-	grid-row: 1;
-	display: flex;
-	justify-content: space-between;
-	gap: 1rem;
-	overflow-x: scroll;
-	padding: 0 .5rem;
-	scroll-snap-type: proximity;
-	scrollbar-color: $primary-transparent $primary-transparent;
-	scrollbar-width: thin;
+    grid-row: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    overflow-x: scroll;
+    padding: 0 .5rem;
+    scroll-snap-type: proximity;
+    scrollbar-color: $primary-transparent $primary-transparent;
+    scrollbar-width: thin;
 
-	@media (min-width: $break-large) { width: 600px; } 
+    @media (min-width: $break-large) {
+        width: 600px;
+    }
 }

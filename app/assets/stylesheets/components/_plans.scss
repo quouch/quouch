@@ -1,164 +1,179 @@
 .plans {
-	&__wrap {
-		@include container;
+    &__wrap {
+        @include container;
 
-		margin: 6rem auto 4rem;
-	}
+        margin: 6rem auto 4rem;
+    }
 
-	&__title { color: $secondary; }
-	&__subtitle {
-		@include title-3;
+    &__title {
+        color: $secondary;
+    }
 
-		color: $black;
-		display: block;
-	}
+    &__subtitle {
+        @include title-3;
 
-	&__content {
-		margin: 0 auto;
-		text-align: center;
-	}
+        color: $black;
+        display: block;
+    }
 
-	&__note {
-		@include caption;
-		margin-top: .5rem;
-	}
+    &__content {
+        margin: 0 auto;
+        text-align: center;
+    }
 
-	&__list {
-		display: grid;
-		grid-template-rows: 1fr 1fr 1fr;
-		gap: 2rem;
-		margin-bottom: 2rem;
+    &__note {
+        @include caption;
+        margin-top: .5rem;
+    }
 
-
-		@media (min-width: $break-large) {
-			grid-template-columns: 1fr 1fr 1fr;
-			grid-template-rows: none;
-		}
-
-		&-item {
-			display: flex;
-			flex-direction: column;
-			height: 100%;
-			background-color: $secondary-super-transparent;
-			border-radius: $border-radius-medium;
-			padding: 2rem;
-			box-shadow: $box-shadow;
-
-			h3 {
-				@include title-5;
-
-				margin: 0;
-			}
-
-			&__wrap {
-				display: flex;
-				align-items: center;
-				gap: 1.6rem;
-				text-align: left;
-
-				img {
-					height: 48px;
-					width: 48px;
-				}
-			}
-		}
-	}
-
-	&__price {
-		@include title-4;
-		
-		margin: 0;
-
-		&-interval {
-			@include caption;
-
-			font-weight: 300;
-			letter-spacing: 0.1em;
-		}
-	}
-
-	&__description {
-		margin: 2rem 0;
-		text-align: start;
-
-		font-size: .9rem;
-
-		@media (min-width: $break-medium) { font-size: 1rem; }
-	}
-
-	&__info {
-		@include feature-tag;
-
-		display: flex;
-		align-items: start;
-		gap: .5rem;
-		margin-top: auto;
-  	margin-bottom: 0;
-
-		color: $gray-05;
-		text-align: left;
-
-		img {
-			width: 20px;
-			height: 20px;
-		}
-
-		&--cancelled {
-			color: $white;
-		}
-	}
-
-	&__summary {
-		border-top: 1px solid $gray-03;
-		padding-top: 2rem;
-
-		p {
-			display: flex;
-			justify-content: space-between;
-		}
-	}
-
-	&__button {
-		@include input-field;
-		@include primary-button;
-
-		margin-top: auto;
-		margin-bottom: 0;
-	}
+    &__list {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
 
 
-	&__addition {
-		text-align: center;	
-	}
+        @media (min-width: $break-large) {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: none;
+        }
+
+        &-item {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background-color: $secondary-super-transparent;
+            border-radius: $border-radius-medium;
+            padding: 2rem;
+            box-shadow: $box-shadow;
+
+            h3 {
+                @include title-5;
+
+                margin: 0;
+            }
+
+            &__wrap {
+                display: flex;
+                align-items: center;
+                gap: 1.6rem;
+                text-align: left;
+
+                img {
+                    height: 48px;
+                    width: 48px;
+                }
+
+                i {
+                    font-size: 48px;
+                }
+            }
+        }
+    }
+
+    &__price {
+        @include title-4;
+
+        margin: 0;
+
+        &-interval {
+            @include caption;
+
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+    }
+
+    &__description {
+        margin: 2rem 0;
+        text-align: start;
+
+        font-size: .9rem;
+
+        @media (min-width: $break-medium) {
+            font-size: 1rem;
+        }
+    }
+
+    &__info {
+        @include feature-tag;
+
+        display: flex;
+        align-items: start;
+        gap: .5rem;
+        margin-top: auto;
+        margin-bottom: 0;
+
+        color: $gray-05;
+        text-align: left;
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+
+        i {
+            font-size: 20px;
+        }
+
+        &--cancelled {
+            color: $white;
+        }
+    }
+
+    &__summary {
+        border-top: 1px solid $gray-03;
+        padding-top: 2rem;
+
+        p {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    &__button {
+        @include input-field;
+        @include primary-button;
+
+        margin-top: auto;
+        margin-bottom: 0;
+    }
+
+
+    &__addition {
+        text-align: center;
+    }
 }
 
 .current-plan {
-	background-color: $secondary-dark;
-	color: $white;
-	padding-top: .5rem;
+    background-color: $secondary-dark;
+    color: $white;
+    padding-top: .5rem;
 
-	.plans__price { color: $white; }
+    .plans__price {
+        color: $white;
+    }
 
-	form {
-		@media (min-width: $break-medium) {
-			margin-top: auto;
-			margin-bottom: 0;
-		}
-	}
+    form {
+        @media (min-width: $break-medium) {
+            margin-top: auto;
+            margin-bottom: 0;
+        }
+    }
 
-	&__label {
-		@include caption;
+    &__label {
+        @include caption;
 
-		position: relative;
-		top: -8px;
-		left: -32px;
-		padding: .2rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		background-color: $warning;
-		color: $secondary-dark;
-		border-bottom-right-radius: $border-radius-small;
-		border-top-left-radius: $border-radius-small;
-		width: fit-content;
-	}
+        position: relative;
+        top: -8px;
+        left: -32px;
+        padding: .2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-color: $warning;
+        color: $secondary-dark;
+        border-bottom-right-radius: $border-radius-small;
+        border-top-left-radius: $border-radius-small;
+        width: fit-content;
+    }
 }

@@ -21,7 +21,7 @@
           <% @yearly.each do |plan| %>
           <li class="plans__list-item">
             <div class="plans__list-item__wrap">
-              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+              <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
               <div>
                 <h3><%= plan.name %></h3>
                   <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -37,7 +37,7 @@
           <% @monthly.each do |plan| %>
           <li class="plans__list-item">
             <div class="plans__list-item__wrap">
-              <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+              <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
               <div>
                 <h3><%= plan.name %></h3>
                   <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
