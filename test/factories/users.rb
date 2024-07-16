@@ -33,7 +33,19 @@ FactoryBot.define do
 
     after(:create) do |user|
       # Needed for the search to work: add a couch for the newly created user
-      Couch.create!(user:)
+      couch = Couch.create!(user:)
+
+      # If the user is offering a couch, add a facility
+      if user.offers_couch
+        couch.capacity = rand(1..5)
+        couch.save!
+
+        facilities = Facility.all.sample(3)
+        facilities.each do |facility|
+          puts 'Adding facility: ' + facility.name
+          CouchFacility.create!(couch: couch, facility: facility)
+        end
+      end
     end
   end
 end

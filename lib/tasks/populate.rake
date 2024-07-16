@@ -15,4 +15,40 @@ namespace :dev do
       puts "Created user with address: #{new_user.address}, #{new_user.zipcode} #{new_user.city}, #{new_user.country}"
     end
   end
+
+  task test_booking: :environment do
+    user = User.find(4)
+    puts user.first_name
+
+    if user.offers_couch
+      couch = Couch.find_by(user: user)
+      couch.capacity = rand(1..5)
+      couch.save!
+
+      puts 'Couch capacity: ' + couch.capacity.to_s
+
+      facilities = Facility.all.sample(3)
+      facilities.each do |facility|
+        puts 'Adding facility: ' + facility.name
+        CouchFacility.create!(couch: couch, facility: facility)
+      end
+    end
+  end
+
+  task test_plans: :environment do
+    abort('This task cannot be run in the production environment.') if Rails.env.production?
+    puts 'Delete all existing plans and create a couple of fake plans'
+    Subscription.destroy_all
+    Plan.destroy_all
+
+    Plan.create!('name': 'Monthly Fake Plan', 'price_cents': 1000, 'interval': 'month')
+    Plan.create!('name': 'Yearly Fake Plan', 'price_cents': 800, 'interval': 'year')
+
+    puts 'Create a fake subscription for the main user'
+    user = User.find_by(email: ENV.fetch('BASE_USER_EMAIL', nil))
+
+    plan = Plan.first
+    Subscription.create!(user: user, plan: plan, stripe_id: 'fake_subscription_id')
+    puts "Created subscription for user #{user.email} with plan"
+  end
 end
