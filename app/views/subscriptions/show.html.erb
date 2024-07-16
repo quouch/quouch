@@ -23,7 +23,8 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394412/stack_transparent.svg', alt: 'Stack icon transparent') %>
+									<i class="quouch-stack color-transparent" aria-label="Stack icon"></i>
+
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -32,7 +33,7 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg', alt: 'Info icon transparent') %>
+										<i class="quouch-info-circle color-transparent" aria-label="Info icon"></i>
 										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
@@ -47,7 +48,7 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+									<i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -56,12 +57,12 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+										<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 										<em>You can subscribe to this plan once your current plan has ended.</em>
 									</p>
 								<% else %>
 									<p class="plans__info">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+										<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
 									</p>
 									<% end %>
@@ -74,7 +75,7 @@
           <% @monthly.each do |plan| %>
 						<li class="plans__list-item">
 							<div class="plans__list-item__wrap">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+								<i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
 								<div>
 									<h3><%= plan.name %></h3>
 									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -83,12 +84,12 @@
 							<p class="plans__description"><%= plan.description %></p>
 							<% if @subscription.end_of_period %>
 								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+									<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 									<em>You can subscribe to this plan once your current plan has ended.</em>
 								</p>
 							<% else %>
 								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+									<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
 								</p>
 							<% end %>
@@ -108,7 +109,7 @@
           <% @yearly.each do |plan| %>
 						<li class="plans__list-item">
 							<div class="plans__list-item__wrap">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+								<i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
 								<div>
 									<h3><%= plan.name %></h3>
 									<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -117,12 +118,12 @@
 							<p class="plans__description"><%= plan.description %></p>
 							<% if @subscription.end_of_period %>
 								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+									<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 									<em>You can subscribe to this plan once your current plan has ended.</em>
 								</p>
 							<% else %>
 								<p class="plans__info">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+									<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 									<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
 								</p>
 							<% end %>
@@ -136,7 +137,7 @@
 							<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 								<aside class="current-plan__label">Your Plan</aside>
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394412/stack_transparent.svg', alt: 'Stack icon transparent') %>
+									<i class="quouch-stack color-transparent" aria-label="Stack icon"></i>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -145,7 +146,7 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info plans__info--cancelled">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394559/info_transparent.svg', alt: 'Info icon transparent') %>
+										<i class="quouch-info-circle color-transparent" aria-label="Info icon"></i>
 										<em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
 									</p>
 								<% else %>
@@ -160,7 +161,7 @@
 						<% else %>
 							<li class="plans__list-item">
 								<div class="plans__list-item__wrap">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1704394135/stack.svg', alt: 'Stack icon') %>
+									<i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
 									<div>
 										<h3><%= plan.name %></h3>
 										<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
@@ -169,12 +170,12 @@
 								<p class="plans__description"><%= plan.description %></p>
 								<% if @subscription.end_of_period %>
 									<p class="plans__info">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+										<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 										<em>You can subscribe to this plan once your current plan has ended.</em>
 									</p>
 								<% else %>
 									<p class="plans__info">
-										<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1702912077/info.svg', alt: 'Info icon') %>
+										<i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
 										<em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
 									</p>
 								<% end %>
