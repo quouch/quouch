@@ -7,18 +7,19 @@ Rails.application.routes.draw do
 
   root 'pages#home'
 
-  get '/search_cities', to: 'couches#search_cities'
-  get '/about', to: 'pages#about'
-  get '/faq', to: 'pages#faq'
-  get '/guidelines', to: 'pages#guidelines'
-  get '/impressum', to: 'pages#impressum'
-  get '/privacy', to: 'pages#privacy'
-  get '/safety', to: 'pages#safety'
-  get '/terms', to: 'pages#terms'
-  get '/invite-code', to: 'invites#invite_code_form'
-  get '/validate-invite-code', to: 'invites#validate_invite_code'
-  get '/invite-friend', to: 'invites#invite_friend'
-  get '/email-export', to: 'pages#emails'
+  get 'search_cities', to: 'couches#search_cities'
+  get 'about', to: 'pages#about'
+  get 'faq', to: 'pages#faq'
+  get 'guidelines', to: 'pages#guidelines'
+  get 'impressum', to: 'pages#impressum'
+  get 'privacy', to: 'pages#privacy'
+  get 'safety', to: 'pages#safety'
+  get 'terms', to: 'pages#terms'
+  get 'invite-code', to: 'invites#invite_code_form'
+  get 'validate-invite-code', to: 'invites#validate_invite_code'
+  get 'invite-friend', to: 'invites#invite_friend'
+  get 'send-invite-email', to: 'invites#send_invite_email'
+  get 'email-export', to: 'pages#emails'
 
   resources :couches, only: %i[index show] do
     resources :bookings, only: %i[new create] do

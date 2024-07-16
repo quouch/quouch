@@ -18,17 +18,55 @@
 
 	&__subtitle {
 		@include title-2;
-		
+
 		margin: 2rem auto;
 	}
 
-	&__content {
+	&__content { margin-bottom: 2rem; }
 
+	&__form {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		
+		@media (min-width: $break-large) { width: 80%; }
 	}
 
-	&__code {
-		@include title-1;
-		
+	&__note {
+		position: static;
+		background-color: $secondary-super-transparent;
+		border-radius: 16px;
+		width: fit-content;
+		box-shadow: $box-shadow-alert;
+		padding: .5rem 1rem;
+		transition: opacity 1s ease-in-out;
+	}
+
+	&__email {
+		flex-grow: 1;
+
+		input { width: 100%; }
+	}
+
+	&__input {
+		background-color: $secondary-super-transparent;
 		color: $secondary;
+		flex-grow: 1;
+
+		&-wrapper {
+			flex-grow: 1;
+
+			input {
+				width: 100%;
+				background-color: $secondary-super-transparent;
+			}
+		}
+	}
+
+	&__button {
+		background-color: transparent;
+		border: none;
+
+		:hover { cursor: pointer; }
 	}
 }

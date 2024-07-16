@@ -1,8 +1,29 @@
 <article class="invite">
-	<h1 class="invite__header">Invite a friend</h1>
+	<h1 class="invite__header">Build the Quouch community!</h1>
 	<div class="invite__wrap">
 		<h2 class="invite__subtitle">Share your personal invite code with the people you trust!</h2>
 		<p class="invite__content">Quouch lives from creating a safe community and only bringing people onto the platform that we can trust. Each user therefore has a unique invite code which they can share with their trusted people. That way, we hope to build a respectful, tolerant and trustworthy platform.</p>
-		<p class="invite__code">Your personal code:<br> <%= @invite_code %></p>
+
+		<%= simple_form_for :invite,
+												url: send_invite_email_path,
+												html: { class: 'invite__form' },
+												method: :get do |f| %>
+			<%= f.input :email,
+									label: false,
+									wrapper_html: { class: 'invite__input-wrapper' },
+									placeholder: "Enter recipient's email" %>
+			<%= button_tag(class: 'chat__form-button') do %>
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/send.svg') %>
+			<% end %>
+		<% end %>
+
+
+		<form class="invite__form" data-controller="copy-to-clipboard">
+			<input class="invite__input" type="text" value="<%= @invite_url %>" data-copy-to-clipboard-target="link" readonly="true">
+			<button class="invite__button" data-action="click->copy-to-clipboard#copyLink">
+				<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1720547280/copy.svg') %>
+			</button>
+			<aside class="invite__note display-none" data-copy-to-clipboard-target="note">Copied!</aside>
+		<form>
 	</div>
 </article>
