@@ -14,7 +14,7 @@
 					<ul class="couches__offers offers">
 						<% if couch.user.travelling %>
 							<li class="offers-item">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg', alt: 'World icon') %>
+								<i class="quouch-world color-primary" aria-label="World icon"></i>
 								<p>currently travelling</p>
 							</li>
 						<% else %>
@@ -63,7 +63,7 @@
 						</div>
 						<% if couch.reviews.any? %>
 							<p class="couches__rating">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
+								<i class="quouch-star color-secondary-light" aria-label="Star icon"></i>
 								<%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
 							</p>
 						<% end %>

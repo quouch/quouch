@@ -1,25 +1,3 @@
-<% case rating %>
-<% when 1 %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<i class="quouch-star-full"></i>
-<% when 2 %>
-	<i class="quouch-star-full"></i>
-	<i class="quouch-star-full"></i>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-<% when 3 %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-<% when 4 %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-<% when 5 %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-	<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
+<% rating.times do %>
+  <i class="quouch-star-full color-tertiary" aria-label="Full Star icon"></i>
 <% end %>

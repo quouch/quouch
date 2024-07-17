@@ -1,66 +1,67 @@
 <div class="booking-form__wrap">
-	<%= render 'host' %>
+  <%= render 'host' %>
 
-	<section class="booking-form">
-		<%= simple_form_for [@couch, @booking],
-				data: { controller: 'flatpickr' }, 
-				defaults: { required: false } do |f| %>
-				
-			<div class="booking-form__type">
-				<%= f.label :pick_one, required: true %>
-				<%= f.input :request,
-										collection: @offers.keys,
-										as: :radio_buttons,
-										label: false,
-										value: @booking.request,
-										input_html: { value: @booking.request } %>
-			</div>
-			<div class="booking-form__details__wrap">
-				<%= f.label :dates_and_travellers, required: true %>
-				<div class="booking-form__dates date">
-					<div class="date-input">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
-						<%= f.input :start_date,
-												as: :string,
-												error: false,
-												placeholder: 'from',
-												input_html: { data: { flatpickr_target: 'startTime' } },
-												label: false %>
-					</div>
-					<div class="date-input">
-						<%= f.input :end_date,
-												as: :string,
-												error: false,
-												placeholder: 'to',
-												input_html: { data: { flatpickr_target: 'endTime' } },
-												label: false %>
-					</div>
-				</div>
-				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
-				<div class="booking-form__travellers">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg', alt: 'People icon') %>
-					<%= f.input :number_travellers, 
-											label: false,
-											input_html: { value: @booking.number_travellers } %>
-				</div>
-				<%= f.error 	:number_travellers, class: 'form-error' %>
-			</div>
-			<%= f.input :message, 
-									label: :Message,
-									error: false,
-									required: true,
-									input_html: { rows: 4 } %>
-			<%= f.error :message, class: 'form-error' %>
-			<div class="booking-form__action booking-form__action--edit">
-				<%= f.submit 'Send updated request', class: 'booking-form__button' %>
-			</div>
-		<% end %>
-			<div data-controller="confirm-alert">
-				<button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayCancelAlert"
-				data-confirm-title="Confirm"
-				data-confirm-text="Are you sure you want to cancel this booking?"
-				data-confirm-buttons='["No, go back", "Yes, cancel"]' type="button">Cancel Booking</button>
-				<%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action', action: 'click->confirm-alert#displayCancelAlert' } %>
-			</div>
-	</section>
+  <section class="booking-form">
+    <%= simple_form_for [@couch, @booking],
+                        data: { controller: 'flatpickr' },
+                        defaults: { required: false } do |f| %>
+
+      <div class="booking-form__type">
+        <%= f.label :pick_one, required: true %>
+        <%= f.input :request,
+                    collection: @offers.keys,
+                    as: :radio_buttons,
+                    label: false,
+                    value: @booking.request,
+                    input_html: { value: @booking.request } %>
+      </div>
+      <div class="booking-form__details__wrap">
+        <%= f.label :dates_and_travellers, required: true %>
+        <div class="booking-form__dates date">
+          <div class="date-input">
+            <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+            <%= f.input :start_date,
+                        as: :string,
+                        error: false,
+                        placeholder: 'from',
+                        input_html: { data: { flatpickr_target: 'startTime' } },
+                        label: false %>
+          </div>
+          <div class="date-input">
+            <%= f.input :end_date,
+                        as: :string,
+                        error: false,
+                        placeholder: 'to',
+                        input_html: { data: { flatpickr_target: 'endTime' } },
+                        label: false %>
+          </div>
+        </div>
+        <%= f.error :start_date, class: 'form-error form-error-booking' %>
+        <div class="booking-form__travellers">
+          <i class="quouch-people color-secondary" aria-label="People icon"></i>
+          <%= f.input :number_travellers,
+                      label: false,
+                      input_html: { value: @booking.number_travellers } %>
+        </div>
+        <%= f.error :number_travellers, class: 'form-error' %>
+      </div>
+      <%= f.input :message,
+                  label: :Message,
+                  error: false,
+                  required: true,
+                  input_html: { rows: 4 } %>
+      <%= f.error :message, class: 'form-error' %>
+      <div class="booking-form__action booking-form__action--edit">
+        <%= f.submit 'Send updated request', class: 'booking-form__button' %>
+      </div>
+    <% end %>
+    <div data-controller="confirm-alert">
+      <button class="booking__decline" data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayCancelAlert"
+              data-confirm-title="Confirm"
+              data-confirm-text="Are you sure you want to cancel this booking?"
+              data-confirm-buttons='["No, go back", "Yes, cancel"]' type="button">Cancel Booking
+      </button>
+      <%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action', action: 'click->confirm-alert#displayCancelAlert' } %>
+    </div>
+  </section>
 </div>

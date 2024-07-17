@@ -111,12 +111,10 @@
             li {
                 display: flex;
                 align-items: center;
+                gap: .5rem;
 
-                img {
-                    margin-right: .5rem;
-                    height: 16px;
-                    width: 16px;
-                    color: black;
+                i {
+                    font-size: 16px;
                 }
             }
         }

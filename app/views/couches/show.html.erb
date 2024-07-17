@@ -36,7 +36,7 @@
     <ul class="couch__offers offers">
       <% if @host.travelling %>
         <li class="offers-item">
-          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687531121/world.svg') %>
+          <i class="quouch-world color-primary" aria-label="World icon"></i>
           <p>currently travelling</p>
         </li>
       <% else %>
@@ -77,9 +77,9 @@
       <% if @host.offers_couch && !@host.couch.facilities.empty? %>
         <h2>Accommodation</h2>
         <ul class="couch__accommodation-list">
-          <% @couch.facilities.includes(svg_attachment: [:blob]).each do |facility| %>
+          <% @couch.facilities.each do |facility| %>
             <li>
-              <i class="quouch-<%= facility.name.parameterize(separator: '_') %> color-black" aria-label="<%= facility.name %> icon"></i>
+              <i class="quouch-<%= facility.name.parameterize(separator: '-') %> color-black" aria-label="<%= facility.name %> icon"></i>
               <%= facility.name %>
             </li>
           <% end %>
@@ -136,8 +136,7 @@
     <% if @reviews.any? %>
       <h2>Get a feeling for what it is like to spend time with <%= @host.first_name %></h2>
       <div class="review__rating">
-        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
-        <i class="quouch-star"></i>
+        <i class="quouch-star color-secondary-light" aria-label="Start icon"></i>
         <p><%= sprintf("%.1f", @review_average).tr(".", ",") %> out of <%= pluralize @reviews.size, "Review" %></p>
       </div>
       <ul class="reviews">
@@ -158,13 +157,13 @@
             <% if review.booking %>
               <div class="review__type">
                 <% if review.booking.host? %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg', alt: 'Sleep icon') %>
+                  <i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
                   <p>host</p>
                 <% elsif review.booking.hangout? %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg', alt: 'Hangout icon') %>
+                  <i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
                   <p>hangout</p>
                 <% elsif review.booking.cowork? %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg', alt: 'Work icon') %>
+                  <i class="quouch-work color-primary" aria-label="Work icon"></i>
                   <p>cowork</p>
                 <% end %>
               </div>
@@ -173,13 +172,11 @@
             <div class="review__rating">
               <div class="review__stars">
                 <% review.rating.round.times do %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star-full.svg') %>
-                  <i class="quouch-star-full"></i>
-              <% end %>
+                  <i class="quouch-star-full color-tertiary" aria-label="Full star icon"></i>
+                <% end %>
                 <% (5 - review.rating).round.times do %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/star-empty.svg') %>
-                  <i class="quouch-star-empty"></i>
-              <% end %>
+                  <i class="quouch-star-empty color-tertiary" aria-label="Empty star icon"></i>
+                <% end %>
               </div>
             </div>
             <p class="review__content"><%= review.content %></p>
