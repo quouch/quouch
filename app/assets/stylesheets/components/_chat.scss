@@ -1,156 +1,177 @@
 .chat__show {
-  display: flex;
-  margin-top: 4rem;
-  height: calc(100vh - 4rem);
-
-  .chats__list__container {
-    display: none;
-    height: 100%;
-    overflow: hidden;
-    flex: 1 0 0%;
-
-    @media (min-width: $break-small) {
-      display: block;
-      flex: 0 0 30%;
-      box-shadow: $box-shadow;
-      overflow-y: scroll;
-    }
-  }
-
-  .chat__container {
-    flex: 1 0 0%;
-    height: auto;
-    overflow: hidden;
     display: flex;
-    flex-direction: column;
-  }
+    margin-top: 4rem;
+    height: calc(100vh - 4rem);
+
+    .chats__list__container {
+        display: none;
+        height: 100%;
+        overflow: hidden;
+        flex: 1 0 0%;
+
+        @media (min-width: $break-small) {
+            display: block;
+            flex: 0 0 30%;
+            box-shadow: $box-shadow;
+            overflow-y: scroll;
+        }
+    }
+
+    .chat__container {
+        flex: 1 0 0%;
+        height: auto;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
 }
+
 .chat__header {
-  box-shadow: 0 4px 4px -4px $gray-02;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  &__left {
+    box-shadow: 0 4px 4px -4px $gray-02;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-  }
+    padding: 2rem;
 
-  .back-link {
-    @media (min-width: $break-small) {
-      display: none;
+    &__left {
+        display: flex;
+        align-items: center;
     }
-  }
 
-   h3, a {
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
+    .back-link {
+        @media (min-width: $break-small) {
+            display: none;
+        }
+    }
 
-  h3 {
-    margin: 0;
-    margin-left: 2rem;
-  }
+    h3, a {
+        font-size: 1.5rem;
+        line-height: 1.2;
+    }
 
-  span {
-    font-size: 1rem;
-    color: $gray-05
-  }
+    h3 {
+        margin: 0;
+        margin-left: 2rem;
+    }
+
+    span {
+        font-size: 1rem;
+        color: $gray-05
+    }
 }
 
 .chat {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &__messages__container {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    min-height: 10vh;
-    flex: 1;
-    overflow-y: scroll;
 
-    img {
-      height: 140px;
-      width: 140px;
-      object-fit: cover;
-      object-position: center;
-      margin-top: 4rem;
+    &__messages__container {
+        display: flex;
+        flex-direction: column;
+        min-height: 10vh;
+        flex: 1;
+        overflow-y: scroll;
+
+        img {
+            height: 140px;
+            width: 140px;
+            object-fit: cover;
+            object-position: center;
+            margin-top: 4rem;
+        }
+
     }
 
-  }
+    &__messages {
+        @include container;
+        margin: 2rem auto;
 
-  &__messages {
-    @include container;
-    margin: 2rem auto;
+        &--empty {
+            @include title-5;
 
-    &--empty {
-      @include title-5;
+            color: $secondary-light;
+            margin: 4rem auto;
+            max-width: $break-small;
+            text-align: center;
 
-      color: $secondary-light;
-      margin: 4rem auto;
-      max-width: $break-small;
-      text-align: center;
-
-      img {
-        height: 64px;
-        margin: 1rem auto;
-      }
-    }
-  }
-
-  &__message {
-    display: flex;
-    margin-bottom: 1rem;
-
-    p {
-      font-size: 0.75rem;
-
-      @media (min-width: $break-large) { font-size: 1rem; }
+            img {
+                height: 64px;
+                margin: 1rem auto;
+            }
+        }
     }
 
-    &--left { justify-content: start; }
-    &--right { justify-content: end; }
-  }
+    &__message {
+        display: flex;
+        margin-bottom: 1rem;
 
-  &__sender {
-    background-color: $primary-super-transparent;
-    border-top-left-radius: $border-radius-small;
-    border-top-right-radius: $border-radius-small;
-    border-bottom-right-radius: $border-radius-small;
-  }
+        p {
+            font-size: 0.75rem;
 
-  &__receiver {
-    background-color: $primary-light;
-    color: $white;
-    border-top-left-radius: $border-radius-small;
-    border-top-right-radius: $border-radius-small;
-    border-bottom-left-radius: $border-radius-small;
-  }
+            @media (min-width: $break-large) {
+                font-size: 1rem;
+            }
+        }
 
-  &__form__container {
-    @include container;
-    margin: 2rem auto;
-    position: sticky;
-    bottom: 0;
-  }
+        &--left {
+            justify-content: start;
+        }
 
-  &__form {
-    flex: 0 0 auto;
-    display: flex;
-
-    div:first-child { width: 100%; }
-
-    &-input { width: 100%; }
-
-    &-button {
-      background-color: transparent;
-      border: 0;
-      transform: rotate(45deg);
-
-      :hover { cursor: pointer; }
+        &--right {
+            justify-content: end;
+        }
     }
-  }
+
+    &__sender {
+        background-color: $primary-super-transparent;
+        border-top-left-radius: $border-radius-small;
+        border-top-right-radius: $border-radius-small;
+        border-bottom-right-radius: $border-radius-small;
+    }
+
+    &__receiver {
+        background-color: $primary-light;
+        color: $white;
+        border-top-left-radius: $border-radius-small;
+        border-top-right-radius: $border-radius-small;
+        border-bottom-left-radius: $border-radius-small;
+    }
+
+    &__form__container {
+        @include container;
+        margin: 2rem auto;
+        position: sticky;
+        bottom: 0;
+    }
+
+    &__form {
+        flex: 0 0 auto;
+        display: flex;
+
+        div:first-child {
+            width: 100%;
+        }
+
+        &-input {
+            width: 100%;
+        }
+
+        &-button {
+            background-color: transparent;
+            border: 0;
+            transform: rotate(45deg);
+
+            :hover {
+                cursor: pointer;
+            }
+
+            i {
+                font-size: 24px;
+            }
+        }
+    }
 }
 
-.message { padding: 1rem; }
+.message {
+    padding: 1rem;
+}

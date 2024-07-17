@@ -30,7 +30,7 @@
                                           action: 'click->skip-booking-date-validation#hideFields change->validate-form#enableButton' }} %>
 				<div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
 					<div class="date-input">
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
+						<i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
 						<%= f.input :start_date,
 												as: :string,
 												error: false,
@@ -50,7 +50,7 @@
 				</div>
 				<%= f.error 	:start_date, class: 'form-error form-error-booking' %>
 				<div class="booking-form__travellers">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg', alt: 'People icon') %>
+					<i class="quouch-people color-secondary" aria-label="People icon"></i>
 					<%= f.input :number_travellers,
 											label: false,
 											error: false,

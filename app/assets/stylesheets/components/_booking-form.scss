@@ -1,151 +1,163 @@
 .booking-form {
-	margin: 0 auto;
-	padding: 2rem;
-	background-color: $white;
-	border-radius: $border-radius-medium;
-	text-align: center;
-	box-shadow: $box-shadow;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: $white;
+    border-radius: $border-radius-medium;
+    text-align: center;
+    box-shadow: $box-shadow;
 
-	@media (min-width: $break-medium) { min-width: $break-x-small; }
+    @media (min-width: $break-medium) {
+        min-width: $break-x-small;
+    }
 
-	&__wrap {
-		@include container-width;
+    &__wrap {
+        @include container-width;
 
-		margin: 8rem auto 4rem;
+        margin: 8rem auto 4rem;
 
-		@media (min-width: $break-medium) {
-			display: grid;
-			grid-template-columns: 2fr 1fr;
-		}
+        @media (min-width: $break-medium) {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+        }
 
-		@media (min-width: $break-large) { align-items: center; }
-	}
+        @media (min-width: $break-large) {
+            align-items: center;
+        }
+    }
 
-	&__type {
-		> label { @include title-5; }
+    &__type {
+        > label {
+            @include title-5;
+        }
 
-		margin-bottom: 2rem;
+        margin-bottom: 2rem;
 
-		.booking_request {
-			display: flex;
-			flex-direction: column;
-			color: $gray-05;
-			align-items: start;
-			margin: 1rem auto;
-			width: fit-content;
+        .booking_request {
+            display: flex;
+            flex-direction: column;
+            color: $gray-05;
+            align-items: start;
+            margin: 1rem auto;
+            width: fit-content;
 
-			input {
-				margin-right: 1rem;
-				color: $primary;
-			}
-		}
-	}
+            input {
+                margin-right: 1rem;
+                color: $primary;
+            }
+        }
+    }
 
-	&__details {
-		margin: 2rem auto;
+    &__details {
+        margin: 2rem auto;
 
-		&__wrap {
-			margin: 0 auto;
-			width: fit-content;
+        &__wrap {
+            margin: 0 auto;
+            width: fit-content;
 
-			> label {
-				@include title-5;
-				
-				display: block;
-			}
-		}
-	}
+            > label {
+                @include title-5;
 
-	&__flexible {
-		label {
-			gap: .5rem;
-			display: flex;
-			align-items: center;
-			margin-bottom: .5rem;
-			color: $gray-05;
-		}
-	}
+                display: block;
+            }
+        }
+    }
 
-	&__dates {
-		display: flex;
-		gap: .5rem;
-	}
+    &__flexible {
+        label {
+            gap: .5rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: .5rem;
+            color: $gray-05;
+        }
+    }
 
-	&__travellers {
-		display: flex;
-		align-items: center;
+    &__dates {
+        display: flex;
+        gap: .5rem;
+    }
 
-		input {
-			@include input-field;
+    &__travellers {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
 
-			border: 1px solid $gray-02;
-			width: 6em;
-		}
+        input {
+            @include input-field;
 
-		img {
-			width: 24px;
-			height: 24px;
-			margin-right: .7rem;
-		}
-	}
+            border: 1px solid $gray-02;
+            width: 6em;
+        }
 
-	.booking_number_travellers {
-		> input {
-			margin-top: auto;
-			@media (min-width: $break-large) { width: 6rem; }
-		}
-	}
+        i {
+            font-size: 24px;
+        }
+    }
 
-	.booking_message {
-		> label { @include title-5; }
+    .booking_number_travellers {
+        > input {
+            margin-top: auto;
+            @media (min-width: $break-large) {
+                width: 6rem;
+            }
+        }
+    }
 
-		display: flex;
-		flex-direction: column;
-		margin: 1rem auto 0;
-	}
+    .booking_message {
+        > label {
+            @include title-5;
+        }
 
-	&__action {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        margin: 1rem auto 0;
+    }
 
-		a { @include tertiary-button; }
+    &__action {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
 
-		@media (min-width: $break-medium) { gap: 2rem; }
+        a {
+            @include tertiary-button;
+        }
 
-		&--edit {
-			flex-direction: column;
-			gap: 1rem;
-		}
- 	}
+        @media (min-width: $break-medium) {
+            gap: 2rem;
+        }
 
-	&__button {
-		@include input-field;
-		@include primary-button;
-	}
+        &--edit {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
 
-	&__button[disabled] {
-		background-color: grey;
-	}
+    &__button {
+        @include input-field;
+        @include primary-button;
+    }
+
+    &__button[disabled] {
+        background-color: grey;
+    }
 }
 
 .date {
-	&-input {
-		display: flex;
-		align-items: center;
+    &-input {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
 
-		input {
-			@include input-field;
+        input {
+            @include input-field;
 
-			border: 1px solid $gray-02;
-			width: 6em;
-		}
+            border: 1px solid $gray-02;
+            width: 6em;
+        }
 
-		img {
-			width: 24px;
-			height: 24px;
-			margin-right: .7rem;
-		}
-	}
+        i {
+            font-size: 24px;
+        }
+    }
 }

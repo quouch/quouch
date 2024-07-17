@@ -81,6 +81,10 @@
             height: 16px;
             width: 16px;
         }
+
+        i {
+            font-size: 16px !important;
+        }
     }
 
     &__details {
@@ -122,6 +126,10 @@
         align-items: center;
         gap: .1rem;
         color: $gray-05;
+
+        i {
+            font-size: 20px;
+        }
     }
 }
 

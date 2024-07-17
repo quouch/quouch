@@ -61,14 +61,10 @@
 			border-radius: $border-radius-round;
 			background-color: $secondary-transparent;
 
-			font-size: 300px;
+			font-size: 200px;
             overflow: hidden;
             display: flex;
             justify-content: center;
-
-            &.quouch-placeholder::before {
-                margin-top: -95px;
-            }
         }
 
 		&-upload {
