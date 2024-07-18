@@ -3,267 +3,270 @@
   <%= link_to 'Take a peek at my own profile', couch_path(current_user.couch), class: 'user__header-link' %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
 
-      <div class="user__wrap">
+    <div class="user__wrap">
 
-        <div class="user__image" data-controller="image-preview">
-          <%= f.label :profile_picture %>
-          <% if @user.photo.attached? %>
-            <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
-          <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', alt: 'Example profile picture of Quouch example user', data: { image_preview_target: 'preview' }) %>
-          <% end %>
-          <div class="user__image-upload">
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/profile-upload.svg', alt: 'Upload icon') %>
-            <%= f.input :photo,
-                        as: :file,
-                        input_html: { class: 'display-none',
-                                      data: { image_preview_target: 'input',
-                                      action: 'change->image-preview#previewImage' } },
-                        label_html: { class: 'user__image-label'},
-                        label: 'Upload a photo',
-                        error: false %>
-          </div>
-          <%= f.error :photo, class: 'form-error form-error-photo' %>
-          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
+      <div class="user__image" data-controller="image-preview">
+        <%= f.label :profile_picture %>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
+        <% else %>
+          <i class="quouch-placeholder color-secondary-dark user__image-icon" aria-label="Example profile picture of Quouch example user" data-image-preview-target="preview"></i>
+        <% end %>
+        <div class="user__image-upload">
+          <i class="quouch-profile-upload" aria-label="Upload a profile picture"></i>
+          <%= f.input :photo,
+                      as: :file,
+                      input_html: { class: 'display-none',
+                                    data: { image_preview_target: 'input',
+                                            action: 'change->image-preview#previewImage' } },
+                      label_html: { class: 'user__image-label' },
+                      label: 'Upload a photo',
+                      error: false %>
         </div>
+        <%= f.error :photo, class: 'form-error form-error-photo' %>
+        <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
+      </div>
 
-        <div class="user__info">
-          <%= f.label       :personal_info,
-                            required: true %>
-          <%= f.input_field :first_name,
-                            required: true,
-                            autofocus: true,
-                            label: false,
-                            placeholder: 'First Name',
-                            error: 'First Name is mandatory, please specify one',
-                            input_html: { autocomplete: 'first_name' } %>
-          <%= f.error       :first_name, class: 'form-error' %>
-          <%= f.input_field :last_name,
-                            required: true,
-                            autofocus: true,
-                            input_html: { autocomplete: 'last_name' } %>
-          <%= f.error       :last_name, class: 'form-error' %>
-          <%= f.input_field :email,
-                            required: true,
-                            autofocus: true,
-                            input_html: { autocomplete: 'email' } %>
-          <%= f.error       :email, class: 'form-error' %>
-          <%= f.label       :date_of_birth, required: true %>
-          <div class="user__birthdate">
-            <%= f.input_field :date_of_birth,
-                              start_year: Date.today.year - 100,
-                              end_year: Date.today.year,
-                              required: true,
-                              autofocus: true %>
-          </div>
-          <%= f.error         :date_of_birth, class: 'form-error' %>
-          <%= f.input         :pronouns,
-                              autofocus: true,
-                              input_html: { autocomplete: 'pronouns' } %>
-
-          <div class="user__address">
-              <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
-              <div class="user__address-street">
-              <%= f.label :address,
+      <div class="user__info">
+        <%= f.label :personal_info,
+                    required: true %>
+        <%= f.input_field :first_name,
                           required: true,
-                          class: 'user__address-label' %>
-              <%= f.input :address,
+                          autofocus: true,
                           label: false,
-                          error: false,
-                          value: @user.address,
-                          input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
-                          wrapper_html: { data: { controller: 'autofill', autofill_api_key_value: Rails.application.credentials.dig(:mapbox, :api_key) }} %>
-              </div>
-              <%= f.error         :address, class: 'form-error' %>
-            <div class="user__address-city">
-              <div class="user__address-wrap">
-                <%= f.label       :zipcode,
-                                  required: true,
-                                  class: 'user__address-label' %>
-                <%= f.text_field  :zipcode,
-                                  required: true,
-                                  value: @user.zipcode,
-                                  autofocus: true,
-                                  id: 'zip' %>
-              </div>
-              <div class="user__address-wrap user__address-wrap--city">
-                <%= f.label       :city,
-                                  class: 'user__address-label',
-                                  required: true %>
-                <%= f.text_field  :city,
-                                  required: true,
-                                  value: @user.city,
-                                  autofocus: true,
-                                  id: 'city' %>
-              </div>
-            </div>
-            <%= f.error         :zipcode, class: 'form-error' %>
-            <%= f.error         :city, class: 'form-error' %>
+                          placeholder: 'First Name',
+                          error: 'First Name is mandatory, please specify one',
+                          input_html: { autocomplete: 'first_name' } %>
+        <%= f.error :first_name, class: 'form-error' %>
+        <%= f.input_field :last_name,
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: 'last_name' } %>
+        <%= f.error :last_name, class: 'form-error' %>
+        <%= f.input_field :email,
+                          required: true,
+                          autofocus: true,
+                          input_html: { autocomplete: 'email' } %>
+        <%= f.error :email, class: 'form-error' %>
+        <%= f.label :date_of_birth, required: true %>
+        <div class="user__birthdate">
+          <%= f.input_field :date_of_birth,
+                            start_year: Date.today.year - 100,
+                            end_year: Date.today.year,
+                            required: true,
+                            autofocus: true %>
+        </div>
+        <%= f.error :date_of_birth, class: 'form-error' %>
+        <%= f.input :pronouns,
+                    autofocus: true,
+                    input_html: { autocomplete: 'pronouns' } %>
 
-            <div class="user__address-country">
-              <%= f.label :country,
+        <div class="user__address">
+          <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
+          <div class="user__address-street">
+            <%= f.label :address,
+                        required: true,
+                        class: 'user__address-label' %>
+            <%= f.input :address,
+                        label: false,
+                        error: false,
+                        value: @user.address,
+                        input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
+                        wrapper_html: { data: { controller: 'autofill', autofill_api_key_value: Rails.application.credentials.dig(:mapbox, :api_key) } } %>
+          </div>
+          <%= f.error :address, class: 'form-error' %>
+          <div class="user__address-city">
+            <div class="user__address-wrap">
+              <%= f.label :zipcode,
                           required: true,
                           class: 'user__address-label' %>
-              <% if ISO3166::Country.find_country_by_iso_short_name(@user.country) != nil %>
+              <%= f.text_field :zipcode,
+                               required: true,
+                               value: @user.zipcode,
+                               autofocus: true,
+                               id: 'zip' %>
+            </div>
+            <div class="user__address-wrap user__address-wrap--city">
+              <%= f.label :city,
+                          class: 'user__address-label',
+                          required: true %>
+              <%= f.text_field :city,
+                               required: true,
+                               value: @user.city,
+                               autofocus: true,
+                               id: 'city' %>
+            </div>
+          </div>
+          <%= f.error :zipcode, class: 'form-error' %>
+          <%= f.error :city, class: 'form-error' %>
+
+          <div class="user__address-country">
+            <%= f.label :country,
+                        required: true,
+                        class: 'user__address-label' %>
+            <% if ISO3166::Country.find_country_by_iso_short_name(@user.country) != nil %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           required: true,
                           label: false,
                           selected: ISO3166::Country.find_country_by_iso_short_name(@user.country).alpha2 %>
-              <% else %>
+            <% else %>
               <%= f.input :country,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           required: true,
                           label: false %>
-              <% end %>
-              <%= f.error :country, class: 'form-error' %>
-            </div>
-          </div>
-
-          <%= f.label       :about_me,
-                            required: true,
-                            class: 'user__address-label' %>
-          <%= f.input_field :summary,
-                            required: true,
-                            autofocus: true %>
-          <%= f.error       :summary, class: 'form-error' %>
-
-          <%= f.label       :make_your_day %>
-          <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would make your day if you would receive it.</p>
-          <%= f.input_field :passion %>
-
-
-          <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
-          <p class="hint">When using the filters - think <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender. <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong></p>
-          <% if @user.errors[:user_characteristics].any? %>
-            <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
-          <% end %>
-
-          <div class="user__characteristics">
-
-            <%= simple_fields_for :user_characteristic do |ucf| %>
-              <%= ucf.collection_check_boxes :characteristic_ids,
-                                             Characteristic.find_each,
-                                             :id, :name,
-                                             checked: @user.characteristic_ids,
-                                             error: false,
-                                             input_html: { multiple: true, autocomplete: 'characteristics' } %>
             <% end %>
-          </div>
-
-          <div data-controller="display-info-window">
-            <%= f.label :my_current_status,
-                        required: true %>
-            <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
-            <div class="user__travelling">
-              <%= f.label :i_am %>
-              <div class="user__offer">
-                <%= f.input               :travelling,
-                                          as: :boolean,
-                                          label: false,
-                                          error: false,
-                                          autofocus: true,
-                                          input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }} %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg', alt: 'World icon') %>
-                <%= f.label               :currently_travelling %>
-              </div>
-            </div>
-
-            <div data-controller="conditional-user-fields" data-display-info-window-target="list">
-              <%= f.label :i_can %>
-              <div class="user__offers">
-                <div class="user__offer">
-                  <%= f.input           :offers_couch,
-                                        label: false,
-                                        error: false,
-                                        autofocus: true,
-                                        input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }} %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg', alt: 'Couch icon') %>
-                  <%= f.label           :host %>
-                </div>
-                <div class="user__offer">
-                  <%= f.input_field     :offers_co_work,
-                                        error: false,
-                                        autofocus: true %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg', alt: 'Work icon') %>
-                  <%= f.label           :cowork, 'Co-Work' %>
-                </div>
-                <div class="user__offer">
-                  <%= f.input_field     :offers_hang_out,
-                                        error: false,
-                                        autofocus: true %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg', alt: 'Hangout icon') %>
-                  <%= f.label           :hangout, 'Hang Out' %>
-                </div>
-              </div>
-
-              <div class="user__couch display-none" data-conditional-user-fields-target="field">
-                <%= simple_fields_for     :couch do |cf| %>
-                  <div class="user__couch-capacity">
-                    <%= cf.label          :i_can_host %>
-                    <%= cf.input_field    :capacity,
-                                          collection: 1..4,
-                                          autofocus: true,
-                                          selected: @user.couch.capacity if @user.couch %>
-                    <%= cf.label          :guests,
-                                          required: false %>
-                  </div>
-                <%= cf.label                       :my_couch_comes_with %>
-                <div class="user__couch-facilities">
-                  <%= simple_fields_for            :couch_facility do |cff| %>
-                    <%= cff.collection_check_boxes :facility_ids,
-                                                    Facility.find_each, :id, :name,
-                                                    input_html: { multiple: true },
-                                                    autofocus: true,
-                                                    checked: @user.couch.facility_ids if @user.couch %>
-                  <% end %>
-                </div>
-                <% end %>
-              </div>
-              <%= f.error :travelling, class: 'form-error' %>
-            </div>
-          </div>
-
-          <%= f.label       :this_makes_me_really_happy %>
-          <%= f.input_field :question_one,
-                            required: true,
-                            autofocus: true %>
-          <%= f.label       :what_i_cant_stand, "What I can't stand" %>
-          <%= f.input_field :question_two,
-                            required: true,
-                            autofocus: true %>
-          <%= f.label       :what_i_need_from_the_people_around_me %>
-          <%= f.input_field :question_three,
-                            required: true,
-                            autofocus: true %>
-          <%= f.label       :current_password, required: true, class: 'user__password-label' %>
-          <%= f.input       :current_password,
-                            label: false,
-                            hint: 'we need your current password to make changes',
-                            input_html: { autocomplete: 'current-password' },
-                            error: false %>
-          <%= f.error       :current_password, class: 'form-error' %>
-          <div class="user__submit">
-            <%= f.button :submit, 'Update' %>
+            <%= f.error :country, class: 'form-error' %>
           </div>
         </div>
+
+        <%= f.label :about_me,
+                    required: true,
+                    class: 'user__address-label' %>
+        <%= f.input_field :summary,
+                          required: true,
+                          autofocus: true %>
+        <%= f.error :summary, class: 'form-error' %>
+
+        <%= f.label :make_your_day %>
+        <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would make your day if you would receive it.</p>
+        <%= f.input_field :passion %>
+
+
+        <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
+        <p class="hint">When using the filters - think
+          <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender.
+          <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong>
+        </p>
+        <% if @user.errors[:user_characteristics].any? %>
+          <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+        <% end %>
+
+        <div class="user__characteristics">
+
+          <%= simple_fields_for :user_characteristic do |ucf| %>
+            <%= ucf.collection_check_boxes :characteristic_ids,
+                                           Characteristic.find_each,
+                                           :id, :name,
+                                           checked: @user.characteristic_ids,
+                                           error: false,
+                                           input_html: { multiple: true, autocomplete: 'characteristics' } %>
+          <% end %>
+        </div>
+
+        <div data-controller="display-info-window">
+          <%= f.label :my_current_status,
+                      required: true %>
+          <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
+          <div class="user__travelling">
+            <%= f.label :i_am %>
+            <div class="user__offer">
+              <%= f.input :travelling,
+                          as: :boolean,
+                          label: false,
+                          error: false,
+                          autofocus: true,
+                          input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' } } %>
+              <i class="quouch-world color-primary" aria-label="World icon"></i>
+              <%= f.label :currently_travelling %>
+            </div>
+          </div>
+
+          <div data-controller="conditional-user-fields" data-display-info-window-target="list">
+            <%= f.label :i_can %>
+            <div class="user__offers">
+              <div class="user__offer">
+                <%= f.input :offers_couch,
+                            label: false,
+                            error: false,
+                            autofocus: true,
+                            input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' } } %>
+                <i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
+                <%= f.label :host %>
+              </div>
+              <div class="user__offer">
+                <%= f.input_field :offers_co_work,
+                                  error: false,
+                                  autofocus: true %>
+                <i class="quouch-work color-primary" aria-label="Work icon"></i>
+                <%= f.label :cowork, 'Co-Work' %>
+              </div>
+              <div class="user__offer">
+                <%= f.input_field :offers_hang_out,
+                                  error: false,
+                                  autofocus: true %>
+                <i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
+                <%= f.label :hangout, 'Hang Out' %>
+              </div>
+            </div>
+
+            <div class="user__couch display-none" data-conditional-user-fields-target="field">
+              <%= simple_fields_for :couch do |cf| %>
+                <div class="user__couch-capacity">
+                  <%= cf.label :i_can_host %>
+                  <%= cf.input_field :capacity,
+                                     collection: 1..4,
+                                     autofocus: true,
+                                     selected: @user.couch.capacity if @user.couch %>
+                  <%= cf.label :guests,
+                               required: false %>
+                </div>
+                <%= cf.label :my_couch_comes_with %>
+                <div class="user__couch-facilities">
+                  <%= simple_fields_for :couch_facility do |cff| %>
+                    <%= cff.collection_check_boxes :facility_ids,
+                                                   Facility.find_each, :id, :name,
+                                                   input_html: { multiple: true },
+                                                   autofocus: true,
+                                                   checked: @user.couch.facility_ids if @user.couch %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <%= f.error :travelling, class: 'form-error' %>
+          </div>
+        </div>
+
+        <%= f.label :this_makes_me_really_happy %>
+        <%= f.input_field :question_one,
+                          required: true,
+                          autofocus: true %>
+        <%= f.label :what_i_cant_stand, "What I can't stand" %>
+        <%= f.input_field :question_two,
+                          required: true,
+                          autofocus: true %>
+        <%= f.label :what_i_need_from_the_people_around_me %>
+        <%= f.input_field :question_three,
+                          required: true,
+                          autofocus: true %>
+        <%= f.label :current_password, required: true, class: 'user__password-label' %>
+        <%= f.input :current_password,
+                    label: false,
+                    hint: 'we need your current password to make changes',
+                    input_html: { autocomplete: 'current-password' },
+                    error: false %>
+        <%= f.error :current_password, class: 'form-error' %>
+        <div class="user__submit">
+          <%= f.button :submit, 'Update' %>
+        </div>
       </div>
+    </div>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-      <% end %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+    <% end %>
 
-      <%= f.label       :change_password,
-                        class: 'user__password-change' %>
-      <%= f.input       :password,
-                        hint: "leave it blank if you don't want to change it",
-                        required: false,
-                        error: false %>
-      <%= f.error       :password, class: 'form-error' %>
-      <%= f.input       :password_confirmation,
-                        required: false,
-                        error: false %>
-      <%= f.error       :password_confirmation, class: 'form-error' %>
+    <%= f.label :change_password,
+                class: 'user__password-change' %>
+    <%= f.input :password,
+                hint: "leave it blank if you don't want to change it",
+                required: false,
+                error: false %>
+    <%= f.error :password, class: 'form-error' %>
+    <%= f.input :password_confirmation,
+                required: false,
+                error: false %>
+    <%= f.error :password_confirmation, class: 'form-error' %>
 
     <div class="user__submit">
       <%= f.button :submit, 'Update' %>

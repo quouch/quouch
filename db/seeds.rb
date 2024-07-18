@@ -88,16 +88,19 @@ user_email = ENV.fetch('BASE_USER_EMAIL', nil)
 user_password = ENV.fetch('BASE_USER_PASSWORD', nil)
 puts 'Create first user'
 User.destroy_all
+
+random_address = ADDRESSES.sample
+
 base_user = User.new(
   email: user_email,
   password: user_password,
   first_name: 'Admin',
   last_name: 'Local',
-  confirmed_at: Time.now
+  confirmed_at: Time.now,
+  address: random_address[:street],
+  zipcode: random_address[:zipcode],
+  city: random_address[:city],
+  country: random_address[:country]
 )
 
 base_user.save!(validate: false)
-
-Couch.create!(
-  user: base_user
-)

@@ -1,112 +1,114 @@
 <article>
-	<div class="home__banner">
-		<div class="home__banner-wrap">
-			<div>
-				<h1>Stay with queers when traveling</h1>
-			</div>
-			<div class="home__banner-button">
-				<%= link_to 'Apply for invite code', code_contacts_path, class: 'home__banner-primary' %>
-				<%= link_to 'Sign up', invite_code_path, class: 'home__banner-secondary' %>
-			</div>
-		</div>
-	</div>
-	<section class="home__numbers">
-		<div class="home__numbers-wrap">
-			<h2 class="home__subtitle">Find your queer couch</h2>
-			<p>Quouch is the newest couch-surfing platform for queer people and women to explore the world more safely while finding community.</p>
-			<div class="home__list-wrap">
-				<ul class="home__list">
-					<li class="home__list-item">
-						<div>
-							<p>90+</p>
-							<p>Countries</p>
-						</div>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/countries-landing.svg', alt: 'Country Icon') %>
-					</li>
-					<li class="home__list-item">
-						<div>
-							<p>1300+</p>
-							<p>Cities</p>
-						</div>
-						<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687866817/cities-landing.svg', alt: 'City Icon') %>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-	<section class="home__voices">
-		<div class="home__voices-wrap">
-			<h2 class="home__subtitle">What our users say</h2>
-			<div class="home__slider">
-				<ul class="home__slider-list">
-					<li class="home__card">
-						<blockquote>Thanks to Quouch, we found an amazing queer collective of 7. This would have been almost impossible without Quouch putting us in contact--it was amazing! The general vibe of all the messages we got through the app was so respectful and it felt really safe.</blockquote>
-						<p><strong>Pablo (he/him)</strong></p>
-					</li>
-					<li class="home__card">
-						<blockquote>My host was incredibly kind and it felt like I was meeting up with old friends. There are truly no strangers in the Quouch community, only friends that are excited to meet you.</blockquote>
-						<p><strong>Theo (they/them)</strong></p>
-					</li>
-					<li class="home__card">
-						<blockquote>I was travelling on my own and finding a stay through Quouch was a major highlight. Having a stay that felt so safe and welcoming was a true gift. I look forward to paying it forward by using Quouch to host queer friends from around the world :)</blockquote>
-						<p><strong>Hannah (she/her)</strong></p>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-	<section class="home__measures">
-		<div class="home__measures-wrap">
-			<h2 class="home__subtitle home__subtitle--secondary">What makes us safer</h2>
-			<ul class="home__measures-list">
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg', alt: 'Checkbox Icon') %>
-					<div>
-						<h3 class="home__measures-title">Invite-only</h3>
-						<p>You can only use Quouch with an invite code, or by applying for one, which keeps it safer and a friends-of-friends vibe.</p>
-					</div>
-				</li>
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg', alt: 'Checkbox Icon') %>
-					<div>
-						<h3 class="home__measures-title">Filters</h3>
-						<p>We have a filter system in place to make sure you feel safe and seen wherever you go. These include Trans-only, BIPOC only, SW-friendly, Neurodiverse and many more.</p>
-					</div>
-				</li>
-				<li class="home__measures-list-item">
-					<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1687535610/checkbox.svg', alt: 'Checkbox Icon') %>
-					<div>
-						<h3 class="home__measures-title">Monitoring</h3>
-						<p>We monitor who applies to Quouch to have an extra layer of safety, provide safety community guidelines and act fast on blocking those who are found to be harassing others.</p>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</section>
-	<section class="home__humor">
-		<div class="home__humor-wrap">
-			<h2 class="home__subtitle">Humor Test</h2>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1700825847/humor-landing.svg', alt: 'Humor Icon') %>
-			<div class="home__humor-content">
-				<p>In the future, we plan on matching you with your host or guest based on your sense of humor! Try out the <strong><%= link_to 'humor test', 'https://forms.gle/nS3XfX9fE9P3gC5E6' %></strong> and find out your humor profile.</p>
-			</div>
-		</div>
-	</section>
-	<section class="home__logos">
-		<h2 class="home__subtitle">
-			Supported by
-			<span>and seen on</span>
-		</h2>
-		<div class="home__logos-wrap">
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688558364/exist.png', alt: 'Logo of Exist') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556752/humboldt-innovation.png', alt: 'Logo of Humboldt Innovation') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1712753839/invest.png', alt: 'Logo of Invest Wagniskapital') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556753/science-startups.png', alt: 'Logo of Science Startups') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556753/EU.png', alt: 'Logo of Exist') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556752/sen-web.png', alt: 'Logo of Senatsverwaltung für Wirtschaft, Energie und Betriebe Berlin') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690810263/qx.png', alt: 'Logo of QX') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690810342/lmag.png', alt: 'Logo of LMAG') %>
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688558364/sieges.png', alt: 'Logo of Siegessäule') %>
-		</div>
-	</section>
+  <div class="home__banner">
+    <div class="home__banner-wrap">
+      <div>
+        <h1>Stay with queers when traveling</h1>
+      </div>
+      <div class="home__banner-button">
+        <%= link_to 'Apply for invite code', code_contacts_path, class: 'home__banner-primary' %>
+        <%= link_to 'Sign up', invite_code_path, class: 'home__banner-secondary' %>
+      </div>
+    </div>
+  </div>
+  <section class="home__numbers">
+    <div class="home__numbers-wrap">
+      <h2 class="home__subtitle">Find your queer couch</h2>
+      <p>Quouch is the newest couch-surfing platform for queer people and women to explore the world more safely while finding community.</p>
+      <div class="home__list-wrap">
+        <ul class="home__list">
+          <li class="home__list-item">
+            <div>
+              <p>90+</p>
+              <p>Countries</p>
+            </div>
+            <i class="quouch-pin-dot color-primary-transparent" style="font-size: 100px" aria-label='Country Icon'></i>
+          </li>
+          <li class="home__list-item">
+            <div>
+              <p>1300+</p>
+              <p>Cities</p>
+            </div>
+            <i class="quouch-cities color-primary-transparent" aria-label='City Icon'></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="home__voices">
+    <div class="home__voices-wrap">
+      <h2 class="home__subtitle">What our users say</h2>
+      <div class="home__slider">
+        <ul class="home__slider-list">
+          <li class="home__card">
+            <blockquote>Thanks to Quouch, we found an amazing queer collective of 7. This would have been almost impossible without Quouch putting us in contact--it was amazing! The general vibe of all the messages we got through the app was so respectful and it felt really safe.</blockquote>
+            <p><strong>Pablo (he/him)</strong></p>
+          </li>
+          <li class="home__card">
+            <blockquote>My host was incredibly kind and it felt like I was meeting up with old friends. There are truly no strangers in the Quouch community, only friends that are excited to meet you.</blockquote>
+            <p><strong>Theo (they/them)</strong></p>
+          </li>
+          <li class="home__card">
+            <blockquote>I was travelling on my own and finding a stay through Quouch was a major highlight. Having a stay that felt so safe and welcoming was a true gift. I look forward to paying it forward by using Quouch to host queer friends from around the world :)</blockquote>
+            <p><strong>Hannah (she/her)</strong></p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="home__measures">
+    <div class="home__measures-wrap">
+      <h2 class="home__subtitle home__subtitle--secondary">What makes us safer</h2>
+      <ul class="home__measures-list">
+        <li class="home__measures-list-item">
+          <i class="quouch-check-box color-secondary" aria-label='Checkbox Icon'></i>
+          <div>
+            <h3 class="home__measures-title">Invite-only</h3>
+            <p>You can only use Quouch with an invite code, or by applying for one, which keeps it safer and a friends-of-friends vibe.</p>
+          </div>
+        </li>
+        <li class="home__measures-list-item">
+          <i class="quouch-check-box color-secondary" aria-label='Checkbox Icon'></i>
+          <div>
+            <h3 class="home__measures-title">Filters</h3>
+            <p>We have a filter system in place to make sure you feel safe and seen wherever you go. These include Trans-only, BIPOC only, SW-friendly, Neurodiverse and many more.</p>
+          </div>
+        </li>
+        <li class="home__measures-list-item">
+          <i class="quouch-check-box color-secondary" aria-label='Checkbox Icon'></i>
+          <div>
+            <h3 class="home__measures-title">Monitoring</h3>
+            <p>We monitor who applies to Quouch to have an extra layer of safety, provide safety community guidelines and act fast on blocking those who are found to be harassing others.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <section class="home__humor">
+    <div class="home__humor-wrap">
+      <h2 class="home__subtitle">Humor Test</h2>
+      <i class="quouch-face-laugh-beam color-primary-transparent" aria-label='Laughing Face Icon'></i>
+      <div class="home__humor-content">
+        <p>In the future, we plan on matching you with your host or guest based on your sense of humor! Try out the
+          <strong><%= link_to 'humor test', 'https://forms.gle/nS3XfX9fE9P3gC5E6' %></strong> and find out your humor profile.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="home__logos">
+    <h2 class="home__subtitle">
+      Supported by
+      <span>and seen on</span>
+    </h2>
+    <div class="home__logos-wrap">
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688558364/exist.png', alt: 'Logo of Exist') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556752/humboldt-innovation.png', alt: 'Logo of Humboldt Innovation') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1712753839/invest.png', alt: 'Logo of Invest Wagniskapital') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556753/science-startups.png', alt: 'Logo of Science Startups') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556753/EU.png', alt: 'Logo of Exist') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688556752/sen-web.png', alt: 'Logo of Senatsverwaltung für Wirtschaft, Energie und Betriebe Berlin') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690810263/qx.png', alt: 'Logo of QX') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1690810342/lmag.png', alt: 'Logo of LMAG') %>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1688558364/sieges.png', alt: 'Logo of Siegessäule') %>
+    </div>
+  </section>
 </article>

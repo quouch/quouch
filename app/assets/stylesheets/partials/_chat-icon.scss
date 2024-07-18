@@ -1,25 +1,33 @@
 .chat-icon {
-	&__wrap {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 5rem;
-		width: 5rem;
-		border-radius: $border-radius-round;
-		background-color: $white;
-		box-shadow: $box-shadow;
-		transition: all 160ms ease-in-out;
+    &__wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 5rem;
+        width: 5rem;
+        border-radius: $border-radius-round;
+        background-color: $white;
+        box-shadow: $box-shadow;
+        transition: all 160ms ease-in-out;
 
-		button {
-			background-color: transparent;
-			border: 0 transparent;
+        form {
+            display: flex;
+        }
 
-			&:hover { transform: scale(1.04); }
-		}
-	}
+        button {
+            background-color: transparent;
+            border: 0 transparent;
 
-	height: 6rem;
-	width: 6rem;
-	padding: 1rem;
-	margin-top: .7rem;
+            &:hover {
+                transform: scale(1.04);
+            }
+        }
+
+        i {
+            font-size: 32px;
+        }
+    }
+
+    font-size: 3rem;
+    margin-top: .7rem;
 }
