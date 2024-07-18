@@ -8,15 +8,16 @@
         <%= f.full_error :confirmation_token %>
 
         <div class="form-inputs">
-          <%= f.label :email, required: true %>
           <%= f.input :email,
                       autofocus: true,
+                      label: false,
+                      placeholder: 'Email Address',
                       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
                       input_html: { autocomplete: 'email' } %>
         </div>
 
         <div class="signin__button form-actions">
-          <%= f.button :submit, 'Resend confirmation instructions' %>
+          <%= f.button :submit, 'Resend instructions' %>
         </div>
       <% end %>
 
