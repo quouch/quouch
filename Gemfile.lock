@@ -464,6 +464,11 @@ GEM
       nokogiri (~> 1.8)
     zeitwerk (2.6.13)
 
+GEM
+  remote: https://rubygems.pkg.github.com/quouch/
+  specs:
+    quouch-icons (0.0.5)
+
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-23
@@ -500,6 +505,7 @@ DEPENDENCIES
   pg_search
   pry-byebug
   puma (~> 5.0)
+  quouch-icons (= 0.0.5)!
   rack-cors
   rails (~> 7.0.4)
   rails_admin (= 3.0)

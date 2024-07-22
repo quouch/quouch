@@ -3,6 +3,4 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link logo.png
-//= link application.js
-//= link QuouchIcons.css
-//= link_tree ../../../vendor/q-icons/font
+ //= link application.js
