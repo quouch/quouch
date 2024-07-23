@@ -3,7 +3,7 @@
     <h2 class="signin__title">Forgot your password?</h2>
 
     <div class="signin__form">
-      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, 'data-turbo': 'false' }) do |f| %>
       <%= f.error_notification %>
 
       <div class="">

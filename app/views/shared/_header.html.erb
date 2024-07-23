@@ -106,7 +106,7 @@
 						<p class="collapsible__subtitle">Session</p>
             <li>
               <i class="quouch-logout color-secondary" aria-label='Logout Icon'></i>
-							<%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'collapsible__logout' %>
+							<%= button_to 'Logout', destroy_user_session_path, method: :delete, 'data-turbo': 'false', class: 'collapsible__logout' %>
 						</li>
 					</ul>
 				</div>
