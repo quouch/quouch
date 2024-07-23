@@ -1,0 +1,186 @@
+@font-face {
+    font-family: "QuouchIcons";
+    src: url("./QuouchIcons.eot?2becbf156803d1ae0182db0db9fe1352#iefix") format("embedded-opentype"),
+url("./QuouchIcons.woff2?2becbf156803d1ae0182db0db9fe1352") format("woff2"),
+url("./QuouchIcons.woff?2becbf156803d1ae0182db0db9fe1352") format("woff");
+}
+
+i[class^="quouch-"]:before, i[class*=" quouch-"]:before {
+    font-family: QuouchIcons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.quouch-world:before {
+    content: "\f101";
+}
+.quouch-work:before {
+    content: "\f102";
+}
+.quouch-wifi:before {
+    content: "\f103";
+}
+.quouch-vegan:before {
+    content: "\f104";
+}
+.quouch-trip:before {
+    content: "\f105";
+}
+.quouch-star:before {
+    content: "\f106";
+}
+.quouch-star-full:before {
+    content: "\f107";
+}
+.quouch-star-empty:before {
+    content: "\f108";
+}
+.quouch-stack:before {
+    content: "\f109";
+}
+.quouch-smoking-allowed:before {
+    content: "\f10a";
+}
+.quouch-sleep:before {
+    content: "\f10b";
+}
+.quouch-shield:before {
+    content: "\f10c";
+}
+.quouch-shared-room:before {
+    content: "\f10d";
+}
+.quouch-send:before {
+    content: "\f10e";
+}
+.quouch-profile-upload:before {
+    content: "\f10f";
+}
+.quouch-private-room:before {
+    content: "\f110";
+}
+.quouch-privacy:before {
+    content: "\f111";
+}
+.quouch-plant:before {
+    content: "\f112";
+}
+.quouch-placeholder:before {
+    content: "\f113";
+}
+.quouch-pin:before {
+    content: "\f114";
+}
+.quouch-pin-dot:before {
+    content: "\f115";
+}
+.quouch-pets-allowed:before {
+    content: "\f116";
+}
+.quouch-people:before {
+    content: "\f117";
+}
+.quouch-notification:before {
+    content: "\f118";
+}
+.quouch-mission:before {
+    content: "\f119";
+}
+.quouch-message:before {
+    content: "\f11a";
+}
+.quouch-map-pin:before {
+    content: "\f11b";
+}
+.quouch-logout:before {
+    content: "\f11c";
+}
+.quouch-invite:before {
+    content: "\f11d";
+}
+.quouch-info-circle:before {
+    content: "\f11e";
+}
+.quouch-impressum:before {
+    content: "\f11f";
+}
+.quouch-home:before {
+    content: "\f120";
+}
+.quouch-hangout:before {
+    content: "\f121";
+}
+.quouch-guidelines:before {
+    content: "\f122";
+}
+.quouch-follow:before {
+    content: "\f123";
+}
+.quouch-faq:before {
+    content: "\f124";
+}
+.quouch-face-laugh:before {
+    content: "\f125";
+}
+.quouch-face-laugh-beam:before {
+    content: "\f126";
+}
+.quouch-extra-key:before {
+    content: "\f127";
+}
+.quouch-euro:before {
+    content: "\f128";
+}
+.quouch-error:before {
+    content: "\f129";
+}
+.quouch-elevator:before {
+    content: "\f12a";
+}
+.quouch-edit-profile:before {
+    content: "\f12b";
+}
+.quouch-couch:before {
+    content: "\f12c";
+}
+.quouch-copy:before {
+    content: "\f12d";
+}
+.quouch-contact:before {
+    content: "\f12e";
+}
+.quouch-conditions:before {
+    content: "\f12f";
+}
+.quouch-close:before {
+    content: "\f130";
+}
+.quouch-cities:before {
+    content: "\f131";
+}
+.quouch-check-box:before {
+    content: "\f132";
+}
+.quouch-chat:before {
+    content: "\f133";
+}
+.quouch-calendar:before {
+    content: "\f134";
+}
+.quouch-bed:before {
+    content: "\f135";
+}
+.quouch-barrier-free:before {
+    content: "\f136";
+}
+.quouch-balcony:before {
+    content: "\f137";
+}
+.quouch-account:before {
+    content: "\f138";
+}

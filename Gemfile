@@ -112,10 +112,6 @@ gem 'amplitude-api'
 # Importmap for JS modules
 gem 'importmap-rails', '~> 1.2.3'
 
-source "https://rubygems.pkg.github.com/quouch" do
-  gem "quouch-icons", "0.0.5"
-end
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
