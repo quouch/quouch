@@ -38,7 +38,6 @@ FactoryBot.define do
       end
     end
 
-
     factory :test_user, class: User do
       after(:build) do |user|
         user.photo.attach(
