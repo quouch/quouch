@@ -40,3 +40,42 @@ $beige: hsl(28, 100%, 97%);
 $neutral-01: hsl(30, 100%, 100%);
 $neutral-02: hsl(15, 67%, 99%);
 $neutral-03: hsl(28, 100%, 97%);
+
+// Color map
+$color-map: (
+        'primary': $primary,
+        'primary-dark': $primary-dark,
+        'primary-light': $primary-light,
+        'primary-transparent': $primary-transparent,
+        'primary-super-transparent': $primary-super-transparent,
+        'secondary': $secondary,
+        'secondary-dark': $secondary-dark,
+        'secondary-light': $secondary-light,
+        'secondary-transparent': $secondary-transparent,
+        'secondary-super-transparent': $secondary-super-transparent,
+        'tertiary': $tertiary,
+        'tertiary-dark': $tertiary-dark,
+        'tertiary-light': $tertiary-light,
+        'tertiary-transparent': $tertiary-transparent,
+        'tertiary-super-transparent': $tertiary-super-transparent,
+        'error': $error,
+        'warning': $warning,
+        'gray-01': $gray-01,
+        'gray-02': $gray-02,
+        'gray-03': $gray-03,
+        'gray-04': $gray-04,
+        'gray-05': $gray-05,
+        'gray-06': $gray-06,
+        'black': $black,
+        'white': $white,
+        'beige': $beige,
+        'neutral-01': $neutral-01,
+        'neutral-02': $neutral-02,
+        'neutral-03': $neutral-03
+);
+
+@each $shade, $color in $color-map {
+    .color-#{$shade} {
+        color: $color;
+    }
+}

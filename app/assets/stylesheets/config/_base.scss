@@ -60,3 +60,14 @@ ul { list-style: none; }
 10. Display none utility class
 */
 .display-none { display: none !important; }
+
+
+i {
+	&[class^="quouch-"],
+	&[class*="quouch-"],
+	&[class^="fa-"],
+	&[class*="fa-"] {
+		text-align: center;
+		display: flex;
+	}
+}

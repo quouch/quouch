@@ -1,363 +1,419 @@
 .home {
-	&__wrap {
-		margin: 4rem auto;
-		width: 90%;
-		max-width: $container;
+    &__wrap {
+        margin: 4rem auto;
+        width: 90%;
+        max-width: $container;
 
-		@media (min-width: $break-large) { width: 80%; }
-	}
+        @media (min-width: $break-large) {
+            width: 80%;
+        }
+    }
 
-	&__banner {
-		background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1717692290/landing.webp');
-		background-size: cover;
-		background-position: 61% 0%;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	
-		&-wrap {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: center;
-			height: 500px;
-			margin: 4rem 2rem 2rem;
+    &__banner {
+        background-image: url('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1717692290/landing.webp');
+        background-size: cover;
+        background-position: 61% 0%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-			@media (min-width: $break-medium) { margin: 4rem auto; }
+        &-wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 500px;
+            margin: 4rem 2rem 2rem;
 
-			@media (min-width: $break-medium) {
-				padding: 4rem auto 2rem;
-			}
-		}
+            @media (min-width: $break-medium) {
+                margin: 4rem auto;
+            }
 
-		&-subtitle {
-			@include title-4;
-				
-			color: $primary;
-			font-weight: 400;
-			font-size: 2rem;
+            @media (min-width: $break-medium) {
+                padding: 4rem auto 2rem;
+            }
+        }
 
-			@media (max-width: $break-large) { font-size: 2rem; }
-		}
+        &-subtitle {
+            @include title-4;
 
-		&-button {
-			width: 100%;
+            color: $primary;
+            font-weight: 400;
+            font-size: 2rem;
 
-			@media (min-width: $break-large) { width: 400px; }
+            @media (max-width: $break-large) {
+                font-size: 2rem;
+            }
+        }
 
-			a { width: 100%; }
-		}
+        &-button {
+            width: 100%;
 
-		&-primary {
-			@include input-field;
-			@include primary-button;
+            @media (min-width: $break-large) {
+                width: 400px;
+            }
 
-			margin: 1rem auto;
-			width: fit-content;
-			font-weight: 700;
-		
-			@media (min-width: $break-medium) { margin: 1rem 0; }
-		}
+            a {
+                width: 100%;
+            }
+        }
 
-		&-secondary {
-			@include input-field;
-			@include primary-button;
+        &-primary {
+            @include input-field;
+            @include primary-button;
 
-			background-color: $secondary;
-			margin: 1rem auto;
-			width: fit-content;
-			font-weight: 700;
+            margin: 1rem auto;
+            width: fit-content;
+            font-weight: 700;
 
-			@media (min-width: $break-medium) { margin: 1rem 0; }
-		}
-	}
+            @media (min-width: $break-medium) {
+                margin: 1rem 0;
+            }
+        }
 
-	&__numbers {
-		background: $primary-super-transparent;
-		padding: 2rem 1rem;
-		text-align: center;
-		
-		h2 { margin-bottom: 1rem; }
+        &-secondary {
+            @include input-field;
+            @include primary-button;
 
-		&-wrap {
-			@include container;
+            background-color: $secondary;
+            margin: 1rem auto;
+            width: fit-content;
+            font-weight: 700;
 
-			@media (min-width: $break-large) {
-				margin: 4rem auto;
-				width: 60%;
-				max-width: $container;
-			}
+            @media (min-width: $break-medium) {
+                margin: 1rem 0;
+            }
+        }
+    }
 
-			p {
-				font-weight: 700;
-				font-size: 1.2rem;
-			}
-		}
-	}
+    &__numbers {
+        background: $primary-super-transparent;
+        padding: 2rem 1rem;
+        text-align: center;
 
-	&__list {
-		display: flex;
-		flex-direction: column;
-		row-gap: 3rem;
-		
-		@media (min-width: $break-large) {
-			flex-direction: row;
-			justify-content: space-around;
-		}
+        h2 {
+            margin-bottom: 1rem;
+        }
 
-		&-wrap {
-			@include container;
+        &-wrap {
+            @include container;
 
-			@media (min-width: $break-large) {
-				margin: 4rem auto 0;
-				max-width: $container;
-			}
-		}
+            @media (min-width: $break-large) {
+                margin: 4rem auto;
+                width: 60%;
+                max-width: $container;
+            }
 
-		&-item {
-			display: flex;
-			align-items: center;
-			justify-content: space-evenly;
-			gap: 2rem;
+            p {
+                font-weight: 700;
+                font-size: 1.2rem;
+            }
+        }
+    }
 
-			@media (min-width: $break-large) { flex-direction: column; }
+    &__list {
+        display: flex;
+        flex-direction: column;
+        row-gap: 3rem;
 
-			p:first-child {
-				@include title-1;
-				
-				color: $primary;
-				margin: 0;
-			}
+        @media (min-width: $break-large) {
+            flex-direction: row;
+            justify-content: space-around;
+        }
 
-			p:nth-child(2) {
-				@include title-5;
+        &-wrap {
+            @include container;
 
-				color: $primary;
-				font-weight: 300;
-				margin: 0;
-				text-align: center;
-				text-transform: uppercase;
-			}
+            @media (min-width: $break-large) {
+                margin: 4rem auto 0;
+                max-width: $container;
+            }
+        }
 
-			img {
-				width: 100px;
-				height: 100px;
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            gap: 2rem;
 
-				@media (min-width: $break-large) { margin: 0 auto; }
-			}
-		}
-	}
-	
-	&__slider {
-		text-align: center;
-		overflow: hidden;
-		margin-bottom: 1rem;
+            @media (min-width: $break-large) {
+                flex-direction: column;
+            }
 
-		&-list {
-			display: flex;
-			height: 100%;
-			align-items: stretch;
-			gap: 1rem;
-			overflow-x: auto;
-			margin-top: 0;
-			margin-bottom: -1rem;
-			padding: 1rem 1rem 2rem;
-			
-			@media (min-width: $break-medium) { justify-content: center; }
-		}
+            p:first-child {
+                @include title-1;
 
-		div { padding: 1rem; }
-	}
+                color: $primary;
+                margin: 0;
+            }
 
-	&__card {
-		display: flex;
-		flex-direction: column;
-		min-width: 320px;
-		height: auto;
-		border-radius: $border-radius-medium;
-		background-color: $white;
-		box-shadow: $box-shadow;
-		padding: 2rem;
-		margin-bottom: 1rem;
-		color: $black;
+            p:nth-child(2) {
+                @include title-5;
 
-		@media (min-width: $break-large) { max-width: 400px; }
-		
-		img {
-			width: 100%;
-			height: 240px;
-			object-fit: cover;
-			object-position: center;
-			border-top-left-radius: $border-radius-medium;
-			border-top-right-radius: $border-radius-medium;
-		}
+                color: $primary;
+                font-weight: 300;
+                margin: 0;
+                text-align: center;
+                text-transform: uppercase;
+            }
 
-		blockquote:before { content: open-quote; }
-		blockquote:after { content: close-quote; }
-		blockquote { margin-bottom: 1rem; }
+            i {
+                font-size: 100px;
+                display: flex;
+                justify-content: center;
+            }
 
-		@media (min-width: $break-small) { margin-bottom: 0; }
 
-		p { margin-top: auto; }
-	}
+        }
+    }
 
-	&__voices {
-		h2 { margin-bottom: 3rem; }
+    &__slider {
+        text-align: center;
+        overflow: hidden;
+        margin-bottom: 1rem;
 
-		&-wrap { margin: 4rem auto 4rem; }
-	}
+        &-list {
+            display: flex;
+            height: 100%;
+            align-items: stretch;
+            gap: 1rem;
+            overflow-x: auto;
+            margin-top: 0;
+            margin-bottom: -1rem;
+            padding: 1rem 1rem 2rem;
 
-	&__measures {
-		background-color: $secondary-super-transparent;
-		
-		&-wrap {
-			padding: 2rem 1rem;
+            @media (min-width: $break-medium) {
+                justify-content: center;
+            }
+        }
 
-			@media (min-width: $break-medium) {
-				@include container;
-				
-				margin-bottom: 0;
-			}
+        div {
+            padding: 1rem;
+        }
+    }
 
-			@media (min-width: $break-medium) {
-				padding: 4rem 0;
-				max-width: $container;
-			}
+    &__card {
+        display: flex;
+        flex-direction: column;
+        min-width: 320px;
+        height: auto;
+        border-radius: $border-radius-medium;
+        background-color: $white;
+        box-shadow: $box-shadow;
+        padding: 2rem;
+        margin-bottom: 1rem;
+        color: $black;
 
-			p {
-				font-weight: 700;
-				font-size: 1.2rem;
-			}
-		}
+        @media (min-width: $break-large) {
+            max-width: 400px;
+        }
 
-		p:not(:last-child) { margin: .3rem auto 1rem; }
+        img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            object-position: center;
+            border-top-left-radius: $border-radius-medium;
+            border-top-right-radius: $border-radius-medium;
+        }
 
-		&-title {
-			@include title-2;
-			
-			text-transform: uppercase;
-			color: $secondary;
-			font-size: 2rem;
-			margin-bottom: .3rem;
-		}
+        blockquote:before {
+            content: open-quote;
+        }
 
-		&-list {
-			li:not(:last-child) { margin-bottom: 2rem; }
-			
-			&-item {
-				display: flex;
-				align-items: start;
-				gap: .3rem;
+        blockquote:after {
+            content: close-quote;
+        }
 
-				img {
-					width: 30px;
-					height: 30px;
+        blockquote {
+            margin-bottom: 1rem;
+        }
 
-					@media (min-width: $break-medium) {
-						width: 40px;
-						height: 40px;
-					}
-				}
-			}
-		}
-	}
+        @media (min-width: $break-small) {
+            margin-bottom: 0;
+        }
 
-	&__subtitle {
-		@include title-2;
+        p {
+            margin-top: auto;
+        }
+    }
 
-		text-align: center;
+    &__voices {
+        h2 {
+            margin-bottom: 3rem;
+        }
 
-		span {
-			@include title-5;
+        &-wrap {
+            margin: 4rem auto 4rem;
+        }
+    }
 
-			color: $primary;
-			text-align: center;
-			margin: 4rem auto;
-		}
+    &__measures {
+        background-color: $secondary-super-transparent;
 
-		&--secondary {
-			color: $secondary;
-			margin-bottom: 3rem;
-		}
-	}
-	
-	&__button {
-		@include input-field;
-		@include secondary-button;
-		
-		display: inline-block;
-		width: fit-content;
-		margin-top: 1rem;
-	}
+        &-wrap {
+            padding: 2rem 1rem;
 
-	&__humor {
-		background: $primary-super-transparent;
-		text-align: center;
-		
-		h2 { margin-bottom: 2rem; }
-		img {
-			width: 100px;
-			margin: 0 auto;
-		}
-		p {
-			font-weight: 700;
-			font-size: 1.2rem;
-		}
+            @media (min-width: $break-medium) {
+                @include container;
 
-		&-content { margin-top: 2rem; }
-		
-		&-wrap {
-			padding: 2rem 1rem;
+                margin-bottom: 0;
+            }
 
-			@media (min-width: $break-medium) {
-				@include container-small;
+            @media (min-width: $break-medium) {
+                padding: 4rem 0;
+                max-width: $container;
+            }
 
-				margin-top: 0;
-			}
+            p {
+                font-weight: 700;
+                font-size: 1.2rem;
+            }
+        }
 
-			@media (min-width: $break-medium) {
-				padding: 4rem 0;
-				max-width: $container;
-			}
-		}
-	}
+        p:not(:last-child) {
+            margin: .3rem auto 1rem;
+        }
 
-	&__logos {
-		@include container;
+        &-title {
+            @include title-2;
 
-		@media (min-width: $break-large) {
-			margin: 4rem auto;
-			width: 60%;
-			max-width: $container;
-		}
-		
-		@media (min-width: $break-medium) { margin: 4rem auto; }
+            text-transform: uppercase;
+            color: $secondary;
+            font-size: 2rem;
+            margin-bottom: .3rem;
+        }
 
-		h2 { margin-bottom: 4rem; }
+        &-list {
+            li:not(:last-child) {
+                margin-bottom: 2rem;
+            }
 
-		&-wrap {
-			display: flex;
-			align-items: center;
-			flex-flow: column;
-			gap: 1rem;
-			justify-content: center;
+            &-item {
+                display: flex;
+                align-items: start;
+                gap: .3rem;
 
-			@media (min-width: $break-small) {
-				flex-flow: row;
-				flex-wrap: wrap;
-				gap: 2rem;
-			}
+                i {
+                    padding: 3px;
+                    font-size: 24px;
 
-			img {
-				height: auto;
-				width: 160px;
-				object-fit: contain;
+                    @media (min-width: $break-medium) {
+                        padding: 5px;
+                        font-size: 32px;
+                    }
+                }
+            }
+        }
+    }
 
-				@media (min-width: $break-medium) {
-					height: auto;
-					width: 160px;
-				}
-			}
-		}
-	}
+    &__subtitle {
+        @include title-2;
+
+        text-align: center;
+
+        span {
+            @include title-5;
+
+            color: $primary;
+            text-align: center;
+            margin: 4rem auto;
+        }
+
+        &--secondary {
+            color: $secondary;
+            margin-bottom: 3rem;
+        }
+    }
+
+    &__button {
+        @include input-field;
+        @include secondary-button;
+
+        display: inline-block;
+        width: fit-content;
+        margin-top: 1rem;
+    }
+
+    &__humor {
+        background: $primary-super-transparent;
+        text-align: center;
+
+        h2 {
+            margin-bottom: 2rem;
+        }
+
+        p {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        &-content {
+            margin-top: 2rem;
+        }
+
+        &-wrap {
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @media (min-width: $break-medium) {
+                @include container-small;
+
+                margin-top: 0;
+            }
+
+            @media (min-width: $break-medium) {
+                padding: 4rem 0;
+                max-width: $container;
+            }
+            i {
+                font-size: 100px;
+            }
+        }
+    }
+
+    &__logos {
+        @include container;
+
+        @media (min-width: $break-large) {
+            margin: 4rem auto;
+            width: 60%;
+            max-width: $container;
+        }
+
+        @media (min-width: $break-medium) {
+            margin: 4rem auto;
+        }
+
+        h2 {
+            margin-bottom: 4rem;
+        }
+
+        &-wrap {
+            display: flex;
+            align-items: center;
+            flex-flow: column;
+            gap: 1rem;
+            justify-content: center;
+
+            @media (min-width: $break-small) {
+                flex-flow: row;
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            img {
+                height: auto;
+                width: 160px;
+                object-fit: contain;
+
+                @media (min-width: $break-medium) {
+                    height: auto;
+                    width: 160px;
+                }
+            }
+        }
+    }
 }

@@ -14,25 +14,25 @@
 					<ul class="couches__offers offers">
 						<% if couch.user.travelling %>
 							<li class="offers-item">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg', alt: 'World icon') %>
+								<i class="quouch-world color-primary" aria-label="World icon"></i>
 								<p>currently travelling</p>
 							</li>
 						<% else %>
 							<% if couch.user.offers_couch %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg', alt: 'Sleep icon') %>
+									<i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
 									<p>host</p>
 								</li>
 							<% end %>
 							<% if couch.user.offers_hang_out %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg', alt: 'Hangout icon') %>
+									<i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
 									<p>hangout</p>
 								</li>
 							<% end %>
 							<% if couch.user.offers_co_work %>
 								<li class="offers-item">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg', alt: 'Work icon') %>
+									<i class="quouch-work color-primary" aria-label="Work icon"></i>
 									<p>cowork</p>
 								</li>
 							<% end %>
@@ -53,7 +53,7 @@
 								<%= couch.user.pronouns %>
 							</p>
 							<p class="couches__location">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/pin.svg') %>
+								<i class="quouch-pin color-secondary" aria-label="Pin icon"></i>
 								<% if couch.user.country == 'United Kingdom Of Great Britain and Northern Ireland' %>
 									<%= couch.user.city %>, United Kingdom
 								<% else %>
@@ -63,7 +63,7 @@
 						</div>
 						<% if couch.reviews.any? %>
 							<p class="couches__rating">
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/star.svg') %>
+								<i class="quouch-star color-secondary-light" aria-label="Star icon"></i>
 								<%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
 							</p>
 						<% end %>

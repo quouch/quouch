@@ -56,18 +56,25 @@
 		}
 
 		&-icon {
-			display: inline-block;
 			width: 200px;
 			height: 200px;
 			border-radius: $border-radius-round;
 			background-color: $secondary-transparent;
-			object-fit: cover;
-		}
+
+			font-size: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
 
 		&-upload {
 			display: flex;
 			gap: .3rem;
 			margin: 1rem auto 0;
+
+            i {
+                font-size: 24px;
+            }
 
 			&:hover { opacity: .7; }
 		}
@@ -202,7 +209,10 @@
 
 			margin: .5rem 0;
 		}
-	}
+        i {
+            font-size: 24px;
+        }
+    }
 
 	&__couch {
 		&-capacity {

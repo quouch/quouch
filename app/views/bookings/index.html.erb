@@ -1,152 +1,151 @@
-
 <section class="bookings">
-	<h1>Trips</h1>
-	<div class="bookings__wrap">
-	<% if @bookings.any? %>
-		<% if @upcoming.any? %>
-			<h2 class="bookings__title">Upcoming Trips</h2>
-			<ul class="upcoming-bookings">
-				<% @upcoming.each do |booking| %>
-					<%= link_to booking_path(booking) do %>
-						<li>
-							<ul class="upcoming-booking">
-							<% if booking.couch.user.photo.key %>
-								<%= cl_image_tag booking.couch.user.photo.key, class: 'upcoming-booking__profile', alt: 'Profile picture of user' %>
-							<% else %>
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'upcoming-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-							<% end %>
-								<div class="upcoming-booking__wrap">
-									<div class="upcoming-booking__info">
-										<li class="upcoming-booking__host">
-											<%= booking.couch.user.first_name %>
-										</li>
-										<li class="upcoming-booking__city">
-											<%= booking.couch.user.city %>
-										</li>
-									</div>
-									<div class="upcoming-booking__details">
-										<li class="upcoming-booking__detail">
-										<% if booking.host? %>
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep-secondary.svg', alt: 'Sleep icon in purple') %>
-											<p>Host</p>
-										<% elsif booking.hangout? %>
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout-secondary.svg', alt: 'Hangout icon in purple')  %>
-											<p>Hangout</p>
-										<% elsif booking.cowork? %>
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005868/work-secondary.svg', alt: 'Work icon in purple')  %>
-											<p>Cowork</p>
-										<% end %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon')  %>
-											<% if !booking.flexible %>
-												<%= booking.start_date.strftime("%b %d") %> - <%= booking.end_date.strftime("%b %d, %Y") %>
-											<% else %>
-												<p>Flexible</p>
-											<% end %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005863/home.svg', alt: 'Home icon')  %>
-											<%= booking.status.capitalize %>
-										</li>
-										<li class="upcoming-booking__detail">
-											<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005865/people.svg', alt: 'People icon')  %>
-											<%= pluralize booking.number_travellers, 'Traveller' %>
-										</li>
-									</div>
-								</div>
-							</ul>
-						</li>
-					<% end %>
-				<% end %>
-			</ul>
-		<% end %>
+  <h1>Trips</h1>
+  <div class="bookings__wrap">
+    <% if @bookings.any? %>
+      <% if @upcoming.any? %>
+        <h2 class="bookings__title">Upcoming Trips</h2>
+        <ul class="upcoming-bookings">
+          <% @upcoming.each do |booking| %>
+            <%= link_to booking_path(booking) do %>
+              <li>
+                <ul class="upcoming-booking">
+                  <% if booking.couch.user.photo.key %>
+                    <%= cl_image_tag booking.couch.user.photo.key, class: 'upcoming-booking__profile', alt: 'Profile picture of user' %>
+                  <% else %>
+                    <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'upcoming-booking__profile', alt: 'Example profile picture of Quouch example user') %>
+                  <% end %>
+                  <div class="upcoming-booking__wrap">
+                    <div class="upcoming-booking__info">
+                      <li class="upcoming-booking__host">
+                        <%= booking.couch.user.first_name %>
+                      </li>
+                      <li class="upcoming-booking__city">
+                        <%= booking.couch.user.city %>
+                      </li>
+                    </div>
+                    <div class="upcoming-booking__details">
+                      <li class="upcoming-booking__detail">
+                        <% if booking.host? %>
+                          <i class="quouch-sleep color-secondary" aria-label="Sleep icon"></i>
+                          <p>Host</p>
+                        <% elsif booking.hangout? %>
+                          <i class="quouch-hangout color-secondary" aria-label="Hangout icon"></i>
+                          <p>Hangout</p>
+                        <% elsif booking.cowork? %>
+                          <i class="quouch-work color-secondary" aria-label="Work icon"></i>
+                          <p>Cowork</p>
+                        <% end %>
+                      </li>
+                      <li class="upcoming-booking__detail">
+                        <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+                        <% if !booking.flexible %>
+                          <%= booking.start_date.strftime("%b %d") %> - <%= booking.end_date.strftime("%b %d, %Y") %>
+                        <% else %>
+                          <p>Flexible</p>
+                        <% end %>
+                      </li>
+                      <li class="upcoming-booking__detail">
+                        <i class="quouch-home color-secondary" aria-label="Home icon"></i>
+                        <%= booking.status.capitalize %>
+                      </li>
+                      <li class="upcoming-booking__detail">
+                        <i class="quouch-people color-secondary" aria-label="People icon"></i>
+                        <%= pluralize booking.number_travellers, 'Traveller' %>
+                      </li>
+                    </div>
+                  </div>
+                </ul>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
 
-		<% if @completed.any? %>
-		<h2 class="bookings__title">Past Trips</h2>
-		<ul class="past-bookings">
-			<% @completed.each do |booking| %>
-				<%= link_to booking_path(booking) do %>
-					<li>
-						<ul class="past-booking">
-							<li class="past-booking__profile">
-								<% if booking.couch.user.photo.key %>
-									<%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
-								<% else %>
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-								<% end %>
-							</li>
-							<div class="past-booking__wrap">
-								<li class="past-booking__host">
-									<%= booking.couch.user.first_name %>
-								</li>
-								<li class="past-booking__city">
-									<%= booking.couch.user.city %>
-								</li>
-								<li class="past-booking__detail">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
-									<% if !booking.flexible %>
-										<%= booking.start_date.strftime("%B, %Y") %>
-									<% else %>
-										<p>Flexible</p>
-									<% end %>
-								</li>
-								<% if booking.reviews.find_by(user: booking.user).nil? %>
-								<li class="past-booking__link">
-									Leave Review
-								</li>
-								<% else %>
-								<li class="past-booking__link">
-									See Details
-								</li>
-								<% end %>
-							</div>
-						</ul>
-					</li>
-				<% end %>
-			<% end %>
-		</ul>
-		<% end %>
+      <% if @completed.any? %>
+        <h2 class="bookings__title">Past Trips</h2>
+        <ul class="past-bookings">
+          <% @completed.each do |booking| %>
+            <%= link_to booking_path(booking) do %>
+              <li>
+                <ul class="past-booking">
+                  <li class="past-booking__profile">
+                    <% if booking.couch.user.photo.key %>
+                      <%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
+                    <% else %>
+                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
+                    <% end %>
+                  </li>
+                  <div class="past-booking__wrap">
+                    <li class="past-booking__host">
+                      <%= booking.couch.user.first_name %>
+                    </li>
+                    <li class="past-booking__city">
+                      <%= booking.couch.user.city %>
+                    </li>
+                    <li class="past-booking__detail">
+                      <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+                      <% if !booking.flexible %>
+                        <%= booking.start_date.strftime("%B, %Y") %>
+                      <% else %>
+                        <p>Flexible</p>
+                      <% end %>
+                    </li>
+                    <% if booking.reviews.find_by(user: booking.user).nil? %>
+                      <li class="past-booking__link">
+                        Leave Review
+                      </li>
+                    <% else %>
+                      <li class="past-booking__link">
+                        See Details
+                      </li>
+                    <% end %>
+                  </div>
+                </ul>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
 
-		<% if @cancelled.any? %>
-		<h2 class="bookings__title">Declined and Cancelled Trips</h2>
-		<ul class="past-bookings">
-			<% @cancelled.each do |booking| %>
-				<%= link_to booking_path(booking) do %>
-					<li>
-						<ul class="past-booking">
-							<li class="past-booking__profile">
-							<% if booking.couch.user.photo.key %>
-								<%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
-							<% else %>
-								<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-							<% end %>
-							</li>
-							<div class="past-booking__wrap">
-								<li class="past-booking__host">
-									<%= booking.couch.user.first_name %>
-								</li>
-								<li class="past-booking__city">
-									<%= booking.couch.user.city %>
-								</li>
-								<li class="past-booking__detail">
-									<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005859/calendar.svg', alt: 'Calendar icon') %>
-									<% if !booking.flexible %>
-										<%= booking.start_date.strftime("%B, %Y") %>
-									<% else %>
-										<p>Flexible</p>
-									<% end %>
-								</li>
-							</div>
-						</ul>
-					</li>
-				<% end %>
-			<% end %>
-		</ul>
-		<% end %>
-	<% else %>
-		<p class="bookings__empty">We couldn't find any bookings in our system yet - plan your trip now!</p>
-		<%= link_to 'Browse hosts now', root_path, class: 'bookings__redirect' %>
-	<% end %>
-	</div>
+      <% if @cancelled.any? %>
+        <h2 class="bookings__title">Declined and Cancelled Trips</h2>
+        <ul class="past-bookings">
+          <% @cancelled.each do |booking| %>
+            <%= link_to booking_path(booking) do %>
+              <li>
+                <ul class="past-booking">
+                  <li class="past-booking__profile">
+                    <% if booking.couch.user.photo.key %>
+                      <%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
+                    <% else %>
+                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
+                    <% end %>
+                  </li>
+                  <div class="past-booking__wrap">
+                    <li class="past-booking__host">
+                      <%= booking.couch.user.first_name %>
+                    </li>
+                    <li class="past-booking__city">
+                      <%= booking.couch.user.city %>
+                    </li>
+                    <li class="past-booking__detail">
+                      <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+                      <% if !booking.flexible %>
+                        <%= booking.start_date.strftime("%B, %Y") %>
+                      <% else %>
+                        <p>Flexible</p>
+                      <% end %>
+                    </li>
+                  </div>
+                </ul>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <p class="bookings__empty">We couldn't find any bookings in our system yet - plan your trip now!</p>
+      <%= link_to 'Browse hosts now', root_path, class: 'bookings__redirect' %>
+    <% end %>
+  </div>
 </section>

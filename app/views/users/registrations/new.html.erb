@@ -9,10 +9,10 @@
           <% if @user.photo.attached? %>
             <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
           <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', alt: 'Example profile picture of Quouch example user', data: { image_preview_target: 'preview' }) %>
+            <i class="quouch-placeholder color-secondary-dark user__image-icon" aria-label="Example profile picture of Quouch example user" data-image-preview-target="preview"></i>
           <% end %>
           <div class="user__image-upload">
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/profile-upload.svg', alt: 'Upload icon') %>
+            <i class="quouch-profile-upload" aria-label="Upload a profile picture"></i>
             <%= f.input :photo,
                         as: :file,
                         input_html: { class: 'display-none',
@@ -159,7 +159,7 @@
                                           autofocus: true,
                                           input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }},
                                           value: params[:user]&.dig(:travelling) %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680788161/world.svg', alt: 'World icon') %>
+                <i class="quouch-world color-primary" aria-label="World icon"></i>
                 <%= f.label               :currently_travelling %>
               </div>
             </div>
@@ -174,7 +174,7 @@
                                         autofocus: true,
                                         input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }},
                                         value: params[:user]&.dig(:offers_couch) %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005867/sleep.svg', alt: 'Sleep icon') %>
+                  <i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
                   <%= f.label           :host %>
                 </div>
                 <div class="user__offer">
@@ -183,7 +183,7 @@
                                         autofocus: true,
                                         label: false,
                                         value: params[:user]&.dig(:offers_co_work) %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005869/work.svg', alt: 'Work icon') %>
+                  <i class="quouch-work color-primary" aria-label="Work icon"></i>
                   <%= f.label           :cowork, 'Co-Work' %>
                 </div>
                 <div class="user__offer">
@@ -192,7 +192,7 @@
                                         autofocus: true,
                                         label: false,
                                         value: params[:user]&.dig(:offers_hang_out) %>
-                  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005862/hangout.svg', alt: 'Hangout icon') %>
+                  <i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
                   <%= f.label           :hangout, 'Hang Out' %>
                 </div>
               </div>

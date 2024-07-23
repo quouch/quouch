@@ -16,45 +16,50 @@ Booking app for homestay from queer & female perspective.
     gh repo clone lisbethpurrucker/quouch
     ```
 
-2. Create the `master.key` file and add the key provided by Liz
+2. Initialize and update submodules (needed for our icons!)
+   ```
+   git submodule update --init --recursive
+   ```
+   
+3. Create the `master.key` file and add the key provided by Liz
    ```bash
    touch config/master.key
    ```
 
-3. Create your .env file and replace the values with your own credentials. 
+4. Create your .env file and replace the values with your own credentials.
    ```bash 
    cp .env.example .env
    ```
 
-4. Install dependencies
+5. Install dependencies
    ```bash
    bundle install
    ```
 
-5. Create the database
+6. Create the database
    ```bash
    rails db:create
    ```
 
-6. Run the migrations
+7. Run the migrations
 
    ```bash
    rails db:migrate
    ```
 
-7. Seed the project with some initial data
+8. Seed the project with some initial data
 
    ```bash
    rails db:seed
    ```
 
-8. Start the server
+9. Start the server
 
    ```bash
    rails s
    ```
 
-9. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
+10. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
 
 It is recommended to complete your profile at this point, as the app is still in development and there might be errors
 if you try to access certain pages without a complete profile. You can do it by
@@ -69,13 +74,15 @@ rails dev:populate
 ```
 
 This will create:
+
 - 30 new users with random data
 
 ## 2. Developing
 
 ### 2.1 IDEs
 
-Feel free to use whichever IDE you like! Our configuration is IDE agnostic and rubocop handles all of the code styling, so as long as you're running rubocop before committing, you should be good!
+Feel free to use whichever IDE you like! Our configuration is IDE agnostic and rubocop handles all of the code styling,
+so as long as you're running rubocop before committing, you should be good!
 
 #### Want to use a browser-based IDE?
 
@@ -84,7 +91,9 @@ Feel free to use whichever IDE you like! Our configuration is IDE agnostic and r
 This repository contains configuration files to get started with in GitPod with very little effort! Try it out:
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/lisbethpurrucker/quouch)
 
-Please note that the build/serving of the app will fail until you add the master key to the repository. You can do this by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable to GitPod called `RAILS_MASTER_KEY`.
+Please note that the build/serving of the app will fail until you add the master key to the repository. You can do this
+by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
+to GitPod called `RAILS_MASTER_KEY`.
 
 ## Troubleshooting
 
