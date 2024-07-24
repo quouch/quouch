@@ -9,7 +9,7 @@
           <% if @user.photo.attached? %>
             <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
           <% else %>
-            <i class="quouch-placeholder color-secondary-dark user__image-icon" aria-label="Example profile picture of Quouch example user" data-image-preview-target="preview"></i>
+            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', alt: 'Example profile picture of Quouch example user', data: { image_preview_target: 'preview' }) %>
           <% end %>
           <div class="user__image-upload">
             <i class="quouch-profile-upload" aria-label="Upload a profile picture"></i>
