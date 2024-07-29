@@ -3,6 +3,7 @@ class StripeDeleteSubscriptionService
     stripe_id = event.data.object.id
     subscription = Subscription.find_by(stripe_id:)
     user_id = User.find(subscription.user_id)
+    plan_id = subscription.plan_id
     return unless subscription
 
     stripe_subscription = Stripe::Subscription.retrieve(stripe_id)
@@ -17,7 +18,7 @@ class StripeDeleteSubscriptionService
 
         user_payment_method_id = fetch_user_payment_method(user_id)
 
-        create_new_subscription(user_id, new_price_id, user_payment_method_id)
+        create_new_subscription(user_id, new_price_id, user_payment_method_id, plan_id)
       end
     else
       Rails.logger.error "No matching price configuration found for stripe_price_id #{stripe_price_id}"
@@ -41,7 +42,7 @@ class StripeDeleteSubscriptionService
     customer.invoice_settings.default_payment_method
   end
 
-  def create_new_subscription(user_id, new_price_id, payment_method_id)
+  def create_new_subscription(user_id, new_price_id, payment_method_id, plan_id)
     stripe_customer_id = find_stripe_customer_id(user_id)
 
     Stripe::Subscription.create(
@@ -50,6 +51,7 @@ class StripeDeleteSubscriptionService
       default_payment_method: payment_method_id,
       expand: ['latest_invoice.payment_intent']
     )
+    Subscription.create(user_id:, stripe_id: stripe_subscription.id, plan_id:)
   end
 
   def find_stripe_customer_id(user_id)
