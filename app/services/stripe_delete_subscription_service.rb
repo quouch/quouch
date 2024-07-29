@@ -2,7 +2,7 @@ class StripeDeleteSubscriptionService
   def call(event)
     stripe_id = event.data.object.id
     subscription = Subscription.find_by(stripe_id:)
-    user_id = User.find(subscription.user_id)
+    user_id = User.find(subscription.user_id).id
     plan_id = subscription.plan_id
     return unless subscription
 
