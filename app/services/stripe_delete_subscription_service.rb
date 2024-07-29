@@ -45,13 +45,14 @@ class StripeDeleteSubscriptionService
   def create_new_subscription(user_id, new_price_id, payment_method_id, plan_id)
     stripe_customer_id = find_stripe_customer_id(user_id)
 
-    Stripe::Subscription.create(
+    new_stripe_subscription = Stripe::Subscription.create(
       customer: stripe_customer_id,
       items: [{ price: new_price_id }],
       default_payment_method: payment_method_id,
       expand: ['latest_invoice.payment_intent']
     )
-    Subscription.create(user_id:, stripe_id: stripe_subscription.id, plan_id:)
+
+    Subscription.create(user_id:, stripe_id: new_stripe_subscription.id, plan_id:)
   end
 
   def find_stripe_customer_id(user_id)
