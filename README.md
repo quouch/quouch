@@ -95,6 +95,31 @@ Please note that the build/serving of the app will fail until you add the master
 by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
 to GitPod called `RAILS_MASTER_KEY`.
 
+
+## Tooling
+
+### Running tests
+
+To run the tests, you can use the following command:
+
+```bash
+rails test
+```
+
+### Linting
+
+We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
+
+```bash
+rubocop
+```
+
+If you want to autofix the issues that Rubocop finds, you can run the following command:
+
+```bash
+rubocop -A
+```
+
 ## Troubleshooting
 
 ### PostgreSQL in MacOS (M1)
