@@ -4,6 +4,7 @@ namespace :dev do
   desc 'Fill database with sample data'
   task populate: :environment do
     abort('This task cannot be run in the production environment.') if Rails.env.production?
+    abort('This task requires the BASE_USER_EMAIL environment variable to be set.') unless ENV.key?('BASE_USER_EMAIL')
 
     puts 'Delete all users except the one with the BASE_USER_EMAIL'
     User.where.not(email: ENV.fetch('BASE_USER_EMAIL', nil)).destroy_all
@@ -37,6 +38,7 @@ namespace :dev do
 
   task test_plans: :environment do
     abort('This task cannot be run in the production environment.') if Rails.env.production?
+    abort('This task cannot be run in the development environment.') if Rails.env.development?
     puts 'Delete all existing plans and create a couple of fake plans'
     Subscription.destroy_all
     Plan.destroy_all
