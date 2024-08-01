@@ -52,6 +52,7 @@ class BookingsController < ApplicationController
     @booking.booking_date = DateTime.now
     if @booking.save
       @booking.pending!
+      BookingMailer.with(booking: @booking).new_request_email.deliver_later
       track_booking_event_amplitude('New Booking')
       redirect_to sent_booking_path(@booking)
     else
