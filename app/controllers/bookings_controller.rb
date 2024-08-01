@@ -31,8 +31,7 @@ class BookingsController < ApplicationController
         marker_html: render_to_string(partial: 'marker')
       }
     end
-    @chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: @guest.id) ||
-            Chat.find_by(user_sender_id: @guest.id, user_receiver_id: @host.id)
+    @chat = find_chat(@host, @guest)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)
   end
@@ -110,9 +109,7 @@ class BookingsController < ApplicationController
     @couch = @booking.couch
     @host = @couch.user
     @guest = @booking.user
-    @chat = Chat.find_by(user_sender_id: @guest.id,
-                         user_receiver_id: @host.id) || Chat.find_by(user_sender_id: @host.id,
-                                                                     user_receiver_id: @guest.id)
+    @chat = find_chat(@guest, @host)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)
   end
@@ -145,25 +142,14 @@ class BookingsController < ApplicationController
     end
   end
 
-  def complete
-    @booking = Booking.find(params[:id])
-    @booking.completed!
-    BookingMailer.with(booking: @booking).booking_completed_guest_email.deliver_later
-    BookingMailer.with(booking: @booking).booking_completed_host_email.deliver_later
-    redirect_to booking_path(@booking)
-    track_booking_event_amplitude('Booking Completed')
-  end
-
   def decline_and_send_message
     content = params[:message]
 
     if content.blank?
       decline(nil)
     else
-      chat = Chat.find_by(user_sender_id: @booking.user.id, user_receiver_id: current_user.id) ||
-             Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
-
-      chat = Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id) if chat.nil?
+      chat = find_chat(@booking.user,
+                       current_user) || Chat.create(user_sender_id: current_user.id, user_receiver_id: @booking.user.id)
       Message.create(user_id: current_user.id, chat:, content:)
       decline(chat)
     end
@@ -236,10 +222,21 @@ class BookingsController < ApplicationController
     AmplitudeAPI.track(event)
   end
 
+  def find_chat(user1, user2)
+    Chat.find_by(user_sender_id: user1.id, user_receiver_id: user2.id) ||
+      Chat.find_by(user_sender_id: user2.id, user_receiver_id: user1.id)
+  end
+
   def create_chat_and_message(booking)
     host = booking.couch.user
     guest = booking.user
-    chat = Chat.create(user_sender_id: guest.id, user_receiver_id: host.id)
-    chat.messages.create(content: booking.message, user: guest)
+    chat = find_chat(guest, host) || Chat.create(user_sender_id: guest.id, user_receiver_id: host.id)
+
+    message = chat.messages.create(content: booking.message, user: guest)
+    if message.persisted?
+      Rails.logger.info "Message created successfully with ID: #{message.id}"
+    else
+      Rails.logger.error "Message could not be created: #{message.errors.full_messages.join(', ')}"
+    end
   end
 end
