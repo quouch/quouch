@@ -116,8 +116,10 @@ class BookingsController < ApplicationController
 
   def sent
     @host = @booking.couch.user
+    guest = @booking.user
     @couch = @booking.couch
     @booking = Booking.find(params[:id])
+    @chat = find_chat(guest, @host)
   end
 
   def confirmed
@@ -231,12 +233,6 @@ class BookingsController < ApplicationController
     host = booking.couch.user
     guest = booking.user
     chat = find_chat(guest, host) || Chat.create(user_sender_id: guest.id, user_receiver_id: host.id)
-
-    message = chat.messages.create(content: booking.message, user: guest)
-    if message.persisted?
-      Rails.logger.info "Message created successfully with ID: #{message.id}"
-    else
-      Rails.logger.error "Message could not be created: #{message.errors.full_messages.join(', ')}"
-    end
+    chat.messages.create(content: booking.message, user: guest)
   end
 end

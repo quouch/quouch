@@ -77,11 +77,20 @@
     }
 
     &__link {
-        @include primary-button;
         @include input-field;
 
-        color: $white;
-        margin: 2rem 0;
+        &--primary {
+            @include primary-button;
+
+            color: $white;
+            margin: 2rem 0 1rem;
+        }
+        &--secondary {
+            @include tertiary-button;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
     }
 
     &__message {
