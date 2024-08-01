@@ -44,16 +44,19 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @couch = Couch.find(params[:couch_id])
     @booking = Booking.new(booking_params)
     @booking.couch = @couch
     @guest = @booking.user
     @host = @couch.user
     @booking.user = current_user
     @booking.booking_date = DateTime.now
+
     if @booking.save
       @booking.pending!
       BookingMailer.with(booking: @booking).new_request_email.deliver_later
       track_booking_event_amplitude('New Booking')
+      create_chat_and_message(@booking)
       redirect_to sent_booking_path(@booking)
     else
       offers(@host)
@@ -231,5 +234,12 @@ class BookingsController < ApplicationController
       time: Time.now
     )
     AmplitudeAPI.track(event)
+  end
+
+  def create_chat_and_message(booking)
+    host = booking.couch.user
+    guest = booking.user
+    chat = Chat.create(user_sender_id: guest.id, user_receiver_id: host.id)
+    chat.messages.create(content: booking.message, user: guest)
   end
 end
