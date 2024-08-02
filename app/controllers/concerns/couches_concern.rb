@@ -19,7 +19,7 @@ module CouchesConcern
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
-    apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
+    apply_offers_filter if params.keys.any? { |key| key.to_s.include?('offers') }
 
     items = params[:items] || 9
 
