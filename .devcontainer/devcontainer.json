@@ -1,25 +1,37 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/ruby-rails-postgres
+// README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
-	"name": "Ruby on Rails & Postgres",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
+	"name": "Default Linux Universal",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/universal:2-linux",
 	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// This can be used to network with other containers or the host.
-	"forwardPorts": [3000, 5432],
-
-	"updateContentCommand": "rvm install 3.1.2 && rvm use 3.1.2 ",
-	// Use 'postCreateCommand' to run commands after the container is created.
+	"features": {
+		"ghcr.io/devcontainers/features/ruby": {
+			"version": "3.1.2"
+		},
+		"ghcr.io/itsmechlark/features/postgresql:1": {
+			"version": "latest"
+		}
+	},
 	
-	"postCreateCommand": "bundle install && rake db:setup"
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [5432],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "bundle install && sudo service postgresql start && rake db:setup",
+	"postCreateCommand": "bundle install && sudo service postgresql start && rails db:create",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dracula-theme.theme-dracula",
+				"github.copilot",
+				"github.copilot-chat",
+				"shopify.ruby-lsp"
+			]
+		}
+	},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
