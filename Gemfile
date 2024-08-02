@@ -117,7 +117,11 @@ group :development, :test do
   gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'minitest-reporters'
   gem 'rspec-rails'
+  gem 'shoulda', '~> 4.0'
   # Fake test data
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'

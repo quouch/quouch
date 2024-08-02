@@ -104,3 +104,5 @@ base_user = User.new(
 )
 
 base_user.save!(validate: false)
+
+Couch.create!(user: base_user)

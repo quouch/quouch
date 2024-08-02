@@ -7,7 +7,7 @@ Booking app for homestay from queer & female perspective.
 ### 1.1. Prerequisites
 
 - Ruby v3.1.2 (recommendation: [use `rbenv`](https://github.com/rbenv/rbenv))
-- PostgreSQL v15+
+- PostgreSQL v15+ or Docker if you prefer [see Docker section](#31-docker)
 
 ### 1.2. Installation
 
@@ -92,9 +92,19 @@ Please note that the build/serving of the app will fail until you add the master
 by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
 to GitPod called `RAILS_MASTER_KEY`.
 
-## Tooling
+## 3. Tooling
 
-### Running tests
+### 3.1 Docker
+
+If you prefer using Docker instead of installing PostgreSQL locally, you can run:
+
+```bash
+docker compose -f .devcontainer/docker-compose.yml up db -d
+```
+
+> What does this do? Docker compose is used to manage multi container apps. `-f` is used to determine which file will be used. `up` is the command for starting containers, `db` is the container we want to start. `-d` means it runs in detached mode.
+
+### 3.2 Running tests
 
 To run the tests, you can use the following command:
 
@@ -120,7 +130,7 @@ And for running only one directory:
 rails test test/models
 ```
 
-### Linting
+### 3.3 Linting
 
 We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
 
