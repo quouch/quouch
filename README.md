@@ -16,44 +16,39 @@ Booking app for homestay from queer & female perspective.
     gh repo clone lisbethpurrucker/quouch
     ```
 
-2. Initialize and update submodules (needed for our icons!)
-   ```
-   git submodule update --init --recursive
-   ```
-
-3. Create the `master.key` file and add the key provided by Liz
+2. Create the `master.key` file and add the key provided by Liz
    ```bash
    touch config/master.key
    ```
 
-4. Create your .env file and replace the values with your own credentials.
+3. Create your .env file and replace the values with your own credentials.
    ```bash 
    cp .env.example .env
    ```
 
-5. Install dependencies
+4. Install dependencies
    ```bash
    bundle install
    ```
 
-6. Create the database
+5. Create the database
    ```bash
    rails db:create
    ```
 
-7. Run the migrations
+6. Run the migrations
 
    ```bash
    rails db:migrate
    ```
 
-8. Seed the project with some initial data
+7. Seed the project with some initial data
 
    ```bash
    rails db:seed
    ```
 
-9. Start the server
+8. Start the server
 
    ```bash
    rails s
@@ -76,6 +71,8 @@ rails dev:populate
 This will create:
 
 - 30 new users with random data
+
+Need more mock data? Try running `rails dev:test_booking` or `rails dev:test_plans` for creating fake bookings or subscription plans for the default user.
 
 ## 2. Developing
 

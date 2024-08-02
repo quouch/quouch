@@ -1,0 +1,15 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/ruby:3.1",
+  "features": {
+    "ghcr.io/itsmechlark/features/postgresql:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/ruby:1": {}
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "bundle install",
+  "postCreateCommand": "",
+  "postAttachCommand": {
+    "server": "rails server"
+  },
+}
