@@ -5,7 +5,12 @@ module ProfilePictureHelper
 
   class_methods do
     def photo_url(user)
-      user.photo.url
+      if Rails.configuration.active_storage.service == :test
+        h = "http://#{Rails.application.routes.default_url_options[:host]}"
+        ::ActiveStorage::Current.set(url_options: { host: h }) { user.photo.url }
+      else
+        user.photo.url
+      end
     end
   end
 end

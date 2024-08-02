@@ -20,7 +20,7 @@ Booking app for homestay from queer & female perspective.
    ```
    git submodule update --init --recursive
    ```
-   
+
 3. Create the `master.key` file and add the key provided by Liz
    ```bash
    touch config/master.key
@@ -94,6 +94,48 @@ This repository contains configuration files to get started with in GitPod with 
 Please note that the build/serving of the app will fail until you add the master key to the repository. You can do this
 by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
 to GitPod called `RAILS_MASTER_KEY`.
+
+## Tooling
+
+### Running tests
+
+To run the tests, you can use the following command:
+
+```bash
+rails test
+```
+
+If you want to run the tests in a specific file, you can use the following command:
+
+```bash
+rails test test/models/user_test.rb
+```
+
+For running only one test, indicate the line number:
+
+```bash
+rails test test/models/user_test.rb:49
+```
+
+And for running only one directory:
+
+```bash
+rails test test/models
+```
+
+### Linting
+
+We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
+
+```bash
+rubocop
+```
+
+If you want to autofix the issues that Rubocop finds, you can run the following command:
+
+```bash
+rubocop -A
+```
 
 ## Troubleshooting
 

@@ -14,4 +14,4 @@ PRODUCTS_PRICE_IDS = [
     new_price_id: 'price_1PQEckEPEHgNPzy2NSGK31B2' },
   { product: 'Quouch Supporter yearly', old_price_ids: %w[price_1OtZn1EPEHgNPzy2IfuZJq3e price_1POI1KEPEHgNPzy2opcY0aYU],
     new_price_id: 'price_1PQTLOEPEHgNPzy2UzAN8Ij3' }
-]
+].freeze

@@ -1,7 +1,11 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'faker'
 
+Faker::Config.random = Random.new
+
+# TODO: Mock away Geocoder in tests
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -11,5 +15,12 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+
+    # Clean up the database
+    Minitest.after_run do
+      ActiveRecord::Base.subclasses.each do |subclass|
+        subclass.delete_all if subclass.table_name
+      end
+    end
   end
 end
