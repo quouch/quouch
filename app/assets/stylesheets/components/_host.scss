@@ -86,7 +86,7 @@
 
         @media (min-width: $break-x-large) {
             flex-wrap: nowrap;
-            justify-content: start;
+            justify-content: flex-start;
         }
     }
 
