@@ -94,6 +94,7 @@ GEM
       net-http-persistent
     amplitude-api (0.4.2)
       faraday (>= 1.0, < 3.0)
+    ansi (1.5.0)
     ast (2.4.2)
     autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
@@ -185,9 +186,23 @@ GEM
       rake
     font-awesome-sass (6.5.2)
       sassc (~> 2.0)
+    formatador (1.1.0)
     geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    guard (2.18.1)
+      formatador (>= 0.2.4)
+      listen (>= 2.7, < 4.0)
+      lumberjack (>= 1.0.12, < 2.0)
+      nenv (~> 0.1)
+      notiffany (~> 0.0)
+      pry (>= 0.13.0)
+      shellany (~> 0.0)
+      thor (>= 0.18.1)
+    guard-compat (1.2.1)
+    guard-minitest (2.4.6)
+      guard-compat (~> 1.2)
+      minitest (>= 3.0)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -228,12 +243,16 @@ GEM
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
+    listen (3.9.0)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     llhttp-ffi (0.5.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
+    lumberjack (1.2.10)
     mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
@@ -247,6 +266,11 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.3)
+    minitest-reporters (1.7.1)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     monetize (1.13.0)
       money (~> 6.12)
     money (6.19.0)
@@ -258,6 +282,7 @@ GEM
       railties (>= 3.0)
     msgpack (1.7.2)
     multipart-post (2.4.0)
+    nenv (0.3.0)
     nested_form (0.3.2)
     net-http (0.4.1)
       uri
@@ -280,6 +305,9 @@ GEM
     noticed (1.6.3)
       http (>= 4.0.0)
       rails (>= 5.2.0)
+    notiffany (0.1.3)
+      nenv (~> 0.1)
+      shellany (~> 0.0)
     orm_adapter (0.5.0)
     pagy (6.0.4)
     parallel (1.24.0)
@@ -343,6 +371,9 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.2.1)
+    rb-fsevent (0.11.2)
+    rb-inotify (0.11.1)
+      ffi (~> 1.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     redis (4.8.1)
@@ -405,6 +436,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    shellany (0.0.1)
+    shoulda (4.0.0)
+      shoulda-context (~> 2.0)
+      shoulda-matchers (~> 4.0)
+    shoulda-context (2.0.0)
+    shoulda-matchers (4.5.1)
+      activesupport (>= 4.2.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -489,10 +527,13 @@ DEPENDENCIES
   faker!
   font-awesome-sass (~> 6.1)
   geocoder
+  guard
+  guard-minitest
   importmap-rails (~> 1.2.3)
   jbuilder
   jsonapi-serializer
   mail_form
+  minitest-reporters
   money-rails (~> 1.12)
   noticed (~> 1.6)
   pagy
@@ -510,6 +551,7 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
+  shoulda (~> 4.0)
   simple_form!
   simplecov
   sprockets-rails
