@@ -304,7 +304,66 @@ class CouchesConcernTest < ActiveSupport::TestCase
     assert_equal [@couch], @couches
   end
 
+  test 'pagination should work' do
+    setup_with_pagination
+
+    index
+
+    # Add assertions to check that the offers filter was applied correctly
+    assert_equal 5, @couches.length
+    assert_equal 10, @pagy.count
+    first_page = @couches
+
+    # Navigate to next page
+    params[:page] = 2
+    index
+
+    # Add assertions to check that the pagination works
+    assert_equal 5, @couches.length
+    assert_not_same @couches, first_page
+  end
+
+  test 'pagination should work with filters' do
+    setup_with_pagination
+
+    # Change the city for 5+ users
+    User.last(7).each do |user|
+      user.city = 'Test City'
+      user.save!
+    end
+
+    assert_equal 7, User.where(city: 'Test City').count
+
+    # Filter by city
+    params[:query] = 'Test City'
+    index
+
+    # Add assertions to check that the offers filter was applied correctly
+    assert_equal 5, @couches.length
+    assert_equal 7, @pagy.count
+    first_page = @couches
+
+    # Navigate to next page
+    params[:page] = 2
+    index
+
+    # Add assertions to check that the pagination works
+    assert_equal 2, @couches.length
+    assert_not_same @couches, first_page
+  end
+
   private
+
+  def setup_with_pagination
+    # Create 10 couches
+    10.times do
+      host = FactoryBot.create(:test_user)
+      Couch.create!(user: host)
+    end
+
+    # Set up necessary conditions for the offers filter
+    params[:items] = 5
+  end
 
   def params
     @params ||= {}

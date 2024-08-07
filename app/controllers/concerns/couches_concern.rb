@@ -17,9 +17,9 @@ module CouchesConcern
                              .where.not(user: { first_name: nil, city: nil, country: nil })
                              .order('RANDOM()')
 
+    apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.to_s.include?('offers') }
-    apply_search_filter if params[:query].present?
 
     items = params[:items] || 9
 
