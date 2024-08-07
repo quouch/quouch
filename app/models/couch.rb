@@ -12,7 +12,7 @@ class Couch < ApplicationRecord
 
   scope :active, -> { joins(:user).where(users: { offers_couch: true }) }
 
-  pg_search_scope :search,
+  pg_search_scope :search_by_location,
                   associated_against: {
                     user: %i[
                       city

@@ -7,7 +7,7 @@ Booking app for homestay from queer & female perspective.
 ### 1.1. Prerequisites
 
 - Ruby v3.1.2 (recommendation: [use `rbenv`](https://github.com/rbenv/rbenv))
-- PostgreSQL v15+
+- PostgreSQL v15+ or Docker if you prefer [see Docker section](#31-docker)
 
 ### 1.2. Installation
 
@@ -16,44 +16,39 @@ Booking app for homestay from queer & female perspective.
     gh repo clone lisbethpurrucker/quouch
     ```
 
-2. Initialize and update submodules (needed for our icons!)
-   ```
-   git submodule update --init --recursive
-   ```
-
-3. Create the `master.key` file and add the key provided by Liz
+2. Create the `master.key` file and add the key provided by Liz
    ```bash
    touch config/master.key
    ```
 
-4. Create your .env file and replace the values with your own credentials.
+3. Create your .env file and replace the values with your own credentials.
    ```bash 
    cp .env.example .env
    ```
 
-5. Install dependencies
+4. Install dependencies
    ```bash
    bundle install
    ```
 
-6. Create the database
+5. Create the database
    ```bash
    rails db:create
    ```
 
-7. Run the migrations
+6. Run the migrations
 
    ```bash
    rails db:migrate
    ```
 
-8. Seed the project with some initial data
+7. Seed the project with some initial data
 
    ```bash
    rails db:seed
    ```
 
-9. Start the server
+8. Start the server
 
    ```bash
    rails s
@@ -77,6 +72,8 @@ This will create:
 
 - 30 new users with random data
 
+Need more mock data? Try running `rails dev:test_booking` or `rails dev:test_plans` for creating fake bookings or subscription plans for the default user.
+
 ## 2. Developing
 
 ### 2.1 IDEs
@@ -95,9 +92,19 @@ Please note that the build/serving of the app will fail until you add the master
 by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
 to GitPod called `RAILS_MASTER_KEY`.
 
-## Tooling
+## 3. Tooling
 
-### Running tests
+### 3.1 Docker
+
+If you prefer using Docker instead of installing PostgreSQL locally, you can run:
+
+```bash
+docker compose -f .devcontainer/docker-compose.yml up db -d
+```
+
+> What does this do? Docker compose is used to manage multi container apps. `-f` is used to determine which file will be used. `up` is the command for starting containers, `db` is the container we want to start. `-d` means it runs in detached mode.
+
+### 3.2 Running tests
 
 To run the tests, you can use the following command:
 
@@ -123,7 +130,7 @@ And for running only one directory:
 rails test test/models
 ```
 
-### Linting
+### 3.3 Linting
 
 We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
 

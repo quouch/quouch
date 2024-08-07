@@ -41,6 +41,10 @@ FactoryBot.define do
     end
 
     factory :test_user, class: User do
+      offers_co_work { false }
+      offers_hang_out { false }
+      travelling { false }
+
       after(:build) do |user|
         file = URI.parse(Faker::Avatar.image).open
         user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
