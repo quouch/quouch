@@ -28,3 +28,19 @@ module ActiveSupport
     end
   end
 end
+
+require_relative 'helpers/sign_in_helper'
+require_relative 'helpers/user_helper'
+
+module ActiveSupport
+  class TestCase
+    include UserHelper
+  end
+end
+
+module ActionDispatch
+  class IntegrationTest
+    include SignInHelper
+    include UserHelper
+  end
+end
