@@ -19,7 +19,7 @@ module CouchesConcern
 
     apply_search_filter if params[:query].present?
     apply_characteristics_filter if params[:characteristics].present?
-    apply_offers_filter if params.keys.any? { |key| key.include?('offers') }
+    apply_offers_filter if params.keys.any? { |key| key.to_s.include?('offers') }
 
     items = params[:items] || 9
 
@@ -29,7 +29,10 @@ module CouchesConcern
   private
 
   def apply_search_filter
-    @shuffled_couches = @shuffled_couches.search(params[:query])
+    @shuffled_couches = @shuffled_couches.search_by_location(params[:query])
+                                         # use .reorder to eliminate the order by ranking that pg_search creates.
+                                         # The pg_search.rank ordering conflicts with the `group` and `having` clauses introduced by the characteristics filter
+                                         .reorder('RANDOM()')
   end
 
   def apply_characteristics_filter

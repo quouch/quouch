@@ -22,18 +22,18 @@ FactoryBot.define do
 
     user_characteristics { build_list(:user_characteristic, 3) }
 
+    after(:build) do |user|
+      file = URI.parse(Faker::Avatar.image).open
+      user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
+
+      random_address = ADDRESSES.sample
+      user.address = random_address[:street]
+      user.zipcode = random_address[:zipcode]
+      user.city = random_address[:city]
+      user.country = random_address[:country]
+    end
+
     factory :random_user do
-      after(:build) do |user|
-        file = URI.parse(Faker::Avatar.image).open
-        user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
-
-        random_address = ADDRESSES.sample
-        user.address = random_address[:street]
-        user.zipcode = random_address[:zipcode]
-        user.city = random_address[:city]
-        user.country = random_address[:country]
-      end
-
       after(:create) do |user|
         # Needed for the search to work: add a couch for the newly created user
         Couch.create!(user:)
@@ -41,15 +41,18 @@ FactoryBot.define do
     end
 
     factory :test_user, class: User do
-      after(:build) do |user|
-        file = URI.parse(Faker::Avatar.image).open
-        user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
+      offers_co_work { false }
+      offers_hang_out { false }
+      travelling { false }
+    end
 
-        random_address = ADDRESSES.sample
-        user.address = random_address[:street]
-        user.zipcode = random_address[:zipcode]
-        user.city = random_address[:city]
-        user.country = random_address[:country]
+    factory :test_user_couch, class: User do
+      offers_co_work { false }
+      offers_hang_out { false }
+      travelling { false }
+
+      after(:create) do |user|
+        Couch.create!(user:)
       end
     end
   end

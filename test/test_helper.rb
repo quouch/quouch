@@ -2,6 +2,10 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'faker'
+require 'minitest/autorun'
+require 'minitest/reporters'
+
+Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new unless ENV['RM_INFO']
 
 Faker::Config.random = Random.new
 
@@ -22,5 +26,21 @@ module ActiveSupport
         subclass.delete_all if subclass.table_name
       end
     end
+  end
+end
+
+require_relative 'helpers/sign_in_helper'
+require_relative 'helpers/user_helper'
+
+module ActiveSupport
+  class TestCase
+    include UserHelper
+  end
+end
+
+module ActionDispatch
+  class IntegrationTest
+    include SignInHelper
+    include UserHelper
   end
 end
