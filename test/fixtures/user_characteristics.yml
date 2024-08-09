@@ -1,0 +1,10 @@
+<% 15.times do |n| %>
+user_characteristic_<%= n %>:
+  user_id: <%= n %>
+  characteristic_id: 1
+<% end %>
+
+# create admin user to login and check the test environment!
+manual:
+  user_id: 1000
+  characteristic_id: 1

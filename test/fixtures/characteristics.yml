@@ -1,8 +1,11 @@
 queer:
+  id: 1
   name: Queer
 
 non_smoker:
+  id: 2
   name: Non-smoker
 
 vaccinated:
+  id: 3
   name: Vaccinated

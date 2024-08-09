@@ -1,1 +1,10 @@
-avatar_blob: <%= ActiveStorage::FixtureSet.blob filename: "avatar.png" %>
+avatar_blob:
+  id: 1
+  key: avatar.png
+  filename: avatar.png
+  content_type: image/png
+  metadata: {}
+  byte_size: <%= File.size(Rails.root.join('test', 'fixtures', 'files', 'avatar.png')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('test', 'fixtures', 'files', 'avatar.png')).base64digest %>
+  created_at: <%= Time.current %>
+  service_name: test

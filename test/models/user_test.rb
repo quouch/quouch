@@ -1,24 +1,9 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  fixtures :users
   def setup
-    random_address = ADDRESSES.sample
-    @user = User.new(
-      first_name: 'John',
-      last_name: 'Doe',
-      email: Faker::Internet.email,
-      password: Faker::Internet.password,
-      date_of_birth: 25.years.ago,
-      address: random_address[:street],
-      zipcode: random_address[:zipcode],
-      city: random_address[:city],
-      country: random_address[:country],
-      summary: Faker::Hipster.paragraph_by_chars(characters: 60),
-      characteristics: [Characteristic.first, Characteristic.second],
-      offers_couch: true
-    )
-
-    @user.photo.attach(active_storage_blobs(:avatar_blob))
+    @user = FactoryBot.build(:test_user)
   end
 
   test 'should not save user without a first name' do
@@ -67,7 +52,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should not save user without characteristics' do
-    @user.characteristics = []
+    @user.user_characteristics = []
+    UserCharacteristic.where(user: @user).delete_all
+
     assert_not @user.valid?
   end
 

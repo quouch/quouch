@@ -1,0 +1,34 @@
+<% 15.times do |n| %>
+user_<%= n %>:
+  id: <%= n %>
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, Faker::Internet.password) %>
+  confirmed_at: <%= Time.now %>
+  date_of_birth: <%= 25.years.ago %>
+  summary: <%= Faker::Hipster.paragraph_by_chars(characters: 60) %>
+  offers_couch: <%= true %>
+  offers_co_work: <%= true %>
+  offers_hang_out: <%= true %>
+  travelling: <%= true %>
+  address: <%= Faker::Address.street_address %>
+  city: <%= Faker::Address.city %>
+  zipcode: <%= Faker::Address.zip_code %>
+  country: <%= Faker::Address.country %>
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+<% end %>
+
+# create admin user to log in and check the test environment!
+manual:
+  id: 1000
+  email: <%= ENV['BASE_USER_EMAIL'] %>
+  encrypted_password: <%= Devise::Encryptor.digest(User, ENV['BASE_USER_PASSWORD']) %>
+  first_name: 'Admin'
+  last_name: 'Local'
+  confirmed_at: <%=  Time.now %>
+  address: <%= Faker::Address.street_address %>
+  city: <%= Faker::Address.city %>
+  zipcode: <%= Faker::Address.zip_code %>
+  country: <%= Faker::Address.country %>
