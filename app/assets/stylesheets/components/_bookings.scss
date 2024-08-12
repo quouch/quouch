@@ -41,7 +41,7 @@
 
     @media (min-width: $break-small) {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     &__profile {

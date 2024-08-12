@@ -44,7 +44,7 @@
 
 		> label { margin: 1rem auto; }
 
-		@media (min-width: $break-medium) { align-items: start; }
+		@media (min-width: $break-medium) { align-items: flex-start; }
 
 		&-preview {
 			display: inline-block;

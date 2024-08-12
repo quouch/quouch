@@ -114,11 +114,11 @@
         }
 
         &--left {
-            justify-content: start;
+            justify-content: flex-start;
         }
 
         &--right {
-            justify-content: end;
+            justify-content: flex-end;
         }
     }
 

@@ -58,7 +58,7 @@
 			a { color: $gray-05; }
 			a:hover { opacity: .8; }
 
-			@media (min-width: $break-medium) { justify-content: start; }
+			@media (min-width: $break-medium) { justify-content: flex-start; }
 		}
 	}
 

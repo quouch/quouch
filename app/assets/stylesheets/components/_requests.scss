@@ -26,7 +26,7 @@
     @media (min-width: $break-small) {
         display: flex;
         max-height: fit-content;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     &__profile {
