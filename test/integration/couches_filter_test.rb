@@ -46,7 +46,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
     city = first_user.city
 
     # Find how many users have the same city as that user
-    users_with_city = User.where(city: city)
+    users_with_city = User.where(city:)
 
     # Search with query filter
     params = { query: city }
@@ -62,7 +62,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
     country = first_user.country
 
     # Find how many users have the same country as that user
-    users_with_country = User.where(country: country)
+    users_with_country = User.where(country:)
 
     # Search with query filter
     params = { query: country }
@@ -76,7 +76,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
   test 'should filter by characteristics' do
     characteristic = Characteristic.first!
     # Find how many users have this characteristic
-    users_with_characteristic = User.joins(:user_characteristics).where(user_characteristics: { characteristic: characteristic })
+    users_with_characteristic = User.joins(:user_characteristics).where(user_characteristics: { characteristic: })
 
     # Search with characteristics filter and items count = 100
     params = { characteristics: [characteristic.id], items: 100 }
@@ -86,8 +86,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
     # Check that the number of couches returned matches the number of users with that characteristic
     assert_select 'li.couches__list-item', users_with_characteristic.length
     # check that the characteristic is checked
-    assert_select 'input#characteristic_' + characteristic.id.to_s + '[checked=checked]', 1
-
+    assert_select "input#characteristic_#{characteristic.id}[checked=checked]", 1
   end
 
   test 'should filter multiple characteristics' do
@@ -103,9 +102,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
     # according to the fixtures, there should be 6 users with both characteristics
     assert_select 'li.couches__list-item', 6
     # check that the characteristics are checked
-    assert_select 'input#characteristic_' + characteristic1.id.to_s + '[checked=checked]', 1
-    assert_select 'input#characteristic_' + characteristic2.id.to_s + '[checked=checked]', 1
+    assert_select "input#characteristic_#{characteristic1.id}[checked=checked]", 1
+    assert_select "input#characteristic_#{characteristic2.id}[checked=checked]", 1
   end
-
-  private
 end

@@ -5,7 +5,7 @@ require 'test_helper'
 class UserSessionTest < ActionDispatch::IntegrationTest
   setup do
     @password = 'password'
-    @email = 'test@quouch.com'
+    @email = 'test@test-quouch.com'
     @user = create_user_with(email: @email, password: @password)
   end
 
@@ -15,7 +15,7 @@ class UserSessionTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
 
-    assert_equal "Signed in successfully.", flash[:notice]
+    assert_equal 'Signed in successfully.', flash[:notice]
   end
 
   test 'should logout user' do
@@ -28,6 +28,6 @@ class UserSessionTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     follow_redirect!
 
-    assert_equal "Signed out successfully.", flash[:notice]
+    assert_equal 'Signed out successfully.', flash[:notice]
   end
 end

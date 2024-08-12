@@ -12,6 +12,8 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new unless ENV['RM_IN
 Faker::Config.random = Random.new
 
 # TODO: Mock away Geocoder in tests
+
+# Modify ActiveSupport::TestCase to include the UserHelper module, fixtures and clean up the database after each test
 module ActiveSupport
   class TestCase
     include UserHelper

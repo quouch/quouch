@@ -5,7 +5,8 @@ ignore:
   - vendor/**/*
   - db/**/*
   - bin/*
-  - test/fixtures/active_storage/* # blob fixtures don't have proper yml syntax!
+  - out/*
+  - test/fixtures/**/* # fixtures don't have proper yml syntax, as they use ERB
 
 rules:
   line-length:

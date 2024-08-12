@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   fixtures :users
+
   def setup
     @user = FactoryBot.build(:test_user)
   end

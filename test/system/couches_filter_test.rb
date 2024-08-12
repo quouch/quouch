@@ -42,7 +42,7 @@ class CouchesFilterTest < ApplicationSystemTestCase
     city = first_user.city
 
     # Find how many users have the same city as that user
-    users_with_city = User.where(city: city)
+    users_with_city = User.where(city:)
 
     # Search with query filter
     visit couches_path
@@ -58,7 +58,7 @@ class CouchesFilterTest < ApplicationSystemTestCase
     country = first_user.country
 
     # Find how many users have the same country as that user
-    users_with_country = User.where(country: country)
+    users_with_country = User.where(country:)
 
     # Search with query filter
     visit couches_path
@@ -77,14 +77,16 @@ class CouchesFilterTest < ApplicationSystemTestCase
     find('label', text: characteristic.name).click
 
     # Check that the number of couches returned matches the number of users with that characteristic
-    # according to the fixtures, there should be 17 users with this characteristic, so we should see the entire first page
+    # according to the fixtures, there should be 17 users with this characteristic,
+    # so we should see the entire first page
     assert_selector 'li.couches__list-item', count: 9
 
     # navigate to second page
     find('span.page.next').click
 
     assert_selector 'span.page.active', text: '2'
-    # according to the fixtures, there should be 16 users with this characteristic, so we should see 7 in the second page
+    # according to the fixtures, there should be 16 users with this characteristic,
+    # so we should see 7 in the second page
     assert_selector 'li.couches__list-item', count: 7
   end
 
@@ -136,6 +138,4 @@ class CouchesFilterTest < ApplicationSystemTestCase
     assert_selector 'span.page.active', text: '2'
     assert_selector 'li.couches__list-item', count: 7
   end
-
-  private
 end
