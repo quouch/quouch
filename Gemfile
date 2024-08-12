@@ -100,7 +100,7 @@ gem 'simple_form', github: 'heartcombo/simple_form'
 gem 'pagy'
 
 # Give team access to DB
-gem 'rails_admin', '3.0'
+gem 'rails_admin', '3.1.3'
 
 # Stripe for payments
 gem 'stripe'
