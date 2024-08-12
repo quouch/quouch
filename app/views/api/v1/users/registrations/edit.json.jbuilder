@@ -18,7 +18,7 @@ json.user do
 
   json.photo do
     json.filename @user.photo.filename
-    json.url url_for(@user.photo)
+    json.url url_for(@user.photo) if @user.photo.attached?
   end
 
   json.characteristics do

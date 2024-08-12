@@ -9,15 +9,19 @@ module Api
 
       def index
         # reuse code from CochesConcern
-
         super
 
         render json: {
           pagination: pagy_metadata(@pagy),
           items: @couches.map do |couch|
-            couch.attributes.merge(user: UserSerializer.new(couch.user).serializable_hash[:data][:attributes])
+            CouchSerializer.new(couch).serializable_hash[:data][:attributes]
           end
         }
+      end
+
+      def show
+        couch = Couch.find(params[:id])
+        render json: CouchSerializer.new(couch).serializable_hash[:data][:attributes]
       end
     end
   end

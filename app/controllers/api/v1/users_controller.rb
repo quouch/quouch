@@ -4,7 +4,7 @@ module Api
       include Pagy::Backend
 
       def index
-        @pagy, @users = pagy(User.all, items: params[:items])
+        @pagy, @users = pagy(User.all.includes([:photo_attachment, { photo_attachment: :blob }]), items: params[:items])
         render json: {
           pagination: pagy_metadata(@pagy),
           items: UserSerializer.new(@users).serializable_hash[:data]
