@@ -75,16 +75,15 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
 
   test 'should filter by characteristics' do
     characteristic = Characteristic.first!
-    # Find how many users have this characteristic
-    users_with_characteristic = User.joins(:user_characteristics).where(user_characteristics: { characteristic: })
-
+    # According to the fixtures, there are 16 users with the first characteristic
+    users_with_characteristic = 16
     # Search with characteristics filter and items count = 100
     params = { characteristics: [characteristic.id], items: 100 }
     get couches_path(params)
 
     assert_response :success
     # Check that the number of couches returned matches the number of users with that characteristic
-    assert_select 'li.couches__list-item', users_with_characteristic.length
+    assert_select 'li.couches__list-item', users_with_characteristic
     # check that the characteristic is checked
     assert_select "input#characteristic_#{characteristic.id}[checked=checked]", 1
   end
