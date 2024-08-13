@@ -57,11 +57,13 @@ class UserTest < ActiveSupport::TestCase
     UserCharacteristic.where(user: @user).delete_all
 
     assert_not @user.valid?
+    assert_equal @user.errors.messages[:user_characteristics], ['Let others know what is important to you']
   end
 
   test 'should not save user if age is less than 18' do
     @user.date_of_birth = 5.years.ago
     assert_not @user.valid?
+    assert_equal @user.errors.messages[:date_of_birth], ['Sorry you are too young, please come back when you are 18!']
   end
 
   test 'should not save user if no option is checked' do
@@ -70,9 +72,23 @@ class UserTest < ActiveSupport::TestCase
     @user.offers_hang_out = false
     @user.travelling = false
     assert_not @user.valid?
+    assert_equal @user.errors.messages[:travelling], ['at least one option must be checked']
   end
 
   test 'should save user with valid attributes' do
     assert @user.valid?, 'User is not valid'
+  end
+
+  test 'should properly calculate age' do
+    @user.date_of_birth = 20.years.ago
+    assert_equal 20, @user.calculated_age
+
+    @user.date_of_birth = 20.years.ago + 1.day
+    assert_equal 19, @user.calculated_age
+  end
+
+  test 'should generate invite code' do
+    @user.generate_invite_code
+    assert_not_nil @user.invite_code
   end
 end
