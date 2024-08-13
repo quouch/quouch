@@ -1,4 +1,19 @@
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['COVERAGE']
+  require 'simplecov'
+
+  SimpleCov.start 'rails' do
+    add_filter '/vendor/' # Don't include vendored stuff
+    add_filter '/test/'
+    add_filter '/config/'
+  end
+
+  # We're not at the stage where this makes sense, but it's a good goal to have
+  # SimpleCov.minimum_coverage 60
+
+end
+
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'faker'
@@ -19,7 +34,7 @@ module ActiveSupport
     include UserHelper
 
     # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    # parallelize(workers: :number_of_processors)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :characteristics

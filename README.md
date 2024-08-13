@@ -130,6 +130,18 @@ And for running only one directory:
 rails test test/models
 ```
 
+#### 3.2.1 Code Coverage
+
+We use [SimpleCov](https://github.com/simplecov-ruby/simplecov) to generate code coverage reports.
+To generate a code coverage report, you can run the following command:
+
+```bash
+COVERAGE=true rails test
+```
+
+This will run all tests and generate a `coverage` directory in the root of the project with the code coverage report.
+To see the report, open the `index.html` file in your browser, e.g. run `open coverage/index.html`.
+
 ### 3.3 Linting
 
 We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
