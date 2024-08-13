@@ -6,6 +6,10 @@ class CouchesConcernTest < ActiveSupport::TestCase
   include CouchesConcern
 
   setup do
+    # Clear the database
+    User.destroy_all
+    Couch.destroy_all
+
     # Create the current user
     @user = FactoryBot.create(:test_user_couch)
   end
@@ -17,7 +21,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should not find the current user' do
     index
-    assert_equal 0, @couches.length
+    assert_not_includes @couches, @user.couch
   end
 
   test 'should return no results if city is not found' do

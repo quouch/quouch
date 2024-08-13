@@ -4,6 +4,7 @@ AllCops:
     - 'db/migrate/*'
     - 'db/schema.rb'
     - 'bin/*'
+    - 'out/**/*'
     - 'vendor/**/*'
   SuggestExtensions: false
   NewCops: enable
@@ -18,9 +19,13 @@ Layout/LineLength:
 
 Metrics/BlockLength:
   Severity: info
+  Exclude:
+    - 'test/factories/*'
 
 Metrics/MethodLength:
   Severity: info
+  Exclude:
+    - 'test/factories/*'
 
 Metrics/AbcSize:
   Severity: info
@@ -30,6 +35,8 @@ Metrics/CyclomaticComplexity:
 
 Metrics/ClassLength:
   Severity: info
+  Exclude:
+    - 'test/**/*'
 
 # TODO: This is temporary. We should change them to at least warning
 Style/Documentation:
