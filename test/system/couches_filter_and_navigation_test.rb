@@ -2,7 +2,7 @@
 
 require 'system_test_helper'
 
-class CouchesFilterTest < ApplicationSystemTestCase
+class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   setup do
     @user = FactoryBot.create(:test_user_couch)
     sign_in_as(@user)
