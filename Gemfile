@@ -122,6 +122,7 @@ group :development, :test do
   gem 'minitest-reporters'
   gem 'rspec-rails'
   gem 'shoulda', '~> 4.0'
+  gem 'simplecov', require: false
   # Fake test data
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
