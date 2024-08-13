@@ -97,11 +97,6 @@ jobs:
           bin/rails db:drop
           bin/rails db:create
           bin/rails db:migrate
-          bin/rails db:seed
-
-      # Hint: Uncomment this line if we happen to need seed data for our tests
-      # - name: Populate database with mock data
-      #   run: bin/rails dev:populate
 
       # Add or replace test runners here
       - name: Run tests
