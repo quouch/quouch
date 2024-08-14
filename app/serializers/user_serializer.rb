@@ -20,7 +20,7 @@ class UserSerializer
   include JSONAPI::Serializer
   include ProfilePictureHelper # mixes in your helper method as class method
 
-  attributes :id, :email, :first_name, :last_name
+  attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address
 
   has_one :couch
 

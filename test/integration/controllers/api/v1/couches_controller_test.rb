@@ -48,6 +48,17 @@ module Api
         assert_equal 404, JSON.parse(response.body)['code']
       end
 
+      test 'should not see own user' do
+        # Only the own user should have 'Test city' as it's city
+        city_name = @user.city
+
+        get api_v1_couches_url, params: { query: city_name }, headers: @headers
+        assert_response :success
+
+        json_response = JSON.parse(response.body)
+        assert_equal 0, json_response['items'].length
+      end
+
       test 'should filter couches by exact city' do
         # get a city that exists in the database
         city_name = User.first.city
@@ -61,9 +72,10 @@ module Api
         assert_equal couches_in_city, json_response['items'].length
       end
 
-      test 'should filter couches by partial city' do
+      test 'should filter couches by partial city or country' do
         # get a city that exists in the database
-        city_chars = User.first.city[0..2]
+        city_chars = 'cit'#User.first.city[0..2]
+        puts @user.city = 'cit'
         # find out how many users have a couch in that city
         couches_in_city = User.where('city LIKE?', "%#{city_chars}%").count
 
@@ -71,6 +83,7 @@ module Api
         assert_response :success
 
         json_response = JSON.parse(response.body)
+        puts JSON.pretty_generate(json_response)
         assert_equal couches_in_city, json_response['items'].length
       end
     end

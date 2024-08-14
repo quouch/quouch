@@ -13,7 +13,7 @@ module SignInHelper
 
     @headers = api_prepare_headers_for(user)
 
-    @user = User.find_by(email: user.email)
+    @user = User.find_by(id: user.id)
     [@user, @headers]
   end
 
