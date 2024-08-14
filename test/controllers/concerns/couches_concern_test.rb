@@ -24,6 +24,11 @@ class CouchesConcernTest < ActiveSupport::TestCase
     assert_not_includes @couches, @user.couch
   end
 
+  test 'should not find users with active set to false' do
+    index
+    assert_not_includes @couches, Couch.where(active: false)
+  end
+
   test 'should return no results if city is not found' do
     # Create at least one user with couch
     @host = FactoryBot.create(:test_user_couch)
