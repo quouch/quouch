@@ -2,13 +2,23 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>Updated Request</title>
   </head>
   <body>
     <h1>The request from <%= @guest.first_name.capitalize %> has been updated!</h1>
     <p><%= @guest.first_name.capitalize %> has updated their request. Please review the request and confirm or decline depending on your availability and willingness to host <%= @guest.first_name.capitalize %>.</p>
+
+    <p>"<%= @booking.message %>"</p>
+
     <p><%= link_to 'View request', @request_url %></p>
-    <p>If you have any questions, please feel free to contact us.</p>
-    <p>Best regards,</p>
+
+    <p>You can send them a message, confirm or decline it. Think about your time, space and boundaries - just because you opted in to be able to host travellers, it is totally ok if right now is not the time. Often though, you will be surprised of HOW MUCH you are actually getting out of this as well - you are making friends all over the world. In any case, it would mean a lot if you let them know your decision, even if it's a no. After a confirmed stay, you both will be able to leave reviews for each other.</p>
+
+    <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we do take absolute precaution as to who joins our platform. Still, this is the internet and there will always be some risk. Please be cautious and take independent care, as stated in our <%= link_to 'safety guidelines', @guidelines %>. You can <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_host %> about your hosting experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while.</p>
+
+    <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
+
+    <p>Warmest,</p>
     <p>your Quouch Team</p>
   </body>
 </html>
