@@ -1,3 +1,4 @@
+# Used for integration tests
 module SignInHelper
   def sign_in_as(user)
     post user_session_path, params: { user: { email: user.email, password: user.password } }
@@ -13,7 +14,7 @@ module SignInHelper
 
     @headers = api_prepare_headers_for(user)
 
-    @user = User.find_by(email: user.email)
+    @user = User.find_by(id: user.id)
     [@user, @headers]
   end
 
