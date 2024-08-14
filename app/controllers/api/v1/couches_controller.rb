@@ -8,7 +8,7 @@ module Api
       include CouchesConcern
 
       def index
-        # reuse code from CochesConcern
+        # reuse code from CouchesConcern
         super
 
         render json: {

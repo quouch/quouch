@@ -6,10 +6,20 @@ module Api
       # SessionsController: This controller is responsible for handling the user's login and logout.
       class SessionsController < Devise::SessionsController
         include RackSessionsFix
+        include JwtTokenHelper
+
         # Skip the CSRF token verification for the API login and logout.
         skip_before_action :verify_authenticity_token
 
         respond_to? :json
+
+        rescue_from JwtError do |e|
+          render json: {
+            code: 401,
+            error: 'Invalid token.',
+            message: e
+          }, status: :unauthorized
+        end
 
         protected
 
@@ -53,13 +63,7 @@ module Api
         end
 
         def respond_to_on_destroy
-          if request.headers['Authorization'].present?
-            jwt_payload = JWT.decode(request.headers['Authorization'].split.last,
-                                     Rails.application.credentials.dig(:devise, :jwt_secret_key)).first
-            current_user = User.find(jwt_payload['sub'])
-          end
-
-          if current_user
+          if jwt_token_is_valid?(request.authorization)
             render json: {
               code: 200,
               message: 'Logged out successfully.'

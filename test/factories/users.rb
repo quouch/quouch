@@ -2,7 +2,7 @@
 
 require 'open-uri'
 
-require_relative '../support/addresses'
+require_relative '../helpers/addresses'
 
 FactoryBot.define do
   factory :user, class: User do

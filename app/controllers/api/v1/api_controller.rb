@@ -3,9 +3,12 @@
 module Api
   module V1
     # ApiController: This controller is responsible for handling the API requests.
-    class ApiController < ActionController::Base
+    class ApiController < ActionController::API
+      include ActionController::HttpAuthentication::Basic::ControllerMethods
+      include ActionController::HttpAuthentication::Token::ControllerMethods
+      include JwtTokenHelper
+
       before_action :check_basic_auth
-      skip_before_action :verify_authenticity_token
 
       respond_to? :json
 
@@ -25,6 +28,14 @@ module Api
         }, status: :not_found
       end
 
+      rescue_from JwtError do |e|
+        render json: {
+          code: 401,
+          error: 'Invalid token.',
+          message: e
+        }, status: :unauthorized
+      end
+
       private
 
       def check_basic_auth
@@ -42,6 +53,12 @@ module Api
             head :unauthorized
           end
         end
+
+        authenticate_with_http_token do |token, _options|
+          @current_user = find_user_by_jwt_token(token)
+        end
+
+        head :unauthorized unless @current_user
       end
 
       def pagy_metadata(pagy)

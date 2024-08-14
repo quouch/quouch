@@ -37,6 +37,7 @@ module Api
         expected_items = 5
         params = { items: expected_items }
         get('/api/v1/users', headers: @headers, params:)
+
         json_response = JSON.parse(response.body)
         first_five_users = json_response['items']
 
