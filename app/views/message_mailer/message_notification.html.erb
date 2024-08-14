@@ -2,12 +2,21 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <title>New Message</title>
   </head>
   <body>
     <h1><%= @sender.first_name.capitalize %> sent you a message! 💭</h1>
+
     <p>"<%=  @message.content %>"</p>
+
+    <p>It is important that you reply directly in our app, as answering to this email does not mean you are sending a message through the chat. It will only land in our inbox. Let's make sure your message reaches your potential host or guest :)</p>
+
     <%= link_to 'Answer now', @chat_url %> 💌
+
     <p>We are so delighted that you are using Quouch to connect with others. If you have any doubts or questions, please feel free to reach out.</p>
+
+    <p>Remember that you can always <%= link_to 'report', @feedback_form %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form %> about your experience and also about the <%= link_to 'usability of our web app', @feedback_form %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while.</p>
+
     <p>Warmly,</p>
     <p>your Quouch Team</p>
   </body>
