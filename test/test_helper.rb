@@ -28,6 +28,19 @@ Faker::Config.random = Random.new
 
 # TODO: Mock away Geocoder in tests
 
+# Clean up the database
+Minitest.after_run do
+  ActiveRecord::Base.subclasses.each do |subclass|
+    subclass.delete_all if subclass.table_name
+  end
+end
+
+module ActionView
+  class TestCase
+    fixtures :characteristics
+  end
+end
+
 # Modify ActiveSupport::TestCase to include the UserHelper module, fixtures and clean up the database after each test
 module ActiveSupport
   class TestCase
@@ -40,13 +53,6 @@ module ActiveSupport
     fixtures :characteristics
 
     # Add more helper methods to be used by all tests here...
-
-    # Clean up the database
-    Minitest.after_run do
-      ActiveRecord::Base.subclasses.each do |subclass|
-        subclass.delete_all if subclass.table_name
-      end
-    end
   end
 end
 
@@ -56,11 +62,5 @@ module ActionDispatch
     include UserHelper
 
     fixtures :all
-
-    Minitest.after_run do
-      ActiveRecord::Base.subclasses.each do |subclass|
-        subclass.delete_all if subclass.table_name
-      end
-    end
   end
 end

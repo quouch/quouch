@@ -6,6 +6,7 @@ module Api
     class ApiController < ActionController::API
       include ActionController::HttpAuthentication::Basic::ControllerMethods
       include ActionController::HttpAuthentication::Token::ControllerMethods
+      include JwtTokenHelper
 
       before_action :check_basic_auth
 
@@ -27,6 +28,14 @@ module Api
         }, status: :not_found
       end
 
+      rescue_from JwtError do |e|
+        render json: {
+          code: 401,
+          error: 'Invalid token.',
+          message: e
+        }, status: :unauthorized
+      end
+
       private
 
       def check_basic_auth
@@ -46,9 +55,7 @@ module Api
         end
 
         authenticate_with_http_token do |token, _options|
-          jwt_payload = JWT.decode(token,
-                                   Rails.application.credentials.dig(:devise, :jwt_secret_key)).first
-          @current_user = User.find(jwt_payload['sub'])
+          @current_user = find_user_by_jwt_token(token)
         end
 
         head :unauthorized unless @current_user

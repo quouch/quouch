@@ -11,9 +11,20 @@ module Api
       end
 
       test 'should not redirect when bearer token is present' do
-        user, headers = api_prepare_headers
-        get '/api/v1/users', headers: headers
+        _, headers = api_prepare_headers
+        get('/api/v1/users', headers:)
         assert_response :success
+      end
+
+      test 'should return 401 when the token is invalid' do
+        _, headers = api_prepare_headers
+        headers['Authorization'] = 'Bearer invalidToken'
+        get('/api/v1/users', headers:)
+        assert_response :unauthorized
+
+        json_response = JSON.parse(response.body)
+        assert_equal 401, json_response['code']
+        assert_equal 'Invalid token.', json_response['error']
       end
     end
   end
