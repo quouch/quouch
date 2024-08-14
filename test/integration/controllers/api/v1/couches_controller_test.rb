@@ -19,7 +19,7 @@ module Api
 
         json_response = JSON.parse(response.body)
         assert_equal 9, json_response['items'].length
-        assert_equal Couch.count, json_response['pagination']['total']
+        assert_equal Couch.count - 1, json_response['pagination']['total']
 
         refute_includes json_response['items'], @user.couch
 
@@ -73,17 +73,23 @@ module Api
       end
 
       test 'should filter couches by partial city or country' do
-        # get a city that exists in the database
-        city_chars = 'cit'#User.first.city[0..2]
-        puts @user.city = 'cit'
-        # find out how many users have a couch in that city
+        # create an imaginary city and assign it to some users
+        city = 'NonExistingCity'
+        User.where.not(id: @user.id).sample(2).each do |user|
+          user.city = city
+          user.save
+        end
+
+        # Set only part of the city name
+        city_chars = 'NonExisting'
+
+        # find out how many users have a couch in that city, by using the partial name
         couches_in_city = User.where('city LIKE?', "%#{city_chars}%").count
 
         get api_v1_couches_url, params: { query: city_chars }, headers: @headers
         assert_response :success
 
         json_response = JSON.parse(response.body)
-        puts JSON.pretty_generate(json_response)
         assert_equal couches_in_city, json_response['items'].length
       end
     end

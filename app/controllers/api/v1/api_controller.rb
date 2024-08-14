@@ -3,9 +3,11 @@
 module Api
   module V1
     # ApiController: This controller is responsible for handling the API requests.
-    class ApiController < ActionController::Base
+    class ApiController < ActionController::API
+      include ActionController::HttpAuthentication::Basic::ControllerMethods
+      include ActionController::HttpAuthentication::Token::ControllerMethods
+
       before_action :check_basic_auth
-      skip_before_action :verify_authenticity_token
 
       respond_to? :json
 
@@ -42,6 +44,14 @@ module Api
             head :unauthorized
           end
         end
+
+        authenticate_with_http_token do |token, _options|
+          jwt_payload = JWT.decode(token,
+                                   Rails.application.credentials.dig(:devise, :jwt_secret_key)).first
+          @current_user = User.find(jwt_payload['sub'])
+        end
+
+        head :unauthorized unless @current_user
       end
 
       def pagy_metadata(pagy)
