@@ -33,28 +33,16 @@ Booking app for homestay from queer & female perspective.
 
 5. Create the database
    ```bash
-   rails db:create
+   rails db:setup
    ```
 
-6. Run the migrations
-
-   ```bash
-   rails db:migrate
-   ```
-
-7. Seed the project with some initial data
-
-   ```bash
-   rails db:seed
-   ```
-
-8. Start the server
+6. Start the server
 
    ```bash
    rails s
    ```
 
-10. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
+7. Visit `http://localhost:3000` in your browser. You can login with the credential provided in your `.env` file
 
 It is recommended to complete your profile at this point, as the app is still in development and there might be errors
 if you try to access certain pages without a complete profile. You can do it by
@@ -72,7 +60,8 @@ This will create:
 
 - 30 new users with random data
 
-Need more mock data? Try running `rails dev:test_booking` or `rails dev:test_plans` for creating fake bookings or subscription plans for the default user.
+Need more mock data? Try running `rails dev:test_booking` or `rails dev:test_plans` for creating fake bookings or
+subscription plans for the default user.
 
 ## 2. Developing
 
@@ -102,15 +91,30 @@ If you prefer using Docker instead of installing PostgreSQL locally, you can run
 docker compose -f .devcontainer/docker-compose.yml up db -d
 ```
 
-> What does this do? Docker compose is used to manage multi container apps. `-f` is used to determine which file will be used. `up` is the command for starting containers, `db` is the container we want to start. `-d` means it runs in detached mode.
+> What does this do? Docker compose is used to manage multi container apps. `-f` is used to determine which file will be
+> used. `up` is the command for starting containers, `db` is the container we want to start. `-d` means it runs in
+> detached mode.
 
 ### 3.2 Running tests
 
-To run the tests, you can use the following command:
+Running all tests is pretty simple, it only needs this command: `rails test`.
+> Running tests after `dev:populate` might result in unexpected test failures. Tests expect the DB to be empty!
 
-```bash
-rails test
-```
+However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
+or deleted.
+
+#### 3.2.1 Running tests in `test` environment
+
+1. Create and setup the test database:
+   ```bash
+   RAILS_ENV=test rails db:setup
+   ```
+2. Run the tests, you can use the following command:
+   ```bash
+   RAILS_ENV=test rails test
+   ```
+
+#### 3.2.2 Running specific tests
 
 If you want to run the tests in a specific file, you can use the following command:
 
@@ -130,7 +134,7 @@ And for running only one directory:
 rails test test/models
 ```
 
-#### 3.2.1 Code Coverage
+#### 3.2.3 Code Coverage
 
 We use [SimpleCov](https://github.com/simplecov-ruby/simplecov) to generate code coverage reports.
 To generate a code coverage report, you can run the following command:
@@ -144,10 +148,13 @@ To see the report, open the `index.html` file in your browser, e.g. run `open co
 
 ### 3.3 Linting
 
-We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command:
+We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command, which will only
+display the offenses that are not marked as `offense` in the `.rubocop.yml` file:
 
 ```bash
-rubocop
+
+```bash
+rubocop --display-only-fail-level-offenses
 ```
 
 If you want to autofix the issues that Rubocop finds, you can run the following command:

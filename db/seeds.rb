@@ -1,3 +1,6 @@
+# Do not run this file in the test environment. We do not need to seed the database in the test environment.
+return if Rails.env.test?
+
 # Characteristics
 puts 'destroying & seeding characteristics...'
 Characteristic.destroy_all

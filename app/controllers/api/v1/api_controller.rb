@@ -9,6 +9,22 @@ module Api
 
       respond_to? :json
 
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        render json: {
+          code: 404,
+          error: 'Record not found.',
+          message: e.message
+        }, status: :not_found
+      end
+
+      rescue_from ActiveRecord::RecordNotFound do |e|
+        render json: {
+          code: 404,
+          error: 'Record not found.',
+          message: e.message
+        }, status: :not_found
+      end
+
       private
 
       def check_basic_auth
