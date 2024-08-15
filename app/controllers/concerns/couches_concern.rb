@@ -13,6 +13,7 @@ module CouchesConcern
 
     @shuffled_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
                              .joins(:user)
+                             .where(active: true)
                              .where.not(user: current_user)
                              .where.not(user: { first_name: nil, city: nil, country: nil })
                              .order('RANDOM()')
