@@ -19,6 +19,7 @@
     <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
     <%= javascript_importmap_tags %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true %>
+    <%= javascript_include_tag 'cookies_eu', 'data-turbo-track': 'reload', defer: true %>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWGXEQSWDX"></script>
     <script>
@@ -63,6 +64,7 @@
 
     <%= yield %>
 
+    <%= render 'cookies_eu/consent_banner', link: '/cookies', target: '_blank' %>
     <%= render 'shared/footer' unless controller_name == 'chats' && action_name == 'show' %>
   </body>
 </html>

@@ -6,3 +6,4 @@
 //= link application.js
 //= link QuouchIcons.css
 //= link_tree ../../../vendor/q-icons/font
+//= link cookies_eu

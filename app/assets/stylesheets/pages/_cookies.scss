@@ -1,7 +1,16 @@
+// External libraries
+@import 'cookies_eu';
+
 .cookies {
     .general__numbered-list {
         li {
             font-size: smaller;
         }
+    }
+}
+
+.cookies-eu {
+    .cookies-eu-ok {
+        background-color: $primary !important;
     }
 }
