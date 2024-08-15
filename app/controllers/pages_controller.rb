@@ -1,7 +1,7 @@
 require 'csv'
 
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[home about faq guidelines safety privacy impressum terms]
+  skip_before_action :authenticate_user!, only: %i[home about faq guidelines safety privacy impressum terms cookies]
   before_action :authenticate, only: [:emails]
 
   def emails
