@@ -3,19 +3,27 @@
 	justify-content: center;
 	flex-direction: column;
 	gap: .5rem;
-	margin: 2rem auto;
+	margin: 2rem auto 1rem;
 
 	input:first-child {
 		@include input-field;
 		margin: 0;
 		box-shadow: $box-shadow;
+		height: 43px;
 	}
 
 	&__wrap {
-		display: flex;
-		justify-content: center;
-		gap: 1rem;
+		display: grid;
+		grid-template-columns: repeat(4, auto);
+		grid-template-rows: repeat(2, auto);
+		align-items: center;
+		gap: 1rem .5rem;
 		margin-bottom: 1rem;
+
+		@media (min-width: $break-small) {
+			justify-content: center;
+			gap: 1rem;
+		}
 	}
 
   &__autocomplete {
@@ -32,6 +40,11 @@
 			position: absolute;
 			left: 0;
 			right: 0;
+			font-size: .75rem;
+
+			@media (min-width: $break-small) {
+				font-size: 1rem;
+			}
 	
 			&-item {
 				position: relative;
@@ -66,10 +79,26 @@
 	&__clear {
 		@include input-field;
 		@include tertiary-button;
-		
+
+		grid-column: 1;
+		grid-row: 2;
 		width: fit-content;
-		margin: 0 auto;
 		background: inherit;
+		margin: 0 0 0 .5rem;
+		font-size: .7rem;
+		padding: 0;
+
+		@media (min-width: $break-small) {
+			font-size: .8rem;
+		}
+	}
+
+	&__hide-filters {
+		color: $secondary-transparent;
+
+		&--active {
+			color: $secondary;
+		}
 	}
 	
 	&__characteristics, &__offers {
@@ -79,7 +108,7 @@
 		@media (min-width: $break-medium) { width: 80%; }
 	}
 	
-	&__offers { margin-bottom: 0; }
+	&__offers { margin-bottom: .5rem; }
 	
 	&__checkbox {
 		position: absolute;
@@ -98,6 +127,8 @@
 		margin: .2rem;
 		border-radius: $border-radius-xlarge;
 		border: 1px solid $secondary-light;
+
+		@media (max-width: $break-small) { font-size: .6rem; }
 	}
 	
 	&__checkbox:checked + label {
