@@ -21,6 +21,7 @@ FactoryBot.define do
     travelling { [true, false].sample }
 
     user_characteristics { build_list(:user_characteristic, 3) }
+    invited_by_id { 1 }
 
     after(:build) do |user|
       file = URI.parse(Faker::Avatar.image).open

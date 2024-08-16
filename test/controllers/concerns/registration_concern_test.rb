@@ -9,7 +9,7 @@ class RegistrationConcernTest < ActiveSupport::TestCase
     @user = FactoryBot.create(:user)
   end
 
-  test "should beautify all countries in the addresses" do
+  test 'should beautify all countries in the addresses' do
     ADDRESSES.each do |address|
       params[:user] = {
         country: address[:country_code]
