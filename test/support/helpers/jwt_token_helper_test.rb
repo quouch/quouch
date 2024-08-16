@@ -35,7 +35,7 @@ class JwtTokenHelperTest < ActionView::TestCase
 
   test 'should raise error when the user is not found' do
     # Prepare a token
-    token = generate_token({ sub: 11232, jti: '123', exp: Time.now.to_i + 100 })
+    token = generate_token({ sub: 11_232, jti: '123', exp: Time.now.to_i + 100 })
 
     # Check that the error is raised when the user is not found
     error = assert_raises JwtError do

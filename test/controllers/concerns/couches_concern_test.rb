@@ -33,7 +33,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     FactoryBot.create(:test_user_couch)
 
     index
-    
+
     # we know that there's only one active couch!
     assert_equal 1, @pagy.count
 
