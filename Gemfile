@@ -54,9 +54,6 @@ gem 'geocoder'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 4.0'
 
-# Debugging
-gem 'pry-byebug'
-
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
 
@@ -112,11 +109,17 @@ gem 'amplitude-api'
 # Importmap for JS modules
 gem 'importmap-rails', '~> 1.2.3'
 
+# GDPR gem https://github.com/infinum/cookies_eu
+gem 'cookies_eu'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
+  # Debugging
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'pry-byebug'
+  # Test
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-reporters'

@@ -130,6 +130,8 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
+    cookies_eu (1.7.8)
+      js_cookie_rails (~> 2.2.0)
     countries (6.0.0)
       unaccent (~> 0.3)
     crass (1.0.6)
@@ -225,6 +227,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    js_cookie_rails (2.2.0)
+      railties (>= 3.1)
     json (2.7.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
@@ -520,6 +524,7 @@ DEPENDENCIES
   byebug
   capybara
   cloudinary
+  cookies_eu
   countries
   debug
   devise

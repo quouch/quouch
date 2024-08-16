@@ -22,7 +22,10 @@
 		margin-left: 2rem;
 	}
 
-	&__numbered-list { margin: 0 0 2rem 2rem; }
+	&__numbered-list {
+		margin: 0 0 2rem 2rem;
+		list-style: decimal !important;
+	}
 	
 	&__title {
 		@include title-3;
