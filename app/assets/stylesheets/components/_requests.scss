@@ -25,7 +25,6 @@
 
     @media (min-width: $break-small) {
         display: flex;
-        max-height: fit-content;
         justify-content: flex-start;
     }
 
@@ -39,10 +38,14 @@
         border-top-right-radius: $border-radius-medium;
 
         @media (min-width: $break-small) {
-            height: auto;
+            height: 260px;
             width: 200px;
             border-bottom-left-radius: $border-radius-medium;
             border-top-right-radius: 0;
+        }
+
+        @media (min-width: $break-medium) {
+            width: 260px;
         }
 
         @media (max-width: $break-small) {
