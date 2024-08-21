@@ -14,6 +14,14 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
     assert_selector 'li.couches__list-item', count: 9
   end
 
+  test 'should see filters on initial load' do
+    visit couches_path
+
+    assert_selector 'div[data-display-filters-target="filters"]', visible: true
+    find('.search__hide-filters').click
+    assert_selector 'div[data-display-filters-target="filters"]', visible: false
+  end
+
   test 'should see pagination buttons' do
     visit couches_path
     assert_selector 'nav.pagy-nav', count: 1
@@ -129,7 +137,7 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
     assert_selector 'li.couches__list-item', count: 1
 
     # Clear the filter and check that we are back to the first page
-    click_on 'Clear Filter'
+    click_on 'Clear Filters'
     assert_selector 'span.page.active', text: '1'
     assert_selector 'li.couches__list-item', count: 9
 
