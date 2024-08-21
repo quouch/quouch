@@ -93,6 +93,8 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Search with characteristics filter and items count = 100
     visit couches_path
+    find('.search__hide-filters').click if is_mobile?
+
     find('label', text: characteristic.name).click
 
     # Check that the number of couches returned matches the number of users with that characteristic
@@ -115,6 +117,8 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Select both characteristics
     visit couches_path
+    find('.search__hide-filters').click if is_mobile?
+
     find('label', text: characteristic1.name).click
     find('label', text: characteristic2.name).click
 
