@@ -91,4 +91,21 @@ class UserTest < ActiveSupport::TestCase
     @user.generate_invite_code
     assert_not_nil @user.invite_code
   end
+
+  test 'should save first user without invite code' do
+    # Remove all users first
+    db_cleanup
+
+    assert_equal 0, User.count
+    @user.invited_by_id = nil
+    assert_equal true, @user.valid?
+  end
+
+  test 'should not save user without invite code when other users are present' do
+    assert_not_equal 0, User.count
+
+    @user.invited_by_id = nil
+    assert_not @user.valid?
+    assert_equal @user.errors.messages[:invited_by_id], ['Please provide a valid invite code']
+  end
 end

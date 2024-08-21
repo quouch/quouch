@@ -58,15 +58,20 @@ module RegistrationConcern
     @user.user_characteristics.each(&:save)
   end
 
-  def update_profile
-    beautify_country
-    create_couch if @user.couch.nil?
+  def find_invited_by
+    return unless params[:invite_code].present?
+
     @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
-    @user.update(invited_by_id: @invited_by.id) if @invited_by
+    @invited_by&.id
+  end
+
+  def update_profile
+    @user.update(country: beautify_country)
+    create_couch if @user.couch.nil?
   end
 
   def beautify_country
-    country = ISO3166::Country[params[:user][:country]].translations[I18n.locale.to_s]
-    @user.update(country:)
+    country = params[:user][:country]
+    ISO3166::Country[country].translations[I18n.locale.to_s]
   end
 end
