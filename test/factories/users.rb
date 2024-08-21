@@ -22,6 +22,7 @@ FactoryBot.define do
 
     user_characteristics { build_list(:user_characteristic, 3) }
     invited_by_id { 1 }
+    invite_code { SecureRandom.hex(3) }
 
     after(:build) do |user|
       file = URI.parse(Faker::Avatar.image).open
