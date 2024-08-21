@@ -15,11 +15,22 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   end
 
   test 'should see filters on initial load' do
+    skip 'This test should only be used on desktop' if is_mobile?
     visit couches_path
 
     assert_selector 'div[data-display-filters-target="filters"]', visible: true
     find('.search__hide-filters').click
     assert_selector 'div[data-display-filters-target="filters"]', visible: false
+  end
+
+  test 'should not see filters on initial load' do
+    skip 'This test should only be used on mobile' unless is_mobile?
+
+    visit couches_path
+
+    assert_selector 'div[data-display-filters-target="filters"]', visible: false
+    find('.search__hide-filters').click
+    assert_selector 'div[data-display-filters-target="filters"]', visible: true
   end
 
   test 'should see pagination buttons' do

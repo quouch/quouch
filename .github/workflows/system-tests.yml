@@ -57,7 +57,15 @@ jobs:
           bin/rails db:create
           bin/rails db:migrate
 
-      - name: Run tests
+      - name: Run desktop tests
         run: bin/rails test:system
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
+          MOBILE: false
+
+      - name: Run mobile tests
+        run: bin/rails test:system
+        env:
+          RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
+          MOBILE: true
+          SCREEN_TYPE: "iphone_se"
