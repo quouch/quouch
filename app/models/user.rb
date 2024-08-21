@@ -38,13 +38,12 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :validate_age, on: :create
   validate :validate_travelling, on: :create
   validate :at_least_one_option_checked?, on: :create
-  validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' },
-                            unless: -> { User.count.zero? }
+  validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }
 
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?, unless: -> { Rails.env.test? }
+  after_validation :geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
 
   pg_search_scope :search_city_or_country,
