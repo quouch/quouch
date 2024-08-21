@@ -4,14 +4,14 @@ require 'test_helper'
 
 class CouchesConcernTest < ActiveSupport::TestCase
   include CouchesConcern
+  fixtures :users
 
   setup do
-    # Clear the database
-    User.destroy_all
-    Couch.destroy_all
+    # create a first user, so we can use its ID!
+    first_user = users(:manual)
 
     # Create the current user
-    @user = FactoryBot.create(:test_user_couch)
+    @user = FactoryBot.create(:test_user_couch, invited_by_id: first_user.id)
   end
 
   test 'should get index' do
