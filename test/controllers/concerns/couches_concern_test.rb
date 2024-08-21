@@ -6,7 +6,10 @@ class CouchesConcernTest < ActiveSupport::TestCase
   include CouchesConcern
 
   setup do
-    db_cleanup
+    # Clear the database
+    User.destroy_all
+    Couch.destroy_all
+
     # Create the current user
     @user = FactoryBot.create(:test_user_couch)
   end

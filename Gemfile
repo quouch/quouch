@@ -123,6 +123,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-reporters'
+  gem 'rspec-rails'
   gem 'shoulda', '~> 4.0'
   gem 'simplecov', require: false
   # Fake test data
