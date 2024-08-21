@@ -38,7 +38,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :validate_age, on: :create
   validate :validate_travelling, on: :create
   validate :at_least_one_option_checked?, on: :create
-  validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }
+  validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }, unless: -> { User.count == 0 }
 
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
 
