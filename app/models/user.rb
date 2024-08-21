@@ -21,7 +21,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   has_many :user_characteristics, dependent: :destroy, autosave: true
   has_many :characteristics, through: :user_characteristics, dependent: :destroy
-  has_one :subscription, dependent: :destroy
+  has_one  :subscription, dependent: :destroy
 
   validates :photo, presence: { message: 'Please upload a picture' }, on: :create
   validates :first_name, presence: { message: 'First name required' }, on: :create
@@ -34,12 +34,10 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
   validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
-  validate :validate_user_characteristics, on: :create
-  validate :validate_age, on: :create
-  validate :validate_travelling, on: :create
-  validate :at_least_one_option_checked?, on: :create
-  validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' },
-                            unless: -> { User.count.zero? }
+  validate  :validate_user_characteristics, on: :create
+  validate  :validate_age, on: :create
+  validate  :validate_travelling, on: :create
+  validate  :at_least_one_option_checked?, on: :create
 
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
 
