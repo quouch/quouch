@@ -62,7 +62,7 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     click_on 'Create Account'
 
     assert_no_current_path root_path
-    assert_selector '.form_error', text: "Last name required"
+    assert_selector '.form_error', text: 'Last name required'
   end
 
   test 'should create a user with an invite code' do
