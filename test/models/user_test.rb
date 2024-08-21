@@ -94,7 +94,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should save first user without invite code' do
     # Remove all users first
-    User.delete_all
+    db_cleanup
 
     assert_equal 0, User.count
     @user.invited_by_id = nil
