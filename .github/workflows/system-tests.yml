@@ -61,11 +61,8 @@ jobs:
         run: bin/rails test:system
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
-          MOBILE: false
 
-      - name: Run mobile tests
-        run: bin/rails test:system
+      - name: Run mobile tests (iPhone)
+        run: bin/rails test:system:ios
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
-          MOBILE: true
-          SCREEN_TYPE: "iphone_se"

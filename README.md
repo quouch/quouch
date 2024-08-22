@@ -97,7 +97,8 @@ docker compose -f .devcontainer/docker-compose.yml up db -d
 
 ### 3.2 Running tests
 
-Running all tests is pretty simple, it only needs this command: `rails test`.
+Running all tests is pretty simple, it only needs this command: `rails test`. This command does not run System Tests.
+For that, you need to run `rails test:system`.
 > Running tests after `dev:populate` might result in unexpected test failures. Tests expect the DB to be empty!
 
 However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
