@@ -24,7 +24,10 @@ module Users
         end
         UserMailer.welcome_email(resource).deliver_later
       else
-        puts resource.errors.full_messages
+        if resource.errors[:invited_by_id].present?
+          flash[:error] = 'There seems to be an issue with your invite code. Please contact the Quouch team!'
+        end
+
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource
