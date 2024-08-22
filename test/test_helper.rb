@@ -21,6 +21,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative 'helpers/sign_in_helper'
 require_relative 'helpers/user_helper'
+require_relative 'helpers/db_helper'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new unless ENV['RM_INFO']
 
@@ -45,6 +46,7 @@ end
 module ActiveSupport
   class TestCase
     include UserHelper
+    include DBHelper
 
     # Run tests in parallel with specified workers
     # parallelize(workers: :number_of_processors)
@@ -60,6 +62,7 @@ module ActionDispatch
   class IntegrationTest
     include SignInHelper
     include UserHelper
+    include DBHelper
 
     fixtures :all
   end

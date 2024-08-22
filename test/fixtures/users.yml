@@ -18,6 +18,7 @@ user_<%= n %>:
   country: <%= Faker::Address.country %>
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
+  invited_by_id: 1
 <% end %>
 
 # create admin user to log in and check the test environment!
@@ -32,3 +33,4 @@ manual:
   city: <%= Faker::Address.city %>
   zipcode: <%= Faker::Address.zip_code %>
   country: <%= Faker::Address.country %>
+  invited_by_id: 1

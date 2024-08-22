@@ -3,8 +3,11 @@ module Users
     include RegistrationConcern
 
     def create
-      build_resource(sign_up_params)
+      # This should prevent users from signing up without an invite code
+      invite_id = find_invited_by
+      build_resource(sign_up_params.merge(invited_by_id: invite_id))
       create_user_characteristics
+
       resource.save
 
       if resource.persisted?
