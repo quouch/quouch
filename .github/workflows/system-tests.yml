@@ -20,13 +20,16 @@ permissions:
 env:
   RAILS_ENV: test
   CI: true
+  DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
+  BASE_USER_EMAIL: "test@quouch.com"
+  BASE_USER_PASSWORD: "password" # Change for a random secret!
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  all:
+  desktop:
     runs-on: ubuntu-latest
     permissions: write-all
     services:
@@ -38,11 +41,6 @@ jobs:
           POSTGRES_DB: quouch_development
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-    env:
-      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
-      BASE_USER_EMAIL: "test@quouch.com"
-      BASE_USER_PASSWORD: "password" # Change for a random secret!
-      COVERAGE: "true"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -65,6 +63,36 @@ jobs:
         run: bin/rails system:all
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
+
+  mobile:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: quouch_development
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:environment:set RAILS_ENV=test
+          bin/rails db:drop
+          bin/rails db:create
+          bin/rails db:migrate
 
       - name: Run mobile tests (iPhone)
         run: bin/rails system:ios
