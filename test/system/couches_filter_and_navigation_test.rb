@@ -137,6 +137,7 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Search with characteristics filter
     visit couches_path
+    find('.search__hide-filters').click if is_mobile?
     find('label', text: characteristic.name).click
 
     # should have two pages of results
