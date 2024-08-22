@@ -28,6 +28,8 @@ module Users
     end
 
     test 'should not create a user without an invite code' do
+      # fixme: Restore this test when the invite code is required
+      skip
       # expect error message
       post user_registration_url,
            params: { user: @user_object,
@@ -37,6 +39,8 @@ module Users
     end
 
     test 'should not create a user with an invalid invite code' do
+      # fixme: Restore this test when the invite code is required
+      skip
       # expect error message
       post user_registration_url,
            params: { user: @user_object,

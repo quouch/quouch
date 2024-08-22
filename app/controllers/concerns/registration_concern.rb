@@ -76,5 +76,6 @@ module RegistrationConcern
     country = params[:user][:country]
     translated_country = ISO3166::Country[country].translations[I18n.locale.to_s]
     puts "Beautified country: #{country} -> #{translated_country}"
+    translated_country
   end
 end
