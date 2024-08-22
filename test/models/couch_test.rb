@@ -7,6 +7,7 @@ class CouchTest < ActiveSupport::TestCase
   end
 
   test 'should save couch with a user' do
+    create_seed_user
     @user = FactoryBot.create(:test_user)
 
     couch = Couch.new(user: @user)
