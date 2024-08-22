@@ -51,7 +51,8 @@ module ActiveSupport
     include DBHelper
 
     # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    # parallelize(workers: :number_of_processors)
+    # Parallelizing tests don't work with coverage, so we'll leave it out for now
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :characteristics
