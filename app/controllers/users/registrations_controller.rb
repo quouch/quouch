@@ -24,6 +24,7 @@ module Users
         end
         UserMailer.welcome_email(resource).deliver_later
       else
+        puts resource.errors.full_messages
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource

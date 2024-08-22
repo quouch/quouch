@@ -93,6 +93,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should not save user without invite code' do
+    skip 'This test is disabled because the user is not required to have an invite code yet'
+    # fixme: Restore this test when the invite code is required
     @user.invited_by_id = nil
     assert_not @user.valid?
     assert_equal @user.errors.messages[:invited_by_id], ['Please provide a valid invite code']

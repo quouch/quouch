@@ -62,16 +62,20 @@ module RegistrationConcern
     return unless params[:invite_code].present?
 
     @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
-    @invited_by&.id
+    puts "New user invited by: #{@invited_by.id}"
+    @invited_by.id
   end
 
   def update_profile
     @user.update(country: beautify_country)
+    puts "Updated user profile with country: #{beautify_country}"
     create_couch if @user.couch.nil?
   end
 
   def beautify_country
     country = params[:user][:country]
-    ISO3166::Country[country].translations[I18n.locale.to_s]
+    translated_country = ISO3166::Country[country].translations[I18n.locale.to_s]
+    puts "Beautified country: #{country} -> #{translated_country}"
+    translated_country
   end
 end
