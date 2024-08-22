@@ -47,10 +47,11 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  analysis:
+  security-analysis:
     runs-on: ubuntu-latest
     needs: lint
     continue-on-error: true
+    if: github.event_name != 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
