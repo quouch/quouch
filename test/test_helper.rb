@@ -7,6 +7,8 @@ if ENV['COVERAGE']
     add_filter '/vendor/' # Don't include vendored stuff
     add_filter '/test/'
     add_filter '/config/'
+    add_filter '/lib/tasks/'
+    add_filter '/log/'
   end
 
   # We're not at the stage where this makes sense, but it's a good goal to have

@@ -62,11 +62,11 @@ jobs:
           bin/rails db:migrate
 
       - name: Run desktop tests
-        run: bin/rails test:system
+        run: bin/rails system:all
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
       - name: Run mobile tests (iPhone)
-        run: bin/rails test:system:ios
+        run: bin/rails system:ios
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}

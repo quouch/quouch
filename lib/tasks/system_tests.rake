@@ -1,26 +1,5 @@
 # Rails has issues if I use the word `test` in the namespace.
 namespace :system do
-  desc 'Run all tests'
-  task everything: :environment do
-    Rails.logger.info 'Running model tests'
-    Rake::Task['test:models'].invoke
-
-    Rails.logger.info 'Running controller tests'
-    Rake::Task['test:controllers'].invoke
-
-    Rails.logger.info 'Running mailer tests'
-    Rake::Task['test:mailers'].invoke
-
-    Rails.logger.info 'Running helpers tests'
-    Rake::Task['test:helpers'].invoke
-
-    Rails.logger.info 'Running integration tests'
-    Rake::Task['test:integration'].invoke
-
-    Rails.logger.info 'Running system tests'
-    Rake::Task['test:system'].invoke
-  end
-
   desc 'Run system tests'
   task all: :environment do
     Rake::Task['test:system'].invoke
