@@ -6,6 +6,8 @@ class RegistrationConcernTest < ActiveSupport::TestCase
   include RegistrationConcern
 
   setup do
+    create_seed_user
+
     @user = FactoryBot.create(:user)
   end
 

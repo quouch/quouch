@@ -3,6 +3,10 @@
 require 'test_helper'
 
 class JwtTokenHelperTest < ActionView::TestCase
+  setup do
+    create_seed_user
+  end
+
   test 'should raise error when no token is found' do
     # Check that the error is raised when no token is found
     error = assert_raises JwtError do

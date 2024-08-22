@@ -71,6 +71,27 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'Set account details'.upcase
 
     # Fill in the form
+    fill_in_form_data
+
+    click_on 'Create Account'
+
+    # Should be in the main page again and see success a message
+    assert_selector 'div.flash', text: 'A message with a confirmation link'
+    assert_current_path root_path
+
+    # Check that the user was created and has invited_by_id value set
+    user = User.last
+    assert_equal user[:email], @fake_user_data[:email]
+    assert_equal user[:invited_by_id], @inviting_user[:id]
+  end
+
+  private
+
+  def user_registration_path
+    "/users/sign_up?invite_code=#{@inviting_user[:invite_code]}"
+  end
+
+  def fill_in_form_data
     attach_file(@avatar.path) do
       find('div.input.file.user_photo').click
     end
@@ -102,22 +123,6 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     password = Faker::Internet.password
     fill_in 'user[password]', with: password
     fill_in 'user[password_confirmation]', with: password
-
-    click_on 'Create Account'
-
-    # Should be in the main page again
-    assert_current_path root_path
-    assert_selector 'div.flash', text: 'A message with a confirmation link'
-
-    # Check that the user was created and has invited_by_id value set
-    user = User.last
-    assert_equal user[:email], @fake_user_data[:email]
-    assert_equal user[:invited_by_id], @inviting_user[:id]
   end
 
-  private
-
-  def user_registration_path
-    "/users/sign_up?invite_code=#{@inviting_user[:invite_code]}"
-  end
 end

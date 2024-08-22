@@ -6,7 +6,10 @@ class CouchesConcernTest < ActiveSupport::TestCase
   include CouchesConcern
 
   setup do
+    # Clean up the database to avoid conflicts but create a seed user without a couch to use the invite_code
     db_cleanup
+    create_seed_user
+
     # Create the current user
     @user = FactoryBot.create(:test_user_couch)
   end

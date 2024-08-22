@@ -5,4 +5,23 @@ module UserHelper
     Couch.create!(user: @user)
     @user
   end
+
+  def create_seed_user
+    random_address = ADDRESSES.sample
+
+    base_user = User.new(
+      email: Faker::Internet.email,
+      password: Faker::Internet.password,
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      confirmed_at: Time.now,
+      address: random_address[:street],
+      zipcode: random_address[:zipcode],
+      city: random_address[:city],
+      country: random_address[:country],
+      travelling: true
+    )
+
+    base_user.save!(validate: false)
+  end
 end
