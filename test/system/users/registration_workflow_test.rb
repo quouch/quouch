@@ -124,5 +124,4 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     fill_in 'user[password]', with: password
     fill_in 'user[password_confirmation]', with: password
   end
-
 end

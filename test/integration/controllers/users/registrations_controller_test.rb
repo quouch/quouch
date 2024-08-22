@@ -28,8 +28,6 @@ module Users
     end
 
     test 'should not create a user without an invite code' do
-      # fixme: Restore this test when the invite code is required
-      skip
       # expect error message
       post user_registration_url,
            params: { user: @user_object,
@@ -39,8 +37,6 @@ module Users
     end
 
     test 'should not create a user with an invalid invite code' do
-      # fixme: Restore this test when the invite code is required
-      skip
       # expect error message
       post user_registration_url,
            params: { user: @user_object,
@@ -48,6 +44,21 @@ module Users
                      invite_code: 'invalid' }
 
       assert_response :unprocessable_entity
+    end
+
+    test 'should send a flash message if there is an issue with the invite code' do
+      inviting_user = FactoryBot.create(:test_user)
+      # Make the invite code invalid
+      inviting_user.invite_code = 'ABC123'
+      inviting_user.save
+
+      # expect error message
+      post user_registration_url,
+           params: { user: @user_object,
+                     user_characteristic: { characteristic_ids: [Characteristic.first.id] },
+                     invite_code: inviting_user[:invite_code] }
+
+      assert_includes flash[:error], 'There seems to be an issue with your invite code.'
     end
 
     test 'should create a user with an invite code' do
