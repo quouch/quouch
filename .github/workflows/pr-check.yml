@@ -22,6 +22,10 @@ env:
   RAILS_ENV: test
   CI: true
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     name: runner / rubocop
