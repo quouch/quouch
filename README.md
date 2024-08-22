@@ -99,6 +99,7 @@ docker compose -f .devcontainer/docker-compose.yml up db -d
 
 Running all tests is pretty simple, it only needs this command: `rails test`. This command does not run System Tests.
 For that, you need to run `rails test:system`.
+
 > Running tests after `dev:populate` might result in unexpected test failures. Tests expect the DB to be empty!
 
 However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
@@ -135,6 +136,34 @@ And for running only one directory:
 rails test test/models
 ```
 
+#### 3.2.3 Running system tests
+
+System tests are used to test the application from the user's perspective. You can run system tests with the following
+command:
+
+    ```bash
+    rails test:system
+    ```
+
+You can also run systems tests for specific screen sizes and devices:
+
+    ```bash
+    rails test:system:ios
+    rails test:system:android
+    ```
+
+If you want more granularity, you can use the following options as environment variables:
+
+- `SCREEN_TYPE` (default: `hd`) - available
+  options: `4k`, `full_hd`, `hd`, `sxga`, `xga`, `iphone_se`, `iphone_12_pro`, `pixel_7`, `galaxy`
+- `MOBILE` (default: `false`) - available options: `true`, `false`
+
+For example, to run system tests for an iPhone 12 Pro, you can run the following command:
+
+```bash
+SCREEN_TYPE=iphone_12_pro MOBILE=true rails test:system
+```
+
 #### 3.2.3 Code Coverage
 
 We use [SimpleCov](https://github.com/simplecov-ruby/simplecov) to generate code coverage reports.
@@ -151,8 +180,6 @@ To see the report, open the `index.html` file in your browser, e.g. run `open co
 
 We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command, which will only
 display the offenses that are not marked as `offense` in the `.rubocop.yml` file:
-
-```bash
 
 ```bash
 rubocop --display-only-fail-level-offenses
