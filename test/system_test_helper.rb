@@ -25,20 +25,20 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   protected
 
-  def is_mobile?
+  def mobile?
     mobile_flag = ENV.fetch('MOBILE', false)
     ['true', '1', 1, true].include?(mobile_flag)
   end
 
-  def is_desktop?
-    !is_mobile?
+  def desktop?
+    !mobile?
   end
 
   private
 
   def find_screen_size
     resolution = ENV.fetch('SCREEN_TYPE', 'hd').to_sym
-    mobile = is_mobile?
+    mobile = mobile?
 
     device_helper.find_screen_size(is_mobile: mobile, screen_type: resolution)
   end

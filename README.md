@@ -142,14 +142,14 @@ System tests are used to test the application from the user's perspective. You c
 command:
 
     ```bash
-    rails test:system
+    rails system
     ```
 
-You can also run systems tests for specific screen sizes and devices:
+You can also run systems tests for predefined screen sizes and devices:
 
     ```bash
-    rails test:system:ios
-    rails test:system:android
+    rails system:ios
+    rails system:android
     ```
 
 If you want more granularity, you can use the following options as environment variables:
@@ -162,6 +162,12 @@ For example, to run system tests for an iPhone 12 Pro, you can run the following
 
 ```bash
 SCREEN_TYPE=iphone_12_pro MOBILE=true rails test:system
+```
+
+To run system tests headless (without the browser opening), you can use the following command:
+
+```bash
+CI=true rails system [options]
 ```
 
 #### 3.2.3 Code Coverage

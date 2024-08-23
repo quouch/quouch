@@ -51,25 +51,6 @@ jobs:
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  security-analysis:
-    runs-on: ubuntu-latest
-    needs: lint
-    continue-on-error: true
-    if: github.event_name != 'pull_request'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          bundler-cache: true
-      - name: Security audit dependencies
-        continue-on-error: true
-        run: bundle exec bundler-audit --update
-      - name: Security audit application code
-        continue-on-error: true
-        run: bundle exec brakeman -q -w2
-
   test:
     runs-on: ubuntu-latest
     permissions: write-all

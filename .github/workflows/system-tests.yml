@@ -3,7 +3,7 @@
 # privacy policy, and support documentation.
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
+# run system tests - desktop and mobile
 name: "System Tests"
 
 on:
@@ -60,7 +60,7 @@ jobs:
           bin/rails db:migrate
 
       - name: Run desktop tests
-        run: bin/rails system:all
+        run: bin/rails system:desktop
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
