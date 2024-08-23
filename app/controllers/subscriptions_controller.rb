@@ -79,6 +79,7 @@ class SubscriptionsController < ApplicationController
           quantity: 1
         }],
         mode: 'subscription',
+        allow_promotion_codes: true,
         success_url: subscription_url(subscription),
         cancel_url: new_subscription_url
       }
