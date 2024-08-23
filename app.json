@@ -1,0 +1,24 @@
+{
+  "addons": [
+    "heroku-postgresql",
+    "rediscloud",
+    "scheduler"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "env": {
+    "RAILS_ENV": "staging"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "quouch",
+  "scripts": {
+  },
+  "stack": "heroku-22"
+}
