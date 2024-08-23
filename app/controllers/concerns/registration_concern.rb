@@ -61,9 +61,9 @@ module RegistrationConcern
   def find_invited_by
     return unless params[:invite_code].present?
 
-    @invited_by = User.find_by(invite_code: params[:invite_code].downcase)
+    @invited_by = User.find_by(invite_code: params[:invite_code].strip.downcase)
     if @invited_by.nil?
-      Rails.logger.warn("No user found with invite code: #{params[:invite_code]}")
+      Rails.logger.warn("No user found with invite code: '#{params[:invite_code]}'")
       return nil
     end
 
