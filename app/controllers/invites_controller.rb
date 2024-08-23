@@ -5,7 +5,7 @@ class InvitesController < ApplicationController
 
   def validate_invite_code
     invite_code = params[:invite][:invite_code].strip.downcase
-    if User.exists?(invite_code: invite_code)
+    if User.exists?(invite_code:)
       redirect_to new_user_registration_path(invite_code:)
     else
       Sentry.capture_message("No user found with invite code: #{invite_code}")

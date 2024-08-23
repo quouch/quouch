@@ -29,8 +29,8 @@ module Users
         end
 
         crumb = Sentry::Breadcrumb.new(
-          message: "User could not be created",
-          level: "error",
+          message: 'User could not be created',
+          level: 'error',
           category: 'user',
           data: { errors: resource.errors.full_messages }
         )

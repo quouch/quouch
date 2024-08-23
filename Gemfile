@@ -82,9 +82,9 @@ gem 'countries'
 # gem 'image_processing', '~> 1.2'
 
 # Monitoring with Sentry
-gem "stackprof"
-gem "sentry-ruby"
-gem "sentry-rails"
+gem 'sentry-rails'
+gem 'sentry-ruby'
+gem 'stackprof'
 
 # Performance optimization analysis
 #
