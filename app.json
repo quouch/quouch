@@ -1,8 +1,6 @@
 {
   "addons": [
-    "heroku-postgresql",
-    "rediscloud",
-    "scheduler"
+    "heroku-postgresql"
   ],
   "buildpacks": [
     {
@@ -20,5 +18,12 @@
   "name": "quouch",
   "scripts": {
   },
-  "stack": "heroku-22"
+  "stack": "heroku-22",
+  "environments": {
+    "review": {
+      "addons": [
+        "heroku-postgresql:essential-0"
+      ]
+    }
+  }
 }
