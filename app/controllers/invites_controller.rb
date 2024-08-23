@@ -8,6 +8,7 @@ class InvitesController < ApplicationController
     if User.exists?(invite_code: invite_code)
       redirect_to new_user_registration_path(invite_code:)
     else
+      Sentry.capture_message("No user found with invite code: #{params[:invite_code]}")
       flash[:alert] = 'Invite code not valid. Try again or contact the Quouch team'
       render :invite_code_form, status: :unprocessable_entity
     end
