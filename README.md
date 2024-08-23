@@ -1,3 +1,9 @@
+[![Ruby on Rails CI](https://github.com/quouch/quouch/actions/workflows/pr-check.yml/badge.svg)](https://github.com/quouch/quouch/actions/workflows/pr-check.yml)
+[![System Tests](https://github.com/quouch/quouch/actions/workflows/system-tests.yml/badge.svg)](https://github.com/quouch/quouch/actions/workflows/system-tests.yml)
+[![Sentry Badge](https://img.shields.io/badge/Sentry-362D59?logo=sentry&logoColor=fff&style=for-the-badge)](https://quouch.sentry.io)
+
+# Quouch
+
 Booking app for homestay from queer & female perspective.
 
 ## Table of Contents
@@ -196,6 +202,11 @@ If you want to autofix the issues that Rubocop finds, you can run the following 
 ```bash
 rubocop -A
 ```
+
+### 3.4 Monitoring
+
+We use Sentry to monitor errors in the application. You can access the Sentry dashboard by clicking on the Sentry badge or [here](https://quouch.sentry.io).
+Credentials are shared via 1Password.
 
 ## Troubleshooting
 
