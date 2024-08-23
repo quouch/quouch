@@ -100,6 +100,7 @@ GEM
       execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
@@ -423,6 +424,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.19.0)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.19.0)
+    sentry-ruby (5.19.0)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     shellany (0.0.1)
     shoulda (4.0.0)
       shoulda-context (~> 2.0)
@@ -443,6 +450,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stackprof (0.2.26)
     stimulus-rails (1.3.3)
       railties (>= 6.0.0)
     stringio (3.1.0)
@@ -539,10 +547,13 @@ DEPENDENCIES
   rubocop-rails
   sassc-rails
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   shoulda (~> 4.0)
   simple_form!
   simplecov
   sprockets-rails
+  stackprof
   stimulus-rails
   stripe
   stripe_event

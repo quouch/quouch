@@ -28,6 +28,14 @@ module Users
           flash[:error] = 'There seems to be an issue with your invite code. Please contact the Quouch team!'
         end
 
+        crumb = Sentry::Breadcrumb.new(
+          message: 'User could not be created',
+          level: 'error',
+          category: 'user',
+          data: { errors: resource.errors.full_messages }
+        )
+        Sentry.add_breadcrumb(crumb)
+
         clean_up_passwords resource
         set_minimum_password_length
         respond_with resource

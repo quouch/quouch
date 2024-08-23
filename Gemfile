@@ -81,6 +81,11 @@ gem 'countries'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem 'image_processing', '~> 1.2'
 
+# Monitoring with Sentry
+gem 'sentry-rails'
+gem 'sentry-ruby'
+gem 'stackprof'
+
 # Performance optimization analysis
 #
 group :development, :rubocop, :test do
