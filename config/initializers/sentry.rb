@@ -16,4 +16,6 @@ Sentry.init do |config|
   # of sampled transactions.
   # We recommend adjusting this value in production.
   config.profiles_sample_rate = 1.0
+
+  config.enabled_environments = %w[production staging development]
 end
