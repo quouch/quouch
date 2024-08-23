@@ -5,11 +5,14 @@ class InvitesController < ApplicationController
 
   def validate_invite_code
     invite_code = params[:invite][:invite_code].strip.downcase
-    if User.exists?(invite_code:)
-      redirect_to new_user_registration_path(invite_code:)
-    else
-      Sentry.capture_message("No user found with invite code: #{invite_code}")
+    begin
+      user = User.find_by!(invite_code: invite_code)
+      redirect_to new_user_registration_path(invite_code: invite_code) if user
+    rescue ActiveRecord::RecordNotFound => exception
       flash[:alert] = 'Invite code not valid. Try again or contact the Quouch team'
+      Sentry.capture_exception(exception)
+      Sentry.capture_message("No user found with invite code: #{invite_code}")
+
       render :invite_code_form, status: :unprocessable_entity
     end
   end
