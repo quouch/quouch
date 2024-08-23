@@ -7,9 +7,6 @@
       "url": "heroku/ruby"
     }
   ],
-  "env": {
-    "RAILS_ENV": "staging"
-  },
   "formation": {
     "web": {
       "quantity": 1
@@ -23,7 +20,10 @@
     "review": {
       "addons": [
         "heroku-postgresql:essential-0"
-      ]
+      ],
+      "scripts": {
+        "postdeploy": "bundle exec rake db:schema:load db:seed"
+      }
     }
   }
 }
