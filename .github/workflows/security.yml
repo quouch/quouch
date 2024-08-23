@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# security checks
+name: "Security Checks"
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  RAILS_ENV: test
+  CI: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  security-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      - name: Security audit dependencies
+        continue-on-error: true
+        run: bundle exec bundler-audit --update
+      - name: Security audit application code
+        continue-on-error: true
+        run: bundle exec brakeman -q -w2

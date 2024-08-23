@@ -15,11 +15,22 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   end
 
   test 'should see filters on initial load' do
+    skip 'This test should only be used on desktop' if mobile?
     visit couches_path
 
     assert_selector 'div[data-display-filters-target="filters"]', visible: true
     find('.search__hide-filters').click
     assert_selector 'div[data-display-filters-target="filters"]', visible: false
+  end
+
+  test 'should not see filters on initial load' do
+    skip 'This test should only be used on mobile' unless mobile?
+
+    visit couches_path
+
+    assert_selector 'div[data-display-filters-target="filters"]', visible: false
+    find('.search__hide-filters').click
+    assert_selector 'div[data-display-filters-target="filters"]', visible: true
   end
 
   test 'should see pagination buttons' do
@@ -82,6 +93,8 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Search with characteristics filter and items count = 100
     visit couches_path
+    find('.search__hide-filters').click if mobile?
+
     find('label', text: characteristic.name).click
 
     # Check that the number of couches returned matches the number of users with that characteristic
@@ -104,6 +117,8 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Select both characteristics
     visit couches_path
+    find('.search__hide-filters').click if mobile?
+
     find('label', text: characteristic1.name).click
     find('label', text: characteristic2.name).click
 
@@ -122,6 +137,7 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
 
     # Search with characteristics filter
     visit couches_path
+    find('.search__hide-filters').click if mobile?
     find('label', text: characteristic.name).click
 
     # should have two pages of results

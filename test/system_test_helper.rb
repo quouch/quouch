@@ -1,18 +1,53 @@
 ENV['RAILS_ENV'] ||= 'test'
 require 'test_helper'
-require 'application_system_test_case'
 require 'selenium-webdriver'
 require_relative 'helpers/system_sign_in_helper'
+require 'helpers/device_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400] do |driver_option|
+  include SystemSignInHelper
+
+  driven_by :selenium, using: :chrome do |driver_option|
     driver_option.add_argument('headless') if ENV['CI']
     driver_option.add_argument('disable-search-engine-choice-screen')
   end
-end
-
-class ApplicationSystemTestCase
-  include SystemSignInHelper
 
   fixtures :all
+
+  setup do
+    selected_screen_size = find_screen_size
+    current_window.resize_to(*selected_screen_size)
+  end
+
+  teardown do
+    current_window.resize_to(*default_window_size)
+  end
+
+  protected
+
+  def mobile?
+    mobile_flag = ENV.fetch('MOBILE', false)
+    ['true', '1', 1, true].include?(mobile_flag)
+  end
+
+  def desktop?
+    !mobile?
+  end
+
+  private
+
+  def find_screen_size
+    resolution = ENV.fetch('SCREEN_TYPE', 'hd').to_sym
+    mobile = mobile?
+
+    device_helper.find_screen_size(is_mobile: mobile, screen_type: resolution)
+  end
+
+  def device_helper
+    @device_helper ||= DeviceHelper.new
+  end
+
+  def default_window_size
+    [1366, 768]
+  end
 end

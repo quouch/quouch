@@ -7,6 +7,8 @@ if ENV['COVERAGE']
     add_filter '/vendor/' # Don't include vendored stuff
     add_filter '/test/'
     add_filter '/config/'
+    add_filter '/lib/tasks/'
+    add_filter '/log/'
   end
 
   # We're not at the stage where this makes sense, but it's a good goal to have
@@ -50,6 +52,8 @@ module ActiveSupport
 
     # Run tests in parallel with specified workers
     # parallelize(workers: :number_of_processors)
+    # Parallelizing tests don't work with coverage, so we don't include it by default
+    # To add it to a test class, include ParallelizeTests
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :characteristics
@@ -65,5 +69,13 @@ module ActionDispatch
     include DBHelper
 
     fixtures :all
+  end
+end
+
+# Include this in tests that should be parallelized to run faster:
+# include ParallelizeTests
+module ParallelizeTests
+  def self.included(base)
+    base.parallelize(workers: :number_of_processors)
   end
 end

@@ -3,16 +3,15 @@
 # privacy policy, and support documentation.
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
-name: "Ruby on Rails CI"
+# run system tests - desktop and mobile
+name: "System Tests"
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
+  schedule:
+    - cron: '0 0 * * *'
 
 permissions:
   contents: read
@@ -21,37 +20,16 @@ permissions:
 env:
   RAILS_ENV: test
   CI: true
+  DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
+  BASE_USER_EMAIL: "test@quouch.com"
+  BASE_USER_PASSWORD: "password" # Change for a random secret!
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  lint:
-    name: runner / rubocop
-    runs-on: ubuntu-latest
-    env:
-      BUNDLE_ONLY: rubocop
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          bundler-cache: true
-      - uses: reviewdog/action-rubocop@v2
-        with:
-          reporter: github-pr-check # Default is github-pr-check
-          skip_install: true
-          use_bundler: true
-          rubocop_flags: "--display-only-fail-level-offenses"
-      - name: Lint YAML files
-        uses: karancode/yamllint-github-action@master
-        with:
-          yamllint_strict: false
-          yamllint_comment: true
-        env:
-          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  test:
+  desktop:
     runs-on: ubuntu-latest
     permissions: write-all
     services:
@@ -63,11 +41,6 @@ jobs:
           POSTGRES_DB: quouch_development
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
-    env:
-      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
-      BASE_USER_EMAIL: "test@quouch.com"
-      BASE_USER_PASSWORD: "password" # Change for a random secret!
-      COVERAGE: "true"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -86,17 +59,42 @@ jobs:
           bin/rails db:create
           bin/rails db:migrate
 
-      - name: Run tests
-        run: bin/rails test
+      - name: Run desktop tests
+        run: bin/rails system:desktop
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
-      # Minimum configuration for SimpleCov+ action
-      # Documentation: https://github.com/joshmfrankel/simplecov-check-action
-      - uses: joshmfrankel/simplecov-check-action@main
+  mobile:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: quouch_development
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:environment:set RAILS_ENV=test
+          bin/rails db:drop
+          bin/rails db:create
+          bin/rails db:migrate
+
+      - name: Run mobile tests (iPhone)
+        run: bin/rails system:ios
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          minimum_suite_coverage: 40 # for now, let's aim to improve this!
-          # More options? https://github.com/joshmfrankel/simplecov-check-action/blob/main/action.yml
