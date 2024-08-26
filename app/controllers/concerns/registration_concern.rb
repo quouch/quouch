@@ -63,8 +63,8 @@ module RegistrationConcern
 
     @invited_by = User.find_by(invite_code: params[:invite_code].strip.downcase)
     if @invited_by.nil?
-      Sentry.capture_message("No user found with invite code: #{params[:invite_code]}")
-      Rails.logger.error("No user found with invite code: #{params[:invite_code]}")
+      Sentry.capture_message("No user found with invite code: #{params[:invite_code]}", level: 'info')
+      Rails.logger.warn("No user found with invite code: #{params[:invite_code]}")
       return nil
     end
 

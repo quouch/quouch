@@ -364,16 +364,4 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     new_characteristics
   end
-
-  def params
-    @params ||= {}
-  end
-
-  def session
-    @session ||= {}
-  end
-
-  def current_user
-    @user
-  end
 end

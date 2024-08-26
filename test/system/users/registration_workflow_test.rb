@@ -25,6 +25,18 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     assert_selector 'h1', text: 'Validate invite code'.upcase
   end
 
+  test 'should throw error if code does not exist' do
+    visit '/invite-code'
+
+    assert_selector 'h1', text: 'Validate invite code'.upcase
+
+    # Fill in the form
+    fill_in 'invite[invite_code]', with: 'abcdef'
+    click_on 'Validate'
+
+    assert_selector 'div.flash', text: 'Invite code not found'
+  end
+
   test 'should throw error if code is invalid' do
     visit '/invite-code'
 
@@ -34,7 +46,7 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     fill_in 'invite[invite_code]', with: 'invalid'
     click_on 'Validate'
 
-    assert_selector 'div.flash', text: 'Invite code not valid'
+    assert_selector 'div.flash', text: 'This does not look like a valid code'
   end
 
   test 'should redirect to sign up page if code is valid' do

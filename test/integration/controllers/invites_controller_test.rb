@@ -25,6 +25,14 @@ class InvitesControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
 
     assert flash[:alert].present?
-    assert_includes flash[:alert], 'Invite code not valid'
+    assert_includes flash[:alert], 'This does not look like a valid code'
+  end
+
+  test 'should not validate invite code that does not exist' do
+    get validate_invite_code_url, params: { invite: { invite_code: 'abcdef' } }
+    assert_response :unprocessable_entity
+
+    assert flash[:alert].present?
+    assert_includes flash[:alert], 'Invite code not found'
   end
 end

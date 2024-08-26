@@ -3,6 +3,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   # :lockable, :trackable and :omniauthable
   include PgSearch::Model
   include Devise::JWT::RevocationStrategies::JTIMatcher
+  include InviteCodeHelper
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
@@ -95,7 +96,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def generate_invite_code
     loop do
-      new_invite_code = SecureRandom.hex(3)
+      new_invite_code = generate_random_code
 
       unless User.exists?(invite_code: new_invite_code)
         self.invite_code = new_invite_code

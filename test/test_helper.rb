@@ -59,6 +59,19 @@ module ActiveSupport
     fixtures :characteristics
 
     # Add more helper methods to be used by all tests here...
+
+    # default setup for all unit tests
+    def params
+      @params ||= {}
+    end
+
+    def session
+      @session ||= {}
+    end
+
+    def current_user
+      @user ||= {}
+    end
   end
 end
 

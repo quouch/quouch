@@ -84,12 +84,4 @@ class RegistrationConcernTest < ActiveSupport::TestCase
     @user.reload
     assert_equal 'Germany', @user.country
   end
-
-  def params
-    @params ||= {}
-  end
-
-  def session
-    @session ||= {}
-  end
 end
