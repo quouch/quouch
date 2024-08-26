@@ -97,4 +97,30 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
     assert_equal @user.errors.messages[:invited_by_id], ['Please provide a valid invite code']
   end
+
+  test 'should manually geocode address' do
+    # reset the user's latitude and longitude
+    @user.latitude = nil
+    @user.longitude = nil
+
+    @user.manual_geocode
+    assert_not_nil @user.latitude
+    assert_not_nil @user.longitude
+  end
+
+  ADDRESSES.each_with_index do |address, index|
+    define_method("test_should_manually_geocode_address_#{index}") do
+      # reset the user's latitude and longitude
+      @user.latitude = nil
+      @user.longitude = nil
+
+      # set the address
+      formatted_address = AddressHelper.format_address(address)
+      @user.address = formatted_address
+
+      @user.manual_geocode
+      assert_not_nil @user.latitude, "Latitude is nil for address: #{formatted_address}"
+      assert_not_nil @user.longitude
+    end
+  end
 end

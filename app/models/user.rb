@@ -44,7 +44,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
+  after_validation :manual_geocode, if: :will_save_change_to_address?
   before_create :generate_invite_code
 
   pg_search_scope :search_city_or_country,
@@ -131,5 +131,24 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless stripe_subscription.save
 
     subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
+  end
+
+  def manual_geocode
+    begin
+      Rails.logger.info("GeoCoding address: #{address}")
+
+      query = Geocoder::Query.new(address, {})
+      raise 'No address provided' if address.blank?
+      query_response = query.execute
+      first_match = query_response.first
+      raise "No match found for #{address}" unless first_match
+
+      self.latitude = first_match.latitude
+      self.longitude = first_match.longitude
+
+    rescue StandardError => e
+      Rails.logger.error(e.message)
+      Sentry.capture_exception(e, extra: { address: address, geocoder_response: query_response })
+    end
   end
 end
