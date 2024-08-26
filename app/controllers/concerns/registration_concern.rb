@@ -73,13 +73,36 @@ module RegistrationConcern
   end
 
   def update_profile
-    @user.update(country: beautify_country)
-    Rails.logger.info("Updated user profile with country: #{beautify_country}")
+    begin
+      @user.update(country: beautify_country)
+      Rails.logger.info("Updated user profile with country: #{beautify_country}")
+    rescue ArgumentError => e
+      Sentry.capture_exception(e)
+    end
+
     create_couch if @user.couch.nil?
   end
 
   def beautify_country
-    country = params[:user][:country]
-    ISO3166::Country[country].translations[I18n.locale.to_s]
+    begin
+      country = params[:user][:country].strip
+      Rails.logger.info("Beautifying country: #{country}")
+      iso_country = ISO3166::Country[country]
+      translated_country = iso_country.translations[I18n.locale.to_s]
+      Rails.logger.info("Country beautification: #{country} -> #{iso_country.to_s} -> #{translated_country}")
+      raise StandardError if translated_country.nil? || translated_country == country
+
+      translated_country
+    rescue StandardError => e
+      Rails.logger.error("Error updating user profile: #{e.message}")
+      crumb = Sentry::Breadcrumb.new(
+        message: 'Error beautifying country',
+        level: 'error',
+        category: 'user',
+        data: { params:, country:, iso_result: iso_country, translated_country:, error: e }
+      )
+      Sentry.add_breadcrumb(crumb)
+      raise ArgumentError, "Country not found: #{country}"
+    end
   end
 end
