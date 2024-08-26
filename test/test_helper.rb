@@ -78,7 +78,10 @@ module ActiveSupport
     end
 
     def current_user
+      # disable Naming/MemoizedInstanceVariableName
+      # rubocop:disable Naming/MemoizedInstanceVariableName
       @user ||= {}
+      # rubocop:enable Naming/MemoizedInstanceVariableName
     end
   end
 end
