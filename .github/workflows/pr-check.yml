@@ -87,7 +87,9 @@ jobs:
           bin/rails db:migrate
 
       - name: Run tests
-        run: bin/rails test
+        run: | 
+          bin/rails test
+          cat coverage/report.md >> $GITHUB_STEP_SUMMARY
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
 
