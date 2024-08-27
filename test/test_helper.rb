@@ -2,6 +2,14 @@ ENV['RAILS_ENV'] ||= 'test'
 
 if ENV['COVERAGE']
   require 'simplecov'
+  require 'simplecov-markdown'
+
+  if ENV['CI']
+    SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
+                                                                     SimpleCov::Formatter::MarkdownFormatter,
+                                                                     SimpleCov::Formatter::HTMLFormatter
+                                                                   ])
+  end
 
   SimpleCov.start 'rails' do
     add_filter '/vendor/' # Don't include vendored stuff
@@ -70,7 +78,10 @@ module ActiveSupport
     end
 
     def current_user
+      # disable Naming/MemoizedInstanceVariableName
+      # rubocop:disable Naming/MemoizedInstanceVariableName
       @user ||= {}
+      # rubocop:enable Naming/MemoizedInstanceVariableName
     end
   end
 end

@@ -60,11 +60,11 @@ jobs:
         ports:
           - "5432:5432"
         env:
-          POSTGRES_DB: quouch_development
+          POSTGRES_DB: quouch_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:
-      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_development"
+      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_test"
       BASE_USER_EMAIL: "test@quouch.com"
       BASE_USER_PASSWORD: "password" # Change for a random secret!
       COVERAGE: "true"
@@ -87,7 +87,10 @@ jobs:
           bin/rails db:migrate
 
       - name: Run tests
-        run: bin/rails test
+        run: |
+          bin/rails test
+          ./.github/scripts/report-to-summary.sh
+
         env:
           RAILS_MASTER_KEY: ${{ secrets.MASTER_KEY }}
 

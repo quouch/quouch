@@ -442,6 +442,8 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
+    simplecov-markdown (0.2.0)
+      simplecov
     simplecov_json_formatter (0.1.4)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -552,6 +554,7 @@ DEPENDENCIES
   shoulda (~> 4.0)
   simple_form!
   simplecov
+  simplecov-markdown
   sprockets-rails
   stackprof
   stimulus-rails
