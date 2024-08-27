@@ -1,0 +1,26 @@
+get:
+  summary: List all notifications
+  responses:
+    '200':
+      description: A list of notifications
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/notification.yaml'
+post:
+  summary: Create a new notification
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/notification.yaml'
+  responses:
+    '201':
+      description: The created notification
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/notification.yaml'

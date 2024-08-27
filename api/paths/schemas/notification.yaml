@@ -1,0 +1,20 @@
+type: object
+properties:
+  id:
+    type: integer
+  user_id:
+    type: integer
+  message:
+    type: string
+  read_at:
+    type: string
+    format: date-time
+    nullable: true
+  created_at:
+    type: string
+    format: date-time
+required:
+  - id
+  - user_id
+  - message
+  - created_at

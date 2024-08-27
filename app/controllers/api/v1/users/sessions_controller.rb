@@ -16,8 +16,10 @@ module Api
         rescue_from JwtError do |e|
           render json: {
             code: 401,
-            error: 'Invalid token.',
-            message: e
+            message: 'Invalid token.',
+            data: {
+              errors: [e]
+            }
           }, status: :unauthorized
         end
 
@@ -47,18 +49,17 @@ module Api
         private
 
         def respond_with(current_user, _opts = {})
-          if current_user.valid?
+          if current_user.nil?
+            render json: {
+              code: 401,
+              message: 'Invalid login credentials. Please try again.',
+            }, status: :unauthorized, error_status: :unauthorized
+          else
             render json: {
               code: 200,
               message: 'Logged in successfully.',
               data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
             }, status: :ok
-          else
-            render json: {
-              code: 401,
-              error: 'Invalid login credentials. Please try again.',
-              data: { errors: current_user.errors.full_messages }
-            }, status: :unauthorized, error_status: :unauthorized
           end
         end
 

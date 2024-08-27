@@ -1,0 +1,27 @@
+get:
+  summary: Get a user by ID
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: A single user
+      content:
+        application/json:
+          schema:
+            $ref: "schemas/user.yaml"
+    404:
+      description: No user found for the provided `userId`
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/error.yaml'
+    500:
+      description: Unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/error.yaml'

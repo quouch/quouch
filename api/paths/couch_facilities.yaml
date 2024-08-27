@@ -1,0 +1,26 @@
+get:
+  summary: List all couch facilities
+  responses:
+    '200':
+      description: A list of couch facilities
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/couch_facility.yaml'
+post:
+  summary: Create a new couch facility
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/couch_facility.yaml'
+  responses:
+    '201':
+      description: The created couch facility
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/couch_facility.yaml'

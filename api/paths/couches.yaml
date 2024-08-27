@@ -1,0 +1,26 @@
+get:
+  summary: List all couches
+  responses:
+    '200':
+      description: A list of couches
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/couch.yaml'
+post:
+  summary: Create a new couch
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/couch.yaml'
+  responses:
+    '201':
+      description: The created couch
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/couch.yaml'

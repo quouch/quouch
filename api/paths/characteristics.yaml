@@ -1,0 +1,26 @@
+get:
+  summary: List all characteristics
+  responses:
+    '200':
+      description: A list of characteristics
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/characteristic.yaml'
+post:
+  summary: Create a new characteristic
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/characteristic.yaml'
+  responses:
+    '201':
+      description: The created characteristic
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/characteristic.yaml'

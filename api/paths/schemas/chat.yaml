@@ -1,0 +1,20 @@
+type: object
+properties:
+  id:
+    type: integer
+  sender_id:
+    type: integer
+  recipient_id:
+    type: integer
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+required:
+  - id
+  - sender_id
+  - recipient_id
+  - created_at
+  - updated_at

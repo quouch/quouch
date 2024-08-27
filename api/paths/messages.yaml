@@ -1,0 +1,26 @@
+get:
+  summary: List all messages
+  responses:
+    '200':
+      description: A list of messages
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/message.yaml'
+post:
+  summary: Create a new message
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/message.yaml'
+  responses:
+    '201':
+      description: The created message
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/message.yaml'

@@ -1,0 +1,28 @@
+delete:
+  summary: Log the user out
+  responses:
+    '200':
+      description: The user has been logged out
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: "Logged out successfully."
+            required:
+              - message
+              - code
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/error.yaml'
+          example:
+            message: "Invalid token."
+            code: 401

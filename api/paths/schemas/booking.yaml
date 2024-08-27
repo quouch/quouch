@@ -1,0 +1,29 @@
+type: object
+description: A single booking object
+properties:
+  id:
+    type: integer
+  user_id:
+    type: integer
+  couch_id:
+    type: integer
+  start_date:
+    type: string
+    format: date
+  end_date:
+    type: string
+    format: date
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+required:
+  - id
+  - user_id
+  - couch_id
+  - start_date
+  - end_date
+  - created_at
+  - updated_at

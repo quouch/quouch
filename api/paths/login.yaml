@@ -1,0 +1,46 @@
+post:
+  summary: Login with email and password
+  security: [ ]
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "schemas/login.yaml"
+  responses:
+    '200':
+      description: OK. Returns the logged in user
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: "Logged in successfully."
+              data:
+                type: object
+                properties:
+                  user:
+                    $ref: 'schemas/user.yaml'
+    '401':
+      description: Invalid login credentials
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/error.yaml'
+          example:
+            message: "Invalid login credentials. Please try again."
+            code: 401
+    '409':
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/error.yaml'
+          example:
+            message: "You're already signed in."
+            code: 409

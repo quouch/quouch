@@ -1,0 +1,133 @@
+                                  Prefix Verb   URI Pattern                                                                                       Controller#Action
+                             rails_admin        /admin                                                                                            RailsAdmin::Engine
+                      authenticated_root GET    /                                                                                                 couches#index
+                                    root GET    /                                                                                                 pages#home
+                           search_cities GET    /search_cities(.:format)                                                                          couches#search_cities
+                                   about GET    /about(.:format)                                                                                  pages#about
+                                     faq GET    /faq(.:format)                                                                                    pages#faq
+                              guidelines GET    /guidelines(.:format)                                                                             pages#guidelines
+                               impressum GET    /impressum(.:format)                                                                              pages#impressum
+                                 privacy GET    /privacy(.:format)                                                                                pages#privacy
+                                  safety GET    /safety(.:format)                                                                                 pages#safety
+                                   terms GET    /terms(.:format)                                                                                  pages#terms
+                                 cookies GET    /cookies(.:format)                                                                                pages#cookies
+                             invite_code GET    /invite-code(.:format)                                                                            invites#invite_code_form
+                    validate_invite_code GET    /validate-invite-code(.:format)                                                                   invites#validate_invite_code
+                           invite_friend GET    /invite-friend(.:format)                                                                          invites#invite_friend
+                       send_invite_email GET    /send-invite-email(.:format)                                                                      invites#send_invite_email
+                            email_export GET    /email-export(.:format)                                                                           pages#emails
+                 requests_couch_bookings GET    /couches/:couch_id/bookings/requests(.:format)                                                    bookings#requests
+                   couch_booking_reviews POST   /couches/:couch_id/bookings/:booking_id/reviews(.:format)                                         reviews#create
+                new_couch_booking_review GET    /couches/:couch_id/bookings/:booking_id/reviews/new(.:format)                                     reviews#new
+                          couch_bookings POST   /couches/:couch_id/bookings(.:format)                                                             bookings#create
+                       new_couch_booking GET    /couches/:couch_id/bookings/new(.:format)                                                         bookings#new
+                                 couches GET    /couches(.:format)                                                                                couches#index
+                                   couch GET    /couches/:id(.:format)                                                                            couches#show
+                         request_booking GET    /bookings/:id/show_request(.:format)                                                              bookings#show_request
+                            sent_booking GET    /bookings/:id/sent(.:format)                                                                      bookings#sent
+                       confirmed_booking GET    /bookings/:id/confirmed(.:format)                                                                 bookings#confirmed
+                        complete_booking PATCH  /bookings/:id/complete(.:format)                                                                  bookings#complete
+                          accept_booking PATCH  /bookings/:id/accept(.:format)                                                                    bookings#accept
+                         decline_booking PATCH  /bookings/:id/decline(.:format)                                                                   bookings#decline
+        decline_and_send_message_booking PATCH  /bookings/:id/decline_and_send_message(.:format)                                                  bookings#decline_and_send_message
+                          cancel_booking DELETE /bookings/:id/cancel(.:format)                                                                    bookings#cancel
+                                bookings GET    /bookings(.:format)                                                                               bookings#index
+                            edit_booking GET    /bookings/:id/edit(.:format)                                                                      bookings#edit
+                                 booking GET    /bookings/:id(.:format)                                                                           bookings#show
+                                         PATCH  /bookings/:id(.:format)                                                                           bookings#update
+                                         PUT    /bookings/:id(.:format)                                                                           bookings#update
+                                         DELETE /bookings/:id(.:format)                                                                           bookings#destroy
+                           chat_messages POST   /chats/:chat_id/messages(.:format)                                                                messages#create
+                                   chats GET    /chats(.:format)                                                                                  chats#index
+                                         POST   /chats(.:format)                                                                                  chats#create
+                                    chat GET    /chats/:id(.:format)                                                                              chats#show
+                           code_contacts GET    /contacts/code(.:format)                                                                          contacts#code
+                         report_contacts GET    /contacts/report(.:format)                                                                        contacts#report
+                                contacts POST   /contacts(.:format)                                                                               contacts#create
+                             new_contact GET    /contacts/new(.:format)                                                                           contacts#new
+                   payment_subscriptions GET    /subscriptions/payment(.:format)                                                                  subscriptions#payment {:format=>"html"}
+                           subscriptions POST   /subscriptions(.:format)                                                                          subscriptions#create
+                        new_subscription GET    /subscriptions/new(.:format)                                                                      subscriptions#new
+                            subscription GET    /subscriptions/:id(.:format)                                                                      subscriptions#show
+                                         PATCH  /subscriptions/:id(.:format)                                                                      subscriptions#update
+                                         PUT    /subscriptions/:id(.:format)                                                                      subscriptions#update
+                                         DELETE /subscriptions/:id(.:format)                                                                      subscriptions#destroy
+                                                /cable                                                                                            #<ActionCable::Server::Base:0x0000000106b16960 @config=#<ActionCable::Server::Configuration:0x000000010abf8e60 @log_tags=[], @connection_class=#<Proc:0x000000010ac0bd80 /Users/rbermudez/.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/actioncable-7.0.8.4/lib/action_cable/engine.rb:46 (lambda)>, @worker_pool_size=4, @disable_request_forgery_protection=false, @allow_same_origin_as_host=true, @logger=#<ActiveSupport::Logger:0x000000010a3e8568 @level=0, @progname=nil, @default_formatter=#<Logger::Formatter:0x000000010a3e89c8 @datetime_format=nil>, @formatter=#<ActiveSupport::Logger::SimpleFormatter:0x000000010a3e8478 @datetime_format=nil, @thread_key="activesupport_tagged_logging_tags:22320">, @logdev=#<Logger::LogDevice:0x000000010a3e8888 @shift_period_suffix="%Y%m%d", @shift_size=1048576, @shift_age=0, @filename="/Users/rbermudez/github/quouch/log/development.log", @dev=#<File:/Users/rbermudez/github/quouch/log/development.log>, @binmode=false, @mon_data=#<Monitor:0x000000010a3e8838>, @mon_data_owner_object_id=6920>>, @cable={"adapter"=>"async"}, @mount_path="/cable", @precompile_assets=true, @allowed_request_origins=/https?:\/\/localhost:\d+/>, @mutex=#<Monitor:0x0000000106b164d8>, @pubsub=nil, @worker_pool=nil, @event_loop=nil, @remote_connections=nil>
+                            stripe_event        /stripe-webhooks                                                                                  StripeEvent::Engine
+                        new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
+                            user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
+                    destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
+                       new_user_password GET    /users/password/new(.:format)                                                                     devise/passwords#new
+                      edit_user_password GET    /users/password/edit(.:format)                                                                    devise/passwords#edit
+                           user_password PATCH  /users/password(.:format)                                                                         devise/passwords#update
+                                         PUT    /users/password(.:format)                                                                         devise/passwords#update
+                                         POST   /users/password(.:format)                                                                         devise/passwords#create
+                cancel_user_registration GET    /users/cancel(.:format)                                                                           users/registrations#cancel
+                   new_user_registration GET    /users/sign_up(.:format)                                                                          users/registrations#new
+                  edit_user_registration GET    /users/edit(.:format)                                                                             users/registrations#edit
+                       user_registration PATCH  /users(.:format)                                                                                  users/registrations#update
+                                         PUT    /users(.:format)                                                                                  users/registrations#update
+                                         DELETE /users(.:format)                                                                                  users/registrations#destroy
+                                         POST   /users(.:format)                                                                                  users/registrations#create
+                   new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
+                       user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
+                                         POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
+                                                /404(.:format)                                                                                    errors#not_found
+                                                /500(.:format)                                                                                    errors#internal_server_error
+                                                /422(.:format)                                                                                    errors#unprocessable_content
+                            api_v1_login GET    /api/v1/login(.:format)                                                                           api/v1/users/sessions#new {:format=>:json}
+                                         POST   /api/v1/login(.:format)                                                                           api/v1/users/sessions#create {:format=>:json}
+                           api_v1_logout DELETE /api/v1/logout(.:format)                                                                          api/v1/users/sessions#destroy {:format=>:json}
+                       api_v1_users_edit GET    /api/v1/users/edit(.:format)                                                                      api/v1/users/registrations#edit {:format=>:json}
+                                  api_v1 POST   /api/v1/update/:id(.:format)                                                                      api/v1/users/registrations#update {:format=>:json}
+                          api_v1_couches GET    /api/v1/couches(.:format)                                                                         api/v1/couches#index {:format=>:json}
+                                         POST   /api/v1/couches(.:format)                                                                         api/v1/couches#create {:format=>:json}
+                            api_v1_couch GET    /api/v1/couches/:id(.:format)                                                                     api/v1/couches#show {:format=>:json}
+                                         DELETE /api/v1/couches/:id(.:format)                                                                     api/v1/couches#destroy {:format=>:json}
+                            api_v1_users GET    /api/v1/users(.:format)                                                                           api/v1/users#index {:format=>:json}
+                             api_v1_user GET    /api/v1/users/:id(.:format)                                                                       api/v1/users#show {:format=>:json}
+        turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
+        turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
+       turbo_refresh_historical_location GET    /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh
+           rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                           action_mailbox/ingresses/postmark/inbound_emails#create
+              rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                              action_mailbox/ingresses/relay/inbound_emails#create
+           rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                           action_mailbox/ingresses/sendgrid/inbound_emails#create
+     rails_mandrill_inbound_health_check GET    /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#health_check
+           rails_mandrill_inbound_emails POST   /rails/action_mailbox/mandrill/inbound_emails(.:format)                                           action_mailbox/ingresses/mandrill/inbound_emails#create
+            rails_mailgun_inbound_emails POST   /rails/action_mailbox/mailgun/inbound_emails/mime(.:format)                                       action_mailbox/ingresses/mailgun/inbound_emails#create
+          rails_conductor_inbound_emails GET    /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#index
+                                         POST   /rails/conductor/action_mailbox/inbound_emails(.:format)                                          rails/conductor/action_mailbox/inbound_emails#create
+       new_rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/new(.:format)                                      rails/conductor/action_mailbox/inbound_emails#new
+      edit_rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/:id/edit(.:format)                                 rails/conductor/action_mailbox/inbound_emails#edit
+           rails_conductor_inbound_email GET    /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#show
+                                         PATCH  /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#update
+                                         PUT    /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#update
+                                         DELETE /rails/conductor/action_mailbox/inbound_emails/:id(.:format)                                      rails/conductor/action_mailbox/inbound_emails#destroy
+new_rails_conductor_inbound_email_source GET    /rails/conductor/action_mailbox/inbound_emails/sources/new(.:format)                              rails/conductor/action_mailbox/inbound_emails/sources#new
+   rails_conductor_inbound_email_sources POST   /rails/conductor/action_mailbox/inbound_emails/sources(.:format)                                  rails/conductor/action_mailbox/inbound_emails/sources#create
+   rails_conductor_inbound_email_reroute POST   /rails/conductor/action_mailbox/:inbound_email_id/reroute(.:format)                               rails/conductor/action_mailbox/reroutes#create
+rails_conductor_inbound_email_incinerate POST   /rails/conductor/action_mailbox/:inbound_email_id/incinerate(.:format)                            rails/conductor/action_mailbox/incinerates#create
+                      rails_service_blob GET    /rails/active_storage/blobs/redirect/:signed_id/*filename(.:format)                               active_storage/blobs/redirect#show
+                rails_service_blob_proxy GET    /rails/active_storage/blobs/proxy/:signed_id/*filename(.:format)                                  active_storage/blobs/proxy#show
+                                         GET    /rails/active_storage/blobs/:signed_id/*filename(.:format)                                        active_storage/blobs/redirect#show
+               rails_blob_representation GET    /rails/active_storage/representations/redirect/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations/redirect#show
+         rails_blob_representation_proxy GET    /rails/active_storage/representations/proxy/:signed_blob_id/:variation_key/*filename(.:format)    active_storage/representations/proxy#show
+                                         GET    /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format)          active_storage/representations/redirect#show
+                      rails_disk_service GET    /rails/active_storage/disk/:encoded_key/*filename(.:format)                                       active_storage/disk#show
+               update_rails_disk_service PUT    /rails/active_storage/disk/:encoded_token(.:format)                                               active_storage/disk#update
+                    rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                                    active_storage/direct_uploads#create
+
+Routes for RailsAdmin::Engine:
+  dashboard GET         /                                      rails_admin/main#dashboard
+      index GET|POST    /:model_name(.:format)                 rails_admin/main#index
+        new GET|POST    /:model_name/new(.:format)             rails_admin/main#new
+     export GET|POST    /:model_name/export(.:format)          rails_admin/main#export
+bulk_delete POST|DELETE /:model_name/bulk_delete(.:format)     rails_admin/main#bulk_delete
+bulk_action POST        /:model_name/bulk_action(.:format)     rails_admin/main#bulk_action
+       show GET         /:model_name/:id(.:format)             rails_admin/main#show
+       edit GET|PUT     /:model_name/:id/edit(.:format)        rails_admin/main#edit
+     delete GET|DELETE  /:model_name/:id/delete(.:format)      rails_admin/main#delete
+show_in_app GET         /:model_name/:id/show_in_app(.:format) rails_admin/main#show_in_app
+
+Routes for StripeEvent::Engine:
+  root POST /           stripe_event/webhook#event

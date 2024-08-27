@@ -1,0 +1,26 @@
+get:
+  summary: List all bookings
+  responses:
+    '200':
+      description: A list of bookings
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: 'schemas/booking.yaml'
+post:
+  summary: Create a new booking
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: 'schemas/booking.yaml'
+  responses:
+    '201':
+      description: The created booking
+      content:
+        application/json:
+          schema:
+            $ref: 'schemas/booking.yaml'
