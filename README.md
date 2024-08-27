@@ -161,7 +161,7 @@ You can also run systems tests for predefined screen sizes and devices:
 If you want more granularity, you can use the following options as environment variables:
 
 - `SCREEN_TYPE` (default: `hd`) - available
-  options: `4k`, `full_hd`, `hd`, `sxga`, `xga`, `iphone_se`, `iphone_12_pro`, `pixel_7`, `galaxy`
+  options: `4k`, `full_hd`, `hd`, `sxga`, `xga`, `iphone_se`, `iphone_12_pro`, `pixel7`, `galaxy`
 - `MOBILE` (default: `false`) - available options: `true`, `false`
 
 For example, to run system tests for an iPhone 12 Pro, you can run the following command:

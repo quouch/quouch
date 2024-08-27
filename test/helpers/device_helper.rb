@@ -11,7 +11,7 @@ class DeviceHelper
   mobile_devices = {
     iphone_se: { screen_size: [375, 667], os: 'ios' },
     iphone_12_pro: { screen_size: [390, 844], os: 'ios' },
-    pixel_7: { screen_size: [412, 915], os: 'android' },
+    pixel7: { screen_size: [412, 915], os: 'android' },
     galaxy: { screen_size: [360, 740], os: 'android' }
   }
 
