@@ -102,7 +102,7 @@
       <% end %>
 
       <% if @cancelled.any? %>
-        <h2 class="requests__title">Cancelled Requests</h2>
+        <h2 class="requests__title">Cancelled, Declined & Expired Bookings</h2>
         <ul class="past-requests">
           <% @cancelled.each do |request| %>
             <%= link_to request_booking_path(request) do %>

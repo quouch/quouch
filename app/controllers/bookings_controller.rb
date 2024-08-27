@@ -175,7 +175,7 @@ class BookingsController < ApplicationController
   def categorize_booking(booking)
     if booking.pending? || booking.pending_reconfirmation? || booking.confirmed?
       :upcoming
-    elsif booking.cancelled? || booking.declined?
+    elsif booking.cancelled? || booking.declined? || booking.expired?
       :cancelled
     else
       :completed
