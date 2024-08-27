@@ -51,7 +51,7 @@ class JwtTokenHelperTest < ActionView::TestCase
 
   test 'should raise error when the token does not match the user' do
     # Create a user
-    user = FactoryBot.create(:test_user)
+    user = FactoryBot.create(:user, :for_test)
 
     # Prepare a token
     token = generate_token({ sub: user.id, jti: '123', exp: Time.now.to_i + 10 })
@@ -66,7 +66,7 @@ class JwtTokenHelperTest < ActionView::TestCase
 
   test 'should find user by jwt token' do
     # Create a user
-    user = FactoryBot.create(:test_user)
+    user = FactoryBot.create(:user, :for_test)
 
     # Prepare a token
     token = generate_token({ sub: user.id, jti: user.jti, exp: Time.now.to_i + 10 })

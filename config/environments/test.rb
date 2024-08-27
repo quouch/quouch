@@ -12,6 +12,10 @@ Rails.application.configure do
     Bullet.raise         = false # raise an error if n+1 query occurs
   end
 
+  config.logger = Logger.new($stdout)
+
+  # Get the log level from the LOG_LEVEL environment variable or default to :warn.
+  config.log_level = ENV['LOG_LEVEL'] ? ENV['LOG_LEVEL'].to_sym : :warn
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Turn false under Spring and add config.action_view.cache_template_loading = true.

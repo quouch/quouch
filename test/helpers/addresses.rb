@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+class AddressHelper
+  def self.format_address(address)
+    "#{address[:street]}, #{address[:zipcode]} #{address[:city]}, #{address[:country]}"
+  end
+end
+
 ADDRESSES = [
   { street: '123 Main St', city: 'New York', country: 'United States', zipcode: '10001', country_code: 'US' },
   { street: '456 Market St', city: 'San Francisco', country: 'United States', zipcode: '94105', country_code: 'US' },
@@ -24,25 +30,3 @@ ADDRESSES = [
   { street: '1 Austin Rd W', city: 'Hong Kong', country: 'Hong Kong', zipcode: 'HKG', country_code: 'HK' },
   { street: '111 Bourke St', city: 'Melbourne', country: 'Australia', zipcode: '3000', country_code: 'AU' }
 ].freeze
-
-# Parse the addresses to verify their existence in google maps
-# 123 Main St, New York, United States, 10001
-# 456 Market St, San Francisco, United States, 94105
-# 10 Downing St, London, United Kingdom, SW1A 2AA
-# Unter den Linden 77, Berlin, Germany, 10117
-# Piazza del Colosseo 1, Rome, Italy, 00184
-# Plaza de Cibeles 1, Madrid, Spain, 28014
-# Rue de la Loi 200, Brussels, Belgium, 1000
-# Av. Paulista, 1578, São Paulo, Brazil, 01310-200
-# Calle 10 # 5-51, Bogotá, Colombia, 111711
-# Av. 9 de Julio 1925, Buenos Aires, Argentina, C1072
-# Rue Dr. Robert Delmas, Port-au-Prince, Haiti, HT6110
-# Avenue Hassan II, Rabat, Morocco, 10030
-# Rue de Commerce, Dakar, Senegal, 18524
-# Jl. Medan Merdeka Selatan No.13, Jakarta, Indonesia, 10110
-# 2 Chome-3-1 Nishishinjuku, Tokyo, Japan, 163-8001
-# 350 Euston Rd, Mumbai, India, 400098
-# Jl. Jend. Sudirman Kav.52-53, Jakarta, Indonesia, 12190
-# 1 Austin Rd W, Hong Kong, Hong Kong, HKG
-# 111 Bourke St, Melbourne, Australia, 3000
-#

@@ -4,7 +4,7 @@ require 'system_test_helper'
 
 class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   setup do
-    @user = FactoryBot.create(:test_user_couch)
+    @user = FactoryBot.create(:user, :for_test, :with_couch)
     sign_in_as(@user)
   end
 

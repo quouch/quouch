@@ -6,7 +6,7 @@ module SignInHelper
   end
 
   def api_prepare_headers
-    user = FactoryBot.create(:test_user_couch)
+    user = FactoryBot.create(:user, :for_test, :with_couch)
     # Ensure that the city is unique, so we don't have to worry about it in the tests
     user.city = 'Test city'
     user.country = 'Test country'

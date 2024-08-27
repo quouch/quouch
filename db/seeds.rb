@@ -92,7 +92,8 @@ user_password = ENV.fetch('BASE_USER_PASSWORD', nil)
 puts 'Create first user'
 User.destroy_all
 
-address = { street: 'Unter den Linden 77', city: 'Berlin', country: 'Germany', zipcode: '10117', country_code: 'DE' }
+address = { address: 'Unter den Linden 77, 10117 Berlin, Germany', city: 'Berlin', country: 'Germany',
+            zipcode: '10117' }
 
 base_user = User.new(
   email: user_email,
@@ -100,7 +101,7 @@ base_user = User.new(
   first_name: 'Admin',
   last_name: 'Local',
   confirmed_at: Time.now,
-  address: "#{address[:street]}, #{address[:zipcode]} #{address[:city]}, #{address[:country]}",
+  address: address[:address],
   zipcode: address[:zipcode],
   city: address[:city],
   country: address[:country]

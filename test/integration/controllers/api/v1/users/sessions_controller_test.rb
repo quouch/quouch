@@ -7,7 +7,7 @@ module Api
         include Devise::Test::IntegrationHelpers
 
         def setup
-          @user = FactoryBot.create(:test_user)
+          @user = FactoryBot.create(:user, :for_test)
           @user.password = 'password'
           @user.save!
         end

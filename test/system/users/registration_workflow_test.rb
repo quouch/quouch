@@ -6,15 +6,15 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
   def setup
     random_address = ADDRESSES.first
 
-    @fake_user_data = FactoryBot.build(:test_user)
-    @fake_user_data[:address] = random_address[:street]
+    @fake_user_data = FactoryBot.build(:user, :for_test)
+    @fake_user_data[:address] = AddressHelper.format_address(random_address)
     @fake_user_data[:zipcode] = random_address[:zipcode]
     @fake_user_data[:city] = random_address[:city]
     @fake_user_data[:country] = random_address[:country_code]
 
     @avatar = URI.parse(Faker::Avatar.image).open
 
-    @inviting_user = FactoryBot.create(:test_user_couch)
+    @inviting_user = FactoryBot.create(:user, :for_test, :with_couch)
   end
 
   test 'should open validate invite code page' do
@@ -119,7 +119,7 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     fill_in 'user[summary]', with: @fake_user_data[:summary]
 
     # Fill in the address
-    formatted_address = "#{@fake_user_data[:address]}, #{@fake_user_data[:zipcode]} #{@fake_user_data[:city]}, #{@fake_user_data[:country]}"
+    formatted_address = AddressHelper.format_address(ADDRESSES.first)
     fill_in 'Search', with: formatted_address
     first_suggestion = first('.mapboxgl-ctrl-geocoder--suggestion')
     first_suggestion.click

@@ -11,13 +11,13 @@ class RegistrationConcernTest < ActiveSupport::TestCase
     @user = FactoryBot.create(:user)
   end
 
-  test 'should beautify all countries in the addresses' do
-    ADDRESSES.each do |address|
+  ADDRESSES.each_with_index do |address, index|
+    define_method "test_should_beautify_address_#{index}" do
       params[:user] = {
         country: address[:country_code]
       }
 
-      assert_equal address[:country], beautify_country
+      assert_equal address[:country], beautify_country, "Address #{address[:address]} failed"
     end
   end
 
