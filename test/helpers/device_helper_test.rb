@@ -19,7 +19,7 @@ class DeviceHelperTest < Minitest::Test
   end
 
   def test_should_return_screen_resolution_for_mobile_pixel
-    screen_size = @device_helper.find_screen_size(is_mobile: true, screen_type: 'pixel_7')
+    screen_size = @device_helper.find_screen_size(is_mobile: true, screen_type: 'pixel7')
     assert_equal [412, 915], screen_size
   end
 end

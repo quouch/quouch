@@ -15,7 +15,7 @@ namespace :system do
   desc 'Run system tests as a mobile device [iPhone 12 Pro]'
   task :android do
     ENV['MOBILE'] = 'true'
-    ENV['SCREEN_TYPE'] = 'pixel_7'
+    ENV['SCREEN_TYPE'] = 'pixel7'
     Rake::Task['test:system'].invoke
   end
 end

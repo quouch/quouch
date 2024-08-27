@@ -85,7 +85,6 @@
                   <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
                   <%= f.text_field  :zipcode,
                                     required: true,
-                                    value: @user.zipcode,
                                     autofocus: true,
                                     id: 'zip',
                                     value: params[:user]&.dig(:zipcode) %>
@@ -97,7 +96,6 @@
                   <%= f.label       :city, class: 'user__address-label' %>
                   <%= f.text_field  :city,
                                     required: true,
-                                    value: @user.city,
                                     autofocus: true,
                                     id: 'city',
                                     value: params[:user]&.dig(:city) %>
