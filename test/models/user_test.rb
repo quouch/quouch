@@ -123,4 +123,28 @@ class UserTest < ActiveSupport::TestCase
       assert_not_nil @user.longitude
     end
   end
+
+  test 'should strip the address until it finds a match' do
+    # reset the user's latitude and longitude
+    @user.latitude = nil
+    @user.longitude = nil
+
+    @user.address = 'Rue Dr. Robert Delmas, HT6110, Port-au-Prince, Haiti'
+    @user.manual_geocode
+
+    assert_not_nil @user.latitude
+    assert_not_nil @user.longitude
+  end
+
+  test 'should raise an error if the address truly does not exist' do
+    address = '123 Fake St, DoNotFindThis, DoNotFindThis'
+    assert_raise(StandardError) { @user.find_geocoder_match(address) }
+  end
+
+  test 'should query the geocoder API' do
+    address = '123 Main St, New York, United States'
+    user_query_geocoder = @user.query_geocoder(address).first
+    assert_not_nil user_query_geocoder
+    assert_equal 'New York', user_query_geocoder.state
+  end
 end

@@ -133,22 +133,39 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
   end
 
-  def manual_geocode
-    begin
-      Rails.logger.info("GeoCoding address: #{address}")
+  def query_geocoder(address_to_query)
+    query = Geocoder::Query.new(address_to_query, {})
 
-      query = Geocoder::Query.new(address, {})
-      raise 'No address provided' if address.blank?
-      query_response = query.execute
-      first_match = query_response.first
-      raise "No match found for #{address}" unless first_match
+    query.execute
+  end
 
-      self.latitude = first_match.latitude
-      self.longitude = first_match.longitude
+  def find_geocoder_match(address_to_query)
+    loop do
+      found_match = query_geocoder(address_to_query).first
+      return found_match if found_match
 
-    rescue StandardError => e
-      Rails.logger.error(e.message)
-      Sentry.capture_exception(e, extra: { address: address, geocoder_response: query_response })
+      stripped_address = address_to_query.split(',').drop(1).join(',').strip
+      raise 'No match found' if stripped_address.blank?
+
+      Rails.logger.warn("No match found for #{address_to_query}, retrying with #{stripped_address}")
+
+      address_to_query = stripped_address
     end
+  end
+
+  def manual_geocode
+    Rails.logger.info("GeoCoding address: #{address}")
+    raise ArgumentError, 'No address provided' if address.blank?
+
+    found_match = find_geocoder_match(address)
+
+    self.latitude = found_match.latitude
+    self.longitude = found_match.longitude
+  rescue ArgumentError => e
+    Rails.logger.error(e.message)
+    errors.add(:address, 'Geocoding failed, please provide a valid address') unless Rails.env.test?
+  rescue StandardError => e
+    Rails.logger.error(e.message)
+    Sentry.capture_exception(e, extra: { address: })
   end
 end
