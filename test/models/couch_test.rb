@@ -8,7 +8,7 @@ class CouchTest < ActiveSupport::TestCase
 
   test 'should save couch with a user' do
     create_seed_user
-    @user = FactoryBot.create(:test_user)
+    @user = FactoryBot.create(:user, :for_test)
 
     couch = Couch.new(user: @user)
     assert couch.valid?

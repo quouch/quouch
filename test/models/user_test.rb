@@ -4,7 +4,7 @@ class UserTest < ActiveSupport::TestCase
   fixtures :users
 
   def setup
-    @user = FactoryBot.build(:test_user)
+    @user = FactoryBot.build(:user, :for_test)
   end
 
   test 'should not save user without a first name' do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CouchesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = FactoryBot.create(:test_user_couch)
+    @user = FactoryBot.create(:user, :for_test, :with_couch)
     sign_in_as(@user)
   end
 

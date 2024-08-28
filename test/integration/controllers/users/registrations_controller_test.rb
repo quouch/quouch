@@ -5,7 +5,7 @@ module Users
     include Devise::Test::IntegrationHelpers
 
     setup do
-      fake_user_data = FactoryBot.build(:test_user)
+      fake_user_data = FactoryBot.build(:user, :for_test)
       random_address = ADDRESSES.sample
 
       file = URI.parse(Faker::Avatar.image).open
@@ -19,7 +19,7 @@ module Users
         date_of_birth: fake_user_data[:date_of_birth],
         summary: fake_user_data[:summary],
         offers_couch: true,
-        address: random_address[:street],
+        address: AddressHelper.format_address(random_address),
         zipcode: random_address[:zipcode],
         city: random_address[:city],
         country: random_address[:country_code],
@@ -47,7 +47,7 @@ module Users
     end
 
     test 'should send a flash message if there is an issue with the invite code' do
-      inviting_user = FactoryBot.create(:test_user)
+      inviting_user = FactoryBot.create(:user, :for_test)
       # Make the invite code invalid
       inviting_user.invite_code = 'ABC123'
       inviting_user.save
@@ -62,7 +62,7 @@ module Users
     end
 
     test 'should create a user with an invite code' do
-      inviting_user = FactoryBot.create(:test_user)
+      inviting_user = FactoryBot.create(:user, :for_test)
 
       # expect success
       post user_registration_url,

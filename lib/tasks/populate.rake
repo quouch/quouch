@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'factory_bot_rails'
+
 namespace :dev do
   desc 'Fill database with sample data'
   task populate: :environment do
@@ -12,8 +14,8 @@ namespace :dev do
 
     puts 'Create 30 randomized users'
     30.times do
-      new_user = FactoryBot.create(:random_user)
-      puts "Created user with address: #{new_user.address}, #{new_user.zipcode} #{new_user.city}, #{new_user.country}"
+      new_user = FactoryBot.create(:user, :with_couch, :skip_validation)
+      puts "Created user with address: #{new_user.address}"
     end
   end
 
