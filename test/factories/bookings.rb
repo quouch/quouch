@@ -26,6 +26,13 @@ FactoryBot.define do
       status { 0 }
     end
 
+    trait :future_pending_flexible do
+      start_date { nil }
+      end_date { nil }
+      flexible { true }
+      status { 0 }
+    end
+
     trait :confirmed do
       status { 1 }
     end
@@ -38,7 +45,7 @@ FactoryBot.define do
       status { 3 }
     end
 
-    trait :completed do
+    trait :to_be_completed do
       start_date { Date.today - 2 }
       end_date { Date.today - 1 }
       status { 1 }
