@@ -5,6 +5,7 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = FactoryBot.build(:user, :for_test)
+    super
   end
 
   test 'should not save user without a first name' do
@@ -106,9 +107,13 @@ class UserTest < ActiveSupport::TestCase
     @user.manual_geocode
     assert_not_nil @user.latitude
     assert_not_nil @user.longitude
+    assert_equal 1, @user.latitude
   end
 
   test 'should add an error if the address does not exist' do
+    # Make the geocoder return an empty array
+    $geocoder_result = :not_found
+
     @user.address = '123 Fake St, DoNotFindThis, DoNotFindThis'
     @user.manual_geocode
     assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']

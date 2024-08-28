@@ -31,18 +31,23 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative 'helpers/sign_in_helper'
 require_relative 'helpers/user_helper'
-require_relative 'helpers/db_helper'
+require_relative 'helpers/test_utils'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new unless ENV['RM_INFO']
 
 Faker::Config.random = Random.new
 
-# TODO: Mock away Geocoder in tests
-
 # Clean up the database
 Minitest.after_run do
   ActiveRecord::Base.subclasses.each do |subclass|
     subclass.delete_all if subclass.table_name
+  end
+end
+
+# Mock away Geocoder in tests by default.
+module ::Minitest
+  class Test
+    include GeocoderMocker
   end
 end
 

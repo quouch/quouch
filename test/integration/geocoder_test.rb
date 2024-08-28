@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class GeocoderTest < ActionDispatch::IntegrationTest
   test 'should strip the address until it finds a match' do
@@ -7,6 +7,7 @@ class GeocoderTest < ActionDispatch::IntegrationTest
 
     assert_not_nil result.latitude
     assert_not_nil result.longitude
+    assert_not_equal 1, result.latitude
   end
 
   test 'should raise an error if the address truly does not exist' do

@@ -33,7 +33,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :city, presence: { message: 'City required' }, on: :create
   validates :country, presence: { message: 'Country required' }, on: :create
   validates :summary, presence: { message: 'Tell the community about you' },
-            length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
   validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
   validate :validate_user_characteristics, on: :create
   validate :validate_age, on: :create
