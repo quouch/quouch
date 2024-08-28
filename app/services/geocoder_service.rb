@@ -6,8 +6,9 @@ class GeocoderService
       begin
         found_match = execute(address).first
       rescue Geocoder::Error => e
-        Rails.logger.error("Error executing query: #{e.message}")
-        Sentry.capture_exception(e, extra: { address:, response: e.response })
+        error_title = extract_html_title(e.response)
+        Rails.logger.error("Error executing query: #{error_title}")
+        Sentry.capture_exception(e, extra: { address:, error_title:, response: e.response })
         found_match = nil
       end
 
@@ -23,8 +24,13 @@ class GeocoderService
   end
 
   def self.execute(address)
+    puts 'Executing geocoder query...'
     query = Geocoder::Query.new(address, {})
 
     Geocoder.search(query.text, query.options)
+  end
+
+  def self.extract_html_title(response)
+    Nokogiri::HTML(response).css('title').text
   end
 end

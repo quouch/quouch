@@ -114,7 +114,6 @@ class UserTest < ActiveSupport::TestCase
     # Make the geocoder return an empty array
     $geocoder_result = :not_found
 
-    @user.address = '123 Fake St, DoNotFindThis, DoNotFindThis'
     @user.manual_geocode
     assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']
   end

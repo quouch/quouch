@@ -12,9 +12,12 @@ end
 module GeocoderMocker
   def before_setup
     super
-    return if instance_of?(::GeocoderTest)
-
+    # rubocop:disable Style/ClassEqualityComparison
+    $mock_geocoder = self.class.name != 'GeocoderTest'
+    # rubocop:enable Style/ClassEqualityComparison
     $geocoder_result = { latitude: 1, longitude: 1 }
+
+    return unless $mock_geocoder
 
     def GeocoderService.execute(*_args)
       return [] if $geocoder_result == :not_found
