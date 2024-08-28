@@ -33,7 +33,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :city, presence: { message: 'City required' }, on: :create
   validates :country, presence: { message: 'Country required' }, on: :create
   validates :summary, presence: { message: 'Tell the community about you' },
-                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
+            length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
   validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
   validate :validate_user_characteristics, on: :create
   validate :validate_age, on: :create
@@ -133,37 +133,20 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
   end
 
-  def query_geocoder(address_to_query)
-    query = Geocoder::Query.new(address_to_query, {})
-
-    query.execute
-  end
-
-  def find_geocoder_match(address_to_query)
-    loop do
-      found_match = query_geocoder(address_to_query).first
-      return found_match if found_match
-
-      stripped_address = address_to_query.split(',').drop(1).join(',').strip
-      raise 'No match found' if stripped_address.blank?
-
-      Rails.logger.warn("No match found for #{address_to_query}, retrying with #{stripped_address}")
-
-      address_to_query = stripped_address
-    end
-  end
-
   def manual_geocode
     Rails.logger.info("GeoCoding address: #{address}")
-    raise ArgumentError, 'No address provided' if address.blank?
+    raise ArgumentError, 'address cannot be blank' if address.blank?
 
-    found_match = find_geocoder_match(address)
+    found_match = GeocoderService.search(address)
 
     self.latitude = found_match.latitude
     self.longitude = found_match.longitude
+  rescue GeocoderError => e
+    Rails.logger.error(e.message)
+    errors.add(:address, 'Geocoding failed, please provide a valid address')
   rescue ArgumentError => e
     Rails.logger.error(e.message)
-    errors.add(:address, 'Geocoding failed, please provide a valid address') unless Rails.env.test?
+    errors.add(:address, e.message)
   rescue StandardError => e
     Rails.logger.error(e.message)
     Sentry.capture_exception(e, extra: { address: })
