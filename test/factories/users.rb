@@ -44,7 +44,7 @@ FactoryBot.define do
     trait :with_couch do
       after(:create) do |user|
         # Needed for the search to work: add a couch for the newly created user
-        Couch.create!(user:)
+        Couch.create!(user:, capacity: 1)
       end
     end
 

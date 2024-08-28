@@ -36,20 +36,20 @@ class Booking < ApplicationRecord
     return if completed_bookings.empty?
 
     send_completed_emails(completed_bookings)
-    update_status(completed_bookings)
+    update_status(completed_bookings, 4)
   end
 
   def self.remind
     pending_future_bookings = Booking.where(status: 0).where('start_date >= ?', Date.today)
     pending_past_bookings = Booking.where(status: 0).where('start_date < ?', Date.today)
     pending_past_bookings.update_all(status: -2)
-    return if pending_bookings.empty?
+    return if pending_future_bookings.empty?
 
     send_reminder_emails(pending_future_bookings)
   end
 
-  def self.update_status(bookings)
-    bookings.update_all(status: 4)
+  def self.update_status(bookings, status)
+    bookings.update_all(status:)
   end
 
   def self.send_completed_emails(bookings)
