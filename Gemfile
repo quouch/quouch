@@ -131,10 +131,11 @@ group :development, :test do
   gem 'shoulda', '~> 4.0'
   gem 'simplecov', require: false
   gem 'simplecov-markdown', require: false
-  # Fake test data
-  gem 'factory_bot_rails'
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 end
+
+# Fake test data
+gem 'factory_bot_rails'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
