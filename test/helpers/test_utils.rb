@@ -11,11 +11,6 @@ end
 # If a test shouldn't mock Geocoder, set $mock_geocoder = false in the setup block of the test.
 module GeocoderMocker
   def before_setup
-    super
-    $mock_geocoder = self.class.name != 'GeocoderTest'
-
-    return unless $mock_geocoder
-
     Geocoder.configure(lookup: :test, ip_lookup: :test)
     Geocoder::Lookup::Test.set_default_stub(
       [

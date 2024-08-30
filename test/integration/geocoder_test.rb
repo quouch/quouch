@@ -1,7 +1,15 @@
-require 'unit_helper'
+require 'test_helper'
 
 class GeocoderTest < ActionDispatch::IntegrationTest
+  setup do
+    Geocoder.configure(lookup: :mapbox)
+
+    Geocoder::Lookup::Test.reset
+  end
+
   test 'should use geocoder service' do
+    Geocoder.configure(lookup: :mapbox)
+
     formatted_address = 'Rue Dr. Robert Delmas, HT6110, Port-au-Prince, Haiti'
     result = GeocoderService.search(formatted_address)
 
