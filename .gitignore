@@ -57,3 +57,5 @@ test/reports/
 node_modules
 *.local
 
+
+/config/credentials/production.key

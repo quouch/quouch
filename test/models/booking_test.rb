@@ -12,16 +12,18 @@ class BookingTest < ActiveSupport::TestCase
     assert_equal 'completed', booking.reload.status
   end
 
-  test 'remind should update status of past pending bookings to expired and send reminder emails for future bookings' do
+  test 'should update status of past pending bookings to expired and send reminder emails for future bookings' do
     past_pending_booking = FactoryBot.create(:booking, :past_pending)
     future_pending_booking = FactoryBot.create(:booking, :future_pending)
     future_pending_flexible_booking = FactoryBot.create(:booking, :future_pending_flexible)
-    Booking.remind
 
-    assert_equal 'expired', past_pending_booking.reload.status
-    assert_equal 'pending', future_pending_booking.reload.status
-    assert_equal 'pending', future_pending_flexible_booking.reload.status
-    assert_emails 2
+    assert_emails 2 do
+      Booking.remind
+
+      assert_equal 'expired', past_pending_booking.reload.status
+      assert_equal 'pending', future_pending_booking.reload.status
+      assert_equal 'pending', future_pending_flexible_booking.reload.status
+    end
   end
 
   test 'update_status should update status of given bookings' do
