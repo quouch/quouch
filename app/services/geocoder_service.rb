@@ -24,7 +24,6 @@ class GeocoderService
   end
 
   def self.execute(address)
-    puts 'Executing geocoder query...'
     query = Geocoder::Query.new(address, {})
 
     Geocoder.search(query.text, query.options)
