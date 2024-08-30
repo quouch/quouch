@@ -111,10 +111,10 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should add an error if the address does not exist' do
-    # Make the geocoder return an empty array
-    $geocoder_result = :not_found
-
-    @user.manual_geocode
-    assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']
+    # Make GeocoderService.execute return an empty array
+    GeocoderService.stub :execute, ->(_address) { [] } do
+      @user.manual_geocode
+      assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']
+    end
   end
 end

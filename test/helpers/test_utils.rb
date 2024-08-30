@@ -13,14 +13,26 @@ module GeocoderMocker
   def before_setup
     super
     $mock_geocoder = self.class.name != 'GeocoderTest'
-    $geocoder_result = { latitude: 1, longitude: 1 }
 
     return unless $mock_geocoder
 
-    def GeocoderService.execute(*_args)
-      return [] if $geocoder_result == :not_found
+    Geocoder.configure(lookup: :test, ip_lookup: :test)
+    Geocoder::Lookup::Test.set_default_stub(
+      [
+        {
+          'coordinates' => [1, 1],
+          'address' => 'New York, NY, USA',
+          'state' => 'New York',
+          'state_code' => 'NY',
+          'country' => 'United States',
+          'country_code' => 'US'
+        }
+      ]
+    )
+  end
 
-      [OpenStruct.new($geocoder_result)]
-    end
+  def after_teardown
+    super
+    Geocoder::Lookup::Test.reset
   end
 end
