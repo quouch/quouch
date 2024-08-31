@@ -2,7 +2,7 @@
 
 class AddressHelper
   def self.format_address(address)
-    "#{address[:street]}, #{address[:zipcode]} #{address[:city]}, #{address[:country]}"
+    "#{address[:street]}, #{address[:zipcode]}, #{address[:city]}, #{address[:country]}"
   end
 end
 

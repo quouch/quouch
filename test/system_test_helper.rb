@@ -6,6 +6,7 @@ require 'helpers/device_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include SystemSignInHelper
+  include GeocoderMocker
 
   driven_by :selenium, using: :chrome do |driver_option|
     driver_option.add_argument('headless') if ENV['CI']

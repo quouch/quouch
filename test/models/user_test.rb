@@ -5,6 +5,7 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = FactoryBot.build(:user, :for_test)
+    super
   end
 
   test 'should not save user without a first name' do
@@ -96,5 +97,24 @@ class UserTest < ActiveSupport::TestCase
     @user.invited_by_id = nil
     assert_not @user.valid?
     assert_equal @user.errors.messages[:invited_by_id], ['Please provide a valid invite code']
+  end
+
+  test 'should manually geocode address' do
+    # reset the user's latitude and longitude
+    @user.latitude = nil
+    @user.longitude = nil
+
+    @user.manual_geocode
+    assert_not_nil @user.latitude
+    assert_not_nil @user.longitude
+    assert_equal 1, @user.latitude
+  end
+
+  test 'should add an error if the address does not exist' do
+    # Make GeocoderService.execute return an empty array
+    GeocoderService.stub :execute, ->(_address) { [] } do
+      @user.manual_geocode
+      assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']
+    end
   end
 end
