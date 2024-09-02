@@ -37,13 +37,17 @@ module RegistrationConcern
 
   def create_couch_facilities
     @couch.couch_facilities.destroy_all
-    if params[:couch_facility].nil? || params[:couch_facility][:facility_ids].nil?
+
+    if params[:couch_facility].nil? || params[:couch_facility].empty?
       Rails.logger.info('No facilities selected for couch')
       return
     end
 
-    couch_facility_params[:facility_ids].reject(&:empty?).each do |id|
-      CouchFacility.create(couch_id: @couch.id, facility_id: id)
+    facilities_to_create = couch_facility_params[:facility_ids].reject(&:empty?)
+    raise ArgumentError, 'Please select at least one facility.' if facilities_to_create.empty?
+
+    facilities_to_create.each do |id|
+      @couch.couch_facilities.create(facility_id: id)
     end
   end
 

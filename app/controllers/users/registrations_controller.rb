@@ -58,6 +58,7 @@ module Users
     end
 
     def update
+      # TODO: Add validation to user update and proper error handling
       @user.update(country: params[:user][:country], city: params[:user][:city])
 
       @couch = @user.couch

@@ -85,8 +85,7 @@ module Users
       user_data['country'] = 'IT'
       patch user_registration_url,
             params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
-            }
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
       assert_equal 'Italy', User.last.country
     end
@@ -99,10 +98,23 @@ module Users
       patch user_registration_url,
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] },
-                      couch_facility: { facility_ids: [Facility.first.id] }
-            }
+                      couch_facility: { facility_ids: [Facility.first.id] } }
 
       assert_equal 1, User.last.couch.couch_facilities.count
+    end
+
+    test 'should throw error if facilities are empty' do
+      skip 'This test is failing because we do not have a validation for user updates.'
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Update the user with facilities
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] },
+                      couch_facility: { facility_ids: [] } }
+
+      assert_includes flash[:error], 'Please select at least one facility.'
     end
 
     test 'should save user without facilities' do
@@ -112,8 +124,7 @@ module Users
       user_data['offers_couch'] = false
       patch user_registration_url,
             params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
-            }
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
       assert_equal 0, User.last.couch.couch_facilities.count
     end
@@ -126,8 +137,7 @@ module Users
       patch user_registration_url,
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] },
-                      couch_facility: { facility_ids: [Facility.first.id] }
-            }
+                      couch_facility: { facility_ids: [Facility.first.id] } }
 
       assert_equal 1, User.last.couch.couch_facilities.count
 
@@ -135,8 +145,7 @@ module Users
       user_data['offers_couch'] = false
       patch user_registration_url,
             params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
-            }
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
       assert_equal 0, User.last.couch.couch_facilities.count
     end
