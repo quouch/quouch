@@ -76,5 +76,82 @@ module Users
 
       assert_not_nil User.last.invited_by_id
     end
+
+    test 'should beautify the country on update' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Send the user with a country code instead of the country name
+      user_data['country'] = 'IT'
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
+            }
+
+      assert_equal 'Italy', User.last.country
+    end
+
+    test 'should save couch facilities' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Update the user with facilities
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] },
+                      couch_facility: { facility_ids: [Facility.first.id] }
+            }
+
+      assert_equal 1, User.last.couch.couch_facilities.count
+    end
+
+    test 'should save user without facilities' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      user_data['offers_couch'] = false
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
+            }
+
+      assert_equal 0, User.last.couch.couch_facilities.count
+    end
+
+    test 'should remove couch facilities' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Update the user with facilities
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] },
+                      couch_facility: { facility_ids: [Facility.first.id] }
+            }
+
+      assert_equal 1, User.last.couch.couch_facilities.count
+
+      # Update the user without facilities and check if the facilities are removed
+      user_data['offers_couch'] = false
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] }
+            }
+
+      assert_equal 0, User.last.couch.couch_facilities.count
+    end
+
+    private
+
+    def create_user_and_sign_in
+      # First, create a user
+      user = FactoryBot.create(:user, :for_test, :with_couch)
+      sign_in user
+
+      user_data = user.attributes
+      user_data['country'] = 'DE' # Send the user with a country code instead of the country name
+
+      user_data
+    end
   end
 end

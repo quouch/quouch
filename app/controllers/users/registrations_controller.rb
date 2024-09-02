@@ -61,11 +61,12 @@ module Users
       @user.update(country: params[:user][:country], city: params[:user][:city])
 
       @couch = @user.couch
+
       create_couch_facilities
 
       update_user_characteristics
       super
-      beautify_country
+      update_profile
       disable_offers_if_travelling
     end
 

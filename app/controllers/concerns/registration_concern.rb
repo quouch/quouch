@@ -37,6 +37,11 @@ module RegistrationConcern
 
   def create_couch_facilities
     @couch.couch_facilities.destroy_all
+    if params[:couch_facility].nil? || params[:couch_facility][:facility_ids].nil?
+      Rails.logger.info('No facilities selected for couch')
+      return
+    end
+
     couch_facility_params[:facility_ids].reject(&:empty?).each do |id|
       CouchFacility.create(couch_id: @couch.id, facility_id: id)
     end
@@ -74,8 +79,9 @@ module RegistrationConcern
 
   def update_profile
     begin
-      @user.update(country: beautify_country)
-      Rails.logger.info("Updated user profile with country: #{beautify_country}")
+      parsed_country = beautify_country
+      @user.update(country: parsed_country)
+      Rails.logger.info("Updated user profile with country: #{parsed_country}")
     rescue ArgumentError => e
       Sentry.capture_exception(e)
     end
