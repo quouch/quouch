@@ -67,6 +67,30 @@ class ProfileEditWorkflowTest < ApplicationSystemTestCase
     assert_selector '.form_error', text: 'Last name required'
   end
 
+  test 'should not change the password if clicks on wrong button' do
+    visit edit_user_registration_path
+
+    fill_in 'user[password]', with: 'new_password'
+    fill_in 'user[password_confirmation]', with: 'new_password'
+    submit_form
+
+    # The password should not be updated
+    assert @editing_user.reload.valid_password?(@editing_user.password)
+  end
+
+  test'should change the password' do
+    visit edit_user_registration_path
+
+    fill_in 'user[password]', with: 'new_password'
+    fill_in 'user[password_confirmation]', with: 'new_password'
+    fill_in 'user[old_password]', with: @editing_user.password
+
+    click_on 'Submit'
+
+    assert_selector 'div.flash', text: 'Your account has been updated successfully.'
+    assert_current_path root_path
+    assert @editing_user.reload.valid_password?('new_password')
+  end
   private
 
   def submit_form

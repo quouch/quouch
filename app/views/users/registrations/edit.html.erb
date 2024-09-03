@@ -24,7 +24,8 @@
                       error: false %>
         </div>
         <%= f.error :photo, class: 'form-error form-error-photo' %>
-        <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
+        <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is
+          clearly visible.</p>
       </div>
 
       <div class="user__info">
@@ -129,14 +130,17 @@
         <%= f.error :summary, class: 'form-error' %>
 
         <%= f.label :make_your_day %>
-        <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would make your day if you would receive it.</p>
+        <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would
+          make your day if you would receive it.</p>
         <%= f.input_field :passion %>
 
 
         <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
         <p class="hint">When using the filters - think
-          <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender.
-          <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong>
+          <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being
+          transgender.
+          <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this
+            filter as this is purely for transgender people to find each other and each other only</strong>
         </p>
         <% if @user.errors[:user_characteristics].any? %>
           <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
@@ -255,21 +259,30 @@
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
+  <% end %>
 
-    <%= f.label :change_password,
-                class: 'user__password-change' %>
+</section>
+<section class="user">
+  <h1>Change password</h1>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
+    <%= f.input :old_password,
+                required: true,
+                hint: 'we need your current password to make changes',
+                input_html: { autocomplete: 'current-password' },
+                error: false %>
+    <%= f.error :old_password, class: 'password-error' %>
     <%= f.input :password,
                 hint: "leave it blank if you don't want to change it",
-                required: false,
+                required: true,
                 error: false %>
     <%= f.error :password, class: 'form-error' %>
     <%= f.input :password_confirmation,
-                required: false,
+                required: true,
                 error: false %>
     <%= f.error :password_confirmation, class: 'form-error' %>
 
     <div class="user__submit">
-      <%= f.button :submit, 'Change password' %>
+      <%= f.button :submit, 'Submit' %>
     </div>
   <% end %>
 

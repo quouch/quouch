@@ -57,11 +57,54 @@ module Users
     end
 
     def update
-      super do |resource|
-        @couch = resource.couch
-        create_couch_facilities
-        update_user_characteristics
-        disable_offers_if_travelling
+      if params[:user][:old_password].blank?
+        super do |resource|
+          @couch = resource.couch
+          create_couch_facilities
+          update_user_characteristics
+          disable_offers_if_travelling
+        end
+      else
+        update_password
+      end
+    end
+
+    def update_password
+      # This is a custom method to update the password without changing any other data
+      self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+
+      user_params = password_update_params
+      current_password = user_params.delete(:old_password)
+      if user_params[:password].blank?
+        resource.errors.add(:password, :blank)
+        user_params.delete(:password)
+        user_params.delete(:password_confirmation) if user_params[:password_confirmation].blank?
+      end
+
+      if resource.valid_password?(current_password)
+        # check that the new password is valid
+        resource.assign_attributes(user_params)
+        is_valid_password = resource.valid?
+        puts resource.errors.full_messages
+        if is_valid_password
+          # update the user password
+          resource_updated = resource.update_attribute(:password, user_params[:password])
+        else
+          resource_updated = false
+        end
+      else
+        resource.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+        resource_updated = false
+      end
+
+      if resource_updated
+        bypass_sign_in resource, scope: resource_name if sign_in_after_change_password?
+
+        respond_with resource, location: after_update_path_for(resource)
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        respond_with resource
       end
     end
 
@@ -75,6 +118,12 @@ module Users
         redirect_to root_path
         flash[:alert] = 'Something went wrong. Please contact the Quouch Team to make sure you are not billed again.'
       end
+    end
+
+    protected
+
+    def password_update_params
+      devise_parameter_sanitizer.sanitize(:password_update)
     end
   end
 end

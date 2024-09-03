@@ -188,55 +188,90 @@ module Users
       assert_equal 0, User.last.couch.couch_facilities.count
     end
 
-    test 'should change the password' do
+    test 'should only change the password' do
       # First, create a user
-      user_data = create_user_and_sign_in
+      user_attributes = create_user_and_sign_in
 
-      user_data['password'] = 'new_password'
-      user_data['password_confirmation'] = 'new_password'
-      user_data['current_password'] = @user.password
+      password_data = {
+        password: 'new_password',
+        password_confirmation: 'new_password',
+        email: 'anotheremail@quouch.com',
+        old_password: @user.password
+      }
 
-      patch user_registration_url,
-            params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+      patch user_registration_url, params: { user: password_data }
 
       assert_response :redirect
       assert User.last.valid_password?('new_password')
+      assert_equal user_attributes['email'], User.last.email
+    end
+
+    test 'should not change the password if new password is invalid' do
+      # First, create a user
+      create_user_and_sign_in
+
+      password_data = {
+        password: 'a',
+        password_confirmation: 'a',
+        old_password: @user.password
+      }
+
+      patch user_registration_url, params: { user: password_data }
+
+      assert_response :unprocessable_entity
+      assert User.last.valid_password?(@user.password)
+    end
+
+    test 'should not change the password if confirmation does not match' do
+      # First, create a user
+      create_user_and_sign_in
+
+      password_data = {
+        password: 'a',
+        password_confirmation: 'b',
+        old_password: @user.password
+      }
+
+      patch user_registration_url, params: { user: password_data }
+
+      assert_response :unprocessable_entity
+      assert User.last.valid_password?(@user.password)
     end
 
     test 'should not change the password if the current password is wrong' do
       # First, create a user
-      user_data = create_user_and_sign_in
+      create_user_and_sign_in
 
-      user_data['password'] = 'new_password'
-      user_data['password_confirmation'] = 'new_password'
-      user_data['current_password'] = 'wrong_password'
+      password_data = {
+        password: 'new_password',
+        password_confirmation: 'new_password',
+        old_password: 'wrong_password'
+      }
 
       patch user_registration_url,
-            params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+            params: { user: password_data }
 
       assert_response :unprocessable_entity
     end
 
     test 'should change the password even if user is invalid' do
       # First, create a user
-      user_data = create_user_and_sign_in
+      create_user_and_sign_in
 
       # Make the user invalid
       @user.first_name = ''
       @user.save!(validate: false)
 
-      user_data['password'] = 'new_password'
-      user_data['password_confirmation'] = 'new_password'
-      user_data['current_password'] = @user.password
-      user_data['first_name'] = ''
-
+      password_data = {
+        password: 'new_password',
+        password_confirmation: 'new_password',
+        first_name: '',
+        old_password: @user.password
+      }
       patch user_registration_url,
-            params: { user: user_data,
-                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+            params: { user: password_data }
 
-      assert_response :success
+      assert_response :redirect
       assert User.last.valid_password?('new_password')
     end
 
