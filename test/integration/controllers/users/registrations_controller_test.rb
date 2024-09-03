@@ -19,10 +19,10 @@ module Users
         date_of_birth: fake_user_data[:date_of_birth],
         summary: fake_user_data[:summary],
         offers_couch: true,
-        address: AddressHelper.format_address(random_address),
+        address: AddressHelper::Formatter.format_address(random_address),
         zipcode: random_address[:zipcode],
         city: random_address[:city],
-        country: random_address[:country_code],
+        country_code: random_address[:country_code],
         photo:
       }
     end
@@ -82,7 +82,7 @@ module Users
       user_data = create_user_and_sign_in
 
       # Send the user with a country code instead of the country name
-      user_data['country'] = 'IT'
+      user_data['country_code'] = 'IT'
       patch user_registration_url,
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
@@ -157,10 +157,7 @@ module Users
       user = FactoryBot.create(:user, :for_test, :with_couch)
       sign_in user
 
-      user_data = user.attributes
-      user_data['country'] = 'DE' # Send the user with a country code instead of the country name
-
-      user_data
+      user.attributes
     end
   end
 end

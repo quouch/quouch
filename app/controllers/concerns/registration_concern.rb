@@ -44,7 +44,7 @@ module RegistrationConcern
     end
 
     facilities_to_create = couch_facility_params[:facility_ids].reject(&:empty?)
-    raise ArgumentError, 'Please select at least one facility.' if facilities_to_create.empty?
+    # raise ArgumentError, 'Please select at least one facility.' if facilities_to_create.empty?
 
     facilities_to_create.each do |id|
       @couch.couch_facilities.create(facility_id: id)
@@ -81,36 +81,7 @@ module RegistrationConcern
     @invited_by.id
   end
 
-  def update_profile
-    begin
-      parsed_country = beautify_country
-      @user.update(country: parsed_country)
-      Rails.logger.info("Updated user profile with country: #{parsed_country}")
-    rescue ArgumentError => e
-      Sentry.capture_exception(e)
-    end
-
+  def ensure_couch_exists
     create_couch if @user.couch.nil?
-  end
-
-  def beautify_country
-    country = params[:user][:country].strip
-    Rails.logger.info("Beautifying country: #{country}")
-    iso_country = ISO3166::Country[country]
-    translated_country = iso_country.translations[I18n.locale.to_s]
-    Rails.logger.info("Country beautification: #{country} -> #{iso_country} -> #{translated_country}")
-    raise StandardError if translated_country.nil? || translated_country == country
-
-    translated_country
-  rescue StandardError => e
-    Rails.logger.error("Error updating user profile: #{e.message}")
-    crumb = Sentry::Breadcrumb.new(
-      message: 'Error beautifying country',
-      level: 'error',
-      category: 'user',
-      data: { params:, country:, iso_result: iso_country, translated_country:, error: e }
-    )
-    Sentry.add_breadcrumb(crumb)
-    raise ArgumentError, "Country not found: #{country}"
   end
 end

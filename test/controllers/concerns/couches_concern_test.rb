@@ -68,8 +68,8 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should search by country' do
     # Create at least one couch
-    @host = FactoryBot.create(:user, :for_test, :with_couch, country: 'Canada')
-    @host.country = 'Canada'
+    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host.country_code = 'CA'
     @host.save!
 
     # Filter by country

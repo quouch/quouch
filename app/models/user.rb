@@ -4,6 +4,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include PgSearch::Model
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include InviteCodeHelper
+  include AddressHelper
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
@@ -31,6 +32,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validates :address, presence: { message: 'Address required' }, on: :create
   validates :zipcode, presence: { message: 'Zipcode required' }, on: :create
   validates :city, presence: { message: 'City required' }, on: :create
+  validate :validate_country_code
   validates :country, presence: { message: 'Country required' }, on: :create
   validates :summary, presence: { message: 'Tell the community about you' },
                       length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
@@ -131,6 +133,19 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     return unless stripe_subscription.save
 
     subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
+  end
+
+  def validate_country_code
+    country_code = self.country_code
+
+    raise ArgumentError if country_code.blank?
+
+    country = beautify_country(country_code)
+    raise ArgumentError if country.blank?
+
+    self.country = country
+  rescue ArgumentError
+    errors.add(:country_code, 'Please provide a valid country code')
   end
 
   def manual_geocode

@@ -12,7 +12,6 @@ module Users
 
       if resource.persisted?
         create_couch
-        update_profile
         if resource.active_for_authentication?
           set_flash_message! :notice, :signed_up
           sign_up(resource_name, resource)
@@ -59,7 +58,7 @@ module Users
 
     def update
       # TODO: Add validation to user update and proper error handling
-      @user.update(country: params[:user][:country], city: params[:user][:city])
+      @user.update(country_code: params[:user][:country_code], city: params[:user][:city])
 
       @couch = @user.couch
 
@@ -67,7 +66,6 @@ module Users
 
       update_user_characteristics
       super
-      update_profile
       disable_offers_if_travelling
     end
 

@@ -106,14 +106,14 @@
 
             <div class="user__address-country">
               <%= f.label :country, class: 'user__address-label' %>
-              <%= f.input :country,
+              <%= f.input :country_code,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
                           error: false,
                           required: true,
-                          value: params[:user]&.dig(:country) %>
+                          value: params[:user]&.dig(:country_code) %>
             </div>
-            <%= f.error   :country, class: 'form-error' %>
+            <%= f.error   :country_code, class: 'form-error' %>
           </div>
 
           <%= f.label       :about_me, required: true %>

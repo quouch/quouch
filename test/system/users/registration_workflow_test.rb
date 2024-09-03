@@ -7,10 +7,10 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     random_address = ADDRESSES.first
 
     @fake_user_data = FactoryBot.build(:user, :for_test)
-    @fake_user_data[:address] = AddressHelper.format_address(random_address)
+    @fake_user_data[:address] = AddressHelper::Formatter.format_address(random_address)
     @fake_user_data[:zipcode] = random_address[:zipcode]
     @fake_user_data[:city] = random_address[:city]
-    @fake_user_data[:country] = random_address[:country_code]
+    @fake_user_data[:country_code] = random_address[:country_code]
 
     @avatar = URI.parse(Faker::Avatar.image).open
 
@@ -119,7 +119,7 @@ class RegistrationWorkflowTest < ApplicationSystemTestCase
     fill_in 'user[summary]', with: @fake_user_data[:summary]
 
     # Fill in the address
-    formatted_address = AddressHelper.format_address(ADDRESSES.first)
+    formatted_address = AddressHelper::Formatter.format_address(ADDRESSES.first)
     fill_in 'Search', with: formatted_address
     first_suggestion = first('.mapboxgl-ctrl-geocoder--suggestion')
     first_suggestion.click

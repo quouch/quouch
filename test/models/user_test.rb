@@ -39,8 +39,35 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'should not save user without a country' do
+    @user.country_code = nil
     @user.country = nil
     assert_not @user.valid?
+    assert_equal @user.errors.messages[:country], ['Country required']
+    assert_equal @user.errors.messages[:country_code], ['Please provide a valid country code']
+  end
+
+  test 'should calculate the country based on the country_code' do
+    @user.country_code = 'DE'
+    @user.country = nil
+
+    assert @user.valid?
+    assert_equal 'Germany', @user.country
+  end
+
+  test 'should fail if the country code is not an ISO code' do
+    @user.country_code = 'DEU'
+    @user.country = nil
+
+    assert_not @user.valid?
+    assert_equal @user.errors.messages[:country_code], ['Please provide a valid country code']
+  end
+
+  test 'should overwrite the country if both are present' do
+    @user.country_code = 'DE'
+    @user.country = 'Deutschland'
+
+    assert @user.valid?
+    assert_equal 'Germany', @user.country
   end
 
   test 'should not save user without a summary' do
