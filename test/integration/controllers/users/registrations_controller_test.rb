@@ -77,6 +77,19 @@ module Users
       assert_not_nil User.last.invited_by_id
     end
 
+    test 'should update the user' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Send the user with a country code instead of the country name
+      user_data['first_name'] = 'New name'
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_equal 'New name', User.last.first_name
+    end
+
     test 'should beautify the country on update' do
       # First, create a user
       user_data = create_user_and_sign_in
@@ -85,6 +98,7 @@ module Users
       user_data['country_code'] = 'IT'
       patch user_registration_url,
             params: { user: user_data,
+                      password: @user.password,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
       assert_equal 'Italy', User.last.country
@@ -154,10 +168,12 @@ module Users
 
     def create_user_and_sign_in
       # First, create a user
-      user = FactoryBot.create(:user, :for_test, :with_couch)
-      sign_in user
+      @user = FactoryBot.create(:user, :for_test, :with_couch)
+      sign_in @user
 
-      user.attributes
+      user_data = @user.attributes
+      user_data['current_password'] = @user.password
+      user_data
     end
   end
 end

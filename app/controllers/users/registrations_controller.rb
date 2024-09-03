@@ -57,16 +57,12 @@ module Users
     end
 
     def update
-      # TODO: Add validation to user update and proper error handling
-      @user.update(country_code: params[:user][:country_code], city: params[:user][:city])
-
-      @couch = @user.couch
-
-      create_couch_facilities
-
-      update_user_characteristics
-      super
-      disable_offers_if_travelling
+      super do |resource|
+        @couch = resource.couch
+        create_couch_facilities
+        update_user_characteristics
+        disable_offers_if_travelling
+      end
     end
 
     def destroy
