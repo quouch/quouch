@@ -75,6 +75,7 @@
                           class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
+                          required: true,
                           error: false,
                           value: params[:user]&.dig(:address),
                           input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
@@ -95,7 +96,7 @@
               </div>
               <div>
                 <div class="user__address-wrap user__address-wrap--city">
-                  <%= f.label       :city, 
+                  <%= f.label       :city,
                                     required: true,
                                     class: 'user__address-label' %>
                   <%= f.text_field  :city,

@@ -139,7 +139,7 @@
           <strong>If you are cisgender but support transgender people - that’s great! But please don’t click on this filter as this is purely for transgender people to find each other and each other only</strong>
         </p>
         <% if @user.errors[:user_characteristics].any? %>
-          <%= f.error:user_characteristics, class: 'form-error form-error-characteristics' %>
+          <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
         <% end %>
 
         <div class="user__characteristics">
