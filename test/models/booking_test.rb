@@ -13,21 +13,23 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   test 'should update status of past pending bookings to expired and send reminder emails for future bookings' do
-    past_pending_booking = FactoryBot.create(:booking, :past_pending)
-    future_pending_booking = FactoryBot.create(:booking, :future_pending)
-    future_pending_flexible_booking = FactoryBot.create(:booking, :future_pending_flexible)
+    pending_past_not_flexible_booking = FactoryBot.create(:booking, :pending_past_not_flexible)
+    pending_future_not_flexible_booking = FactoryBot.create(:booking, :pending_future_not_flexible)
+    pending_future_flexible_booking = FactoryBot.create(:booking, :pending_future_flexible)
+    pending_past_flexible_booking = FactoryBot.create(:booking, :pending_past_flexible)
 
     assert_emails 2 do
       Booking.remind
 
-      assert_equal 'expired', past_pending_booking.reload.status
-      assert_equal 'pending', future_pending_booking.reload.status
-      assert_equal 'pending', future_pending_flexible_booking.reload.status
+      assert_equal 'expired', pending_past_not_flexible_booking.reload.status
+      assert_equal 'expired', pending_past_flexible_booking.reload.status
+      assert_equal 'pending', pending_future_not_flexible_booking.reload.status
+      assert_equal 'pending', pending_future_flexible_booking.reload.status
     end
   end
 
   test 'update_status should update status of given bookings' do
-    FactoryBot.create_list(:booking, 2, :pending)
+    FactoryBot.create_list(:booking, 2, :pending_future_not_flexible)
     bookings_relation = Booking.where(status: 'pending')
     Booking.update_status(bookings_relation, 'confirmed')
 
@@ -44,7 +46,7 @@ class BookingTest < ActiveSupport::TestCase
   end
 
   test 'send_reminder_emails should send reminder emails to hosts' do
-    booking = FactoryBot.create(:booking, :future_pending)
+    booking = FactoryBot.create(:booking, :pending_future_not_flexible)
 
     assert_emails 1 do
       Booking.send_reminder_emails([booking])

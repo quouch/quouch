@@ -14,23 +14,35 @@ FactoryBot.define do
       booking.couch = couch_owner.couch
     end
 
-    trait :past_pending do
-      start_date { Date.today - 2 }
-      end_date { Date.today - 1 }
-      status { 0 }
-    end
-
-    trait :future_pending do
+    trait :pending_future_not_flexible do
       start_date { Date.today }
       end_date { Date.today + 1 }
+      flexible { false }
       status { 0 }
+      booking_date { Date.yesterday }
     end
 
-    trait :future_pending_flexible do
+    trait :pending_future_flexible do
       start_date { nil }
       end_date { nil }
       flexible { true }
       status { 0 }
+      booking_date { Date.yesterday }
+    end
+
+    trait :pending_past_flexible do
+      start_date { nil }
+      end_date { nil }
+      flexible { true }
+      status { 0 }
+      booking_date { Date.today - 2.months }
+    end
+
+    trait :pending_past_not_flexible do
+      start_date { Date.today - 2.months }
+      end_date { Date.today - 1.months }
+      status { 0 }
+      booking_date { Date.yesterday - 2.months }
     end
 
     trait :confirmed do
