@@ -87,7 +87,22 @@ module Users
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
+      assert_response :redirect
       assert_equal 'New name', User.last.first_name
+    end
+
+    test 'should not update the user if the current password is wrong' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Send the user with a country code instead of the country name
+      user_data['first_name'] = 'New name'
+      user_data['current_password'] = 'wrong_password'
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :unprocessable_entity
     end
 
     test 'should beautify the country on update' do
@@ -101,6 +116,7 @@ module Users
                       password: @user.password,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
+      assert_response :redirect
       assert_equal 'Italy', User.last.country
     end
 
@@ -114,6 +130,7 @@ module Users
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] },
                       couch_facility: { facility_ids: [Facility.first.id] } }
 
+      assert_response :redirect
       assert_equal 1, User.last.couch.couch_facilities.count
     end
 
@@ -128,6 +145,7 @@ module Users
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] },
                       couch_facility: { facility_ids: [] } }
 
+      assert_response :unprocessable_entity
       assert_includes flash[:error], 'Please select at least one facility.'
     end
 
@@ -136,11 +154,14 @@ module Users
       user_data = create_user_and_sign_in
 
       user_data['offers_couch'] = false
+      user_data['offers_hang_out'] = true
       patch user_registration_url,
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
+      assert_response :redirect
       assert_equal 0, User.last.couch.couch_facilities.count
+      assert_equal true, User.last.offers_hang_out
     end
 
     test 'should remove couch facilities' do
@@ -153,15 +174,70 @@ module Users
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] },
                       couch_facility: { facility_ids: [Facility.first.id] } }
 
+      assert_response :redirect
       assert_equal 1, User.last.couch.couch_facilities.count
 
       # Update the user without facilities and check if the facilities are removed
       user_data['offers_couch'] = false
+      user_data['offers_hang_out'] = true
       patch user_registration_url,
             params: { user: user_data,
                       user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
 
+      assert_response :redirect
       assert_equal 0, User.last.couch.couch_facilities.count
+    end
+
+    test 'should change the password' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      user_data['password'] = 'new_password'
+      user_data['password_confirmation'] = 'new_password'
+      user_data['current_password'] = @user.password
+
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :redirect
+      assert User.last.valid_password?('new_password')
+    end
+
+    test 'should not change the password if the current password is wrong' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      user_data['password'] = 'new_password'
+      user_data['password_confirmation'] = 'new_password'
+      user_data['current_password'] = 'wrong_password'
+
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :unprocessable_entity
+    end
+
+    test 'should change the password even if user is invalid' do
+      # First, create a user
+      user_data = create_user_and_sign_in
+
+      # Make the user invalid
+      @user.first_name = ''
+      @user.save!(validate: false)
+
+      user_data['password'] = 'new_password'
+      user_data['password_confirmation'] = 'new_password'
+      user_data['current_password'] = @user.password
+      user_data['first_name'] = ''
+
+      patch user_registration_url,
+            params: { user: user_data,
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :success
+      assert User.last.valid_password?('new_password')
     end
 
     private
