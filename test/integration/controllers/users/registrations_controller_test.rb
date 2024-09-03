@@ -227,7 +227,7 @@ module Users
       create_user_and_sign_in
 
       password_data = {
-        password: 'a',
+        password: 'strongpassword',
         password_confirmation: 'b',
         old_password: @user.password
       }

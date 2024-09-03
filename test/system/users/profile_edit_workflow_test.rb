@@ -78,7 +78,7 @@ class ProfileEditWorkflowTest < ApplicationSystemTestCase
     assert @editing_user.reload.valid_password?(@editing_user.password)
   end
 
-  test'should change the password' do
+  test 'should change the password' do
     visit edit_user_registration_path
 
     fill_in 'user[password]', with: 'new_password'
@@ -91,6 +91,7 @@ class ProfileEditWorkflowTest < ApplicationSystemTestCase
     assert_current_path root_path
     assert @editing_user.reload.valid_password?('new_password')
   end
+
   private
 
   def submit_form

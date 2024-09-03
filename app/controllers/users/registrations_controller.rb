@@ -84,14 +84,14 @@ module Users
       if resource.valid_password?(current_password)
         # check that the new password is valid
         resource.assign_attributes(user_params)
-        is_valid_password = resource.valid?
-        puts resource.errors.full_messages
-        if is_valid_password
-          # update the user password
-          resource_updated = resource.update_attribute(:password, user_params[:password])
-        else
-          resource_updated = false
-        end
+        is_valid_password = password_valid?
+        resource_updated = if is_valid_password
+                             # update the user password
+                             resource.update_attribute(:password, user_params[:password])
+                             resource.update_attribute(:password_confirmation, user_params[:password_confirmation])
+                           else
+                             false
+                           end
       else
         resource.errors.add(:current_password, current_password.blank? ? :blank : :invalid)
         resource_updated = false
@@ -124,6 +124,10 @@ module Users
 
     def password_update_params
       devise_parameter_sanitizer.sanitize(:password_update)
+    end
+
+    def password_valid?
+      resource.valid?(:password_update)
     end
   end
 end

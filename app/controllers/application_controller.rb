@@ -24,6 +24,6 @@ class ApplicationController < ActionController::Base
                                                               { user_characteristic_attributes: [:characteristic_ids], couch_attributes: [:capacity],
                                                                 couch_facility_attributes: [:facility_ids] }])
 
-    devise_parameter_sanitizer.permit(:password_update, keys: [:old_password, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:password_update, keys: %i[old_password password password_confirmation])
   end
 end
