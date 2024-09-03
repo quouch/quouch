@@ -25,22 +25,23 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :characteristics, through: :user_characteristics, dependent: :destroy
   has_one :subscription, dependent: :destroy
 
-  validates :photo, presence: { message: 'Please upload a picture' }, on: :create
-  validates :first_name, presence: { message: 'First name required' }, on: :create
-  validates :last_name, presence: { message: 'Last name required' }, on: :create
-  validates :date_of_birth, presence: { message: 'Please provide your age' }, on: :create
-  validates :address, presence: { message: 'Address required' }, on: :create
-  validates :zipcode, presence: { message: 'Zipcode required' }, on: :create
-  validates :city, presence: { message: 'City required' }, on: :create
+  validates :photo, presence: { message: 'Please upload a picture' }, on: %i[create update]
+  validates :first_name, presence: { message: 'First name required' }, on: %i[create update]
+  validates :last_name, presence: { message: 'Last name required' }, on: %i[create update]
+  validates :date_of_birth, presence: { message: 'Please provide your age' }, on: %i[create update]
+  validates :address, presence: { message: 'Address required' }, on: %i[create update]
+  validates :zipcode, presence: { message: 'Zipcode required' }, on: %i[create update]
+  validates :city, presence: { message: 'City required' }, on: %i[create update]
   validate :validate_country_code
-  validates :country, presence: { message: 'Country required' }, on: :create
+  validates :country, presence: { message: 'Country required' }, on: %i[create update]
   validates :summary, presence: { message: 'Tell the community about you' },
-                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
-  validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
-  validate :validate_user_characteristics, on: :create
-  validate :validate_age, on: :create
-  validate :validate_travelling, on: :create
-  validate :at_least_one_option_checked?, on: :create
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' },
+                      on: %i[create update]
+  validates_associated :characteristics, message: 'Let others know what is important to you', on: %i[create update]
+  validate :validate_user_characteristics, on: %i[create update]
+  validate :validate_age, on: %i[create update]
+  validate :validate_travelling, on: %i[create update]
+  validate :at_least_one_option_checked?, on: %i[create update]
   validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }
 
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }

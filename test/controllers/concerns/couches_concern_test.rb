@@ -169,6 +169,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     @host2 = FactoryBot.create(:user, :for_test, :with_couch)
     @host2.offers_couch = false
+    @host2.offers_hang_out = true
     @host2.save!
 
     # Set up necessary conditions for the offers filter
@@ -214,6 +215,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     @host3 = FactoryBot.create(:user, :for_test, :with_couch)
     @host3.offers_couch = false
+    @host3.offers_hang_out = true
     @host3.save!
 
     # Add characteristic to two hosts
@@ -276,6 +278,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     @host3 = FactoryBot.create(:user, :for_test, :with_couch)
     @host3.offers_couch = false
+    @host3.offers_hang_out = true
     @host3.city = 'Test City'
     @host3.save!
 

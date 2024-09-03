@@ -245,7 +245,7 @@
                     hint: 'we need your current password to make changes',
                     input_html: { autocomplete: 'current-password' },
                     error: false %>
-        <%= f.error :current_password, class: 'form-error' %>
+        <%= f.error :current_password, class: 'password-error' %>
         <div class="user__submit">
           <%= f.button :submit, 'Update' %>
         </div>
@@ -269,7 +269,7 @@
     <%= f.error :password_confirmation, class: 'form-error' %>
 
     <div class="user__submit">
-      <%= f.button :submit, 'Update' %>
+      <%= f.button :submit, 'Change password' %>
     </div>
   <% end %>
 
