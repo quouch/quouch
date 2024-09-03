@@ -70,7 +70,9 @@
           <div class="user__address">
             <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
             <div class="user__address-street">
-              <%= f.label :address, class: 'user__address-label' %>
+              <%= f.label :address,
+                          required: true,
+                          class: 'user__address-label' %>
               <%= f.input :address,
                           label: false,
                           error: false,
@@ -93,7 +95,9 @@
               </div>
               <div>
                 <div class="user__address-wrap user__address-wrap--city">
-                  <%= f.label       :city, class: 'user__address-label' %>
+                  <%= f.label       :city, 
+                                    required: true,
+                                    class: 'user__address-label' %>
                   <%= f.text_field  :city,
                                     required: true,
                                     autofocus: true,
@@ -105,7 +109,9 @@
             </div>
 
             <div class="user__address-country">
-              <%= f.label :country, class: 'user__address-label' %>
+              <%= f.label :country,
+                          required: true,
+                          class: 'user__address-label' %>
               <%= f.input :country_code,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
