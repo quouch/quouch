@@ -1,12 +1,31 @@
 [![Ruby on Rails CI](https://github.com/quouch/quouch/actions/workflows/pr-check.yml/badge.svg)](https://github.com/quouch/quouch/actions/workflows/pr-check.yml)
 [![System Tests](https://github.com/quouch/quouch/actions/workflows/system-tests.yml/badge.svg)](https://github.com/quouch/quouch/actions/workflows/system-tests.yml)
 [![Sentry Badge](https://img.shields.io/badge/Sentry-362D59?logo=sentry&logoColor=fff&style=for-the-badge)](https://quouch.sentry.io)
+[![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)](https://dashboard.heroku.com/apps/quouch)
 
 # Quouch
 
 Booking app for homestay from queer & female perspective.
 
 ## Table of Contents
+
+1. [Getting started](#1-getting-started)
+    1. [Prerequisites](#11-prerequisites)
+    2. [Installation](#12-installation)
+    3. [Optional: Creating mock data for your local database](#13-optional-creating-mock-data-for-your-local-database)
+2. [Developing](#2-developing)
+    1. [IDEs](#21-ides)
+        1. [Browser-based IDE](#want-to-use-a-browser-based-ide)
+3. [Deployment](#3-deployment)
+    1. [Heroku](#31-heroku)
+    2. [PR Reviews](#32-pr-reviews)
+4. [Tooling](#4-tooling)
+    1. [Docker](#41-docker)
+    2. [Running tests](#42-running-tests)
+    3. [Linting](#43-linting)
+    4. [Monitoring](#44-monitoring)
+
+5. [Troubleshooting](#troubleshooting)
 
 ## 1. Getting started
 
@@ -87,9 +106,33 @@ Please note that the build/serving of the app will fail until you add the master
 by either following steps 2 and 3 from [the installation guide](#12-installation) or by adding an environment variable
 to GitPod called `RAILS_MASTER_KEY`.
 
-## 3. Tooling
+## 3. Deployment
 
-### 3.1 Docker
+### 3.1 Heroku
+
+We use Heroku to deploy the application. You can access the Heroku dashboard by clicking on the Heroku badge or
+[here](https://dashboard.heroku.com/apps/quouch). Credentials are shared via 1Password.
+
+The production environment has its own set of credentials, which are stored in `config/credentials/production.yml.enc`.
+For editing this file you will need a `config/credentials/production.key` file. The key is shared via 1Password.
+You can edit the credentials by running:
+
+```bash
+EDITOR=vim rails credentials:edit --environment production
+```
+
+> Hint: Remember to add the credentials to the default environment as well, so the application can run locally.
+> Use `EDITOR=vim rails credentials:edit`
+
+### 3.2 PR Reviews
+
+We use Review Apps to deploy PRs to Heroku. You can access the Review Apps by
+clicking [here](https://dashboard.heroku.com/pipelines/705ba305-d184-46a5-b02e-950dbda23979).
+Review Apps use the `staging` environment, which uses the default credentials and the `master.key`.
+
+## 4. Tooling
+
+### 4.1 Docker
 
 If you prefer using Docker instead of installing PostgreSQL locally, you can run:
 
@@ -101,7 +144,7 @@ docker compose -f .devcontainer/docker-compose.yml up db -d
 > used. `up` is the command for starting containers, `db` is the container we want to start. `-d` means it runs in
 > detached mode.
 
-### 3.2 Running tests
+### 4.2 Running tests
 
 Running all tests is pretty simple, it only needs this command: `rails test`. This command does not run System Tests.
 For that, you need to run `rails test:system`.
@@ -111,7 +154,7 @@ For that, you need to run `rails test:system`.
 However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
 or deleted.
 
-#### 3.2.1 Running tests in `test` environment
+#### 4.2.1 Running tests in `test` environment
 
 1. Create and setup the test database:
    ```bash
@@ -122,7 +165,7 @@ or deleted.
    RAILS_ENV=test rails test
    ```
 
-#### 3.2.2 Running specific tests
+#### 4.2.2 Running specific tests
 
 If you want to run the tests in a specific file, you can use the following command:
 
@@ -142,21 +185,21 @@ And for running only one directory:
 rails test test/models
 ```
 
-#### 3.2.3 Running system tests
+#### 4.2.3 Running system tests
 
 System tests are used to test the application from the user's perspective. You can run system tests with the following
 command:
 
-    ```bash
-    rails system
-    ```
+```bash
+rails system
+```
 
 You can also run systems tests for predefined screen sizes and devices:
 
-    ```bash
-    rails system:ios
-    rails system:android
-    ```
+```bash
+rails system:ios
+rails system:android
+```
 
 If you want more granularity, you can use the following options as environment variables:
 
@@ -176,7 +219,7 @@ To run system tests headless (without the browser opening), you can use the foll
 CI=true rails system [options]
 ```
 
-#### 3.2.3 Code Coverage
+#### 4.2.3 Code Coverage
 
 We use [SimpleCov](https://github.com/simplecov-ruby/simplecov) to generate code coverage reports.
 To generate a code coverage report, you can run the following command:
@@ -188,7 +231,7 @@ COVERAGE=true rails test
 This will run all tests and generate a `coverage` directory in the root of the project with the code coverage report.
 To see the report, open the `index.html` file in your browser, e.g. run `open coverage/index.html`.
 
-### 3.3 Linting
+### 4.3 Linting
 
 We use Rubocop to enforce a consistent code style. You can run Rubocop with the following command, which will only
 display the offenses that are not marked as `offense` in the `.rubocop.yml` file:
@@ -203,9 +246,10 @@ If you want to autofix the issues that Rubocop finds, you can run the following 
 rubocop -A
 ```
 
-### 3.4 Monitoring
+### 4.4 Monitoring
 
-We use Sentry to monitor errors in the application. You can access the Sentry dashboard by clicking on the Sentry badge or [here](https://quouch.sentry.io).
+We use Sentry to monitor errors in the application. You can access the Sentry dashboard by clicking on the Sentry badge
+or [here](https://quouch.sentry.io).
 Credentials are shared via 1Password.
 
 ## Troubleshooting
