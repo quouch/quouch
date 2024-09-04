@@ -40,11 +40,24 @@ class Booking < ApplicationRecord
   end
 
   def self.remind
-    pending_future_bookings = Booking.where(status: 0).where('start_date >= ?',
-                                                             Date.today).or(Booking.where(status: 0).where(
-                                                                              start_date: nil, flexible: true
-                                                                            ))
+    one_month_ago = Date.today - 1.month
+
+    pending_future_fixed_bookings = Booking.where(status: 0)
+                                           .where('start_date >= ?', Date.today)
+                                           .where(flexible: false)
+
+    pending_future_flexible_bookings = Booking.where(status: 0)
+                                              .where(start_date: nil, flexible: true)
+                                              .where(
+                                                'booking_date >= ?', one_month_ago
+                                              )
+
+    pending_future_bookings = pending_future_fixed_bookings.or(pending_future_flexible_bookings)
+
     pending_past_bookings = Booking.where(status: 0).where('start_date < ?', Date.today)
+                                   .or(Booking.where(status: 0).where(start_date: nil, flexible: true)
+                                   .where('booking_date < ?', one_month_ago))
+
     pending_past_bookings.update_all(status: -2)
     return if pending_future_bookings.empty?
 
