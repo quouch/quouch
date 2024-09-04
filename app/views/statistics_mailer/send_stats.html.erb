@@ -25,9 +25,11 @@
 
 <h2>Bookings</h2>
 <p>total: <%= @bookings %></p>
+<p>pending: <%= @pending_bookings %></p>
 <p>confirmed: <%= @confirmed_bookings %></p>
 <p>completed: <%= @completed_bookings %></p>
 <p>cancelled: <%= @cancelled_bookings %></p>
+<p>expired: <%= @expired_bookings %></p>
 <p>today:</p>
 <% @bookings_today.each do |booking| %>
 	<p><%= booking[0] %>: <%= booking[1] %></p>
@@ -46,6 +48,7 @@
 <p>amount completed requests from subscribers: <%= @total_booking_requests_completed %>
 <p>amount declined requests from subscribers: <%= @total_booking_requests_declined %>
 <p>amount cancelled requests from subscribers: <%= @total_booking_requests_cancelled %>
+<p>amount expired requests from subscribers: <%= @total_booking_requests_expired %>
 
 <h2>Messages</h2>
 <p>response rate: <%= @response_rate %></p>
