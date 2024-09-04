@@ -42,8 +42,9 @@ class Booking < ApplicationRecord
   def self.remind
     one_month_ago = Date.today - 1.month
 
-    pending_future_not_flexible_bookings = Booking.where(status: 0)
-                                                  .where('start_date >= ?', Date.today)
+    pending_future_fixed_bookings = Booking.where(status: 0)
+                                           .where('start_date >= ?', Date.today)
+                                           .where(flexible: false)
 
     pending_future_flexible_bookings = Booking.where(status: 0)
                                               .where(start_date: nil, flexible: true)
@@ -51,7 +52,7 @@ class Booking < ApplicationRecord
                                                 'booking_date >= ?', one_month_ago
                                               )
 
-    pending_future_bookings = pending_future_not_flexible_bookings.or(pending_future_flexible_bookings)
+    pending_future_bookings = pending_future_fixed_bookings.or(pending_future_flexible_bookings)
 
     pending_past_bookings = Booking.where(status: 0).where('start_date < ?', Date.today)
                                    .or(Booking.where(status: 0).where(start_date: nil, flexible: true)
