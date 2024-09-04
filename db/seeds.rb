@@ -104,6 +104,7 @@ base_user = User.new(
   address: address[:address],
   zipcode: address[:zipcode],
   city: address[:city],
+  country_code: 'DE',
   country: address[:country]
 )
 

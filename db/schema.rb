@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_13_174944) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_03_054551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -203,6 +203,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_13_174944) do
     t.boolean "admin", default: false, null: false
     t.string "passion"
     t.string "jti", default: -> { "md5((random())::text)" }, null: false
+    t.string "country_code"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["jti"], name: "index_users_on_jti", unique: true

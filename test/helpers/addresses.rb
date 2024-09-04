@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-class AddressHelper
-  def self.format_address(address)
-    "#{address[:street]}, #{address[:zipcode]}, #{address[:city]}, #{address[:country]}"
-  end
-end
-
 ADDRESSES = [
   { street: '123 Main St', city: 'New York', country: 'United States', zipcode: '10001', country_code: 'US' },
   { street: '456 Market St', city: 'San Francisco', country: 'United States', zipcode: '94105', country_code: 'US' },

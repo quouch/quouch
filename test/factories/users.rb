@@ -29,10 +29,10 @@ FactoryBot.define do
       user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
 
       random_address = ADDRESSES.sample
-      user.address = AddressHelper.format_address(random_address)
+      user.address = AddressHelper::Formatter.format_address(random_address)
       user.zipcode = random_address[:zipcode]
       user.city = random_address[:city]
-      user.country = random_address[:country]
+      user.country_code = random_address[:country_code]
     end
 
     trait :skip_validation do

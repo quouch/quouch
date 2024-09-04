@@ -69,13 +69,13 @@ module ActiveSupport
     # To add it to a test class, include ParallelizeTests
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    fixtures :characteristics
+    fixtures :characteristics, :facilities
 
     # Add more helper methods to be used by all tests here...
 
     # default setup for all unit tests
     def params
-      @params ||= {}
+      @params ||= ActionController::Parameters.new
     end
 
     def session

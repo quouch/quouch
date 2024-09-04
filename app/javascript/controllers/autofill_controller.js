@@ -28,7 +28,7 @@ export default class extends Controller {
     this.addressTarget.value = event.result.place_name
     const city = document.getElementById('city')
     const zip = document.getElementById('zip')
-    const country = document.getElementById('user_country')
+    const country = document.getElementById('user_country_code')
     let cityDone = false
     for (let i = 0; i < event.result.context.length; i++) {
       if (event.result.context[i].id.includes("postcode")) {

@@ -15,7 +15,7 @@ module UserHelper
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       confirmed_at: Time.now,
-      address: AddressHelper.format_address(random_address),
+      address: AddressHelper::Formatter.format_address(random_address),
       zipcode: random_address[:zipcode],
       city: random_address[:city],
       country: random_address[:country],

@@ -1,0 +1,11 @@
+couch:
+  id: 1
+  name: couch
+
+bed:
+  id: 2
+  name: bed
+
+extra_key:
+  id: 3
+  name: extra key

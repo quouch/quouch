@@ -12,9 +12,11 @@ user_<%= n %>:
   offers_co_work: <%= true %>
   offers_hang_out: <%= true %>
   travelling: <%= true %>
+
   address: <%= Faker::Address.full_address %>
   city: <%= Faker::Address.city %>
   zipcode: <%= Faker::Address.zip_code %>
+  country_code: <%= Faker::Address.country_code %>
   country: <%= Faker::Address.country %>
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
@@ -32,5 +34,6 @@ manual:
   address: <%= Faker::Address.full_address %>
   city: <%= Faker::Address.city %>
   zipcode: <%= Faker::Address.zip_code %>
+  country_code: <%= Faker::Address.country_code %>
   country: <%= Faker::Address.country %>
   invited_by_id: 1
