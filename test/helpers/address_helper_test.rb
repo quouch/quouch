@@ -47,4 +47,29 @@ class AddressHelperTest < ActiveSupport::TestCase
     country = 'Bhutan'
     assert_equal 'BT', find_country_code(country)
   end
+
+  test 'should map United States to US' do
+    country = 'United States'
+    assert_equal 'US', find_country_code(country)
+  end
+
+  test 'should map United Kingdom to GB' do
+    country = 'United Kingdom'
+    assert_equal 'GB', find_country_code(country)
+  end
+
+  test 'should handle all countries where the iso_short_name does not match the translation' do
+    skip 'This test is slow and should be run manually' unless ENV['SLOW_TESTS']
+
+    all_iso_countries = ISO3166::Country.all
+
+    all_iso_countries.each do |iso_country|
+      country = beautify_country(iso_country.alpha2)
+      if country != iso_country.iso_short_name
+        puts "Country '#{country}' has a translation that is not the same as the short name #{iso_country.iso_short_name}"
+
+        assert_equal iso_country.alpha2, find_country_code(country)
+      end
+    end
+  end
 end
