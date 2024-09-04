@@ -131,7 +131,6 @@ class StatisticsMailer < ApplicationMailer
 
   def update_subscription_counters(user, total_requests, booking_requests)
     if total_requests.positive?
-      @total_users_with_subscription_request += 1
       @requests_subscribers += total_requests
       @total_booking_requests_pending += booking_requests.pending.count
       @total_booking_requests_confirmed += booking_requests.confirmed.count
