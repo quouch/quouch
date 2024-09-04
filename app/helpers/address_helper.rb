@@ -72,6 +72,12 @@ module AddressHelper
       return 'VE'
     when 'vietnam'
       return 'VN'
+    when 'czech republic'
+      return 'CZ'
+    when 'turkey'
+      return 'TR'
+    when 'the bahamas'
+      return 'BS'
     else
       raise ArgumentError, "Country not found: #{country}"
     end

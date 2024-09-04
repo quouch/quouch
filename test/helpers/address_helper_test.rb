@@ -58,6 +58,11 @@ class AddressHelperTest < ActiveSupport::TestCase
     assert_equal 'GB', find_country_code(country)
   end
 
+  test 'should map The Bahamas to BS' do
+    country = 'The Bahamas'
+    assert_equal 'BS', find_country_code(country)
+  end
+
   test 'should handle all countries where the iso_short_name does not match the translation' do
     skip 'This test is slow and should be run manually' unless ENV['SLOW_TESTS']
 
