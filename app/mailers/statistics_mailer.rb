@@ -78,7 +78,7 @@ class StatisticsMailer < ApplicationMailer
     expired_bookings_count = Booking.where(status: -2).count
     total_bookings_count = Booking.count
 
-    calculate_percentage(non_pending_bookings_count, (total_bookings_count - expired_bookings_count))
+    calculate_percentage((non_pending_bookings_count - expired_bookings_count), total_bookings_count)
   end
 
   def request_confirmation_rate
