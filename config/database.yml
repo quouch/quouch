@@ -87,3 +87,9 @@ production:
   database: quouch_production
   username: quouch
   password: <%= ENV["QUOUCH_DATABASE_PASSWORD"] %>
+
+staging:
+  <<: *default
+  database: quouch_staging
+  username: quouch
+  password: <%= ENV["QUOUCH_DATABASE_PASSWORD"] %>
