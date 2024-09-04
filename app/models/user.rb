@@ -4,6 +4,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   include PgSearch::Model
   include Devise::JWT::RevocationStrategies::JTIMatcher
   include InviteCodeHelper
+  include AddressHelper
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
@@ -24,21 +25,23 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   has_many :characteristics, through: :user_characteristics, dependent: :destroy
   has_one :subscription, dependent: :destroy
 
-  validates :photo, presence: { message: 'Please upload a picture' }, on: :create
-  validates :first_name, presence: { message: 'First name required' }, on: :create
-  validates :last_name, presence: { message: 'Last name required' }, on: :create
-  validates :date_of_birth, presence: { message: 'Please provide your age' }, on: :create
-  validates :address, presence: { message: 'Address required' }, on: :create
-  validates :zipcode, presence: { message: 'Zipcode required' }, on: :create
-  validates :city, presence: { message: 'City required' }, on: :create
-  validates :country, presence: { message: 'Country required' }, on: :create
+  validates :photo, presence: { message: 'Please upload a picture' }, on: %i[create update]
+  validates :first_name, presence: { message: 'First name required' }, on: %i[create update]
+  validates :last_name, presence: { message: 'Last name required' }, on: %i[create update]
+  validates :date_of_birth, presence: { message: 'Please provide your age' }, on: %i[create update]
+  validates :address, presence: { message: 'Address required' }, on: %i[create update]
+  validates :zipcode, presence: { message: 'Zipcode required' }, on: %i[create update]
+  validates :city, presence: { message: 'City required' }, on: %i[create update]
+  validate :validate_country_code, on: %i[create update]
+  validates :country, presence: { message: 'Country required' }, on: %i[create update]
   validates :summary, presence: { message: 'Tell the community about you' },
-                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' }, on: :create
-  validates_associated :characteristics, message: 'Let others know what is important to you', on: :create
-  validate :validate_user_characteristics, on: :create
-  validate :validate_age, on: :create
-  validate :validate_travelling, on: :create
-  validate :at_least_one_option_checked?, on: :create
+                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' },
+                      on: %i[create update]
+  validates_associated :characteristics, message: 'Let others know what is important to you', on: %i[create update]
+  validate :validate_user_characteristics, on: %i[create update]
+  validate :validate_age, on: %i[create update]
+  validate :validate_travelling, on: %i[create update]
+  validate :at_least_one_option_checked?, on: %i[create update]
   validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }
 
   after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
@@ -133,6 +136,19 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     subscription.update!(end_of_period: Time.at(stripe_subscription.current_period_end).to_date)
   end
 
+  def validate_country_code
+    country_code = self.country_code
+
+    raise ArgumentError if country_code.blank?
+
+    country = beautify_country(country_code)
+    raise ArgumentError if country.blank?
+
+    self.country = country
+  rescue ArgumentError
+    errors.add(:country_code, 'Please provide a valid country code')
+  end
+
   def manual_geocode
     Rails.logger.info("GeoCoding address: #{address}")
     raise ArgumentError, 'address cannot be blank' if address.blank?
@@ -150,5 +166,16 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   rescue StandardError => e
     Rails.logger.error(e.message)
     Sentry.capture_exception(e, extra: { address: })
+  end
+
+  def reset_password(new_password, new_password_confirmation)
+    if new_password.present?
+      self.password = new_password
+      self.password_confirmation = new_password_confirmation
+      save(context: :password_update)
+    else
+      errors.add(:password, :blank)
+      false
+    end
   end
 end

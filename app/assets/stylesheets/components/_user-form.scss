@@ -1,326 +1,364 @@
 .user {
-	background-color: $primary-transparent;
-	margin-top: 2rem;
+    background-color: $primary-transparent;
 
-	h1 {
-		margin-bottom: .5rem;
-		margin-right: 1rem;
-		margin-left: 1rem;
-	}
-	
-	label {
-		@include body-2;
+    &:first-child {
+        margin-top: 2rem;
+    }
 
-		margin: 1rem 0;
-		text-transform: uppercase;
-	}
+    h1 {
+        margin-bottom: .5rem;
+        margin-right: 1rem;
+        margin-left: 1rem;
+    }
 
-	&__header-link {
-		@include tertiary-button;
+    label {
+        @include body-2;
 
-		display: block;
-		text-align: center; 
-	}
+        margin: 1rem 0;
+        text-transform: uppercase;
 
-	&__form {
-		@include container-width;
-		margin: 0 auto;
-	}
+        display: flex;
+        flex-direction: row;
+        gap: .3rem;
+    }
 
-	&__wrap {
-		@media (min-width: $break-medium) {
-			display: flex;
-			gap: 4rem;
-		}
-	}
+    &__header-link {
+        @include tertiary-button;
 
-	&__info { width: 100%; }
+        display: block;
+        text-align: center;
+    }
 
-	&__image {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		min-width: 200px;
+    &__form {
+        @include container-width;
+        margin: 0 auto;
+    }
 
-		> label { margin: 1rem auto; }
+    &__wrap {
+        @media (min-width: $break-medium) {
+            display: flex;
+            gap: 4rem;
+        }
+    }
 
-		@media (min-width: $break-medium) { align-items: flex-start; }
+    &__info {
+        width: 100%;
+    }
 
-		&-preview {
-			display: inline-block;
-			width: 200px;
-			height: 200px;
-			border-radius: $border-radius-round;
-			object-fit: cover;
-			object-position: center;
-		}
+    &__image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 200px;
 
-		&-icon {
-			width: 200px;
-			height: 200px;
-			border-radius: $border-radius-round;
-			background-color: $secondary-transparent;
+        > label {
+            margin: 1rem auto;
+        }
 
-			font-size: 200px;
+        @media (min-width: $break-medium) {
+            align-items: flex-start;
+        }
+
+        &-preview {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            border-radius: $border-radius-round;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        &-icon {
+            width: 200px;
+            height: 200px;
+            border-radius: $border-radius-round;
+            background-color: $secondary-transparent;
+
+            font-size: 200px;
             overflow: hidden;
             display: flex;
             justify-content: center;
         }
 
-		&-upload {
-			display: flex;
-			gap: .3rem;
-			margin: 1rem auto 0;
+        &-upload {
+            display: flex;
+            gap: .3rem;
+            margin: 1rem auto 0;
 
             i {
                 font-size: 24px;
             }
 
-			&:hover { opacity: .7; }
-		}
-	}
+            label {
+                display: inline;
+            }
 
-	&__info {
-		display: flex;
-		flex-direction: column;
-	}
+            &:hover {
+                opacity: .7;
+            }
+        }
+    }
 
-	&__birthdate {
-		display: flex;
-		gap: .5rem;
-		align-items: center;
+    &__info {
+        display: flex;
+        flex-direction: column;
+    }
 
-		select {
-			background-color: $white;
-			flex-grow: 1;
-		}
-	}
+    &__birthdate {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
 
-	&__address {
-    margin-top: 1rem;
+        select {
+            background-color: $white;
+            flex-grow: 1;
+        }
+    }
 
-		&-street {
-      display: flex;
-			column-gap: 1rem;
-			align-items: center;
+    &__address {
+        margin-top: 1rem;
 
-      .user_address { width: 100%; }
+        &-street {
+            display: flex;
+            column-gap: 1rem;
+            align-items: center;
 
-      .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
-        min-width: 0;
-        height: 40px;
+            .user_address {
+                width: 100%;
+            }
 
-				@media (min-width: $break-small) {
-					min-width: 100%;	
-					width: 100%;
-				}
+            .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+                min-width: 0;
+                height: 40px;
 
-				@media (min-width: $break-large) { height: 46px; }
-				
-				.mapboxgl-ctrl-geocoder--input {
-					height: auto;
-					padding: 6px 10px;
-				}
-      }
+                @media (min-width: $break-small) {
+                    min-width: 100%;
+                    width: 100%;
+                }
 
-		}
+                @media (min-width: $break-large) {
+                    height: 46px;
+                }
 
-		&-wrap {
-			display: flex;
-			column-gap: 1.4rem;
-			align-items: center;
-			@media (min-width: $break-medium) { width: 100%; }
+                .mapboxgl-ctrl-geocoder--input {
+                    height: auto;
+                    padding: 6px 10px;
+                }
+            }
 
-			&--city {
-				@media (max-width: $break-medium) { column-gap: 3.3rem; } // shame
-			}
-		}
+        }
 
-		&-city {
-			@media (min-width: $break-medium) {
-				display: flex;
-				column-gap: 1.5rem;
-				align-items: center;
-			}
-			> div { flex-grow: 1; }
-			input { width: 100%; }
-		}
+        &-wrap {
+            display: flex;
+            column-gap: 1.4rem;
+            align-items: center;
+            @media (min-width: $break-medium) {
+                width: 100%;
+            }
 
-		&-country {
-			display: flex;
-			column-gap: 1rem;
-			align-items: center;
+            &--city {
+                @media (max-width: $break-medium) {
+                    column-gap: 3.3rem;
+                }
+                // shame
+            }
+        }
 
-			.input, .input select { width: 100%; }
-			.input select {
-				background-color: $white;
-				
-				@media (min-width: $break-large) { height: 46px; }
-			}
-		}
+        &-city {
+            @media (min-width: $break-medium) {
+                display: flex;
+                column-gap: 1.5rem;
+                align-items: center;
+            }
 
-		&-label {
-			display: flex;
-			flex-direction: row;
-			gap: .3rem;
-		}
-	}
+            > div {
+                flex-grow: 1;
+            }
 
-	&__characteristics {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		margin: 1rem 0;
+            input {
+                width: 100%;
+            }
+        }
 
-		span {
-			label {
-				@include body-3;
+        &-country {
+            display: flex;
+            column-gap: 1rem;
+            align-items: center;
 
-				display: flex;
-				align-items: center;
-				gap: .3rem;
-				margin: .5rem 0;
+            .input, .input select {
+                width: 100%;
+            }
 
-				label {
-					flex-shrink: 0;
-					margin: 0;
-				}
-			}
-		}
-	}
+            .input select {
+                background-color: $white;
 
-	&__travelling { margin: 1rem 0 .5rem; }
+                @media (min-width: $break-large) {
+                    height: 46px;
+                }
+            }
+        }
+    }
 
-	&__offers {
-		@media (min-width: $break-medium) {
-			display: flex;
-			flex-wrap: wrap;
-			column-gap: 2rem;
-		}
-	}
+    &__characteristics {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        margin: 1rem 0;
 
-	&__offer {
-		display: flex;
-		align-items: center;
-		gap: .3rem;
-		flex-shrink: 0;
+        span {
+            label {
+                @include body-3;
 
-		label {
-			@include body-3;
+                display: flex;
+                align-items: center;
+                gap: .3rem;
+                margin: .5rem 0;
 
-			margin: .5rem 0;
-		}
+                label {
+                    flex-shrink: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+    &__travelling {
+        margin: 1rem 0 .5rem;
+    }
+
+    &__offers {
+        @media (min-width: $break-medium) {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 2rem;
+        }
+    }
+
+    &__offer {
+        display: flex;
+        align-items: center;
+        gap: .3rem;
+        flex-shrink: 0;
+
+        label {
+            @include body-3;
+
+            margin: .5rem 0;
+        }
+
         i {
             font-size: 24px;
         }
     }
 
-	&__couch {
-		&-capacity {
-			select {
-				background-color: $white;
-				margin: 1rem .3rem;
-			}
-		}
+    &__couch {
+        &-capacity {
+            select {
+                background-color: $white;
+                margin: 1rem .3rem;
+            }
+        }
 
-		&-facilities {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        &-facilities {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
-			span {
-				label {
-					@include body-3;
+            span {
+                label {
+                    @include body-3;
 
-					display: flex;
-					align-items: center;
-					gap: .3rem;
-					margin: .5rem 0;
+                    display: flex;
+                    align-items: center;
+                    gap: .3rem;
+                    margin: .5rem 0;
 
-					label {
-						flex-shrink: 0;
-						margin: 0;
-					}
-				}
-			}
-		}
-	}
+                    label {
+                        flex-shrink: 0;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
 
 
-	&__password {
-		&-change { color: $primary; }
-	}
+    &__password {
+        &-change {
+            color: $primary;
+        }
+    }
 
-	&__hint { font-size: .75rem; }
+    &__hint {
+        font-size: .75rem;
+    }
 
-	&__submit {
-		input {
-			@include primary-button;
-			margin: 1rem 0;
+    &__submit {
+        input {
+            @include primary-button;
+            margin: 1rem 0;
 
-			@media (min-width: $break-large) {
-				width: fit-content;
-			}
-		}
-	}
+            @media (min-width: $break-large) {
+                width: fit-content;
+            }
+        }
+    }
 
-	&__cancel {
-		@include container-width;
-		width: 80%;
-		margin: 1rem auto;
-		display: flex;
-		align-items: center;
+    &__cancel {
+        @include container-width;
+        width: 80%;
+        margin: 1rem auto;
+        display: flex;
+        align-items: center;
 
-		&-link {
-			@include input-field;
-			@include tertiary-button;
+        &-link {
+            @include input-field;
+            @include tertiary-button;
 
-			background-color: transparent;
-		}
-	}
+            background-color: transparent;
+        }
+    }
 
-	&__password {
-		display: flex;
-		flex-direction: column;
+    &__password {
+        display: flex;
+        flex-direction: column;
+    }
 
-		&-label {
-			flex-direction: row;
-			gap: .3rem;
-		}
-	}
-
-	&__footer {
-		display: flex;
-		justify-content: center;
-	}
+    &__footer {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 .user_pronouns {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .mapboxgl-ctrl-geocoder {
-	@include input-field;
+    @include input-field;
 
-	box-shadow: 0 0 0 0;
-	display: flex;
-	align-items: center;
-	padding: 0;
+    box-shadow: 0 0 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0;
 
-	&--icon {
-		display: block;
-		margin-left: 1rem;
-		position: inherit;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
-	&--icon-search {
-		top: 0px;
-		left: 0px;
-		width: 20px;
-		height: 20px;
-	}
+    &--icon {
+        display: block;
+        margin-left: 1rem;
+        position: inherit;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &--icon-search {
+        top: 0px;
+        left: 0px;
+        width: 20px;
+        height: 20px;
+    }
 }
 
-#user__characteristics-title { margin-bottom: .3rem; }
+#user__characteristics-title {
+    margin-bottom: .3rem;
+}

@@ -129,7 +129,7 @@ class StatisticsMailer < ApplicationMailer
     successful.to_f / total_requests * 100 if total_requests.positive?
   end
 
-  def update_subscription_counters(user, total_requests, booking_requests)
+  def update_subscription_counters(_user, total_requests, booking_requests)
     if total_requests.positive?
       @total_users_with_subscription_request += 1
       @requests_subscribers += total_requests
@@ -166,7 +166,7 @@ class StatisticsMailer < ApplicationMailer
     @total_booking_requests_confirmed ||= 0
     @total_booking_requests_declined ||= 0
     @total_booking_requests_completed ||= 0
-    @total_booking_requests_expired ||= 0
+    @initialize_subscription_counters ||= 0
   end
 
   def reset_subscription_counters
