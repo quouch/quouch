@@ -167,4 +167,15 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     Rails.logger.error(e.message)
     Sentry.capture_exception(e, extra: { address: })
   end
+
+  def reset_password(new_password, new_password_confirmation)
+    if new_password.present?
+      self.password = new_password
+      self.password_confirmation = new_password_confirmation
+      save(context: :password_update)
+    else
+      errors.add(:password, :blank)
+      false
+    end
+  end
 end
