@@ -33,4 +33,18 @@ class AddressHelperTest < ActiveSupport::TestCase
     formatted_address = AddressHelper::Formatter.format_address(address)
     assert_equal 'Main Street, 12345, Springfield, US', formatted_address
   end
+
+  test 'should find country code' do
+    country = 'Germany'
+    assert_equal 'DE', find_country_code(country)
+
+    country = 'Netherlands'
+    assert_equal 'NL', find_country_code(country)
+
+    country = 'Oman'
+    assert_equal 'OM', find_country_code(country)
+
+    country = 'Bhutan'
+    assert_equal 'BT', find_country_code(country)
+  end
 end

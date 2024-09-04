@@ -21,6 +21,15 @@ module AddressHelper
     raise ArgumentError, "Country not found: #{country}"
   end
 
+  def find_country_code(country)
+    Rails.logger.info("Finding country code: #{country}")
+    iso_country = ISO3166::Country.find_country_by_iso_short_name(country)
+    Rails.logger.info("Country code found: #{iso_country.alpha2}")
+    iso_country.alpha2
+  rescue StandardError => e
+    Rails.logger.error("Error finding country code: #{e.message}")
+  end
+
   class Formatter
     def self.format_address(address)
       "#{address[:street]}, #{address[:zipcode]}, #{address[:city]}, #{address[:country]}"
