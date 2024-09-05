@@ -33,7 +33,7 @@ module JwtTokenHelper
       raise JwtError, 'Token has an invalid format.'
     rescue ActiveRecord::RecordNotFound
       raise JwtError, 'User not found.'
-    rescue StandardError => e
+    rescue => e
       raise JwtError, e || 'Something went wrong. Please try again.'
     end
   end

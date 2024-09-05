@@ -19,7 +19,7 @@ class SubscriptionsController < ApplicationController
     redirect_to checkout_session.url, allow_other_host: true
   rescue Stripe::StripeError => e
     handle_checkout_error(subscription, "An error occurred processing the payment: #{e.message}")
-  rescue StandardError => e
+  rescue => e
     handle_checkout_error(subscription, "An unexpected error occurred setting up a subscription: #{e.message}")
   end
 
@@ -39,7 +39,7 @@ class SubscriptionsController < ApplicationController
     redirect_to subscription_path(@subscription)
   rescue Stripe::StripeError => e
     handle_subscription_update_error(e.message)
-  rescue StandardError => e
+  rescue => e
     handle_subscription_update_error("An unexpected error occurred: #{e.message}")
   end
 
@@ -86,7 +86,7 @@ class SubscriptionsController < ApplicationController
     )
   rescue Stripe::StripeError => e
     raise e
-  rescue StandardError => e
+  rescue => e
     raise StandardError, "An unexpected error occurred during checkout session creation: #{e.message}"
   end
 

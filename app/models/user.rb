@@ -117,7 +117,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     self.stripe_id = response.id
   rescue Stripe::StripeError => e
     handle_stripe_reference_creation_error("Error creating Stripe customer: #{e.message}")
-  rescue StandardError => e
+  rescue => e
     handle_stripe_reference_creation_error("An unexpected error occurred during Stripe customer creation: #{e.message}")
   end
 
@@ -163,7 +163,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   rescue ArgumentError => e
     Rails.logger.error(e.message)
     errors.add(:address, e.message)
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error(e.message)
     Sentry.capture_exception(e, extra: { address: })
   end

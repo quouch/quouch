@@ -26,7 +26,7 @@ class InvitesController < ApplicationController
     Sentry.capture_message("No user found with invite code: #{invite_code}", level: 'info')
 
     render :invite_code_form, status: :unprocessable_entity
-  rescue StandardError
+  rescue
     flash[:alert] = ERROR_MESSAGES[:default]
     render :invite_code_form, status: :unprocessable_entity
   end
