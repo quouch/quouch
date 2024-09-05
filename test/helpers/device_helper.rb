@@ -23,7 +23,7 @@ class DeviceHelper
   def find_resolution(is_mobile: false, screen_type: 'hd')
     selected_screen_size = DEVICE_MAP[is_mobile ? :mobile : :desktop][screen_type.to_sym]
     unless selected_screen_size
-      warn "Invalid screen type: #{screen_type}. Defaulting to #{is_mobile ? 'iphone_se' : 'hd'}"
+      warn "Invalid screen type: #{screen_type}. Defaulting to #{is_mobile ? "iphone_se" : "hd"}"
       selected_screen_size = is_mobile ? DEVICE_MAP[:mobile][:iphone_se] : DEVICE_MAP[:desktop][:hd]
     end
 

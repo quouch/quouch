@@ -6,9 +6,9 @@ if ENV['COVERAGE']
 
   if ENV['CI']
     SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-                                                                     SimpleCov::Formatter::MarkdownFormatter,
-                                                                     SimpleCov::Formatter::HTMLFormatter
-                                                                   ])
+      SimpleCov::Formatter::MarkdownFormatter,
+      SimpleCov::Formatter::HTMLFormatter
+    ])
   end
 
   SimpleCov.start 'rails' do

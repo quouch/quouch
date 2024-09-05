@@ -10,14 +10,14 @@ class Plan < ApplicationRecord
 
   def create_stripe_reference
     response = Stripe::Price.create({
-                                      unit_amount: price_cents,
-                                      currency: 'eur',
-                                      recurring: {
-                                        interval:,
-                                        interval_count: interval == 'month' ? 6 : nil
-                                      },
-                                      product_data: { name: }
-                                    })
+      unit_amount: price_cents,
+      currency: 'eur',
+      recurring: {
+        interval:,
+        interval_count: interval == 'month' ? 6 : nil
+      },
+      product_data: { name: }
+    })
     self.stripe_price_id = response.id
   end
 end
