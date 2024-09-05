@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
     @review = Review.new(review_params)
     @host = @booking.couch.user
     @review.user = current_user
-    @review.couch = @host == current_user ? @booking.user.couch : @host.couch
+    @review.couch = (@host == current_user) ? @booking.user.couch : @host.couch
     @review.booking = @booking
     handle_review(@booking, @review)
 

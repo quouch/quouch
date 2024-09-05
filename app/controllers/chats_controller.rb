@@ -14,7 +14,7 @@ class ChatsController < ApplicationController
     @chats = current_user.chats.includes(user_receiver: [{ photo_attachment: :blob }]).order('messages.created_at DESC')
     @other_user = @chat.other_user(current_user)
     @receiver = User.find_by(id: @chat.user_receiver_id)
-    @name = @receiver == current_user ? User.find_by(id: @chat.user_sender_id).first_name : @receiver.first_name
+    @name = (@receiver == current_user) ? User.find_by(id: @chat.user_sender_id).first_name : @receiver.first_name
     @message = Message.new
   end
 

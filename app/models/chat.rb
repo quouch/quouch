@@ -8,6 +8,6 @@ class Chat < ApplicationRecord
   validates :user_sender_id, uniqueness: { scope: :user_receiver_id }
 
   def other_user(current_user)
-    user_sender_id == current_user.id ? user_receiver : user_sender
+    (user_sender_id == current_user.id) ? user_receiver : user_sender
   end
 end

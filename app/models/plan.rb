@@ -14,7 +14,7 @@ class Plan < ApplicationRecord
       currency: 'eur',
       recurring: {
         interval:,
-        interval_count: interval == 'month' ? 6 : nil
+        interval_count: (interval == 'month') ? 6 : nil
       },
       product_data: { name: }
     })
