@@ -84,14 +84,13 @@ namespace :import do
 
   def create_user_characteristics(row, user)
     characteristics = []
-    usercharacteristics = []
     row.each do |char|
       characteristic = Characteristic.find_by(name: char)
       next if characteristic.nil?
 
       characteristics << characteristic
-      usercharacteristic = UserCharacteristic.create(user_id: user.id, characteristic_id: characteristic.id)
-      usercharacteristics << usercharacteristic
+      user_characteristics = UserCharacteristic.create(user_id: user.id, characteristic_id: characteristic.id)
+      user_characteristics << user_characteristics
     end
     characteristics
   end
