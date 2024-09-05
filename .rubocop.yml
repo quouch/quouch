@@ -1,3 +1,10 @@
+require:
+  - standard
+  - standard-rails
+
+inherit_gem:
+  standard: config/base.yml
+
 AllCops:
   TargetRubyVersion: 3.1.2
   Exclude:
@@ -8,9 +15,31 @@ AllCops:
     - 'vendor/**/*'
   SuggestExtensions: false
   NewCops: enable
+  DisabledByDefault: true
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: space
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_first_argument
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: aligned
+
+Layout/ExtraSpacing:
+  AllowForAlignment: true
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: keyword
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: aligned
 
 # TODO: Reevaluate if these should or shouldn't be included.
 # IMO they should be at least warning
