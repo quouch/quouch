@@ -8,7 +8,8 @@ class InvitesController < ApplicationController
     default: 'Something went wrong. Please try again or contact the Quouch team'
   }.freeze
 
-  def invite_code_form; end
+  def invite_code_form
+  end
 
   def validate_invite_code
     invite_code = params[:invite][:invite_code].strip.downcase

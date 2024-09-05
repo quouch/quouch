@@ -111,7 +111,13 @@ class UserTest < ActiveSupport::TestCase
     @user.date_of_birth = 20.years.ago
     assert_equal 20, @user.calculated_age
 
+    @user.date_of_birth = 20.years.ago - 1.month
+    assert_equal 20, @user.calculated_age
+
     @user.date_of_birth = 20.years.ago + 1.day
+    assert_equal 19, @user.calculated_age
+
+    @user.date_of_birth = 20.years.ago + 1.month + 1.day
     assert_equal 19, @user.calculated_age
   end
 

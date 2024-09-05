@@ -62,11 +62,9 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
     today = Date.today
     return unless date_of_birth
 
-    if today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
-      calculation = 0
-    else
-      calculation = 1
-    end
+    is_birthday_in_the_past = today.month > date_of_birth.month || (today.month == date_of_birth.month && today.day >= date_of_birth.day)
+    calculation = is_birthday_in_the_past ? 0 : 1
+
     today.year - date_of_birth.year - calculation
   end
 

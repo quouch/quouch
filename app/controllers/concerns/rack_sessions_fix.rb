@@ -13,7 +13,8 @@ module RackSessionsFix
       false
     end
 
-    def destroy; end
+    def destroy
+    end
   end
 
   included do
