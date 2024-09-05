@@ -92,6 +92,8 @@ group :development, :rubocop, :test do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+  gem 'standard', require: false
+  gem 'standard-rails', require: false
 end
 
 gem 'autoprefixer-rails'
