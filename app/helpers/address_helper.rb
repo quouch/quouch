@@ -11,7 +11,7 @@ module AddressHelper
     raise StandardError, 'translated_country is empty' if translated_country.nil? || translated_country == country
 
     translated_country
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error("Error beautifying country: #{e.message}")
     crumb = Sentry::Breadcrumb.new(
       message: 'Error beautifying country',
@@ -31,7 +31,7 @@ module AddressHelper
     end
     Rails.logger.info("Country code found: #{iso_country}")
     iso_country.alpha2
-  rescue StandardError => e
+  rescue => e
     Rails.logger.error("Error finding country code: #{e.message}")
   end
 
@@ -46,38 +46,22 @@ module AddressHelper
   # Handle countries whose english translation is not the same as the iso short name
   def handle_non_iso_conform_country(country)
     case country.downcase
-    when 'united states'
-      return 'US'
-    when 'united kingdom'
-      return 'GB'
-    when 'bolivia'
-      return 'BO'
-    when 'congo, the democratic republic of the'
-      return 'CD'
-    when 'iran'
-      return 'IR'
-    when 'north korea'
-      return 'KP'
-    when 'south korea'
-      return 'KR'
-    when 'moldova'
-      return 'MD'
-    when 'taiwan'
-      return 'TW'
-    when 'tanzania'
-      return 'TZ'
-    when 'holy see (vatican city state)'
-      return 'VA'
-    when 'venezuela'
-      return 'VE'
-    when 'vietnam'
-      return 'VN'
-    when 'czech republic'
-      return 'CZ'
-    when 'turkey'
-      return 'TR'
-    when 'the bahamas'
-      return 'BS'
+    when 'united states' then 'US'
+    when 'united kingdom' then 'GB'
+    when 'bolivia' then 'BO'
+    when 'congo, the democratic republic of the' then 'CD'
+    when 'iran' then 'IR'
+    when 'north korea' then 'KP'
+    when 'south korea' then 'KR'
+    when 'moldova' then 'MD'
+    when 'taiwan' then 'TW'
+    when 'tanzania' then 'TZ'
+    when 'holy see (vatican city state)' then 'VA'
+    when 'venezuela' then 'VE'
+    when 'vietnam' then 'VN'
+    when 'czech republic' then 'CZ'
+    when 'turkey' then 'TR'
+    when 'the bahamas' then 'BS'
     else
       raise ArgumentError, "Country not found: #{country}"
     end
