@@ -91,6 +91,7 @@ user_email = ENV.fetch('BASE_USER_EMAIL', nil)
 user_password = ENV.fetch('BASE_USER_PASSWORD', nil)
 puts 'Create first user'
 User.destroy_all
+UserCharacteristic.destroy_all
 
 address = { address: 'Unter den Linden 77, 10117 Berlin, Germany', city: 'Berlin', country: 'Germany',
             zipcode: '10117' }
@@ -100,12 +101,15 @@ base_user = User.new(
   password: user_password,
   first_name: 'Admin',
   last_name: 'Local',
+  date_of_birth: '1990-01-01',
+  summary: Faker::Lorem.paragraph_by_chars(number: 50, supplemental: false),
   confirmed_at: Time.now,
   address: address[:address],
   zipcode: address[:zipcode],
   city: address[:city],
   country_code: 'DE',
-  country: address[:country]
+  country: address[:country],
+  offers_hang_out: true,
 )
 
 base_user.save!(validate: false)
