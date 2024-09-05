@@ -1,9 +1,9 @@
 require_relative '../../app/helpers/address_helper'
-include AddressHelper
 
-namespace :users do
-  desc 'Convert country to country code'
-  task convert_country_to_country_code: :environment do
+class CountryCodeFixer
+  include AddressHelper
+
+  def run
     User.all.each do |user|
       current_country_code = user.country_code
       update_with_country = nil
@@ -14,5 +14,13 @@ namespace :users do
         user.validate_country_code
       end
     end
+  end
+
+end
+
+namespace :users do
+  desc 'Convert country to country code'
+  task convert_country_to_country_code: :environment do
+    CountryCodeFixer.new.run
   end
 end
