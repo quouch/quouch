@@ -145,16 +145,18 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should only return couches that offer co work' do
     # Create two couches
-    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @host.offers_co_work = false
+    @host.offers_hang_out = false
     @host.save!
 
-    @host2 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host2 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host2.offers_co_work = false
+    @host2.offers_hang_out = false
     @host2.save!
 
     # Set up necessary conditions for the offers filter
-    params[:offers_hang_out] = true
+    params[:offers_co_work] = true
     index
 
     # Add assertions to check that the offers filter was applied correctly
@@ -163,11 +165,11 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should only return couches that offer a couch' do
     # Create two couches
-    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @host.offers_couch = true
     @host.save!
 
-    @host2 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host2 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host2.offers_couch = false
     @host2.offers_hang_out = true
     @host2.save!
@@ -183,12 +185,12 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should combine offer and query filter' do
     # Create two couches
-    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @host.offers_couch = true
     @host.city = 'Test City'
     @host.save!
 
-    @host2 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host2 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host2.offers_couch = true
     @host2.city = 'Another City'
     @host2.save!
@@ -205,15 +207,15 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should combine characteristic and offer filters' do
     # Create three couches
-    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @host.offers_couch = true
     @host.save!
 
-    @host2 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host2 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host2.offers_couch = true
     @host2.save!
 
-    @host3 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host3 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host3.offers_couch = false
     @host3.offers_hang_out = true
     @host3.save!
@@ -266,17 +268,17 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
   test 'should combine three different filters' do
     # Create three couches
-    @host = FactoryBot.create(:user, :for_test, :with_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @host.offers_couch = true
     @host.city = 'Test City'
     @host.save!
 
-    @host2 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host2 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host2.offers_couch = true
     @host2.city = 'Another City'
     @host2.save!
 
-    @host3 = FactoryBot.create(:user, :for_test, :with_couch)
+    @host3 = FactoryBot.create(:user, :for_test, :offers_couch)
     @host3.offers_couch = false
     @host3.offers_hang_out = true
     @host3.city = 'Test City'

@@ -15,7 +15,6 @@ class CountryCodeFixer
       end
     end
   end
-
 end
 
 namespace :users do

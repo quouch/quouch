@@ -15,8 +15,8 @@ FactoryBot.define do
     date_of_birth { 25.years.ago }
 
     summary { Faker::Hipster.paragraph_by_chars(characters: 60) }
-    offers_couch { true }
-    offers_co_work { [true, false].sample }
+    offers_couch { false }
+    offers_co_work { true }
     offers_hang_out { [true, false].sample }
     travelling { [true, false].sample }
 
@@ -48,8 +48,20 @@ FactoryBot.define do
       end
     end
 
+    trait :offers_couch do
+      offers_couch { true }
+
+      after(:create) do |user|
+        # Needed for the search to work: add a couch for the newly created user
+        Couch.create!(user:, capacity: 1)
+
+        # Add facilities to the couch
+        user.couch.couch_facilities.create!(facility: Facility.first)
+      end
+    end
+
     trait :for_test do
-      offers_co_work { false }
+      offers_co_work { true }
       offers_hang_out { false }
       travelling { false }
     end

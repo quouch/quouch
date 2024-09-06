@@ -58,16 +58,16 @@ module Users
 
     def update
       if params[:user][:old_password].blank?
-        super do |resource|
-          @couch = resource.couch
-          create_couch_facilities
-          update_user_characteristics
+        @couch = @user.couch
+        create_couch_facilities
+        update_user_characteristics
+
+        super do |_resource|
           disable_offers_if_travelling
         end
       else
         update_password
       end
-
     rescue StandardError => e
       Rails.logger.error(e.message)
       # flash[:error] = 'Something went wrong. Please try again.'
