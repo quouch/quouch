@@ -19,6 +19,7 @@ class ContactsController < ApplicationController
 
     if @contact.deliver
       flash[:notice] = 'Message successfully sent!'
+      AmplitudeEventTracker.track_contact_event(params, 'Request for Invite Code') if params[:contact][:type] == 'code'
       redirect_to root_path
     else
       flash[:alert] = 'Could not send message, please try again'

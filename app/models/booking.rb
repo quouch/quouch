@@ -66,6 +66,9 @@ class Booking < ApplicationRecord
 
   def self.update_status(bookings, status)
     bookings.update_all(status:)
+    bookings.each do |booking|
+      AmplitudeEventTracker.track_booking_event(booking, 'Booking Completed')
+    end
   end
 
   def self.send_completed_emails(bookings)

@@ -41,20 +41,7 @@ module Users
         respond_with resource
       end
 
-      event = AmplitudeAPI::Event.new(
-        user_id: resource.id.to_s,
-        event_type: 'New User',
-        user_properties: {
-          age: resource.calculated_age,
-          country: resource.country,
-          host: resource.offers_couch,
-          travelling: resource.travelling,
-          invited_by: resource.invited_by_id
-        },
-        time: Time.now
-      )
-
-      AmplitudeAPI.track(event)
+      AmplitudeEventTracker.track_user_event(resource, 'New User')
     end
 
     def update

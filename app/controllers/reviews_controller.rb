@@ -15,16 +15,7 @@ class ReviewsController < ApplicationController
     @review.booking = @booking
     handle_review(@booking, @review)
 
-    event = AmplitudeAPI::Event.new(
-      user_id: current_user.id.to_s,
-      event_type: 'New Review',
-      rating: @review.rating,
-      couch: @review.couch.id,
-      booking: @review.booking.id,
-      time: Time.now
-    )
-
-    AmplitudeAPI.track(event)
+    AmplitudeEventTracker.track_review_event(@review, 'New Review')
   end
 
   private
