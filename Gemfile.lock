@@ -136,6 +136,7 @@ GEM
     countries (6.0.0)
       unaccent (~> 0.3)
     crass (1.0.6)
+    dante (0.2.0)
     date (3.3.4)
     debug (1.9.2)
       irb (~> 1.10)
@@ -285,6 +286,7 @@ GEM
       money (~> 6.13)
       railties (>= 3.0)
     msgpack (1.7.2)
+    multi_json (1.15.0)
     multipart-post (2.4.0)
     nenv (0.3.0)
     nested_form (0.3.2)
@@ -457,6 +459,10 @@ GEM
       railties (>= 6.0.0)
     stringio (3.1.0)
     stripe (10.15.0)
+    stripe-ruby-mock (4.0.0)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (> 5, < 12)
     stripe_event (2.8.0)
       activesupport (>= 3.1)
       stripe (>= 2.8, < 11)
@@ -559,6 +565,7 @@ DEPENDENCIES
   stackprof
   stimulus-rails
   stripe
+  stripe-ruby-mock
   stripe_event
   turbo-rails
   tzinfo-data

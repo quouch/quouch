@@ -23,6 +23,18 @@ $tertiary-super-transparent: #FEFAE6;
 $error: hsl(0, 82%, 49%);
 $warning: #EBFF0F;
 
+// Flash messages
+$success: #198754 !default;
+$info: #0dcaf0 !default;
+$warning: #ffc107 !default;
+$danger: #dc3545 !default;
+$flash-colors: (
+        "success": ("color": $success, "background": #d1e7dd, "text": #0a3622, "border": #a3cfbb),
+        "info": ("color": $info, "background": #cff4fc, "text": #055160, "border": #9ec5fe),
+        "warning": ("color": $warning, "background": #fff3cd, "text": #664d03, "border": #ffe69c),
+        "error": ("color": $danger, "background": #f8d7da, "text": #58151c, "border": #f1aeb5)
+) !default;
+
 // Gray scale
 $gray-01: hsl(0, 0%, 94%);
 $gray-02: hsl(0, 0%, 87%);

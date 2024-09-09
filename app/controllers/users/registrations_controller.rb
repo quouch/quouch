@@ -26,6 +26,7 @@ module Users
         if resource.errors[:invited_by_id].present?
           flash[:error] = 'There seems to be an issue with your invite code. Please contact the Quouch team!'
         end
+        flash[:error] = resource.errors[:stripe_id].first if resource.errors[:stripe_id].present?
 
         crumb = Sentry::Breadcrumb.new(
           message: 'User could not be created',

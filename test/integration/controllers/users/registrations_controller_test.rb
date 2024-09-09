@@ -76,5 +76,15 @@ module Users
 
       assert_not_nil User.last.invited_by_id
     end
+
+    test 'should flash error on creation failure' do
+      inviting_user = FactoryBot.create(:user, :for_test)
+
+      Stripe::Customer.stub(:create, -> { raise Stripe::StripeError }) do
+        post user_registration_path, params: { user: @user_object, invite_code: inviting_user[:invite_code] }
+
+        assert_includes flash[:error], 'Something went wrong when communicating with Stripe'
+      end
+    end
   end
 end

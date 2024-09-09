@@ -48,6 +48,7 @@ end
 module ::Minitest
   class Test
     include GeocoderMocker
+    include StripeMocker
   end
 end
 
