@@ -67,6 +67,15 @@ module Users
       else
         update_password
       end
+
+    rescue StandardError => e
+      Rails.logger.error(e.message)
+      # flash[:error] = 'Something went wrong. Please try again.'
+      # redirect_to edit_user_registration_path
+      # Send more data to Sentry
+      Sentry.add_breadcrumb(Sentry::Breadcrumb.new(message: e.message, data: { request: },
+                                                   level: 'error', category: 'user'))
+      Sentry.capture_exception(e)
     end
 
     def update_password
