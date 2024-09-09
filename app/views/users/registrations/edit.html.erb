@@ -216,6 +216,9 @@
                                required: false %>
                 </div>
                 <%= cf.label :my_couch_comes_with %>
+                <% if @user.errors[:couch_facilities].any? %>
+                  <%= f.error :couch_facilities, class: 'form-error form-error-characteristics' %>
+                <% end %>
                 <div class="user__couch-facilities">
                   <%= simple_fields_for :couch_facility do |cff| %>
                     <%= cff.collection_check_boxes :facility_ids,

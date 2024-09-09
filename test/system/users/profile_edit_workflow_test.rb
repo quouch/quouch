@@ -66,6 +66,16 @@ module Users
       assert_selector '.form_error', text: 'Last name required'
     end
 
+    test 'should show error if offers couch but has no facilities' do
+      visit edit_user_registration_path
+
+      check 'user[offers_couch]'
+      submit_form
+
+      assert_no_current_path root_path
+      assert_selector '.form_error', text: 'Please select at least one facility'
+    end
+
     test 'should not change the password if clicks on wrong button' do
       visit edit_user_registration_path
 

@@ -36,18 +36,16 @@ module RegistrationConcern
   end
 
   def create_couch_facilities
-    @couch.couch_facilities.destroy_all
-
     if params[:couch_facility].nil? || params[:couch_facility].empty?
-      Rails.logger.info('No facilities selected for couch')
-      return
-    end
+      Rails.logger.info('couch_facility not present, skipping changes...')
+    else
+      @couch.couch_facilities.destroy_all
 
-    facilities_to_create = couch_facility_params[:facility_ids].reject(&:empty?)
-    # raise ArgumentError, 'Please select at least one facility.' if facilities_to_create.empty?
+      facilities_to_create = couch_facility_params[:facility_ids].reject(&:empty?)
 
-    facilities_to_create.each do |id|
-      @couch.couch_facilities.create(facility_id: id)
+      facilities_to_create.each do |id|
+        @couch.couch_facilities.create(facility_id: id)
+      end
     end
   end
 
@@ -59,6 +57,12 @@ module RegistrationConcern
   end
 
   def update_user_characteristics
+    # Do not update if the user characteristics aren't set!
+    if params[:user_characteristic].nil?
+      Rails.logger.info('No characteristics selected for user')
+      return
+    end
+
     @user.user_characteristics.destroy_all
     chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?).map do |id|
       { characteristic_id: id }

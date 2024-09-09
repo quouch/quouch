@@ -70,11 +70,11 @@ class AddressHelperTest < ActiveSupport::TestCase
 
     all_iso_countries.each do |iso_country|
       country = beautify_country(iso_country.alpha2)
-      if country != iso_country.iso_short_name
-        puts "Country '#{country}' has a translation that is not the same as the short name #{iso_country.iso_short_name}"
+      next unless country != iso_country.iso_short_name
 
-        assert_equal iso_country.alpha2, find_country_code(country)
-      end
+      puts "Country '#{country}' has a translation that is not the same as the short name #{iso_country.iso_short_name}"
+
+      assert_equal iso_country.alpha2, find_country_code(country)
     end
   end
 end

@@ -11,7 +11,7 @@ module AddressHelper
     raise StandardError, 'translated_country is empty' if translated_country.nil? || translated_country == country
 
     translated_country
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Error beautifying country: #{e.message}")
     crumb = Sentry::Breadcrumb.new(
       message: 'Error beautifying country',
@@ -26,12 +26,11 @@ module AddressHelper
   def find_country_code(country)
     Rails.logger.info("Finding country code: #{country}")
     iso_country = ISO3166::Country.find_country_by_iso_short_name(country)
-    if iso_country.nil?
-      return handle_non_iso_conform_country(country)
-    end
+    return handle_non_iso_conform_country(country) if iso_country.nil?
+
     Rails.logger.info("Country code found: #{iso_country}")
     iso_country.alpha2
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Error finding country code: #{e.message}")
   end
 

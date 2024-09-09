@@ -45,21 +45,6 @@ class RegistrationConcernTest < ActiveSupport::TestCase
     assert_equal other_user.id, found_id
   end
 
-  test 'should raise an error if facilities are empty' do
-    skip "This test is not implemented yet. Issues are not raised since they can't be handled in the current implementation."
-    params[:couch_facility] = {
-      facility_ids: []
-    }
-
-    assert_raise(ArgumentError) { create_couch_facilities }
-
-    params[:couch_facility] = {
-      facility_ids: ['']
-    }
-
-    assert_raise(ArgumentError) { create_couch_facilities }
-  end
-
   test 'should save couch facilities' do
     facility = Facility.first
     params[:couch_facility] = {
@@ -89,7 +74,9 @@ class RegistrationConcernTest < ActiveSupport::TestCase
     create_couch_facilities
     assert_equal 1, @couch.couch_facilities.count
 
-    params[:couch_facility] = {}
+    params[:couch_facility] = {
+      facility_ids: []
+    }
 
     create_couch_facilities
     assert_equal 0, @couch.couch_facilities.count

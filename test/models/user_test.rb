@@ -144,4 +144,27 @@ class UserTest < ActiveSupport::TestCase
       assert_equal @user.errors.messages[:address], ['Geocoding failed, please provide a valid address']
     end
   end
+
+  test 'should be valid if offers couch and has facilities' do
+    @user = FactoryBot.create(:user, :for_test, :with_couch)
+    @user.couch.couch_facilities.destroy_all
+
+    @user.couch.couch_facilities.create(facility: Facility.first)
+    @user.offers_couch = true
+    assert @user.valid?
+  end
+
+  test 'should not be valid if offers couch and has no facilities' do
+    @user = FactoryBot.create(:user, :for_test, :with_couch)
+    @user.couch.couch_facilities.destroy_all
+
+    @user.offers_couch = true
+    assert_not @user.valid?
+  end
+
+  test 'should be valid if not offers couch and has no facilities' do
+    @user = FactoryBot.create(:user, :for_test)
+    @user.offers_couch = false
+    assert @user.valid?
+  end
 end

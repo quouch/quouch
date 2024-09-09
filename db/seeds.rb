@@ -109,7 +109,7 @@ base_user = User.new(
   city: address[:city],
   country_code: 'DE',
   country: address[:country],
-  offers_hang_out: true,
+  offers_hang_out: true
 )
 
 base_user.save!(validate: false)

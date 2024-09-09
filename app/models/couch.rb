@@ -2,12 +2,12 @@ class Couch < ApplicationRecord
   include PgSearch::Model
 
   belongs_to :user
-  has_many   :user_characteristics, through: :user
-  has_many   :characteristics, through: :user_characteristics
-  has_many   :bookings, dependent: :destroy
-  has_many   :reviews, dependent: :destroy
-  has_many   :couch_facilities, dependent: :destroy, autosave: true
-  has_many   :facilities, through: :couch_facilities
+  has_many :user_characteristics, through: :user
+  has_many :characteristics, through: :user_characteristics
+  has_many :bookings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
+  has_many :couch_facilities, dependent: :destroy, autosave: true
+  has_many :facilities, through: :couch_facilities
   accepts_nested_attributes_for :couch_facilities
 
   scope :active, -> { joins(:user).where(users: { offers_couch: true }) }
@@ -22,4 +22,8 @@ class Couch < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }
+
+  def facilities?
+    !couch_facilities.empty? && couch_facilities.count.positive?
+  end
 end

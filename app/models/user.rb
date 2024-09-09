@@ -39,6 +39,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
                       on: %i[create update]
   validates_associated :characteristics, message: 'Let others know what is important to you', on: %i[create update]
   validate :validate_user_characteristics, on: %i[create update]
+  validate :validate_facilities, on: %i[update]
   validate :validate_age, on: %i[create update]
   validate :validate_travelling, on: %i[create update]
   validate :at_least_one_option_checked?, on: %i[create update]
@@ -110,6 +111,14 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
 
   def validate_user_characteristics
     errors.add(:user_characteristics, 'Let others know what is important to you') if user_characteristics.empty?
+  end
+
+  def validate_facilities
+    return unless offers_couch
+    return unless couch
+    return if couch.facilities?
+
+    errors.add(:couch_facilities, 'Please select at least one facility')
   end
 
   def create_stripe_reference
