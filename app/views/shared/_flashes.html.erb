@@ -1,46 +1,6 @@
-<% if notice %>
-  <div class="flash" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= notice %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if alert %>
-  <div class="flash" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= alert %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if error %>
-  <div class="flash flash-error" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= error %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if warning %>
-  <div class="flash flash-warning" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= warning %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if success %>
-  <div class="flash flash-success" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= success %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if info %>
-  <div class="flash flash-info" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= info %>
+<% flash.each do |(key, value)| %>
+  <div class="flash flash-<%= key %>" role="alert" data-controller="close-modal" data-close-modal-target="modal">
+    <%= value %>
     <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
       <i class="quouch-close" aria-label="Close icon"></i>
     </button>
