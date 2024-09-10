@@ -60,7 +60,9 @@
   </head>
 
   <body>
-    <%= render 'shared/flashes' %>
+    <div class="flash-container">
+      <%= render 'shared/flashes' %>
+    </div>
     <%= render 'shared/header' %>
 
     <%= yield %>

@@ -50,6 +50,12 @@ module RegistrationConcern
   end
 
   def create_user_characteristics
+    # Do not update if the user characteristics aren't set!
+    if params[:user_characteristic].nil?
+      Rails.logger.info('No characteristics selected for user')
+      return
+    end
+
     @user.user_characteristics.destroy_all
     chars_hash = params[:user_characteristic][:characteristic_ids].reject(&:empty?)
                                                                   .map { |id| { characteristic_id: id } }

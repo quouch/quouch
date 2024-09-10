@@ -45,7 +45,7 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :at_least_one_option_checked?, on: %i[create update]
   validates :invited_by_id, on: :create, presence: { message: 'Please provide a valid invite code' }
 
-  after_validation :create_stripe_reference, on: :create, unless: -> { Rails.env.test? }
+  after_validation :create_stripe_reference, on: :create
 
   geocoded_by :address
   after_validation :manual_geocode, if: :will_save_change_to_address?
@@ -124,15 +124,10 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def create_stripe_reference
     response = Stripe::Customer.create(email:)
     self.stripe_id = response.id
-  rescue Stripe::StripeError => e
-    handle_stripe_reference_creation_error("Error creating Stripe customer: #{e.message}")
   rescue StandardError => e
-    handle_stripe_reference_creation_error("An unexpected error occurred during Stripe customer creation: #{e.message}")
-  end
-
-  def handle_stripe_reference_creation_error(error_message)
-    flash[:error] = error_message
-    redirect_to new_subscription_url
+    Rails.logger.error("An unexpected error occurred during Stripe customer creation: #{e.message}")
+    errors.add(:stripe_id,
+               'Something went wrong when communicating with Stripe. Please try again later or contact the Quouch team!')
   end
 
   def cancel_stripe_subscription

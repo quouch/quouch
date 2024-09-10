@@ -98,6 +98,21 @@ module Users
       assert_equal user[:invited_by_id], @inviting_user[:id]
     end
 
+    test 'should display stripe error' do
+      visit user_registration_path
+
+      assert_selector 'h1', text: 'Set account details'.upcase
+
+      # Fill in the form
+      fill_in_form_data
+      Stripe::Customer.stub(:create, -> { raise Stripe::StripeError }) do
+        click_on 'Create Account'
+
+        assert_current_path user_registration_path
+        assert_selector 'div.flash-error', text: 'Something went wrong when communicating with Stripe'
+      end
+    end
+
     private
 
     def user_registration_path

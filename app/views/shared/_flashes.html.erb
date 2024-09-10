@@ -1,14 +1,6 @@
-<% if notice %>
-  <div class="flash" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= notice %>
-    <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
-      <i class="quouch-close" aria-label="Close icon"></i>
-    </button>
-  </div>
-<% end %>
-<% if alert %>
-  <div class="flash" role="alert" data-controller="close-modal" data-close-modal-target="modal">
-    <%= alert %>
+<% flash.each do |(key, value)| %>
+  <div class="flash flash-<%= key %>" role="alert" data-controller="close-modal" data-close-modal-target="modal">
+    <%= value %>
     <button type="button" class="flash__button" aria-label="Close" data-action="click->close-modal#closeModal">
       <i class="quouch-close" aria-label="Close icon"></i>
     </button>

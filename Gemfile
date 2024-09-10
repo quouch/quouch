@@ -131,6 +131,8 @@ group :development, :test do
   gem 'shoulda', '~> 4.0'
   gem 'simplecov', require: false
   gem 'simplecov-markdown', require: false
+  # Stripe mocking
+  gem 'stripe-ruby-mock', require: 'stripe_mock'
 end
 
 # Fake test data
