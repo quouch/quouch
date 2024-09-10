@@ -89,18 +89,7 @@ class BookingsController < ApplicationController
     @canceller = current_user
     return unless @booking.save
 
-    if @canceller == @booking.user
-      redirect_to bookings_path
-      case status_before_cancellation
-      when 'pending'
-        BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-      when 'confirmed'
-        BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
-      end
-    else
-      redirect_to requests_couch_bookings_path(@booking.couch)
-      BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
-    end
+    cancel_booking(@canceller, @booking, status_before_cancellation)
     AmplitudeEventTracker.track_booking_event(@booking, 'Booking Cancelled')
   end
 
