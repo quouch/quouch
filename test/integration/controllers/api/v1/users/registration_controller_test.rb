@@ -17,14 +17,16 @@ module Api
         get "/api/v1/users/#{@user.id}", headers: @headers
 
         assert_response :success
-        json_response = JSON.parse(response.body)
+        json_response = response.parsed_body
 
-        assert_equal 'user', json_response['type']
-        assert_equal @user[:id], json_response['attributes']['id']
-        assert_equal @user[:email], json_response['attributes']['email']
-        assert_equal @user[:first_name], json_response['attributes']['first_name']
+        attributes = json_response['data']['attributes']
 
-        assert_equal @user.couch[:id].to_s, json_response['relationships']['couch']['data']['id']
+        assert_equal 'user', json_response['data']['type']
+        assert_equal @user[:id], attributes['id']
+        assert_equal @user[:email], attributes['email']
+        assert_equal @user[:first_name], attributes['firstName']
+
+        assert_equal @user.couch[:id].to_s, json_response['data']['relationships']['couch']['data']['id']
       end
 
       test 'should edit own user information' do
@@ -34,18 +36,21 @@ module Api
         get '/api/v1/users/edit', headers: @headers
 
         assert_response :success
-        json_response = JSON.parse(response.body)
-        assert_equal @user[:id], json_response['user']['id']
-        assert_equal current_name, json_response['user']['first_name']
+        json_response = response.parsed_body
+        attributes = json_response['data']['attributes']
+
+        assert_equal @user[:id], attributes['id']
+        assert_equal current_name, attributes['firstName']
 
         params = { user: { first_name: new_first_name } }
         post("/api/v1/update/#{@user.id}", headers: @headers, params:)
 
         assert_response :success
-        json_response = JSON.parse(response.body)
-        assert_equal @user[:id], json_response['data']['id']
-        assert_equal new_first_name, json_response['data']['first_name']
-        assert_equal 'Updated successfully.', json_response['status']['message']
+        json_response = response.parsed_body
+        attributes = json_response['data']['attributes']
+        assert_equal @user[:id], attributes['id']
+        assert_equal new_first_name, attributes['firstName']
+        assert_equal 'Updated successfully.', json_response['meta']['message']
       end
     end
   end

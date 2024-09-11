@@ -4,7 +4,11 @@ module Api
       class RegistrationsController < Devise::RegistrationsController
         include RegistrationConcern
 
-        respond_to :json, :html
+        respond_to :json
+
+        def edit
+          render json: UserSerializer.new(current_user).serializable_hash
+        end
 
         def update
           # Update all the allowed user attributed
@@ -24,14 +28,15 @@ module Api
           message = 'Signed up successfully.'
           message = 'Updated successfully.' if request.params[:action] == 'update'
           if resource.persisted?
-            render json: {
-              status: { code: 200, message: },
-              data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]
-            }
+            options = { meta: { message: } }
+            render json: UserSerializer.new(current_user, options).serializable_hash
           else
-            render json: {
-              status: { message: "User couldn't be created successfully. #{current_user.errors.full_messages.to_sentence}" }
-            }, status: :unprocessable_entity
+            message = "User couldn't be created successfully."
+
+            render_error(status: :unprocessable_entity,
+                         title: 'User could not be created.',
+                         detail: message,
+                         source: current_user.errors)
           end
         end
       end
