@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/booking.yaml'
+              $ref: '../components/booking.yaml'
 post:
   summary: Create a new booking
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/booking.yaml'
+          $ref: '../components/booking.yaml'
   responses:
     '201':
       description: The created booking
       content:
         application/json:
           schema:
-            $ref: 'schemas/booking.yaml'
+            $ref: '../components/booking.yaml'

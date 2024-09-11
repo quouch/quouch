@@ -6,7 +6,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: "schemas/login.yaml"
+          $ref: "../components/login.yaml"
   responses:
     '200':
       description: OK. Returns the logged in user
@@ -15,23 +15,26 @@ post:
           schema:
             type: object
             properties:
-              code:
-                type: integer
-                example: 200
-              message:
-                type: string
-                example: "Logged in successfully."
-              data:
+              meta:
                 type: object
                 properties:
-                  user:
-                    $ref: 'schemas/user.yaml'
-    '401':
+                  message:
+                    type: string
+                    example: "Logged in successfully."
+                required:
+                  - message
+              data:
+                $ref: '../components/user.yaml'
+            required:
+              - data
+              - meta
+
+    '422':
       description: Invalid login credentials
       content:
         application/json:
           schema:
-            $ref: 'schemas/error.yaml'
+            $ref: '../components/error.yaml'
           example:
             message: "Invalid login credentials. Please try again."
             code: 401
@@ -40,7 +43,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: 'schemas/error.yaml'
+            $ref: '../components/error.yaml'
           example:
             message: "You're already signed in."
             code: 409

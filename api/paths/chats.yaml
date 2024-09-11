@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/chat.yaml'
+              $ref: '../components/chat.yaml'
 post:
   summary: Create a new chat
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/chat.yaml'
+          $ref: '../components/chat.yaml'
   responses:
     '201':
       description: The created chat
       content:
         application/json:
           schema:
-            $ref: 'schemas/chat.yaml'
+            $ref: '../components/chat.yaml'

@@ -8,21 +8,22 @@ delete:
           schema:
             type: object
             properties:
-              code:
-                type: integer
-                example: 200
-              message:
-                type: string
-                example: "Logged out successfully."
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Logged out successfully."
+                required:
+                  - message
             required:
-              - message
-              - code
+              - meta
     '401':
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: 'schemas/error.yaml'
+            $ref: '../components/error.yaml'
           example:
             message: "Invalid token."
             code: 401

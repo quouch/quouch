@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/plan.yaml'
+              $ref: '../components/plan.yaml'
 post:
   summary: Create a new plan
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/plan.yaml'
+          $ref: '../components/plan.yaml'
   responses:
     '201':
       description: The created plan
       content:
         application/json:
           schema:
-            $ref: 'schemas/plan.yaml'
+            $ref: '../components/plan.yaml'

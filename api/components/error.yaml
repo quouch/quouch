@@ -1,0 +1,38 @@
+type: object
+properties:
+  errors:
+    type: array
+    items:
+      type: object
+      properties:
+        status:
+          type: integer
+        detail:
+          type: string
+          description: A human readable error message
+          example: "You are not authorized to access this resource."
+        title:
+          type: string
+          description: A human readable error title
+          example: "Unauthorized"
+        source:
+          type: object
+          properties:
+            pointer:
+            type: string
+            description: A JSON Pointer to the associated entity in the request document
+            example: "/data/attributes/firstName"
+        data:
+          type: object
+          properties:
+            errors:
+              # an array of strings
+              type: array
+              items:
+                type: string
+      required:
+        - status
+        - title
+
+required:
+  - errors

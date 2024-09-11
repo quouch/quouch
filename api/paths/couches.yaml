@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/couch.yaml'
+              $ref: '../components/couch.yaml'
 post:
   summary: Create a new couch
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/couch.yaml'
+          $ref: '../components/couch.yaml'
   responses:
     '201':
       description: The created couch
       content:
         application/json:
           schema:
-            $ref: 'schemas/couch.yaml'
+            $ref: '../components/couch.yaml'

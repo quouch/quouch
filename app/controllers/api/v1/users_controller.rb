@@ -5,15 +5,14 @@ module Api
 
       def index
         @pagy, @users = pagy(User.all.includes([:photo_attachment, { photo_attachment: :blob }]), items: params[:items])
-        render json: {
-          pagination: pagy_metadata(@pagy),
-          items: UserSerializer.new(@users).serializable_hash[:data]
-        }
+
+        options = pagy_metadata(@pagy)
+        render json: UserSerializer.new(@users, options).serializable_hash
       end
 
       def show
         user = User.find(params[:id])
-        render json: UserSerializer.new(user).serializable_hash[:data]
+        render json: UserSerializer.new(user).serializable_hash
       end
     end
   end

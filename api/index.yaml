@@ -10,7 +10,7 @@ servers:
 
 paths:
   /login:
-    $ref: 'paths/login.yaml'
+    $ref: './paths/login.yaml'
 
   /users:
     $ref: './paths/users.yaml'

@@ -12,16 +12,19 @@ get:
       content:
         application/json:
           schema:
-            $ref: "schemas/user.yaml"
-    404:
+            type: object
+            properties:
+              data:
+                $ref: "../components/user.yaml"
+    '404':
       description: No user found for the provided `userId`
       content:
         application/json:
           schema:
-            $ref: 'schemas/error.yaml'
-    500:
+            $ref: '../components/error.yaml'
+    '500':
       description: Unexpected error
       content:
         application/json:
           schema:
-            $ref: 'schemas/error.yaml'
+            $ref: '../components/error.yaml'

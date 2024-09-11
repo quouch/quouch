@@ -136,6 +136,9 @@ group :development, :test do
   gem 'stripe-ruby-mock', require: 'stripe_mock'
 end
 
+group :development, :test do
+  gem 'openapi_contracts'
+end
 # Fake test data
 gem 'factory_bot_rails'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'

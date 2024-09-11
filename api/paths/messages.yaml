@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/message.yaml'
+              $ref: '../components/message.yaml'
 post:
   summary: Create a new message
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/message.yaml'
+          $ref: '../components/message.yaml'
   responses:
     '201':
       description: The created message
       content:
         application/json:
           schema:
-            $ref: 'schemas/message.yaml'
+            $ref: '../components/message.yaml'

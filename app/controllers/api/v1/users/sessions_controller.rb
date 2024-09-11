@@ -7,6 +7,7 @@ module Api
       class SessionsController < Devise::SessionsController
         include RackSessionsFix
         include JwtTokenHelper
+        include ApiHelper
 
         # Skip the CSRF token verification for the API login and logout.
         skip_before_action :verify_authenticity_token
@@ -14,13 +15,7 @@ module Api
         respond_to? :json
 
         rescue_from JwtError do |e|
-          render json: {
-            code: 401,
-            message: 'Invalid token.',
-            data: {
-              errors: [e]
-            }
-          }, status: :unauthorized
+          render_error(status: :unauthorized, title: 'Invalid token.', detail: e.message)
         end
 
         protected
@@ -40,40 +35,33 @@ module Api
 
           return unless authenticated && warden.user(resource_name)
 
-          render json: {
-            code: 409,
-            message: "You're already signed in."
-          }, status: :conflict
+          render_error(status: :conflict, title: 'Conflict', detail: 'You are already signed in.')
         end
 
         private
 
         def respond_with(current_user, _opts = {})
-          if current_user.nil?
-            render json: {
-              code: 401,
-              message: 'Invalid login credentials. Please try again.',
-            }, status: :unauthorized, error_status: :unauthorized
+          if current_user.nil? || current_user.id.nil?
+            render_error(status: :unauthorized, title: 'Invalid login credentials.')
           else
-            render json: {
-              code: 200,
-              message: 'Logged in successfully.',
-              data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
-            }, status: :ok
+            options = {
+              meta: {
+                message: 'Logged in successfully.'
+              }
+            }
+            render json: UserSerializer.new(current_user, options).serializable_hash
           end
         end
 
         def respond_to_on_destroy
           if jwt_token_is_valid?(request.authorization)
             render json: {
-              code: 200,
-              message: 'Logged out successfully.'
+              meta: {
+                message: 'Logged out successfully.'
+              }
             }, status: :ok
           else
-            render json: {
-              code: 401,
-              message: "Couldn't find an active session."
-            }, status: :unauthorized
+            render_error(status: :unauthorized, title: 'Unauthorized', detail: 'Couldn\'t find an active session.')
           end
         end
       end

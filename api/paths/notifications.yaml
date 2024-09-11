@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: 'schemas/notification.yaml'
+              $ref: '../components/notification.yaml'
 post:
   summary: Create a new notification
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: 'schemas/notification.yaml'
+          $ref: '../components/notification.yaml'
   responses:
     '201':
       description: The created notification
       content:
         application/json:
           schema:
-            $ref: 'schemas/notification.yaml'
+            $ref: '../components/notification.yaml'

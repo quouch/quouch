@@ -16,11 +16,12 @@ module ProfilePictureHelper
 end
 
 # Serializer with the attributes for the User that will be returned by the JSON API:
-class UserSerializer
-  include JSONAPI::Serializer
+class UserSerializer < BaseSerializer
   include ProfilePictureHelper # mixes in your helper method as class method
 
-  attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address
+  set_key_transform :camel_lower
+
+  attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address, :created_at, :updated_at
 
   has_one :couch
 

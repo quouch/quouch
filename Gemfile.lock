@@ -207,6 +207,7 @@ GEM
       guard-compat (~> 1.2)
       minitest (>= 3.0)
     htmlbeautifier (1.4.3)
+    hana (1.3.7)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -232,6 +233,11 @@ GEM
     js_cookie_rails (2.2.0)
       railties (>= 3.1)
     json (2.7.2)
+    json_schemer (2.3.0)
+      bigdecimal
+      hana (~> 1.3)
+      regexp_parser (~> 2.0)
+      simpleidn (~> 0.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (2.8.2)
@@ -315,6 +321,13 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    openapi_contracts (0.15.0)
+      activesupport (>= 6.1, < 8)
+      json_schemer (>= 2, < 2.4)
+      openapi_parameters (>= 0.3.3, < 0.4)
+      rack (>= 2.0.0)
+    openapi_parameters (0.3.4)
+      rack (>= 2.2)
     orm_adapter (0.5.0)
     pagy (6.0.4)
     parallel (1.24.0)
@@ -448,6 +461,7 @@ GEM
     simplecov-markdown (0.2.0)
       simplecov
     simplecov_json_formatter (0.1.4)
+    simpleidn (0.2.3)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -543,6 +557,7 @@ DEPENDENCIES
   minitest-reporters
   money-rails (~> 1.12)
   noticed (~> 1.6)
+  openapi_contracts
   pagy
   pg (~> 1.1)
   pg_search

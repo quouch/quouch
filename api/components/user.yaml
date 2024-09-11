@@ -1,0 +1,63 @@
+type: object
+description: A single user object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: user
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      zipcode:
+        type: string
+      address:
+        type: string
+      photo:
+        type: string
+        format: uri
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    required:
+      - id
+      - email
+      - createdAt
+      - updatedAt
+      - city
+      - country
+      - address
+      - zipcode
+  relationships:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          couch:
+            $ref: "./couch.yaml"
+        required:
+          - couch
+
+required:
+  - id
+  - attributes
+  - type
+  - relationships
