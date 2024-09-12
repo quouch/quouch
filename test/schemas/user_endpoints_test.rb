@@ -8,7 +8,7 @@ class UserEndpointsTest < ApiEndpointTest
   end
 
   test 'GET /users' do
-    get '/api/v1/users?items=3&page=2', headers: @headers
+    get '/api/v1/users?page[limit]=10&page[offset]=3', headers: @headers
     assert_response :ok
 
     assert_match_openapi_doc

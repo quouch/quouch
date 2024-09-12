@@ -3,22 +3,14 @@ description: A single couch object
 properties:
   id:
     type: integer
-  user_id:
+  userId:
     type: integer
-  title:
-    type: string
-  description:
-    type: string
-  created_at:
+  createdAt:
     type: string
     format: date-time
-  updated_at:
+  updatedAt:
     type: string
     format: date-time
 required:
   - id
-  - user_id
-  - title
-  - description
-  - created_at
-  - updated_at
+  - userId

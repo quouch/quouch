@@ -17,7 +17,6 @@ module Api
         get "/api/v1/users/#{@user.id}", headers: @headers
 
         assert_response :success
-        json_response = response.parsed_body
 
         attributes = json_response['data']['attributes']
 
@@ -36,17 +35,15 @@ module Api
         get '/api/v1/users/edit', headers: @headers
 
         assert_response :success
-        json_response = response.parsed_body
         attributes = json_response['data']['attributes']
 
         assert_equal @user[:id], attributes['id']
         assert_equal current_name, attributes['firstName']
 
-        params = { user: { first_name: new_first_name } }
+        params = { data: { id: @user[:id], type: 'user', attributes: { first_name: new_first_name } } }
         post("/api/v1/update/#{@user.id}", headers: @headers, params:)
 
         assert_response :success
-        json_response = response.parsed_body
         attributes = json_response['data']['attributes']
         assert_equal @user[:id], attributes['id']
         assert_equal new_first_name, attributes['firstName']

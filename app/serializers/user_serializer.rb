@@ -19,6 +19,8 @@ end
 class UserSerializer < BaseSerializer
   include ProfilePictureHelper # mixes in your helper method as class method
 
+  set_type :user
+
   set_key_transform :camel_lower
 
   attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address, :created_at, :updated_at

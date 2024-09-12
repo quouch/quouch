@@ -4,7 +4,7 @@ get:
     '200':
       description: A list of couches
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             type: array
             items:
@@ -14,13 +14,13 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      application/vnd.api+json:
         schema:
           $ref: '../components/couch.yaml'
   responses:
     '201':
       description: The created couch
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: '../components/couch.yaml'

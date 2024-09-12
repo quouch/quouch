@@ -4,7 +4,7 @@ get:
     '200':
       description: A list of notifications
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             type: array
             items:
@@ -14,13 +14,13 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      application/vnd.api+json:
         schema:
           $ref: '../components/notification.yaml'
   responses:
     '201':
       description: The created notification
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: '../components/notification.yaml'

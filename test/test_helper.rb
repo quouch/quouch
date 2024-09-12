@@ -98,6 +98,7 @@ module ActionDispatch
     include UserHelper
     include DBHelper
     include Devise::Test::IntegrationHelpers
+    include ApiTestHelper
 
     fixtures :all
   end

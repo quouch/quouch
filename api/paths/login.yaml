@@ -4,14 +4,14 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      application/vnd.api+json:
         schema:
           $ref: "../components/login.yaml"
   responses:
     '200':
       description: OK. Returns the logged in user
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             type: object
             properties:
@@ -32,7 +32,7 @@ post:
     '422':
       description: Invalid login credentials
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: '../components/error.yaml'
           example:
@@ -41,7 +41,7 @@ post:
     '409':
       description: Conflict
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: '../components/error.yaml'
           example:

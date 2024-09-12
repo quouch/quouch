@@ -1,15 +1,21 @@
 get:
   summary: List all users
+  parameters:
+    - $ref: "../components/query_params.yaml#/limit"
+    - $ref: "../components/query_params.yaml#/offset"
+    - $ref: "../components/query_params.yaml#/sort"
+    - $ref: "../components/query_params.yaml#/filter"
+
   responses:
     '200':
       description: A paginated list of users
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             type: object
             properties:
-              pagination:
-                $ref: "../components/pagination.yaml"
+              meta:
+                $ref: "../components/meta.yaml"
               links:
                 $ref: "../components/links.yaml"
               data:
@@ -25,13 +31,13 @@ post:
   requestBody:
     required: true
     content:
-      application/json:
+      application/vnd.api+json:
         schema:
           $ref: "../components/user.yaml"
   responses:
     '201':
       description: The created user
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: "../components/user.yaml"

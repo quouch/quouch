@@ -1,11 +1,5 @@
 get:
-  summary: Get a user by ID
-  parameters:
-    - name: id
-      in: path
-      required: true
-      schema:
-        type: integer
+  summary: Return the signed in user information
   responses:
     '200':
       description: A single user

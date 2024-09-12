@@ -7,16 +7,12 @@ module Api
       class SessionsController < Devise::SessionsController
         include RackSessionsFix
         include JwtTokenHelper
-        include ApiHelper
+        include JSONAPI::Errors
 
         # Skip the CSRF token verification for the API login and logout.
         skip_before_action :verify_authenticity_token
 
         respond_to? :json
-
-        rescue_from JwtError do |e|
-          render_error(status: :unauthorized, title: 'Invalid token.', detail: e.message)
-        end
 
         protected
 
@@ -44,25 +40,25 @@ module Api
           if current_user.nil? || current_user.id.nil?
             render_error(status: :unauthorized, title: 'Invalid login credentials.')
           else
-            options = {
-              meta: {
-                message: 'Logged in successfully.'
-              }
-            }
-            render json: UserSerializer.new(current_user, options).serializable_hash
+
+            render jsonapi: current_user
           end
         end
 
         def respond_to_on_destroy
-          if jwt_token_is_valid?(request.authorization)
-            render json: {
-              meta: {
-                message: 'Logged out successfully.'
-              }
-            }, status: :ok
-          else
-            render_error(status: :unauthorized, title: 'Unauthorized', detail: 'Couldn\'t find an active session.')
-          end
+          raise JwtError unless jwt_token_is_valid?(request.authorization)
+
+          render jsonapi: [], status: :ok
+        end
+
+        def jsonapi_meta(_resources)
+          return {} if response.status != 200
+
+          message = 'Logged in successfully.'
+          message = 'Logged out successfully.' if request.params[:action] == 'destroy'
+
+          # if the logout response is successful, add a message to the metadata
+          { message: }
         end
       end
     end

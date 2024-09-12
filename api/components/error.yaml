@@ -6,10 +6,11 @@ properties:
       type: object
       properties:
         status:
-          type: integer
+          type: string
         detail:
           type: string
           description: A human readable error message
+          nullable: true
           example: "You are not authorized to access this resource."
         title:
           type: string
@@ -17,19 +18,24 @@ properties:
           example: "Unauthorized"
         source:
           type: object
+          nullable: true
           properties:
             pointer:
-            type: string
-            description: A JSON Pointer to the associated entity in the request document
-            example: "/data/attributes/firstName"
+              type: string
+              description: A JSON Pointer to the associated entity in the request document
+              example: "firstName"
+        code:
+          type: string
+          nullable: true
         data:
           type: object
           properties:
-            errors:
+            messages:
               # an array of strings
               type: array
               items:
                 type: string
+                example: 'missing property "firstName"'
       required:
         - status
         - title

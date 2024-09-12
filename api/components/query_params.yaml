@@ -1,0 +1,29 @@
+limit:
+  in: query
+  name: page[size]
+  description: "The amount of items that should be returned per page"
+  required: false
+  schema:
+    type: integer
+    default: 10
+offset:
+  in: query
+  required: false
+  name: page[page]
+  description: "The desired page that should be returned"
+  schema:
+    type: integer
+    example: 0
+    default: 0
+sort:
+  in: query
+  name: sort
+  required: false
+  schema:
+    type: string
+    example: 'name'
+filter:
+  in: query
+  name: filter
+  schema:
+    type: object

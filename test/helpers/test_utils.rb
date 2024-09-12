@@ -9,6 +9,12 @@ module DBHelper
   end
 end
 
+module ApiTestHelper
+  def json_response
+    JSON.parse(response.body)
+  end
+end
+
 # Mock away Geocoder in tests by default.
 # If a test shouldn't mock Geocoder, set $mock_geocoder = false in the setup block of the test.
 module GeocoderMocker

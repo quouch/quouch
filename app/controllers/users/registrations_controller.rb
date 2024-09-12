@@ -50,8 +50,8 @@ module Users
         create_couch_facilities
         update_user_characteristics
 
-        super do |_resource|
-          disable_offers_if_travelling
+        super do |resource|
+          disable_offers_if_travelling(resource)
         end
       else
         update_password

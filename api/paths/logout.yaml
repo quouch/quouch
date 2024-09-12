@@ -4,7 +4,7 @@ delete:
     '200':
       description: The user has been logged out
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             type: object
             properties:
@@ -21,7 +21,7 @@ delete:
     '401':
       description: Unauthorized
       content:
-        application/json:
+        application/vnd.api+json:
           schema:
             $ref: '../components/error.yaml'
           example:

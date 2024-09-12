@@ -1,14 +1,25 @@
-get:
-  summary: Get a user by ID
+post:
+  summary: Update a user
   parameters:
     - name: id
       in: path
       required: true
       schema:
         type: integer
+  requestBody:
+    required: true
+    content:
+      application/vnd.api+json:
+        schema:
+          type: object
+          properties:
+            data:
+              $ref: "../components/user.yaml"
+          required:
+            - data
   responses:
     '200':
-      description: A single user
+      description: The updated user
       content:
         application/vnd.api+json:
           schema:
@@ -16,6 +27,17 @@ get:
             properties:
               data:
                 $ref: "../components/user.yaml"
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+    '422':
+      description: Invalid user data
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
     '404':
       description: No user found for the provided `userId`
       content:

@@ -4,22 +4,17 @@ module Api
   module V1
     # ApiController: This controller is responsible for handling the API requests.
     class ApiController < ActionController::API
-      include ApiHelper
+      include JSONAPI::Filtering
+      include JSONAPI::Pagination
+
       include ActionController::HttpAuthentication::Basic::ControllerMethods
       include ActionController::HttpAuthentication::Token::ControllerMethods
       include JwtTokenHelper
+      include JSONAPI::Errors
 
       before_action :check_basic_auth
 
       respond_to? :json
-
-      rescue_from ActiveRecord::RecordNotFound do |e|
-        render_error(status: :not_found, title: 'Record not found.', detail: e.message)
-      end
-
-      rescue_from JwtError do |e|
-        render_error(status: :unauthorized, title: 'Invalid token.', detail: e.message)
-      end
 
       private
 
@@ -44,30 +39,6 @@ module Api
         end
 
         head :unauthorized unless @current_user
-      end
-
-      def pagy_metadata(pagy)
-        puts pagy.to_json
-        {
-          meta: {
-            total: pagy.count,
-            page: pagy.page,
-            items: pagy.items,
-            from: pagy.from,
-            to: pagy.to
-          },
-          links: {
-            first: get_page_link(1),
-            prev: get_page_link(pagy.prev),
-            next: get_page_link(pagy.next),
-            last: get_page_link(pagy.last),
-            self: get_page_link(pagy.page)
-          }
-        }
-      end
-
-      def get_page_link(page)
-        url_for(page:, only_path: false)
       end
 
       attr_reader :current_user
