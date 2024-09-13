@@ -13,6 +13,7 @@ module Api
         end
 
         def update
+          # Make sure that ONLY the logged in user is being edited!
           update_user_characteristics if params[:user_characteristic]
           super do |resource|
             disable_offers_if_travelling(resource)
@@ -44,6 +45,9 @@ module Api
 
         def account_update_params
           params.require(:data).require(%i[id type attributes])
+
+          # Raise a forbidden error if the user is trying to edit another user
+          raise JSONAPI::ForbiddenError, 'You are not allowed to edit this user.' unless current_user.id.to_s == params[:id]
 
           jsonapi_deserialize(params, only: %i[first_name last_name email password password_confirmation country city])
         end

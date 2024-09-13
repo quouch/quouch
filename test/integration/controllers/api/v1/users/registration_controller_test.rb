@@ -49,6 +49,18 @@ module Api
         assert_equal new_first_name, attributes['firstName']
         assert_equal 'Updated successfully.', json_response['meta']['message']
       end
+
+      test 'should not edit other user information' do
+        user2 = FactoryBot.create(:user, :for_test)
+        params = { data: { id: user2[:id], type: 'user', attributes: { first_name: 'New first name' } } }
+        post("/api/v1/update/#{user2.id}", headers: @headers, params:)
+
+        assert_response :forbidden
+        assert_equal 'Forbidden', json_response['errors'][0]['title']
+        assert_equal 'You are not allowed to edit this user.', json_response['errors'][0]['detail']
+        user2.reload
+        assert_not_equal 'New first name', user2.first_name
+      end
     end
   end
 end

@@ -38,4 +38,13 @@ class RegistrationEndpointsTest < ApiEndpointTest
 
     assert_match_openapi_doc
   end
+
+  test 'POST /update/:id forbidden error' do
+    user2 = FactoryBot.create(:user, :for_test)
+    params = { data: { id: user2[:id], type: 'user', attributes: { first_name: 'New first name' } } }
+    post("/api/v1/update/#{user2.id}", headers: @headers, params:)
+
+    assert_response :forbidden
+    assert_match_openapi_doc
+  end
 end

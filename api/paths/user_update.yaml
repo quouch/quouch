@@ -34,14 +34,20 @@ post:
                 properties:
                   message:
                     type: string
-    '422':
-      description: Invalid user data
+    '403':
+      description: Forbidden
       content:
         application/vnd.api+json:
           schema:
             $ref: '../components/error.yaml'
     '404':
       description: No user found for the provided `userId`
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '422':
+      description: Invalid user data
       content:
         application/vnd.api+json:
           schema:
