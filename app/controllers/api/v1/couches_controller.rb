@@ -4,24 +4,16 @@ module Api
   module V1
     # CouchesController: This controller is responsible for handling the couches.
     class CouchesController < ApiController
-      include Pagy::Backend
       include CouchesConcern
 
       def index
-        # reuse code from CouchesConcern
-        super
-
-        render json: {
-          pagination: pagy_metadata(@pagy),
-          items: @couches.map do |couch|
-            CouchSerializer.new(couch).serializable_hash[:data][:attributes]
-          end
-        }
+        jsonapi_paginate(filter_couches) do |paginated|
+          render jsonapi: paginated
+        end
       end
 
       def show
-        couch = Couch.find(params[:id])
-        render json: CouchSerializer.new(couch).serializable_hash[:data][:attributes]
+        render jsonapi: Couch.find(params[:id])
       end
     end
   end

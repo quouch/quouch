@@ -22,9 +22,10 @@ module Api
         get('/api/v1/users', headers:)
         assert_response :unauthorized
 
-        json_response = JSON.parse(response.body)
-        assert_equal 401, json_response['code']
-        assert_equal 'Invalid token.', json_response['error']
+        puts json_response
+        first_error = json_response['errors'][0]
+        assert_equal '401', first_error['status']
+        assert_equal 'Invalid token', first_error['title']
       end
     end
   end

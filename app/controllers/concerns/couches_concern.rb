@@ -11,6 +11,16 @@ module CouchesConcern
     session_seed = session[:seed]
     Couch.select("setseed(#{session_seed})").first
 
+    filter_couches
+
+    items = params[:items] || 9
+
+    @pagy, @couches = pagy(@shuffled_couches, items:)
+  end
+
+  private
+
+  def filter_couches
     @shuffled_couches = Couch.includes(:reviews, user: [{ photo_attachment: :blob }, :characteristics])
                              .joins(:user)
                              .where(active: true)
@@ -22,17 +32,13 @@ module CouchesConcern
     apply_characteristics_filter if params[:characteristics].present?
     apply_offers_filter if params.keys.any? { |key| key.to_s.include?('offers') }
 
-    items = params[:items] || 9
-
-    @pagy, @couches = pagy(@shuffled_couches, items:)
+    @shuffled_couches
   end
-
-  private
 
   def apply_search_filter
     @shuffled_couches = @shuffled_couches.search_by_location(params[:query])
-                                         # use .reorder to eliminate the order by ranking that pg_search creates.
-                                         # The pg_search.rank ordering conflicts with the `group` and `having` clauses introduced by the characteristics filter
+    # use .reorder to eliminate the order by ranking that pg_search creates.
+    # The pg_search.rank ordering conflicts with the `group` and `having` clauses introduced by the characteristics filter
                                          .reorder('RANDOM()')
   end
 

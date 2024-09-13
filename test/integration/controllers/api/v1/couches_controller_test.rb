@@ -17,16 +17,16 @@ module Api
         get api_v1_couches_url, headers: @headers
         assert_response :success
 
-        json_response = JSON.parse(response.body)
         assert_equal 9, json_response['items'].length
         assert_equal Couch.count - 1, json_response['pagination']['total']
 
-        refute_includes json_response['items'], @user.couch
+        refute_includes json_response['data'], @user.couch
 
-        assert_not_nil json_response['items'][0]['id']
+        first_item = json_response['data'][0]
+        assert_not_nil first_item['id']
         # Check that items include user's information
-        assert_not_nil json_response['items'][0]['user']
-        assert_not_nil json_response['items'][0]['user']['first_name']
+        assert_not_nil first_item['user']
+        assert_not_nil first_item['user']['first_name']
       end
 
       test 'should see detail for one couch' do
@@ -34,18 +34,21 @@ module Api
         get api_v1_couch_url(couch), headers: @headers
         assert_response :success
 
-        json_response = JSON.parse(response.body)
-        assert_equal couch.id, json_response['id']
-        assert_equal couch.user_id, json_response['user_id']
-        assert_equal couch.user.first_name, json_response['user']['first_name']
+        data = json_response['data']
+        puts data
+        assert_equal couch.id.to_s, data['id']
+        assert_equal 'couch', data['type']
+        assert_equal couch.user_id, data['attributes']['user_id']
+        assert_equal couch.user.first_name, data['user']['first_name']
       end
 
       test 'should get a 404 when couch is not found' do
         get api_v1_couch_url(id: 999), headers: @headers
         assert_response :not_found
 
-        assert_equal 'Record not found.', JSON.parse(response.body)['error']
-        assert_equal 404, JSON.parse(response.body)['code']
+        first_error = json_response['errors'][0]
+        assert_equal 'Not Found', first_error['title']
+        assert_equal '404', first_error['status']
       end
 
       test 'should not see own user' do
@@ -55,8 +58,7 @@ module Api
         get api_v1_couches_url, params: { query: city_name }, headers: @headers
         assert_response :success
 
-        json_response = JSON.parse(response.body)
-        assert_equal 0, json_response['items'].length
+        assert_equal 0, json_response['data'].length
       end
 
       test 'should filter couches by exact city' do
@@ -68,8 +70,7 @@ module Api
         get api_v1_couches_url, params: { query: city_name }, headers: @headers
         assert_response :success
 
-        json_response = JSON.parse(response.body)
-        assert_equal couches_in_city, json_response['items'].length
+        assert_equal couches_in_city, json_response['data'].length
       end
 
       test 'should filter couches by partial city or country' do
@@ -89,8 +90,7 @@ module Api
         get api_v1_couches_url, params: { query: city_chars }, headers: @headers
         assert_response :success
 
-        json_response = JSON.parse(response.body)
-        assert_equal couches_in_city, json_response['items'].length
+        assert_equal couches_in_city, json_response['data'].length
       end
     end
   end

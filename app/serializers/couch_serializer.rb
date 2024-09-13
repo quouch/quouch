@@ -2,7 +2,7 @@
 
 # Serializer with the attributes for the Couch that will be returned by the JSON API:
 class CouchSerializer < BaseSerializer
-  belongs_to :user, serializer: UserSerializer
+  belongs_to :user
 
   attributes :id, :user_id
 

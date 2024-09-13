@@ -30,7 +30,7 @@ module JSONAPI
         if defined?(JwtError)
           rescue_from(
             JwtError,
-            with: :render_jsonapi_unauthorized
+            with: :render_jsonapi_invalid_token
           )
         end
 
@@ -43,9 +43,9 @@ module JSONAPI
 
     private
 
-    def render_jsonapi_unauthorized(exception)
+    def render_jsonapi_invalid_token(exception)
       message = exception.message || 'Couldn\'t find an active session.'
-      render_error(status: :unauthorized, title: Rack::Utils::HTTP_STATUS_CODES[401], detail: message)
+      render_error(status: :unauthorized, title: 'Invalid token', detail: message)
     end
 
     def render_jsonapi_forbidden(exception)
