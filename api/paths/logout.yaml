@@ -1,5 +1,7 @@
 delete:
   summary: Log the user out
+  tags:
+    - account
   responses:
     '200':
       description: The user has been logged out

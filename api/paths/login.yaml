@@ -1,6 +1,9 @@
 post:
   summary: Login with email and password
   security: [ ]
+
+  tags:
+    - account
   requestBody:
     required: true
     content:

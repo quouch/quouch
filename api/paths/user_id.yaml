@@ -1,5 +1,7 @@
 get:
   summary: Get a user by ID
+  tags:
+    - users
   parameters:
     - name: id
       in: path

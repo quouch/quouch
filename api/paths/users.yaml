@@ -1,5 +1,7 @@
 get:
   summary: List all users
+  tags:
+    - users
   parameters:
     - $ref: "../components/query_params.yaml#/limit"
     - $ref: "../components/query_params.yaml#/offset"
@@ -26,18 +28,3 @@ get:
               - meta
               - links
               - data
-post:
-  summary: Create a new user
-  requestBody:
-    required: true
-    content:
-      application/vnd.api+json:
-        schema:
-          $ref: "../components/user.yaml"
-  responses:
-    '201':
-      description: The created user
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: "../components/user.yaml"

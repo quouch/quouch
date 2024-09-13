@@ -1,5 +1,7 @@
 post:
-  summary: Update a user
+  summary: Update the logged in user
+  tags:
+    - account
   parameters:
     - name: id
       in: path

@@ -12,23 +12,24 @@ paths:
   /login:
     $ref: 'paths/login.yaml'
 
-  /users:
-    $ref: 'paths/users.yaml'
-
-  /users/{id}:
-    $ref: 'paths/user_id.yaml'
-
   /users/edit:
     $ref: 'paths/user_edit.yaml'
 
   /update/{id}:
     $ref: 'paths/user_update.yaml'
 
-  /bookings:
-    $ref: 'paths/bookings.yaml'
+  /users:
+    $ref: 'paths/users.yaml'
+
+  /users/{id}:
+    $ref: 'paths/user_id.yaml'
 
   /couches:
     $ref: 'paths/couches.yaml'
+
+  /bookings:
+    $ref: 'paths/bookings.yaml'
+
 
   /messages:
     $ref: 'paths/messages.yaml'

@@ -1,5 +1,7 @@
 get:
   summary: Return the signed in user information
+  tags:
+    - account
   responses:
     '200':
       description: A single user
