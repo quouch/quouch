@@ -1,10 +1,10 @@
 get:
-  summary: List all characteristics
+  summary: List all facilities
   tags:
     - enums
   responses:
     '200':
-      description: A list of characteristics
+      description: A list of facilities
       content:
         application/vnd.api+json:
           schema:
@@ -17,7 +17,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: "../components/characteristic.yaml"
+                  $ref: "../components/facility.yaml"
             required:
               - meta
               - links

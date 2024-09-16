@@ -33,6 +33,11 @@ paths:
   /bookings:
     $ref: 'paths/bookings.yaml'
 
+  /characteristics:
+    $ref: 'paths/characteristics.yaml'
+
+  /facilities:
+    $ref: 'paths/facilities.yaml'
 
   /messages:
     $ref: 'paths/messages.yaml'
@@ -45,12 +50,6 @@ paths:
 
   /chats:
     $ref: 'paths/chats.yaml'
-
-  /characteristics:
-    $ref: 'paths/characteristics.yaml'
-
-  /couch_facilities:
-    $ref: 'paths/couch_facilities.yaml'
 
   /logout:
     $ref: 'paths/logout.yaml'

@@ -28,3 +28,9 @@ get:
               - meta
               - links
               - data
+    '401':
+        description: Unauthorized
+        content:
+            application/vnd.api+json:
+              schema:
+                  $ref: "../components/error.yaml"

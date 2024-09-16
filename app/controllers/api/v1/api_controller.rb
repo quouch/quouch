@@ -21,7 +21,7 @@ module Api
 
       def check_basic_auth
         unless request.authorization.present?
-          head :unauthorized
+          unauthorized
           return
         end
 
@@ -31,7 +31,7 @@ module Api
           if user&.authenticate(password)
             @current_user = user
           else
-            head :unauthorized
+            unauthorized
           end
         end
 
@@ -39,13 +39,17 @@ module Api
           @current_user = find_user_by_jwt_token(token)
         end
 
-        head :unauthorized unless @current_user
+        unauthorized unless @current_user
       end
 
       def jsonapi_meta(resources)
         pagination = jsonapi_pagination_meta(resources)
 
         { pagination: } if pagination.present?
+      end
+
+      def unauthorized
+        render_error(status: :unauthorized, title: 'Unauthorized', detail: 'Unauthorized')
       end
 
       attr_reader :current_user

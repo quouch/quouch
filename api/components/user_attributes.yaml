@@ -57,7 +57,7 @@ properties:
   characteristics:
     type: array
     items:
-      $ref: "./characteristic_attributes.yaml"
+      $ref: "./enum_attributes.yaml"
 required:
   - id
   - email

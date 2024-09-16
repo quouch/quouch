@@ -1,5 +1,5 @@
 type: object
-description: A single user object
+description: A single characteristic object
 properties:
   id:
     type: string
@@ -8,7 +8,7 @@ properties:
     type: string
     example: characteristic
   attributes:
-    $ref: "./characteristic_attributes.yaml"
+    $ref: "./enum_attributes.yaml"
 
 required:
   - id
