@@ -11,14 +11,6 @@ module Api
         user = User.find(params[:id])
         render jsonapi: user
       end
-
-      private
-
-      def jsonapi_meta(resources)
-        pagination = jsonapi_pagination_meta(resources)
-
-        { pagination: } if pagination.present?
-      end
     end
   end
 end

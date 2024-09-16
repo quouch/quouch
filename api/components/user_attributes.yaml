@@ -1,0 +1,44 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  email:
+    type: string
+    example: "example@email.com"
+  first_name:
+    type: string
+    example: "Jane"
+  last_name:
+    type: string
+    example: "Doe"
+  city:
+    type: string
+    example: "Berlin"
+  country:
+    type: string
+    example: "Germany"
+  zipcode:
+    type: string
+    example: "10117"
+  address:
+    type: string
+    example: "Unter den Linden 1"
+  photo:
+    type: string
+    format: uri
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+required:
+  - id
+  - email
+  - first_name
+  - last_name
+  - city
+  - country
+  - address
+  - zipcode

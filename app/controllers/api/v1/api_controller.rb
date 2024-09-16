@@ -6,11 +6,12 @@ module Api
     class ApiController < ActionController::API
       include JSONAPI::Filtering
       include JSONAPI::Pagination
+      include JSONAPI::Fetching
+      include JSONAPI::Errors
 
       include ActionController::HttpAuthentication::Basic::ControllerMethods
       include ActionController::HttpAuthentication::Token::ControllerMethods
       include JwtTokenHelper
-      include JSONAPI::Errors
 
       before_action :check_basic_auth
 
@@ -39,6 +40,12 @@ module Api
         end
 
         head :unauthorized unless @current_user
+      end
+
+      def jsonapi_meta(resources)
+        pagination = jsonapi_pagination_meta(resources)
+
+        { pagination: } if pagination.present?
       end
 
       attr_reader :current_user

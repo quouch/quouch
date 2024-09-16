@@ -13,7 +13,8 @@ module Api
       end
 
       def show
-        render jsonapi: Couch.find(params[:id])
+        # fetch the couch and join the user information
+        render jsonapi: Couch.includes(:user).find(params[:id])
       end
     end
   end

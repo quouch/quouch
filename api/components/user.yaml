@@ -8,43 +8,7 @@ properties:
     type: string
     example: user
   attributes:
-    type: object
-    properties:
-      id:
-        type: integer
-        example: 1
-      email:
-        type: string
-      first_name:
-        type: string
-      last_name:
-        type: string
-      city:
-        type: string
-      country:
-        type: string
-      zipcode:
-        type: string
-      address:
-        type: string
-      photo:
-        type: string
-        format: uri
-      created_at:
-        type: string
-        format: date-time
-      updated_at:
-        type: string
-        format: date-time
-    required:
-      - id
-      - email
-      - first_name
-      - last_name
-      - city
-      - country
-      - address
-      - zipcode
+    $ref: "./user_attributes.yaml"
   relationships:
     type: object
     properties:

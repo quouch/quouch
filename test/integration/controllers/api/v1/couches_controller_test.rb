@@ -14,19 +14,21 @@ module Api
       end
 
       test 'should get index' do
-        get api_v1_couches_url, headers: @headers
+        expected_items = 10
+        params = { page: { size: expected_items } }
+        get(api_v1_couches_url, headers: @headers, params:)
         assert_response :success
 
-        assert_equal 9, json_response['items'].length
-        assert_equal Couch.count - 1, json_response['pagination']['total']
+        assert_equal expected_items, json_response['data'].length
+        assert_equal Couch.count - 1, json_response['meta']['pagination']['records']
 
         refute_includes json_response['data'], @user.couch
 
         first_item = json_response['data'][0]
         assert_not_nil first_item['id']
         # Check that items include user's information
-        assert_not_nil first_item['user']
-        assert_not_nil first_item['user']['first_name']
+        assert_not_nil first_item['attributes']['user']
+        assert_not_nil first_item['attributes']['user']['first_name']
       end
 
       test 'should see detail for one couch' do
@@ -35,11 +37,10 @@ module Api
         assert_response :success
 
         data = json_response['data']
-        puts data
         assert_equal couch.id.to_s, data['id']
         assert_equal 'couch', data['type']
         assert_equal couch.user_id, data['attributes']['user_id']
-        assert_equal couch.user.first_name, data['user']['first_name']
+        assert_equal couch.user.first_name, data['attributes']['user']['first_name']
       end
 
       test 'should get a 404 when couch is not found' do

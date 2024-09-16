@@ -27,6 +27,9 @@ paths:
   /couches:
     $ref: 'paths/couches.yaml'
 
+  /couches/{id}:
+    $ref: 'paths/couch_id.yaml'
+
   /bookings:
     $ref: 'paths/bookings.yaml'
 
