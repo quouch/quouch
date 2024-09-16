@@ -21,8 +21,6 @@ class UserSerializer < BaseSerializer
 
   set_type :user
 
-  set_key_transform :camel_lower
-
   attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address, :created_at, :updated_at
 
   has_one :couch

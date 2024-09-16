@@ -23,7 +23,7 @@ module Api
         assert_equal 'user', json_response['data']['type']
         assert_equal @user[:id], attributes['id']
         assert_equal @user[:email], attributes['email']
-        assert_equal @user[:first_name], attributes['firstName']
+        assert_equal @user[:first_name], attributes['first_name']
 
         assert_equal @user.couch[:id].to_s, json_response['data']['relationships']['couch']['data']['id']
       end
@@ -38,7 +38,7 @@ module Api
         attributes = json_response['data']['attributes']
 
         assert_equal @user[:id], attributes['id']
-        assert_equal current_name, attributes['firstName']
+        assert_equal current_name, attributes['first_name']
 
         params = { data: { id: @user[:id], type: 'user', attributes: { first_name: new_first_name } } }
         post("/api/v1/update/#{@user.id}", headers: @headers, params:)
@@ -46,7 +46,7 @@ module Api
         assert_response :success
         attributes = json_response['data']['attributes']
         assert_equal @user[:id], attributes['id']
-        assert_equal new_first_name, attributes['firstName']
+        assert_equal new_first_name, attributes['first_name']
         assert_equal 'Updated successfully.', json_response['meta']['message']
       end
 

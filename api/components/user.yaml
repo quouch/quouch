@@ -15,9 +15,9 @@ properties:
         example: 1
       email:
         type: string
-      firstName:
+      first_name:
         type: string
-      lastName:
+      last_name:
         type: string
       city:
         type: string
@@ -30,17 +30,17 @@ properties:
       photo:
         type: string
         format: uri
-      createdAt:
+      created_at:
         type: string
         format: date-time
-      updatedAt:
+      updated_at:
         type: string
         format: date-time
     required:
       - id
       - email
-      - createdAt
-      - updatedAt
+      - first_name
+      - last_name
       - city
       - country
       - address

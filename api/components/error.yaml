@@ -23,7 +23,7 @@ properties:
             pointer:
               type: string
               description: A JSON Pointer to the associated entity in the request document
-              example: "firstName"
+              example: "first_name"
         code:
           type: string
           nullable: true
@@ -35,7 +35,7 @@ properties:
               type: array
               items:
                 type: string
-                example: 'missing property "firstName"'
+                example: 'missing property "first_name"'
       required:
         - status
         - title
