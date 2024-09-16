@@ -24,7 +24,7 @@ module Api
           if resource.persisted?
             render jsonapi: current_user
           else
-            # Fixme: raise an error instead of using render_error
+            # FIXME: raise an error instead of using render_error
             message = "User couldn't be created successfully."
 
             render_error(status: :unprocessable_entity,
@@ -47,7 +47,10 @@ module Api
           params.require(:data).require(%i[id type attributes])
 
           # Raise a forbidden error if the user is trying to edit another user
-          raise JSONAPI::ForbiddenError, 'You are not allowed to edit this user.' unless current_user.id.to_s == params[:id]
+          unless current_user.id.to_s == params[:id]
+            raise JSONAPI::ForbiddenError,
+                  'You are not allowed to edit this user.'
+          end
 
           jsonapi_deserialize(params, only: %i[first_name last_name email password password_confirmation country city])
         end

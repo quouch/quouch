@@ -1,23 +1,16 @@
 type: object
+description: A single user object
 properties:
   id:
-    type: integer
-  couch_id:
-    type: integer
-  name:
     type: string
-  value:
+    example: 1
+  type:
     type: string
-  created_at:
-    type: string
-    format: date-time
-  updated_at:
-    type: string
-    format: date-time
+    example: characteristic
+  attributes:
+    $ref: "./characteristic_attributes.yaml"
+
 required:
   - id
-  - couch_id
-  - name
-  - value
-  - created_at
-  - updated_at
+  - attributes
+  - type

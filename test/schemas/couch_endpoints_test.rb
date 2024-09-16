@@ -7,6 +7,13 @@ class CouchEndpointsTest < ApiEndpointTest
     @user, @headers = api_prepare_headers
   end
 
+  test 'GET /couches without authorization' do
+    get '/api/v1/couches'
+    assert_response :unauthorized
+
+    assert_match_openapi_doc
+  end
+
   test 'GET /couches' do
     get '/api/v1/couches?page[limit]=10&page[offset]=3', headers: @headers
     assert_response :ok

@@ -8,7 +8,7 @@ get:
           schema:
             type: array
             items:
-              $ref: '../components/characteristic.yaml'
+              $ref: '../components/characteristic_attributes.yaml'
 post:
   summary: Create a new characteristic
   requestBody:
@@ -16,11 +16,11 @@ post:
     content:
       application/vnd.api+json:
         schema:
-          $ref: '../components/characteristic.yaml'
+          $ref: '../components/characteristic_attributes.yaml'
   responses:
     '201':
       description: The created characteristic
       content:
         application/vnd.api+json:
           schema:
-            $ref: '../components/characteristic.yaml'
+            $ref: '../components/characteristic_attributes.yaml'

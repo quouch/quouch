@@ -6,8 +6,8 @@ ruby '3.1.2'
 # Authentication
 gem 'devise'
 gem 'devise-jwt'
-gem 'jsonapi-serializer'
 gem 'jsonapi.rb'
+gem 'jsonapi-serializer'
 gem 'ransack'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'

@@ -21,11 +21,19 @@ class UserSerializer < BaseSerializer
 
   set_type :user
 
-  attributes :id, :email, :first_name, :last_name, :city, :country, :zipcode, :address, :created_at, :updated_at
-
   has_one :couch
+
+  attributes :id, :created_at, :updated_at, :email, :first_name, :last_name, :date_of_birth, :summary,
+             :city, :country, :zipcode, :address, :offers_couch, :offers_hang_out, :offers_co_work, :travelling, :summary
+
+  attribute :age, &:calculated_age
 
   attribute :photo do |user|
     photo_url(user)
+  end
+
+  attribute :characteristics do |user|
+    # Return only ID and name of the characteristics
+    user.characteristics.map { |c| { id: c.id, name: c.name } }
   end
 end

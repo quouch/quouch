@@ -38,7 +38,6 @@ module Api
         first_five_users = json_response['data']
         assert_equal 1, json_response['meta']['pagination']['current']
 
-
         # then, get the next 5 users
         params = { page: { size: expected_items, number: 2 } }
         get('/api/v1/users', headers: @headers, params:)

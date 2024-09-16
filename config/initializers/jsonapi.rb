@@ -3,6 +3,4 @@ require 'jsonapi'
 
 JSONAPI::Rails.install!
 
-require_relative '../../app/helpers/jsonapi.rb'
-
-
+require_relative '../../app/helpers/jsonapi'
