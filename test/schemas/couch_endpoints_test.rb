@@ -5,6 +5,10 @@ require 'api_test_helper'
 class CouchEndpointsTest < ApiEndpointTest
   def setup
     @user, @headers = api_prepare_headers
+
+    # Add a facility to the couch
+    first_facility = Facility.first!
+    @user.couch.couch_facilities.create!(facility: first_facility)
   end
 
   test 'GET /couches without authorization' do

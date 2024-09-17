@@ -21,7 +21,7 @@ module RegistrationConcern
     @couch.user = @user
     @couch.save
 
-    disable_offers_if_travelling
+    disable_offers_if_travelling(resource)
     create_couch_facilities if params[:couch_facility].present?
   end
 

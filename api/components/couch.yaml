@@ -16,6 +16,13 @@ properties:
       user_id:
         type: integer
         example: 1
+      active:
+        type: boolean
+        example: true
+      capacity:
+        type: integer
+        nullable: true
+        example: 2
       created_at:
         type: string
         format: date-time
@@ -24,9 +31,17 @@ properties:
         format: date-time
       user:
         $ref: "./user_attributes.yaml"
+      facilities:
+        type: array
+        items:
+          $ref: "./enum_attributes.yaml"
+
     required:
       - id
       - user_id
+      - active
+      - user
+      - facilities
 
   relationships:
     type: object
