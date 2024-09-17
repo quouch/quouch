@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show]
       resources :characteristics, only: %i[index]
       resources :facilities, only: %i[index]
+      resources :bookings, only: %i[index show create update]
     end
   end
 end

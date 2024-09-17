@@ -1,0 +1,60 @@
+type: object
+properties:
+  id:
+    type: integer
+  user_id:
+    type: integer
+  couch_id:
+    type: integer
+  status:
+    type: string
+    enum:
+      - pending
+      - confirmed
+      - declined
+      - pending_confirmation
+      - completed
+      - expired
+      - cancelled
+  request:
+    $ref: "./booking_request_enum.yaml"
+  booking_date:
+    type: string
+    format: date
+    nullable: true
+  cancellation_date:
+    type: string
+    format: date
+    nullable: true
+  start_date:
+    type: string
+    format: date
+  end_date:
+    type: string
+    format: date
+  message:
+    type: string
+    example: "Hello, I would like to book your couch"
+  number_travellers:
+    type: integer
+    example: 1
+    nullable: true
+  flexible:
+    type: boolean
+    example: false
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+required:
+  - id
+  - user_id
+  - couch_id
+  - start_date
+  - end_date
+  - status
+  - request
+  - created_at
+  - updated_at

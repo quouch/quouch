@@ -15,14 +15,14 @@ class SessionEndpointsTest < ApiEndpointTest
     login_credentials = { user: { email: @user.email, password: @user.password } }
     post '/api/v1/login', params: login_credentials
 
-    assert_match_openapi_doc
+    assert_match_openapi_doc({ request_body: true })
   end
 
   test 'POST /login invalid email' do
     login_credentials = { user: { email: 'not@gmail.com', password: @user.password } }
     post '/api/v1/login', params: login_credentials
 
-    assert_match_openapi_doc
+    assert_match_openapi_doc({ request_body: true })
   end
 
   test 'DELETE /logout' do

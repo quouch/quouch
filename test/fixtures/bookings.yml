@@ -1,0 +1,14 @@
+<% 14.times do |n| %>
+booking_<%= n %>:
+  id: <%= n %>
+  user_id: <%= [1,2,3].sample %>
+  couch_id: <%= [4,5,6].sample  %>
+  start_date: <%= Faker::Date.between(from: 2.days.ago, to: Date.today) %>
+  end_date: <%= Faker::Date.between(from: Date.today, to: 2.days.from_now) %>
+  booking_date: <%= Date.today %>
+  number_travellers: <%= [1, 2, 3].sample  %>
+  request: <%= [0, 1, 2].sample  %>
+  status: <%= [1, 2, 4].sample  %>
+
+  message: <%= Faker::Hipster.paragraph_by_chars(characters: 60) %>
+<% end %>

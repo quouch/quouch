@@ -37,7 +37,7 @@ class ApiEndpointTest < ActionDispatch::IntegrationTest
     match = OpenapiContracts.match(
       @doc,
       response,
-      options.merge({ status: @status }.compact)
+      options.merge({ status: @status, parameters: true }.compact)
     )
     return true if match.valid?
 

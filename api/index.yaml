@@ -33,6 +33,9 @@ paths:
   /bookings:
     $ref: 'paths/bookings.yaml'
 
+  /bookings/{id}:
+    $ref: 'paths/booking_id.yaml'
+
   /characteristics:
     $ref: 'paths/characteristics.yaml'
 

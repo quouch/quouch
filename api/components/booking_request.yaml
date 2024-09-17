@@ -1,0 +1,54 @@
+type: object
+properties:
+  data:
+    type: object
+    description: A single user object
+    properties:
+      id:
+        type: string
+        example: 1
+      type:
+        type: string
+        example: user
+      attributes:
+        type: object
+        properties:
+          request:
+            $ref: "./booking_request_enum.yaml"
+          start_date:
+            type: string
+            format: date
+          end_date:
+            type: string
+            format: date
+          message:
+            type: string
+            example: "Hello, I would like to book your couch"
+          number_travellers:
+            type: string
+            example: 1
+            nullable: true
+          flexible:
+            type: boolean
+            example: false
+        required:
+          - start_date
+          - end_date
+          - request
+          - message
+      relationships:
+        type: object
+        properties:
+          user:
+            $ref: './relationship_hash.yaml'
+          couch:
+            $ref: './relationship_hash.yaml'
+        required:
+          - user
+          - couch
+    required:
+      - type
+      - attributes
+      - relationships
+required:
+  - data

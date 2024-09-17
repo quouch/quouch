@@ -8,6 +8,7 @@ module Api
       include JSONAPI::Pagination
       include JSONAPI::Fetching
       include JSONAPI::Errors
+      include JSONAPI::Deserialization
 
       include ActionController::HttpAuthentication::Basic::ControllerMethods
       include ActionController::HttpAuthentication::Token::ControllerMethods

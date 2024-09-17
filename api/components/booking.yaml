@@ -2,28 +2,24 @@ type: object
 description: A single booking object
 properties:
   id:
-    type: integer
-  user_id:
-    type: integer
-  couch_id:
-    type: integer
-  start_date:
     type: string
-    format: date
-  end_date:
+    example: 1
+  type:
     type: string
-    format: date
-  created_at:
-    type: string
-    format: date-time
-  updated_at:
-    type: string
-    format: date-time
+    example: user
+  attributes:
+    $ref: './booking_attributes.yaml'
+  relationships:
+    type: object
+    properties:
+      user:
+        $ref: './relationship_hash.yaml'
+      couch:
+        $ref: './relationship_hash.yaml'
+      reviews:
+        $ref: './relationship_array.yaml'
 required:
   - id
-  - user_id
-  - couch_id
-  - start_date
-  - end_date
-  - created_at
-  - updated_at
+  - attributes
+  - type
+  - relationships

@@ -36,7 +36,7 @@ class RegistrationEndpointsTest < ApiEndpointTest
 
     post("/api/v1/update/#{@user[:id]}", headers: @headers, params:)
 
-    assert_match_openapi_doc
+    assert_match_openapi_doc({ request_body: true })
   end
 
   test 'POST /update/:id forbidden error' do
@@ -45,6 +45,6 @@ class RegistrationEndpointsTest < ApiEndpointTest
     post("/api/v1/update/#{user2.id}", headers: @headers, params:)
 
     assert_response :forbidden
-    assert_match_openapi_doc
+    assert_match_openapi_doc({ request_body: true })
   end
 end

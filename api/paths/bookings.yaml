@@ -1,5 +1,7 @@
 get:
   summary: List all bookings
+  tags:
+    - bookings
   responses:
     '200':
       description: A list of bookings
@@ -21,16 +23,27 @@ get:
 
 post:
   summary: Create a new booking
+  tags:
+    - bookings
   requestBody:
     required: true
     content:
-      application/vnd.api+json:
+      application/x-www-form-urlencoded:
         schema:
-          $ref: '../components/booking.yaml'
+          $ref: '../components/booking_request.yaml'
   responses:
     '201':
       description: The created booking
       content:
         application/vnd.api+json:
           schema:
-            $ref: '../components/booking.yaml'
+            type: object
+            properties:
+              data:
+                $ref: '../components/booking.yaml'
+    '403':
+      description: Forbidden
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'

@@ -1,0 +1,70 @@
+type: object
+properties:
+  data:
+    type: object
+    description: A single user object
+    properties:
+      id:
+        type: string
+        example: 1
+      type:
+        type: string
+        example: user
+      attributes:
+        type: object
+        properties:
+          email:
+            type: string
+            example: "example@email.com"
+          first_name:
+            type: string
+            example: "Jane"
+          last_name:
+            type: string
+            example: "Doe"
+          date_of_birth:
+            type: string
+            format: date
+          age:
+            type: integer
+            example: 25
+          summary:
+            type: string
+            example: "I am a cool person"
+          city:
+            type: string
+            example: "Berlin"
+          country:
+            type: string
+            example: "Germany"
+          zipcode:
+            type: string
+            example: "10117"
+          address:
+            type: string
+            example: "Unter den Linden 1"
+          photo:
+            type: string
+            format: uri
+          offers_couch:
+            type: boolean
+            example: true
+          offers_hang_out:
+            type: boolean
+            example: true
+          offers_co_work:
+            type: boolean
+            example: true
+          travelling:
+            type: boolean
+            example: false
+          characteristics:
+            type: array
+            items:
+              $ref: "./enum_attributes.yaml"
+    required:
+      - id
+      - attributes
+      - type
+required:
+  - data
