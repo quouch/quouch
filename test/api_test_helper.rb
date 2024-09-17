@@ -1,9 +1,17 @@
 require 'test_helper'
+$doc = OpenapiContracts::Doc.parse(Rails.root.join('api'), 'index.yaml')
+
+if ENV['COVERAGE']
+  OpenapiContracts.collect_coverage = true
+
+  Minitest.after_run do
+    $doc.coverage.report.generate(Rails.root.join('coverage/openapi.json'))
+  end
+end
 
 class ApiEndpointTest < ActionDispatch::IntegrationTest
   def before_setup
-    @doc = OpenapiContracts::Doc.parse(Rails.root.join('api'), 'index.yaml')
-
+    @doc = $doc
     super
   end
 
