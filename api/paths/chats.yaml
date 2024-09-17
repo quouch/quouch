@@ -6,9 +6,18 @@ get:
       content:
         application/vnd.api+json:
           schema:
-            type: array
-            items:
-              $ref: '../components/chat.yaml'
+            type: object
+            properties:
+              meta:
+                $ref: "../components/meta.yaml"
+              links:
+                $ref: "../components/links.yaml"
+              data:
+                type: array
+                items:
+                  $ref: "../components/chat.yaml"
+    '401':
+      $ref: "../components/unauthorized_error.yaml"
 post:
   summary: Create a new chat
   requestBody:
@@ -24,3 +33,5 @@ post:
         application/vnd.api+json:
           schema:
             $ref: '../components/chat.yaml'
+    '401':
+      $ref: "../components/unauthorized_error.yaml"

@@ -34,6 +34,8 @@ post:
                 properties:
                   message:
                     type: string
+    '401':
+      $ref: '../components/unauthorized_error.yaml'
     '403':
       description: Forbidden
       content:

@@ -6,9 +6,19 @@ get:
       content:
         application/vnd.api+json:
           schema:
-            type: array
-            items:
-              $ref: '../components/booking.yaml'
+            type: object
+            properties:
+              meta:
+                $ref: "../components/meta.yaml"
+              links:
+                $ref: "../components/links.yaml"
+              data:
+                type: array
+                items:
+                  $ref: "../components/booking.yaml"
+    '401':
+      $ref: "../components/unauthorized_error.yaml"
+
 post:
   summary: Create a new booking
   requestBody:
