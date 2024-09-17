@@ -7,5 +7,4 @@ class BookingSerializer < BaseSerializer
   has_many :reviews
 
   attributes :id, :user_id, :couch_id, :start_date, :end_date, :status, :request, :message
-
 end

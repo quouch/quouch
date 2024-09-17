@@ -23,6 +23,10 @@ properties:
         type: integer
         nullable: true
         example: 2
+      rating:
+        type: number
+        nullable: true
+        example: 3.8
       created_at:
         type: string
         format: date-time
@@ -42,6 +46,7 @@ properties:
       - active
       - user
       - facilities
+      - rating
 
   relationships:
     type: object

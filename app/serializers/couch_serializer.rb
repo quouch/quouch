@@ -7,7 +7,7 @@ class CouchSerializer < BaseSerializer
   has_many :bookings
   has_many :reviews
 
-  attributes :id, :user_id, :capacity, :active
+  attributes :id, :user_id, :capacity, :active, :rating
 
   attribute :user do |couch|
     UserSerializer.new(couch.user).serializable_hash[:data][:attributes]
