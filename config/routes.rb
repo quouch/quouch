@@ -90,6 +90,7 @@ Rails.application.routes.draw do
       resources :characteristics, only: %i[index]
       resources :facilities, only: %i[index]
       resources :bookings, only: %i[index show create update]
+      resources :plans, only: %i[index]
     end
   end
 end
