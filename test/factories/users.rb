@@ -76,5 +76,10 @@ FactoryBot.define do
         Subscription.create!(user:, plan: Plan.first, stripe_id: 'fake_subscription_id')
       end
     end
+
+    trait :geocoded do
+      latitude { Faker::Address.latitude }
+      longitude { Faker::Address.longitude }
+    end
   end
 end

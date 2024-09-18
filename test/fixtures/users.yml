@@ -18,6 +18,9 @@ user_<%= n %>:
   zipcode: <%= Faker::Address.zip_code %>
   country_code: <%= Faker::Address.country_code %>
   country: <%= Faker::Address.country %>
+  latitude: <%= Faker::Address.latitude %>
+  longitude: <%= Faker::Address.longitude %>
+
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
   invited_by_id: 1

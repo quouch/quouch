@@ -63,6 +63,9 @@
     <% end %>
   </section>
   <%= turbo_frame_tag "results_frame" do %>
+    <section data-controller="map" data-map-api-key-value="<%= Rails.application.credentials.dig(:mapbox, :api_key) %>" data-map-marker-value="<%= @markers.to_json %>">
+      <div class="couches__map" data-map-target="map"></div>
+    </section>
     <section>
       <%= render 'partials/couches', couches: @couches %>
     </section>

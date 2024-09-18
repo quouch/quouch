@@ -14,13 +14,13 @@ class CouchesConcernTest < ActiveSupport::TestCase
     @user = FactoryBot.create(:user, :for_test, :with_couch)
   end
 
-  test 'should get index' do
-    index
+  test 'should get couches' do
+    find_and_filter
     assert_not_nil @couches
   end
 
   test 'should not find the current user' do
-    index
+    find_and_filter
     assert_not_includes @couches, @user.couch
   end
 
@@ -32,7 +32,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     # Create one user with an active couch
     FactoryBot.create(:user, :for_test, :with_couch)
 
-    index
+    find_and_filter
 
     # we know that there's only one active couch!
     assert_equal 1, @pagy.count
@@ -46,7 +46,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Filter for a city that doesn't exist
     params[:query] = 'Nonexistent City'
-    index
+    find_and_filter
 
     # Add assertions to check that the search filter was applied correctly
     assert_equal 0, @couches.length
@@ -59,7 +59,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     # Filter by city
     city = @host[:city]
     params[:query] = city
-    index
+    find_and_filter
 
     # Add assertions to check that the search filter was applied correctly
     assert_equal 1, @couches.length
@@ -74,7 +74,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Filter by country
     params[:query] = 'Canada'
-    index
+    find_and_filter
 
     # Add assertions to check that the search filter was applied correctly
     assert_equal 1, @couches.length
@@ -93,13 +93,13 @@ class CouchesConcernTest < ActiveSupport::TestCase
     @host2.user_characteristics.create!(characteristic: characteristic2)
 
     # Check that the characteristics filter is not applied when no characteristics are selected
-    index
+    find_and_filter
     assert_equal 2, @couches.length, 2
     assert_same_elements [@host.couch, @host2.couch], @couches
 
     # Set up necessary conditions for the characteristics filter
     params[:characteristics] = [characteristic2.id]
-    index
+    find_and_filter
     # Add assertions to check that the characteristics filter was applied correctly
     assert_equal 1, @couches.length
     assert_equal [@host2.couch], @couches
@@ -118,7 +118,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Set up necessary conditions for the characteristics filter
     params[:characteristics] = [characteristic1.id, characteristic2.id]
-    index
+    find_and_filter
     # Add assertions to check that the characteristics filter was applied correctly
     assert_equal 1, @couches.length
     assert_equal [@host.couch], @couches
@@ -136,7 +136,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Set up necessary conditions for the offers filter
     params[:offers_hang_out] = true
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 1, @couches.length
@@ -157,7 +157,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Set up necessary conditions for the offers filter
     params[:offers_co_work] = true
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 0, @couches.length
@@ -176,7 +176,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Set up necessary conditions for the offers filter
     params[:offers_couch] = true
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 1, @couches.length
@@ -198,7 +198,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     # Set up necessary conditions for the offers filter
     params[:offers_couch] = true
     params[:query] = 'Test City'
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 1, @couches.length
@@ -229,7 +229,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     # Set up necessary conditions for the offers filter
     params[:offers_couch] = true
     params[:characteristics] = [characteristic.id]
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 2, @couches.length
@@ -259,7 +259,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     # Set up necessary conditions for the offers filter
     params[:query] = 'Test City'
     params[:characteristics] = [characteristic.id]
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 2, @couches.length
@@ -293,7 +293,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
     params[:offers_couch] = true
     params[:query] = 'Test City'
     params[:characteristics] = [characteristic.id]
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 1, @couches.length
@@ -303,7 +303,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
   test 'pagination should work' do
     setup_with_pagination
 
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 5, @couches.length
@@ -312,7 +312,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Navigate to next page
     params[:page] = 2
-    index
+    find_and_filter
 
     # Add assertions to check that the pagination works
     assert_equal 5, @couches.length
@@ -332,7 +332,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Filter by city
     params[:query] = 'Test City'
-    index
+    find_and_filter
 
     # Add assertions to check that the offers filter was applied correctly
     assert_equal 5, @couches.length
@@ -341,7 +341,7 @@ class CouchesConcernTest < ActiveSupport::TestCase
 
     # Navigate to next page
     params[:page] = 2
-    index
+    find_and_filter
 
     # Add assertions to check that the pagination works
     assert_equal 2, @couches.length

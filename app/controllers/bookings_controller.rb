@@ -34,9 +34,10 @@ class BookingsController < ApplicationController
       {
         lat: host.latitude,
         lng: host.longitude,
-        marker_html: render_to_string(partial: 'marker')
+        marker_html: render_to_string(partial: 'partials/marker')
       }
     end
+
     @chat = find_chat(@host, @guest)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)

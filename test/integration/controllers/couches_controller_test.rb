@@ -34,4 +34,21 @@ class CouchesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     # Add assertions to check that the pagination works
   end
+
+  test 'should generate markers for geocoded couches' do
+    @controller = CouchesController.new
+
+    # Create two hosts
+    users = FactoryBot.create_list(:user, 2, :offers_couch, :geocoded)
+
+    # Stub :render_to_string to return a string, since we don't need to test it
+    @controller.stub(:render_to_string, '') do
+      @controller.send(:generate_markers, users.map(&:couch))
+
+      assert_not_nil @controller.instance_variable_get(:@markers)
+      assert_equal 2, @controller.instance_variable_get(:@markers).size
+      assert_not_nil @controller.instance_variable_get(:@markers)[0][:lat]
+      assert_not_nil @controller.instance_variable_get(:@markers)[0][:lng]
+    end
+  end
 end
