@@ -91,6 +91,9 @@ Rails.application.routes.draw do
       resources :facilities, only: %i[index]
       resources :bookings, only: %i[index show create update]
       resources :plans, only: %i[index]
+      resources :chats, only: %i[index] do
+        resources :messages, only: %i[index]
+      end
     end
   end
 end

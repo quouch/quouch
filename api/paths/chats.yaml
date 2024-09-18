@@ -1,5 +1,7 @@
 get:
   summary: List all chats
+  tags:
+    - chats
   responses:
     '200':
       description: A list of chats
@@ -16,22 +18,5 @@ get:
                 type: array
                 items:
                   $ref: "../components/chat.yaml"
-    '401':
-      $ref: "../components/unauthorized_error.yaml"
-post:
-  summary: Create a new chat
-  requestBody:
-    required: true
-    content:
-      application/x-www-form-urlencoded:
-        schema:
-          $ref: '../components/chat.yaml'
-  responses:
-    '201':
-      description: The created chat
-      content:
-        application/vnd.api+json:
-          schema:
-            $ref: '../components/chat.yaml'
     '401':
       $ref: "../components/unauthorized_error.yaml"

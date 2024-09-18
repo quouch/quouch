@@ -1,5 +1,13 @@
 get:
-  summary: List all messages
+  summary: List all messages for a chat
+  tags:
+    - chats
+  parameters:
+    - name: chat_id
+      in: path
+      required: true
+      schema:
+        type: integer
   responses:
     '200':
       description: A list of messages
@@ -18,21 +26,9 @@ get:
                   $ref: "../components/message.yaml"
     '401':
       $ref: "../components/unauthorized_error.yaml"
-post:
-  summary: Create a new message
-  requestBody:
-    required: true
-    content:
-      application/x-www-form-urlencoded:
-        schema:
-          $ref: '../components/message.yaml'
-  responses:
-    '201':
-      description: The created message
+    '404':
+      description: No chat found for the provided `chatId`
       content:
         application/vnd.api+json:
           schema:
-            $ref: '../components/message.yaml'
-    '401':
-      $ref: "../components/unauthorized_error.yaml"
-
+            $ref: '../components/error.yaml'

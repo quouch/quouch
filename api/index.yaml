@@ -42,7 +42,10 @@ paths:
   /facilities:
     $ref: 'paths/facilities.yaml'
 
-  /messages:
+  /chats:
+    $ref: 'paths/chats.yaml'
+
+  /chats/{chat_id}/messages:
     $ref: 'paths/messages.yaml'
 
   /notifications:
@@ -50,9 +53,6 @@ paths:
 
   /plans:
     $ref: 'paths/plans.yaml'
-
-  /chats:
-    $ref: 'paths/chats.yaml'
 
   /logout:
     $ref: 'paths/logout.yaml'
