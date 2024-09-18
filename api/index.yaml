@@ -48,8 +48,8 @@ paths:
   /chats/{chat_id}/messages:
     $ref: 'paths/messages.yaml'
 
-  /notifications:
-    $ref: 'paths/notifications.yaml'
+  /users/{user_id}/reviews:
+    $ref: 'paths/reviews.yaml'
 
   /plans:
     $ref: 'paths/plans.yaml'

@@ -1,0 +1,36 @@
+get:
+  summary: List all reviews for a user
+  tags:
+    - users
+    - reviews
+    - bookings
+  parameters:
+    - name: user_id
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: A list of reviews
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: "../components/meta.yaml"
+              links:
+                $ref: "../components/links.yaml"
+              data:
+                type: array
+                items:
+                  $ref: "../components/review.yaml"
+    '401':
+      $ref: "../components/unauthorized_error.yaml"
+    '404':
+      description: No user found for the provided `userId`
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: "../components/error.yaml"
