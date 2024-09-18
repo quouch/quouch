@@ -9,9 +9,9 @@ FactoryBot.define do
     start_date { Date.today }
     end_date { Date.today + 1 }
     request { [0, 1, 2].sample }
+    status { :pending }
     message { Faker::Hipster.paragraph_by_chars(characters: 60) }
     number_travellers { 1 }
-    status { :pending }
 
     association :user, factory: %i[user with_couch skip_validation]
     traits_for_enum(:status)

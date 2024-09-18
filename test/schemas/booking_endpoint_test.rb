@@ -58,30 +58,34 @@ class BookingEndpointTest < ApiEndpointTest
 
   test 'PATCH /bookings/:id' do
     # select any booking and assign it to the current user
-    booking = Booking.all.sample
-    booking.user = @user
-    booking.status = :pending
-    booking.save!
+    booking = setup_for_update
 
-    user = booking.user
-    couch = booking.couch
-    booking_data = booking.attributes
-
-    # change some data
-    booking_data['status'] = :cancelled
-
-    params = request_params(booking_data, user, couch)
+    params = request_params(booking.attributes, booking.user, booking.couch)
     patch("/api/v1/bookings/#{booking.id}", headers: @headers, params:)
     assert_response :ok
+
+    assert_match_openapi_doc({ request_body: true })
+  end
+
+  test 'PATCH /bookings/:id without id in request' do
+    # select any booking and assign it to the current user
+    booking = setup_for_update
+
+    booking_data = booking.attributes
+    booking_data['status'] = :cancelled
+    booking_data['id'] = nil
+
+    params = request_params(booking_data, booking.user, booking.couch)
+    patch("/api/v1/bookings/#{booking.id}", headers: @headers, params:)
+    assert_response :unprocessable_entity
 
     assert_match_openapi_doc
   end
 
   test 'PATCH /bookings/:id forbidden' do
-    booking = Booking.all.sample
+    booking = setup_for_update
     booking.user = User.where.not(id: @user.id).sample
     booking.couch = User.where.not(id: @user.id || booking.user.id).sample.couch
-    booking.status = :pending
     booking.save!
 
     booking_data = booking.attributes
@@ -95,6 +99,16 @@ class BookingEndpointTest < ApiEndpointTest
   end
 
   private
+
+  def setup_for_update
+    booking = Booking.all.sample
+    booking.user = @user
+    booking.status = :pending
+    booking.save!
+
+    booking['status'] = :cancelled
+    booking
+  end
 
   def request_params(booking_data, user, couch)
     {

@@ -72,6 +72,12 @@ patch:
         application/vnd.api+json:
           schema:
             $ref: '../components/error.yaml'
+    '422':
+      description: Invalid booking data
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
     '500':
       description: Unexpected error
       content:

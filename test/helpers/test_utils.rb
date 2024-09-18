@@ -3,6 +3,8 @@ require 'stripe_mock'
 # Used for integration tests
 module DBHelper
   def db_cleanup
+    Review.delete_all
+    Booking.delete_all
     Couch.delete_all
     UserCharacteristic.delete_all
     User.delete_all

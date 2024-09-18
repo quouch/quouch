@@ -6,7 +6,7 @@ module Api
       include BookingsConcern
 
       def index
-        render jsonapi: Booking.all
+        render jsonapi: Booking.where(user: current_user)
       end
 
       def show
@@ -17,17 +17,15 @@ module Api
         booking = prepare_booking_for_save
         booking.status = :pending
 
-        if booking.save
-          after_create_process(booking)
-          render jsonapi: booking, status: :created
-        else
-          render_error(status: :unprocessable_entity,
-                       title: 'Booking could not be created.',
-                       source: current_user.errors)
-        end
+        booking.save!
+
+        after_create_process(booking)
+        render jsonapi: booking, status: :created
       end
 
       def update
+        params.require(:data).require(:id)
+
         booking_attributes = booking_params
         booking = Booking.find(params[:id])
         booking.update!(booking_attributes)
@@ -39,11 +37,13 @@ module Api
       def booking_params
         params.require(:data).require(%i[type attributes relationships])
 
-        booking_params = jsonapi_deserialize(params, only: %i[request status start_date end_date number_travellers message flexible user couch])
+        booking_params = jsonapi_deserialize(params,
+                                             only: %i[request status start_date end_date number_travellers message
+                                                      flexible user couch])
         user_id = booking_params['user_id']
         unless current_user.id.to_s == user_id.to_s
           raise JSONAPI::ForbiddenError,
-                'You are not allowed to create bookings for this user.'
+                'You are not allowed to manage bookings for this user.'
         end
 
         booking_params

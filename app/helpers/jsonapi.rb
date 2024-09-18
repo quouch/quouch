@@ -27,6 +27,20 @@ module JSONAPI
           )
         end
 
+        if defined?(ArgumentError)
+          rescue_from(
+            ArgumentError,
+            with: :render_jsonapi_unprocessable_entity
+          )
+        end
+
+        if defined?(ActiveRecord::RecordInvalid)
+          rescue_from(
+            ActiveRecord::RecordInvalid,
+            with: :render_jsonapi_invalid_record
+          )
+        end
+
         if defined?(JwtError)
           rescue_from(
             JwtError,
@@ -42,6 +56,21 @@ module JSONAPI
     end
 
     private
+
+    def render_jsonapi_invalid_record(exception)
+      record = exception.record
+      errors = []
+      record.errors.each do |attribute|
+        attribute_name = attribute.attribute
+        message = "Validation failed: #{attribute_name} - #{attribute.message}"
+        source = { pointer: "/data/attributes/#{attribute_name}" }
+
+        error, _code = format_error(status: :unprocessable_entity, title: 'Invalid record', detail: message, source:,
+                                    data: attribute)
+        errors << error
+      end
+      render jsonapi_errors: errors, status: :unprocessable_entity
+    end
 
     def render_jsonapi_invalid_token(exception)
       message = exception.message || 'Couldn\'t find an active session.'

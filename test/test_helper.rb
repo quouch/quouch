@@ -92,6 +92,18 @@ module ActiveSupport
   end
 end
 
+module ActionController
+  class TestCase
+    include SignInHelper
+    include UserHelper
+    include DBHelper
+    include ApiTestHelper
+    include Devise::Test::ControllerHelpers
+
+    fixtures :all
+  end
+end
+
 module ActionDispatch
   class IntegrationTest
     include SignInHelper

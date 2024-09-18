@@ -7,6 +7,7 @@ properties:
       id:
         type: string
         example: 1
+        nullable: true
       type:
         type: string
         example: user
@@ -29,7 +30,7 @@ properties:
             example: 1
             nullable: true
           flexible:
-            type: boolean
+            type: string
             example: false
         required:
           - start_date
