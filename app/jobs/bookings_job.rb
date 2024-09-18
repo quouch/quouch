@@ -10,8 +10,8 @@ class BookingsJob < ApplicationJob
     completed_bookings = Booking.where('end_date <= ?', Date.today).where(status: 1)
     return if completed_bookings.empty?
 
-    Booking.send_completed_emails(completed_bookings)
-    Booking.update_status(completed_bookings, 4)
+    send_completed_emails(completed_bookings)
+    update_status(completed_bookings, 4)
   end
 
   def remind_bookings
@@ -36,7 +36,7 @@ class BookingsJob < ApplicationJob
     pending_past_bookings.update_all(status: -2)
     return if pending_future_bookings.empty?
 
-    Booking.send_reminder_emails(pending_future_bookings)
+    send_reminder_emails(pending_future_bookings)
   end
 
   def update_status(bookings, status)
