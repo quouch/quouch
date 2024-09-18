@@ -1,11 +1,7 @@
-namespace :booking do
+namespace :bookings do
   desc 'Complete past bookings and remind hosts about open requests'
 
-  task complete: :environment do
-    Booking.complete
-  end
-
-  task remind: :environment do
-    Booking.remind
+  task process: :environment do
+    BookingsJob.perform_later
   end
 end
