@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  include BookingsConcern
+
   before_action :set_booking, except: %i[index requests new create]
   before_action :set_couch, only: %i[new create requests]
 
@@ -43,19 +45,14 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @couch = Couch.find(params[:couch_id])
-    @booking = Booking.new(booking_params)
-    @booking.couch = @couch
+    @booking = prepare_booking_for_save
+    @couch = @booking.couch
+    # Do we use this variable on create?
     @guest = @booking.user
     @host = @couch.user
-    @booking.user = current_user
-    @booking.booking_date = DateTime.now
 
     if @booking.save
-      @booking.pending!
-      BookingMailer.with(booking: @booking).new_request_email.deliver_later
-      AmplitudeEventTracker.track_booking_event(@booking, 'New Booking')
-      create_chat_and_message(@booking)
+      after_create_process(@booking)
       redirect_to sent_booking_path(@booking)
     else
       offers(@host)
@@ -111,26 +108,11 @@ class BookingsController < ApplicationController
     @chat = find_chat(guest, @host)
   end
 
-  def confirmed
-    @guest = @booking.user
-  end
-
   def accept
     return unless @booking.confirmed!
 
     BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
     AmplitudeEventTracker.track_booking_event(@booking, 'Booking Confirmed')
-  end
-
-  def decline(chat)
-    return unless @booking.declined!
-
-    if chat.nil?
-      redirect_to requests_couch_bookings_path(@booking.couch)
-    else
-      redirect_to chat_path(chat)
-      BookingMailer.with(booking: @booking).request_declined_email.deliver_later
-    end
   end
 
   def decline_and_send_message
@@ -150,7 +132,9 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-    params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message, :flexible)
+    booking_params = params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message,
+                                                     :flexible, :couch_id)
+    booking_params.merge(user_id: current_user.id)
   end
 
   def set_booking
@@ -197,15 +181,14 @@ class BookingsController < ApplicationController
     end
   end
 
-  def find_chat(user1, user2)
-    Chat.find_by(user_sender_id: user1.id, user_receiver_id: user2.id) ||
-      Chat.find_by(user_sender_id: user2.id, user_receiver_id: user1.id)
-  end
+  def decline(chat)
+    return unless @booking.declined!
 
-  def create_chat_and_message(booking)
-    host = booking.couch.user
-    guest = booking.user
-    chat = find_chat(guest, host) || Chat.create(user_sender_id: guest.id, user_receiver_id: host.id)
-    chat.messages.create(content: booking.message, user: guest)
+    if chat.nil?
+      redirect_to requests_couch_bookings_path(@booking.couch)
+    else
+      redirect_to chat_path(chat)
+      BookingMailer.with(booking: @booking).request_declined_email.deliver_later
+    end
   end
 end

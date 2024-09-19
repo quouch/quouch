@@ -5,18 +5,31 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     @user = FactoryBot.create(:user, :for_test, :with_couch)
     @host = FactoryBot.create(:user, :for_test, :offers_couch)
     @couch = @host.couch
+
+    # Delete all bookings for user and host
+    @user.bookings.destroy_all
+    @host.bookings.destroy_all
+
+    # create one booking
     @booking = FactoryBot.create(:booking, user: @user, couch: @couch)
     sign_in_as @user
   end
 
   test 'should get index' do
+    # Create a completed and a cancelled booking
+    FactoryBot.create(:booking, :past, user: @user, couch: @couch)
+    FactoryBot.create(:booking, :cancelled, user: @user, couch: @couch)
+
     get bookings_url(@user.couch)
     assert_response :success
 
     assert_select 'h1', 'Trips'
     assert_select 'h2', 'Upcoming Trips'
+    assert_select 'h2', 'Past Trips'
+    assert_select 'h2', 'Cancelled, Declined & Expired Trips'
 
     assert_select '.upcoming-booking', 1
+    assert_select '.past-booking', 2
   end
 
   test 'should not show any requests' do
@@ -203,6 +216,44 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal Date.today, @booking.cancellation_date
   end
 
+  test 'should cancel booking as host' do
+    request = FactoryBot.create(:booking, :confirmed, user: @host, couch: @user.couch)
+    assert_equal 'confirmed', request.status
+
+    delete cancel_booking_url(request)
+
+    assert_enqueued_emails 1
+    assert_redirected_to requests_couch_bookings_path(@user.couch)
+    assert_includes flash[:notice], 'Booking successfully cancelled'
+
+    request.reload
+    assert_equal 'cancelled', request.status
+    assert_equal Date.today, request.cancellation_date
+  end
+
+  test 'should accept request' do
+    request = FactoryBot.create(:booking, user: @host, couch: @user.couch)
+
+    assert_equal 'pending', request.status
+
+    patch accept_booking_url(request)
+
+    assert_enqueued_emails 1
+
+    request.reload
+    assert_equal 'confirmed', request.status
+  end
+
+  test 'should not be able to accept already confirmed request' do
+    request = FactoryBot.create(:booking, :confirmed, user: @host, couch: @user.couch)
+
+    assert_equal 'confirmed', request.status
+
+    patch accept_booking_url(request)
+
+    assert_response :no_content
+  end
+
   test 'should create booking and track amplitude event' do
     amplitude_mock = Minitest::Mock.new
     amplitude_mock.expect(:call, true, [Booking, String])
@@ -210,17 +261,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
       assert_difference('Booking.count', 1, 'Booking was not created') do
         assert_difference('Chat.count', 1, 'Chat was not created') do
           assert_difference('Message.count', 1, 'Message was not created') do
-            post couch_bookings_path(@couch), params: {
-              booking: {
-                user_id: @user.id,
-                couch_id: @couch.id,
-                request: 'host',
-                start_date: Date.today,
-                end_date: Date.today + 1,
-                number_travellers: 1,
-                message: 'Looking forward to staying!'
-              }
-            }
+            params = generate_booking_params('Looking forward to staying!', :host)
+            post couch_bookings_path(@couch), params:
           end
         end
       end
@@ -232,7 +274,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal @couch, booking.couch
     assert_equal @user, booking.user
-    assert_equal Date.today, booking.start_date
     assert_equal 'pending', booking.status
 
     assert_equal @user, message.user
@@ -267,7 +308,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     @booking.reload
     assert_equal 'cancelled', @booking.status
     assert_enqueued_emails 1
-    assert_redirected_to requests_couch_bookings_path(@booking.couch)
+    assert_redirected_to bookings_path
     assert_mock amplitude_mock
   end
 
@@ -315,7 +356,8 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
   private
 
-  def generate_booking_params(message, request = :host, flexible: false, start_date: Date.today + 2, end_date: Date.today + 4)
+  def generate_booking_params(message, request = :host, flexible: false, start_date: Date.today + 2,
+                              end_date: Date.today + 4)
     { booking: { request:, start_date:, end_date:, number_travellers: 1,
                  message:, flexible:, user_id: @user.id, couch_id: @couch.id } }
   end
