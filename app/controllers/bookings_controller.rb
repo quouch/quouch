@@ -182,6 +182,7 @@ class BookingsController < ApplicationController
   end
 
   def cancel_booking(canceller, booking, status_before_cancellation)
+    flash[:notice] = 'Booking successfully cancelled!'
     if canceller == booking.user
       redirect_to bookings_path
       case status_before_cancellation

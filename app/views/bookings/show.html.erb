@@ -42,7 +42,7 @@
         <div class="booking__details">
           <h2>Travel Details</h2>
           <ul class="booking__details-list">
-            <li>
+            <li class="request">
               <% if @booking.host? %>
                 <i class="quouch-sleep color-secondary" aria-label="Sleep icon"></i>
                 <p>Host</p>
@@ -62,7 +62,7 @@
                 <p>Flexible</p>
               <% end %>
             </li>
-            <li>
+            <li class="status">
               <i class="quouch-home color-secondary" aria-label="Home icon"></i>
               <%= @booking.status.capitalize %>
             </li>

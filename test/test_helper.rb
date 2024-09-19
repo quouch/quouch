@@ -97,6 +97,7 @@ module ActionDispatch
     include SignInHelper
     include UserHelper
     include DBHelper
+    include Devise::Test::IntegrationHelpers
 
     fixtures :all
   end
