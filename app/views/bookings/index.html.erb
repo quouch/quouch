@@ -24,7 +24,7 @@
                       </li>
                     </div>
                     <div class="upcoming-booking__details">
-                      <li class="upcoming-booking__detail">
+                      <li class="upcoming-booking__detail upcoming-booking__request">
                         <% if booking.host? %>
                           <i class="quouch-sleep color-secondary" aria-label="Sleep icon"></i>
                           <p>Host</p>
@@ -44,7 +44,7 @@
                           <p>Flexible</p>
                         <% end %>
                       </li>
-                      <li class="upcoming-booking__detail">
+                      <li class="upcoming-booking__detail upcoming-booking__status">
                         <i class="quouch-home color-secondary" aria-label="Home icon"></i>
                         <%= booking.status.capitalize %>
                       </li>
