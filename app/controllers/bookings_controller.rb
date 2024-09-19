@@ -54,7 +54,7 @@ class BookingsController < ApplicationController
     if @booking.save
       @booking.pending!
       BookingMailer.with(booking: @booking).new_request_email.deliver_later
-      track_booking_event_amplitude('New Booking')
+      AmplitudeEventTracker.track_booking_event(@booking, 'New Booking')
       create_chat_and_message(@booking)
       redirect_to sent_booking_path(@booking)
     else
@@ -79,7 +79,7 @@ class BookingsController < ApplicationController
       BookingMailer.with(booking: @booking).booking_updated_email.deliver_later
     end
     redirect_to booking_path(@booking)
-    track_booking_event_amplitude('Booking Updated')
+    AmplitudeEventTracker.track_booking_event(@booking, 'Booking Updated')
   end
 
   def cancel
@@ -89,19 +89,8 @@ class BookingsController < ApplicationController
     @canceller = current_user
     return unless @booking.save
 
-    if @canceller == @booking.user
-      redirect_to bookings_path
-      case status_before_cancellation
-      when 'pending'
-        BookingMailer.with(booking: @booking).request_cancelled_email.deliver_later
-      when 'confirmed'
-        BookingMailer.with(booking: @booking).booking_cancelled_by_guest_email.deliver_later
-      end
-    else
-      redirect_to requests_couch_bookings_path(@booking.couch)
-      BookingMailer.with(booking: @booking).booking_cancelled_by_host_email.deliver_later
-    end
-    track_booking_event_amplitude('Booking Cancelled')
+    cancel_booking(@canceller, @booking, status_before_cancellation)
+    AmplitudeEventTracker.track_booking_event(@booking, 'Booking Cancelled')
   end
 
   def show_request
@@ -130,7 +119,7 @@ class BookingsController < ApplicationController
     return unless @booking.confirmed!
 
     BookingMailer.with(booking: @booking).request_confirmed_email.deliver_later
-    track_booking_event_amplitude('Booking Confirmed')
+    AmplitudeEventTracker.track_booking_event(@booking, 'Booking Confirmed')
   end
 
   def decline(chat)
@@ -155,7 +144,7 @@ class BookingsController < ApplicationController
       Message.create(user_id: current_user.id, chat:, content:)
       decline(chat)
     end
-    track_booking_event_amplitude('Booking Declined')
+    AmplitudeEventTracker.track_booking_event(@booking, 'Booking Declined')
   end
 
   private
@@ -205,23 +194,6 @@ class BookingsController < ApplicationController
       redirect_to requests_couch_bookings_path(booking.couch)
       BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
     end
-  end
-
-  def track_booking_event_amplitude(amplitude_event)
-    event = AmplitudeAPI::Event.new(
-      user_id: current_user.id.to_s,
-      event_type: amplitude_event,
-      couch: @booking.couch_id,
-      booking: @booking.id,
-      flexible: @booking.flexible,
-      request: @booking.request,
-      status: @booking.status,
-      start_date: @booking.start_date,
-      end_date: @booking.end_date,
-      number_travellers: @booking.number_travellers,
-      time: Time.now
-    )
-    AmplitudeAPI.track(event)
   end
 
   def find_chat(user1, user2)

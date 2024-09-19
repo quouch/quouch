@@ -14,13 +14,7 @@ class MessagesController < ApplicationController
     )
     head :ok
 
-    event = AmplitudeAPI::Event.new(
-      user_id: current_user.id.to_s,
-      event_type: 'New Message',
-      time: Time.now
-    )
-
-    AmplitudeAPI.track(event)
+    AmplitudeEventTracker.track_message_event('New Message')
   end
 
   private
