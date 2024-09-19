@@ -2,6 +2,10 @@
 
 FactoryBot.define do
   factory :booking do
+    transient do
+      couch { FactoryBot.create(:user, :with_couch, :skip_validation).couch }
+    end
+    booking_date { Date.today -1 }
     start_date { Date.today }
     end_date { Date.today + 1 }
     request { [0, 1, 2].sample }
@@ -10,9 +14,8 @@ FactoryBot.define do
     status { 0 }
     association :user, factory: %i[user with_couch skip_validation]
 
-    after(:build) do |booking|
-      couch_owner = FactoryBot.create(:user, :with_couch, :skip_validation)
-      booking.couch = couch_owner.couch
+    after(:build) do |booking, evaluator|
+      booking.couch = evaluator.couch
     end
 
     trait :pending_future_fixed do
