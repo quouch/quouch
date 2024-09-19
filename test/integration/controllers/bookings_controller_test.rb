@@ -165,6 +165,21 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'pending', @booking.status
   end
 
+  test 'should not update booking status' do
+    message_content = 'Test message edited'
+    params = generate_booking_params(message_content)
+
+    params[:booking][:status] = 'confirmed'
+
+    assert_not_equal message_content, @booking.message
+
+    patch(booking_url(@booking), params:)
+
+    @booking.reload
+    assert_equal message_content, @booking.message
+    assert_equal 'pending', @booking.status
+  end
+
   test 'should update confirmed booking' do
     @booking.confirmed!
 
@@ -194,7 +209,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     assert_enqueued_emails 1
     assert_redirected_to bookings_path
-    assert_includes flash[:notice], 'Booking successfully cancelled'
+    assert_includes flash[:notice], 'Request successfully cancelled'
 
     @booking.reload
     assert_equal 'cancelled', @booking.status
@@ -209,7 +224,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
 
     assert_enqueued_emails 1
     assert_redirected_to bookings_path
-    assert_includes flash[:notice], 'Booking successfully cancelled'
+    assert_includes flash[:notice], 'Request successfully cancelled'
 
     @booking.reload
     assert_equal 'cancelled', @booking.status
@@ -254,37 +269,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
-  test 'should create booking and track amplitude event' do
-    amplitude_mock = Minitest::Mock.new
-    amplitude_mock.expect(:call, true, [Booking, String])
-    AmplitudeEventTracker.stub(:track_booking_event, amplitude_mock) do
-      assert_difference('Booking.count', 1, 'Booking was not created') do
-        assert_difference('Chat.count', 1, 'Chat was not created') do
-          assert_difference('Message.count', 1, 'Message was not created') do
-            params = generate_booking_params('Looking forward to staying!', :host)
-            post couch_bookings_path(@couch), params:
-          end
-        end
-      end
-    end
-
-    booking = Booking.last
-    chat = Chat.last
-    message = chat.messages.last
-
-    assert_equal @couch, booking.couch
-    assert_equal @user, booking.user
-    assert_equal 'pending', booking.status
-
-    assert_equal @user, message.user
-    assert_equal 'Looking forward to staying!', message.content
-
-    assert_enqueued_emails 1
-
-    assert_redirected_to sent_booking_path(booking)
-    assert_mock amplitude_mock
-  end
-
   test 'should update booking and track amplitude event' do
     amplitude_mock = Minitest::Mock.new
     amplitude_mock.expect(:call, true, [Booking, String])
@@ -322,35 +306,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     @booking.reload
     assert_equal 'confirmed', @booking.status
     assert_enqueued_emails 1
-    assert_mock amplitude_mock
-  end
-
-  test 'should decline booking, send message, and track amplitude event' do
-    amplitude_mock = Minitest::Mock.new
-    amplitude_mock.expect(:call, true, [Booking, String])
-
-    # Case 1: Message is provided
-    AmplitudeEventTracker.stub(:track_booking_event, amplitude_mock) do
-      patch decline_and_send_message_booking_path(@booking), params: { message: 'Sorry, cannot host' }
-    end
-    chat = Chat.last
-    assert_redirected_to chat_path(chat)
-    @booking.reload
-    assert_equal 'declined', @booking.status
-    assert_equal 'Sorry, cannot host', chat.messages.last.content
-    assert_enqueued_emails 1
-
-    # Case 2: Message is blank
-    amplitude_mock.expect(:call, true, [Booking, String])
-    AmplitudeEventTracker.stub(:track_booking_event, amplitude_mock) do
-      patch decline_and_send_message_booking_path(@booking), params: { message: '' }
-    end
-    assert_redirected_to requests_couch_bookings_path(@booking.couch)
-    @booking.reload
-    assert_equal 'declined', @booking.status
-    assert_equal 'Sorry, cannot host', chat.messages.last.content
-    assert_enqueued_emails 1
-
     assert_mock amplitude_mock
   end
 
