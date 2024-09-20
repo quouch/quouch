@@ -45,7 +45,7 @@
 
         display: flex;
         align-items: center;
-        gap: .5rem;
+        gap: 0.5rem;
         margin: 1rem 0;
     }
 
@@ -56,8 +56,8 @@
 
         display: flex;
         align-items: center;
-        gap: .3rem;
-        margin: .5rem 0;
+        gap: 0.3rem;
+        margin: 0.5rem 0;
 
         font-size: 16px;
     }
@@ -73,7 +73,7 @@
         @include facility-name;
 
         line-height: 1.5rem;
-        margin-top: .5rem;
+        margin-top: 0.5rem;
     }
 }
 
@@ -83,7 +83,7 @@
     justify-content: space-between;
     gap: 1rem;
     overflow-x: scroll;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     scroll-snap-type: proximity;
     scrollbar-color: $primary-transparent $primary-transparent;
     scrollbar-width: thin;

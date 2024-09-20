@@ -1,6 +1,5 @@
 .chat__show {
     display: flex;
-    margin-top: 4rem;
     height: calc(100vh - 4rem);
 
     .chats__list__container {
@@ -44,7 +43,8 @@
         }
     }
 
-    h3, a {
+    h3,
+    a {
         font-size: 1.5rem;
         line-height: 1.2;
     }
@@ -56,7 +56,7 @@
 
     span {
         font-size: 1rem;
-        color: $gray-05
+        color: $gray-05;
     }
 }
 
@@ -79,7 +79,6 @@
             object-position: center;
             margin-top: 4rem;
         }
-
     }
 
     &__messages {

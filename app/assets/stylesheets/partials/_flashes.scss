@@ -19,13 +19,12 @@
     z-index: 10;
     top: 10px;
     left: 10px;
-    padding: .7rem 1rem;
+    padding: 0.7rem 1rem;
     background-color: $secondary-super-transparent;
     border-radius: 16px;
     width: fit-content;
     box-shadow: $box-shadow-alert;
     transition: opacity 1s ease-in-out;
-
 
     &__button {
         width: 16px;
@@ -34,19 +33,19 @@
 
         background-color: transparent;
         border: 0;
-        margin-left: .2rem;
+        margin-left: 0.2rem;
     }
 }
 
 // Generate alert classes
 @each $state, $color in $flash-colors {
     .flash-#{$state} {
-        background-color: map-get($color, "background");
-        color: map-get($color, "text");
-        border-color: map-get($color, "border");
+        background-color: map-get($color, 'background');
+        color: map-get($color, 'text');
+        border-color: map-get($color, 'border');
 
         i {
-            color: map-get($color, "text");
+            color: map-get($color, 'text');
         }
     }
 }

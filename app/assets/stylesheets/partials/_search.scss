@@ -1,151 +1,157 @@
 .search {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	gap: .5rem;
-	margin: 2rem auto 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 2rem auto 1rem;
 
-	input:first-child {
-		@include input-field;
-		margin: 0;
-		box-shadow: $box-shadow;
-		height: 43px;
-	}
+    input:first-child {
+        @include input-field;
+        margin: 0;
+        box-shadow: $box-shadow;
+        height: 43px;
+    }
 
-	&__wrap {
-		display: grid;
-		grid-template-columns: repeat(4, auto);
-		grid-template-rows: repeat(2, auto);
-		align-items: center;
-		gap: 1rem .5rem;
-		margin-bottom: 1rem;
+    &__wrap {
+        display: grid;
+        grid-template-columns: repeat(4, auto);
+        grid-template-rows: repeat(2, auto);
+        align-items: center;
+        gap: 1rem 0.5rem;
+        margin-bottom: 1rem;
 
-		@media (min-width: $break-small) {
-			justify-content: center;
-			gap: 1rem;
-		}
-	}
+        @media (min-width: $break-small) {
+            justify-content: center;
+            gap: 1rem;
+        }
+    }
 
-  &__autocomplete {
-		position: relative;
-		
-		&-list {
-			display: -ms-flexbox;
-			display: flex;
-			-ms-flex-direction: column;
-			flex-direction: column;
-			border-radius: $border-radius-medium;
-			padding-left: 0;
-			margin-bottom: 0;
-			position: absolute;
-			left: 0;
-			right: 0;
-			font-size: .75rem;
+    &__autocomplete {
+        position: relative;
 
-			@media (min-width: $break-small) {
-				font-size: 1rem;
-			}
-	
-			&-item {
-				position: relative;
-				display: block;
-				padding: 0.75rem 1.25rem;
-				margin-bottom: -1px;
-				background-color: #fff;
-				border: 1px solid $gray-02;
-			}
-		}
-		
-		&-list-item:first-child {
-			border-top-left-radius: 0.25rem;
-			border-top-right-radius: 0.25rem;
-		}
-		
-		&-list-item:last-child {
-			border-bottom-left-radius: 0.25rem;
-			border-bottom-right-radius: 0.25rem;
-		}
-	}
-	
-	&__button {
-		@include input-field;
-		@include primary-button;
-		
-		box-shadow: $box-shadow;
-		width: fit-content;
-		margin: 0;
-	}
+        &-list {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            border-radius: $border-radius-medium;
+            padding-left: 0;
+            margin-bottom: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            font-size: 0.75rem;
 
-	&__clear {
-		@include input-field;
-		@include tertiary-button;
+            @media (min-width: $break-small) {
+                font-size: 1rem;
+            }
 
-		grid-column: 1;
-		grid-row: 2;
-		width: fit-content;
-		background: inherit;
-		margin: 0 0 0 .5rem;
-		font-size: .7rem;
-		padding: 0;
+            &-item {
+                position: relative;
+                display: block;
+                padding: 0.75rem 1.25rem;
+                margin-bottom: -1px;
+                background-color: #fff;
+                border: 1px solid $gray-02;
+            }
+        }
 
-		@media (min-width: $break-small) {
-			font-size: .8rem;
-		}
-	}
+        &-list-item:first-child {
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+        }
 
-	&__hide-filters {
-		color: $secondary-transparent;
+        &-list-item:last-child {
+            border-bottom-left-radius: 0.25rem;
+            border-bottom-right-radius: 0.25rem;
+        }
+    }
 
-		&--active {
-			color: $secondary;
-		}
-	}
-	
-	&__characteristics, &__offers {
-		margin: 0 auto;
-		text-align: center;
-		
-		@media (min-width: $break-medium) { width: 80%; }
-	}
-	
-	&__offers { margin-bottom: .5rem; }
-	
-	&__checkbox {
-		position: absolute;
-		transform: scale(0);
-	}
-	
-	&__checkbox + label {
-		@include caption;
-		
-		cursor: pointer;
-		
-		display: inline-block;
-		color: $secondary-light;
-		background-color: $secondary-super-transparent;
-		padding: .4rem .8rem;
-		margin: .2rem;
-		border-radius: $border-radius-xlarge;
-		border: 1px solid $secondary-light;
+    &__button {
+        @include input-field;
+        @include primary-button;
 
-		@media (max-width: $break-small) { font-size: .6rem; }
-	}
-	
-	&__checkbox:checked + label {
-		color: white;
-		background-color: $secondary-light;
-		font-weight: 500;
-	}
-	
-	&__checkbox.offer__checkbox + label {
-		color: $primary-light;
-		background-color: $primary-super-transparent;
-    border: 1px solid $primary-light;
-		
-  }
-	
-  &__checkbox.offer__checkbox:checked + label {
-		background-color: $primary-light;
-		color: white;
-	}
+        box-shadow: $box-shadow;
+        width: fit-content;
+        margin: 0;
+    }
+
+    &__clear {
+        @include input-field;
+        @include tertiary-button;
+
+        grid-column: 1;
+        grid-row: 2;
+        width: fit-content;
+        background: inherit;
+        margin: 0 0 0 0.5rem;
+        font-size: 0.7rem;
+        padding: 0;
+
+        @media (min-width: $break-small) {
+            font-size: 0.8rem;
+        }
+    }
+
+    &__hide-filters {
+        color: $secondary-transparent;
+
+        &--active {
+            color: $secondary;
+        }
+    }
+
+    &__characteristics,
+    &__offers {
+        margin: 0 auto;
+        text-align: center;
+
+        @media (min-width: $break-medium) {
+            width: 80%;
+        }
+    }
+
+    &__offers {
+        margin-bottom: 0.5rem;
+    }
+
+    &__checkbox {
+        position: absolute;
+        transform: scale(0);
+    }
+
+    &__checkbox + label {
+        @include caption;
+
+        cursor: pointer;
+
+        display: inline-block;
+        color: $secondary-light;
+        background-color: $secondary-super-transparent;
+        padding: 0.4rem 0.8rem;
+        margin: 0.2rem;
+        border-radius: $border-radius-xlarge;
+        border: 1px solid $secondary-light;
+
+        @media (max-width: $break-small) {
+            font-size: 0.6rem;
+        }
+    }
+
+    &__checkbox:checked + label {
+        color: white;
+        background-color: $secondary-light;
+        font-weight: 500;
+    }
+
+    &__checkbox.offer__checkbox + label {
+        color: $primary-light;
+        background-color: $primary-super-transparent;
+        border: 1px solid $primary-light;
+    }
+
+    &__checkbox.offer__checkbox:checked + label {
+        background-color: $primary-light;
+        color: white;
+    }
 }

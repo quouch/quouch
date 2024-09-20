@@ -1,19 +1,27 @@
 .navigation {
-	flex-grow: 2;
-	
-	&__list {
-		display: flex;
-		justify-content: center;
-		gap: 10rem;
+    flex-grow: 2;
 
-		@media (max-width: $break-medium) { display: none; }
+    &__list {
+        display: flex;
+        justify-content: center;
+        gap: 10rem;
 
-		a:hover { color: $primary-light; }
-	}
+        @media (max-width: $break-medium) {
+            display: none;
+        }
 
-	&__link {
-		@include nav-title;
-		
-		&--donation { @media (max-width: $break-large) { display: none; } }
-	}
+        a:hover {
+            color: $primary-light;
+        }
+    }
+
+    &__link {
+        @include nav-title;
+
+        &--donation {
+            @media (max-width: $break-large) {
+                display: none;
+            }
+        }
+    }
 }

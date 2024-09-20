@@ -1,16 +1,16 @@
 .features {
-	@include feature-tag;
+    @include feature-tag;
 
-	display: flex;
-	gap: .5rem;
-	flex-wrap: wrap;
-	margin-bottom: .5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
 
-	li {
-		height: fit-content;
-		color: $primary-light;
-		background-color: $primary-super-transparent;
-		padding: .1rem .8rem;
-		border-radius: $border-radius-xlarge;
-	}
+    li {
+        height: fit-content;
+        color: $primary-light;
+        background-color: $primary-super-transparent;
+        padding: 0.1rem 0.8rem;
+        border-radius: $border-radius-xlarge;
+    }
 }

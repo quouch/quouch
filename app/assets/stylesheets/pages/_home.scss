@@ -1,6 +1,7 @@
 .home {
     &__wrap {
-        margin: 1rem auto 3rem;
+        @include container;
+
         width: 90%;
         max-width: $container;
 
@@ -162,8 +163,6 @@
                 display: flex;
                 justify-content: center;
             }
-
-
         }
     }
 
@@ -272,7 +271,7 @@
         }
 
         p:not(:last-child) {
-            margin: .3rem auto 1rem;
+            margin: 0.3rem auto 1rem;
         }
 
         &-title {
@@ -281,7 +280,7 @@
             text-transform: uppercase;
             color: $secondary;
             font-size: 2rem;
-            margin-bottom: .3rem;
+            margin-bottom: 0.3rem;
         }
 
         &-list {
@@ -292,7 +291,7 @@
             &-item {
                 display: flex;
                 align-items: flex-start;
-                gap: .3rem;
+                gap: 0.3rem;
 
                 i {
                     padding: 3px;
