@@ -44,6 +44,7 @@
         object-position: center;
         height: 100%;
         width: 100%;
+        min-height: 80px;
 
         @media (min-width: $break-large) {
             border-radius: $border-radius-large;

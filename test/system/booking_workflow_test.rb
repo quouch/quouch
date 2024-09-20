@@ -31,6 +31,7 @@ class BookingWorkflowTest < ApplicationSystemTestCase
     visit root_path
 
     # filter only the couches that offer hosting
+    find('.search__hide-filters').click if mobile?
     find('.search__offers > label', text: 'host').click
 
     assert_selector '.couch-card', count: 1
@@ -143,5 +144,60 @@ class BookingWorkflowTest < ApplicationSystemTestCase
     click_on 'Send updated request'
 
     assert_selector '.form_error', text: 'can\'t be blank'
+  end
+
+  test 'should not see unaffiliated booking' do
+    visit booking_path(@request)
+    assert_current_path bookings_path
+  end
+
+  test 'should cancel booking as guest' do
+    visit booking_path(@booking)
+    assert_no_selector 'button', text: 'Decline Request'
+    assert_no_selector 'button', text: 'Accept Request'
+
+    click_on 'Cancel Request'
+
+    assert_selector '.swal-modal'
+    assert_selector '.swal-title', text: 'Confirm'
+
+    click_on 'Yes, cancel'
+
+    assert_selector 'div.flash', text: 'Request successfully cancelled!'
+    assert_current_path bookings_path
+
+    assert_selector '.upcoming-booking', count: 0
+    assert_selector '.past-booking', count: 1
+  end
+
+  test 'should decline booking as host' do
+    visit request_booking_path(@request)
+    assert_no_selector 'button', text: 'Cancel Request'
+    click_on 'Decline Request'
+
+    assert_selector '.swal-modal'
+    assert_selector '.swal-title', text: 'Confirm'
+
+    click_on 'Yes, decline'
+
+    assert_selector 'div.flash', text: 'Request has been declined.'
+    assert_current_path requests_couch_bookings_path(@user.couch)
+
+    assert_selector '.upcoming-request', count: 0
+    assert_selector '.past-request', count: 1
+  end
+
+  test 'should accept booking as host' do
+    visit request_booking_path(@request)
+    assert_no_selector 'button', text: 'Update Request'
+
+    click_on 'Accept Request'
+
+    assert_selector '.swal-modal'
+    assert_selector '.swal-title', text: 'Request accepted!'
+    click_on 'Ok!'
+
+    assert_current_path request_booking_path(@request)
+    assert_selector '.booking__details-list > .status', text: 'Confirmed'
   end
 end

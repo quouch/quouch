@@ -2,7 +2,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: $neutral-02;
-	padding-top: 2rem;
+	padding-top: 72px; // Padding = height of the header
 }
 
 /*

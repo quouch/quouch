@@ -70,6 +70,18 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_select '.booking__details-list > .status', 'Pending'
   end
 
+  test 'should not see unaffiliated booking' do
+    request = FactoryBot.create(:booking, user: @host, couch: @user.couch)
+
+    get booking_path(request)
+    assert_redirected_to bookings_path
+  end
+
+  test 'should not see unaffiliated request' do
+    get request_booking_path(@booking)
+    assert_redirected_to requests_couch_bookings_path(@user.couch)
+  end
+
   test 'should show request to host' do
     # Create a request for this user
     request = FactoryBot.create(:booking, user: @host, couch: @user.couch)
@@ -180,6 +192,22 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'pending', @booking.status
   end
 
+  test 'should not update booking couch' do
+    message_content = 'Test message edited'
+    params = generate_booking_params(message_content)
+
+    params[:booking][:couch_id] = FactoryBot.create(:user, :with_couch).couch_id
+
+    assert_not_equal message_content, @booking.message
+
+    patch(booking_url(@booking), params:)
+
+    @booking.reload
+    assert_equal message_content, @booking.message
+    assert_not_equal params[:booking][:couch_id], @booking.couch_id
+    assert_equal 'pending', @booking.status
+  end
+
   test 'should update confirmed booking' do
     @booking.confirmed!
 
@@ -282,6 +310,33 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_mock amplitude_mock
   end
 
+  test 'should not be able to decline booking as guest' do
+    patch decline_and_send_message_booking_path(@booking), params: { message: 'Sorry, I can\'t host you.' }
+
+    assert_includes flash[:error], 'Only the host can decline a booking'
+  end
+
+  test 'should decline request and send message' do
+    request = FactoryBot.create(:booking, :pending, user: @host, couch: @user.couch)
+
+    message = 'Sorry, I can\'t host you.'
+    patch decline_and_send_message_booking_path(request), params: { message: }
+    request.reload
+    assert_equal 'declined', request.status
+    assert_enqueued_emails 1
+    assert_redirected_to chat_path(Chat.last)
+  end
+
+  test 'should decline request without message' do
+    request = FactoryBot.create(:booking, :pending, user: @host, couch: @user.couch)
+
+    patch decline_and_send_message_booking_path(request)
+    request.reload
+    assert_equal 'declined', request.status
+    assert_enqueued_emails 1
+    assert_redirected_to requests_couch_bookings_path(@user.couch)
+  end
+
   test 'should cancel booking and track amplitude event' do
     amplitude_mock = Minitest::Mock.new
     amplitude_mock.expect(:call, true, [Booking, String])
@@ -314,6 +369,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
   def generate_booking_params(message, request = :host, flexible: false, start_date: Date.today + 2,
                               end_date: Date.today + 4)
     { booking: { request:, start_date:, end_date:, number_travellers: 1,
-                 message:, flexible:, user_id: @user.id, couch_id: @couch.id } }
+                 message:, flexible:, user_id: @user.id, couch_id: @couch.id },
+      couch_id: @couch.id }
   end
 end

@@ -4,7 +4,7 @@ module BookingsConcern
   private
 
   def prepare_booking_for_save
-    booking_data = booking_params
+    booking_data = create_params
     couch = Couch.find(booking_data['couch_id'])
     booking = Booking.new(booking_data)
     booking.couch = couch

@@ -24,6 +24,10 @@ class BookingsController < ApplicationController
     @couch = @booking.couch
     @host = @couch.user
     @guest = @booking.user
+
+    # User should not be able to see the booking if they are not the guest
+    redirect_to bookings_path if @guest != current_user
+
     @hosts_array = User.where(id: @host.id)
     @review = Review.new
     @marker = @hosts_array.geocoded.map do |host|
@@ -66,11 +70,17 @@ class BookingsController < ApplicationController
   end
 
   def update
-    @booking.update(booking_params)
-    confirmation_message = post_update(@booking)
+    if @booking.update(update_params)
 
-    flash[:notice] = confirmation_message
-    redirect_to booking_path(@booking)
+      confirmation_message = post_update(@booking)
+
+      flash[:notice] = confirmation_message
+      redirect_to booking_path(@booking)
+    else
+      @host = @booking.couch.user
+      offers(@host)
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def cancel
@@ -88,6 +98,10 @@ class BookingsController < ApplicationController
     @couch = @booking.couch
     @host = @couch.user
     @guest = @booking.user
+
+    # User should not be able to see the request if they are not the host
+    redirect_to requests_couch_bookings_path(current_user.couch) if @host != current_user
+
     @chat = find_chat(@guest, @host)
     @host_review = @booking.reviews.find_by(user: @host)
     @guest_review = @booking.reviews.find_by(user: @booking.user)
@@ -113,16 +127,26 @@ class BookingsController < ApplicationController
     if content.blank?
       redirect_to requests_couch_bookings_path(@booking.couch)
     else
+      chat = find_chat(@booking.user, current_user)
       redirect_to chat_path(chat)
     end
+    flash[:notice] = 'Request has been declined.'
+  rescue Exceptions::ForbiddenError => e
+    flash[:error] = e.message
+    redirect_to requests_couch_bookings_path(@booking.couch)
   end
 
   private
 
-  def booking_params
-    booking_params = params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message,
-                                                     :flexible, :couch_id)
-    booking_params.merge(user_id: current_user.id)
+  def update_params
+    params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message,
+                                    :flexible)
+  end
+
+  def create_params
+    booking_params = update_params
+    couch_id = params.require(:couch_id)
+    booking_params.merge(user_id: current_user.id, couch_id:)
   end
 
   def set_booking

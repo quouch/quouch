@@ -128,9 +128,12 @@ class BookingsConcernTest < ActiveSupport::TestCase
     params[:couch_id] = @host.couch_id
   end
 
-  def booking_params
-    booking_params = params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message,
-                                                     :flexible)
+  def update_params
+    params.require(:booking).permit(:request, :start_date, :end_date, :number_travellers, :message, :flexible)
+  end
+
+  def create_params
+    booking_params = update_params
     booking_params.merge(user_id: current_user.id, couch_id: params[:couch_id])
   end
 end

@@ -98,4 +98,3 @@ module SubscriptionTest
     end
   end
 end
-

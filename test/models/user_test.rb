@@ -186,7 +186,7 @@ class UserTest < ActiveSupport::TestCase
     @user = FactoryBot.create(:user, :for_test)
     assert_not @user.subscribed?
 
-    Subscription.create!(user: @user, plan: plan)
+    Subscription.create!(user: @user, plan:)
     assert @user.subscription.present?
     assert_not @user.subscribed?
   end
