@@ -28,6 +28,8 @@ module SubscriptionTest
     end
 
     test 'should navigate to new subscription page' do
+      skip 'This test should only be used on desktop' if mobile?
+
       visit root_path
 
       find('a', text: 'Membership'.upcase).click
@@ -72,6 +74,8 @@ module SubscriptionTest
     end
 
     test 'should navigate to my subscription page' do
+      skip 'This test should only be used on desktop' if mobile?
+
       visit root_path
 
       find('a', text: 'Membership'.upcase).click
