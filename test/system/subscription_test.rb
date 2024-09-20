@@ -97,6 +97,8 @@ module SubscriptionTest
 
       find('.couch__chat').click
 
+      last_chat = Chat.last
+      assert_current_path chat_path(last_chat.id)
       assert_selector 'h1', text: 'Your Conversations'.upcase
       assert_no_current_path new_subscription_path
     end
