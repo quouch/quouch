@@ -35,8 +35,8 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   validate :validate_country_code, on: %i[create update]
   validates :country, presence: { message: 'Country required' }, on: %i[create update]
   validates :summary, presence: { message: 'Tell the community about you' },
-                      length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' },
-                      on: %i[create update]
+            length: { minimum: 50, message: 'Tell us more about you (minimum 50 characters)' },
+            on: %i[create update]
   validates_associated :characteristics, message: 'Let others know what is important to you', on: %i[create update]
   validate :validate_user_characteristics, on: %i[create update]
   validate :validate_facilities, on: %i[update]
@@ -181,5 +181,9 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
       errors.add(:password, :blank)
       false
     end
+  end
+
+  def subscribed?
+    subscription.present? && subscription.stripe_id_present?
   end
 end

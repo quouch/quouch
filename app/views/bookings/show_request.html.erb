@@ -18,7 +18,7 @@
           <span><%= @guest.pronouns.downcase if @guest.pronouns %></span>
         </h3>
         <div class="booking__chat chat-icon__wrap">
-          <% if (current_user.subscription.present? && current_user.subscription.stripe_id_present? || @host == current_user) %>
+          <% if current_user.subscribed? || @host == current_user %>
             <% if @chat.nil? %>
               <%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @guest.id), method: :post do %>
                 <i class="quouch-message color-secondary"></i>

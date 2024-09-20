@@ -2,7 +2,7 @@
 	<ul class="couches__list">
 		<% @couches.each do |couch| %>
 			<% if couch.user.photo.key %>
-				<li class="couches__list-item">
+				<li class="couches__list-item couch-card">
 					<article class="couches__list-article">
 						<%= link_to couch_path(couch) do %>
 							<%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>

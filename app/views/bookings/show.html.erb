@@ -18,7 +18,7 @@
           <span><%= @couch.user.pronouns.downcase if @couch.user.pronouns %></span>
         </h3>
         <div class="request__chat chat-icon__wrap">
-          <% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
+          <% if current_user.subscribed? %>
             <% if @chat.nil? %>
               <%= button_to chats_path(user_sender_id: current_user.id, user_receiver_id: @host.id), method: :post do %>
                 <i class="quouch-message color-secondary" aria-label="Message icon"></i>
