@@ -2,7 +2,7 @@ class BookingsJob < ApplicationJob
   queue_as :default
 
   # Retry on SMTP Timeout errors with a wait period and limited attempts
-  retry_on Net::SMTPFatalError, Net::ReadTimeout, wait: ->(attempt) { 5.seconds * (2**attempt) }, attempts: 3
+  retry_on Net::SMTPFatalError, Net::ReadTimeout, wait: ->(attempt) { 5.seconds * (2**attempt) }, attempts: 10
 
   def perform
     complete_bookings
