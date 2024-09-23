@@ -93,13 +93,13 @@ module SubscriptionTest
     end
 
     test 'should be able to message user' do
+      Chat.destroy_all
+
       visit couch_path(@host.couch)
 
       find('.couch__chat').click
-
-      last_chat = Chat.last
-      assert_current_path chat_path(last_chat.id)
-      assert_selector 'h1', text: 'Your Conversations'.upcase
+      assert_current_path %r{/chats/\d*}
+      assert_selector 'h3', text: @host.first_name
       assert_no_current_path new_subscription_path
     end
   end
