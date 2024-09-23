@@ -154,7 +154,7 @@ class BookingsController < ApplicationController
   end
 
   def set_couch
-    @couch = Couch.includes(:bookings).find(params[:couch_id])
+    @couch = Couch.find(params[:couch_id])
   end
 
   def categorize_booking(booking)
