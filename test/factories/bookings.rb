@@ -7,6 +7,7 @@ FactoryBot.define do
     request { [0, 1, 2].sample }
     message { Faker::Hipster.paragraph_by_chars(characters: 60) }
     number_travellers { 1 }
+    status { 0 }
     association :user, factory: %i[user with_couch skip_validation]
 
     after(:build) do |booking|
