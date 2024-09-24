@@ -1,19 +1,17 @@
 <section class="user">
   <h1>Set Account Details</h1>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :post, class: 'user__form' }) do |f| %>
-
-      <div class="user__wrap">
-
-        <div class="user__image" data-controller="image-preview">
-          <%= f.label :profile_picture, required: true %>
-          <% if @user.photo.attached? %>
-            <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
-          <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', alt: 'Example profile picture of Quouch example user', data: { image_preview_target: 'preview' }) %>
-          <% end %>
-          <div class="user__image-upload">
-            <i class="quouch-profile-upload" aria-label="Upload a profile picture"></i>
-            <%= f.input :photo,
+    <div class="user__wrap">
+      <div class="user__image" data-controller="image-preview">
+        <%= f.label :profile_picture, required: true %>
+        <% if @user.photo.attached? %>
+          <%= cl_image_tag @user.photo.key, class: 'user__image-preview', alt: 'Profile picture of Quouch user', data: { image_preview_target: 'preview' } %>
+        <% else %>
+          <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680005866/placeholder.svg', class: 'user__image-icon', alt: 'Example profile picture of Quouch example user', data: { image_preview_target: 'preview' }) %>
+        <% end %>
+        <div class="user__image-upload">
+          <i class="quouch-profile-upload" aria-label="Upload a profile picture"></i>
+          <%= f.input :photo,
                         as: :file,
                         input_html: { class: 'display-none',
                                       data: { image_preview_target: 'input',
@@ -22,197 +20,187 @@
                         label: 'Upload a photo',
                         error: false,
                         required: false %>
-          </div>
-          <%= f.error :photo, class: 'form-error form-error-photo' %>
-          <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
         </div>
-
-        <div class="user__info">
-          <%= f.label       :personal_info,
+        <%= f.error :photo, class: 'form-error form-error-photo' %>
+        <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is clearly visible.</p>
+      </div>
+      <div class="user__info">
+        <%= f.label       :personal_info,
                             required: true %>
-          <%= f.input_field :first_name,
+        <%= f.input_field :first_name,
                             autofocus: true,
                             label: false,
                             placeholder: 'First Name',
                             error: false,
                             input_html: { autocomplete: 'first_name' },
                             value: params[:user]&.dig(:first_name) %>
-          <%= f.error       :first_name, class: 'form-error' %>
-          <%= f.input_field :last_name,
+        <%= f.error       :first_name, class: 'form-error' %>
+        <%= f.input_field :last_name,
                             autofocus: true,
 														placeholder: 'Last Name',
                             error: false,
                             input_html: { autocomplete: 'last_name' },
                             value: params[:user]&.dig(:last_name) %>
-          <%= f.error       :last_name, class: 'form-error' %>
-          <%= f.input_field :email,
+        <%= f.error       :last_name, class: 'form-error' %>
+        <%= f.input_field :email,
                             autofocus: true,
                             placeholder: 'Email',
                             error: false,
                             input_html: { autocomplete: 'email' },
                             value: params[:user]&.dig(:email) %>
-          <%= f.error       :email, class: 'form-error' %>
-          <%= f.label       :date_of_birth, required: true %>
-          <div class="user__birthdate">
-            <%= f.input_field :date_of_birth,
+        <%= f.error       :email, class: 'form-error' %>
+        <%= f.label       :date_of_birth, required: true %>
+        <div class="user__birthdate">
+          <%= f.input_field :date_of_birth,
                               start_year: Date.today.year - 100,
                               end_year: Date.today.year,
                               autofocus: true,
                               error: false,
                               value: params[:user]&.dig(:date_of_birth) %>
-          </div>
-          <%= f.error         :date_of_birth, class: 'form-error' %>
-          <%= f.input         :pronouns,
+        </div>
+        <%= f.error         :date_of_birth, class: 'form-error' %>
+        <%= f.input         :pronouns,
                               autofocus: true,
                               input_html: { autocomplete: 'pronouns' },
                               value: params[:user]&.dig(:pronouns) %>
-
-          <div class="user__address">
-            <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
-            <div class="user__address-street">
-              <%= f.label :address,
+        <div class="user__address">
+          <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
+          <div class="user__address-street">
+            <%= f.label :address,
                           required: true,
                           class: 'user__address-label' %>
-              <%= f.input :address,
+            <%= f.input :address,
                           label: false,
                           required: true,
                           error: false,
                           value: params[:user]&.dig(:address),
                           input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
                           wrapper_html: { data: { controller: 'autofill', autofill_api_key_value: Rails.application.credentials.dig(:mapbox, :api_key) }} %>
-            </div>
-            <%= f.error         :address, class: 'form-error' %>
-            <div class="user__address-city">
-              <div>
-                <div class="user__address-wrap">
-                  <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
-                  <%= f.text_field  :zipcode,
+          </div>
+          <%= f.error         :address, class: 'form-error' %>
+          <div class="user__address-city">
+            <div>
+              <div class="user__address-wrap">
+                <%= f.label       :zipcode, required: true, class: 'user__address-label' %>
+                <%= f.text_field  :zipcode,
                                     required: true,
                                     autofocus: true,
                                     id: 'zip',
                                     value: params[:user]&.dig(:zipcode) %>
-                </div>
-                <%= f.error         :zipcode, class: 'form-error' %>
               </div>
-              <div>
-                <div class="user__address-wrap user__address-wrap--city">
-                  <%= f.label       :city,
+              <%= f.error         :zipcode, class: 'form-error' %>
+            </div>
+            <div>
+              <div class="user__address-wrap user__address-wrap--city">
+                <%= f.label       :city,
                                     required: true,
                                     class: 'user__address-label' %>
-                  <%= f.text_field  :city,
+                <%= f.text_field  :city,
                                     required: true,
                                     autofocus: true,
                                     id: 'city',
                                     value: params[:user]&.dig(:city) %>
-                </div>
-                <%= f.error         :city, class: 'form-error' %>
               </div>
+              <%= f.error         :city, class: 'form-error' %>
             </div>
-
-            <div class="user__address-country">
-              <%= f.label :country,
+          </div>
+          <div class="user__address-country">
+            <%= f.label :country,
                           required: true,
                           class: 'user__address-label' %>
-              <%= f.input :country_code,
+            <%= f.input :country_code,
                           collection: ISO3166::Country.pluck(:iso_short_name, :alpha2).sort,
                           label: false,
                           error: false,
                           required: true,
                           value: params[:user]&.dig(:country_code) %>
-            </div>
-            <%= f.error   :country_code, class: 'form-error' %>
           </div>
-
-          <%= f.label       :about_me, required: true %>
-          <%= f.input_field :summary,
+          <%= f.error   :country_code, class: 'form-error' %>
+        </div>
+        <%= f.label       :about_me, required: true %>
+        <%= f.input_field :summary,
                             value: params[:user]&.dig(:summary) %>
-          <%= f.error       :summary, class: 'form-error' %>
-
-          <%= f.label       :make_your_day %>
-          <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would make your day if you would receive it.</p>
-          <%= f.input_field :passion,
+        <%= f.error       :summary, class: 'form-error' %>
+        <%= f.label       :make_your_day %>
+        <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would make your day if you would receive it.</p>
+        <%= f.input_field :passion,
                             value: params[:user]&.dig(:passion) %>
-
-          <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
-          <p class="hint">When using the filters - think <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender. <strong>If you are cisgender but support transgender people - that's great! But please don't click on this filter as this is purely for transgender people to find each other and each other only</strong></p>
-          <% if @user.errors[:user_characteristics].any? %>
-            <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
-          <% end %>
-
-          <div class="user__characteristics">
-            <%= simple_fields_for :user_characteristic do |ucf| %>
-              <%= ucf.collection_check_boxes :characteristic_ids,
+        <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
+        <p class="hint">When using the filters - think <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being transgender. <strong>If you are cisgender but support transgender people - that's great! But please don't click on this filter as this is purely for transgender people to find each other and each other only</strong></p>
+        <% if @user.errors[:user_characteristics].any? %>
+          <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
+        <% end %>
+        <div class="user__characteristics">
+          <%= simple_fields_for :user_characteristic do |ucf| %>
+            <%= ucf.collection_check_boxes :characteristic_ids,
                                              Characteristic.find_each,
                                              :id, :name,
                                              checked: params[:user_characteristic]&.dig(:characteristic_ids),
                                              error: false,
                                              input_html: { multiple: true, autocomplete: 'characteristics' } %>
-            <% end %>
-          </div>
-
-          <div data-controller="display-info-window">
-            <%= f.label :my_current_status,
+          <% end %>
+        </div>
+        <div data-controller="display-info-window">
+          <%= f.label :my_current_status,
                         required: true %>
-            <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
-            <div class="user__travelling">
-              <%= f.label :i_am %>
-              <div class="user__offer">
-                <%= f.input               :travelling,
+          <%= f.error :travelling, class: 'form-error form-error-characteristics' %>
+          <div class="user__travelling">
+            <%= f.label :i_am %>
+            <div class="user__offer">
+              <%= f.input               :travelling,
                                           as: :boolean,
                                           label: false,
                                           error: false,
                                           autofocus: true,
                                           input_html: { data: { display_info_window_target: 'checkbox', action: 'click->display-info-window#displayInfo' }},
                                           value: params[:user]&.dig(:travelling) %>
-                <i class="quouch-world color-primary" aria-label="World icon"></i>
-                <%= f.label               :currently_travelling %>
-              </div>
+              <i class="quouch-world color-primary" aria-label="World icon"></i>
+              <%= f.label               :currently_travelling %>
             </div>
-
-            <div data-controller="conditional-user-fields" data-display-info-window-target="list">
-              <%= f.label :i_can %>
-              <div class="user__offers">
-                <div class="user__offer">
-                  <%= f.input           :offers_couch,
+          </div>
+          <div data-controller="conditional-user-fields" data-display-info-window-target="list">
+            <%= f.label :i_can %>
+            <div class="user__offers">
+              <div class="user__offer">
+                <%= f.input           :offers_couch,
                                         label: false,
                                         error: false,
                                         autofocus: true,
                                         input_html: { data: { conditional_user_fields_target: 'trigger', action: 'click->conditional-user-fields#toggleField' }},
                                         value: params[:user]&.dig(:offers_couch) %>
-                  <i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
-                  <%= f.label           :host %>
-                </div>
-                <div class="user__offer">
-                  <%= f.input           :offers_co_work,
+                <i class="quouch-sleep color-primary" aria-label="Sleep icon"></i>
+                <%= f.label           :host %>
+              </div>
+              <div class="user__offer">
+                <%= f.input           :offers_co_work,
                                         error: false,
                                         autofocus: true,
                                         label: false,
                                         value: params[:user]&.dig(:offers_co_work) %>
-                  <i class="quouch-work color-primary" aria-label="Work icon"></i>
-                  <%= f.label           :cowork, 'Co-Work' %>
-                </div>
-                <div class="user__offer">
-                  <%= f.input           :offers_hang_out,
+                <i class="quouch-work color-primary" aria-label="Work icon"></i>
+                <%= f.label           :cowork, 'Co-Work' %>
+              </div>
+              <div class="user__offer">
+                <%= f.input           :offers_hang_out,
                                         error: false,
                                         autofocus: true,
                                         label: false,
                                         value: params[:user]&.dig(:offers_hang_out) %>
-                  <i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
-                  <%= f.label           :hangout, 'Hang Out' %>
-                </div>
+                <i class="quouch-hangout color-primary" aria-label="Hangout icon"></i>
+                <%= f.label           :hangout, 'Hang Out' %>
               </div>
-
-              <div class="user__couch display-none" data-conditional-user-fields-target="field">
-                <%= simple_fields_for     :couch do |cf| %>
-                  <div class="user__couch-capacity">
-                    <%= cf.label          :i_can_host %>
-                    <%= cf.input_field    :capacity,
+            </div>
+            <div class="user__couch display-none" data-conditional-user-fields-target="field">
+              <%= simple_fields_for     :couch do |cf| %>
+                <div class="user__couch-capacity">
+                  <%= cf.label          :i_can_host %>
+                  <%= cf.input_field    :capacity,
                                           autofocus: true,
                                           collection: 1..4,
                                           selected: params[:couch]&.dig(:capacity) %>
-                    <%= cf.label          :guests,
+                  <%= cf.label          :guests,
                                           required: false %>
-                  </div>
+                </div>
                 <%= cf.label                       :my_couch_comes_with %>
                 <div class="user__couch-facilities">
                   <%= simple_fields_for            :couch_facility do |cff| %>
@@ -224,74 +212,69 @@
                                                     checked: params[:couch_facility]&.dig(:facility_ids) %>
                   <% end %>
                 </div>
-                <% end %>
-              </div>
+              <% end %>
             </div>
           </div>
-
-            <%= f.label       :this_makes_me_really_happy %>
-            <%= f.input_field :question_one,
+        </div>
+        <%= f.label       :this_makes_me_really_happy %>
+        <%= f.input_field :question_one,
                               autofocus: true,
                               value: params[:user]&.dig(:question_one) %>
-            <%= f.label       :what_i_cant_stand, "What I can't stand" %>
-            <%= f.input_field :question_two,
+        <%= f.label       :what_i_cant_stand, "What I can't stand" %>
+        <%= f.input_field :question_two,
                               autofocus: true,
                               value: params[:user]&.dig(:question_two) %>
-            <%= f.label       :what_i_need_from_the_people_around_me %>
-            <%= f.input_field :question_three,
+        <%= f.label       :what_i_need_from_the_people_around_me %>
+        <%= f.input_field :question_three,
                               autofocus: true,
                               value: params[:user]&.dig(:question_three) %>
-					<div class="user__password">
-            <%= f.label          :set_password %>
-						<%= f.password_field :password,
+        <div class="user__password">
+          <%= f.label          :set_password %>
+          <%= f.password_field :password,
 																 hint: "#{@minimum_password_length} characters minimum",
 																 placeholder: 'Password',
                                  autocomplete: "new-password" %>
-					</div>
-          <%= f.hint             "#{@minimum_password_length} characters minimum",
+        </div>
+        <%= f.hint             "#{@minimum_password_length} characters minimum",
                                  class: 'user__hint' %>
-          <%= f.error            :password, class: 'form-error' %>
-
-					<div class="user__password">
-						<%= f.password_field :password_confirmation,
+        <%= f.error            :password, class: 'form-error' %>
+        <div class="user__password">
+          <%= f.password_field :password_confirmation,
 																	placeholder: 'Password confirmation',
                                   autocomplete: "new-password" %>
-            <%= f.error          :password_confirmation, class: 'form-error' %>
-					</div>
-
-           <%= hidden_field_tag 'invite_code', params[:invite_code] %>
-           <%= hidden_field_tag 'form_data[first_name]', params[:first_name] %>
-           <%= hidden_field_tag 'form_data[last_name]', params[:last_name] %>
-           <%= hidden_field_tag 'form_data[email]', params[:email] %>
-           <%= hidden_field_tag 'form_data[date_of_birth]', params[:date_of_birth] %>
-           <%= hidden_field_tag 'form_data[pronouns]', params[:pronouns] %>
-           <%= hidden_field_tag 'form_data[address]', params[:address] %>
-           <%= hidden_field_tag 'form_data[zipcode]', params[:zipcode] %>
-           <%= hidden_field_tag 'form_data[city]', params[:city] %>
-           <%= hidden_field_tag 'form_data[country]', params[:country] %>
-           <%= hidden_field_tag 'form_data[summary]', params[:summary] %>
-           <%= hidden_field_tag 'form_data[user_characteristics]', params[:user_characteristic] %>
-           <%= hidden_field_tag 'form_data[travelling]', params[:travelling] %>
-           <%= hidden_field_tag 'form_data[offers_couch]', params[:offers_couch] %>
-           <%= hidden_field_tag 'form_data[offers_co_work]', params[:offers_co_work] %>
-           <%= hidden_field_tag 'form_data[offers_hang_out]', params[:offers_hang_out] %>
-           <%= hidden_field_tag 'form_data[capacity]', params[:couch] %>
-           <%= hidden_field_tag 'form_data[facilities]', params[:couch_facility] %>
-           <%= hidden_field_tag 'form_data[question_one]', params[:question_one] %>
-           <%= hidden_field_tag 'form_data[question_two]', params[:question_two] %>
-           <%= hidden_field_tag 'form_data[question_three]', params[:question_three] %>
-           <%= hidden_field_tag 'form_data[question_four]', params[:question_four] %>
-
-					<div class="user__submit">
-						<%= f.submit "Create Account" %>
-					</div>
-				</div>
-			</div>
-	<% end %>
-	<div class="user__footer">
+          <%= f.error          :password_confirmation, class: 'form-error' %>
+        </div>
+        <%= hidden_field_tag 'invite_code', params[:invite_code] %>
+        <%= hidden_field_tag 'form_data[first_name]', params[:first_name] %>
+        <%= hidden_field_tag 'form_data[last_name]', params[:last_name] %>
+        <%= hidden_field_tag 'form_data[email]', params[:email] %>
+        <%= hidden_field_tag 'form_data[date_of_birth]', params[:date_of_birth] %>
+        <%= hidden_field_tag 'form_data[pronouns]', params[:pronouns] %>
+        <%= hidden_field_tag 'form_data[address]', params[:address] %>
+        <%= hidden_field_tag 'form_data[zipcode]', params[:zipcode] %>
+        <%= hidden_field_tag 'form_data[city]', params[:city] %>
+        <%= hidden_field_tag 'form_data[country]', params[:country] %>
+        <%= hidden_field_tag 'form_data[summary]', params[:summary] %>
+        <%= hidden_field_tag 'form_data[user_characteristics]', params[:user_characteristic] %>
+        <%= hidden_field_tag 'form_data[travelling]', params[:travelling] %>
+        <%= hidden_field_tag 'form_data[offers_couch]', params[:offers_couch] %>
+        <%= hidden_field_tag 'form_data[offers_co_work]', params[:offers_co_work] %>
+        <%= hidden_field_tag 'form_data[offers_hang_out]', params[:offers_hang_out] %>
+        <%= hidden_field_tag 'form_data[capacity]', params[:couch] %>
+        <%= hidden_field_tag 'form_data[facilities]', params[:couch_facility] %>
+        <%= hidden_field_tag 'form_data[question_one]', params[:question_one] %>
+        <%= hidden_field_tag 'form_data[question_two]', params[:question_two] %>
+        <%= hidden_field_tag 'form_data[question_three]', params[:question_three] %>
+        <%= hidden_field_tag 'form_data[question_four]', params[:question_four] %>
+        <div class="user__submit">
+          <%= f.submit "Create Account" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="user__footer">
     <aside class="signup__terms">
       By creating your account, you agree to our <a href="/guidelines">Guidelines</a>, <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>
     </aside>
   </div>
-
 </section>

@@ -12,10 +12,8 @@
        data-controller="chat-subscription"
        data-chat-subscription-chat-id-value="<%= chat.id %>"
        data-chat-subscription-current-user-id-value="<%= current_user.id %>">
-
     <% if chat.messages.any? %>
       <div class="chat__messages__container">
-
         <div class="chat__messages" data-chat-subscription-target="messages">
           <% chat.messages.includes(:user).order('created_at ASC').each do |message| %>
             <div class="chat__message chat__message<%= message.sender?(current_user) ? '--right' : '--left' %>">
@@ -35,7 +33,6 @@
         </div>
       </div>
     <% end %>
-
     <div class="chat__form__container" data-controller="message-submit">
       <%= simple_form_for [chat, message], remote: true,
                           html: {

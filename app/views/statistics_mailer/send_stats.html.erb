@@ -3,26 +3,24 @@
 <p>total: <%= @total_users %></p>
 <p>per country:</p>
 <ol>
-	<% @users_per_country.each do |country| %>
-		<li>
-			<%= country[0] %>: <%= country[1] %>
-		</li>
-	<% end %>
+  <% @users_per_country.each do |country| %>
+    <li>
+      <%= country[0] %>: <%= country[1] %>
+    </li>
+  <% end %>
 </ol>
 <p>per city:</p>
 <ol>
-	<% @users_per_city.each do |city| %>
-		<li>
-			<%= city[0] %>: <%= city[1] %>
-		</li>
-	<% end %>
+  <% @users_per_city.each do |city| %>
+    <li>
+      <%= city[0] %>: <%= city[1] %>
+    </li>
+  <% end %>
 </ol>
-
 <h2>Reviews</h2>
 <p>total: <%= @amount_reviews %></p>
 <p>today: <%= @reviews_today %></p>
 <p>average: <%= @review_average %></p>
-
 <h2>Bookings</h2>
 <p>total: <%= @bookings %></p>
 <p>pending: <%= @pending_bookings %></p>
@@ -32,23 +30,21 @@
 <p>expired: <%= @expired_bookings %></p>
 <p>today:</p>
 <% @bookings_today.each do |booking| %>
-	<p><%= booking[0] %>: <%= booking[1] %></p>
+  <p><%= booking[0] %>: <%= booking[1] %></p>
 <% end %>
 <p>response rate: <%= @booking_response_rate %></p>
 <p>success rate: <%= @booking_confirmation_rate %></p>
 <p>10 requests success rate: <%= @booking_confirmation_rate_ten_requests %>
-
-<h2>Subscriptions</h2>
-<p>total: <%= @total_subscriptions %></p>
-<p>subscription success rate (amount successful bookings since subscription start / amount booking requests since subscription start): <%= @subscription_success_rate %>
-<p>subscription but no request: <%= @total_users_with_subscription_no_request %>
-<p>amount requests from subscribers: <%= @requests_subscribers %>
-<p>amount pending requests from subscribers: <%= @total_booking_requests_pending %>
-<p>amount confirmed requests from subscribers: <%= @total_booking_requests_confirmed %>
-<p>amount completed requests from subscribers: <%= @total_booking_requests_completed %>
-<p>amount declined requests from subscribers: <%= @total_booking_requests_declined %>
-<p>amount cancelled requests from subscribers: <%= @total_booking_requests_cancelled %>
-<p>amount expired requests from subscribers: <%= @total_booking_requests_expired %>
-
-<h2>Messages</h2>
-<p>response rate: <%= @response_rate %></p>
+  <h2>Subscriptions</h2>
+  <p>total: <%= @total_subscriptions %></p>
+  <p>subscription success rate (amount successful bookings since subscription start / amount booking requests since subscription start): <%= @subscription_success_rate %>
+    <p>subscription but no request: <%= @total_users_with_subscription_no_request %>
+      <p>amount requests from subscribers: <%= @requests_subscribers %>
+        <p>amount pending requests from subscribers: <%= @total_booking_requests_pending %>
+          <p>amount confirmed requests from subscribers: <%= @total_booking_requests_confirmed %>
+            <p>amount completed requests from subscribers: <%= @total_booking_requests_completed %>
+              <p>amount declined requests from subscribers: <%= @total_booking_requests_declined %>
+                <p>amount cancelled requests from subscribers: <%= @total_booking_requests_cancelled %>
+                  <p>amount expired requests from subscribers: <%= @total_booking_requests_expired %>
+                    <h2>Messages</h2>
+                    <p>response rate: <%= @response_rate %></p>

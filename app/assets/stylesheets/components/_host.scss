@@ -1,147 +1,147 @@
 .host {
-    margin-bottom: 1rem;
-    margin-top: -5rem;
-    border-radius: $border-radius-medium;
-    z-index: 1;
+	margin-bottom: 1rem;
+	margin-top: -5rem;
+	border-radius: $border-radius-medium;
+	z-index: 1;
 
-    @media (min-width: $break-medium) {
-        margin-right: 1rem;
-    }
+	@media (min-width: $break-medium) {
+		margin-right: 1rem;
+	}
 
-    h2 {
-        @include profile-title;
-    }
+	h2 {
+		@include profile-title;
+	}
 
-    &__content {
-        display: grid;
-        grid-template-rows: min-content;
-        row-gap: 1rem;
-        border-radius: $border-radius-medium;
-        padding: 1.7rem;
-        background-color: $white;
-        box-shadow: $box-shadow;
-        column-gap: 3rem;
+	&__content {
+		display: grid;
+		grid-template-rows: min-content;
+		row-gap: 1rem;
+		border-radius: $border-radius-medium;
+		padding: 1.7rem;
+		background-color: $white;
+		box-shadow: $box-shadow;
+		column-gap: 3rem;
 
-        @media (min-width: $break-x-large) {
-            height: 100%;
-            box-shadow: 0;
-            padding-top: 6rem;
-        }
-    }
+		@media (min-width: $break-x-large) {
+			height: 100%;
+			box-shadow: 0;
+			padding-top: 6rem;
+		}
+	}
 
-    &__info {
-        grid-row: 2;
-        grid-column: 1 / span 2;
-        margin-top: 3rem;
+	&__info {
+		grid-row: 2;
+		grid-column: 1 / span 2;
+		margin-top: 3rem;
 
-        @media (min-width: $break-x-large) {
-            margin-top: 0;
-        }
-    }
+		@media (min-width: $break-x-large) {
+			margin-top: 0;
+		}
+	}
 
-    &__gallery {
-        width: 10rem;
-        object-fit: cover;
-        object-position: center;
-        height: 10rem;
-        border-radius: $border-radius-round;
-        margin: 0 auto;
-        position: relative;
-        top: 5rem;
-    }
+	&__gallery {
+		width: 10rem;
+		object-fit: cover;
+		object-position: center;
+		height: 10rem;
+		border-radius: $border-radius-round;
+		margin: 0 auto;
+		position: relative;
+		top: 5rem;
+	}
 
-    &__name {
-        @include title-3;
+	&__name {
+		@include title-3;
 
-        text-align: center;
-        color: $black;
-    }
+		text-align: center;
+		color: $black;
+	}
 
-    &__characteristics {
-        @include body-2;
+	&__characteristics {
+		@include body-2;
 
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        color: $gray-05;
-    }
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		color: $gray-05;
+	}
 
-    &__location {
-        @include caption;
+	&__location {
+		@include caption;
 
-        display: flex;
-        gap: 0.3rem;
-        width: fit-content;
-        margin: 0 auto 1rem;
+		display: flex;
+		gap: 0.3rem;
+		width: fit-content;
+		margin: 0 auto 1rem;
 
-        i {
-            font-size: 16px;
-        }
-    }
+		i {
+			font-size: 16px;
+		}
+	}
 
-    &__offers {
-        flex-wrap: wrap;
-        justify-content: center;
-        grid-column: 1 / span 2;
+	&__offers {
+		flex-wrap: wrap;
+		justify-content: center;
+		grid-column: 1 / span 2;
 
-        @media (min-width: $break-x-large) {
-            flex-wrap: nowrap;
-            justify-content: flex-start;
-        }
-    }
+		@media (min-width: $break-x-large) {
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+		}
+	}
 
-    &__features {
-        grid-row: 4;
-        grid-column: 1 / span 2;
-        justify-content: center;
-    }
+	&__features {
+		grid-row: 4;
+		grid-column: 1 / span 2;
+		justify-content: center;
+	}
 
-    &__intro {
-        grid-row: 5;
+	&__intro {
+		grid-row: 5;
 
-        @media (max-width: $break-large) {
-            display: none;
-        }
-    }
+		@media (max-width: $break-large) {
+			display: none;
+		}
+	}
 
-    &__accommodation {
-        grid-row: 6;
+	&__accommodation {
+		grid-row: 6;
 
-        @media (min-width: $break-x-large) {
-            grid-row: 5;
-        }
+		@media (min-width: $break-x-large) {
+			grid-row: 5;
+		}
 
-        &-list {
-            @include facility-name;
+		&-list {
+			@include facility-name;
 
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.2rem 1rem;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.2rem 1rem;
 
-            li {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
+			li {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
 
-                i {
-                    font-size: 16px;
-                }
-            }
-        }
+				i {
+					font-size: 16px;
+				}
+			}
+		}
 
-        @media (max-width: $break-large) {
-            display: none;
-        }
-    }
+		@media (max-width: $break-large) {
+			display: none;
+		}
+	}
 
-    &__travellers {
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
+	&__travellers {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
 
-        img {
-            height: 16px;
-            width: 16px;
-        }
-    }
+		img {
+			height: 16px;
+			width: 16px;
+		}
+	}
 }

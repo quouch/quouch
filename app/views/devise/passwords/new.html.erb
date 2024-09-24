@@ -1,23 +1,20 @@
 <section class="signin">
   <div class="signin__wrap">
     <h2 class="signin__title">Forgot your password?</h2>
-
     <div class="signin__form">
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, 'data-turbo': 'false' }) do |f| %>
-      <%= f.error_notification %>
-
-      <div class="">
-        <%= f.input :email,
+        <%= f.error_notification %>
+        <div class="">
+          <%= f.input :email,
                     required: true,
                     autofocus: true,
                     label: false,
                     placeholder: 'Email Address',
                     input_html: { autocomplete: "email" } %>
-      </div>
-
-      <div class="signin__button">
-        <%= f.button :submit, "Send me reset instructions" %>
-      </div>
+        </div>
+        <div class="signin__button">
+          <%= f.button :submit, "Send me reset instructions" %>
+        </div>
       <% end %>
     </div>
   </div>

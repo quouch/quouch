@@ -1,143 +1,143 @@
 .footer {
-    background-color: $primary-super-transparent;
-    padding: 2rem 0;
-    flex-grow: 1;
+	background-color: $primary-super-transparent;
+	padding: 2rem 0;
+	flex-grow: 1;
 
-    &__wrap {
-        width: 80%;
-        max-width: $container;
-        margin: 0 auto;
-        text-align: center;
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 0 auto;
+		text-align: center;
 
-        @media (min-width: $break-medium) {
-            text-align: start;
-        }
-    }
+		@media (min-width: $break-medium) {
+			text-align: start;
+		}
+	}
 
-    &__top {
-        h3 {
-            @include title-5;
+	&__top {
+		h3 {
+			@include title-5;
 
-            margin-top: 3rem;
-            color: $gray-05;
-        }
+			margin-top: 3rem;
+			color: $gray-05;
+		}
 
-        @media (min-width: $break-medium) {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            margin-top: 1rem;
-        }
+		@media (min-width: $break-medium) {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			margin-top: 1rem;
+		}
 
-        @media (min-width: $break-large) {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-        }
-    }
+		@media (min-width: $break-large) {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
 
-    &__links {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin: 1rem auto;
-        text-align: center;
+	&__links {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin: 1rem auto;
+		text-align: center;
 
-        @media (min-width: $break-medium) {
-            text-align: start;
-            margin: 0;
-        }
+		@media (min-width: $break-medium) {
+			text-align: start;
+			margin: 0;
+		}
 
-        a {
-            color: $gray-05;
-        }
-        a:hover {
-            opacity: 0.8;
-        }
+		a {
+			color: $gray-05;
+		}
+		a:hover {
+			opacity: 0.8;
+		}
 
-        &-social {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
+		&-social {
+			display: flex;
+			justify-content: center;
+			gap: 0.8rem;
 
-            a {
-                color: $gray-05;
-            }
-            a:hover {
-                opacity: 0.8;
-            }
+			a {
+				color: $gray-05;
+			}
+			a:hover {
+				opacity: 0.8;
+			}
 
-            @media (min-width: $break-medium) {
-                justify-content: flex-start;
-            }
-        }
-    }
+			@media (min-width: $break-medium) {
+				justify-content: flex-start;
+			}
+		}
+	}
 
-    &__newsletter {
-        &--mobile {
-            @media (min-width: $break-medium) {
-                display: none;
-            }
+	&__newsletter {
+		&--mobile {
+			@media (min-width: $break-medium) {
+				display: none;
+			}
 
-            h3 {
-                @include title-5;
+			h3 {
+				@include title-5;
 
-                margin-top: 3rem;
-                color: $gray-05;
-            }
+				margin-top: 3rem;
+				color: $gray-05;
+			}
 
-            input {
-                width: 100%;
-            }
-        }
+			input {
+				width: 100%;
+			}
+		}
 
-        &--desktop {
-            @media (max-width: $break-medium) {
-                display: none;
-            }
+		&--desktop {
+			@media (max-width: $break-medium) {
+				display: none;
+			}
 
-            @media (max-width: $break-large) {
-                grid-column: 1 / span 2;
+			@media (max-width: $break-large) {
+				grid-column: 1 / span 2;
 
-                input {
-                    width: 100%;
-                }
-            }
-        }
+				input {
+					width: 100%;
+				}
+			}
+		}
 
-        p {
-            color: $gray-05;
-            margin: 1rem auto;
-        }
+		p {
+			color: $gray-05;
+			margin: 1rem auto;
+		}
 
-        button {
-            @include input-field;
-            @include primary-button;
+		button {
+			@include input-field;
+			@include primary-button;
 
-            @media (min-width: $break-medium) {
-                margin: 0 auto;
-                width: 100%;
-            }
-        }
-    }
+			@media (min-width: $break-medium) {
+				margin: 0 auto;
+				width: 100%;
+			}
+		}
+	}
 
-    &__logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-top: 1px solid $gray-06;
-        margin-top: 6rem;
-        padding-top: 2rem;
+	&__logo {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-top: 1px solid $gray-06;
+		margin-top: 6rem;
+		padding-top: 2rem;
 
-        img {
-            height: 24px;
-            width: 24px;
-            margin-right: 1rem;
-            flex-grow: 0;
-        }
+		img {
+			height: 24px;
+			width: 24px;
+			margin-right: 1rem;
+			flex-grow: 0;
+		}
 
-        span {
-            @include caption;
+		span {
+			@include caption;
 
-            flex-grow: 0;
-        }
-    }
+			flex-grow: 0;
+		}
+	}
 }

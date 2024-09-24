@@ -1,29 +1,24 @@
 {
-  "addons": [
-    "heroku-postgresql"
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/ruby"
-    }
-  ],
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "name": "quouch",
-  "scripts": {
-  },
-  "stack": "heroku-22",
-  "environments": {
-    "review": {
-      "addons": [
-        "heroku-postgresql:essential-0"
-      ],
-      "scripts": {
-        "postdeploy": "bundle exec rake db:schema:load db:seed"
-      }
-    }
-  }
+	"addons": ["heroku-postgresql"],
+	"buildpacks": [
+		{
+			"url": "heroku/ruby"
+		}
+	],
+	"formation": {
+		"web": {
+			"quantity": 1
+		}
+	},
+	"name": "quouch",
+	"scripts": {},
+	"stack": "heroku-22",
+	"environments": {
+		"review": {
+			"addons": ["heroku-postgresql:essential-0"],
+			"scripts": {
+				"postdeploy": "bundle exec rake db:schema:load db:seed"
+			}
+		}
+	}
 }

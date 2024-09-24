@@ -3,7 +3,6 @@ name: 🐜 Bug report
 about: If something isn't working 🔧
 ---
 
-
 ### (Optional) Please provide a unit test that demonstrates the bug.
 
 ### Steps to reproduce

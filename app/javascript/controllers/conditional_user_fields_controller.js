@@ -2,15 +2,15 @@ import { Controller } from '@hotwired/stimulus'
 
 // Connects to data-controller="conditional-user-fields"
 export default class extends Controller {
-  static targets = ['trigger', 'field']
+	static targets = ['trigger', 'field']
 
-  connect() {
-    if (this.triggerTarget.checked) {
-      this.fieldTarget.classList.remove('display-none')
-    }
-  }
+	connect() {
+		if (this.triggerTarget.checked) {
+			this.fieldTarget.classList.remove('display-none')
+		}
+	}
 
-  toggleField() {
+	toggleField() {
 		this.fieldTarget.classList.toggle('display-none')
-  }
+	}
 }

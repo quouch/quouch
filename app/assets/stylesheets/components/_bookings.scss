@@ -1,184 +1,184 @@
 .bookings {
-    @include container;
-    width: 100%;
+	@include container;
+	width: 100%;
 
-    @media (min-width: $break-large) {
-        width: 70%;
-    }
+	@media (min-width: $break-large) {
+		width: 70%;
+	}
 
-    &__wrap {
-        @include container-width;
+	&__wrap {
+		@include container-width;
 
-        margin: 0 auto;
-    }
+		margin: 0 auto;
+	}
 
-    &__title {
-        margin: 2rem auto;
-    }
+	&__title {
+		margin: 2rem auto;
+	}
 
-    &__redirect {
-        @include input-field;
-        @include primary-button;
+	&__redirect {
+		@include input-field;
+		@include primary-button;
 
-        margin-top: 2rem;
+		margin-top: 2rem;
 
-        @media (min-width: $break-medium) {
-            width: 50%;
-        }
-    }
+		@media (min-width: $break-medium) {
+			width: 50%;
+		}
+	}
 
-    &__empty {
-        text-align: center;
-    }
+	&__empty {
+		text-align: center;
+	}
 }
 
 .upcoming-booking {
-    margin: 1.5rem auto;
-    background-color: $white;
-    box-shadow: $box-shadow;
-    border-radius: $border-radius-medium;
-    width: 100%;
+	margin: 1.5rem auto;
+	background-color: $white;
+	box-shadow: $box-shadow;
+	border-radius: $border-radius-medium;
+	width: 100%;
 
-    @media (min-width: $break-small) {
-        display: flex;
-        justify-content: flex-start;
-    }
+	@media (min-width: $break-small) {
+		display: flex;
+		justify-content: flex-start;
+	}
 
-    &__profile {
-        max-width: 100%;
-        width: 100%;
-        height: 60%;
-        object-fit: cover;
-        object-position: center;
-        border-top-left-radius: $border-radius-medium;
-        border-top-right-radius: $border-radius-medium;
+	&__profile {
+		max-width: 100%;
+		width: 100%;
+		height: 60%;
+		object-fit: cover;
+		object-position: center;
+		border-top-left-radius: $border-radius-medium;
+		border-top-right-radius: $border-radius-medium;
 
-        @media (min-width: $break-small) {
-            height: 260px;
-            width: 200px;
-            border-bottom-left-radius: $border-radius-medium;
-            border-top-right-radius: 0;
-        }
+		@media (min-width: $break-small) {
+			height: 260px;
+			width: 200px;
+			border-bottom-left-radius: $border-radius-medium;
+			border-top-right-radius: 0;
+		}
 
-        @media (min-width: $break-medium) {
-            width: 260px;
-        }
+		@media (min-width: $break-medium) {
+			width: 260px;
+		}
 
-        @media (max-width: $break-small) {
-            max-height: 200px;
-        }
-    }
+		@media (max-width: $break-small) {
+			max-height: 200px;
+		}
+	}
 
-    &__wrap {
-        padding: 1rem;
+	&__wrap {
+		padding: 1rem;
 
-        @media (min-width: $break-medium) {
-            padding: 2rem;
-        }
-    }
+		@media (min-width: $break-medium) {
+			padding: 2rem;
+		}
+	}
 
-    &__host {
-        @include title-5;
-        margin: 0;
-        color: $black;
-    }
+	&__host {
+		@include title-5;
+		margin: 0;
+		color: $black;
+	}
 
-    &__city {
-        @include profile-title;
-        margin-top: 0.1rem;
-    }
+	&__city {
+		@include profile-title;
+		margin-top: 0.1rem;
+	}
 
-    &__detail {
-        color: $black;
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin: 0.4rem 0;
+	&__detail {
+		color: $black;
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+		margin: 0.4rem 0;
 
-        i {
-            font-size: 16px;
-        }
-    }
+		i {
+			font-size: 16px;
+		}
+	}
 }
 
 .past-bookings {
-    @media (min-width: $break-medium) {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-        justify-content: space-between;
-        align-items: stretch;
-    }
+	@media (min-width: $break-medium) {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+		justify-content: space-between;
+		align-items: stretch;
+	}
 
-    @media (min-width: $break-x-large) {
-        gap: 1.5rem;
-    }
+	@media (min-width: $break-x-large) {
+		gap: 1.5rem;
+	}
 }
 
 .past-booking {
-    display: flex;
-    height: 165px;
-    margin: 1rem auto;
-    background-color: $white;
-    border-radius: $border-radius-medium;
-    box-shadow: $box-shadow;
+	display: flex;
+	height: 165px;
+	margin: 1rem auto;
+	background-color: $white;
+	border-radius: $border-radius-medium;
+	box-shadow: $box-shadow;
 
-    @media (min-width: $break-medium) {
-        margin: 0;
-    }
+	@media (min-width: $break-medium) {
+		margin: 0;
+	}
 
-    &__profile {
-        width: 40%;
+	&__profile {
+		width: 40%;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            border-top-left-radius: $border-radius-medium;
-            border-bottom-left-radius: $border-radius-medium;
-        }
-    }
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+			border-top-left-radius: $border-radius-medium;
+			border-bottom-left-radius: $border-radius-medium;
+		}
+	}
 
-    &__wrap {
-        width: 60%;
-        padding: 1rem;
-        align-self: center;
-    }
+	&__wrap {
+		width: 60%;
+		padding: 1rem;
+		align-self: center;
+	}
 
-    &__host {
-        @include title-5;
+	&__host {
+		@include title-5;
 
-        color: $black;
-        margin: 0;
-    }
+		color: $black;
+		margin: 0;
+	}
 
-    &__city {
-        @include profile-title;
-        margin: 0.1rem 0;
-    }
+	&__city {
+		@include profile-title;
+		margin: 0.1rem 0;
+	}
 
-    &__detail {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-        margin: 0.7rem 0;
-        color: $black;
+	&__detail {
+		display: flex;
+		gap: 0.5rem;
+		align-items: center;
+		margin: 0.7rem 0;
+		color: $black;
 
-        i {
-            font-size: 16px;
-        }
-    }
+		i {
+			font-size: 16px;
+		}
+	}
 
-    &__link {
-        font-size: 14px;
+	&__link {
+		font-size: 14px;
 
-        @media (min-width: $break-large) {
-            font-size: 16px;
-        }
-    }
+		@media (min-width: $break-large) {
+			font-size: 16px;
+		}
+	}
 
-    &__note {
-        color: $black;
-    }
+	&__note {
+		color: $black;
+	}
 }

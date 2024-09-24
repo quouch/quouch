@@ -5,12 +5,9 @@
   </head>
   <body>
     <h1>Confirm your email address, so we know it is you! ✅</h1>
-
-    <%= link_to 'Here', confirmation_url(@resource, confirmation_token: @token) %> you can confirm your account email and login to your Quouch account.</p>
-
+    <p><%= link_to 'Here', confirmation_url(@resource, confirmation_token: @token) %> you can confirm your account email and login to your Quouch account.</p>
     <p>Safe travels and warmest regards from Berlin,</p>
     <p>Yours,</p>
     <p>Nora, Lis and Babken</p>
   </body>
 </html>
-

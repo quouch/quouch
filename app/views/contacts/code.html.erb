@@ -1,62 +1,54 @@
 <article class="contact">
-	<% if user_signed_in? %>
-	<h1 class="contact__header">Contact the Quouch Team</h1>
-	<div class="contact__wrap">
-		<h2 class="contact__subtitle">Say hi</h2>
-		<p>We would love to hear from you!</p>
-	<% else %>
-	<h1 class="contact__header">Request invite code</h1>
-	<div class="contact__wrap">
-		<h2 class="contact__subtitle">Why would you like to be part of Quouch?</h2>
-		<p>Do you identify as queer in any way (no need to tell us in which)? Do you mainly travel or can you also host? We will try to get back to you in less than 24 hours. Please don't forget to check our <%= link_to 'guidelines', guidelines_path %> to see if this space is for you.</p>
-	<% end %>
-	<%= simple_form_for @contact, data: { controller: 'brevo', action: 'submit->brevo#signUp', brevo_api_key_value: Rails.application.credentials.dig(:brevo, :api_key) } do |f| %>
-
-		<div class="contact__contact">
-			<div class="contact__input">
-				<%= f.label      :name %>
-				<%= f.text_field :name,
+  <h1 class="contact__header"><%= user_signed_in? ? 'Contact the Quouch Team' : 'Request invite code'%></h1>
+  <div class="contact__wrap">
+    <% if user_signed_in? %>
+      <h2 class="contact__subtitle">Say hi</h2>
+      <p>We would love to hear from you!</p>
+    <% else %>
+      <h2 class="contact__subtitle">Why would you like to be part of Quouch?</h2>
+      <p>Do you identify as queer in any way (no need to tell us in which)? Do you mainly travel or can you also host? We will try to get back to you in less than 24 hours. Please don't forget to check our <%= link_to 'guidelines', guidelines_path %> to see if this space is for you.</p>
+    <% end %>
+    <%= simple_form_for @contact, data: { controller: 'brevo', action: 'submit->brevo#signUp', brevo_api_key_value: Rails.application.credentials.dig(:brevo, :api_key) } do |f| %>
+      <div class="contact__contact">
+        <div class="contact__input">
+          <%= f.label      :name %>
+          <%= f.text_field :name,
 												 placeholder: 'Full Name' %>
-				<%= f.error :name, class: 'form-error' %>
-			</div>
-			<div class="contact__input">
-				<%= f.label       :email %>
-				<%= f.email_field :email,
+          <%= f.error :name, class: 'form-error' %>
+        </div>
+        <div class="contact__input">
+          <%= f.label       :email %>
+          <%= f.email_field :email,
 													data: { brevo_target: 'input' },
 													placeholder: 'Email Address' %>
-				<%= f.error :email, class: 'form-error' %>
-			</div>
-		</div>
-
-		<div class="contact__message">
-			<%= f.label :message %>
-			<%= f.input :message,
+          <%= f.error :email, class: 'form-error' %>
+        </div>
+      </div>
+      <div class="contact__message">
+        <%= f.label :message %>
+        <%= f.input :message,
 									as: :text,
 									error: false,
 									label: false,
 									input_html: { rows: 8 } %>
-			<%= f.error :message, class: 'form-error' %>
-		</div>
-
-		<div class="contact__source">
-			<%= f.label      :how_did_you_hear_from_us? %>
-			<%= f.text_field :source,
+        <%= f.error :message, class: 'form-error' %>
+      </div>
+      <div class="contact__source">
+        <%= f.label      :how_did_you_hear_from_us? %>
+        <%= f.text_field :source,
 												placeholder: 'Let us know how you found out about Quouch!' %>
-		</div>
-
-		<div class="display-none">
-			<%= f.label      :nickname %>
-			<%= f.text_field :nickname %>
-		</div>
-
-		<%= f.hidden_field :type, value: 'code' %>
-
-		<div class="contact__action">
-			<p class="contact__legal">By proceeding you agree to Quouch's <%= link_to 'Terms & Conditions', terms_path %> and <%= link_to 'Privacy Policy', privacy_path %><p>
-			<div class="contact__button">
-				<%= f.submit 'Submit Request' %>
-			</div>
-		</div>
-	<% end %>
-	</div>
+      </div>
+      <div class="display-none">
+        <%= f.label      :nickname %>
+        <%= f.text_field :nickname %>
+      </div>
+      <%= f.hidden_field :type, value: 'code' %>
+      <div class="contact__action">
+        <p class="contact__legal">By proceeding you agree to Quouch's <%= link_to 'Terms & Conditions', terms_path %> and <%= link_to 'Privacy Policy', privacy_path %></p>
+        <div class="contact__button">
+          <%= f.submit 'Submit Request' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </article>

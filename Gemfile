@@ -89,6 +89,7 @@ gem 'stackprof'
 # Performance optimization analysis
 #
 group :development, :rubocop, :test do
+  gem 'htmlbeautifier'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false

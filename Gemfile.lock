@@ -206,6 +206,7 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
+    htmlbeautifier (1.4.3)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -534,6 +535,7 @@ DEPENDENCIES
   geocoder
   guard
   guard-minitest
+  htmlbeautifier
   importmap-rails (~> 1.2.3)
   jbuilder
   jsonapi-serializer

@@ -1,60 +1,60 @@
 .general {
-    margin: 0;
+	margin: 0;
 
-    &__header {
-        color: $white;
-        background-color: $primary-transparent;
-        margin: 0;
-        padding: 2rem;
-    }
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
 
-    &__wrap {
-        width: 80%;
-        max-width: $container;
-        margin: 2rem auto;
-    }
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
+	}
 
-    &__subheader {
-        @include title-2;
-    }
-    &__supertitle {
-        @include body-2;
-    }
+	&__subheader {
+		@include title-2;
+	}
+	&__supertitle {
+		@include body-2;
+	}
 
-    &__list {
-        list-style: inside;
-        margin-left: 2rem;
-    }
+	&__list {
+		list-style: inside;
+		margin-left: 2rem;
+	}
 
-    &__numbered-list {
-        margin: 0 0 2rem 2rem;
-        list-style: decimal !important;
-    }
+	&__numbered-list {
+		margin: 0 0 2rem 2rem;
+		list-style: decimal !important;
+	}
 
-    &__title {
-        @include title-3;
-        margin: 2rem 0;
-    }
+	&__title {
+		@include title-3;
+		margin: 2rem 0;
+	}
 
-    &__important {
-        color: $primary;
-        font-size: 1.2rem;
-    }
+	&__important {
+		color: $primary;
+		font-size: 1.2rem;
+	}
 
-    p {
-        margin: 1rem auto;
-    }
-    ol {
-        list-style: none;
-    }
-    aside {
-        font-style: italic;
-    }
+	p {
+		margin: 1rem auto;
+	}
+	ol {
+		list-style: none;
+	}
+	aside {
+		font-style: italic;
+	}
 }
 
 .faq-link {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 #numbered {
-    list-style: decimal;
+	list-style: decimal;
 }

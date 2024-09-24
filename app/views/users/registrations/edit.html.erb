@@ -2,9 +2,7 @@
   <h1>Edit Profile</h1>
   <%= link_to 'Take a peek at my own profile', couch_path(current_user.couch), class: 'user__header-link' %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'user__form' }) do |f| %>
-
     <div class="user__wrap">
-
       <div class="user__image" data-controller="image-preview">
         <%= f.label :profile_picture %>
         <% if @user.photo.attached? %>
@@ -27,7 +25,6 @@
         <p class="hint hint--photo">As a Quouch user, you are required to have a profile picture where your face is
           clearly visible.</p>
       </div>
-
       <div class="user__info">
         <%= f.label :personal_info,
                     required: true %>
@@ -61,7 +58,6 @@
         <%= f.input :pronouns,
                     autofocus: true,
                     input_html: { autocomplete: 'pronouns' } %>
-
         <div class="user__address">
           <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
           <div class="user__address-street">
@@ -100,7 +96,6 @@
           </div>
           <%= f.error :zipcode, class: 'form-error' %>
           <%= f.error :city, class: 'form-error' %>
-
           <div class="user__address-country">
             <%= f.label :country,
                         required: true,
@@ -120,7 +115,6 @@
             <%= f.error :country_code, class: 'form-error' %>
           </div>
         </div>
-
         <%= f.label :about_me,
                     required: true,
                     class: 'user__address-label' %>
@@ -128,13 +122,10 @@
                           required: true,
                           autofocus: true %>
         <%= f.error :summary, class: 'form-error' %>
-
         <%= f.label :make_your_day %>
         <p class="hint">What little things do you love? For example, a favorite snack, drink, or hobby item that would
           make your day if you would receive it.</p>
         <%= f.input_field :passion %>
-
-
         <%= f.label :characteristics, required: true, id: 'user__characteristics-title' %>
         <p class="hint">When using the filters - think
           <strong>"do I identify with this?”</strong> i.e. if you click “Trans Only” then you identify with being
@@ -145,9 +136,7 @@
         <% if @user.errors[:user_characteristics].any? %>
           <%= f.error :user_characteristics, class: 'form-error form-error-characteristics' %>
         <% end %>
-
         <div class="user__characteristics">
-
           <%= simple_fields_for :user_characteristic do |ucf| %>
             <%= ucf.collection_check_boxes :characteristic_ids,
                                            Characteristic.find_each,
@@ -157,7 +146,6 @@
                                            input_html: { multiple: true, autocomplete: 'characteristics' } %>
           <% end %>
         </div>
-
         <div data-controller="display-info-window">
           <%= f.label :my_current_status,
                       required: true %>
@@ -175,7 +163,6 @@
               <%= f.label :currently_travelling %>
             </div>
           </div>
-
           <div data-controller="conditional-user-fields" data-display-info-window-target="list">
             <%= f.label :i_can %>
             <div class="user__offers">
@@ -203,7 +190,6 @@
                 <%= f.label :hangout, 'Hang Out' %>
               </div>
             </div>
-
             <div class="user__couch display-none" data-conditional-user-fields-target="field">
               <%= simple_fields_for :couch do |cf| %>
                 <div class="user__couch-capacity">
@@ -233,7 +219,6 @@
             <%= f.error :travelling, class: 'form-error' %>
           </div>
         </div>
-
         <%= f.label :this_makes_me_really_happy %>
         <%= f.input_field :question_one,
                           required: true,
@@ -258,12 +243,10 @@
         </div>
       </div>
     </div>
-
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
   <% end %>
-
 </section>
 <section class="user">
   <h1>Change password</h1>
@@ -283,12 +266,10 @@
                 required: true,
                 error: false %>
     <%= f.error :password_confirmation, class: 'form-error' %>
-
     <div class="user__submit">
       <%= f.button :submit, 'Confirm change' %>
     </div>
   <% end %>
-
   <div class="user__cancel">
     <p>Unhappy?</p>
     <%= button_to 'Delete account', user_registration_path, form: { data: { turbo_confirm: 'Are you sure?' } }, method: :delete, class: 'user__cancel-link' %>

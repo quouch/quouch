@@ -1,11 +1,11 @@
 <header class="header-wrap">
-	<div class="header">
-		<aside class="header__logo">
-			<%= link_to 'Quouch', root_path %>
-		</aside>
-		<% if user_signed_in? %>
-			<%= render "shared/navbar" %>
-			<div data-controller="dropdown-menu">
+  <div class="header">
+    <aside class="header__logo">
+      <%= link_to 'Quouch', root_path %>
+    </aside>
+    <% if user_signed_in? %>
+      <%= render "shared/navbar" %>
+      <div data-controller="dropdown-menu">
         <div id="dropdown_menu" class="header__menu"
              data-dropdown-menu-target="toggle"
              data-action="click->dropdown-menu#displayAndHideMenu">
@@ -18,105 +18,105 @@
             <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar', alt: 'Example profile picture of Quouch example user') %>
           <% end %>
         </div>
-				<div class="header__collapsible collapsible display-none"
+        <div class="header__collapsible collapsible display-none"
 						data-dropdown-menu-target="menu">
-					<p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
-					<p class="collapsible__code">Your invite code: <%= current_user.invite_code %></p>
-					<ul>
-						<p class="collapsible__subtitle">Personal</p>
-						<li>
-							<i class="quouch-edit-profile color-secondary" aria-label='Edit Icon'></i>
-							<%= link_to 'Edit Profile', edit_user_registration_path %>
-						</li>
-						<li>
-							<i class="quouch-trip color-secondary" aria-label='Trip Icon'></i>
-							<%= link_to 'Trips', bookings_path %>
-						</li>
-						<% if current_user.couch %>
-							<li>
-								<i class="quouch-home color-secondary" aria-label='Home Icon'></i>
-								<%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
-							</li>
-						<% end %>
-						<li class="collapsible__chat">
-							<i class="quouch-chat color-secondary" aria-label='Chat Icon'></i>
-							<%= link_to 'Chats', chats_path %>
-							<% if current_user.notifications.unread.count != 0 %>
-								<%= render 'shared/notifications' %>
-							<% end %>
-						</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Community</p>
-					<li>
-						<i class="quouch-mission color-secondary" aria-label='Mission Icon'></i>
-						<%= link_to 'About Us', about_path %>
-					</li>
-					<li>
-						<i class="quouch-guidelines color-secondary" aria-label='Guidelines Icon'></i>
-						<%= link_to 'Guidelines', guidelines_path %>
-					</li>
-					<li>
-						<i class="quouch-invite color-secondary" aria-label='Invite Icon'></i>
-						<%= link_to 'Invite a Friend', invite_friend_path %>
-					</li>
-					<li>
-						<i class="quouch-euro color-secondary" aria-label='Euro Icon'></i>
-						<%= link_to 'Make a Donation', 'https://buy.stripe.com/7sIdSL2DD5KV9zy3cc' %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Support</p>
-					<li>
-						<i class="quouch-faq color-secondary" aria-label='FAQ Icon'></i>
-						<%= link_to 'FAQ', faq_path %>
-					</li>
-					<li>
-						<i class="quouch-shield color-secondary" aria-label='Shield Icon'></i>
-						<%= link_to 'Safety Advice', safety_path %>
-					</li>
-					<li>
-						<i class="quouch-contact color-secondary" aria-label='Contact Icon'></i>
-						<%= link_to 'Contact Us', new_contact_path %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">Membership</p>
-					<li>
-						<i class="quouch-account color-secondary" aria-label='Account Icon'></i>
-						<% if current_user.subscribed? %>
-							<%= link_to 'Your Membership', subscription_path(current_user.subscription) %>
-						<% else %>
-							<%= link_to 'Join now', new_subscription_path %>
-						<% end %>
-					</li>
-				</ul>
-				<ul>
-					<p class="collapsible__subtitle">General</p>
-					<li>
-						<i class="quouch-impressum color-secondary" aria-label='Impressum Icon'></i>
-						<%= link_to 'Impressum', impressum_path %>
-					</li>
-					<li>
-						<i class="quouch-privacy color-secondary" aria-label='Privacy Icon'></i>
-						<%= link_to 'Privacy Center', privacy_path %>
-					</li>
-					<li>
-						<i class="quouch-conditions color-secondary" aria-label='Conditions Icon'></i>
-						<%= link_to 'Terms & Conditions', terms_path %>
-					</li>
-				</ul>
-				<ul>
-						<p class="collapsible__subtitle">Session</p>
+          <p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
+          <p class="collapsible__code">Your invite code: <%= current_user.invite_code %></p>
+          <ul>
+            <p class="collapsible__subtitle">Personal</p>
+            <li>
+              <i class="quouch-edit-profile color-secondary" aria-label='Edit Icon'></i>
+              <%= link_to 'Edit Profile', edit_user_registration_path %>
+            </li>
+            <li>
+              <i class="quouch-trip color-secondary" aria-label='Trip Icon'></i>
+              <%= link_to 'Trips', bookings_path %>
+            </li>
+            <% if current_user.couch %>
+              <li>
+                <i class="quouch-home color-secondary" aria-label='Home Icon'></i>
+                <%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %>
+              </li>
+            <% end %>
+            <li class="collapsible__chat">
+              <i class="quouch-chat color-secondary" aria-label='Chat Icon'></i>
+              <%= link_to 'Chats', chats_path %>
+              <% if current_user.notifications.unread.count != 0 %>
+                <%= render 'shared/notifications' %>
+              <% end %>
+            </li>
+          </ul>
+          <ul>
+            <p class="collapsible__subtitle">Community</p>
+            <li>
+              <i class="quouch-mission color-secondary" aria-label='Mission Icon'></i>
+              <%= link_to 'About Us', about_path %>
+            </li>
+            <li>
+              <i class="quouch-guidelines color-secondary" aria-label='Guidelines Icon'></i>
+              <%= link_to 'Guidelines', guidelines_path %>
+            </li>
+            <li>
+              <i class="quouch-invite color-secondary" aria-label='Invite Icon'></i>
+              <%= link_to 'Invite a Friend', invite_friend_path %>
+            </li>
+            <li>
+              <i class="quouch-euro color-secondary" aria-label='Euro Icon'></i>
+              <%= link_to 'Make a Donation', 'https://buy.stripe.com/7sIdSL2DD5KV9zy3cc' %>
+            </li>
+          </ul>
+          <ul>
+            <p class="collapsible__subtitle">Support</p>
+            <li>
+              <i class="quouch-faq color-secondary" aria-label='FAQ Icon'></i>
+              <%= link_to 'FAQ', faq_path %>
+            </li>
+            <li>
+              <i class="quouch-shield color-secondary" aria-label='Shield Icon'></i>
+              <%= link_to 'Safety Advice', safety_path %>
+            </li>
+            <li>
+              <i class="quouch-contact color-secondary" aria-label='Contact Icon'></i>
+              <%= link_to 'Contact Us', new_contact_path %>
+            </li>
+          </ul>
+          <ul>
+            <p class="collapsible__subtitle">Membership</p>
+            <li>
+              <i class="quouch-account color-secondary" aria-label='Account Icon'></i>
+              <% if current_user.subscribed? %>
+                <%= link_to 'Your Membership', subscription_path(current_user.subscription) %>
+              <% else %>
+                <%= link_to 'Join now', new_subscription_path %>
+              <% end %>
+            </li>
+          </ul>
+          <ul>
+            <p class="collapsible__subtitle">General</p>
+            <li>
+              <i class="quouch-impressum color-secondary" aria-label='Impressum Icon'></i>
+              <%= link_to 'Impressum', impressum_path %>
+            </li>
+            <li>
+              <i class="quouch-privacy color-secondary" aria-label='Privacy Icon'></i>
+              <%= link_to 'Privacy Center', privacy_path %>
+            </li>
+            <li>
+              <i class="quouch-conditions color-secondary" aria-label='Conditions Icon'></i>
+              <%= link_to 'Terms & Conditions', terms_path %>
+            </li>
+          </ul>
+          <ul>
+            <p class="collapsible__subtitle">Session</p>
             <li>
               <i class="quouch-logout color-secondary" aria-label='Logout Icon'></i>
-							<%= button_to 'Logout', destroy_user_session_path, method: :delete, 'data-turbo': 'false', class: 'collapsible__logout' %>
-						</li>
-					</ul>
-				</div>
-			</div>
-		<% else %>
-			<aside class="header__note">Already have an account? <a href="/users/sign_in">Log in</a></aside>
-		<% end %>
-	</div>
+              <%= button_to 'Logout', destroy_user_session_path, method: :delete, 'data-turbo': 'false', class: 'collapsible__logout' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <aside class="header__note">Already have an account? <a href="/users/sign_in">Log in</a></aside>
+    <% end %>
+  </div>
 </header>
