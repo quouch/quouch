@@ -139,7 +139,7 @@ module Api
       private
 
       def create_user_booking(user = @user, host = @host)
-        booking = FactoryBot.create(:booking, user: @user, couch: @host.couch)
+        booking = FactoryBot.create(:booking, user:, couch: host.couch)
         booking.couch = host.couch
         booking.user = user
 

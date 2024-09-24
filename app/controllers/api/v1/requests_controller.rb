@@ -24,6 +24,11 @@ module Api
 
       def update_params
         status = params.require(:status)
+        # prevent invalid changes to status
+        unless @booking.status_change_allowed?(status, current_user)
+          raise JSONAPI::ForbiddenError, 'Invalid status change.'
+        end
+
         { status: }
       end
 
