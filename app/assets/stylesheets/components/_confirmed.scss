@@ -1,25 +1,27 @@
 .confirmed {
-	@include container;
+    @include container;
 
-	&__title { @include title-2; }
+    &__title {
+        @include title-2;
+    }
 
-	&__buttons {
-		display: flex;
-		gap: 1rem;
-	}
+    &__buttons {
+        display: flex;
+        gap: 1rem;
+    }
 
-	&__back {
-		@include input-field;
-		@include secondary-button;
+    &__back {
+        @include input-field;
+        @include secondary-button;
 
-		margin: 2rem 0;
-	}
+        margin: 2rem 0;
+    }
 
-	&__link {
-		@include primary-button;
-		@include input-field;
-	
-		color: $white;
-		margin: 2rem 0;
-	}
+    &__link {
+        @include primary-button;
+        @include input-field;
+
+        color: $white;
+        margin: 2rem 0;
+    }
 }

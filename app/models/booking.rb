@@ -28,6 +28,6 @@ class Booking < ApplicationRecord
   def duplicate_request?
     return false unless Booking.where(user:, couch:, start_date:, end_date:, status: 0 || 2).exists?
 
-    errors.add(:start_date, 'Duplicate request with host')
+    errors.add(:start_date, 'Duplicated request with host')
   end
 end

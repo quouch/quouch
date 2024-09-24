@@ -1,27 +1,27 @@
 // Color variables
 
 // Brand Identity
-$primary: #FB5705;
-$primary-dark: #BF4305;
-$primary-light: #FC8950;
-$primary-transparent: #FDBC9B;
-$primary-super-transparent: #FFEEE5;
+$primary: #fb5705;
+$primary-dark: #bf4305;
+$primary-light: #fc8950;
+$primary-transparent: #fdbc9b;
+$primary-super-transparent: #ffeee5;
 
-$secondary: #8728A1;
-$secondary-dark: #631D76;
-$secondary-light: #AB69BE;
-$secondary-transparent: #CFA9DA;
-$secondary-super-transparent: #F3EAF6;
+$secondary: #8728a1;
+$secondary-dark: #631d76;
+$secondary-light: #ab69be;
+$secondary-transparent: #cfa9da;
+$secondary-super-transparent: #f3eaf6;
 
-$tertiary: #F8D109;
-$tertiary-dark: #D2B20A;
-$tertiary-light: #FADF53;
-$tertiary-transparent: #FCED9D;
-$tertiary-super-transparent: #FEFAE6;
+$tertiary: #f8d109;
+$tertiary-dark: #d2b20a;
+$tertiary-light: #fadf53;
+$tertiary-transparent: #fced9d;
+$tertiary-super-transparent: #fefae6;
 
 // Informational
 $error: hsl(0, 82%, 49%);
-$warning: #EBFF0F;
+$warning: #ebff0f;
 
 // Flash messages
 $success: #198754 !default;
@@ -29,10 +29,30 @@ $info: #0dcaf0 !default;
 $warning: #ffc107 !default;
 $danger: #dc3545 !default;
 $flash-colors: (
-        "success": ("color": $success, "background": #d1e7dd, "text": #0a3622, "border": #a3cfbb),
-        "info": ("color": $info, "background": #cff4fc, "text": #055160, "border": #9ec5fe),
-        "warning": ("color": $warning, "background": #fff3cd, "text": #664d03, "border": #ffe69c),
-        "error": ("color": $danger, "background": #f8d7da, "text": #58151c, "border": #f1aeb5)
+    'success': (
+        'color': $success,
+        'background': #d1e7dd,
+        'text': #0a3622,
+        'border': #a3cfbb,
+    ),
+    'info': (
+        'color': $info,
+        'background': #cff4fc,
+        'text': #055160,
+        'border': #9ec5fe,
+    ),
+    'warning': (
+        'color': $warning,
+        'background': #fff3cd,
+        'text': #664d03,
+        'border': #ffe69c,
+    ),
+    'error': (
+        'color': $danger,
+        'background': #f8d7da,
+        'text': #58151c,
+        'border': #f1aeb5,
+    ),
 ) !default;
 
 // Gray scale
@@ -55,35 +75,35 @@ $neutral-03: hsl(28, 100%, 97%);
 
 // Color map
 $color-map: (
-        'primary': $primary,
-        'primary-dark': $primary-dark,
-        'primary-light': $primary-light,
-        'primary-transparent': $primary-transparent,
-        'primary-super-transparent': $primary-super-transparent,
-        'secondary': $secondary,
-        'secondary-dark': $secondary-dark,
-        'secondary-light': $secondary-light,
-        'secondary-transparent': $secondary-transparent,
-        'secondary-super-transparent': $secondary-super-transparent,
-        'tertiary': $tertiary,
-        'tertiary-dark': $tertiary-dark,
-        'tertiary-light': $tertiary-light,
-        'tertiary-transparent': $tertiary-transparent,
-        'tertiary-super-transparent': $tertiary-super-transparent,
-        'error': $error,
-        'warning': $warning,
-        'gray-01': $gray-01,
-        'gray-02': $gray-02,
-        'gray-03': $gray-03,
-        'gray-04': $gray-04,
-        'gray-05': $gray-05,
-        'gray-06': $gray-06,
-        'black': $black,
-        'white': $white,
-        'beige': $beige,
-        'neutral-01': $neutral-01,
-        'neutral-02': $neutral-02,
-        'neutral-03': $neutral-03
+    'primary': $primary,
+    'primary-dark': $primary-dark,
+    'primary-light': $primary-light,
+    'primary-transparent': $primary-transparent,
+    'primary-super-transparent': $primary-super-transparent,
+    'secondary': $secondary,
+    'secondary-dark': $secondary-dark,
+    'secondary-light': $secondary-light,
+    'secondary-transparent': $secondary-transparent,
+    'secondary-super-transparent': $secondary-super-transparent,
+    'tertiary': $tertiary,
+    'tertiary-dark': $tertiary-dark,
+    'tertiary-light': $tertiary-light,
+    'tertiary-transparent': $tertiary-transparent,
+    'tertiary-super-transparent': $tertiary-super-transparent,
+    'error': $error,
+    'warning': $warning,
+    'gray-01': $gray-01,
+    'gray-02': $gray-02,
+    'gray-03': $gray-03,
+    'gray-04': $gray-04,
+    'gray-05': $gray-05,
+    'gray-06': $gray-06,
+    'black': $black,
+    'white': $white,
+    'beige': $beige,
+    'neutral-01': $neutral-01,
+    'neutral-02': $neutral-02,
+    'neutral-03': $neutral-03,
 );
 
 @each $shade, $color in $color-map {

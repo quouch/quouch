@@ -72,7 +72,7 @@ class AddressHelperTest < ActiveSupport::TestCase
       country = beautify_country(iso_country.alpha2)
       next unless country != iso_country.iso_short_name
 
-      puts "Country '#{country}' has a translation that is not the same as the short name #{iso_country.iso_short_name}"
+      Rails.logger.debug "Country '#{country}' has a translation that is not the same as the short name #{iso_country.iso_short_name}"
 
       assert_equal iso_country.alpha2, find_country_code(country)
     end

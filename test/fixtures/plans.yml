@@ -1,0 +1,10 @@
+monthly:
+  name: 'Monthly Fake Plan'
+  price_cents: 1000
+  interval: 'month'
+
+yearly:
+  name: 'Yearly Fake Plan'
+  price_cents: 10000
+  interval: 'year'
+

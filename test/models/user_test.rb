@@ -167,4 +167,32 @@ class UserTest < ActiveSupport::TestCase
     @user.offers_couch = false
     assert @user.valid?
   end
+
+  test 'should subscribe to plan' do
+    @user = FactoryBot.create(:user, :for_test)
+    plan = FactoryBot.create(:plan, user: @user)
+    assert_equal plan, @user.subscription.plan
+    assert @user.subscription.present?
+    assert @user.subscription.stripe_id_present?
+  end
+
+  test 'should not be subscribed' do
+    @user = FactoryBot.create(:user, :for_test)
+    assert_not @user.subscribed?
+  end
+
+  test 'should not be subscribed without Stripe ID' do
+    plan = FactoryBot.create(:plan)
+    @user = FactoryBot.create(:user, :for_test)
+    assert_not @user.subscribed?
+
+    Subscription.create!(user: @user, plan:)
+    assert @user.subscription.present?
+    assert_not @user.subscribed?
+  end
+
+  test 'should be subscribed' do
+    @user = FactoryBot.create(:user, :for_test, :subscribed)
+    assert @user.subscribed?
+  end
 end

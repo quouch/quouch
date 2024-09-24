@@ -64,17 +64,17 @@
 
     &__flexible {
         label {
-            gap: .5rem;
+            gap: 0.5rem;
             display: flex;
             align-items: center;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
             color: $gray-05;
         }
     }
 
     &__dates {
         display: flex;
-        gap: .5rem;
+        gap: 0.5rem;
     }
 
     &__travellers {

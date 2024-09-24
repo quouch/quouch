@@ -1,49 +1,58 @@
 .invite-code {
-	margin-top: 2rem;
-	background-color: $primary-super-transparent;
+    background-color: $primary-super-transparent;
 
-	&__header {
-		color: $white;
-		background-color: $primary-transparent;
-		margin: 0;
-		padding: 2rem;
-	}
+    &__header {
+        color: $white;
+        background-color: $primary-transparent;
+        margin: 0;
+        padding: 2rem;
+    }
 
-	&__wrap {
-		width: 80%;
-		max-width: $container;
-		margin: 2rem auto;
+    &__wrap {
+        width: 80%;
+        max-width: $container;
+        margin: 2rem auto;
 
-		@media (min-width: $break-large) { width: 50%; }
-	}
+        @media (min-width: $break-large) {
+            width: 50%;
+        }
+    }
 
-	&__subtitle {
-		@include title-2;
-		
-		margin-bottom: 1rem;
-	}
+    &__subtitle {
+        @include title-2;
 
-	&__content { @include title-4; }
+        margin-bottom: 1rem;
+    }
 
-	&__form {
-		form {
-			margin: 2rem auto;
+    &__content {
+        @include title-4;
+    }
 
-			@media (min-width: $break-medium) {
-				display: flex;
-				gap: 1rem;
-			}
-		}
+    &__form {
+        form {
+            margin: 2rem auto;
 
-		div:first-child { flex-grow: 1; }
-		input:first-child { width: 100%; }
-	}
+            @media (min-width: $break-medium) {
+                display: flex;
+                gap: 1rem;
+            }
+        }
 
-	&__button {
-		@include input-field;
-		@include primary-button;
-		
-		@media (min-width: $break-medium) { width: 50%; }
-		margin: .5rem 0;
-	}
+        div:first-child {
+            flex-grow: 1;
+        }
+        input:first-child {
+            width: 100%;
+        }
+    }
+
+    &__button {
+        @include input-field;
+        @include primary-button;
+
+        @media (min-width: $break-medium) {
+            width: 50%;
+        }
+        margin: 0.5rem 0;
+    }
 }
