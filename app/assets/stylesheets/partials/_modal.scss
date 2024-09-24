@@ -1,37 +1,37 @@
 .swal-modal {
-	background-color: $secondary-super-transparent;
+    background-color: $secondary-super-transparent;
 }
 .swal-footer {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .swal-button-container {
-	flex-grow: 1;
+    flex-grow: 1;
 }
 
 .swal-button--cancel {
-	@include input-field;
-	@include primary-button;
+    @include input-field;
+    @include primary-button;
 }
 
 .swal-button--confirm {
-	@include input-field;
-	@include secondary-button;
+    @include input-field;
+    @include secondary-button;
 }
 
 .swal-button--confirm:not([disabled]):hover {
-  opacity: .9 !important;
-	background-color: transparent;
+    opacity: 0.9 !important;
+    background-color: transparent;
 }
 
 .swal-button--cancel:not([disabled]):hover {
-  opacity: .9 !important;
-	background-color: $primary;
+    opacity: 0.9 !important;
+    background-color: $primary;
 }
 
 .swal-text {
-	font-size: 18px;
-	line-height: 1.5;
+    font-size: 18px;
+    line-height: 1.5;
 }

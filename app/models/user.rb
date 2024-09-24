@@ -182,4 +182,8 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
       false
     end
   end
+
+  def subscribed?
+    subscription.present? && subscription.stripe_id_present?
+  end
 end

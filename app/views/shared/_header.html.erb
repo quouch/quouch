@@ -84,7 +84,7 @@
 					<p class="collapsible__subtitle">Membership</p>
 					<li>
 						<i class="quouch-account color-secondary" aria-label='Account Icon'></i>
-						<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
+						<% if current_user.subscribed? %>
 							<%= link_to 'Your Membership', subscription_path(current_user.subscription) %>
 						<% else %>
 							<%= link_to 'Join now', new_subscription_path %>

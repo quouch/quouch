@@ -36,10 +36,8 @@ Rails.application.routes.draw do
     member do
       get :show_request, as: 'request'
       get :sent
-      get :confirmed
       patch :complete
       patch :accept
-      patch :decline
       patch :decline_and_send_message
       delete :cancel
     end

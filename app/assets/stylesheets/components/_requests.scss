@@ -1,5 +1,5 @@
 .requests {
-    margin: 4rem auto;
+    @include container;
     width: 100%;
 
     @media (min-width: $break-large) {
@@ -69,7 +69,7 @@
 
     &__pronouns {
         @include profile-title;
-        margin-top: .1rem;
+        margin-top: 0.1rem;
     }
 
     &__details {
@@ -81,9 +81,9 @@
     &__detail {
         color: $black;
         display: flex;
-        gap: .3rem;
+        gap: 0.3rem;
         align-items: center;
-        margin: .4rem 0;
+        margin: 0.4rem 0;
 
         i {
             font-size: 16px;
@@ -145,15 +145,15 @@
 
     &__pronouns {
         @include profile-title;
-        margin: .1rem 0;
+        margin: 0.1rem 0;
     }
 
     &__detail {
         color: $black;
         display: flex;
-        gap: .3rem;
+        gap: 0.3rem;
         align-items: center;
-        margin: .7rem 0;
+        margin: 0.7rem 0;
 
         i {
             font-size: 16px;

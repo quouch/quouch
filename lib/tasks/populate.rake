@@ -20,27 +20,24 @@ namespace :dev do
   end
 
   task test_booking: :environment do
-    user = User.find(4)
-    puts user.first_name
+    user = User.all.sample
+    user.offers_couch = true
 
-    if user.offers_couch
-      couch = Couch.find_by(user:)
-      couch.capacity = rand(1..5)
-      couch.save!
+    couch = user.couch
+    couch.capacity = rand(1..5)
+    couch.save!
 
-      puts "Couch capacity: #{couch.capacity}"
+    puts "Couch capacity: #{couch.capacity}"
 
-      facilities = Facility.all.sample(3)
-      facilities.each do |facility|
-        puts "Adding facility: #{facility.name}"
-        CouchFacility.create!(couch:, facility:)
-      end
+    facilities = Facility.all.sample(3)
+    facilities.each do |facility|
+      puts "Adding facility: #{facility.name}"
+      CouchFacility.create!(couch:, facility:)
     end
   end
 
   task test_plans: :environment do
     abort('This task cannot be run in the production environment.') if Rails.env.production?
-    abort('This task cannot be run in the development environment.') if Rails.env.development?
     puts 'Delete all existing plans and create a couple of fake plans'
     Subscription.destroy_all
     Plan.destroy_all

@@ -65,5 +65,11 @@ FactoryBot.define do
       offers_hang_out { false }
       travelling { false }
     end
+
+    trait :subscribed do
+      after(:create) do |user|
+        Subscription.create!(user:, plan: Plan.first, stripe_id: 'fake_subscription_id')
+      end
+    end
   end
 end

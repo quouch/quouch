@@ -4,7 +4,7 @@
 		<li class="navigation__link"><%= link_to 'Trips', bookings_path %></li>
 		<li class="navigation__link"><%= link_to 'Guests', requests_couch_bookings_path(current_user.couch) %></li>
 		<li class="navigation__link navigation__link--donation">
-		<% if current_user.subscription.present? && current_user.subscription.stripe_id_present? %>
+		<% if current_user.subscribed? %>
 			<%= link_to 'Membership', subscription_path(current_user.subscription) %>
 		<% else %>
 			<%= link_to 'Membership', new_subscription_path %>

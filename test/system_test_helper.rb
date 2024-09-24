@@ -4,9 +4,21 @@ require 'selenium-webdriver'
 require_relative 'helpers/system_sign_in_helper'
 require 'helpers/device_helper'
 
+module SpecialSelectors
+  private
+
+  def select_date(css_selector, date)
+    # TODO: enable selecting a different month
+    find(css_selector).click
+    assert_selector '.flatpickr-calendar', visible: true
+    find('.flatpickr-day', text: date.day).click
+  end
+end
+
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include SystemSignInHelper
   include GeocoderMocker
+  include SpecialSelectors
 
   driven_by :selenium, using: :chrome do |driver_option|
     driver_option.add_argument('headless') if ENV['CI']

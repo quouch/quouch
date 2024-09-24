@@ -1,27 +1,33 @@
 .message {
-	display: flex;
-	gap: .7rem;
+    display: flex;
+    gap: 0.7rem;
 
-	img {
-		border-radius: $border-radius-round;
-		height: 40px;
-		width: 40px;
-		margin: 0;
-		flex-shrink: 0;
-	}
+    img {
+        border-radius: $border-radius-round;
+        height: 40px;
+        width: 40px;
+        margin: 0;
+        flex-shrink: 0;
+    }
 
-	&-details {
-		display: inline-block;
-		margin-bottom: .5rem;
-		
-		i {
-			display: block;
-			margin-top: .2rem;
+    &-details {
+        display: inline-block;
+        margin-bottom: 0.5rem;
 
-			@media (min-width: $break-small) { display: inline; }
-		}
+        i {
+            display: block;
+            margin-top: 0.2rem;
 
-		a { color: inherit; }
-		a:hover { text-decoration: underline; }
-	}
+            @media (min-width: $break-small) {
+                display: inline;
+            }
+        }
+
+        a {
+            color: inherit;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    }
 }

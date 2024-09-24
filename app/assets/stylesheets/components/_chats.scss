@@ -1,99 +1,113 @@
 .chats {
-  margin-top: 4rem;
+    margin-top: 2rem;
 
-  &__title {
-    font-size: 1.5rem;
-  }
+    &__title {
+        font-size: 1.5rem;
+    }
 
-	&__list {
-		li + li { border-bottom: solid .7px $gray-02; }
+    &__list {
+        li + li {
+            border-bottom: solid 0.7px $gray-02;
+        }
 
-		&-item a {
-			display: flex;
-			gap: 2rem;
-			border-top: solid .7px $gray-02;
-			padding: 2rem;
+        &-item a {
+            display: flex;
+            gap: 2rem;
+            border-top: solid 0.7px $gray-02;
+            padding: 2rem;
 
-			@media (min-width: $break-small) {
-				gap: 3rem;
-				align-items: center;
-			}
+            @media (min-width: $break-small) {
+                gap: 3rem;
+                align-items: center;
+            }
 
-			img {
-				border-radius: $border-radius-round;
-				object-fit: cover;
-				object-position: center;
-				height: 100px;
-				width: 100px;
-			}
-		}
-	}
+            img {
+                border-radius: $border-radius-round;
+                object-fit: cover;
+                object-position: center;
+                height: 100px;
+                width: 100px;
+            }
+        }
+    }
 
-	&__wrap {
-		&--right { margin-top: auto; }
-	}
+    &__wrap {
+        &--right {
+            margin-top: auto;
+        }
+    }
 
-  &__user-infos {
-    position: relative;
-    flex: 0 0 100px;
-  }
+    &__user-infos {
+        position: relative;
+        flex: 0 0 100px;
+    }
 
-	&__details {
-    flex: 1 0 0%;
-    position: relative;
+    &__details {
+        flex: 1 0 0%;
+        position: relative;
 
-		&-name {
-			@include title-4;
+        &-name {
+            @include title-4;
 
-			color: $gray-06;
-			margin: 0;
+            color: $gray-06;
+            margin: 0;
 
-			@media (max-width: $break-medium) {
-				position: relative;
-				font-size: 1rem;
-				margin-bottom: .3rem;
-			}
+            @media (max-width: $break-medium) {
+                position: relative;
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
 
-			&--unread { font-weight: bold; }
-		}
+            &--unread {
+                font-weight: bold;
+            }
+        }
 
-		&-content {
-			color: $gray-05;
+        &-content {
+            color: $gray-05;
 
-			&--unread { font-weight: bold; }
+            &--unread {
+                font-weight: bold;
+            }
 
-			@media (max-width: $break-medium) { font-size: .8rem; }
-		}
+            @media (max-width: $break-medium) {
+                font-size: 0.8rem;
+            }
+        }
 
-		&-time {
-			@include body-3;
+        &-time {
+            @include body-3;
 
-			margin-top: 1rem;
-			color: $gray-04;
+            margin-top: 1rem;
+            color: $gray-04;
 
-			&--unread { font-weight: bold; }
+            &--unread {
+                font-weight: bold;
+            }
 
-			@media (max-width: $break-medium) { font-size: .8rem; }
-		}
-	}
+            @media (max-width: $break-medium) {
+                font-size: 0.8rem;
+            }
+        }
+    }
 
-	&__notifications {
-    position: absolute;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: $secondary-light;
-		color: white;
-		font-size: 12px;
-		border-radius: $border-radius-round;
-		height: 20px;
-		width: 20px;
-    top: 5%;
-    right: 5%
-	}
+    &__notifications {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $secondary-light;
+        color: white;
+        font-size: 12px;
+        border-radius: $border-radius-round;
+        height: 20px;
+        width: 20px;
+        top: 5%;
+        right: 5%;
+    }
 
-  .chats__notifications {
-    bottom: 5%;
-    top: revert;
-  }
+    .chats__notifications {
+        bottom: 5%;
+        top: revert;
+    }
 }

@@ -1,30 +1,31 @@
 .error {
-	&-page {
-		margin: 4rem auto;
-		width: 90%;
-		max-width: $container;
-	
-		@media (min-width: $break-large) { width: 80%; }
-	}
+    &-page {
+        @include container;
+        width: 90%;
 
-	&__image {
-		border-radius: $border-radius-round;
-		height: 300px;
-		width: 300px;
-		margin: 0 auto 2rem;
-		object-position: center;
-		object-fit: cover;
-		box-shadow: $box-shadow-quchi;
-	}
+        @media (min-width: $break-large) {
+            width: 80%;
+        }
+    }
 
-	&__content {
-		@include title-3;
+    &__image {
+        border-radius: $border-radius-round;
+        height: 300px;
+        width: 300px;
+        margin: 0 auto 2rem;
+        object-position: center;
+        object-fit: cover;
+        box-shadow: $box-shadow-quchi;
+    }
 
-		text-align: center;
+    &__content {
+        @include title-3;
 
-		a {
-			text-decoration: underline;
-			color: $primary;
-		}
-	}
+        text-align: center;
+
+        a {
+            text-decoration: underline;
+            color: $primary;
+        }
+    }
 }
