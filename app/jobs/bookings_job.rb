@@ -4,6 +4,16 @@ class BookingsJob < ApplicationJob
   # Retry on SMTP Timeout errors with a wait period and limited attempts
   retry_on Net::SMTPFatalError, Net::ReadTimeout, wait: ->(attempt) { 5.seconds * (2**attempt) }, attempts: 10
 
+  BATCH_SIZE = 50 # Adjust batch size based on your limits
+  SMTP_SETTINGS = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'localhost',
+    user_name: 'your-email@gmail.com',
+    password: 'your-password',
+    authentication: :plain
+  }
+
   def perform
     complete_bookings
     remind_bookings
@@ -65,8 +75,15 @@ class BookingsJob < ApplicationJob
   end
 
   def send_reminder_emails(bookings)
-    bookings.each do |booking|
-      BookingMailer.with(booking:).pending_booking_reminder_email.deliver
+    ActionMailer::Base.smtp_settings
+
+    bookings.find_in_batches(batch_size: 100) do |booking_batch|
+      Mail::SMTP.start do |smtp|
+        booking_batch.each do |booking|
+          reminder_mail = BookingMailer.with(booking:).pending_booking_reminder_email
+          smtp.send_message(reminder_mail.encoded, reminder_mail.from, reminder_mail.to)
+        end
+      end
     end
   end
 end
