@@ -2,11 +2,17 @@
 
 require 'api_test_helper'
 
-class BookingEndpointTest < ApiEndpointTest
+class RequestEndpointTest < ApiEndpointTest
   fixtures :bookings
 
   def setup
     @user, @headers = api_prepare_headers
+    @user.couch.capacity = 2
+    @user.couch.couch_facilities.create!(facility: Facility.first)
+    @user.couch.save!
+
+    @guest = FactoryBot.create(:user, :for_test)
+    @request = FactoryBot.create(:booking, couch: @user.couch, user: @guest)
   end
 
   test 'GET /requests without authentication' do
@@ -24,14 +30,21 @@ class BookingEndpointTest < ApiEndpointTest
   end
 
   test 'GET /requests/:id' do
-    booking = Booking.all.sample
-    get "/api/v1/requests/#{booking.id}", headers: @headers
+    get "/api/v1/requests/#{@request.id}", headers: @headers
     assert_response :ok
 
     assert_match_openapi_doc
   end
 
-  test 'GET /booking/:id not found' do
+  test 'GET /requests/:id forbidden' do
+    booking = Booking.where.not(couch: @user.couch).sample
+    get "/api/v1/requests/#{booking.id}", headers: @headers
+    assert_response :forbidden
+
+    assert_match_openapi_doc
+  end
+
+  test 'GET /requests/:id not found' do
     get '/api/v1/requests/999', headers: @headers
     assert_response :not_found
 
@@ -73,7 +86,7 @@ class BookingEndpointTest < ApiEndpointTest
 
   def setup_for_update
     booking = Booking.all.sample
-    booking.user = @user
+    booking.couch = @user.couch
     booking.status = :pending
     booking.save!
 

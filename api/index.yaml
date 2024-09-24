@@ -40,7 +40,7 @@ paths:
     $ref: 'paths/requests.yaml'
 
   /requests/{id}:
-    $ref: 'paths/booking_id.yaml'
+    $ref: 'paths/request_id.yaml'
 
   /characteristics:
     $ref: 'paths/characteristics.yaml'
