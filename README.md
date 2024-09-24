@@ -154,7 +154,8 @@ For that, you need to run `rails test:system`.
 However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
 or deleted.
 
-Some tests are marked as slow and are not run by default. To run all tests, including slow tests, you can run the following
+Some tests are marked as slow and are not run by default. To run all tests, including slow tests, you can run the
+following
 command:
 
 ```bash
