@@ -1,12 +1,10 @@
 <section class="signin">
   <div class="signin__wrap">
     <h2 class="signin__title">Resend confirmation instructions</h2>
-
     <div class="signin__form">
       <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
         <%= f.error_notification %>
         <%= f.full_error :confirmation_token %>
-
         <div class="form-inputs">
           <%= f.input :email,
                       autofocus: true,
@@ -15,12 +13,10 @@
                       value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
                       input_html: { autocomplete: 'email' } %>
         </div>
-
         <div class="signin__button form-actions">
           <%= f.button :submit, 'Resend instructions' %>
         </div>
       <% end %>
-
       <div class="signin__links">
         <%= render 'devise/shared/links' %>
       </div>

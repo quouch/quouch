@@ -1,13 +1,13 @@
 <section class="review review--preview">
-	<% review_user = @host == current_user ? @host : @guest %>
-	<% review = @booking.reviews.find_by(user: review_user) %>
-	<h2>Your experience with <%= review_user == @host ? @guest.first_name : @host.first_name %></h2>
-	<div>
-		<span class="review__stars">
-			<% if review&.rating %>
-				<%= render 'partials/stars', rating: review.rating %>
-			<% end %>
-		</span>
-		<p class="review__content"><%= review&.content %></p>
-	</div>
+  <% review_user = @host == current_user ? @host : @guest %>
+  <% review = @booking.reviews.find_by(user: review_user) %>
+  <h2>Your experience with <%= review_user == @host ? @guest.first_name : @host.first_name %></h2>
+  <div>
+    <span class="review__stars">
+      <% if review&.rating %>
+        <%= render 'partials/stars', rating: review.rating %>
+      <% end %>
+    </span>
+    <p class="review__content"><%= review&.content %></p>
+  </div>
 </section>

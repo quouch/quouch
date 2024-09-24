@@ -6,16 +6,12 @@
   </head>
   <body>
     <h1>Thank you for hosting <%= @guest.first_name.capitalize %></h1>
-
     <p>Dear <%= @host.first_name.capitalize %>,</p>
     <p>Thank you for hosting <%= @guest.first_name.capitalize %> at your space. We hope that you felt safe and had a good time with your guest.</p>
     <p>It would be a dream to let the community know how it went. We kindly ask that you take a few moments to leave a review for <%= @guest.first_name.capitalize %> based on your experience hosting them.</p>
-
     <p><%= link_to 'Leave a Review', @review_url %></p>
-
     <p>You can also <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_guest %> about your experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while. </p>
-    Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
-
+    <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
     <p>Warmly,</p>
     <p>your Quouch Team</p>
   </body>

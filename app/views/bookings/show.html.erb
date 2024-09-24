@@ -36,7 +36,6 @@
         </div>
       </div>
     </article>
-
     <div class="booking__wrap">
       <article class="booking__info">
         <div class="booking__details">
@@ -72,7 +71,6 @@
             </li>
           </ul>
         </div>
-
         <% if @booking.host? && !@host.couch.facilities.empty? %>
           <div class="booking__accommodation">
             <h2>Accommodation</h2>
@@ -86,7 +84,6 @@
             </ul>
           </div>
         <% end %>
-
         <% if @host.passion.present? %>
           <div class="booking__passion">
             <h2>A bird told us <%= @host.first_name.capitalize %> likes..</h2>
@@ -95,7 +92,6 @@
           </div>
         <% end %>
       </article>
-
       <% if @booking.host? %>
         <article class="booking__location">
           <h2>Location</h2>
@@ -114,7 +110,6 @@
                 <i class="quouch-pin color-secondary" aria-label="Pin icon"></i>
                 <p><%= @couch.user.address %></p>
               </li>
-              </ul>
             <% elsif @booking.confirmed? && @hosts_array.geocoded.any? %>
               <div class="booking__map"
                    data-controller="map"
@@ -126,17 +121,17 @@
                 <p>This user has not provided their address yet, please contact them directly.</p>
               </li>
             <% end %>
-            </article>
+          </ul>
+        </article>
       <% end %>
-
       <div class="booking__links" data-controller="confirm-alert">
         <% if @booking.pending? || @booking.pending_reconfirmation? %>
           <%= link_to 'Update Request', edit_booking_path(@booking), class: 'booking__update' %>
           <button class="booking__decline"
                   data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayCancelAlert"
-                  data-confirm-title="Confirm"
-                  data-confirm-text="Are you sure you want to cancel this booking?"
-                  data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Request
+            data-confirm-title="Confirm"
+            data-confirm-text="Are you sure you want to cancel this booking?"
+            data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Request
           </button>
           <%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
         <% elsif @booking.host? && @booking.confirmed? %>
@@ -148,14 +143,13 @@
           <%= link_to 'Update Booking', edit_booking_path(@booking), class: 'booking__update' %>
           <button class="booking__decline"
                   data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayCancelAlert"
-                  data-confirm-title="Confirm"
-                  data-confirm-text="Are you sure you want to cancel this booking?"
-                  data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Request
+            data-confirm-title="Confirm"
+            data-confirm-text="Are you sure you want to cancel this booking?"
+            data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Request
           </button>
           <%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action', action: 'click->confirm-alert#displayCancelAlert' } %>
         <% end %>
       </div>
-
       <% if @host == current_user %>
         <% if @host_review.nil? %>
           <%= render 'partials/new-review' %>
@@ -169,7 +163,6 @@
           <%= render 'partials/review-preview' %>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </section>

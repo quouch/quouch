@@ -36,7 +36,6 @@
         </div>
       </div>
     </article>
-
     <div class="booking__wrap">
       <article class="booking__info">
         <div class="booking__details">
@@ -72,7 +71,6 @@
             </li>
           </ul>
         </div>
-
         <div class="booking__message">
           <h2>Message</h2>
           <% if @booking.message.empty? %>
@@ -82,23 +80,22 @@
           <% end %>
         </div>
       </article>
-
       <div class="booking__links" data-controller="confirm-alert">
         <% if @booking.confirmed? %>
           <button class="booking__decline"
                   data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayDeclineAlert"
-                  data-confirm-title="Confirm"
-                  data-confirm-text="Are you sure you want to cancel this booking?"
-                  data-confirm-buttons='["No, go back", "Yes, cancel and leave message"]'>Cancel Booking
+            data-confirm-title="Confirm"
+            data-confirm-text="Are you sure you want to cancel this booking?"
+            data-confirm-buttons='["No, go back", "Yes, cancel and leave message"]'>Cancel Booking
           </button>
           <%= button_to '', decline_and_send_message_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
         <% elsif @booking.pending? || @booking.pending_reconfirmation? %>
           <%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept', data: { confirm_alert_target: 'confirm', action: 'click->confirm-alert#displayAcceptAlert' } %>
           <button class="booking__decline"
                   data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayDeclineAlert"
-                  data-confirm-title="Confirm"
-                  data-confirm-text="Are you sure you want to decline this booking?"
-                  data-confirm-buttons='["No, go back", "Yes, decline"]'>
+            data-confirm-title="Confirm"
+            data-confirm-text="Are you sure you want to decline this booking?"
+            data-confirm-buttons='["No, go back", "Yes, decline"]'>
             Decline Request
           </button>
           <%= button_to '', decline_and_send_message_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
@@ -109,7 +106,6 @@
           <% end %>
         <% end %>
       </div>
-
       <% if @host == current_user %>
         <% if @host_review.nil? %>
           <%= render 'partials/new-review' %>
@@ -123,7 +119,6 @@
           <%= render 'partials/review-preview' %>
         <% end %>
       <% end %>
-
     </div>
   </div>
 </section>

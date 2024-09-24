@@ -1,84 +1,84 @@
 .header {
-    height: 72px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: $primary-super-transparent;
+	height: 72px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem;
+	background-color: $primary-super-transparent;
 
-    &-wrap {
-        position: fixed;
-        width: 100vw;
-        top: 0;
-        z-index: 2;
-    }
+	&-wrap {
+		position: fixed;
+		width: 100vw;
+		top: 0;
+		z-index: 2;
+	}
 
-    &__logo {
-        a {
-            @include logo;
-        }
-    }
+	&__logo {
+		a {
+			@include logo;
+		}
+	}
 
-    &__avatar {
-        border-radius: $border-radius-round;
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        object-position: center;
-        cursor: pointer;
-    }
+	&__avatar {
+		border-radius: $border-radius-round;
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+		object-position: center;
+		cursor: pointer;
+	}
 
-    &__collapsible {
-        position: absolute;
-        height: 95vh;
-        width: 100%;
-        right: 0;
-        top: 72px;
-        padding: 1rem 0 4rem 2rem;
-        z-index: 2;
+	&__collapsible {
+		position: absolute;
+		height: 95vh;
+		width: 100%;
+		right: 0;
+		top: 72px;
+		padding: 1rem 0 4rem 2rem;
+		z-index: 2;
 
-        @media (min-width: $break-medium) {
-            width: $break-x-small;
-        }
-    }
+		@media (min-width: $break-medium) {
+			width: $break-x-small;
+		}
+	}
 
-    &__note {
-        @include caption;
+	&__note {
+		@include caption;
 
-        color: $gray-05;
-    }
+		color: $gray-05;
+	}
 }
 
 .header .chats__notifications {
-    position: absolute;
-    top: 44px;
-    right: 14px;
+	position: absolute;
+	top: 44px;
+	right: 14px;
 }
 
 .running-header {
-    overflow: hidden;
-    padding: 0.3rem;
-    background-color: $secondary-dark;
-    white-space: nowrap;
-    text-align: center;
+	overflow: hidden;
+	padding: 0.3rem;
+	background-color: $secondary-dark;
+	white-space: nowrap;
+	text-align: center;
 
-    a {
-        display: inline;
-        color: $warning;
-        text-transform: uppercase;
-        font-weight: 700;
-    }
+	a {
+		display: inline;
+		color: $warning;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
 }
 
 .running-text {
-    display: inline-block;
+	display: inline-block;
 }
 
 @keyframes carousel {
-    0% {
-        transform: translateX(5%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+	0% {
+		transform: translateX(5%);
+	}
+	100% {
+		transform: translateX(-100%);
+	}
 }

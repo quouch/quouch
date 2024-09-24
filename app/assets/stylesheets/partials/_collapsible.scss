@@ -1,60 +1,60 @@
 .collapsible {
-    background-color: $secondary-super-transparent;
-    padding: 1rem 0 1rem 2rem;
-    overflow-y: scroll;
-    position: relative;
-    z-index: 3;
+	background-color: $secondary-super-transparent;
+	padding: 1rem 0 1rem 2rem;
+	overflow-y: scroll;
+	position: relative;
+	z-index: 3;
 
-    li {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        margin-bottom: 0.4rem;
+	li {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin-bottom: 0.4rem;
 
-        img {
-            width: 16px;
-            height: 16px;
-        }
+		img {
+			width: 16px;
+			height: 16px;
+		}
 
-        i {
-            font-size: 16px;
-        }
-    }
+		i {
+			font-size: 16px;
+		}
+	}
 
-    a,
-    button {
-        color: $gray-05;
-    }
+	a,
+	button {
+		color: $gray-05;
+	}
 
-    a:hover,
-    button:hover {
-        opacity: 0.8;
-    }
+	a:hover,
+	button:hover {
+		opacity: 0.8;
+	}
 
-    &__title {
-        @include title-4;
-        color: $primary;
-        margin-bottom: 0.2rem;
-    }
+	&__title {
+		@include title-4;
+		color: $primary;
+		margin-bottom: 0.2rem;
+	}
 
-    &__subtitle {
-        @include title-5;
-        color: $gray-05;
-    }
+	&__subtitle {
+		@include title-5;
+		color: $gray-05;
+	}
 
-    &__code {
-        @include title-5;
-        color: $secondary-light;
-        font-size: 1rem;
-        margin-top: 0.2rem;
-    }
+	&__code {
+		@include title-5;
+		color: $secondary-light;
+		font-size: 1rem;
+		margin-top: 0.2rem;
+	}
 
-    &__logout {
-        background-color: transparent;
-        border: 0;
-    }
+	&__logout {
+		background-color: transparent;
+		border: 0;
+	}
 
-    &__chat .chats__notifications {
-        position: inherit !important; // box of shame
-    }
+	&__chat .chats__notifications {
+		position: inherit !important; // box of shame
+	}
 }

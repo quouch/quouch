@@ -10,20 +10,22 @@ Booking app for homestay from queer & female perspective.
 ## Table of Contents
 
 1. [Getting started](#1-getting-started)
-    1. [Prerequisites](#11-prerequisites)
-    2. [Installation](#12-installation)
-    3. [Optional: Creating mock data for your local database](#13-optional-creating-mock-data-for-your-local-database)
+   1. [Prerequisites](#11-prerequisites)
+   2. [Installation](#12-installation)
+   3. [Optional: Creating mock data for your local database](#13-optional-creating-mock-data-for-your-local-database)
 2. [Developing](#2-developing)
-    1. [IDEs](#21-ides)
-        1. [Browser-based IDE](#want-to-use-a-browser-based-ide)
+   1. [IDEs](#21-ides)
+      1. [Browser-based IDE](#want-to-use-a-browser-based-ide)
 3. [Deployment](#3-deployment)
-    1. [Heroku](#31-heroku)
-    2. [PR Reviews](#32-pr-reviews)
+   1. [Heroku](#31-heroku)
+   2. [PR Reviews](#32-pr-reviews)
 4. [Tooling](#4-tooling)
-    1. [Docker](#41-docker)
-    2. [Running tests](#42-running-tests)
-    3. [Linting](#43-linting)
-    4. [Monitoring](#44-monitoring)
+
+   1. [Docker](#41-docker)
+   2. [Running tests](#42-running-tests)
+   3. [Linting](#43-linting)
+   4. [Formatting](#44-formatting)
+   5. [Monitoring](#45-monitoring)
 
 5. [Troubleshooting](#troubleshooting)
 
@@ -37,26 +39,31 @@ Booking app for homestay from queer & female perspective.
 ### 1.2. Installation
 
 1. Clone the repository
-    ```bash
-    gh repo clone lisbethpurrucker/quouch
-    ```
+
+   ```bash
+   gh repo clone lisbethpurrucker/quouch
+   ```
 
 2. Create the `master.key` file and add the key provided by Liz
+
    ```bash
    touch config/master.key
    ```
 
 3. Create your .env file and replace the values with your own credentials.
-   ```bash 
+
+   ```bash
    cp .env.example .env
    ```
 
 4. Install dependencies
+
    ```bash
    bundle install
    ```
 
 5. Create the database
+
    ```bash
    rails db:setup
    ```
@@ -154,7 +161,8 @@ For that, you need to run `rails test:system`.
 However, it's a good idea to run tests in the testing environment, so your development environment doesn't get polluted
 or deleted.
 
-Some tests are marked as slow and are not run by default. To run all tests, including slow tests, you can run the following
+Some tests are marked as slow and are not run by default. To run all tests, including slow tests, you can run the
+following
 command:
 
 ```bash
@@ -253,7 +261,24 @@ If you want to autofix the issues that Rubocop finds, you can run the following 
 rubocop -A
 ```
 
-### 4.4 Monitoring
+### 4.4 Formatting
+
+Unfortunately, rubocop does not format HTML, SCSS/CSS, JavaScript, YAML or Markdown files.
+
+We use Prettier to format our JavaScript, SCSS/CSS, YAML and other files that are not formatted by Rubocop.
+You can run Prettier with the following command:
+
+```bash
+npx prettier --write .
+```
+
+For HTML/ERB files, we use `htmlbeautifier`. You can run it with the following command:
+
+```bash
+htmlbeautifier **/*.html.erb
+```
+
+### 4.5 Monitoring
 
 We use Sentry to monitor errors in the application. You can access the Sentry dashboard by clicking on the Sentry badge
 or [here](https://quouch.sentry.io).
@@ -282,6 +307,6 @@ the project.
 ```
 DEFAULT_DATABASE_USER=postgres
 DEFAULT_DATABASE_PASSWORD=
-``` 
+```
 
 After that, run `rails db:create` and `rails db:migrate` to create the database and tables.

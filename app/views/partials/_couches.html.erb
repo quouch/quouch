@@ -1,8 +1,8 @@
 <div data-characteristics-filter-target="couches">
-	<ul class="couches__list" data-characteristics-filter-target="couches">
-		<% couches.each do |couch| %>
-			<%= render 'partials/couch', couch: couch %>
-		<% end %>
-	</ul>
-	<%== pagy_nav @pagy if @pagy.pages > 1 %>
+  <ul class="couches__list" data-characteristics-filter-target="couches">
+    <% couches.each do |couch| %>
+      <%= render 'partials/couch', couch: couch %>
+    <% end %>
+  </ul>
+  <%== pagy_nav @pagy if @pagy.pages > 1 %>
 </div>
