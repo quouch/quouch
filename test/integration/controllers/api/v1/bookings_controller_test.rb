@@ -56,20 +56,21 @@ module Api
 
       test 'should update booking' do
         @booking = create_user_booking
+        new_message = 'New message'
 
         attributes = @booking.attributes
-        attributes['status'] = :confirmed
+        attributes['message'] = new_message
         params = request_params(attributes, @booking.user, @booking.couch)
 
-        assert_equal 'pending', @booking.status
+        assert_not_equal new_message, @booking.message
         patch(api_v1_booking_url(@booking), headers: @headers, params:)
         assert_response :success
 
         assert_not_nil json_response['data']['id']
 
         @booking.reload
-        assert_equal 'confirmed', @booking.status
-        assert_equal 'confirmed', json_response['data']['attributes']['status']
+        assert_equal new_message, @booking.message
+        assert_equal new_message, json_response['data']['attributes']['message']
       end
 
       test 'should not update booking with wrong user' do
@@ -97,6 +98,42 @@ module Api
         first_error = json_response['errors'][0]
         assert_equal 'Invalid record', first_error['title']
         assert_includes first_error['source']['pointer'], 'request'
+      end
+
+      test 'should cancel booking' do
+        @booking = create_user_booking
+
+        attributes = @booking.attributes
+        attributes['status'] = :cancelled
+        params = request_params(attributes, @booking.user, @booking.couch)
+
+        patch(api_v1_booking_url(@booking), headers: @headers, params:)
+        assert_response :success
+
+        @booking.reload
+        assert_equal 'cancelled', @booking.status
+      end
+
+      test 'should not be able to confirm booking' do
+        @booking = create_user_booking
+
+        attributes = @booking.attributes
+        attributes['status'] = :confirmed
+        params = request_params(attributes, @booking.user, @booking.couch)
+
+        patch(api_v1_booking_url(@booking), headers: @headers, params:)
+        assert_response :forbidden
+      end
+
+      test 'should not be able to decline booking' do
+        @booking = create_user_booking
+
+        attributes = @booking.attributes
+        attributes['status'] = :declined
+        params = request_params(attributes, @booking.user, @booking.couch)
+
+        patch(api_v1_booking_url(@booking), headers: @headers, params:)
+        assert_response :forbidden
       end
 
       private

@@ -59,6 +59,12 @@ module Api
                 'You are not allowed to manage bookings for this user.'
         end
 
+        # prevent invalid changes to status
+        status = booking_params['status']
+        if status.present? && !@booking.status_change_allowed?(status, current_user)
+          raise JSONAPI::ForbiddenError, 'Invalid status change.'
+        end
+
         booking_params
       end
 
