@@ -65,10 +65,8 @@ class BookingsJob < ApplicationJob
   end
 
   def send_reminder_emails(bookings)
-    bookings.find_in_batches(batch_size: 100) do |booking_batch|
-      booking_batch.each do |booking|
-        BookingMailer.with(booking:).pending_booking_reminder_email.deliver
-      end
+    bookings.each do |booking|
+      BookingMailer.with(booking:).pending_booking_reminder_email.deliver
     end
   end
 end
