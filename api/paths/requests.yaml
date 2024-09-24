@@ -1,0 +1,22 @@
+get:
+  summary: List all requests for the user
+  tags:
+    - bookings
+  responses:
+    '200':
+      description: A list of requests
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: "../components/meta.yaml"
+              links:
+                $ref: "../components/links.yaml"
+              data:
+                type: array
+                items:
+                  $ref: "../components/booking.yaml"
+    '401':
+      $ref: "../components/unauthorized_error.yaml"

@@ -1,5 +1,5 @@
 get:
-  summary: List all bookings
+  summary: List all bookings made by the user
   tags:
     - bookings
   responses:

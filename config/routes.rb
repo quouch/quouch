@@ -92,6 +92,7 @@ Rails.application.routes.draw do
       resources :characteristics, only: %i[index]
       resources :facilities, only: %i[index]
       resources :bookings, only: %i[index show create update]
+      resources :requests, only: %i[index show update]
       resources :plans, only: %i[index]
       resources :chats, only: %i[index] do
         resources :messages, only: %i[index]
