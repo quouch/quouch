@@ -7,6 +7,7 @@ class BookingEndpointTest < ApiEndpointTest
 
   def setup
     @user, @headers = api_prepare_headers
+    @booking = FactoryBot.create(:booking, user: @user)
   end
 
   test 'GET /bookings without authentication' do
@@ -24,9 +25,16 @@ class BookingEndpointTest < ApiEndpointTest
   end
 
   test 'GET /bookings/:id' do
-    booking = Booking.all.sample
-    get "/api/v1/bookings/#{booking.id}", headers: @headers
+    get "/api/v1/bookings/#{@booking.id}", headers: @headers
     assert_response :ok
+
+    assert_match_openapi_doc
+  end
+
+  test 'GET /bookings/:id forbidden' do
+    booking = Booking.where.not(user: @user).sample
+    get "/api/v1/bookings/#{booking.id}", headers: @headers
+    assert_response :forbidden
 
     assert_match_openapi_doc
   end
@@ -40,8 +48,8 @@ class BookingEndpointTest < ApiEndpointTest
 
   test 'POST /bookings' do
     booking_data = {
-      start_date: Date.today,
-      end_date: Date.today + 1,
+      start_date: Date.today + 1.year,
+      end_date: Date.today + 1.year + 1.day,
       request: :host,
       message: Faker::Hipster.paragraph_by_chars(characters: 60),
       number_travellers: 1

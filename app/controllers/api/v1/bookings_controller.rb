@@ -5,12 +5,15 @@ module Api
     class BookingsController < ApiController
       include BookingsConcern
 
+      before_action :set_booking, except: %i[index create]
+      before_action :check_ownership, only: %i[show update]
+
       def index
         render jsonapi: Booking.where(user: current_user)
       end
 
       def show
-        render jsonapi: Booking.find(params[:id])
+        render jsonapi: @booking
       end
 
       def create
@@ -19,27 +22,37 @@ module Api
 
         booking.save!
 
-        after_create_process(booking)
+        post_create(booking)
         render jsonapi: booking, status: :created
       end
 
       def update
         params.require(:data).require(:id)
 
-        booking_attributes = booking_params
-        booking = Booking.find(params[:id])
-        booking.update!(booking_attributes)
-        render jsonapi: booking
+        booking_attributes = update_params
+        if @booking.update!(booking_attributes)
+          post_update(@booking)
+          render jsonapi: @booking
+        else
+          render jsonapi_errors: @booking.errors, status: :unprocessable_entity
+        end
       end
 
       private
 
-      def booking_params
-        params.require(:data).require(%i[type attributes relationships])
+      def check_ownership
+        params.require(:id)
 
-        booking_params = jsonapi_deserialize(params,
-                                             only: %i[request status start_date end_date number_travellers message
-                                                      flexible user couch])
+        booking = Booking.find(params[:id])
+        return if current_user.id.to_s == booking.user.id.to_s
+
+        raise JSONAPI::ForbiddenError,
+              'You are not allowed to manage bookings for this user.'
+      end
+
+      def update_params
+        booking_params = create_params
+
         user_id = booking_params['user_id']
         unless current_user.id.to_s == user_id.to_s
           raise JSONAPI::ForbiddenError,
@@ -47,6 +60,12 @@ module Api
         end
 
         booking_params
+      end
+
+      def create_params
+        params.require(:data).require(%i[type attributes relationships])
+
+        jsonapi_deserialize(params, only: %i[request status start_date end_date number_travellers message flexible user couch])
       end
     end
   end

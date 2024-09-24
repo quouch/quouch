@@ -99,4 +99,8 @@ module BookingsConcern
     Chat.find_by(user_sender_id: user1.id, user_receiver_id: user2.id) ||
       Chat.find_by(user_sender_id: user2.id, user_receiver_id: user1.id)
   end
+
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 end
