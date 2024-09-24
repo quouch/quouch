@@ -4,7 +4,7 @@
 #
 # This workflow will install a prebuilt Ruby version, install dependencies, and
 # run tests and linters.
-name: "Ruby on Rails CI"
+name: 'Ruby on Rails CI'
 
 on:
   push:
@@ -42,7 +42,7 @@ jobs:
           reporter: github-pr-check # Default is github-pr-check
           skip_install: true
           use_bundler: true
-          rubocop_flags: "--display-only-fail-level-offenses"
+          rubocop_flags: '--display-only-fail-level-offenses'
       - name: Lint YAML files
         uses: karancode/yamllint-github-action@master
         with:
@@ -58,16 +58,16 @@ jobs:
       postgres:
         image: postgres:11-alpine
         ports:
-          - "5432:5432"
+          - '5432:5432'
         env:
           POSTGRES_DB: quouch_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:
-      DATABASE_URL: "postgres://rails:password@localhost:5432/quouch_test"
-      BASE_USER_EMAIL: "test@quouch.com"
-      BASE_USER_PASSWORD: "password" # Change for a random secret!
-      COVERAGE: "true"
+      DATABASE_URL: 'postgres://rails:password@localhost:5432/quouch_test'
+      BASE_USER_EMAIL: 'test@quouch.com'
+      BASE_USER_PASSWORD: 'password' # Change for a random secret!
+      COVERAGE: 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
