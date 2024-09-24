@@ -6,19 +6,13 @@
   <body>
     <h1><%= @guest.first_name.capitalize %> cancelled the request!</h1>
     <p>Unfortunately, <%= @guest.first_name.capitalize %> cancelled their request at your place. We want to thank you anyways for offering your place on our platform. We appreciate your consideration and your desire to be a part of our community.</p>
-
     <p><%= link_to 'View cancelled request', @request_url %></p>
-
     <p>As a platform dedicated to creating a safe and inclusive environment for all of our guests, we do take absolute precaution as to who joins our platform. Still, this is the internet and there will always be some risk. Please be cautious and take independent care, as stated in our <%= link_to 'safety guidelines', @guidelines %>.</p>
-
     <p>You can <%= link_to 'report', @feedback_form_guest %> uncomfortable experiences to us, give us <%= link_to 'general feedback', @feedback_form_guest %> about your experience and also about the <%= link_to 'usability of our web app', @feedback_form_app %>. We are always there for you if you need support in any way, but please be aware that it is just Nora and Lis answering your mails, so sometimes it might take a while.</p>
-    
     <p>Remember that you can share <%= link_to 'your own invite code', @invite_code %> with people that you trust. Like this, we can grow safely and sustainably together.</p>
-
     <p>Are you already planning your next trip?</p>
     <%= link_to 'Browse couches', @browse_couches %>
     <p>Best regards,</p>
     <p>your Quouch Team</p>
-
   </body>
 </html>

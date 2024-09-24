@@ -1,26 +1,25 @@
 <section class="review-form">
-	<% if @host == current_user %>
-		<h2>Let <%= @booking.user.first_name %> & us know about your experience!</h2>
-	<% else %>
-		<h2>Let <%= @host.first_name %> & us know about your experience!</h2>
-	<% end %>
-
-	<%= simple_form_for [@couch, @booking, @review] do |f| %>
-		<div class="review-form__action">
-			<%= f.input :rating,
+  <% if @host == current_user %>
+    <h2>Let <%= @booking.user.first_name %> & us know about your experience!</h2>
+  <% else %>
+    <h2>Let <%= @host.first_name %> & us know about your experience!</h2>
+  <% end %>
+  <%= simple_form_for [@couch, @booking, @review] do |f| %>
+    <div class="review-form__action">
+      <%= f.input :rating,
 								  collection: (1..5).to_a,
 								  label: false,
 									error: false,
 								  input_html: { data: {controller: 'star-rating' } } %>
-			<%= f.error :rating, class: 'form-error form-error-rating' %>
-			<%= f.label 'Leave a review', required: true %>
-			<%= f.input :content, 
+      <%= f.error :rating, class: 'form-error form-error-rating' %>
+      <%= f.label 'Leave a review', required: true %>
+      <%= f.input :content, 
 								  label: false,
 									error: false,
 									placeholder: 'This is a publicly visible review.',
 								  input_html: { rows: 6 } %>
-			<%= f.error :content, class: 'form-error' %>
-			<%= f.submit 'Submit Review', class: 'review-form__button' %>
-		</div>
-	<% end %>
+      <%= f.error :content, class: 'form-error' %>
+      <%= f.submit 'Submit Review', class: 'review-form__button' %>
+    </div>
+  <% end %>
 </section>

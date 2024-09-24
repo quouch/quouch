@@ -65,14 +65,12 @@
         <li><%= characteristic.name %></li>
       <% end %>
     </ul>
-
     <div class="couch__intro">
       <% if !@host.summary.nil? %>
         <h2>Introduction</h2>
         <p><%= @host.summary %></p>
       <% end %>
     </div>
-
     <div class="couch__accommodation">
       <% if @host.offers_couch && !@host.couch.facilities.empty? %>
         <h2>Accommodation</h2>
@@ -92,7 +90,6 @@
         </ul>
       <% end %>
     </div>
-
     <div class="couch__location">
       <% if !@host.country.nil? %>
         <h2>Location</h2>
@@ -106,7 +103,6 @@
         </div>
       <% end %>
     </div>
-
   </div>
   <div class="couch__questions">
     <% if !@host.question_one.blank? %>
@@ -153,7 +149,6 @@
                 <p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
               </div>
             </div>
-
             <% if review.booking %>
               <div class="review__type">
                 <% if review.booking.host? %>
@@ -168,7 +163,6 @@
                 <% end %>
               </div>
             <% end %>
-
             <div class="review__rating">
               <div class="review__stars">
                 <% review.rating.round.times do %>

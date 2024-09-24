@@ -1,93 +1,93 @@
 <footer class="footer">
-	<div class="footer__wrap">
-		<div class="footer__newsletter footer__newsletter--mobile">
-			<h3>Newsletter</h3>
-			<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
-			<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
-				<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
-				<button type="submit">Subscribe</button>
-			</form>
-		</div>
-		<div class="footer__top">
-			<div class="footer__about">
-				<h3>About us</h3>
-				<ul class="footer__links">
-					<li>
-						<%= link_to 'About', about_path, aria: { label: 'Learn more about us' } %>
-					</li>
-					<li>
-						<%= link_to 'FAQ', faq_path, aria: { label: 'Frequently Asked Questions' } %>
-					</li>
-					<% if !user_signed_in? %>
-					<li>
-						<%= link_to 'Get Invite Code', code_contacts_path, aria: { label: 'Request an invite code' } %>
-					</li>
-					<% end %>
-					<li>
-						<%= link_to 'Humor Test', 'https://forms.gle/nS3XfX9fE9P3gC5E6', aria: { label: 'Take the humor test' } %>
-					</li>
-				</ul>
-			</div>
-			<div>
-				<h3>Safety</h3>
-				<ul class="footer__links">
-					<li>
-						<%= link_to 'Safety Advice', safety_path, aria: { label: 'Read safety advice' } %>
-					</li>
-					<li>
-						<%= link_to 'Guidelines', guidelines_path, aria: { label: 'View our guidelines' } %>
-					</li>
-				</ul>
-			</div>
-			<div class="footer__legal">
-				<h3>Legal</h3>
-				<ul class="footer__links">
-					<li>
-						<%= link_to 'Privacy Policy', privacy_path, aria: { label: 'Read our privacy policy' } %>
-					</li>
-					<li>
-						<%= link_to 'Impressum', impressum_path, aria: { label: 'View our impressum' } %>
-					</li>
-					<li>
-						<%= link_to 'Terms & Conditions', terms_path, aria: { label: 'Read our terms and conditions' } %>
-					</li>
-					<li>
-						<%= link_to 'Contact Us', new_contact_path, aria: { label: 'Contact us' } %>
-					</li>
-				</ul>
-			</div>
-			<div class="footer__social">
-				<h3>Social</h3>
-				<ul class="footer__links-social">
-					<li>
-						<%= link_to 'https://www.instagram.com/quouch_app/', aria: { label: 'Visit our Instagram profile' } do %>
-							<i class="fab fa-instagram"></i>
-						<% end %>
-					</li>
-					<li>
-						<%= link_to 'https://www.linkedin.com/company/quouch/', aria: { label: 'Visit our LinkedIn profile' } do %>
-							<i class="fab fa-linkedin-in"></i>
-						<% end %>
-					</li>
-					<li>
-						<%= link_to 'https://www.tiktok.com/@quouch_app', aria: { label: 'Visit our TikTok profile' } do %>
-							<i class="fab fa-tiktok"></i>
-						<% end %>
-					</li>
-				</ul>
-			</div>
-			<div class="footer__newsletter footer__newsletter--desktop">
-				<h3>Newsletter</h3>
-				<p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
-				<form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
-					<input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
-					<button type="submit">Subscribe</button>
-				</form>
-			</div>
-		</div>
-		<div class="footer__logo">
-			<%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680011936/logo.png', alt: 'Quouch Q Logo') %>
-			<span>© 2024 Quouch. All rights reserved.</span>
-		</div>
-	</div>
+  <div class="footer__wrap">
+    <div class="footer__newsletter footer__newsletter--mobile">
+      <h3>Newsletter</h3>
+      <p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
+      <form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
+        <input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="footer__top">
+      <div class="footer__about">
+        <h3>About us</h3>
+        <ul class="footer__links">
+          <li>
+            <%= link_to 'About', about_path, aria: { label: 'Learn more about us' } %>
+          </li>
+          <li>
+            <%= link_to 'FAQ', faq_path, aria: { label: 'Frequently Asked Questions' } %>
+          </li>
+          <% if !user_signed_in? %>
+            <li>
+              <%= link_to 'Get Invite Code', code_contacts_path, aria: { label: 'Request an invite code' } %>
+            </li>
+          <% end %>
+          <li>
+            <%= link_to 'Humor Test', 'https://forms.gle/nS3XfX9fE9P3gC5E6', aria: { label: 'Take the humor test' } %>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3>Safety</h3>
+        <ul class="footer__links">
+          <li>
+            <%= link_to 'Safety Advice', safety_path, aria: { label: 'Read safety advice' } %>
+          </li>
+          <li>
+            <%= link_to 'Guidelines', guidelines_path, aria: { label: 'View our guidelines' } %>
+          </li>
+        </ul>
+      </div>
+      <div class="footer__legal">
+        <h3>Legal</h3>
+        <ul class="footer__links">
+          <li>
+            <%= link_to 'Privacy Policy', privacy_path, aria: { label: 'Read our privacy policy' } %>
+          </li>
+          <li>
+            <%= link_to 'Impressum', impressum_path, aria: { label: 'View our impressum' } %>
+          </li>
+          <li>
+            <%= link_to 'Terms & Conditions', terms_path, aria: { label: 'Read our terms and conditions' } %>
+          </li>
+          <li>
+            <%= link_to 'Contact Us', new_contact_path, aria: { label: 'Contact us' } %>
+          </li>
+        </ul>
+      </div>
+      <div class="footer__social">
+        <h3>Social</h3>
+        <ul class="footer__links-social">
+          <li>
+            <%= link_to 'https://www.instagram.com/quouch_app/', aria: { label: 'Visit our Instagram profile' } do %>
+              <i class="fab fa-instagram"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to 'https://www.linkedin.com/company/quouch/', aria: { label: 'Visit our LinkedIn profile' } do %>
+              <i class="fab fa-linkedin-in"></i>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to 'https://www.tiktok.com/@quouch_app', aria: { label: 'Visit our TikTok profile' } do %>
+              <i class="fab fa-tiktok"></i>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+      <div class="footer__newsletter footer__newsletter--desktop">
+        <h3>Newsletter</h3>
+        <p>Stay up to date on Quouch events and updates regarding the app, community and our service.</p>
+        <form data-controller="brevo" data-action="submit->brevo#send" data-brevo-api-key-value="<%= Rails.application.credentials.dig(:brevo, :api_key) %>">
+          <input type="email" name="email" placeholder="E-Mail Address" data-brevo-target="input" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer__logo">
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1680011936/logo.png', alt: 'Quouch Q Logo') %>
+      <span>© 2024 Quouch. All rights reserved.</span>
+    </div>
+  </div>
 </footer>

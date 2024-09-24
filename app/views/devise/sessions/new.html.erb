@@ -4,18 +4,17 @@
     <h3 class="signin__subtitle">Welcome back!</h3>
     <div class="signin__form">
       <%= simple_form_for(resource, as: resource_name, html: { 'data-turbo': 'false' }, url: session_path(resource_name)) do |f| %>
-          <%= f.input :email,
+        <%= f.input :email,
                       required: false,
                       label: false,
                       placeholder: 'Email Address',
                       autofocus: true,
                       input_html: { autocomplete: "email" } %>
-          <%= f.input :password,
+        <%= f.input :password,
                       required: false,
                       label: false,
                       placeholder: 'Password',
                       input_html: { autocomplete: "current-password" } %>
-
         <div class="signin__button">
           <%= f.button :submit, "Log in" %>
         </div>
