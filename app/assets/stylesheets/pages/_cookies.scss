@@ -2,16 +2,16 @@
 @import 'cookies_eu';
 
 .cookies {
-    .general__numbered-list {
-        li {
-            font-size: smaller;
-        }
-    }
+	.general__numbered-list {
+		li {
+			font-size: smaller;
+		}
+	}
 }
 
 .cookies-eu {
-    .cookies-eu-ok {
-        background-color: $primary !important;
-        border-radius: 8px;
-    }
+	.cookies-eu-ok {
+		background-color: $primary !important;
+		border-radius: 8px;
+	}
 }

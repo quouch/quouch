@@ -1,27 +1,27 @@
 .navigation {
-    flex-grow: 2;
+	flex-grow: 2;
 
-    &__list {
-        display: flex;
-        justify-content: center;
-        gap: 10rem;
+	&__list {
+		display: flex;
+		justify-content: center;
+		gap: 10rem;
 
-        @media (max-width: $break-medium) {
-            display: none;
-        }
+		@media (max-width: $break-medium) {
+			display: none;
+		}
 
-        a:hover {
-            color: $primary-light;
-        }
-    }
+		a:hover {
+			color: $primary-light;
+		}
+	}
 
-    &__link {
-        @include nav-title;
+	&__link {
+		@include nav-title;
 
-        &--donation {
-            @media (max-width: $break-large) {
-                display: none;
-            }
-        }
-    }
+		&--donation {
+			@media (max-width: $break-large) {
+				display: none;
+			}
+		}
+	}
 }

@@ -1,139 +1,139 @@
 .couches {
-    &__wrap {
-        margin: 2rem auto;
-        width: 90%;
+	&__wrap {
+		margin: 2rem auto;
+		width: 90%;
 
-        @media (min-width: $break-x-large) {
-            @include container-width;
-        }
-    }
+		@media (min-width: $break-x-large) {
+			@include container-width;
+		}
+	}
 
-    &__list {
-        @media (min-width: $break-small) {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            justify-content: center;
-        }
+	&__list {
+		@media (min-width: $break-small) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+			justify-content: center;
+		}
 
-        @media (min-width: $break-medium) {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @media (min-width: $break-large) {
-            grid-template-columns: repeat(3, 1fr);
-        }
+		@media (min-width: $break-medium) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (min-width: $break-large) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 
-        &-item {
-            display: flex;
-            align-items: stretch;
-        }
+		&-item {
+			display: flex;
+			align-items: stretch;
+		}
 
-        &-article {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            border-radius: $border-radius-medium;
-            background-color: $white;
-            box-shadow: $box-shadow;
-            transition: all 160ms ease-in-out;
-            margin-bottom: 1rem;
+		&-article {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			border-radius: $border-radius-medium;
+			background-color: $white;
+			box-shadow: $box-shadow;
+			transition: all 160ms ease-in-out;
+			margin-bottom: 1rem;
 
-            &:hover {
-                transform: scale(1.04);
-                box-shadow: $box-shadow-hover;
-            }
+			&:hover {
+				transform: scale(1.04);
+				box-shadow: $box-shadow-hover;
+			}
 
-            @media (min-width: $break-small) {
-                margin-bottom: 0;
-            }
-        }
-    }
+			@media (min-width: $break-small) {
+				margin-bottom: 0;
+			}
+		}
+	}
 
-    &__image {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        object-position: center;
-        border-top-left-radius: $border-radius-medium;
-        border-top-right-radius: $border-radius-medium;
-    }
+	&__image {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+		object-position: center;
+		border-top-left-radius: $border-radius-medium;
+		border-top-right-radius: $border-radius-medium;
+	}
 
-    &__content {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        padding: 1rem;
+	&__content {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 1rem;
 
-        &-wrap {
-            margin-top: auto;
-            margin-bottom: 0;
-        }
-    }
+		&-wrap {
+			margin-top: auto;
+			margin-bottom: 0;
+		}
+	}
 
-    &__offers {
-        margin-left: 0 !important; // box of shame
+	&__offers {
+		margin-left: 0 !important; // box of shame
 
-        p {
-            font-size: 0.75rem;
-        }
+		p {
+			font-size: 0.75rem;
+		}
 
-        img {
-            height: 16px;
-            width: 16px;
-        }
+		img {
+			height: 16px;
+			width: 16px;
+		}
 
-        i {
-            font-size: 16px !important;
-        }
-    }
+		i {
+			font-size: 16px !important;
+		}
+	}
 
-    &__details {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
+	&__details {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+	}
 
-    &__name {
-        @include title-5;
+	&__name {
+		@include title-5;
 
-        margin: 0;
+		margin: 0;
 
-        a {
-            color: $black;
-        }
-    }
+		a {
+			color: $black;
+		}
+	}
 
-    &__location {
-        @include caption;
+	&__location {
+		@include caption;
 
-        display: flex;
-        gap: 0.3rem;
-        margin-top: 0.5rem;
+		display: flex;
+		gap: 0.3rem;
+		margin-top: 0.5rem;
 
-        i {
-            font-size: 16px;
-        }
-    }
+		i {
+			font-size: 16px;
+		}
+	}
 
-    &__characteristics {
-        @include body-2;
+	&__characteristics {
+		@include body-2;
 
-        color: $gray-05;
-    }
+		color: $gray-05;
+	}
 
-    &__rating {
-        display: flex;
-        align-items: center;
-        gap: 0.1rem;
-        color: $gray-05;
+	&__rating {
+		display: flex;
+		align-items: center;
+		gap: 0.1rem;
+		color: $gray-05;
 
-        i {
-            font-size: 20px;
-        }
-    }
+		i {
+			font-size: 20px;
+		}
+	}
 }
 
 .pagination {
-    margin: 3rem auto 0;
-    text-align: center;
+	margin: 3rem auto 0;
+	text-align: center;
 }

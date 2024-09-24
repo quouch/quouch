@@ -1,33 +1,33 @@
 .review-form {
-    width: 100%;
+	width: 100%;
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+	form {
+		display: flex;
+		flex-direction: column;
+	}
 
-    &__action {
-        div {
-            display: flex;
-            flex-direction: column;
-        }
+	&__action {
+		div {
+			display: flex;
+			flex-direction: column;
+		}
 
-        label {
-            @include facility-name;
+		label {
+			@include facility-name;
 
-            margin: 1rem 0 0.7rem;
-            display: inline-block;
-        }
-    }
+			margin: 1rem 0 0.7rem;
+			display: inline-block;
+		}
+	}
 
-    &__button {
-        @include input-field;
-        @include primary-button;
+	&__button {
+		@include input-field;
+		@include primary-button;
 
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin-top: 1rem;
-        width: fit-content;
-    }
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-top: 1rem;
+		width: fit-content;
+	}
 }

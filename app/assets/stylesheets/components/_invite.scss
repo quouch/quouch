@@ -1,82 +1,82 @@
 .invite {
-    margin: 0;
+	margin: 0;
 
-    &__header {
-        color: $white;
-        background-color: $primary-transparent;
-        margin: 0;
-        padding: 2rem;
-    }
+	&__header {
+		color: $white;
+		background-color: $primary-transparent;
+		margin: 0;
+		padding: 2rem;
+	}
 
-    &__wrap {
-        width: 80%;
-        max-width: $container;
-        margin: 2rem auto;
+	&__wrap {
+		width: 80%;
+		max-width: $container;
+		margin: 2rem auto;
 
-        @media (min-width: $break-large) {
-            width: 50%;
-        }
-    }
+		@media (min-width: $break-large) {
+			width: 50%;
+		}
+	}
 
-    &__subtitle {
-        @include title-2;
+	&__subtitle {
+		@include title-2;
 
-        margin: 2rem auto;
-    }
+		margin: 2rem auto;
+	}
 
-    &__content {
-        margin-bottom: 2rem;
-    }
+	&__content {
+		margin-bottom: 2rem;
+	}
 
-    &__form {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
+	&__form {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
 
-        @media (min-width: $break-large) {
-            width: 80%;
-        }
-    }
+		@media (min-width: $break-large) {
+			width: 80%;
+		}
+	}
 
-    &__note {
-        position: static;
-        background-color: $secondary-super-transparent;
-        border-radius: 16px;
-        width: fit-content;
-        box-shadow: $box-shadow-alert;
-        padding: 0.5rem 1rem;
-        transition: opacity 1s ease-in-out;
-    }
+	&__note {
+		position: static;
+		background-color: $secondary-super-transparent;
+		border-radius: 16px;
+		width: fit-content;
+		box-shadow: $box-shadow-alert;
+		padding: 0.5rem 1rem;
+		transition: opacity 1s ease-in-out;
+	}
 
-    &__email {
-        flex-grow: 1;
+	&__email {
+		flex-grow: 1;
 
-        input {
-            width: 100%;
-        }
-    }
+		input {
+			width: 100%;
+		}
+	}
 
-    &__input {
-        background-color: $secondary-super-transparent;
-        color: $secondary;
-        flex-grow: 1;
+	&__input {
+		background-color: $secondary-super-transparent;
+		color: $secondary;
+		flex-grow: 1;
 
-        &-wrapper {
-            flex-grow: 1;
+		&-wrapper {
+			flex-grow: 1;
 
-            input {
-                width: 100%;
-                background-color: $secondary-super-transparent;
-            }
-        }
-    }
+			input {
+				width: 100%;
+				background-color: $secondary-super-transparent;
+			}
+		}
+	}
 
-    &__button {
-        background-color: transparent;
-        border: none;
+	&__button {
+		background-color: transparent;
+		border: none;
 
-        :hover {
-            cursor: pointer;
-        }
-    }
+		:hover {
+			cursor: pointer;
+		}
+	}
 }
