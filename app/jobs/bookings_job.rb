@@ -65,14 +65,10 @@ class BookingsJob < ApplicationJob
   end
 
   def send_reminder_emails(bookings)
-    ActionMailer::Base.smtp_settings
-
     bookings.find_in_batches(batch_size: 100) do |booking_batch|
-      Mail::SMTP.start do |smtp|
-        booking_batch.each do |booking|
-          reminder_mail = BookingMailer.with(booking:).pending_booking_reminder_email
-          smtp.send_message(reminder_mail.encoded, reminder_mail.from, reminder_mail.to)
-        end
+      booking_batch.each do |booking|
+        reminder_mail = BookingMailer.with(booking:).pending_booking_reminder_email
+        smtp.send_message(reminder_mail.encoded, reminder_mail.from, reminder_mail.to)
       end
     end
   end
