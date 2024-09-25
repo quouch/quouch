@@ -8,7 +8,7 @@ properties:
     type: string
     example: facility
   attributes:
-    $ref: "./enum_attributes.yaml"
+    $ref: './enum_attributes.yaml'
 
 required:
   - id

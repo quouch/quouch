@@ -3,10 +3,10 @@ get:
   tags:
     - users
   parameters:
-    - $ref: "../components/query_params.yaml#/limit"
-    - $ref: "../components/query_params.yaml#/offset"
-    - $ref: "../components/query_params.yaml#/sort"
-    - $ref: "../components/query_params.yaml#/filter"
+    - $ref: '../components/query_params.yaml#/limit'
+    - $ref: '../components/query_params.yaml#/offset'
+    - $ref: '../components/query_params.yaml#/sort'
+    - $ref: '../components/query_params.yaml#/filter'
 
   responses:
     '200':
@@ -17,16 +17,16 @@ get:
             type: object
             properties:
               meta:
-                $ref: "../components/meta.yaml"
+                $ref: '../components/meta.yaml'
               links:
-                $ref: "../components/links.yaml"
+                $ref: '../components/links.yaml'
               data:
                 type: array
                 items:
-                  $ref: "../components/user.yaml"
+                  $ref: '../components/user.yaml'
             required:
               - meta
               - links
               - data
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'

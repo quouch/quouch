@@ -8,7 +8,7 @@ properties:
     type: string
     example: user
   attributes:
-    $ref: "./user_attributes.yaml"
+    $ref: './user_attributes.yaml'
   relationships:
     type: object
     properties:
@@ -16,7 +16,7 @@ properties:
         type: object
         properties:
           couch:
-            $ref: "./couch.yaml"
+            $ref: './couch.yaml'
         required:
           - couch
 

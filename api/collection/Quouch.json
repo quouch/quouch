@@ -20,14 +20,8 @@
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/v1/couches?items=20&page=1&query=Berlin",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"couches"
-							],
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "couches"],
 							"query": [
 								{
 									"key": "items",
@@ -63,15 +57,8 @@
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/v1/users/edit",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"edit"
-							]
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", "edit"]
 						}
 					},
 					"response": []
@@ -87,15 +74,8 @@
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/v1/users/1",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								"1"
-							]
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", "1"]
 						}
 					},
 					"response": []
@@ -111,15 +91,8 @@
 						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/v1/users/",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"users",
-								""
-							]
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", ""]
 						}
 					},
 					"response": []
@@ -156,14 +129,8 @@
 				},
 				"url": {
 					"raw": "{{base_url}}/api/v1/login",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"login"
-					]
+					"host": ["{{base_url}}"],
+					"path": ["api", "v1", "login"]
 				}
 			},
 			"response": []
@@ -179,14 +146,8 @@
 				"header": [],
 				"url": {
 					"raw": "{{base_url}}/api/v1/logout",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"logout"
-					]
+					"host": ["{{base_url}}"],
+					"path": ["api", "v1", "logout"]
 				}
 			},
 			"response": []
@@ -207,9 +168,7 @@
 			"listen": "prerequest",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
-					""
-				],
+				"exec": [""],
 				"id": "9f91d7f1-5549-4ad5-82f4-f0d4640de53d"
 			}
 		},
@@ -217,9 +176,7 @@
 			"listen": "test",
 			"script": {
 				"type": "text/javascript",
-				"exec": [
-					""
-				],
+				"exec": [""],
 				"id": "bbcb7ca0-5dca-47dc-bdf5-f6335c9d9213"
 			}
 		}

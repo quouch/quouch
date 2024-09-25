@@ -11,15 +11,15 @@ get:
             type: object
             properties:
               meta:
-                $ref: "../components/meta.yaml"
+                $ref: '../components/meta.yaml'
               links:
-                $ref: "../components/links.yaml"
+                $ref: '../components/links.yaml'
               data:
                 type: array
                 items:
-                  $ref: "../components/booking.yaml"
+                  $ref: '../components/booking.yaml'
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'
 
 post:
   summary: Create a new booking

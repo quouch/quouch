@@ -7,16 +7,16 @@ properties:
       properties:
         status:
           type: string
-          example: "422"
+          example: '422'
         detail:
           type: string
           description: A human readable error message
           nullable: true
-          example: "You are not authorized to access this resource."
+          example: 'You are not authorized to access this resource.'
         title:
           type: string
           description: A human readable error title
-          example: "Unauthorized"
+          example: 'Unauthorized'
         source:
           type: object
           nullable: true
@@ -24,7 +24,7 @@ properties:
             pointer:
               type: string
               description: A JSON Pointer to the associated entity in the request document
-              example: "first_name"
+              example: 'first_name'
         code:
           type: string
           nullable: true

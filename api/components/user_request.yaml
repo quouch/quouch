@@ -15,13 +15,13 @@ properties:
         properties:
           email:
             type: string
-            example: "example@email.com"
+            example: 'example@email.com'
           first_name:
             type: string
-            example: "Jane"
+            example: 'Jane'
           last_name:
             type: string
-            example: "Doe"
+            example: 'Doe'
           date_of_birth:
             type: string
             format: date
@@ -30,19 +30,19 @@ properties:
             example: 25
           summary:
             type: string
-            example: "I am a cool person"
+            example: 'I am a cool person'
           city:
             type: string
-            example: "Berlin"
+            example: 'Berlin'
           country:
             type: string
-            example: "Germany"
+            example: 'Germany'
           zipcode:
             type: string
-            example: "10117"
+            example: '10117'
           address:
             type: string
-            example: "Unter den Linden 1"
+            example: 'Unter den Linden 1'
           photo:
             type: string
             format: uri
@@ -61,7 +61,7 @@ properties:
           characteristics:
             type: array
             items:
-              $ref: "./enum_attributes.yaml"
+              $ref: './enum_attributes.yaml'
     required:
       - id
       - attributes

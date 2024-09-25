@@ -15,7 +15,7 @@ delete:
                 properties:
                   message:
                     type: string
-                    example: "Logged out successfully."
+                    example: 'Logged out successfully.'
                 required:
                   - message
             required:
@@ -27,5 +27,5 @@ delete:
           schema:
             $ref: '../components/error.yaml'
           example:
-            message: "Invalid token."
+            message: 'Invalid token.'
             code: 401

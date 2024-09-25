@@ -11,7 +11,7 @@ get:
             type: object
             properties:
               data:
-                $ref: "../components/user.yaml"
+                $ref: '../components/user.yaml'
     '401':
       $ref: '../components/unauthorized_error.yaml'
     '404':

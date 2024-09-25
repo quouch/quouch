@@ -69,4 +69,4 @@ components:
       type: http
       scheme: bearer
 security:
-  - BearerAuth: [ ]
+  - BearerAuth: []

@@ -17,9 +17,9 @@ get:
             type: object
             properties:
               data:
-                $ref: "../components/couch.yaml"
+                $ref: '../components/couch.yaml'
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'
     '404':
       description: No couch found for the provided `id`
       content:

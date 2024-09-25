@@ -6,9 +6,9 @@ properties:
     properties:
       email:
         type: string
-        example: "test@example.com"
+        example: 'test@example.com'
       password:
         type: string
-        example: "password"
+        example: 'password'
 required:
   - user

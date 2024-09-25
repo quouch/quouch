@@ -1,6 +1,6 @@
 post:
   summary: Login with email and password
-  security: [ ]
+  security: []
 
   tags:
     - account
@@ -9,7 +9,7 @@ post:
     content:
       application/x-www-form-urlencoded:
         schema:
-          $ref: "../components/login.yaml"
+          $ref: '../components/login.yaml'
   responses:
     '200':
       description: OK. Returns the logged in user
@@ -23,7 +23,7 @@ post:
                 properties:
                   message:
                     type: string
-                    example: "Logged in successfully."
+                    example: 'Logged in successfully.'
                 required:
                   - message
               data:
@@ -39,8 +39,8 @@ post:
           schema:
             $ref: '../components/error.yaml'
           example:
-            detail: "Invalid login credentials. Please try again."
-            status: "401"
+            detail: 'Invalid login credentials. Please try again.'
+            status: '401'
     '409':
       description: Conflict
       content:

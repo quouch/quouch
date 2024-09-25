@@ -15,7 +15,7 @@ properties:
         type: object
         properties:
           request:
-            $ref: "./booking_request_enum.yaml"
+            $ref: './booking_request_enum.yaml'
           start_date:
             type: string
             format: date
@@ -24,7 +24,7 @@ properties:
             format: date
           message:
             type: string
-            example: "Hello, I would like to book your couch"
+            example: 'Hello, I would like to book your couch'
           number_travellers:
             type: string
             example: 1

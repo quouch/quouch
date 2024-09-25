@@ -17,9 +17,9 @@ get:
             type: object
             properties:
               data:
-                $ref: "../components/booking.yaml"
+                $ref: '../components/booking.yaml'
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'
     '403':
       description: The user is not authorized to access the booking
       content:
@@ -63,9 +63,9 @@ patch:
             type: object
             properties:
               data:
-                $ref: "../components/booking.yaml"
+                $ref: '../components/booking.yaml'
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'
     '403':
       description: The user is not authorized to update the booking
       content:

@@ -17,7 +17,7 @@ properties:
       - expired
       - cancelled
   request:
-    $ref: "./booking_request_enum.yaml"
+    $ref: './booking_request_enum.yaml'
   booking_date:
     type: string
     format: date
@@ -34,7 +34,7 @@ properties:
     format: date
   message:
     type: string
-    example: "Hello, I would like to book your couch"
+    example: 'Hello, I would like to book your couch'
   number_travellers:
     type: integer
     example: 1

@@ -19,18 +19,18 @@ get:
             type: object
             properties:
               meta:
-                $ref: "../components/meta.yaml"
+                $ref: '../components/meta.yaml'
               links:
-                $ref: "../components/links.yaml"
+                $ref: '../components/links.yaml'
               data:
                 type: array
                 items:
-                  $ref: "../components/review.yaml"
+                  $ref: '../components/review.yaml'
     '401':
-      $ref: "../components/unauthorized_error.yaml"
+      $ref: '../components/unauthorized_error.yaml'
     '404':
       description: No user found for the provided `userId`
       content:
         application/vnd.api+json:
           schema:
-            $ref: "../components/error.yaml"
+            $ref: '../components/error.yaml'

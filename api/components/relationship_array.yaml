@@ -4,6 +4,6 @@ properties:
   data:
     type: array
     items:
-      $ref: "./relationship_hash.yaml"
+      $ref: './relationship_hash.yaml'
 required:
   - data

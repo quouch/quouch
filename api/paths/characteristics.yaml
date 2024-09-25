@@ -11,13 +11,13 @@ get:
             type: object
             properties:
               meta:
-                $ref: "../components/meta.yaml"
+                $ref: '../components/meta.yaml'
               links:
-                $ref: "../components/links.yaml"
+                $ref: '../components/links.yaml'
               data:
                 type: array
                 items:
-                  $ref: "../components/characteristic.yaml"
+                  $ref: '../components/characteristic.yaml'
             required:
               - meta
               - links

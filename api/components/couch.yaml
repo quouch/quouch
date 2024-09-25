@@ -34,11 +34,11 @@ properties:
         type: string
         format: date-time
       user:
-        $ref: "./user_attributes.yaml"
+        $ref: './user_attributes.yaml'
       facilities:
         type: array
         items:
-          $ref: "./enum_attributes.yaml"
+          $ref: './enum_attributes.yaml'
 
     required:
       - id

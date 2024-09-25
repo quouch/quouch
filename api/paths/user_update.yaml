@@ -13,7 +13,7 @@ post:
     content:
       application/x-www-form-urlencoded:
         schema:
-          $ref: "../components/user_request.yaml"
+          $ref: '../components/user_request.yaml'
   responses:
     '200':
       description: The updated user
@@ -23,7 +23,7 @@ post:
             type: object
             properties:
               data:
-                $ref: "../components/user.yaml"
+                $ref: '../components/user.yaml'
               meta:
                 type: object
                 properties:
