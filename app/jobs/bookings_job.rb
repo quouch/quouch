@@ -1,5 +1,4 @@
 class BookingsJob < ApplicationJob
-  include Sidekiq::Job
   queue_as :default
 
   # Retry on SMTP Timeout errors with a wait period and limited attempts
