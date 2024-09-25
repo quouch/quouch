@@ -3,6 +3,7 @@
 require 'test_helper'
 
 class BookingsConcernTest < ActiveSupport::TestCase
+  include ActiveJob::TestHelper
   include BookingsConcern
 
   def setup
