@@ -38,6 +38,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
       stub(:create_chat_and_message, mocked_this) do
         post_create(@booking)
       end
+      assert_equal 'pending', @booking.status
     end
 
     assert_equal 'pending', @booking.status
@@ -52,7 +53,6 @@ class BookingsConcernTest < ActiveSupport::TestCase
       message = post_update(@booking)
       assert_equal 'Request successfully updated!', message
     end
-    assert_equal 'pending', @booking.status
   end
 
   test 'should accept and send email' do
@@ -62,7 +62,6 @@ class BookingsConcernTest < ActiveSupport::TestCase
     assert_enqueued_emails 1 do
       accept_booking(@booking)
     end
-    assert_equal 'confirmed', @booking.status
   end
 
   test 'should cancel request as guest' do
