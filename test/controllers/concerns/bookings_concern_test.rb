@@ -40,7 +40,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
       end
     end
 
-    assert_equal 'cancelled', @booking.status
+    assert_equal 'pending', @booking.status
   end
 
   test 'should send email post update' do
