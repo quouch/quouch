@@ -118,6 +118,9 @@ gem 'importmap-rails', '~> 1.2.3'
 # GDPR gem https://github.com/infinum/cookies_eu
 gem 'cookies_eu'
 
+# Background job enqueueing
+gem 'sidekiq'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'bullet'
