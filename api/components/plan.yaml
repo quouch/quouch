@@ -1,21 +1,46 @@
 type: object
+description: A single message object
 properties:
   id:
-    type: integer
-  name:
     type: string
-  price:
-    type: number
-    format: float
-  created_at:
+    example: 1
+  type:
     type: string
-    format: date-time
-  updated_at:
-    type: string
-    format: date-time
+    example: message
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+        nullable: true
+      price_cents:
+        type: number
+      stripe_price_id:
+        type: string
+      interval:
+        type: string
+      collection:
+        type: string
+        nullable: true
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+    required:
+      - id
+      - name
+      - price_cents
+      - stripe_price_id
+      - interval
+      - created_at
+      - updated_at
 required:
   - id
-  - name
-  - price
-  - created_at
-  - updated_at
+  - attributes
+  - type
