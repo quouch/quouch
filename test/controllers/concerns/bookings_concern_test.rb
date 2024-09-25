@@ -31,12 +31,14 @@ class BookingsConcernTest < ActiveSupport::TestCase
 
     mocked_this = Minitest::Mock.new
     mocked_this.expect :call, nil, [@booking]
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      stub(:create_chat_and_message, mocked_this) do
-        post_create(@booking)
+    perform_enqueued_jobs do
+      assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+        stub(:create_chat_and_message, mocked_this) do
+          post_create(@booking)
+        end
       end
+      assert_equal 'pending', @booking.status
     end
-    assert_equal 'pending', @booking.status
   end
 
   test 'should send email post update' do
@@ -44,21 +46,25 @@ class BookingsConcernTest < ActiveSupport::TestCase
     @booking.status = :pending
     @booking.save!
 
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      message = post_update(@booking)
-      assert_equal 'Request successfully updated!', message
+    perform_enqueued_jobs do
+      assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+        message = post_update(@booking)
+        assert_equal 'Request successfully updated!', message
+      end
+      assert_equal 'pending', @booking.status
     end
-    assert_equal 'pending', @booking.status
   end
 
   test 'should accept and send email' do
     @booking.status = :pending
     @booking.save!
 
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      accept_booking(@booking)
+    perform_enqueued_jobs do
+      assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+        accept_booking(@booking)
+      end
+      assert_equal 'confirmed', @booking.status
     end
-    assert_equal 'confirmed', @booking.status
   end
 
   test 'should cancel request as guest' do
