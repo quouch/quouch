@@ -16,9 +16,9 @@ class BookingTest < ActiveSupport::TestCase
     assert @booking.status_change_allowed?(:pending, @host)
   end
 
-  test 'should not allow user confirm booking' do
+  test 'should not allow user to confirm booking' do
     assert_not @booking.status_change_allowed?(:confirmed, @user)
-    assert_not @booking.status_change_allowed?('confirmed', @host)
+    assert_not @booking.status_change_allowed?('confirmed', @user)
   end
 
   test 'should not allow user to decline booking' do
