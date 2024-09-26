@@ -1,20 +1,34 @@
 import { Controller } from '@hotwired/stimulus'
 
-// Connects to data-controller="characteristics-filter"
 export default class extends Controller {
-	static targets = ['form', 'list', 'couches']
+	static targets = ['form']
 
-	listCouches(event) {
-		event.preventDefault()
-
+	setUrlWithParams() {
 		const formData = new FormData(this.formTarget)
-		const searchParams = new URLSearchParams(formData).toString()
+		// remove "city" from the form data, as we don't want to show it in the URL
+		formData.delete('city')
+
+		let urlSearchParams = new URLSearchParams(formData)
+
+		const searchParams = urlSearchParams.toString()
 		const url = `${this.formTarget.action}?${searchParams}`
 
-		this.#fetchCouches(url)
+		window.history.pushState('', '', url)
 	}
 
-	resetForm() {
+	search() {
+		clearTimeout(this.timeout)
+		this.timeout = setTimeout(() => {
+			this.setUrlWithParams()
+			this.formTarget.requestSubmit()
+		}, 10)
+	}
+
+	filter() {
+		this.search()
+	}
+
+	reset() {
 		const url = this.formTarget.action
 		this.formTarget.reset()
 		// `this.formTarget.reset()` only affects the items that were changed after the page was loaded
@@ -30,17 +44,6 @@ export default class extends Controller {
 			}
 		}
 		window.history.pushState('', '', url)
-		this.#fetchCouches(url)
-	}
-
-	#fetchCouches(url) {
-		fetch(url, {
-			headers: { Accept: 'application/json' },
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				this.couchesTarget.remove()
-				this.listTarget.insertAdjacentHTML('afterbegin', data.inserted_list)
-			})
+		this.search()
 	}
 }

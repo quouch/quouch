@@ -34,7 +34,7 @@ namespace :dev do
     couch.capacity = rand(1..5)
     couch.save!
 
-      Rails.logger.debug("Couch capacity: #{couch.capacity}")
+    Rails.logger.debug("Couch capacity: #{couch.capacity}")
 
     facilities = Facility.all.sample(3)
     facilities.each do |facility|

@@ -1,4 +1,4 @@
-<div data-characteristics-filter-target="couches">
+<div>
   <ul class="couches__list">
     <% @couches.each do |couch| %>
       <% if couch.user.photo.key %>
@@ -9,7 +9,7 @@
             <% end %>
             <div class="couches__content">
               <ul class="couches__features features">
-                <% couch.user.characteristics.each  do |characteristic| %>
+                <% couch.user.characteristics.each do |characteristic| %>
                   <li><%= characteristic.name %></li>
                 <% end %>
               </ul>
