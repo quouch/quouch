@@ -21,7 +21,7 @@ namespace :dev do
 
     Rails.logger.info 'Create 30 randomized users'
     30.times do
-      new_user = FactoryBot.create(:user, :with_couch, :skip_validation)
+      new_user = FactoryBot.create(:user, :with_couch)
       Rails.logger.info "Created user with address: #{new_user.address}"
     end
   end
