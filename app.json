@@ -1,5 +1,5 @@
 {
-	"addons": ["heroku-postgresql"],
+	"addons": ["heroku-postgresql", "rediscloud:30", "scheduler"],
 	"buildpacks": [
 		{
 			"url": "heroku/ruby"
@@ -8,14 +8,18 @@
 	"formation": {
 		"web": {
 			"quantity": 1
-		}
+		},
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
 	},
 	"name": "quouch",
 	"scripts": {},
 	"stack": "heroku-22",
 	"environments": {
 		"review": {
-			"addons": ["heroku-postgresql:essential-0"],
+			"addons": ["heroku-postgresql:essential-0", "rediscloud:30", "scheduler"],
 			"scripts": {
 				"postdeploy": "bundle exec rake db:schema:load db:seed"
 			}
