@@ -5,11 +5,7 @@
       <div class="booking__host-left">
         <h2>Your Host</h2>
         <%= link_to couch_path(@couch) do %>
-          <% if @couch.user.photo.key %>
-            <%= cl_image_tag @couch.user.photo.key, class: 'booking__host-image', alt: '' %>
-          <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'booking__host-image') %>
-          <% end %>
+          <%= render 'partials/user_photo', user: @couch.user %>
         <% end %>
       </div>
       <div class="booking__host-right">
