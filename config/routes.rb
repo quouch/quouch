@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  authenticate :user, ->(user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   authenticated :user do
     root 'couches#index', as: :authenticated_root
@@ -97,14 +102,6 @@ Rails.application.routes.draw do
       resources :chats, only: %i[index] do
         resources :messages, only: %i[index]
       end
-    end
-  end
-
-  Rails.application.routes.draw do
-    # Sidekiq Web UI, only for admins.
-    require 'sidekiq/web'
-    authenticate :user, ->(user) { user.admin? } do
-      mount Sidekiq::Web => '/sidekiq'
     end
   end
 end
