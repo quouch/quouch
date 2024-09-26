@@ -1,0 +1,19 @@
+type: object
+properties:
+  self:
+    type: string
+    example: '/users?page[number]=3&page[size]=10'
+  first:
+    type: string
+    example: '/users?page[number]=1&page[size]=10'
+  prev:
+    type: string
+    nullable: true
+    example: '/users?page[number]=2&page[size]=10'
+  next:
+    type: string
+    nullable: true
+    example: '/users?page[number]=4&page[size]=10'
+  last:
+    type: string
+    example: '/users?page[number]=10&page[size]=10'

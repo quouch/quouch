@@ -1,0 +1,14 @@
+type: object
+description: User's login information
+properties:
+  user:
+    type: object
+    properties:
+      email:
+        type: string
+        example: 'test@example.com'
+      password:
+        type: string
+        example: 'password'
+required:
+  - user

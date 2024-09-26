@@ -1,0 +1,72 @@
+type: object
+description: A single couch object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: user
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      user_id:
+        type: integer
+        example: 1
+      active:
+        type: boolean
+        example: true
+      capacity:
+        type: integer
+        nullable: true
+        example: 2
+      rating:
+        type: number
+        nullable: true
+        example: 3.8
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+      user:
+        $ref: './user_attributes.yaml'
+      facilities:
+        type: array
+        items:
+          $ref: './enum_attributes.yaml'
+
+    required:
+      - id
+      - user_id
+      - active
+      - user
+      - facilities
+      - rating
+
+  relationships:
+    type: object
+    properties:
+      user:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 1
+              type:
+                type: string
+                example: user
+    required:
+      - user
+required:
+  - id
+  - attributes
+  - type
+  - relationships

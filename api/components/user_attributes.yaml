@@ -1,0 +1,77 @@
+type: object
+properties:
+  id:
+    type: integer
+    example: 1
+  created_at:
+    type: string
+    format: date-time
+  updated_at:
+    type: string
+    format: date-time
+  email:
+    type: string
+    example: 'example@email.com'
+  first_name:
+    type: string
+    example: 'Jane'
+  last_name:
+    type: string
+    example: 'Doe'
+  date_of_birth:
+    type: string
+    format: date
+  age:
+    type: integer
+    example: 25
+  summary:
+    type: string
+    example: 'I am a cool person'
+  city:
+    type: string
+    example: 'Berlin'
+  country:
+    type: string
+    example: 'Germany'
+  zipcode:
+    type: string
+    example: '10117'
+  address:
+    type: string
+    example: 'Unter den Linden 1'
+  photo:
+    type: string
+    format: uri
+  offers_couch:
+    type: boolean
+    example: true
+  offers_hang_out:
+    type: boolean
+    example: true
+  offers_co_work:
+    type: boolean
+    example: true
+  travelling:
+    type: boolean
+    example: false
+  characteristics:
+    type: array
+    items:
+      $ref: './enum_attributes.yaml'
+required:
+  - id
+  - email
+  - first_name
+  - last_name
+  - date_of_birth
+  - age
+  - summary
+  - city
+  - country
+  - address
+  - zipcode
+  - offers_couch
+  - offers_hang_out
+  - offers_co_work
+  - travelling
+  - characteristics

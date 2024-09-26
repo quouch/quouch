@@ -149,10 +149,6 @@ class BookingsController < ApplicationController
     booking_params.merge(user_id: current_user.id, couch_id:)
   end
 
-  def set_booking
-    @booking = Booking.find(params[:id])
-  end
-
   def set_couch
     @couch = Couch.find(params[:couch_id])
   end

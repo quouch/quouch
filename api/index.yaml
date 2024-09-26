@@ -1,0 +1,72 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Quouch API
+  description: Meet Quouch
+
+servers:
+  - url: 'http://localhost:3000/api/v1'
+    description: Development server
+
+paths:
+  /login:
+    $ref: 'paths/login.yaml'
+
+  /users/edit:
+    $ref: 'paths/user_edit.yaml'
+
+  /update/{id}:
+    $ref: 'paths/user_update.yaml'
+
+  /users:
+    $ref: 'paths/users.yaml'
+
+  /users/{id}:
+    $ref: 'paths/user_id.yaml'
+
+  /couches:
+    $ref: 'paths/couches.yaml'
+
+  /couches/{id}:
+    $ref: 'paths/couch_id.yaml'
+
+  /bookings:
+    $ref: 'paths/bookings.yaml'
+
+  /bookings/{id}:
+    $ref: 'paths/booking_id.yaml'
+
+  /requests:
+    $ref: 'paths/requests.yaml'
+
+  /requests/{id}:
+    $ref: 'paths/request_id.yaml'
+
+  /characteristics:
+    $ref: 'paths/characteristics.yaml'
+
+  /facilities:
+    $ref: 'paths/facilities.yaml'
+
+  /chats:
+    $ref: 'paths/chats.yaml'
+
+  /chats/{chat_id}/messages:
+    $ref: 'paths/messages.yaml'
+
+  /users/{user_id}/reviews:
+    $ref: 'paths/reviews.yaml'
+
+  /plans:
+    $ref: 'paths/plans.yaml'
+
+  /logout:
+    $ref: 'paths/logout.yaml'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - BearerAuth: []

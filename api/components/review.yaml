@@ -1,0 +1,57 @@
+type: object
+description: A single review object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: review
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+      content:
+        type: string
+        example: 'Great host!'
+      rating:
+        type: number
+        example: 5
+      booking_id:
+        type: integer
+      user_id:
+        type: integer
+      couch_id:
+        type: integer
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+    required:
+      - id
+      - content
+      - rating
+      - user_id
+      - couch_id
+      - booking_id
+  relationships:
+    type: object
+    properties:
+      user:
+        $ref: './relationship_hash.yaml'
+      booking:
+        $ref: './relationship_hash.yaml'
+      couch:
+        $ref: './relationship_hash.yaml'
+    required:
+      - user
+      - booking
+      - couch
+required:
+  - id
+  - attributes
+  - type
+  - relationships

@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "f17bcb32-0b02-4733-bbb2-d7885782efe3",
+		"name": "Quouch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "37704766-f17bcb32-0b02-4733-bbb2-d7885782efe3"
+	},
+	"item": [
+		{
+			"name": "Couches",
+			"item": [
+				{
+					"name": "paginated couches",
+					"id": "cf0cd2c8-c697-4395-9697-9007c57295a6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/couches?items=20&page=1&query=Berlin",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "couches"],
+							"query": [
+								{
+									"key": "items",
+									"value": "20"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "query",
+									"value": "Berlin"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "fb555544-9714-4372-881a-2100a6a68c9d"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "own user information",
+					"id": "b1b2fbbc-4b1f-4805-b24c-e99099cc68f3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/edit",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", "edit"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"id": "ddf38199-648a-4df7-b081-5c1d4b253b04",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all users",
+					"id": "5632e234-9c87-4c1f-8ff7-4a0a84cc74a4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/users/",
+							"host": ["{{base_url}}"],
+							"path": ["api", "v1", "users", ""]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "5c244025-f6ac-4e91-aac0-8330bab9cac1"
+		},
+		{
+			"name": "login",
+			"id": "1eac72e9-1fa8-47a5-b6dc-0ed9fb577561",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": {\n        \"email\": \"berm.ross@gmail.com\",\n        \"password\": \"password\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/v1/login",
+					"host": ["{{base_url}}"],
+					"path": ["api", "v1", "login"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"id": "fb1566c5-cb43-495d-93a1-41c51edd284c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/v1/logout",
+					"host": ["{{base_url}}"],
+					"path": ["api", "v1", "logout"]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{auth_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""],
+				"id": "9f91d7f1-5549-4ad5-82f4-f0d4640de53d"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""],
+				"id": "bbcb7ca0-5dca-47dc-bdf5-f6335c9d9213"
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d50c239e-6ab8-441e-a8e3-2439a29f5d96",
+			"key": "auth_token",
+			"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI5YmEzYzQ4OWZjMWIzOGIwNDUwZDY5MzczZmFhMTUyYyIsInN1YiI6IjgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3MjAwMjAzMjMsImV4cCI6MTcyMDAyMjEyM30.wsHJCyWT0sIJb7SSsrlhDTQSBYcQF93ua3MWBpkCWYQ"
+		}
+	]
+}

@@ -1,0 +1,25 @@
+type: object
+description: A single booking object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: user
+  attributes:
+    $ref: './booking_attributes.yaml'
+  relationships:
+    type: object
+    properties:
+      user:
+        $ref: './relationship_hash.yaml'
+      couch:
+        $ref: './relationship_hash.yaml'
+      reviews:
+        $ref: './relationship_array.yaml'
+required:
+  - id
+  - attributes
+  - type
+  - relationships

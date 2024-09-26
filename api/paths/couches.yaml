@@ -1,0 +1,32 @@
+get:
+  summary: List all couches
+  tags:
+    - couches
+  parameters:
+    - $ref: '../components/query_params.yaml#/limit'
+    - $ref: '../components/query_params.yaml#/offset'
+    - $ref: '../components/query_params.yaml#/sort'
+    - $ref: '../components/query_params.yaml#/filter'
+
+  responses:
+    '200':
+      description: A list of couches
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '../components/meta.yaml'
+              links:
+                $ref: '../components/links.yaml'
+              data:
+                type: array
+                items:
+                  $ref: '../components/couch.yaml'
+            required:
+              - meta
+              - links
+              - data
+    '401':
+      $ref: '../components/unauthorized_error.yaml'
