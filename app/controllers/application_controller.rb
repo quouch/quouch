@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  include ActiveStorage::SetCurrent unless Rails.env.production?
 
   before_action :authenticate_user!
 

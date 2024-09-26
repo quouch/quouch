@@ -2,11 +2,7 @@
 <li class="chats__list-item">
   <%= link_to chat_path(chat) do %>
     <div class="chats__user-infos">
-      <% if other_user.photo.key %>
-        <%= cl_image_tag other_user.photo.key %>
-      <% else %>
-        <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg') %>
-      <% end %>
+      <%= render 'partials/user_photo', user: other_user %>
       <% if unread.count > 0  %>
         <div class="chats__notifications">
           <aside><%= "#{unread.count}" %></aside>

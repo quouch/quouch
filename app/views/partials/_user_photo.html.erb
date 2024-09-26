@@ -1,0 +1,9 @@
+<% if user.photo.key %>
+  <% if Rails.env.production? %>
+    <%= cl_image_tag user.photo.key, class: 'user__profile__image', alt: 'Profile picture of user' %>
+  <% else %>
+    <%= image_tag user.photo.url, class: 'user__profile__image', alt: 'Profile picture of user' %>
+  <% end %>
+<% else %>
+  <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'user__profile__image', alt: 'Profile picture of user') %>
+<% end %>

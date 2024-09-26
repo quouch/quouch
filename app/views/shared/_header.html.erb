@@ -9,17 +9,13 @@
         <div id="dropdown_menu" class="header__menu"
              data-dropdown-menu-target="toggle"
              data-action="click->dropdown-menu#displayAndHideMenu">
-          <% if current_user.photo.key %>
-            <%= cl_image_tag current_user.photo.key, class: 'header__avatar', alt: 'Profile picture of Quouch user' %>
-            <% if current_user.notifications.unread.count != 0 %>
-              <%= render 'shared/notifications' %>
-            <% end %>
-          <% else %>
-            <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'header__avatar', alt: 'Example profile picture of Quouch example user') %>
+          <%= render 'partials/user_photo', user: current_user %>
+          <% if current_user.notifications.unread.count != 0 %>
+            <%= render 'shared/notifications' %>
           <% end %>
         </div>
         <div class="header__collapsible collapsible display-none"
-						data-dropdown-menu-target="menu">
+             data-dropdown-menu-target="menu">
           <p class="collapsible__title">Hello <%= current_user.first_name %>!</p>
           <p class="collapsible__code">Your invite code: <%= current_user.invite_code %></p>
           <ul>

@@ -1,10 +1,6 @@
 <section>
   <div class="host">
-    <% if @host.photo.key %>
-      <%= cl_image_tag @host.photo.key, class: 'host__gallery', alt: 'Example profile picture of Quouch example user' %>
-    <% else %>
-      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'host__gallery', alt: 'Profile picture of Quouch user') %>
-    <% end %>
+    <%= render 'partials/user_photo', user: @host %>
     <div class="host__content">
       <ul class="host__info">
         <li class="host__location">

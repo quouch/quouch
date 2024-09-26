@@ -5,7 +5,6 @@ require_relative 'concerns/couches_concern'
 # CouchesController: This controller is responsible for handling the couches.
 class CouchesController < ApplicationController
   include CouchesConcern
-  include ActiveStorage::SetCurrent unless Rails.env.production?
 
   respond_to :html
 

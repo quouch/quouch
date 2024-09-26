@@ -9,11 +9,7 @@
             <%= link_to booking_path(booking) do %>
               <li>
                 <ul class="upcoming-booking">
-                  <% if booking.couch.user.photo.key %>
-                    <%= cl_image_tag booking.couch.user.photo.key, class: 'upcoming-booking__profile', alt: 'Profile picture of user' %>
-                  <% else %>
-                    <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'upcoming-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-                  <% end %>
+                  <%= render 'partials/user_photo', user: booking.couch.user %>
                   <div class="upcoming-booking__wrap">
                     <div class="upcoming-booking__info">
                       <li class="upcoming-booking__host">
@@ -67,13 +63,7 @@
             <%= link_to booking_path(booking) do %>
               <li>
                 <ul class="past-booking">
-                  <li class="past-booking__profile">
-                    <% if booking.couch.user.photo.key %>
-                      <%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
-                    <% else %>
-                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-                    <% end %>
-                  </li>
+                  <%= render 'partials/user_photo', user: booking.couch.user %>
                   <div class="past-booking__wrap">
                     <li class="past-booking__host">
                       <%= booking.couch.user.first_name %>
@@ -112,13 +102,7 @@
             <%= link_to booking_path(booking) do %>
               <li>
                 <ul class="past-booking">
-                  <li class="past-booking__profile">
-                    <% if booking.couch.user.photo.key %>
-                      <%= cl_image_tag booking.couch.user.photo.key, class: 'past-booking__profile', alt: 'Profile picture of user' %>
-                    <% else %>
-                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-booking__profile', alt: 'Example profile picture of Quouch example user') %>
-                    <% end %>
-                  </li>
+                  <%= render 'partials/user_photo', user: booking.couch.user %>
                   <div class="past-booking__wrap">
                     <li class="past-booking__host">
                       <%= booking.couch.user.first_name %>

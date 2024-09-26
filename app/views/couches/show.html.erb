@@ -1,10 +1,7 @@
 <article class="couch">
   <div class="couch__gallery">
-    <% if @host.photo.key %>
-      <%= cl_image_tag @host.photo.key, class: 'couch__image' %>
-    <% else %>
-      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'couch__image') %>
-    <% end %>
+    <%= render 'partials/user_photo', user: @host %>
+
     <div class="couch__chat chat-icon__wrap">
       <% if current_user.subscribed? %>
         <% if @chat.nil? %>
@@ -139,11 +136,7 @@
         <% @reviews.each do |review| %>
           <li class="review review--card">
             <div class="review__details">
-              <% if review.user.photo.key %>
-                <%= cl_image_tag review.user.photo.key, class: 'review__image' %>
-              <% else %>
-                <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'review__image') %>
-              <% end %>
+              <%= render 'partials/user_photo', user: review.user %>
               <div>
                 <p class="review__name"><%= review.user.first_name.capitalize %></p>
                 <p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
