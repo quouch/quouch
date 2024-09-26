@@ -17,11 +17,8 @@ export default class extends Controller {
 	}
 
 	search() {
-		clearTimeout(this.timeout)
-		this.timeout = setTimeout(() => {
-			this.setUrlWithParams()
-			this.formTarget.requestSubmit()
-		}, 10)
+		this.setUrlWithParams()
+		this.formTarget.requestSubmit()
 	}
 
 	filter() {
