@@ -470,6 +470,8 @@ GEM
       logger
       rack (>= 2.2.4)
       redis-client (>= 0.22.2)
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -594,7 +596,8 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   shoulda (~> 4.0)
-  sidekiq
+  sidekiq (~> 7)
+  sidekiq-failures
   simple_form!
   simplecov
   simplecov-markdown
