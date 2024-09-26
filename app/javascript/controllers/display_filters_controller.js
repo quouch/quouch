@@ -2,9 +2,15 @@ import { Controller } from '@hotwired/stimulus'
 
 // Connects to data-controller="display-filters"
 export default class extends Controller {
-	static targets = ['filters']
+	static targets = ['filters', 'input']
 
 	connect() {
+		// Check if the show_filters parameter is set to true
+		if (this.inputTarget.value === 'true') {
+			this.filtersTarget.classList.remove('display-none')
+			return
+		}
+
 		// Use window.innerWidth in favor of window.screen.width. Why?
 		// window.innerWidth is the width of the window's viewport,
 		// whereas window.screen.width returns the actual screen size
@@ -19,5 +25,8 @@ export default class extends Controller {
 	toggleFilters(event) {
 		this.filtersTarget.classList.toggle('display-none')
 		event.currentTarget.classList.toggle('search__hide-filters--active')
+
+		// Set the value for `show_filters` in the form
+		this.inputTarget.value = this.filtersTarget.classList.contains('display-none') ? 'false' : 'true'
 	}
 }

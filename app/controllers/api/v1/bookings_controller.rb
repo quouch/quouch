@@ -71,7 +71,8 @@ module Api
       def create_params
         params.require(:data).require(%i[type attributes relationships])
 
-        jsonapi_deserialize(params, only: %i[request status start_date end_date number_travellers message flexible user couch])
+        jsonapi_deserialize(params,
+                            only: %i[request status start_date end_date number_travellers message flexible user couch])
       end
     end
   end

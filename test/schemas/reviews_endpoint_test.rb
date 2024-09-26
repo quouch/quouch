@@ -11,7 +11,6 @@ class ReviewsEndpointTest < ApiEndpointTest
     @booking = FactoryBot.create(:booking, user: @user, couch: @host.couch)
 
     @review = Review.create!(content: 'Great experience', rating: 5, booking: @booking, user: @user, couch: @host.couch)
-
   end
 
   test 'GET /reviews' do
@@ -29,7 +28,7 @@ class ReviewsEndpointTest < ApiEndpointTest
   end
 
   test 'GET /reviews for non-existent chat' do
-    get "/api/v1/users/999/reviews", headers: @headers
+    get '/api/v1/users/999/reviews', headers: @headers
     assert_response :not_found
 
     assert_match_openapi_doc
