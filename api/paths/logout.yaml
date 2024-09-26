@@ -1,0 +1,31 @@
+delete:
+  summary: Log the user out
+  tags:
+    - account
+  responses:
+    '200':
+      description: The user has been logged out
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged out successfully.'
+                required:
+                  - message
+            required:
+              - meta
+    '401':
+      description: Unauthorized
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+          example:
+            message: 'Invalid token.'
+            code: 401

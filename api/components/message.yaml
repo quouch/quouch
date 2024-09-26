@@ -1,0 +1,44 @@
+type: object
+description: A single message object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: message
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+      chat_id:
+        type: integer
+      sender_id:
+        type: integer
+      content:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+    required:
+      - id
+      - chat_id
+      - sender_id
+      - content
+      - created_at
+  relationships:
+    type: object
+    properties:
+      chat:
+        $ref: './relationship_hash.yaml'
+      sender:
+        $ref: './relationship_hash.yaml'
+    required:
+      - chat
+      - sender
+required:
+  - id
+  - attributes
+  - type
+  - relationships

@@ -85,8 +85,18 @@ Rails.application.routes.draw do
         #   put 'api/auth/update', to: 'users/registrations#update'
       end
 
-      resources :couches, only: %i[index show create destroy]
-      resources :users, only: %i[index show]
+      resources :couches, only: %i[index show]
+      resources :users, only: %i[index show] do
+        resources :reviews, only: %i[index]
+      end
+      resources :characteristics, only: %i[index]
+      resources :facilities, only: %i[index]
+      resources :bookings, only: %i[index show create update]
+      resources :requests, only: %i[index show update]
+      resources :plans, only: %i[index]
+      resources :chats, only: %i[index] do
+        resources :messages, only: %i[index]
+      end
     end
   end
 end

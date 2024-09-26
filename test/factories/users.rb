@@ -25,7 +25,12 @@ FactoryBot.define do
     invite_code { SecureRandom.hex(3) }
 
     after(:build) do |user|
-      file = URI.parse(Faker::Avatar.image).open
+      begin
+        file = URI.parse(Faker::Avatar.image).open
+      rescue SocketError
+        # If offline, we'll get the fixture image
+        file = File.open(Rails.root.join('test', 'fixtures', 'files', 'avatar.png'))
+      end
       user.photo.attach(io: file, filename: 'avatar.png', content_type: 'image/png')
 
       random_address = ADDRESSES.sample

@@ -3,9 +3,17 @@ require 'stripe_mock'
 # Used for integration tests
 module DBHelper
   def db_cleanup
+    Review.delete_all
+    Booking.delete_all
     Couch.delete_all
     UserCharacteristic.delete_all
     User.delete_all
+  end
+end
+
+module ApiTestHelper
+  def json_response
+    JSON.parse(response.body)
   end
 end
 

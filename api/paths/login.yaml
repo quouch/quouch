@@ -1,0 +1,52 @@
+post:
+  summary: Login with email and password
+  security: []
+
+  tags:
+    - account
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: '../components/login.yaml'
+  responses:
+    '200':
+      description: OK. Returns the logged in user
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Logged in successfully.'
+                required:
+                  - message
+              data:
+                $ref: '../components/user.yaml'
+            required:
+              - data
+              - meta
+
+    '422':
+      description: Invalid login credentials
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+          example:
+            detail: 'Invalid login credentials. Please try again.'
+            status: '401'
+    '409':
+      description: Conflict
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+          example:
+            message: "You're already signed in."
+            code: 409

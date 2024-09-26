@@ -7,19 +7,12 @@ module Api
       class SessionsController < Devise::SessionsController
         include RackSessionsFix
         include JwtTokenHelper
+        include JSONAPI::Errors
 
         # Skip the CSRF token verification for the API login and logout.
         skip_before_action :verify_authenticity_token
 
         respond_to? :json
-
-        rescue_from JwtError do |e|
-          render json: {
-            code: 401,
-            error: 'Invalid token.',
-            message: e
-          }, status: :unauthorized
-        end
 
         protected
 
@@ -38,42 +31,34 @@ module Api
 
           return unless authenticated && warden.user(resource_name)
 
-          render json: {
-            code: 409,
-            message: "You're already signed in."
-          }, status: :conflict
+          render_error(status: :conflict, title: 'Conflict', detail: 'You are already signed in.')
         end
 
         private
 
         def respond_with(current_user, _opts = {})
-          if current_user.valid?
-            render json: {
-              code: 200,
-              message: 'Logged in successfully.',
-              data: { user: UserSerializer.new(current_user).serializable_hash[:data][:attributes] }
-            }, status: :ok
+          if current_user.nil? || current_user.id.nil?
+            render_error(status: :unauthorized, title: 'Invalid login credentials.')
           else
-            render json: {
-              code: 401,
-              error: 'Invalid login credentials. Please try again.',
-              data: { errors: current_user.errors.full_messages }
-            }, status: :unauthorized, error_status: :unauthorized
+
+            render jsonapi: current_user
           end
         end
 
         def respond_to_on_destroy
-          if jwt_token_is_valid?(request.authorization)
-            render json: {
-              code: 200,
-              message: 'Logged out successfully.'
-            }, status: :ok
-          else
-            render json: {
-              code: 401,
-              message: "Couldn't find an active session."
-            }, status: :unauthorized
-          end
+          raise JwtError unless jwt_token_is_valid?(request.authorization)
+
+          render jsonapi: [], status: :ok
+        end
+
+        def jsonapi_meta(_resources)
+          return {} if response.status != 200
+
+          message = 'Logged in successfully.'
+          message = 'Logged out successfully.' if request.params[:action] == 'destroy'
+
+          # if the logout response is successful, add a message to the metadata
+          { message: }
         end
       end
     end

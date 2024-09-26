@@ -21,7 +21,7 @@ module RegistrationConcern
     @couch.user = @user
     @couch.save
 
-    disable_offers_if_travelling
+    disable_offers_if_travelling(resource)
     create_couch_facilities if params[:couch_facility].present?
   end
 
@@ -29,10 +29,10 @@ module RegistrationConcern
     @couch.update(couch_params)
   end
 
-  def disable_offers_if_travelling
-    return unless params[:user][:travelling] == '1'
+  def disable_offers_if_travelling(resource)
+    return unless resource[:travelling] == '1'
 
-    @user.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
+    resource.update(offers_couch: false, offers_co_work: false, offers_hang_out: false)
   end
 
   def create_couch_facilities

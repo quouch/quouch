@@ -6,7 +6,9 @@ ruby '3.1.2'
 # Authentication
 gem 'devise'
 gem 'devise-jwt'
+gem 'jsonapi.rb'
 gem 'jsonapi-serializer'
+gem 'ransack'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.4'
@@ -136,6 +138,9 @@ group :development, :test do
   gem 'stripe-ruby-mock', require: 'stripe_mock'
 end
 
+group :development, :test do
+  gem 'openapi_contracts'
+end
 # Fake test data
 gem 'factory_bot_rails'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'main'

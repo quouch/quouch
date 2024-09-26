@@ -1,0 +1,9 @@
+description: Unauthorized
+content:
+  application/vnd.api+json:
+    schema:
+      $ref: './error.yaml'
+    example:
+      title: 'Unauthorized'
+      status: '401'
+      detail: 'You are not authorized to access this resource.'

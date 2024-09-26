@@ -1,0 +1,48 @@
+type: object
+description: A single chat object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: chat
+  attributes:
+    type: object
+    properties:
+      id:
+        type: integer
+      user_sender_id:
+        type: integer
+      user_receiver_id:
+        type: integer
+      created_at:
+        type: string
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+    required:
+      - id
+      - user_sender_id
+      - user_receiver_id
+      - created_at
+      - updated_at
+  relationships:
+    type: object
+    properties:
+      user_sender:
+        $ref: './relationship_hash.yaml'
+      user_receiver:
+        $ref: './relationship_hash.yaml'
+      messages:
+        $ref: './relationship_array.yaml'
+    required:
+      - user_sender
+      - user_receiver
+      - messages
+required:
+  - id
+  - attributes
+  - type
+  - relationships

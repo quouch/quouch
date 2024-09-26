@@ -1,0 +1,27 @@
+type: object
+description: A single user object
+properties:
+  id:
+    type: string
+    example: 1
+  type:
+    type: string
+    example: user
+  attributes:
+    $ref: './user_attributes.yaml'
+  relationships:
+    type: object
+    properties:
+      data:
+        type: object
+        properties:
+          couch:
+            $ref: './couch.yaml'
+        required:
+          - couch
+
+required:
+  - id
+  - attributes
+  - type
+  - relationships

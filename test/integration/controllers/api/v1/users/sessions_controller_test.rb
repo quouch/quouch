@@ -15,19 +15,18 @@ module Api
         test 'should log in with valid credentials' do
           credentials = { user: { email: @user.email, password: 'password' } }
           post '/api/v1/login', params: credentials
-          json_response = JSON.parse(response.body)
 
           assert_response :success
-          assert_equal @user[:id], json_response['data']['user']['id']
+          assert_equal @user[:id], json_response['data']['attributes']['id']
         end
 
         test 'should not log in with invalid credentials' do
           credentials = { user: { email: @user.email, password: 'wrong_password' } }
           post '/api/v1/login', params: credentials
-          json_response = JSON.parse(response.body)
 
-          assert_equal 401, json_response['code']
-          assert_nil json_response['data']['user']
+          assert_response :unprocessable_entity
+          assert_equal '401', json_response['errors'][0]['status']
+          assert_nil json_response['data']
         end
 
         test 'should log out' do

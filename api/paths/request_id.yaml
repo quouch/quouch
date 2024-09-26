@@ -1,0 +1,95 @@
+get:
+  summary: Get a request by ID
+  tags:
+    - bookings
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: A single request
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/booking.yaml'
+    '401':
+      $ref: '../components/unauthorized_error.yaml'
+    '403':
+      description: The user is not authorized to access the request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '404':
+      description: No request found for the provided `id`
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '500':
+      description: Unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+patch:
+  summary: Update the status of a request by ID
+  tags:
+    - bookings
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: status
+      in: query
+      required: true
+      schema:
+        type: string
+        enum:
+          - confirmed
+          - pending
+          - declined
+  responses:
+    '200':
+      description: Updated request
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/booking.yaml'
+    '401':
+      $ref: '../components/unauthorized_error.yaml'
+    '403':
+      description: The user is not authorized to update the request
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '404':
+      description: No request found for the provided `id`
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '422':
+      description: Invalid request data
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '500':
+      description: Unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'

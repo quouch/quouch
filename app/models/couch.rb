@@ -26,4 +26,8 @@ class Couch < ApplicationRecord
   def facilities?
     !couch_facilities.empty? && couch_facilities.count.positive?
   end
+
+  def rating
+    reviews.average(:rating).to_f
+  end
 end

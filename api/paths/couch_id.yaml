@@ -1,0 +1,34 @@
+get:
+  summary: Get a couch by ID
+  tags:
+    - couches
+  parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: A single couch
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../components/couch.yaml'
+    '401':
+      $ref: '../components/unauthorized_error.yaml'
+    '404':
+      description: No couch found for the provided `id`
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'
+    '500':
+      description: Unexpected error
+      content:
+        application/vnd.api+json:
+          schema:
+            $ref: '../components/error.yaml'

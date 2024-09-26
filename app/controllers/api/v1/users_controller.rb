@@ -1,19 +1,15 @@
 module Api
   module V1
     class UsersController < ApiController
-      include Pagy::Backend
-
       def index
-        @pagy, @users = pagy(User.all.includes([:photo_attachment, { photo_attachment: :blob }]), items: params[:items])
-        render json: {
-          pagination: pagy_metadata(@pagy),
-          items: UserSerializer.new(@users).serializable_hash[:data]
-        }
+        jsonapi_paginate(User.all) do |paginated|
+          render jsonapi: paginated
+        end
       end
 
       def show
         user = User.find(params[:id])
-        render json: UserSerializer.new(user).serializable_hash[:data]
+        render jsonapi: user
       end
     end
   end

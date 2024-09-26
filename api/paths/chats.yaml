@@ -1,0 +1,22 @@
+get:
+  summary: List all chats
+  tags:
+    - chats
+  responses:
+    '200':
+      description: A list of chats
+      content:
+        application/vnd.api+json:
+          schema:
+            type: object
+            properties:
+              meta:
+                $ref: '../components/meta.yaml'
+              links:
+                $ref: '../components/links.yaml'
+              data:
+                type: array
+                items:
+                  $ref: '../components/chat.yaml'
+    '401':
+      $ref: '../components/unauthorized_error.yaml'

@@ -1,0 +1,9 @@
+type: object
+description: A relationship representation
+properties:
+  data:
+    type: array
+    items:
+      $ref: './relationship_hash.yaml'
+required:
+  - data

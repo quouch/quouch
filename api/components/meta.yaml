@@ -1,0 +1,11 @@
+type: object
+properties:
+  pagination:
+    type: object
+    properties:
+      current:
+        type: integer
+        example: 1
+      records:
+        type: integer
+        example: 10

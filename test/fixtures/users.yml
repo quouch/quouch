@@ -31,6 +31,13 @@ manual:
   first_name: 'Admin'
   last_name: 'Local'
   confirmed_at: <%=  Time.now %>
+  date_of_birth: <%= 25.years.ago %>
+  summary: <%= Faker::Hipster.paragraph_by_chars(characters: 60) %>
+  offers_couch: <%= false %>
+  offers_co_work: <%= false %>
+  offers_hang_out: <%= false %>
+  travelling: <%= true %>
+
   address: <%= Faker::Address.full_address %>
   city: <%= Faker::Address.city %>
   zipcode: <%= Faker::Address.zip_code %>
