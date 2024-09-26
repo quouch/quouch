@@ -10,8 +10,7 @@
 			"quantity": 1
 		},
     "worker": {
-      "quantity": 1,
-      "size": "free"
+      "quantity": 1
     }
 	},
 	"name": "quouch",
