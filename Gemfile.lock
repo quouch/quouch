@@ -206,8 +206,8 @@ GEM
     guard-minitest (2.4.6)
       guard-compat (~> 1.2)
       minitest (>= 3.0)
-    htmlbeautifier (1.4.3)
     hana (1.3.7)
+    htmlbeautifier (1.4.3)
     http (5.2.0)
       addressable (~> 2.8)
       base64 (~> 0.1)
@@ -264,6 +264,7 @@ GEM
     llhttp-ffi (0.5.0)
       ffi-compiler (~> 1.0)
       rake (~> 13.0)
+    logger (1.6.1)
     loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -403,7 +404,10 @@ GEM
       ffi (~> 1.0)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
-    redis (4.8.1)
+    redis (5.3.0)
+      redis-client (>= 0.22.0)
+    redis-client (0.22.2)
+      connection_pool
     regexp_parser (2.9.0)
     reline (0.5.1)
       io-console (~> 0.5)
@@ -460,6 +464,14 @@ GEM
     shoulda-context (2.0.0)
     shoulda-matchers (4.5.1)
       activesupport (>= 4.2.0)
+    sidekiq (7.3.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
+    sidekiq-failures (1.0.4)
+      sidekiq (>= 4.0.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -575,7 +587,7 @@ DEPENDENCIES
   rails (~> 7.0.4)
   rails_admin (= 3.1.3)
   ransack
-  redis (~> 4.0)
+  redis
   rubocop
   rubocop-performance
   rubocop-rails
@@ -584,6 +596,8 @@ DEPENDENCIES
   sentry-rails
   sentry-ruby
   shoulda (~> 4.0)
+  sidekiq (~> 7)
+  sidekiq-failures
   simple_form!
   simplecov
   simplecov-markdown

@@ -54,7 +54,7 @@ gem 'pg_search'
 gem 'geocoder'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'redis'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem 'kredis'
@@ -119,6 +119,10 @@ gem 'importmap-rails', '~> 1.2.3'
 
 # GDPR gem https://github.com/infinum/cookies_eu
 gem 'cookies_eu'
+
+# Background job enqueueing
+gem 'sidekiq', '~> 7'
+gem 'sidekiq-failures'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -3,6 +3,8 @@
 require 'test_helper'
 
 class BookingsConcernTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   include BookingsConcern
 
   def setup
@@ -31,11 +33,13 @@ class BookingsConcernTest < ActiveSupport::TestCase
 
     mocked_this = Minitest::Mock.new
     mocked_this.expect :call, nil, [@booking]
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+
+    assert_enqueued_emails 1 do
       stub(:create_chat_and_message, mocked_this) do
         post_create(@booking)
       end
     end
+
     assert_equal 'pending', @booking.status
   end
 
@@ -44,7 +48,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
     @booking.status = :pending
     @booking.save!
 
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+    assert_enqueued_emails 1 do
       message = post_update(@booking)
       assert_equal 'Request successfully updated!', message
     end
@@ -55,7 +59,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
     @booking.status = :pending
     @booking.save!
 
-    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+    assert_enqueued_emails 1 do
       accept_booking(@booking)
     end
     assert_equal 'confirmed', @booking.status
