@@ -4,7 +4,8 @@
                   class: 'search',
                   data: {
                     controller: 'couch-search',
-                    couch_search_target: 'form' },
+                    couch_search_target: 'form',
+                    turbo_frame: 'results_frame' },
                   method: :get do %>
       <div class="search__wrap">
         <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="search__autocomplete">
@@ -18,7 +19,6 @@
         </div>
         <%= submit_tag 'Search', class: 'search__button', data: { action: 'click->couch-search#search' } %>
         <i data-action="click->display-filters#toggleFilters" class="fa fa-filter fa-lg search__hide-filters"></i>
-        <%= hidden_field_tag 'show_filters', params['show_filters'], data: { display_filters_target: 'input' } %>
         <button class="search__clear" data-action="click->couch-search#reset">Clear Filters</button>
       </div>
       <div class="display-none" data-display-filters-target="filters">
@@ -62,7 +62,9 @@
       </div>
     <% end %>
   </section>
-  <section>
-    <%= render 'partials/couches', couches: @couches %>
-  </section>
+  <%= turbo_frame_tag "results_frame" do %>
+    <section>
+      <%= render 'partials/couches', couches: @couches %>
+    </section>
+  <% end %>
 </div>
