@@ -3,21 +3,7 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
 	static targets = ['form']
 
-	setUrlWithParams() {
-		const formData = new FormData(this.formTarget)
-		// remove "city" from the form data, as we don't want to show it in the URL
-		formData.delete('city')
-
-		let urlSearchParams = new URLSearchParams(formData)
-
-		const searchParams = urlSearchParams.toString()
-		const url = `${this.formTarget.action}?${searchParams}`
-
-		window.history.pushState('', '', url)
-	}
-
 	search() {
-		this.setUrlWithParams()
 		this.formTarget.requestSubmit()
 	}
 
@@ -40,7 +26,6 @@ export default class extends Controller {
 				element.checked = false
 			}
 		}
-		window.history.pushState('', '', url)
 		this.search()
 	}
 }
