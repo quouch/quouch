@@ -1,67 +1,68 @@
-<div class="home__wrap" data-controller="characteristics-filter">
+<div class="home__wrap">
   <section class="search__section" data-controller="display-filters">
     <%= form_with url: couches_path,
-										class: 'search',
-										data: { characteristics_filter_target: 'form',
-														action: 'submit->characteristics-filter#listCouches' },
-										method: :get do %>
+                  class: 'search',
+                  data: {
+                    controller: 'couch-search',
+                    couch_search_target: 'form' },
+                  method: :get do %>
       <div class="search__wrap">
         <div data-controller="autocomplete" data-autocomplete-url-value="/search_cities" role="combobox" class="search__autocomplete">
           <%= text_field_tag :query,
-																params[:query],
-																value: params[:query],
-																placeholder: 'Find hosts in location',
-																class: 'form-control',
-																data: { autocomplete_target: 'input' } %>
-          <%= hidden_field_tag 'city', data: { autocomplete_target: 'hidden' } %>
+                             params[:query],
+                             value: params[:query],
+                             placeholder: 'Find hosts in location',
+                             class: 'form-control',
+                             data: { autocomplete_target: 'input' } %>
           <ul class="search__autocomplete-list" data-autocomplete-target="results"></ul>
         </div>
-        <%= submit_tag 'Search', class: 'search__button' %>
+        <%= submit_tag 'Search', class: 'search__button', data: { action: 'click->couch-search#search' } %>
         <i data-action="click->display-filters#toggleFilters" class="fa fa-filter fa-lg search__hide-filters"></i>
-        <button class="search__clear" data-action="click->characteristics-filter#resetForm">Clear Filters</button>
+        <%= hidden_field_tag 'show_filters', params['show_filters'], data: { display_filters_target: 'input' } %>
+        <button class="search__clear" data-action="click->couch-search#reset">Clear Filters</button>
       </div>
       <div class="display-none" data-display-filters-target="filters">
         <div class="search__offers">
           <%= check_box_tag 'offers_couch',
-								'1',
-								params[:offers_couch] == 'true',
-								checked: params[:offers_couch] == '1',
-								id: 'offers_couch',
-								class: 'search__checkbox offer__checkbox',
-								data: { action: 'change->characteristics-filter#listCouches' } %>
+                            '1',
+                            params[:offers_couch] == 'true',
+                            checked: params[:offers_couch] == '1',
+                            id: 'offers_couch',
+                            class: 'search__checkbox offer__checkbox',
+                            data: { action: 'change->couch-search#filter' } %>
           <%= label_tag 'offers_couch', 'host' %>
           <%= check_box_tag 'offers_co_work',
-								'1',
-								params[:offers_co_work] == 'true',
-								checked: params[:offers_co_work] == '1',
-								id: 'offers_co_work',
-								class: 'search__checkbox offer__checkbox',
-								data: { action: 'change->characteristics-filter#listCouches' } %>
+                            '1',
+                            params[:offers_co_work] == 'true',
+                            checked: params[:offers_co_work] == '1',
+                            id: 'offers_co_work',
+                            class: 'search__checkbox offer__checkbox',
+                            data: { action: 'change->couch-search#filter' } %>
           <%= label_tag 'offers_co_work', 'cowork' %>
           <%= check_box_tag 'offers_hang_out',
-								'1',
-								params[:offers_hang_out] == 'true',
-								checked: params[:offers_co_work] == '1',
-								id: 'offers_hang',
-								class: 'search__checkbox offer__checkbox',
-								data: { action: 'change->characteristics-filter#listCouches' } %>
+                            '1',
+                            params[:offers_hang_out] == 'true',
+                            checked: params[:offers_hang_out] == '1',
+                            id: 'offers_hang',
+                            class: 'search__checkbox offer__checkbox',
+                            data: { action: 'change->couch-search#filter' } %>
           <%= label_tag 'offers_hang', 'hang out' %>
         </div>
         <div class="search__characteristics" data-display-filters-target="filters">
           <% Characteristic.all.each do |characteristic| %>
             <%= check_box_tag 'characteristics[]',
-									characteristic.id,
-									params[:characteristics]&.include?(characteristic.id.to_s),
-									id: "characteristic_#{characteristic.id}",
-									class: 'search__checkbox',
-									data: { action: 'change->characteristics-filter#listCouches' } %>
+                              characteristic.id,
+                              params[:characteristics]&.include?(characteristic.id.to_s),
+                              id: "characteristic_#{characteristic.id}",
+                              class: 'search__checkbox',
+                              data: { action: 'change->couch-search#filter' } %>
             <%= label_tag "characteristic_#{characteristic.id}", characteristic.name %>
           <% end %>
         </div>
       </div>
     <% end %>
   </section>
-  <section data-characteristics-filter-target="list">
+  <section>
     <%= render 'partials/couches', couches: @couches %>
   </section>
 </div>

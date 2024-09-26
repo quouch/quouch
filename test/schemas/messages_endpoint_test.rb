@@ -28,7 +28,7 @@ class MessagesEndpointTest < ApiEndpointTest
   end
 
   test 'GET /messages for non-existent chat' do
-    get "/api/v1/chats/999/messages", headers: @headers
+    get '/api/v1/chats/999/messages', headers: @headers
     assert_response :not_found
 
     assert_match_openapi_doc

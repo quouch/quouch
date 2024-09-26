@@ -2,11 +2,15 @@
   <li class="couches__list-item couch-card">
     <article class="couches__list-article">
       <%= link_to couch_path(couch) do %>
-        <%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>
+        <% if Rails.env.production? %>
+          <%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>
+        <% else %>
+          <%= image_tag couch.user.photo.url, class: 'couches__image' %>
+        <% end %>
       <% end %>
       <div class="couches__content">
         <ul class="couches__features features">
-          <% couch.user.characteristics.each  do |characteristic| %>
+          <% couch.user.characteristics.each do |characteristic| %>
             <li><%= characteristic.name %></li>
           <% end %>
         </ul>
