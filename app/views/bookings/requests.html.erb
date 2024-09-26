@@ -9,11 +9,7 @@
             <%= link_to request_booking_path(request) do %>
               <li>
                 <ul class="upcoming-request">
-                  <% if request.user.photo.key %>
-                    <%= cl_image_tag request.user.photo.key, class: 'upcoming-request__profile' %>
-                  <% else %>
-                    <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'upcoming-request__profile') %>
-                  <% end %>
+                  <%= render 'partials/user_photo', user: request.user %>
                   <div class="upcoming-request__wrap">
                     <div class="upcoming-request__info">
                       <li class="upcoming-request__host"><%= request.user.first_name %></li>
@@ -61,13 +57,7 @@
             <%= link_to request_booking_path(request) do %>
               <li>
                 <ul class="past-request">
-                  <li class="past-request__profile">
-                    <% if request.user.photo.key %>
-                      <%= cl_image_tag request.user.photo.key, class: 'past-request__profile' %>
-                    <% else %>
-                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-request__profile') %>
-                    <% end %>
-                  </li>
+                  <%= render 'partials/user_photo', user: request.user %>
                   <div class="past-request__wrap">
                     <li class="past-request__host">
                       <%= request.user.first_name %>
@@ -106,13 +96,7 @@
             <%= link_to request_booking_path(request) do %>
               <li>
                 <ul class="past-request">
-                  <li class="past-request__profile">
-                    <% if request.user.photo.key %>
-                      <%= cl_image_tag request.user.photo.key, class: 'past-request__profile' %>
-                    <% else %>
-                      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1679925300/profile.jpg', class: 'past-request__profile') %>
-                    <% end %>
-                  </li>
+                  <%= render 'partials/user_photo', user: request.user %>
                   <div class="past-request__wrap">
                     <li class="past-request__host">
                       <%= request.user.first_name %>

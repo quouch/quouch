@@ -1,12 +1,8 @@
 <% if couch.user.photo.key %>
   <li class="couches__list-item couch-card">
     <article class="couches__list-article">
-      <%= link_to couch_path(couch) do %>
-        <% if Rails.env.production? %>
-          <%= cl_image_tag couch.user.photo.key, class: 'couches__image' %>
-        <% else %>
-          <%= image_tag couch.user.photo.url, class: 'couches__image' %>
-        <% end %>
+      <%= link_to couch_path(couch), data: { turbo_frame: "_top" } do %>
+        <%= render 'partials/user_photo', user: couch.user %>
       <% end %>
       <div class="couches__content">
         <ul class="couches__features features">
