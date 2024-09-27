@@ -21,7 +21,7 @@ module Users
           expire_data_after_sign_in!
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
-        UserMailer.welcome_email(resource).deliver_now
+        UserMailer.welcome_email(resource).deliver_later
       else
         if resource.errors[:invited_by_id].present?
           flash[:error] = 'There seems to be an issue with your invite code. Please contact the Quouch team!'
