@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
     )
     head :ok
 
-    AmplitudeEventTracker.track_message_event('New Message')
+    AmplitudeEventTracker.track_message_event(@message, 'New Message')
   end
 
   private
