@@ -31,6 +31,6 @@ namespace :stats do
   end
 
   task send: :environment do
-    StatisticsMailer.send_stats.deliver_now
+    StatisticsMailer.send_stats.deliver_later
   end
 end

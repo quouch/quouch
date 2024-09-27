@@ -31,7 +31,7 @@ class SubscriptionsController < ApplicationController
     if @subscription.update!(end_of_period: Time.at(subscription.current_period_end).to_date)
       flash[:alert] =
         'You successfully unsubscribed the Quouch service. Sad to see you go after this billing cycle ends!'
-      SubscriptionMailer.with(subscription: @subscription).subscription_cancelled.deliver_now
+      SubscriptionMailer.with(subscription: @subscription).subscription_cancelled.deliver_later
     else
       flash[:alert] = 'Something went wrong. Please try again or contact the Quouch Team.'
     end

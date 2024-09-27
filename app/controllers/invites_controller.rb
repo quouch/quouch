@@ -40,7 +40,7 @@ class InvitesController < ApplicationController
     email = params[:invite][:email]
 
     if email.present?
-      InviteMailer.with(email:, current_user:).invite_email.deliver_now
+      InviteMailer.with(email:, current_user:).invite_email.deliver_later
       redirect_to :invite_friend
       flash[:notice] = 'Invite sent!'
     else

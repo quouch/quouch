@@ -36,10 +36,10 @@ class ReviewsController < ApplicationController
     if review.save
       case review.user
       when booking.user
-        ReviewMailer.with(booking:).new_review_host_email.deliver_now
+        ReviewMailer.with(booking:).new_review_host_email.deliver_later
         redirect_to booking_path(booking)
       when booking.couch.user
-        ReviewMailer.with(booking:).new_review_guest_email.deliver_now
+        ReviewMailer.with(booking:).new_review_guest_email.deliver_later
         redirect_to request_booking_path(booking)
       end
     else
