@@ -52,7 +52,7 @@ class MapTest < ApplicationSystemTestCase
   test 'should see marker info' do
     visit couches_path
 
-    marker = first('.mapboxgl-marker > img')
+    marker = first('.mapboxgl-marker i')
 
     couch_id = marker[:'data-couch-id']
     couch_user = Couch.find(couch_id).user
@@ -66,7 +66,7 @@ class MapTest < ApplicationSystemTestCase
   test 'should navigate to couch page' do
     visit couches_path
 
-    marker = first('.mapboxgl-marker > img')
+    marker = first('.mapboxgl-marker i')
 
     couch_id = marker[:'data-couch-id']
     couch = Couch.find(couch_id)
