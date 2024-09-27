@@ -25,6 +25,7 @@ module CouchesConcern
                              .joins(:user)
                              .where(active: true)
                              .where.not(user: current_user)
+                             .where(user: { travelling: false })
                              .where.not(user: { first_name: nil, city: nil, country: nil })
                              .order('RANDOM()')
 

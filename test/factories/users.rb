@@ -55,6 +55,7 @@ FactoryBot.define do
 
     trait :offers_couch do
       offers_couch { true }
+      travelling { false }
 
       after(:create) do |user|
         # Needed for the search to work: add a couch for the newly created user

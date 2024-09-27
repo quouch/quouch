@@ -46,4 +46,6 @@ manual:
   zipcode: <%= Faker::Address.zip_code %>
   country_code: <%= Faker::Address.country_code %>
   country: <%= Faker::Address.country %>
+  latitude: <%= Faker::Address.latitude %>
+  longitude: <%= Faker::Address.longitude %>
   invited_by_id: 1

@@ -34,7 +34,7 @@ class BookingsController < ApplicationController
       {
         lat: host.latitude,
         lng: host.longitude,
-        marker_html: render_to_string(partial: 'partials/marker')
+        marker_html: render_to_string(partial: 'partials/marker', locals: { couch: @couch })
       }
     end
 

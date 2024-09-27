@@ -48,7 +48,7 @@ class CouchesController < ApplicationController
       {
         lat: couch.user.latitude,
         lng: couch.user.longitude,
-        marker_html: render_to_string(partial: 'partials/marker'),
+        marker_html: render_to_string(partial: 'partials/marker', locals: { couch: }),
         info_window_html: render_to_string(partial: 'partials/couch_popup', locals: { couch: })
       }
     end.compact
