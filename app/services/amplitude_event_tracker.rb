@@ -27,14 +27,9 @@ class AmplitudeEventTracker
     AmplitudeAPI.track(event)
   end
 
-  def self.track_message_event(event_type)
-    user_id = if current_user
-                current_user.id.to_s
-              else
-                'not_logged_in'
-              end
+  def self.track_message_event(message, event_type)
     event = AmplitudeAPI::Event.new(
-      user_id:,
+      user_id: message.user.id.to_s,
       event_type:,
       time: Time.now
     )
@@ -42,13 +37,8 @@ class AmplitudeEventTracker
   end
 
   def self.track_review_event(review, event_type)
-    user_id = if current_user
-                current_user.id.to_s
-              else
-                'not_logged_in'
-              end
     event = AmplitudeAPI::Event.new(
-      user_id:,
+      user_id: review.user.id.to_s,
       event_type:,
       rating: review.rating,
       couch: review.couch.id,
