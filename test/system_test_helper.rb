@@ -8,10 +8,18 @@ module SpecialSelectors
   private
 
   def select_date(css_selector, date)
-    # TODO: enable selecting a different month
     find(css_selector).click
     assert_selector '.flatpickr-calendar', visible: true
-    find('.flatpickr-day', text: date.day).click
+    if date.month != Date.today.month
+      # find how many times to click the next month button
+      month_diff = date.month - Date.today.month
+      month_diff.times do
+        find('.flatpickr-next-month').click
+      end
+    end
+    # find .flatpickr-day with aria-label MMMM D, YYYY
+    formatted_datetime = date.strftime('%B %-d, %Y')
+    find(:xpath, "//span[@aria-label='#{formatted_datetime}']").click
   end
 end
 
