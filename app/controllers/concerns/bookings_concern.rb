@@ -15,7 +15,7 @@ module BookingsConcern
 
   def post_create(booking)
     booking.pending!
-    BookingMailer.with(booking:).new_request_email.deliver_later
+    BookingMailer.with(booking:).new_request_email.deliver_now
     AmplitudeEventTracker.track_booking_event(booking, 'New Booking')
     create_chat_and_message(booking)
   end
@@ -23,11 +23,11 @@ module BookingsConcern
   def post_update(booking)
     message = 'Request successfully updated!'
     if booking.pending?
-      BookingMailer.with(booking:).request_updated_email.deliver_later
+      BookingMailer.with(booking:).request_updated_email.deliver_now
     elsif booking.confirmed?
       message = 'Booking successfully updated!'
       booking.pending!
-      BookingMailer.with(booking:).booking_updated_email.deliver_later
+      BookingMailer.with(booking:).booking_updated_email.deliver_now
     end
     AmplitudeEventTracker.track_booking_event(booking, 'Booking Updated')
     message
@@ -35,7 +35,7 @@ module BookingsConcern
 
   def accept_booking(booking)
     booking.confirmed!
-    BookingMailer.with(booking:).request_confirmed_email.deliver_later
+    BookingMailer.with(booking:).request_confirmed_email.deliver_now
     AmplitudeEventTracker.track_booking_event(booking, 'Booking Confirmed')
   end
 
@@ -53,7 +53,7 @@ module BookingsConcern
       chat.messages.create(user_id: current_user.id, content: message)
     end
 
-    BookingMailer.with(booking:).request_declined_email.deliver_later
+    BookingMailer.with(booking:).request_declined_email.deliver_now
   end
 
   def requested_by_host?(booking)
@@ -76,14 +76,14 @@ module BookingsConcern
     if requested_by_guest?(booking)
       case status_before_cancellation
       when 'pending'
-        BookingMailer.with(booking:).request_cancelled_email.deliver_later
+        BookingMailer.with(booking:).request_cancelled_email.deliver_now
       when 'confirmed'
-        BookingMailer.with(booking:).booking_cancelled_by_guest_email.deliver_later
+        BookingMailer.with(booking:).booking_cancelled_by_guest_email.deliver_now
       end
 
       'Request successfully cancelled!'
     else
-      BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_later
+      BookingMailer.with(booking:).booking_cancelled_by_host_email.deliver_now
       'Booking successfully cancelled!'
     end
   end
