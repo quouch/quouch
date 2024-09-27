@@ -47,8 +47,10 @@ class CouchesController < ApplicationController
 
       {
         fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
-        marker_html: render_to_string(partial: 'partials/marker', locals: { couch: }),
-        info_window_html: render_to_string(partial: 'partials/couch_popup', locals: { couch: })
+        marker_html: render_to_string(partial: 'partials/fuzzy_marker', locals: { couch: }),
+        info_popup: {
+          html: render_to_string(partial: 'partials/couch_popup', locals: { couch: })
+        }
       }
     end.compact
   end
