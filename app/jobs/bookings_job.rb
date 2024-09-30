@@ -2,7 +2,9 @@ class BookingsJob < ApplicationJob
   queue_as :default
 
   # Retry on SMTP Timeout errors with a wait period and limited attempts
-  retry_on Net::SMTPFatalError, Net::ReadTimeout, wait: ->(attempt) { 5.seconds * (2**attempt) }, attempts: 10
+  retry_on Net::SMTPFatalError, Net::ReadTimeout, Net::SMTPAuthenticationError, wait: lambda { |attempt|
+                                                                                        5.seconds * (2**attempt)
+                                                                                      }, attempts: 10
 
   def perform
     complete_bookings
@@ -54,7 +56,10 @@ class BookingsJob < ApplicationJob
   end
 
   def update_status(bookings, status)
-    bookings.update_all(status:)
+    bookings.each do |booking|
+      booking.update(status:)
+      AmplitudeEventTracker.track_booking_event(booking, 'Booking Completed')
+    end
   end
 
   def send_completed_emails(bookings)
