@@ -8,6 +8,9 @@ class BookingEndpointTest < ApiEndpointTest
   def setup
     @user, @headers = api_prepare_headers
     @booking = FactoryBot.create(:booking, user: @user)
+
+    @offering_couch = User.where.not(id: @user.id || booking.user.id).sample.couch
+    @offering_couch.update!(capacity: 4)
   end
 
   test 'GET /bookings without authentication' do
@@ -55,7 +58,7 @@ class BookingEndpointTest < ApiEndpointTest
       number_travellers: 1
     }
 
-    params = request_params(booking_data, @user, Couch.all.sample)
+    params = request_params(booking_data, @user, @offering_couch)
 
     post('/api/v1/bookings', headers: @headers, params:)
 
@@ -93,7 +96,7 @@ class BookingEndpointTest < ApiEndpointTest
   test 'PATCH /bookings/:id forbidden' do
     booking = setup_for_update
     booking.user = User.where.not(id: @user.id).sample
-    booking.couch = User.where.not(id: @user.id || booking.user.id).sample.couch
+    booking.couch = @offering_couch
     booking.save!
 
     booking_data = booking.attributes

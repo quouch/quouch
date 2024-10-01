@@ -4,6 +4,9 @@ require 'system_test_helper'
 
 class MapTest < ApplicationSystemTestCase
   setup do
+    # modify database to have only one possible host
+    User.update_all(offers_couch: false, travelling: true)
+
     @user = FactoryBot.create(:user, :for_test, :with_couch)
     sign_in_as(@user)
 
@@ -66,7 +69,7 @@ class MapTest < ApplicationSystemTestCase
   test 'should navigate to couch page' do
     visit couches_path
 
-    marker = first('.mapboxgl-marker i')
+    marker = first('.mapboxgl-marker i', obscured: false)
 
     couch_id = marker[:'data-couch-id']
     couch = Couch.find(couch_id)

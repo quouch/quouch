@@ -11,7 +11,7 @@ user_<%= n %>:
   offers_couch: <%= true %>
   offers_co_work: <%= true %>
   offers_hang_out: <%= true %>
-  travelling: <%= true %>
+  travelling: <%= false %>
 
   address: <%= Faker::Address.full_address %>
   city: <%= Faker::Address.city %>

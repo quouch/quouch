@@ -45,10 +45,11 @@ class CouchesControllerTest < ActionDispatch::IntegrationTest
     @controller.stub(:render_to_string, '') do
       @controller.send(:generate_markers, users.map(&:couch))
 
-      assert_not_nil @controller.instance_variable_get(:@markers)
-      assert_equal 2, @controller.instance_variable_get(:@markers).size
-      assert_not_nil @controller.instance_variable_get(:@markers)[0][:lat]
-      assert_not_nil @controller.instance_variable_get(:@markers)[0][:lng]
+      markers = @controller.instance_variable_get(:@markers)
+      puts markers
+      assert_not_nil markers
+      assert_equal 2, markers.size
+      assert_not_nil markers[0][:fuzzy]
     end
   end
 end
