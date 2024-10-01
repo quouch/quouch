@@ -6,6 +6,9 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   setup do
     @user = FactoryBot.create(:user, :for_test, :with_couch)
     sign_in_as(@user)
+
+    # make sure that we find all users
+    User.update_all(offers_couch: true, travelling: false)
   end
 
   test 'should see first page of couches' do
@@ -91,7 +94,6 @@ class CouchesFilterAndNavigationTest < ApplicationSystemTestCase
   test 'should filter by characteristics' do
     characteristic = Characteristic.first!
 
-    # Search with characteristics filter and items count = 100
     visit couches_path
     find('.search__hide-filters').click if mobile?
 

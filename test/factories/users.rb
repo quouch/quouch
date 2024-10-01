@@ -55,6 +55,7 @@ FactoryBot.define do
 
     trait :offers_couch do
       offers_couch { true }
+      travelling { false }
 
       after(:create) do |user|
         # Needed for the search to work: add a couch for the newly created user
@@ -75,6 +76,11 @@ FactoryBot.define do
       after(:create) do |user|
         Subscription.create!(user:, plan: Plan.first, stripe_id: 'fake_subscription_id')
       end
+    end
+
+    trait :geocoded do
+      latitude { Faker::Address.latitude }
+      longitude { Faker::Address.longitude }
     end
   end
 end

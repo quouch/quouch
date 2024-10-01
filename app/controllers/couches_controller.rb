@@ -8,6 +8,14 @@ class CouchesController < ApplicationController
 
   respond_to :html
 
+  def index
+    find_and_filter
+
+    generate_markers(@shuffled_couches)
+
+    respond_to(&:html)
+  end
+
   def show
     @couch = Couch.find(params[:id])
     @host = User.find(@couch.user.id)
@@ -29,5 +37,21 @@ class CouchesController < ApplicationController
 
     @results = (cities + countries).select { |entry| entry.downcase.starts_with?(query) }
     render layout: false
+  end
+
+  private
+
+  def generate_markers(couches)
+    @markers = couches.map do |couch|
+      next unless couch.user.geocoded?
+
+      {
+        fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
+        marker_html: render_to_string(partial: 'partials/fuzzy_marker', locals: { couch: }),
+        info_popup: {
+          html: render_to_string(partial: 'partials/couch_popup', locals: { couch: })
+        }
+      }
+    end.compact
   end
 end

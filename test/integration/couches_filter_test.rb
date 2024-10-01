@@ -17,7 +17,7 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
   test 'should see first page of couches' do
     get couches_path
     assert_response :success
-    # As we have 16 couches, we should see a full first page
+    # As we have 15 couches, we should see a full first page
     assert_select 'li.couches__list-item', 9
   end
 
@@ -34,8 +34,8 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
     get couches_path(page: 2)
 
     assert_response :success
-    # As we have 16 couches, we should only see 7 in the second page
-    assert_select 'li.couches__list-item', 7
+    # As we have 15 couches, we should only see 6 in the second page
+    assert_select 'li.couches__list-item', 6
     assert_select 'span.page.active', '2'
     assert_select 'span.page.prev.disabled', 0
     assert_select 'span.page.prev', 1
@@ -75,8 +75,8 @@ class CouchesFilterTest < ActionDispatch::IntegrationTest
 
   test 'should filter by characteristics' do
     characteristic = Characteristic.first!
-    # According to the fixtures, there are 16 users with the first characteristic
-    users_with_characteristic = 16
+    # According to the fixtures, there are 15 non-travelling users with the first characteristic
+    users_with_characteristic = 15
     # Search with characteristics filter and items count = 100
     params = { characteristics: [characteristic.id], items: 100 }
     get couches_path(params)

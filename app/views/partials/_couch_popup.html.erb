@@ -1,0 +1,13 @@
+<div class="mapboxgl-popup__user">
+  <%= link_to couch_path(couch), class: "mapboxgl-popup__link", data: { turbo_frame: "_top" } do %>
+    <%= render 'partials/user_photo', user: couch.user %>
+  <% end %>
+  <div class="mapboxgl-popup__info">
+    <p class="mapboxgl-popup__name"><%= couch.user.first_name %></p>
+    <p class="mapboxgl-popup__pronouns"><%= couch.user.pronouns %></p>
+  </div>
+</div>
+<div class="mapboxgl-popup__reviews">
+  <i class="quouch-star color-secondary-light" aria-label="Star icon"></i>
+  <%= sprintf("%.1f", couch.reviews.average(:rating).to_f).tr(".", ",") %>
+</div>

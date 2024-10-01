@@ -4,6 +4,9 @@ require 'system_test_helper'
 
 class TripsWorkflowTest < ApplicationSystemTestCase
   setup do
+    # modify database to have only one possible host
+    User.update_all(offers_couch: false, travelling: true)
+
     @user = FactoryBot.create(:user, :for_test, :with_couch, :subscribed)
     sign_in_as(@user)
 
@@ -29,10 +32,6 @@ class TripsWorkflowTest < ApplicationSystemTestCase
 
   test 'should find and request a new couch' do
     visit root_path
-
-    # filter only the couches that offer hosting
-    find('.search__hide-filters').click if mobile?
-    find('.search__offers > label', text: 'host').click
 
     assert_selector '.couch-card', count: 1
     first('.couch-card').click

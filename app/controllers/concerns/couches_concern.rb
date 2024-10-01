@@ -6,7 +6,7 @@ module CouchesConcern
     include Pagy::Backend
   end
 
-  def index
+  def find_and_filter
     session[:seed] ||= rand
     session_seed = session[:seed]
     Couch.select("setseed(#{session_seed})").first
@@ -25,6 +25,7 @@ module CouchesConcern
                              .joins(:user)
                              .where(active: true)
                              .where.not(user: current_user)
+                             .where(user: { travelling: false })
                              .where.not(user: { first_name: nil, city: nil, country: nil })
                              .order('RANDOM()')
 

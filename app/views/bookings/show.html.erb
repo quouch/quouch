@@ -107,10 +107,12 @@
                 <p><%= @couch.user.address %></p>
               </li>
             <% elsif @booking.confirmed? && @hosts_array.geocoded.any? %>
-              <div class="booking__map"
-                   data-controller="map"
-                   data-map-marker-value="<%= @marker.to_json %>"
-                   data-map-api-key-value="<%= Rails.application.credentials.dig(:mapbox, :api_key) %>"></div>
+              <div data-controller="map"
+                   data-map-fuzzy-value="false"
+                   data-map-api-key-value="<%= Rails.application.credentials.dig(:mapbox, :api_key) %>"
+                   data-map-marker-value="<%= @marker.to_json %>">
+                <div class="booking__map" data-map-target="map"></div>
+              </div>
             <% elsif @booking.confirmed? && @hosts_array.geocoded.empty? %>
               <li class="booking__pin">
                 <i class="quouch-pin color-secondary" aria-label="Pin icon"></i>

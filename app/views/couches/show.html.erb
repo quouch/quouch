@@ -1,7 +1,6 @@
 <article class="couch">
   <div class="couch__gallery">
     <%= render 'partials/user_photo', user: @host %>
-
     <div class="couch__chat chat-icon__wrap">
       <% if current_user.subscribed? %>
         <% if @chat.nil? %>

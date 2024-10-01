@@ -20,7 +20,7 @@ module Api
         assert_response :success
 
         assert_equal expected_items, json_response['data'].length
-        assert_equal Couch.count - 1, json_response['meta']['pagination']['records']
+        assert_equal Couch.count - 2, json_response['meta']['pagination']['records']
 
         refute_includes json_response['data'], @user.couch
 
