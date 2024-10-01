@@ -11,8 +11,6 @@ export default class extends Controller {
 		fuzzy: Boolean
 	}
 
-	mapboxClient = null
-
 	connect() {
 		mapboxgl.accessToken = this.apiKeyValue
 
