@@ -1,3 +1,4 @@
+require 'sib-api-v3-sdk'
 class BookingsJob < ApplicationJob
   queue_as :default
 
@@ -5,6 +6,10 @@ class BookingsJob < ApplicationJob
   retry_on Net::SMTPFatalError, Net::ReadTimeout, Net::SMTPAuthenticationError, wait: lambda { |attempt|
                                                                                         5.seconds * (2**attempt)
                                                                                       }, attempts: 10
+
+  SibApiV3Sdk.configure do |config|
+    config.api_key['api-key'] = Rails.application.credentials.dig(:brevo, :api_key)
+  end
 
   def perform
     complete_bookings
@@ -70,8 +75,34 @@ class BookingsJob < ApplicationJob
   end
 
   def send_reminder_emails(bookings)
+    api_instance = SibApiV3Sdk::TransactionalEmailsApi.new
+
     bookings.each do |booking|
-      BookingMailer.with(booking:).pending_booking_reminder_email.deliver
+      send_smtp_email = SibApiV3Sdk::SendSmtpEmail.new(
+        to: [{
+          email: booking.couch.user.email,
+          name: booking.couch.user.name # if available
+        }],
+        template_id: 59,
+        params: {
+          guest_first_name: booking.user.first_name,
+          host_first_name: booking.couch.user.first_name,
+          message: booking.message,
+          booking_url: Rails.application.routes.url_helpers.booking_url(booking),
+          guidelines_url: Rails.application.routes.url_helpers.guidelines_url,
+          invite_friend_url: Rails.application.routes.url_helpers.invite_friend_url
+        },
+        headers: {
+          'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2'
+        }
+      )
+      begin
+        # Send a transactional email
+        result = api_instance.send_transac_email(send_smtp_email)
+        p result
+      rescue SibApiV3Sdk::ApiError => e
+        puts "Exception when calling TransactionalEmailsApi->send_transac_email: #{e}"
+      end
     end
   end
 end
