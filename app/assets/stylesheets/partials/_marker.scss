@@ -1,80 +1,84 @@
-.marker-pin {
-	font-size: 30px;
-}
+.mapboxgl {
+	&-marker {
+		&.fuzzy-marker {
+			i {
+				background-color: white;
+				border-radius: 100%;
+			}
+		}
 
-.marker-dot {
-	font-size: 24px;
-}
+		.marker-pin {
+			font-size: 30px;
+		}
 
-.fuzzy-marker-container {
-    i {
-        background-color: white;
-        border-radius: 100%;
-    }
+		.marker-dot {
+			font-size: 24px;
+		}
+	}
 }
-
 
 .mapboxgl-popup {
-    max-width: 200px;
+	max-width: 200px;
 
-    &__user {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
+	&__user {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
 
-    &__name {
-    }
+	&__name {
+	}
 
-    .user__profile__image {
-        width: 40px;
-        height: 40px;
-        object-fit: cover;
-        object-position: center;
-        border-radius: $border-radius-round;
-    }
+	.user__profile__image {
+		width: 40px;
+		height: 40px;
+		object-fit: cover;
+		object-position: center;
+		border-radius: $border-radius-round;
+	}
 
-    &__link, &-close-button {
-        &:focus-visible {
-            outline: none;
-        }
-    }
+	&__link,
+	&-close-button {
+		&:focus-visible {
+			outline: none;
+		}
+	}
 
-    &__pronouns {
-        @include caption;
-    }
+	&__pronouns {
+		@include caption;
+	}
 
-    &__reviews {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 0.3rem;
-        margin-top: 0.5rem;
-    }
+	&__reviews {
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		gap: 0.3rem;
+		margin-top: 0.5rem;
+	}
 
-    &-content {
-        text-align: left;
-        background-color: $secondary-super-transparent;
-        padding: 10px 18px 10px 10px
-    }
+	&-content {
+		text-align: left;
+		background-color: $secondary-super-transparent;
+		padding: 10px 18px 10px 10px;
+	}
 
-    &-close-button {
-        padding: 0 6px;
-    }
+	&-close-button {
+		padding: 0 6px;
+	}
 }
 
 .mapboxgl-popup-anchor-right > .mapboxgl-popup-tip {
-    border-left-color: $secondary-super-transparent !important;
+	border-left-color: $secondary-super-transparent !important;
 }
 
 .mapboxgl-popup-anchor-left > .mapboxgl-popup-tip {
-    border-right-color: $secondary-super-transparent !important;
+	border-right-color: $secondary-super-transparent !important;
 }
 
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
-    border-bottom-color: $secondary-super-transparent !important;
+	border-bottom-color: $secondary-super-transparent !important;
 }
 
 .mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
-    border-top-color: $secondary-super-transparent !important;
+	border-top-color: $secondary-super-transparent !important;
 }
