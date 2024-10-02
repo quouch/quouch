@@ -11,7 +11,7 @@ class CouchesController < ApplicationController
   def index
     find_and_filter
 
-    generate_markers(@shuffled_couches)
+    generate_markers(@couches)
 
     respond_to(&:html)
   end
