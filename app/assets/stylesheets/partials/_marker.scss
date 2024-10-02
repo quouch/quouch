@@ -52,11 +52,6 @@
         margin-top: 0.5rem;
     }
 
-    &-tip {
-        border-bottom-color: $secondary-super-transparent !important;
-        border-top-color: $secondary-super-transparent !important;
-    }
-
     &-content {
         text-align: left;
         background-color: $secondary-super-transparent;
@@ -66,4 +61,20 @@
     &-close-button {
         padding: 0 6px;
     }
+}
+
+.mapboxgl-popup-anchor-right > .mapboxgl-popup-tip {
+    border-left-color: $secondary-super-transparent !important;
+}
+
+.mapboxgl-popup-anchor-left > .mapboxgl-popup-tip {
+    border-right-color: $secondary-super-transparent !important;
+}
+
+.mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+    border-bottom-color: $secondary-super-transparent !important;
+}
+
+.mapboxgl-popup-anchor-bottom > .mapboxgl-popup-tip {
+    border-top-color: $secondary-super-transparent !important;
 }
