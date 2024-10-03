@@ -11,16 +11,29 @@ class MapTest < ApplicationSystemTestCase
     sign_in_as(@user)
 
     # create one active couch
-    FactoryBot.create(:user, :for_test, :offers_couch)
+    @host = FactoryBot.create(:user, :for_test, :offers_couch)
+    # Fix host location to Mumbai
+    mumbai_address = ADDRESSES.find { |address| address[:city] == 'Mumbai' }
+    @host.address = mumbai_address[:street]
+    @host.city = mumbai_address[:city]
+    @host.country = mumbai_address[:country]
+    @host.country_code = mumbai_address[:country_code]
+    @host.zipcode = mumbai_address[:zipcode]
+    @host.longitude = 72.869247
+    @host.latitude = 19.073816
+    @host.save!
   end
 
-  test 'should see map with markers' do
+  test 'should see map with one marker' do
     visit couches_path
 
     assert_selector '.mapboxgl-canvas', visible: true
 
-    # Check that all markers are present
-    assert_selector '.mapboxgl-marker', count: 1
+    click_on_map
+
+    assert_selector '.mapboxgl-popup-content'
+
+    assert_selector '.mapboxgl-popup__name', text: @host.first_name
   end
 
   test 'should filter by city' do
@@ -36,7 +49,9 @@ class MapTest < ApplicationSystemTestCase
     fill_in 'Find hosts in location', with: city
     click_on 'Search'
 
-    assert_selector '.mapboxgl-marker', count: 1
+    click_on_map
+
+    assert_selector '.mapboxgl-popup-content'
   end
 
   test 'should filter by characteristics' do
@@ -49,37 +64,33 @@ class MapTest < ApplicationSystemTestCase
 
     find('label', text: characteristic.name).click
 
-    assert_selector '.mapboxgl-marker', count: 1
-  end
-
-  test 'should see marker info' do
-    visit couches_path
-
-    marker = first('.mapboxgl-marker i')
-
-    couch_id = marker[:'data-couch-id']
-    couch_user = Couch.find(couch_id).user
-
-    marker.click
+    click_on_map
 
     assert_selector '.mapboxgl-popup-content'
-    assert_selector '.mapboxgl-popup__name', text: couch_user.first_name
   end
 
   test 'should navigate to couch page' do
     visit couches_path
 
-    marker = first('.mapboxgl-marker i', obscured: false)
+    click_on_map
 
-    couch_id = marker[:'data-couch-id']
-    couch = Couch.find(couch_id)
-
-    marker.click
+    assert_selector '.mapboxgl-popup-content'
 
     find('.mapboxgl-popup__link > img').click
 
-    assert_current_path couch_path(couch)
+    assert_current_path couch_path(@host.couch)
 
-    assert_selector '.couch__name', text: couch.user.first_name
+    assert_selector '.couch__name', text: @host.first_name
+  end
+
+  private
+
+  def click_on_map
+    map_selector = '.mapboxgl-canvas'
+    canvas = find(map_selector)
+    # Scroll to the map to make sure the markers are visible, then click on the map (will click the center, which should have a marker)
+    scroll_to(canvas, align: :center)
+    sleep(1)
+    canvas.click
   end
 end

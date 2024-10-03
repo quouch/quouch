@@ -36,7 +36,6 @@ class BookingsController < ApplicationController
         {
           lat: host.latitude,
           lng: host.longitude,
-          marker_html: render_to_string(partial: 'partials/marker', locals: { couch: @couch }),
           info_popup: {
             text: @couch.user.address
           }

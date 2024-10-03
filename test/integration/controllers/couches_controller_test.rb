@@ -41,12 +41,11 @@ class CouchesControllerTest < ActionDispatch::IntegrationTest
     # Create two hosts
     users = FactoryBot.create_list(:user, 2, :offers_couch, :geocoded)
 
-    # Stub :render_to_string to return a string, since we don't need to test it
-    @controller.stub(:render_to_string, '') do
+    # Stub :url_for to return a string, since we don't need to test it
+    @controller.stub(:url_for, '') do
       @controller.send(:generate_markers, users.map(&:couch))
 
       markers = @controller.instance_variable_get(:@markers)
-      puts markers
       assert_not_nil markers
       assert_equal 2, markers.size
       assert_not_nil markers[0][:fuzzy]

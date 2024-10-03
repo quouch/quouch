@@ -11,7 +11,7 @@ class CouchesController < ApplicationController
   def index
     find_and_filter
 
-    generate_markers(@couches)
+    generate_markers(@shuffled_couches)
 
     respond_to(&:html)
   end
@@ -47,9 +47,15 @@ class CouchesController < ApplicationController
 
       {
         fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
-        marker_html: render_to_string(partial: 'partials/fuzzy_marker', locals: { couch: }),
+        id: couch.id,
         info_popup: {
-          html: render_to_string(partial: 'partials/couch_popup', locals: { couch: })
+          data: {
+            first_name: couch.user.first_name,
+            last_name: couch.user.last_name,
+            rating: couch.rating,
+            photo: couch.user.photo.attached? ? url_for(couch.user.photo) : nil,
+            pronouns: couch.user.pronouns
+          }
         }
       }
     end.compact
