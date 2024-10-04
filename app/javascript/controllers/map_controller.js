@@ -1,6 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
 import mapboxgl from 'mapbox-gl'
-import GeocodingClient from '@mapbox/mapbox-sdk/services/geocoding'
 
 // Connects to data-controller="map"
 export default class extends Controller {
@@ -8,7 +7,7 @@ export default class extends Controller {
 	static values = {
 		apiKey: String,
 		marker: Array,
-		fuzzy: Boolean,
+		fuzzy: Boolean
 	}
 
 	connect() {
@@ -17,24 +16,24 @@ export default class extends Controller {
 		this.map = new mapboxgl.Map({
 			container: this.mapTarget,
 			style: 'mapbox://styles/mapbox/streets-v11',
-			maxZoom: this.fuzzyValue ? 14 : 22,
+			maxZoom: this.fuzzyValue ? 14 : 22
 		})
 
 		this.markers = []
 		this.sources = []
 
 		if (this.fuzzyValue) {
-			this.addFuzzyMarkersToMap(this.markerValue).then(() => {
-				const lngLats = this.sources.map((source) => source.center)
-				this.fitMap(lngLats)
-			})
+			this.addFuzzyMarkersToMap(this.markerValue)
+			const lngLats = this.sources.map((source) => source.center)
+			this.fitMap(lngLats)
+
 			this.map.on('load', () => {
 				this.map.addSource('couches', {
 					type: 'geojson',
 					data: {
 						type: 'FeatureCollection',
-						features: this.sources,
-					},
+						features: this.sources
+					}
 				})
 				this.map.addLayer({
 					id: 'couches',
@@ -44,8 +43,8 @@ export default class extends Controller {
 						'circle-color': '#fff',
 						'circle-radius': 3,
 						'circle-stroke-width': 6,
-						'circle-stroke-color': '#fb5705',
-					},
+						'circle-stroke-color': '#fb5705'
+					}
 				})
 
 				this.initializePopup()
@@ -62,41 +61,36 @@ export default class extends Controller {
 			const newMarker = this.createMarker(
 				[marker.lng, marker.lat],
 				marker,
-				false,
+				false
 			)
 			this.markers.push(newMarker)
 		})
 	}
 
-	async addFuzzyMarkersToMap(markers) {
-		const geocoding = new GeocodingClient({ accessToken: this.apiKeyValue })
+	obscureCoordinates(lng, lat) {
+		const random = Math.random() / 250
+		// Randomly add or subtract the random value to the coordinates to obscure the location
+		const newLng = Math.random() > 0.5 ? lng + random : lng - random
+		const newLat = Math.random() > 0.5 ? lat + random : lat - random
 
-		return Promise.all(
-			markers.map((marker) => {
-				return geocoding
-					.forwardGeocode({
-						query: marker.fuzzy,
-						autocomplete: false,
-						limit: 1,
-					})
-					.send()
-					.then((response) => {
-						if (
-							response &&
-							response.body &&
-							response.body.features &&
-							response.body.features.length
-						) {
-							const feature = response.body.features[0]
+		return [newLng, newLat]
+	}
 
-							this.addMarkerSource(feature, marker)
-						}
-					})
-					.catch((error) => {
-						console.error('Error geocoding address:', error)
-					})
-			}),
-		)
+	addFuzzyMarkersToMap(markers) {
+		markers.forEach((marker) => {
+			const coordinates = this.obscureCoordinates(marker.lng, marker.lat)
+			const geometry = {
+				type: 'Point',
+				coordinates: coordinates
+			}
+
+			const feature = {
+				geometry: geometry,
+				center: coordinates
+			}
+
+			this.addMarkerSource(feature, marker)
+		})
 	}
 
 	addMarkerSource(feature, marker) {
@@ -104,8 +98,8 @@ export default class extends Controller {
 			...feature,
 			properties: {
 				id: marker.id,
-				...marker.info_popup.data,
-			},
+				...marker.info_popup.data
+			}
 		}
 
 		this.sources.push(source)
@@ -155,18 +149,18 @@ export default class extends Controller {
 				</div>
 			</div>`
 
-			// We do not have many ratings yet, so let's hide them for now: https://quouch.slack.com/archives/C07G7241USU/p1728031228701389?thread_ts=1727969578.728969&cid=C07G7241USU
-			// <div class='mapboxgl-popup__reviews'>
-			// 	<i class='quouch-star color-secondary-light' aria-label='Star icon'></i>
-			// 	<p class='mapboxgl-popup__rating'>${userData.rating}</p>
-			// </div>`
+		// We do not have many ratings yet, so let's hide them for now: https://quouch.slack.com/archives/C07G7241USU/p1728031228701389?thread_ts=1727969578.728969&cid=C07G7241USU
+		// <div class='mapboxgl-popup__reviews'>
+		// 	<i class='quouch-star color-secondary-light' aria-label='Star icon'></i>
+		// 	<p class='mapboxgl-popup__rating'>${userData.rating}</p>
+		// </div>`
 	}
 
 	initializePopup() {
 		// Create a popup, but don't add it to the map yet.
 		const popup = new mapboxgl.Popup({
 			closeButton: true,
-			closeOnClick: false,
+			closeOnClick: false
 		})
 
 		this.map.on('click', 'couches', (e) => {
