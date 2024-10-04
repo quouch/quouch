@@ -11,9 +11,9 @@ class CouchesController < ApplicationController
   def index
     find_and_filter
 
-    generate_markers(@shuffled_couches)
-
     respond_to(&:html)
+
+    generate_markers(@shuffled_couches)
   end
 
   def show
@@ -52,7 +52,7 @@ class CouchesController < ApplicationController
           data: {
             first_name: couch.user.first_name,
             last_name: couch.user.last_name,
-            rating: couch.rating,
+            # rating: couch.rating,
             photo: couch.user.photo.attached? ? url_for(couch.user.photo) : nil,
             pronouns: couch.user.pronouns
           }
