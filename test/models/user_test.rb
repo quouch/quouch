@@ -195,4 +195,18 @@ class UserTest < ActiveSupport::TestCase
     @user = FactoryBot.create(:user, :for_test, :subscribed)
     assert @user.subscribed?
   end
+
+  test 'should capitalize first name' do
+    @user = FactoryBot.create(:user, :for_test)
+    @user.first_name = 'john'
+
+    assert_equal 'John', @user.display_name
+  end
+
+  test 'should return email if name is unset' do
+    @user = FactoryBot.create(:user, :for_test)
+    @user.first_name = nil
+
+    assert_equal @user.email, @user.display_name
+  end
 end

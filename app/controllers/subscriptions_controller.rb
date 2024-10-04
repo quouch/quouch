@@ -96,7 +96,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def handle_checkout_error(subscription, error_message)
-    subscription.destroy if subscription.persisted?
+    subscription.destroy if subscription&.persisted?
     flash[:error] = error_message
     redirect_to new_subscription_url
   end

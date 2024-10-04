@@ -186,4 +186,10 @@ class User < ApplicationRecord # rubocop:disable Metrics/ClassLength
   def subscribed?
     subscription.present? && subscription.stripe_id_present?
   end
+
+  def display_name
+    return first_name.capitalize if first_name
+
+    email
+  end
 end

@@ -153,11 +153,13 @@ export default class extends Controller {
 					<p class='mapboxgl-popup__name'>${userData.first_name}</p>
 					<p class='mapboxgl-popup__pronouns'>${userData.pronouns || ''}</p>
 				</div>
-			</div>
-			<div class='mapboxgl-popup__reviews'>
-				<i class='quouch-star color-secondary-light' aria-label='Star icon'></i>
-				<p class='mapboxgl-popup__rating'>${userData.rating}</p>
 			</div>`
+
+			// We do not have many ratings yet, so let's hide them for now: https://quouch.slack.com/archives/C07G7241USU/p1728031228701389?thread_ts=1727969578.728969&cid=C07G7241USU
+			// <div class='mapboxgl-popup__reviews'>
+			// 	<i class='quouch-star color-secondary-light' aria-label='Star icon'></i>
+			// 	<p class='mapboxgl-popup__rating'>${userData.rating}</p>
+			// </div>`
 	}
 
 	initializePopup() {
