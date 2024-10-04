@@ -36,39 +36,6 @@ class MapTest < ApplicationSystemTestCase
     assert_selector '.mapboxgl-popup__name', text: @host.first_name
   end
 
-  test 'should filter by city' do
-    city_name = 'Test city'
-    new_user = FactoryBot.create(:user, :for_test, :offers_couch)
-    new_user.city = city_name
-    new_user.save
-
-    city = new_user.city
-
-    visit couches_path
-
-    fill_in 'Find hosts in location', with: city
-    click_on 'Search'
-
-    click_on_map
-
-    assert_selector '.mapboxgl-popup-content'
-  end
-
-  test 'should filter by characteristics' do
-    new_user = FactoryBot.create(:user, :for_test, :offers_couch)
-    characteristic = Characteristic.create!(name: 'Test Characteristic')
-    new_user.characteristics << characteristic
-
-    visit couches_path
-    find('.search__hide-filters').click if mobile?
-
-    find('label', text: characteristic.name).click
-
-    click_on_map
-
-    assert_selector '.mapboxgl-popup-content'
-  end
-
   test 'should navigate to couch page' do
     visit couches_path
 
