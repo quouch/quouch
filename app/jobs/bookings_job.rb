@@ -12,6 +12,8 @@ class BookingsJob < ApplicationJob
   end
 
   def perform
+    Rails.application.routes.default_url_options[:host] =
+      Rails.application.config.action_mailer.default_url_options[:host]
     complete_bookings
     remind_bookings
   rescue StandardError => e
@@ -79,29 +81,23 @@ class BookingsJob < ApplicationJob
 
     bookings.each do |booking|
       send_smtp_email = SibApiV3Sdk::SendSmtpEmail.new(
-        to: [{
-          email: booking.couch.user.email,
-          name: booking.couch.user.name # if available
-        }],
-        template_id: 59,
+        templateId: 56,
+        replyTo: { email: 'hello@quouch-app.com' },
         params: {
           guest_first_name: booking.user.first_name,
           host_first_name: booking.couch.user.first_name,
           message: booking.message,
-          booking_url: Rails.application.routes.url_helpers.booking_url(booking),
-          guidelines_url: Rails.application.routes.url_helpers.guidelines_url,
-          invite_friend_url: Rails.application.routes.url_helpers.invite_friend_url
+          booking_url: Rails.application.routes.url_helpers.booking_url(booking)
         },
-        headers: {
-          'X-Mailin-custom': 'custom_header_1:custom_value_1|custom_header_2:custom_value_2'
-        }
+        to: [{ email: booking.user.email }]
       )
       begin
-        # Send a transactional email
-        result = api_instance.send_transac_email(send_smtp_email)
-        p result
+        api_instance.send_transac_email(send_smtp_email)
       rescue SibApiV3Sdk::ApiError => e
-        puts "Exception when calling TransactionalEmailsApi->send_transac_email: #{e}"
+        puts 'Exception when calling TransactionalEmailsApi->send_transac_email:'
+        puts "Error message: #{e.message}"
+        puts "HTTP status code: #{e.code}" if e.respond_to?(:code)
+        puts "Response body: #{e.response_body}" if e.respond_to?(:response_body)
       end
     end
   end
