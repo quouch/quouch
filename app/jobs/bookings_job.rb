@@ -84,7 +84,7 @@ class BookingsJob < ApplicationJob
           message: booking.message,
           booking_url: Rails.application.routes.url_helpers.booking_url(booking)
         },
-        to: [{ email: booking.user.email }]
+        to: [{ email: booking.couch.user.email }]
       )
       begin
         api_instance.send_transac_email(send_smtp_email)
