@@ -41,25 +41,30 @@ class CouchesController < ApplicationController
 
   private
 
-  def generate_markers(couches)
-    @markers = couches.map do |couch|
-      next unless couch.user.geocoded?
+  def couch_to_marker(couch)
+    return unless couch.user.geocoded?
 
-      {
-        fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
-        id: couch.id,
-        lng: couch.user.longitude,
-        lat: couch.user.latitude,
-        info_popup: {
-          data: {
-            first_name: couch.user.first_name,
-            last_name: couch.user.last_name,
-            # rating: couch.rating,
-            photo: couch.user.photo.attached? ? url_for(couch.user.photo) : nil,
-            pronouns: couch.user.pronouns
-          }
+    {
+      fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
+      id: couch.id,
+      lng: couch.user.longitude,
+      lat: couch.user.latitude,
+      info_popup: {
+        data: {
+          first_name: couch.user.first_name,
+          last_name: couch.user.last_name,
+          # rating: couch.rating,
+          photo: couch.user.photo.attached? ? url_for(couch.user.photo) : nil,
+          pronouns: couch.user.pronouns
         }
       }
-    end.compact
+    }
+  end
+
+  def generate_markers(couches)
+    @markers = []
+    couches.find_in_batches(batch_size: 100) do |batch|
+      @markers += batch.map(&method(:couch_to_marker)).compact
+    end
   end
 end
