@@ -29,7 +29,7 @@ class BookingsJobTest < ActiveJob::TestCase
 
     @brevo_mock.expect(:send_transac_email, smtp_email_response) do |send_smtp_email|
       send_smtp_email.is_a?(SibApiV3Sdk::SendSmtpEmail) &&
-        send_smtp_email.to.first[:email] == future_booking.user.email &&
+        send_smtp_email.to.first[:email] == future_booking.couch.user.email &&
         send_smtp_email.params[:guest_first_name] == future_booking.user.first_name &&
         send_smtp_email.params[:host_first_name] == future_booking.couch.user.first_name &&
         send_smtp_email.params[:message] == future_booking.message &&
