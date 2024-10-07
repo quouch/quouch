@@ -2,11 +2,6 @@ require 'sib-api-v3-sdk'
 class BookingsJob < ApplicationJob
   queue_as :default
 
-  # Retry on SMTP Timeout errors with a wait period and limited attempts
-  retry_on Net::SMTPFatalError, Net::ReadTimeout, Net::SMTPAuthenticationError, wait: lambda { |attempt|
-                                                                                        5.seconds * (2**attempt)
-                                                                                      }, attempts: 10
-
   SibApiV3Sdk.configure do |config|
     config.api_key['api-key'] = Rails.application.credentials.dig(:brevo, :api_key)
   end
