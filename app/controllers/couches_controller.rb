@@ -22,7 +22,7 @@ class CouchesController < ApplicationController
     @reviews = Review.where(couch_id: params[:id])
     @review_average = @reviews.average(:rating).to_f
     @chat = Chat.find_by(user_sender_id: @host.id, user_receiver_id: current_user.id) ||
-            Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
+      Chat.find_by(user_sender_id: current_user.id, user_receiver_id: @host.id)
   end
 
   def search_cities
@@ -48,6 +48,8 @@ class CouchesController < ApplicationController
       {
         fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
         id: couch.id,
+        lng: couch.user.longitude,
+        lat: couch.user.latitude,
         info_popup: {
           data: {
             first_name: couch.user.first_name,
