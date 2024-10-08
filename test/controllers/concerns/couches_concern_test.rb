@@ -348,6 +348,31 @@ class CouchesConcernTest < ActiveSupport::TestCase
     assert_not_same @couches, first_page
   end
 
+  test 'should haze coordinate' do
+    original_latitude = 52.516112
+
+    # Test the haze function
+    hazy_latitude = randomly_haze(original_latitude)
+    assert_not_equal original_latitude, hazy_latitude
+
+    hazy_latitude2 = randomly_haze(original_latitude)
+    assert_not_equal hazy_latitude, hazy_latitude2
+  end
+
+  test 'should generate fuzzy marker for couch' do
+    user = FactoryBot.create(:user, :offers_couch)
+
+    # Stub :url_for to return a string, since we don't need to test it
+    stub(:get_user_photo, '') do
+      marker = couch_to_marker(user.couch)
+
+      assert_not_nil marker
+      assert_equal user.couch.id, marker[:id]
+      assert_not_equal user.longitude, marker[:lng]
+      assert_not_equal user.latitude, marker[:lat]
+    end
+  end
+
   private
 
   def setup_with_pagination

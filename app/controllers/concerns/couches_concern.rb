@@ -60,4 +60,36 @@ module CouchesConcern
 
     @shuffled_couches = @shuffled_couches.joins(:user).where(user: offers_conditions)
   end
+
+  def get_user_photo(user)
+    user.photo.attached? ? url_for(user.photo) : nil
+  end
+
+  def randomly_haze(coord)
+    coord + rand(-0.011..0.011)
+  end
+
+  def couch_to_marker(couch)
+    return unless couch.user.geocoded?
+
+    hazy_lng = randomly_haze(couch.user.longitude)
+    hazy_lat = randomly_haze(couch.user.latitude)
+
+    {
+      fuzzy: "#{couch.user.zipcode}, #{couch.user.city}, #{couch.user.country}",
+      id: couch.id,
+      lng: hazy_lng,
+      lat: hazy_lat,
+      info_popup: {
+        data: {
+          first_name: couch.user.first_name,
+          last_name: couch.user.last_name,
+          # rating: couch.rating,
+          photo: get_user_photo(couch.user),
+          pronouns: couch.user.pronouns
+        }
+      }
+    }
+  end
+
 end
