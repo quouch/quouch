@@ -93,5 +93,4 @@ module CouchesConcern
       }
     }
   end
-
 end
