@@ -49,18 +49,20 @@
                 <p>Cowork</p>
               <% end %>
             </li>
+            <% if @booking.start_date && @booking.end_date %>
             <li>
               <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
                 <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
             </li>
-            <li>
-              <% if @booking.flexible %>
-                <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+            <% end %>
+            <% if @booking.flexible %>
+              <li>
+                <i class="fa-solid fa-calendar-plus color-secondary" aria-label="Calendar Plus icon"></i>
                 <p>Flexible Dates</p>
-              <% end %>
-            </li>
+              </li>
+            <% end %>
             <li class="status">
-              <i class="quouch-home color-secondary" aria-label="Home icon"></i>
+              <i class="fa-solid fa-bell color-secondary" aria-label="Clock icon"></i>
               <%= @booking.status.capitalize %>
             </li>
             <li>
