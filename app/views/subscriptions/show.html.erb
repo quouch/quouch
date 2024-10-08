@@ -28,7 +28,7 @@
                   <% if @subscription.end_of_period %>
                     <p class="plans__info plans__info--cancelled">
                       <i class="quouch-info-circle color-transparent" aria-label="Info icon"></i>
-                      <em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
+                      <em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it will not automatically renew after this date.</em>
                     </p>
                   <% else %>
                     <button class="plans__button"
@@ -137,7 +137,7 @@
                   <% if @subscription.end_of_period %>
                     <p class="plans__info plans__info--cancelled">
                       <i class="quouch-info-circle color-transparent" aria-label="Info icon"></i>
-                      <em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%B %d, %Y") %> and it will not automatically renew after this date.</em>
+                      <em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it will not automatically renew after this date.</em>
                     </p>
                   <% else %>
                     <button class="plans__button"

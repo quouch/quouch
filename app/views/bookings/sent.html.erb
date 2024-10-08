@@ -24,10 +24,12 @@
           </li>
           <li>
             <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+              <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
+          </li>
+          <li>
             <% if @booking.flexible %>
+              <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
               <p>Flexible Dates</p>
-            <% else %>
-              <%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
             <% end %>
           </li>
           <li>

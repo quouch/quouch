@@ -138,7 +138,7 @@
               <%= render 'partials/user_photo', user: review.user %>
               <div>
                 <p class="review__name"><%= review.user.first_name.capitalize %></p>
-                <p class="review__date"><%= review.created_at.strftime("%B, %Y") %></p>
+                <p class="review__date"><%= review.created_at.strftime("%b, %Y") %></p>
               </div>
             </div>
             <% if review.booking %>
