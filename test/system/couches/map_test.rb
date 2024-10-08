@@ -55,7 +55,8 @@ class MapTest < ApplicationSystemTestCase
   def click_on_map
     map_selector = '.mapboxgl-canvas'
     canvas = find(map_selector)
-    # Scroll to the map to make sure the markers are visible, then click on the map (will click the center, which should have a marker)
+    # Scroll to the map to make sure the markers are visible,
+    # then click on the map (will click the center, which should have a marker)
     scroll_to(canvas, align: :center)
     sleep(1)
     canvas.click

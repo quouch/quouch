@@ -26,6 +26,8 @@ module RegistrationConcern
   end
 
   def update_couch
+    return unless params[:couch].present?
+
     @couch.update(couch_params)
   end
 
