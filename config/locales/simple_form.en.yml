@@ -24,6 +24,6 @@ en:
         username: 'User name to sign in.'
         password: 'No special characters, please.'
       couch:
-        hide_from_map: 'Check this box if you do not want this couch to appear on the map. Users will only be able to find you using your city.'
+        hide_from_map: 'Check this box if you do not want to appear on the map at all. Users will only be able to find you using the search bar. We are never sharing your exact location and your safety is always our highest priority.'
       user:
         address: 'Your exact address will only be shown to users once you confirm a request to host.'
