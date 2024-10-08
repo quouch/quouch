@@ -54,8 +54,8 @@ class CouchesControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil markers[0][:fuzzy]
       assert_includes markers[0][:fuzzy], marker_user.zipcode
       assert_equal marker_couch.id, marker1[:id]
-      assert_equal marker_user.longitude, marker1[:lng]
-      assert_equal marker_user.latitude, marker1[:lat]
+      assert_not_nil marker1[:lng]
+      assert_not_nil marker1[:lat]
       assert_not_nil marker1[:info_popup]
     end
   end

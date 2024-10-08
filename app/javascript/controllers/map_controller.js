@@ -67,18 +67,9 @@ export default class extends Controller {
 		})
 	}
 
-	obscureCoordinates(lng, lat) {
-		const random = Math.random() / 250
-		// Randomly add or subtract the random value to the coordinates to obscure the location
-		const newLng = Math.random() > 0.5 ? lng + random : lng - random
-		const newLat = Math.random() > 0.5 ? lat + random : lat - random
-
-		return [newLng, newLat]
-	}
-
 	addFuzzyMarkersToMap(markers) {
 		markers.forEach((marker) => {
-			const coordinates = this.obscureCoordinates(marker.lng, marker.lat)
+			const coordinates = [marker.lng, marker.lat]
 			const geometry = {
 				type: 'Point',
 				coordinates: coordinates
