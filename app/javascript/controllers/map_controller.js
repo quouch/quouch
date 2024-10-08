@@ -16,7 +16,7 @@ export default class extends Controller {
 		this.map = new mapboxgl.Map({
 			container: this.mapTarget,
 			style: 'mapbox://styles/mapbox/streets-v11',
-			maxZoom: this.fuzzyValue ? 14 : 22
+			maxZoom: this.fuzzyValue ? 12 : 22
 		})
 
 		this.markers = []
