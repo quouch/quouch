@@ -81,6 +81,21 @@ module Users
       assert_equal true, @user.couch.hide_from_map
     end
 
+    test 'should change couch capacity' do
+      @user.couch.capacity = 2
+      @user.save
+
+      assert_equal 2, @user.couch.capacity
+      patch user_registration_url,
+            params: { user: @user_data,
+                      couch: { capacity: 3 },
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :redirect
+      @user.reload
+      assert_equal 3, @user.couch.capacity
+    end
+
     test 'should save user preference to not hide from map' do
       @user.couch.hide_from_map = true
       @user.save
