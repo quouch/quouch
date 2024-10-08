@@ -1,6 +1,6 @@
 <div class="booking-form__wrap">
   <%= render 'host' %>
-  <section class="booking-form" data-controller="validate-form">
+  <section class="booking-form">
     <%= simple_form_for [@couch, @booking],
 				data: { controller: 'flatpickr' },
 				defaults: { required: false } do |f| %>
@@ -19,15 +19,12 @@
           <% end %>
         </div>
       </div>
-      <div class="booking-form__details__wrap" data-controller="skip-booking-date-validation">
+      <div class="booking-form__details__wrap">
         <%= f.label :dates_and_travellers, required: true %>
         <%= f.input :flexible,
 										label: 'flexible travel dates',
-										wrapper_html: { class: 'booking-form__flexible' },
-										input_html: { data: { skip_booking_date_validation_target: 'checkbox',
-																					validate_form_target: 'flexible',
-                                          action: 'click->skip-booking-date-validation#hideFields change->validate-form#enableButton' }} %>
-        <div class="booking-form__dates date" data-skip-booking-date-validation-target="date">
+										wrapper_html: { class: 'booking-form__flexible' } %>
+        <div class="booking-form__dates date">
           <div class="date-input">
             <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
             <%= f.input :start_date,
@@ -35,15 +32,14 @@
 												error: false,
 												placeholder: 'from',
 												input_html: { data: { flatpickr_target: 'startTime',
-                                              validate_form_target: 'start',
-                                              action: 'change->validate-form#enableButton change->flatpickr#updateEnd'} },
+                                              action: 'change->flatpickr#updateEnd'} },
 												label: false %>
           </div>
           <div class="date-input">
             <%= f.input :end_date,
 												as: :string,
 												placeholder: 'to',
-												input_html: { data: { flatpickr_target: 'endTime', validate_form_target: 'end', action: 'change->validate-form#enableButton' } },
+												input_html: { data: { flatpickr_target: 'endTime' } },
 												label: false %>
           </div>
         </div>
@@ -61,10 +57,10 @@
 									label: :Message,
 									required: true,
 									error: false,
-									input_html: { rows: 4, data: { validate_form_target: 'message', action: 'blur->validate-form#enableButton'} } %>
+									input_html: { rows: 4 } %>
       <%= f.error :message, class: 'form-error' %>
       <div class="booking-form__action">
-        <%= f.submit 'Send Request', class: 'booking-form__button', disabled: true, data: { validate_form_target: 'button'} %>
+        <%= f.submit 'Send Request', class: 'booking-form__button' %>
       </div>
     <% end %>
   </section>
