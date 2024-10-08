@@ -70,6 +70,31 @@ module Users
       assert_equal 'Italy', @user.country
     end
 
+    test 'should save user preference to hide from map' do
+      patch user_registration_url,
+            params: { user: @user_data,
+                      couch: { hide_from_map: true },
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :redirect
+      @user.reload
+      assert_equal true, @user.couch.hide_from_map
+    end
+
+    test 'should save user preference to not hide from map' do
+      @user.couch.hide_from_map = true
+      @user.save
+
+      assert_equal true, @user.couch.hide_from_map
+      patch user_registration_url,
+            params: { user: @user_data,
+                      couch: { hide_from_map: false },
+                      user_characteristic: { characteristic_ids: [Characteristic.first.id] } }
+
+      assert_response :redirect
+      @user.reload
+      assert_equal false, @user.couch.hide_from_map
+    end
     test 'should save couch facilities' do
       # Update the user with facilities
       patch user_registration_url,

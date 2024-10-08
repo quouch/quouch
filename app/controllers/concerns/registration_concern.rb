@@ -4,7 +4,7 @@ module RegistrationConcern
   protected
 
   def couch_params
-    params.require(:couch).permit(:capacity)
+    params.require(:couch).permit(:capacity, :hide_from_map)
   end
 
   def couch_facility_params

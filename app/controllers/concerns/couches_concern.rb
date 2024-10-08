@@ -71,6 +71,7 @@ module CouchesConcern
 
   def couch_to_marker(couch)
     return unless couch.user.geocoded?
+    return if couch.hide_from_map
 
     hazy_lng = randomly_haze(couch.user.longitude)
     hazy_lat = randomly_haze(couch.user.latitude)

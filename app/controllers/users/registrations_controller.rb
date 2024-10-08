@@ -47,6 +47,8 @@ module Users
     def update
       if params[:user][:old_password].blank?
         @couch = @user.couch
+
+        update_couch
         create_couch_facilities
         update_user_characteristics
 
