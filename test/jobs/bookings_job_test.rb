@@ -33,7 +33,7 @@ class BookingsJobTest < ActiveJob::TestCase
         send_smtp_email.params[:guest_first_name] == future_booking.user.first_name &&
         send_smtp_email.params[:host_first_name] == future_booking.couch.user.first_name &&
         send_smtp_email.params[:message] == future_booking.message &&
-        send_smtp_email.params[:booking_url] == Rails.application.routes.url_helpers.booking_url(future_booking)
+        send_smtp_email.params[:booking_url] == Rails.application.routes.url_helpers.request_booking_url(future_booking)
     end
 
     SibApiV3Sdk::TransactionalEmailsApi.stub(:new, @brevo_mock) do

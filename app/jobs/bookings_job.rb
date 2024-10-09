@@ -82,7 +82,7 @@ class BookingsJob < ApplicationJob
           guest_first_name: booking.user.first_name,
           host_first_name: booking.couch.user.first_name,
           message: booking.message,
-          booking_url: Rails.application.routes.url_helpers.booking_url(booking)
+          booking_url: Rails.application.routes.url_helpers.request_booking_url(booking)
         },
         to: [{ email: booking.couch.user.email }]
       )
