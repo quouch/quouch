@@ -32,16 +32,20 @@
                           <p>Cowork</p>
                         <% end %>
                       </li>
-                      <li class="upcoming-booking__detail">
-                        <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-                        <% if !booking.flexible %>
+                      <% if booking.start_date && booking.end_date %>
+                        <li class="upcoming-booking__detail">
+                          <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
                           <%= booking.start_date.strftime("%b %d") %> - <%= booking.end_date.strftime("%b %d, %Y") %>
-                        <% else %>
-                          <p>Flexible</p>
-                        <% end %>
-                      </li>
+                        </li>
+                      <% end %>
+                      <% if booking.flexible %>
+                        <li class="upcoming-booking__detail">
+                          <i class="fa-solid fa-calendar-plus color-secondary" aria-label="Calendar Plus icon"></i>
+                          <p>Flexible Dates</p>
+                        </li>
+                      <% end %>
                       <li class="upcoming-booking__detail upcoming-booking__status">
-                        <i class="quouch-home color-secondary" aria-label="Home icon"></i>
+                        <i class="fa-solid fa-bell color-secondary" aria-label="Home icon"></i>
                         <%= booking.status.capitalize %>
                       </li>
                       <li class="upcoming-booking__detail">
@@ -73,9 +77,10 @@
                     </li>
                     <li class="past-booking__detail">
                       <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-                      <% if !booking.flexible %>
+                      <% if booking.start_date %>
                         <%= booking.start_date.strftime("%b, %Y") %>
-                      <% else %>
+                      <% end %>
+                      <% if booking.flexible %>
                         <p>Flexible</p>
                       <% end %>
                     </li>
@@ -112,9 +117,10 @@
                     </li>
                     <li class="past-booking__detail">
                       <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-                      <% if !booking.flexible %>
+                      <% if booking.start_date %>
                         <%= booking.start_date.strftime("%b, %Y") %>
-                      <% else %>
+                      <% end %>
+                      <% if booking.flexible %>
                         <p>Flexible</p>
                       <% end %>
                     </li>

@@ -34,15 +34,21 @@ module BookingsConcern
   end
 
   def accept_booking(booking)
-    booking.confirmed!
-    BookingMailer.with(booking:).request_confirmed_email.deliver_later
-    AmplitudeEventTracker.track_booking_event(booking, 'Booking Confirmed')
+    if booking.confirmed!
+      BookingMailer.with(booking:).request_confirmed_email.deliver_later
+      AmplitudeEventTracker.track_booking_event(booking, 'Booking Confirmed')
+    else
+      flash[:error] =
+        'Booking could not be confirmed. Please ask your guest to specify dates or reach out for further assistance.'
+    end
   end
 
   def decline_booking(booking, message = nil)
     raise Exceptions::ForbiddenError, 'Only the host can decline a booking' unless requested_by_host?(booking)
 
     return unless booking.declined!
+
+    # flash[:error] = 'Booking could not be confirmed. Please ask your guest to specify dates or reach out for further assistance.'
 
     AmplitudeEventTracker.track_booking_event(@booking, 'Booking Declined')
 
