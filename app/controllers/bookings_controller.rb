@@ -57,8 +57,6 @@ class BookingsController < ApplicationController
   def create
     @booking = prepare_booking_for_save
     @couch = @booking.couch
-    # Do we use this variable on create?
-    @guest = @booking.user
     @host = @couch.user
 
     if @booking.save
