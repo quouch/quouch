@@ -87,6 +87,16 @@ module Users
       assert @editing_user.reload.valid_password?(@editing_user.password)
     end
 
+    test 'should save preference to hide from map' do
+      visit edit_user_registration_path
+
+      check 'couch[hide_from_map]'
+      submit_form
+
+      couch = @editing_user.reload.couch
+      assert couch.hide_from_map
+    end
+
     private
 
     def submit_form

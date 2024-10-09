@@ -58,6 +58,24 @@ class CouchTest < ActiveSupport::TestCase
     assert_equal 0, couch.rating
   end
 
+  test 'should have property `hide_from_map` as false by default' do
+    couch = Couch.create!(user: @user)
+
+    assert_not couch.hide_from_map
+  end
+
+  test 'should have property `hide_from_map` as true' do
+    couch = Couch.create!(user: @user, hide_from_map: true)
+
+    assert couch.hide_from_map
+  end
+
+  test 'should have property `active` as true by default' do
+    couch = Couch.create!(user: @user)
+
+    assert couch.active
+  end
+
   private
 
   def create_review(couch:, rating:)

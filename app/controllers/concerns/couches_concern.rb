@@ -38,8 +38,8 @@ module CouchesConcern
 
   def apply_search_filter
     @shuffled_couches = @shuffled_couches.search_by_location(params[:query])
-                                         # use .reorder to eliminate the order by ranking that pg_search creates.
-                                         # The pg_search.rank ordering conflicts with the `group` and `having` clauses introduced by the characteristics filter
+    # use .reorder to eliminate the order by ranking that pg_search creates.
+    # The pg_search.rank ordering conflicts with the `group` and `having` clauses introduced by the characteristics filter
                                          .reorder('RANDOM()')
   end
 
@@ -66,11 +66,13 @@ module CouchesConcern
   end
 
   def randomly_haze(coord)
-    coord + rand(-0.011..0.011)
+    base_number = 0.015
+    coord + rand(-base_number..base_number)
   end
 
   def couch_to_marker(couch)
     return unless couch.user.geocoded?
+    return if couch.hide_from_map
 
     hazy_lng = randomly_haze(couch.user.longitude)
     hazy_lat = randomly_haze(couch.user.latitude)

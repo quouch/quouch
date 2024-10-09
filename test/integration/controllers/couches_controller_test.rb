@@ -59,4 +59,21 @@ class CouchesControllerTest < ActionDispatch::IntegrationTest
       assert_not_nil marker1[:info_popup]
     end
   end
+
+  test 'should not generate markers for hidden couches' do
+    @controller = CouchesController.new
+
+    # Create two hosts
+    users = FactoryBot.create_list(:user, 3, :offers_couch, :geocoded)
+    users[1].couch.update(hide_from_map: true)
+
+    # Stub :url_for to return a string, since we don't need to test it
+    @controller.stub(:url_for, '') do
+      @controller.send(:generate_markers, Couch.where(user: users))
+
+      markers = @controller.instance_variable_get(:@markers)
+      assert_not_nil markers
+      assert_equal 2, markers.size
+    end
+  end
 end

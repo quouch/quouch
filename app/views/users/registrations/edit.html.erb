@@ -59,7 +59,6 @@
                     autofocus: true,
                     input_html: { autocomplete: 'pronouns' } %>
         <div class="user__address">
-          <p class="hint">Other users will only see city & country until you officially confirm a request to host</p>
           <div class="user__address-street">
             <%= f.label :address,
                         required: true,
@@ -67,10 +66,12 @@
             <%= f.input :address,
                         label: false,
                         error: false,
+                        hint: false,
                         value: @user.address,
                         input_html: { data: { autofill_target: 'address' }, class: 'display-none' },
                         wrapper_html: { data: { controller: 'autofill', autofill_api_key_value: Rails.application.credentials.dig(:mapbox, :api_key) } } %>
           </div>
+          <%= f.hint :address %>
           <%= f.error :address, class: 'form-error' %>
           <div class="user__address-city">
             <div class="user__address-wrap">
@@ -113,6 +114,19 @@
                           label: false %>
             <% end %>
             <%= f.error :country_code, class: 'form-error' %>
+          </div>
+          <div class="user__map-preferences checkbox-field">
+            <%= simple_fields_for :couch do |cf| %>
+              <%= cf.input :hide_from_map,
+                           as: :boolean,
+                           label: false,
+                           error: false,
+                           hint: false,
+                           autofocus: true %>
+              <i class="fa fa-eye-slash" aria-label="World icon"></i>
+              <%= cf.label :hide_from_map, required: false %>
+              <%= cf.hint :hide_from_map %>
+            <% end %>
           </div>
         </div>
         <%= f.label :about_me,
