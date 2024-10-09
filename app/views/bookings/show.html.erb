@@ -138,7 +138,7 @@
           <%= button_to '', cancel_booking_path(@booking), method: :delete, class: 'display-none', data: { confirm_alert_target: 'action' } %>
         <% elsif @booking.host? && @booking.confirmed? %>
           <%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
-          <% if @booking.flexible %>
+          <% if @booking.flexible && !@booking.start_date %>
             <%= button_to 'Complete Booking', complete_booking_path(@booking), method: :patch, class: 'booking__complete' %>
           <% end %>
         <% elsif @booking.confirmed? %>
