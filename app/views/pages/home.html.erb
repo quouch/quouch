@@ -1,4 +1,4 @@
-<article>
+<article class="home">
   <div class="home__banner">
     <div class="home__banner-wrap">
       <div>
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  <section class="home__numbers">
+  <!--  <section class="home__numbers">
     <div class="home__numbers-wrap">
       <h2 class="home__subtitle">Find your queer couch</h2>
       <p>Quouch is the newest couch-surfing platform for queer people and women to explore the world more safely while finding community.</p>
@@ -25,13 +25,20 @@
           </li>
           <li class="home__list-item">
             <div>
-              <p>1300+</p>
+              <p>1900+</p>
               <p>Cities</p>
             </div>
             <i class="quouch-cities color-primary-transparent" aria-label='City Icon'></i>
           </li>
         </ul>
       </div>
+    </div>
+  </section>-->
+  <section class="home__map">
+    <div class="home__map-wrap">
+      <h2 class="home__subtitle">Every Orange Dot is a Friend</h2>
+      <p>Reach out today and re-own the world.</p>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1728567027/map_landing_page_high_res.png', alt: 'Static image of map with pins of all Quouch hosts') %>
     </div>
   </section>
   <section class="home__voices">
@@ -55,7 +62,15 @@
       </div>
     </div>
   </section>
-  <section class="home__measures">
+  <section class="home__filters">
+    <div class="home__filters-wrap">
+      <h2 class="home__subtitle">Find your People with the right Filters</h2>
+      <%= image_tag('https://res.cloudinary.com/dtkxl0tbk/image/upload/v1728567028/filters_landing_page_high_res.png', alt: 'Screenshot of filters') %>
+      <p>We are invite-only, but you can <%= link_to 'request a code', code_contacts_path %>.</p>
+      <p>It normally takes us up to 24 hours to get back to you. Until then, you can take our..</p>
+    </div>
+  </section>
+  <!--  <section class="home__measures">
     <div class="home__measures-wrap">
       <h2 class="home__subtitle home__subtitle--secondary">What makes us safer</h2>
       <ul class="home__measures-list">
@@ -82,7 +97,7 @@
         </li>
       </ul>
     </div>
-  </section>
+  </section>-->
   <section class="home__humor">
     <div class="home__humor-wrap">
       <h2 class="home__subtitle">Humor Test</h2>

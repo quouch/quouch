@@ -1,24 +1,23 @@
 form {
-    .checkbox-field {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        column-gap: 0.3rem;
-        flex-shrink: 0;
+	.checkbox-field {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		column-gap: 0.3rem;
+		flex-shrink: 0;
 
-        label {
-            @include body-3;
+		label {
+			@include body-3;
 
-            margin: 0;
-        }
+			margin: 0;
+		}
 
-        i {
-            font-size: 18px;
-        }
+		i {
+			font-size: 18px;
+		}
+	}
 
-    }
-
-    .hint {
-        width: 100%;
-    }
+	.hint {
+		width: 100%;
+	}
 }
