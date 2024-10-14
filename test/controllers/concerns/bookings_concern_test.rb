@@ -52,8 +52,11 @@ class BookingsConcernTest < ActiveSupport::TestCase
   end
 
   test 'should accept and send email' do
+    @booking.update(start_date: nil, end_date: nil)
     @booking.status = :pending
-    @booking.save!
+    @booking.save!(context: :change_status)
+
+    p @booking
 
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
       accept_booking(@booking)
@@ -62,8 +65,9 @@ class BookingsConcernTest < ActiveSupport::TestCase
   end
 
   test 'should cancel request as guest' do
+    @booking.update(start_date: nil, end_date: nil)
     @booking.status = :confirmed
-    @booking.save!
+    @booking.save!(context: :change_status)
 
     message = cancel_booking(@booking)
     assert_equal 'Request successfully cancelled!', message
@@ -72,6 +76,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
   end
 
   test 'should cancel request as host' do
+    @booking.update(start_date: nil, end_date: nil)
     @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
 
     message = cancel_booking(@booking)
@@ -89,6 +94,7 @@ class BookingsConcernTest < ActiveSupport::TestCase
 
   test 'should decline and send message' do
     @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
+    @booking.update(start_date: nil, end_date: nil)
 
     assert_difference('Chat.count', +1) do
       decline_booking(@booking, 'Sorry, I cannot host you')
