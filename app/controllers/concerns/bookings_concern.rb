@@ -48,8 +48,6 @@ module BookingsConcern
 
     return unless booking.save!(context: :change_status)
 
-    # flash[:error] = 'Booking could not be confirmed. Please ask your guest to specify dates or reach out for further assistance.'
-
     AmplitudeEventTracker.track_booking_event(@booking, 'Booking Declined')
 
     # send message only if there is a message
