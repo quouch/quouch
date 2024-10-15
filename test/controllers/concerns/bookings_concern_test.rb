@@ -51,9 +51,20 @@ class BookingsConcernTest < ActiveSupport::TestCase
     assert_equal 'pending', @booking.status
   end
 
-  test 'should accept and send email' do
-    @booking.update(start_date: nil, end_date: nil)
+  test 'should accept and send email with dates' do
     @booking.status = :pending
+    @booking.save!
+
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      accept_booking(@booking)
+    end
+    assert_equal 'confirmed', @booking.status
+  end
+
+  test 'should accept and send email without dates' do
+    @booking.status = :pending
+    @booking.start_date = nil
+    @booking.end_date = nil
     @booking.save!(context: :change_status)
 
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
@@ -62,9 +73,20 @@ class BookingsConcernTest < ActiveSupport::TestCase
     assert_equal 'confirmed', @booking.status
   end
 
-  test 'should cancel request as guest' do
-    @booking.update(start_date: nil, end_date: nil)
+  test 'should cancel request as guest with dates' do
     @booking.status = :confirmed
+    @booking.save!
+
+    message = cancel_booking(@booking)
+    assert_equal 'Request successfully cancelled!', message
+
+    assert_equal 'cancelled', @booking.status
+  end
+
+  test 'should cancel request as guest without dates' do
+    @booking.status = :confirmed
+    @booking.start_date = nil
+    @booking.end_date = nil
     @booking.save!(context: :change_status)
 
     message = cancel_booking(@booking)
@@ -73,9 +95,20 @@ class BookingsConcernTest < ActiveSupport::TestCase
     assert_equal 'cancelled', @booking.status
   end
 
-  test 'should cancel request as host' do
-    @booking.update(start_date: nil, end_date: nil)
+  test 'should cancel request as host with dates' do
     @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
+
+    message = cancel_booking(@booking)
+    assert_equal 'Booking successfully cancelled!', message
+
+    assert_equal 'cancelled', @booking.status
+  end
+
+  test 'should cancel request as host without dates' do
+    @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
+    @booking.start_date = nil
+    @booking.end_date = nil
+    @booking.save!(context: :change_status)
 
     message = cancel_booking(@booking)
     assert_equal 'Booking successfully cancelled!', message
@@ -90,9 +123,20 @@ class BookingsConcernTest < ActiveSupport::TestCase
     assert_equal 'pending', @booking.status
   end
 
-  test 'should decline and send message' do
+  test 'should decline and send message with dates' do
     @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
-    @booking.update(start_date: nil, end_date: nil)
+
+    assert_difference('Chat.count', +1) do
+      decline_booking(@booking, 'Sorry, I cannot host you')
+    end
+    assert_equal 'declined', @booking.status
+  end
+
+  test 'should decline and send message without dates' do
+    @booking = FactoryBot.build(:booking, user: @host, couch: @user.couch)
+    @booking.start_date = nil
+    @booking.end_date = nil
+    @booking.save!(context: :change_status)
 
     assert_difference('Chat.count', +1) do
       decline_booking(@booking, 'Sorry, I cannot host you')
