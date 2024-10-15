@@ -126,8 +126,6 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     message_content = 'Test message'
     params = generate_booking_params(message_content, start_date: nil, end_date: nil)
 
-    puts params
-
     assert_no_difference 'Booking.count', 'No booking should be created' do
       post couch_bookings_url(@couch), params:
     end
