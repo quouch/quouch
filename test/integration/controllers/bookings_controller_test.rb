@@ -122,6 +122,22 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal message_content, Message.last!.content
   end
 
+  test 'should not create booking if start and end date are nil' do
+    message_content = 'Test message'
+    params = generate_booking_params(message_content, start_date: nil, end_date: nil)
+
+    puts params
+
+    assert_no_difference 'Booking.count', 'No booking should be created' do
+      post couch_bookings_url(@couch), params:
+    end
+
+    assert_response :unprocessable_entity
+    assert_select '.form-error-booking', 'can\'t be blank', 2
+    @user.reload
+    assert_equal 1, @user.bookings.count
+  end
+
   test 'should create a second booking' do
     # Create a chat
     chat = Chat.create!(user_sender: @user, user_receiver: @host)
@@ -157,7 +173,7 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'textarea[name=?]', 'booking[message]', @booking.message
   end
 
-  test 'should update pending booking' do
+  test 'should update pending booking with dates' do
     message_content = 'Test message edited'
     params = generate_booking_params(message_content)
 
@@ -175,6 +191,42 @@ class BookingsControllerTest < ActionDispatch::IntegrationTest
     @booking.reload
     assert_equal message_content, @booking.message
     assert_equal 'pending', @booking.status
+  end
+
+  test 'should not update pending flexible booking without dates' do
+    message_content = 'Test message edited'
+    params = generate_booking_params(message_content, start_date: nil, end_date: nil, flexible: true)
+
+    assert_not_equal message_content, @booking.message
+
+    patch(booking_url(@booking), params:)
+
+    assert_response :unprocessable_entity
+    assert_select '.form-error-booking', 'can\'t be blank', 2
+    @booking.reload
+    assert_not_equal message_content, @booking.message
+    assert_equal 'pending', @booking.status
+  end
+
+  test 'should update pending flexible booking to fixed' do
+    request = FactoryBot.build(:booking, :pending_future_flexible, user: @user, couch: @couch)
+    request.save(validate: false)
+    message_content = 'Test message edited'
+    params = generate_booking_params(message_content, start_date: Date.today + 2, end_date: Date.today + 4)
+
+    patch(booking_url(request), params:)
+
+    assert_enqueued_emails 1
+    assert_redirected_to booking_url(request)
+    assert_includes flash[:notice], 'Request successfully updated!'
+    follow_redirect!
+
+    assert_select 'h1', 'Booking Overview'
+
+    request.reload
+    assert_equal Date.today + 2, request.start_date
+    assert_equal Date.today + 4, request.end_date
+    assert_equal 'pending', request.status
   end
 
   test 'should not update booking status' do
