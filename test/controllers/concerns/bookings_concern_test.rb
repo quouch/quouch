@@ -56,8 +56,6 @@ class BookingsConcernTest < ActiveSupport::TestCase
     @booking.status = :pending
     @booking.save!(context: :change_status)
 
-    p @booking
-
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
       accept_booking(@booking)
     end
