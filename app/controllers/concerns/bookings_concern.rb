@@ -26,7 +26,8 @@ module BookingsConcern
       BookingMailer.with(booking:).request_updated_email.deliver_later
     elsif booking.confirmed?
       message = 'Booking successfully updated!'
-      booking.pending!
+      booking.status = :pending
+      booking.save!(context: :change_status)
       BookingMailer.with(booking:).booking_updated_email.deliver_later
     end
     AmplitudeEventTracker.track_booking_event(booking, 'Booking Updated')
@@ -34,7 +35,8 @@ module BookingsConcern
   end
 
   def accept_booking(booking)
-    booking.confirmed!
+    booking.status = :confirmed
+    booking.save!(context: :change_status)
     BookingMailer.with(booking:).request_confirmed_email.deliver_later
     AmplitudeEventTracker.track_booking_event(booking, 'Booking Confirmed')
   end
@@ -42,7 +44,9 @@ module BookingsConcern
   def decline_booking(booking, message = nil)
     raise Exceptions::ForbiddenError, 'Only the host can decline a booking' unless requested_by_host?(booking)
 
-    return unless booking.declined!
+    booking.status = :declined
+
+    return unless booking.save!(context: :change_status)
 
     AmplitudeEventTracker.track_booking_event(@booking, 'Booking Declined')
 
@@ -66,10 +70,10 @@ module BookingsConcern
 
   def cancel_booking(booking)
     status_before_cancellation = booking.status
-    booking.cancelled!
+    booking.status = :cancelled
     booking.cancellation_date = DateTime.now
 
-    booking.save!
+    booking.save!(context: :change_status)
 
     AmplitudeEventTracker.track_booking_event(booking, 'Booking Cancelled')
 

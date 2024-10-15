@@ -5,6 +5,8 @@ class Booking < ApplicationRecord
 
   validates :request, presence: { message: 'Please select one' }
   validates :message, presence: true
+  validates :start_date, presence: true, on: %i[create update]
+  validates :end_date, presence: true, on: %i[create update]
   validate :matches_capacity?, if: -> { couch.capacity }
   validate :duplicate_booking?, on: :create
   validate :duplicate_request?, on: :create

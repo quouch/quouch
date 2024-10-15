@@ -7,7 +7,7 @@
   <body>
     <h1>You have a new Quouch request from <%= @guest.first_name.capitalize %>!! 🎉</h1>
     <p>Hello dearest <%= @host.first_name.capitalize %>,</p>
-    <p><%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %><% if @booking.flexible %>, but <%= @guest.first_name.capitalize %> has not specified dates yet. You'll want to connect to arrange this.<% else %> from <%= @booking.start_date.strftime("%b %d") %> to <%= @booking.end_date.strftime("%b %d, %Y") %>.<% end %></p>
+    <p><%= @guest.first_name.capitalize %> has requested to <% if @booking.request == "host" %>stay at your place<% elsif @booking.request == "cowork" %>co-work with you<% elsif @booking.request == "hangout" %>hang out with you<% end %> from <%= @booking.start_date.strftime("%b %d") %> to <%= @booking.end_date.strftime("%b %d, %Y") %>.</p>
     <p>"<%= @booking.message %>"</p>
     <p><%= link_to 'View request', @request_url %></p>
     <p>You can send them a message, confirm or decline it. Think about your time, space and boundaries - just because you opted in to be able to host travellers, it is totally ok if right now is not the time. Often though, you will be surprised of HOW MUCH you are actually getting out of this as well - you are making friends all over the world. In any case, it would mean a lot if you let them know your decision, even if it's a no. After a confirmed stay, you both will be able to leave reviews for each other.</p>

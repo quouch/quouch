@@ -22,14 +22,18 @@
               <p>Cowork</p>
             <% end %>
           </li>
-          <li>
-            <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-            <% if @booking.flexible %>
+          <% if @booking.start_date && @booking.end_date %>
+            <li>
+              <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+                <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
+            </li>
+          <% end %>
+          <% if @booking.flexible %>
+            <li>
+              <i class="fa-solid fa-calendar-plus color-secondary" aria-label="Calendar Plus icon"></i>
               <p>Flexible Dates</p>
-            <% else %>
-              <%= @booking.start_date.strftime("%B %d") %> - <%= @booking.end_date.strftime("%B %d, %Y") %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
           <li>
             <i class="quouch-people color-secondary" aria-label="People icon"></i>
             <%= pluralize @booking.number_travellers, 'Traveller' %>

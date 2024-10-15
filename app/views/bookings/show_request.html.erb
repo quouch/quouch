@@ -49,16 +49,20 @@
                 <p>Cowork</p>
               <% end %>
             </li>
-            <li>
-              <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-              <% if !@booking.flexible %>
-                <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
-              <% else %>
-                <p>Flexible</p>
-              <% end %>
-            </li>
+            <% if @booking.start_date && @booking.end_date %>
+              <li>
+                <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
+                  <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
+              </li>
+            <% end %>
+            <% if @booking.flexible %>
+              <li>
+                <i class="fa-solid fa-calendar-plus color-secondary" aria-label="Calendar Plus icon"></i>
+                <p>Flexible Dates</p>
+              </li>
+            <% end %>
             <li class="status">
-              <i class="quouch-home color-secondary" aria-label="Home icon"></i>
+              <i class="fa-solid fa-bell color-secondary" aria-label="Clock icon"></i>
               <%= @booking.status.capitalize %>
             </li>
             <li>
@@ -77,13 +81,16 @@
         </div>
       </article>
       <div class="booking__links" data-controller="confirm-alert">
-        <% if @booking.confirmed? %>
+        <% if @booking.host? && @booking.confirmed? %>
           <button class="booking__decline"
                   data-confirm-alert-target="cancel" data-action="click->confirm-alert#displayDeclineAlert"
             data-confirm-title="Confirm"
             data-confirm-text="Are you sure you want to cancel this booking?"
             data-confirm-buttons='["No, go back", "Yes, cancel and leave message"]'>Cancel Booking
           </button>
+          <% if @booking.flexible && !@booking.start_date %>
+            <%= button_to 'Complete Booking', complete_booking_path(@booking), method: :patch, class: 'booking__complete' %>
+          <% end %>
           <%= button_to '', decline_and_send_message_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
         <% elsif @booking.pending? || @booking.pending_reconfirmation? %>
           <%= button_to 'Accept Request', accept_booking_path(@booking), method: :patch, class: 'booking__accept', data: { confirm_alert_target: 'confirm', action: 'click->confirm-alert#displayAcceptAlert' } %>
@@ -95,11 +102,6 @@
             Decline Request
           </button>
           <%= button_to '', decline_and_send_message_booking_path(@booking), method: :patch, class: 'display-none', data: { confirm_alert_target: 'action' } %>
-        <% elsif @booking.host? && @booking.confirmed? %>
-          <%= link_to 'Change Booking', edit_booking_path(@booking), class: 'booking__update' %>
-          <% if @booking.flexible %>
-            <%= button_to 'Complete Booking', complete_booking_path(@booking), method: :patch, class: 'booking__complete' %>
-          <% end %>
         <% end %>
       </div>
       <% if @host == current_user %>
