@@ -15,6 +15,9 @@
       </div>
       <div class="booking-form__details__wrap">
         <%= f.label :dates_and_travellers, required: true %>
+        <%= f.input :flexible,
+										label: 'flexible travel dates',
+										wrapper_html: { class: 'booking-form__flexible' } %>
         <div class="booking-form__dates date">
           <div class="date-input">
             <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
