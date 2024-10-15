@@ -128,7 +128,7 @@ module Users
     end
 
     def password_valid?
-      resource.valid?(:password_update)
+      resource.valid?(context: :password_update)
     end
   end
 end
