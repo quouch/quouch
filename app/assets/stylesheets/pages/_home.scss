@@ -100,6 +100,16 @@
 			border-radius: $border-radius-medium;
 		}
 
+		@media (min-width: $break-medium) {
+			img:nth-of-type(1) {
+				display: none !important;
+			}
+
+			img:nth-of-type(2) {
+				display: block !important;
+			}
+		}
+
 		&-wrap {
 			@include container;
 			margin: 4rem auto;
@@ -261,6 +271,16 @@
 		img {
 			margin: 0 auto;
 			border-radius: $border-radius-medium;
+		}
+
+		@media (min-width: $break-medium) {
+			img:nth-of-type(1) {
+				display: none !important;
+			}
+
+			img:nth-of-type(2) {
+				display: block !important;
+			}
 		}
 
 		&-wrap {
