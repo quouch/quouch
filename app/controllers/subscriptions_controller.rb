@@ -7,7 +7,10 @@ class SubscriptionsController < ApplicationController
 
   def show
     display_plans
-    @plan = current_user.subscription.plan
+    @plan = nil
+    if current_user.subscription
+      @plan = current_user.subscription.plan
+    end
   end
 
   def payment
