@@ -27,6 +27,15 @@ module SubscriptionTest
       assert_selector 'a', text: 'Join now'
     end
 
+    test 'should not fail if user is not subscribed' do
+      # There's a bug where people get a link to the subscription page of another user
+      # This test is to make sure that the page doesn't break when that happens
+      another_user = FactoryBot.create(:user, :for_test, :with_couch, :subscribed)
+      visit subscription_path(another_user.subscription)
+      assert_selector '.plans__list-item', count: 1
+      assert_selector '.plans__list-item.current-plan', count: 0
+    end
+
     test 'should navigate to new subscription page' do
       skip 'This test should only be used on desktop' if mobile?
 
