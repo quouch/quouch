@@ -34,19 +34,22 @@ class BookingsJobTest < ActiveJob::TestCase
     Date.stub :today, Date.new(2024, 10, 14) do # 14th October 2024 is a Monday
       bookings_job = BookingsJob.new
       mocked_bookings_job = Minitest::Mock.new
-      mocked_bookings_job.expect :send_reminder_emails, bookings, [] do
+      mocked_bookings_job.expect :call, nil, [bookings]
+      bookings_job.stub :send_reminder_emails, mocked_bookings_job do
         bookings_job.remind_bookings
-        mocked_bookings_job.verify
       end
+
+      mocked_bookings_job.verify
     end
   end
 
   test 'should find pending future bookings' do
+    bookings_job = BookingsJob.new
     FactoryBot.create(:booking, :pending_future_fixed)
     flexible_booking = FactoryBot.build(:booking, :pending_future_flexible)
     flexible_booking.save(validate: false)
 
-    assert_equal 2, BookingsJob.pending_future_bookings.count
+    assert_equal 2, bookings_job.pending_future_bookings.count
   end
 
   test 'should only send 1 email to each host' do

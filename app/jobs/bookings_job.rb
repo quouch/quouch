@@ -2,8 +2,6 @@ require 'sib-api-v3-sdk'
 class BookingsJob < ApplicationJob
   queue_as :default
 
-  @one_month_ago = Date.today - 1.month
-
   SibApiV3Sdk.configure do |config|
     config.api_key['api-key'] = Rails.application.credentials.dig(:brevo, :api_key)
   end
@@ -49,7 +47,7 @@ class BookingsJob < ApplicationJob
     pending_future_flexible_bookings = Booking.where(status: 0)
                                               .where(start_date: nil, flexible: true)
                                               .where(
-                                                'booking_date >= ?', @one_month_ago
+                                                'booking_date >= ?', one_month_ago
                                               )
 
     pending_future_fixed_bookings.or(pending_future_flexible_bookings)
@@ -58,7 +56,7 @@ class BookingsJob < ApplicationJob
   def expire_past_bookings
     pending_past_bookings = Booking.where(status: 0).where('start_date < ?', Date.today)
                                    .or(Booking.where(status: 0).where(start_date: nil, flexible: true)
-                                   .where('booking_date < ?', @one_month_ago))
+                                   .where('booking_date < ?', one_month_ago))
 
     pending_past_bookings.update_all(status: -2)
   end
@@ -100,5 +98,11 @@ class BookingsJob < ApplicationJob
         Rails.logger.error "Response body: #{e.response_body}" if e.respond_to?(:response_body)
       end
     end
+  end
+
+  private
+
+  def one_month_ago
+    Date.today - 1.month
   end
 end
