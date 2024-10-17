@@ -31,7 +31,7 @@ class BookingsJob < ApplicationJob
   end
 
   def remind_bookings
-    # return unless Date.today.monday?
+    return unless Date.today.monday?
 
     return if pending_future_bookings.empty?
 
@@ -41,7 +41,7 @@ class BookingsJob < ApplicationJob
     raise e
   end
 
-  def self.pending_future_bookings
+  def pending_future_bookings
     pending_future_fixed_bookings = Booking.where(status: 0)
                                            .where('start_date >= ?', Date.today)
                                            .where(flexible: false)
