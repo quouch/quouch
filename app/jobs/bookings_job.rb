@@ -2,6 +2,8 @@ require 'sib-api-v3-sdk'
 class BookingsJob < ApplicationJob
   queue_as :default
 
+  @one_month_ago = Date.today - 1.month
+
   SibApiV3Sdk.configure do |config|
     config.api_key['api-key'] = Rails.application.credentials.dig(:brevo, :api_key)
   end
@@ -10,6 +12,7 @@ class BookingsJob < ApplicationJob
     Rails.application.routes.default_url_options[:host] =
       Rails.application.config.action_mailer.default_url_options[:host]
     complete_bookings
+    expire_past_bookings
     remind_bookings
   rescue StandardError => e
     Sentry.capture_exception(e)
@@ -28,8 +31,17 @@ class BookingsJob < ApplicationJob
   end
 
   def remind_bookings
-    one_month_ago = Date.today - 1.month
+    # return unless Date.today.monday?
 
+    return if pending_future_bookings.empty?
+
+    send_reminder_emails(pending_future_bookings)
+  rescue StandardError => e
+    Sentry.capture_exception(e)
+    raise e
+  end
+
+  def self.pending_future_bookings
     pending_future_fixed_bookings = Booking.where(status: 0)
                                            .where('start_date >= ?', Date.today)
                                            .where(flexible: false)
@@ -37,24 +49,18 @@ class BookingsJob < ApplicationJob
     pending_future_flexible_bookings = Booking.where(status: 0)
                                               .where(start_date: nil, flexible: true)
                                               .where(
-                                                'booking_date >= ?', one_month_ago
+                                                'booking_date >= ?', @one_month_ago
                                               )
 
-    pending_future_bookings = pending_future_fixed_bookings.or(pending_future_flexible_bookings)
+    pending_future_fixed_bookings.or(pending_future_flexible_bookings)
+  end
 
-    Sentry.capture_message("Found #{pending_future_bookings.size} pending future bookings")
-
+  def expire_past_bookings
     pending_past_bookings = Booking.where(status: 0).where('start_date < ?', Date.today)
                                    .or(Booking.where(status: 0).where(start_date: nil, flexible: true)
-                                   .where('booking_date < ?', one_month_ago))
+                                   .where('booking_date < ?', @one_month_ago))
 
     pending_past_bookings.update_all(status: -2)
-    return if pending_future_bookings.empty?
-
-    send_reminder_emails(pending_future_bookings)
-  rescue StandardError => e
-    Sentry.capture_exception(e)
-    raise e
   end
 
   def update_status(bookings, status)
@@ -74,25 +80,24 @@ class BookingsJob < ApplicationJob
   def send_reminder_emails(bookings)
     api_instance = SibApiV3Sdk::TransactionalEmailsApi.new
 
-    bookings.each do |booking|
+    unique_hosts = bookings.map { |booking| booking.couch.user }.uniq
+
+    unique_hosts.each do |host|
       send_smtp_email = SibApiV3Sdk::SendSmtpEmail.new(
         templateId: 56,
         replyTo: { email: 'hello@quouch-app.com' },
         params: {
-          guest_first_name: booking.user.first_name,
-          host_first_name: booking.couch.user.first_name,
-          message: booking.message,
-          booking_url: Rails.application.routes.url_helpers.request_booking_url(booking)
+          host_first_name: host.first_name
         },
-        to: [{ email: booking.couch.user.email }]
+        to: [{ email: host.email }]
       )
       begin
         api_instance.send_transac_email(send_smtp_email)
       rescue SibApiV3Sdk::ApiError => e
-        puts 'Exception when calling TransactionalEmailsApi->send_transac_email:'
-        puts "Error message: #{e.message}"
-        puts "HTTP status code: #{e.code}" if e.respond_to?(:code)
-        puts "Response body: #{e.response_body}" if e.respond_to?(:response_body)
+        Rails.logger.error 'Exception when calling TransactionalEmailsApi->send_transac_email:'
+        Rails.logger.error "Error message: #{e.message}"
+        Rails.logger.error "HTTP status code: #{e.code}" if e.respond_to?(:code)
+        Rails.logger.error "Response body: #{e.response_body}" if e.respond_to?(:response_body)
       end
     end
   end
