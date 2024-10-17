@@ -52,7 +52,7 @@
             <% if @booking.start_date && @booking.end_date %>
               <li>
                 <i class="quouch-calendar color-secondary" aria-label="Calendar icon"></i>
-                  <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
+                <%= @booking.start_date.strftime("%b %d") %> - <%= @booking.end_date.strftime("%b %d, %Y") %>
               </li>
             <% end %>
             <% if @booking.flexible %>
