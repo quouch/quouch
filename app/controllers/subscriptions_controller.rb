@@ -8,9 +8,9 @@ class SubscriptionsController < ApplicationController
   def show
     display_plans
     @plan = nil
-    if current_user.subscription
-      @plan = current_user.subscription.plan
-    end
+    return unless current_user.subscription
+
+    @plan = current_user.subscription.plan
   end
 
   def payment
