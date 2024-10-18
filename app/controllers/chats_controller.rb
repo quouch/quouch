@@ -11,6 +11,8 @@ class ChatsController < ApplicationController
   end
 
   def show
+    redirect_to chats_path if @chat.user_sender != current_user && @chat.user_receiver != current_user
+
     @chats = current_user.chats.includes(user_receiver: [{ photo_attachment: :blob }]).order('messages.created_at DESC')
     @other_user = @chat.other_user(current_user)
     @receiver = User.find_by(id: @chat.user_receiver_id)
