@@ -9,8 +9,14 @@
       <p>If you <strong>really can't afford</strong> the membership fee, please reach out to us - <strong>we will try our best to make it work.</strong></p>
       <p class="plans__note">Please note: <em>to browse profiles and/or be a host</em>, you do <em>not</em> need a membership plan - still, at this point, we <em>deeply appreciate any extra support.</em></p>
       <div class="switch-button">
-        <input class="switch-button-checkbox" type="checkbox" data-plans-toggle-target="toggle" data-action="change->plans-toggle#switch">
-        <label class="switch-button-label"><span class="switch-button-label-span">Paid 6-Monthly</span></label>
+        <input class="switch-button-radio" type="radio" id="monthly" name="payment-plan" value="monthly" data-action="change->plans-toggle#switch">
+        <label class="switch-button-label" for="monthly"><span class="switch-button-label-span">Paid Monthly</span></label>
+
+        <input class="switch-button-radio" type="radio" id="six-monthly" name="payment-plan" value="six-monthly" data-action="change->plans-toggle#switch">
+        <label class="switch-button-label" for="six-monthly"><span class="switch-button-label-span">Paid 6-Monthly</span></label>
+
+        <input class="switch-button-radio" type="radio" id="yearly" name="payment-plan" value="yearly" checked data-action="change->plans-toggle#switch">
+        <label class="switch-button-label" for="yearly"><span class="switch-button-label-span">Paid Yearly</span></label>
       </div>
       <div class="plans__lists">
         <ul class="plans__list display-none" data-plans-toggle-target="year">
@@ -28,7 +34,7 @@
             </li>
           <% end %>
         </ul>
-        <ul class="plans__list" data-plans-toggle-target="month">
+        <ul class="plans__list" data-plans-toggle-target="sixmonths">
           <% @six_monthly.each do |plan| %>
             <li class="plans__list-item">
               <div class="plans__list-item__wrap">
@@ -36,6 +42,21 @@
                 <div>
                   <h3><%= plan.name %></h3>
                   <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+                </div>
+              </div>
+              <p class="plans__description"><%= plan.description %></p>
+              <%= link_to 'Choose plan', payment_subscriptions_path(plan_id: plan.id), class: 'plans__button', data: { turbo: false } %>
+            </li>
+          <% end %>
+        </ul>
+        <ul class="plans__list display-none" data-plans-toggle-target="month">
+          <% @monthly.each do |plan| %>
+            <li class="plans__list-item">
+              <div class="plans__list-item__wrap">
+                <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
+                <div>
+                  <h3><%= plan.name %></h3>
+                  <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 12, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
                 </div>
               </div>
               <p class="plans__description"><%= plan.description %></p>
