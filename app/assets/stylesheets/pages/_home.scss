@@ -218,12 +218,13 @@
 		}
 
 		img {
-			width: 100%;
+			width: 240px;
 			height: 240px;
 			object-fit: cover;
 			object-position: center;
-			border-top-left-radius: $border-radius-medium;
-			border-top-right-radius: $border-radius-medium;
+			align-self: center;
+			border-radius: 100%;
+			margin-bottom: 1rem;
 		}
 
 		blockquote:before {
