@@ -65,7 +65,7 @@
             <% end %>
           </ul>
           <ul class="plans__list display-none" data-plans-toggle-target="month">
-            <% @monthly.each do |plan| %>
+            <% @six_monthly.each do |plan| %>
               <li class="plans__list-item">
                 <div class="plans__list-item__wrap">
                   <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
@@ -122,7 +122,7 @@
             <% end %>
           </ul>
           <ul class="plans__list" data-plans-toggle-target="month">
-            <% @monthly.each do |plan| %>
+            <% @six_monthly.each do |plan| %>
               <% if plan == @plan %>
                 <li class="plans__list-item current-plan" data-controller="cancel-subscription">
                   <aside class="current-plan__label">Your Plan</aside>

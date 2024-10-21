@@ -64,6 +64,7 @@ class SubscriptionsController < ApplicationController
     @plans = Plan.all
     @monthly = get_plans(@plans, 'month')
     @yearly = get_plans(@plans, 'year')
+    @six_monthly = get_plans(@plans, '6_months')
   end
 
   def create_subscription
