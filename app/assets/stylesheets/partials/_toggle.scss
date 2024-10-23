@@ -1,5 +1,9 @@
+/* Existing Switch Button CSS */
 .switch-button {
 	@include body-3;
+	
+	display: flex;
+	align-items: center;
 	background-color: $primary-transparent;
 	border-radius: $border-radius-xlarge;
 	overflow: hidden;
@@ -11,40 +15,38 @@
 	margin: 2rem auto;
 	box-shadow: $box-shadow-hover;
 
-	display: flex;
-
 	&-radio {
-			display: none;
+		display: none;
 
-			&:checked + .switch-button-label {
-					background: $primary-light;
-					color: $white;
-			}
+		&:checked + .switch-button-label {
+			background: $primary-light;
+			color: $white;
+		}
 	}
 
 	.switch-button-label {
-			flex: 1;
-			padding: 15px 0;
-			cursor: pointer;
-			position: relative;
-			overflow: hidden; // Ensure content that overflows is hidden
+		flex: 1;
+		padding: 15px 0;
+		cursor: pointer;
+		position: relative;
+		overflow: hidden; // Ensure content that overflows is hidden
 
-			.switch-button-label-span {
-					overflow: hidden; // Hide overflowed content
-					text-overflow: ellipsis; // Show ellipsis if text overflows
-					transition: color 300ms;
+		.switch-button-label-span {
+			overflow: hidden; // Hide overflowed content
+			text-overflow: ellipsis; // Show ellipsis if text overflows
+			transition: color 300ms;
 
-					@media (min-width: $break-medium) { 
-						white-space: nowrap;
-					}
+			@media (min-width: $break-medium) {
+				white-space: nowrap;
 			}
+		}
 
-			&:hover {
-					background: $primary-light;
-			}
+		&:hover {
+			background: $primary-light;
+		}
 	}
 
-	@media (min-width: $break-medium) { 
+	@media (min-width: $break-medium) {
 		width: 400px;
 		max-width: none;
 	}
