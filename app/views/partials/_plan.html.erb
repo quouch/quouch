@@ -1,3 +1,11 @@
+<% divisor = case interval
+             when 'month'
+               1
+             when 'six_months'
+               6
+             else
+               12
+             end %>
 <% if plan == @plan %>
 	<li class="plans__list-item current-plan" data-controller="cancel-subscription">
 		<aside class="current-plan__label">Your Plan</aside>
@@ -5,7 +13,7 @@
 			<i class="quouch-stack color-transparent" aria-label="Stack icon"></i>
 			<div>
 				<h3><%= plan.name %></h3>
-				<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+				<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / divisor, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 			</div>
 		</div>
 		<p class="plans__description"><%= plan.description %></p>
@@ -29,7 +37,7 @@
 			<i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
 			<div>
 				<h3><%= plan.name %></h3>
-				<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+				<p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / divisor, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
 			</div>
 		</div>
 		<p class="plans__description"><%= plan.description %></p>

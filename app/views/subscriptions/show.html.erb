@@ -11,17 +11,17 @@
         <div class="plans__lists">
           <ul class="plans__list" data-plans-toggle-target="year">
             <% @yearly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
           <ul class="plans__list display-none" data-plans-toggle-target="month">
             <% @monthly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
           <ul class="plans__list display-none" data-plans-toggle-target="sixmonths">
             <% @six_monthly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
         </div>
@@ -29,37 +29,17 @@
         <div class="plans__lists">
           <ul class="plans__list display-none" data-plans-toggle-target="year">
             <% @yearly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
           <ul class="plans__list display-none" data-plans-toggle-target="sixmonths">
             <% @six_monthly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
           <ul class="plans__list" data-plans-toggle-target="month">
             <% @monthly.each do |plan| %>
-              <li class="plans__list-item">
-                <div class="plans__list-item__wrap">
-                  <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
-                  <div>
-                    <h3><%= plan.name %></h3>
-                    <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / 6, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
-                  </div>
-                </div>
-                <p class="plans__description"><%= plan.description %></p>
-                <% if @subscription.end_of_period %>
-                  <p class="plans__info">
-                    <i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
-                    <em>You can subscribe to this plan once your current plan has ended.</em>
-                  </p>
-                <% else %>
-                  <p class="plans__info">
-                    <i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
-                    <em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
-                  </p>
-                <% end %>
-              </li>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
         </div>
@@ -67,17 +47,17 @@
         <div class="plans__lists">
           <ul class="plans__list display-none" data-plans-toggle-target="year">
             <% @yearly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
           <ul class="plans__list" data-plans-toggle-target="sixmonths">
             <% @six_monthly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
            <ul class="plans__list display-none" data-plans-toggle-target="month">
             <% @monthly.each do |plan| %>
-              <%= render 'partials/plan', plan: %>
+              <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
         </div>
