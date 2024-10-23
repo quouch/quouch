@@ -3,9 +3,17 @@ import { Controller } from '@hotwired/stimulus'
 // Connects to data-controller="plans-toggle"
 export default class extends Controller {
     static targets = ['toggle', 'month', 'sixmonths', 'year']
+    static values = {
+        interval: String
+    }
+
+    connect() {
+        if (this.intervalValue) {
+            this.switch({ target: { value: this.intervalValue } });
+        }
+    }
 
     switch(event) {
-        // Get the value of the selected radio button
         const selectedPlan = event.target.value;
 
         // Hide all targets initially
@@ -13,12 +21,11 @@ export default class extends Controller {
         this.sixmonthsTarget.classList.add('display-none');
         this.yearTarget.classList.add('display-none');
 
-        // Show the selected target based on the value of the selected radio button
-        if (selectedPlan === 'monthly') {
+        if (selectedPlan === 'month') {
             this.monthTarget.classList.remove('display-none');
-        } else if (selectedPlan === 'six-monthly') {
+        } else if (selectedPlan === 'sixmonths') {
             this.sixmonthsTarget.classList.remove('display-none');
-        } else if (selectedPlan === 'yearly') {
+        } else if (selectedPlan === 'year') {
             this.yearTarget.classList.remove('display-none');
         }
     }
