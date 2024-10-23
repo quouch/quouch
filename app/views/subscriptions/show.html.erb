@@ -55,7 +55,7 @@
               <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>
           </ul>
-           <ul class="plans__list display-none" data-plans-toggle-target="month">
+          <ul class="plans__list display-none" data-plans-toggle-target="month">
             <% @monthly.each do |plan| %>
               <%= render 'partials/plan', plan:, interval: plan.interval %>
             <% end %>

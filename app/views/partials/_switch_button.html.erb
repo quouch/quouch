@@ -1,10 +1,8 @@
 <div class="switch-button">
-	<input class="switch-button-radio" type="radio" id="month" name="payment-plan" value="month" <%= 'checked' if interval == 'month' %> data-action="change->plans-toggle#switch">
-	<label class="switch-button-label" for="month"><span class="switch-button-label-span">Paid Monthly</span></label>
-
-	<input class="switch-button-radio" type="radio" id="sixmonths" name="payment-plan" value="sixmonths"  <%= 'checked' if interval == 'six_months' %>data-action="change->plans-toggle#switch">
-	<label class="switch-button-label" for="sixmonths"><span class="switch-button-label-span">Paid 6-Monthly</span></label>
-
-	<input class="switch-button-radio" type="radio" id="year" name="payment-plan" value="year" <%= 'checked' if interval == 'year' %> data-action="change->plans-toggle#switch">
-	<label class="switch-button-label" for="year"><span class="switch-button-label-span">Paid Yearly</span></label>
+  <input class="switch-button-radio" type="radio" id="month" name="payment-plan" value="month" <%= 'checked' if interval == 'month' %> data-action="change->plans-toggle#switch">
+  <label class="switch-button-label" for="month"><span class="switch-button-label-span">Paid Monthly</span></label>
+  <input class="switch-button-radio" type="radio" id="sixmonths" name="payment-plan" value="sixmonths"  <%= 'checked' if interval == 'six_months' %>data-action="change->plans-toggle#switch">
+  <label class="switch-button-label" for="sixmonths"><span class="switch-button-label-span">Paid 6-Monthly</span></label>
+  <input class="switch-button-radio" type="radio" id="year" name="payment-plan" value="year" <%= 'checked' if interval == 'year' %> data-action="change->plans-toggle#switch">
+  <label class="switch-button-label" for="year"><span class="switch-button-label-span">Paid Yearly</span></label>
 </div>
