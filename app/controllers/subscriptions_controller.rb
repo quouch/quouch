@@ -7,10 +7,10 @@ class SubscriptionsController < ApplicationController
 
   def show
     display_plans
-    @plan = nil
-    @interval = nil
-    return unless current_user.subscription
-
+    unless current_user.subscription
+      redirect_to new_subscription_path and return
+    end
+  
     @plan = current_user.subscription.plan
     @interval = current_user.subscription.plan.interval
   end
