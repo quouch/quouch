@@ -51,6 +51,7 @@ namespace :dev do
 
     Plan.create!(name: 'Monthly Fake Plan', price_cents: 1000, interval: 'month')
     Plan.create!(name: 'Yearly Fake Plan', price_cents: 800, interval: 'year')
+    Plan.create!(name: 'Six Monthly Fake Plan', price_cents: 400, interval: 'six_months')
 
     Rails.logger.info 'Create a fake subscription for the main user'
     user = User.find_by(email: ENV.fetch('BASE_USER_EMAIL', nil))

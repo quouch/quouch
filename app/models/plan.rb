@@ -4,7 +4,7 @@ class Plan < ApplicationRecord
   validates :stripe_price_id, uniqueness: true
   validates :price_cents, presence: true
 
-  enum interval: %i[month year]
+  enum interval: %i[month year six_months]
 
   before_validation :create_stripe_reference, on: :create
 
@@ -13,8 +13,8 @@ class Plan < ApplicationRecord
                                       unit_amount: price_cents,
                                       currency: 'eur',
                                       recurring: {
-                                        interval:,
-                                        interval_count: interval == 'month' ? 6 : nil
+                                        interval: interval == 'year' ? 'year' : 'month',
+                                        interval_count: interval == 'six_months' ? 6 : 1
                                       },
                                       product_data: { name: }
                                     })

@@ -7,10 +7,10 @@ class SubscriptionsController < ApplicationController
 
   def show
     display_plans
-    @plan = nil
-    return unless current_user.subscription
+    redirect_to new_subscription_path and return unless current_user.subscription
 
     @plan = current_user.subscription.plan
+    @interval = current_user.subscription.plan.interval
   end
 
   def payment
@@ -64,6 +64,7 @@ class SubscriptionsController < ApplicationController
     @plans = Plan.all
     @monthly = get_plans(@plans, 'month')
     @yearly = get_plans(@plans, 'year')
+    @six_monthly = get_plans(@plans, 'six_months')
   end
 
   def create_subscription

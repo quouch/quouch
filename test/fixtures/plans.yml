@@ -10,3 +10,8 @@ yearly:
   interval: 'year'
   stripe_price_id: 'price_fakeYearlyId'
 
+6_monthly:
+  name: '6 Monthly Fake Plan'
+  price_cents: 6000
+  interval: 'six_months'
+  stripe_price_id: 'price_fake6MonthlyId'

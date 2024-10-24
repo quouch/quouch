@@ -32,6 +32,7 @@ module SubscriptionTest
       # This test is to make sure that the page doesn't break when that happens
       another_user = FactoryBot.create(:user, :for_test, :with_couch, :subscribed)
       visit subscription_path(another_user.subscription)
+
       assert_selector '.plans__list-item', count: 1
       assert_selector '.plans__list-item.current-plan', count: 0
     end

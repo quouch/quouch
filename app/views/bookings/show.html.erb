@@ -154,15 +154,15 @@
       </div>
       <% if @host == current_user %>
         <% if @host_review.nil? %>
-          <%= render 'partials/new-review' %>
+          <%= render 'partials/new_review' %>
         <% elsif !@host_review.nil? %>
-          <%= render 'partials/review-preview' %>
+          <%= render 'partials/review_preview' %>
         <% end %>
       <% elsif @guest == current_user %>
         <% if @guest_review.nil? %>
-          <%= render 'partials/new-review' %>
+          <%= render 'partials/new_review' %>
         <% elsif !@guest_review.nil? %>
-          <%= render 'partials/review-preview' %>
+          <%= render 'partials/review_preview' %>
         <% end %>
       <% end %>
     </div>

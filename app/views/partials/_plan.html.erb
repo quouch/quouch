@@ -1,0 +1,56 @@
+<% divisor = case interval
+             when 'month'
+               1
+             when 'six_months'
+               6
+             else
+               12
+             end %>
+<% if plan == @plan %>
+  <li class="plans__list-item current-plan" data-controller="cancel-subscription">
+    <aside class="current-plan__label">Your Plan</aside>
+    <div class="plans__list-item__wrap">
+      <i class="quouch-stack color-transparent" aria-label="Stack icon"></i>
+      <div>
+        <h3><%= plan.name %></h3>
+        <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / divisor, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+      </div>
+    </div>
+    <p class="plans__description"><%= plan.description %></p>
+    <% if @subscription.end_of_period %>
+      <p class="plans__info plans__info--cancelled">
+        <i class="quouch-info-circle color-transparent" aria-label="Info icon"></i>
+        <em>Your subscription is scheduled to end on <%= @subscription.end_of_period.strftime("%b %d, %Y") %> and it will not automatically renew after this date.</em>
+      </p>
+    <% else %>
+      <button class="plans__button"
+			data-cancel-subscription-target="cancel" data-action="click->cancel-subscription#displayInfo"
+        data-confirm-title="Confirm Cancellation"
+        data-confirm-text="Are you sure you want to cancel your subscription? In case you cancel your subscription today, it will still run until the billing cycle you initially chose ends. Once the billing cycle ended, you can choose another plan."
+        data-confirm-buttons='["No, go back", "Yes, cancel"]'>Cancel Subscription</button>
+      <%= button_to '', subscription_path(@subscription), method: :patch, class: 'display-none', data: { turbo: false, cancel_subscription_target: 'action' } %>
+    <% end %>
+  </li>
+<% else %>
+  <li class="plans__list-item">
+    <div class="plans__list-item__wrap">
+      <i class="quouch-stack color-secondary" aria-label="Stack icon"></i>
+      <div>
+        <h3><%= plan.name %></h3>
+        <p class="plans__price"><%= number_to_currency((plan.price_cents / 100.0) / divisor, unit: '€', separator: ',', delimiter: '.') %><span class="plans__price-interval">/month</span></p>
+      </div>
+    </div>
+    <p class="plans__description"><%= plan.description %></p>
+    <% if @subscription.end_of_period %>
+      <p class="plans__info">
+        <i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
+        <em>You can subscribe to this plan once your current plan has ended.</em>
+      </p>
+    <% else %>
+      <p class="plans__info">
+        <i class="quouch-info-circle color-secondary" aria-label="Info icon"></i>
+        <em>To subscribe to a new plan, please ensure to cancel your current plan before its billing cycle ends. If not cancelled, it will automatically renew. Once the billing cycle has ended, you can choose a different plan.</em>
+      </p>
+    <% end %>
+  </li>
+<% end %>
